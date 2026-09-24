@@ -12,10 +12,23 @@
   const rooms = [];
   const byId = Object.create(null);
   const texts = Object.create(null); // scope → language → strings
+  const languages = Object.create(null); // code → { name, dir, speech }
+  let chosenLang = null; // set once, on first use, from the address or a saved choice
   let toastTimer;
   let narrating = false;
 
   const $ = (id) => document.getElementById(id);
+
+  /** Deep merge for dictionaries: a translation may leave out any key, at any depth. */
+  function merge(base, over) {
+    if (Array.isArray(base)) return base.map((b, i) => (over?.[i] === undefined ? b : merge(b, over[i])));
+    if (base && typeof base === 'object' && typeof over === 'object' && over) {
+      const out = { ...base };
+      for (const key of Object.keys(over)) out[key] = key in base ? merge(base[key], over[key]) : over[key];
+      return out;
+    }
+    return over === undefined ? base : over;
+  }
 
   const Wonderloom = {
     TAU: Math.PI * 2,
@@ -29,15 +42,16 @@
     /** Registered rooms, in navigation order. */
     rooms,
 
-    /** Groups on the home map, in display order. A room names one in its `theme` field. */
-    themes: [
-      { id: 'shape', name: 'Shape & space', blurb: 'Curves, surfaces, and the spaces they live in.' },
-      { id: 'chance', name: 'Chance & evidence', blurb: 'Reasoning well when single events are unpredictable.' },
-      { id: 'games', name: 'Games & puzzles', blurb: 'The hidden structure behind familiar games.' },
-      { id: 'making', name: 'Making', blurb: 'Mathematics you can weave, fold, and keep.' },
-      { id: 'life', name: 'Living patterns', blurb: 'Order that grows from many small interactions.' },
-      { id: 'signals', name: 'Signals & networks', blurb: 'Waves, messages, and choices that travel.' },
-    ],
+    /** Groups on the home map, in display order. A room names one in its `theme` field. Names come from the text. */
+    themes: ['shape', 'chance', 'games', 'making', 'life', 'signals'].map((id) => ({
+      id,
+      get name() {
+        return Wonderloom.text('app').themes[id].name;
+      },
+      get blurb() {
+        return Wonderloom.text('app').themes[id].blurb;
+      },
+    })),
 
     /**
      * Register a room. Rooms appear in the navigation in the order their scripts
@@ -55,29 +69,78 @@
     room: (id) => byId[id],
 
     /**
-     * The page language, fixed for the whole visit: ?lang=he, then a saved
-     * choice, then English. Changing language reloads the page, so rooms can
-     * read their words once, when their script runs.
+     * Declare a language: its name in that language, text direction, and a
+     * speech-synthesis locale. Language files (src/lang/<code>.js) start with this.
      */
-    lang: (() => {
+    defineLanguage(code, info) {
+      if (!/^[a-z]{2,3}(-[A-Z]{2})?$/.test(code)) throw new Error(`Bad language code: ${code}`);
+      languages[code] = { dir: 'ltr', speech: code, ...info };
+    },
+    languages: () => ({ ...languages }),
+
+    /**
+     * The page language, fixed for the whole visit: ?lang=he, then a saved
+     * choice, then English; only languages that are defined count. Changing
+     * language reloads the page, so rooms can read their words once.
+     */
+    get lang() {
+      if (chosenLang) return chosenLang;
+      let asked = null;
       try {
-        const asked = new URLSearchParams(location.search).get('lang') || localStorage.getItem('wonderloom.lang');
-        return /^[a-z]{2}$/.test(asked) ? asked : 'en';
+        asked = new URLSearchParams(location.search).get('lang') || localStorage.getItem('wonderloom.lang');
       } catch {
-        return 'en';
+        /* no address or storage (e.g. Node tests) */
       }
-    })(),
+      chosenLang = asked && languages[asked] ? asked : 'en';
+      return chosenLang;
+    },
+    set lang(code) {
+      chosenLang = code;
+    },
+    language: () => languages[Wonderloom.lang] ?? languages.en ?? { dir: 'ltr', speech: 'en-US' },
 
     /** Register visitor-facing words for a scope (usually a room id) in one language. */
     defineText(scope, lang, strings) {
       (texts[scope] ??= Object.create(null))[lang] = strings;
     },
 
-    /** Words for a scope in the page language, falling back to English key by key. */
+    /** Words for a scope in the page language, falling back to English key by key (nested objects too). */
     text(scope) {
       const t = texts[scope];
       if (!t?.en) throw new Error(`No English text defined for "${scope}"`);
-      return { ...t.en, ...t[Wonderloom.lang] };
+      const lang = Wonderloom.lang;
+      return lang === 'en' || !t[lang] ? t.en : merge(t.en, t[lang]);
+    },
+
+    /** Every registered dictionary, for the translation tools: scope → language → strings. */
+    dictionaries: () => texts,
+
+    /**
+     * Translate the fixed text in index.html. Elements carry data-t="key" (keys
+     * ending in Html may contain markup) and data-t-attr="attribute:key; …".
+     * English stays as written in the page; other languages come from the
+     * 'page' scope of their language file.
+     */
+    applyPageText(root = document) {
+      const language = Wonderloom.language();
+      document.documentElement.lang = Wonderloom.lang;
+      document.documentElement.dir = language.dir;
+      const page = texts.page?.[Wonderloom.lang];
+      if (!page || Wonderloom.lang === 'en') return;
+      const find = (key) => key.split('.').reduce((o, k) => (o == null ? undefined : o[k]), page);
+      root.querySelectorAll('[data-t]').forEach((el) => {
+        const value = find(el.dataset.t);
+        if (typeof value !== 'string') return;
+        if (el.dataset.t.endsWith('Html')) el.innerHTML = value;
+        else el.textContent = value;
+      });
+      root.querySelectorAll('[data-t-attr]').forEach((el) => {
+        for (const pair of el.dataset.tAttr.split(';')) {
+          const [attribute, key] = pair.split(':').map((x) => x.trim());
+          const value = find(key);
+          if (attribute && typeof value === 'string') el.setAttribute(attribute, value);
+        }
+      });
     },
 
     /** Stop every room's audio (rooms opt in with a `silence` hook). */
@@ -135,24 +198,25 @@
       stop() {
         if ('speechSynthesis' in window) window.speechSynthesis.cancel();
         narrating = false;
-        document.querySelectorAll('.narrate').forEach((b) => (b.textContent = 'Listen to this idea'));
+        const t = Wonderloom.text('app').narration;
+        document.querySelectorAll('.narrate').forEach((b) => (b.textContent = t.listen));
       },
       speak(element, button) {
         if (!('speechSynthesis' in window)) {
-          Wonderloom.toast('Narration is unavailable in this browser. The full text is here to read.');
+          Wonderloom.toast(Wonderloom.text('app').narration.unavailable);
           return;
         }
         if (narrating) return Wonderloom.narration.stop();
         Wonderloom.silence();
         const utterance = new SpeechSynthesisUtterance(element.innerText);
-        utterance.lang = 'en-US';
+        utterance.lang = Wonderloom.language().speech;
         utterance.rate = 0.96;
         utterance.volume = 0.65;
         utterance.onend = Wonderloom.narration.stop;
         utterance.onerror = Wonderloom.narration.stop;
         window.speechSynthesis.speak(utterance);
         narrating = true;
-        button.textContent = 'Stop narration';
+        button.textContent = Wonderloom.text('app').narration.stop;
       },
     },
   };

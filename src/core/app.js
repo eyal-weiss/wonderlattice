@@ -110,11 +110,11 @@
     $('room-bar').hidden = false;
     $('room-theme').textContent = `${current.symbol}  ${W.themes.find((t) => t.id === current.theme).name}`;
     for (const [id, room, label] of [
-      ['room-prev', prev, 'Previous experiment'],
-      ['room-next', next, 'Next experiment'],
+      ['room-prev', prev, W.text('app').roomBar.previous],
+      ['room-next', next, W.text('app').roomBar.next],
     ]) {
       $(id).dataset.room = room.id;
-      $(id).setAttribute('aria-label', `${label}: ${room.name}`);
+      $(id).setAttribute('aria-label', label(room.name));
       $(id).title = room.name;
     }
   }
@@ -300,7 +300,33 @@
     window.addEventListener('pagehide', () => lifecycle.abort(), { once: true });
   }
 
+  /** A language menu in the footer, shown only once a second language exists. */
+  function buildLanguagePicker() {
+    const all = W.languages();
+    const codes = Object.keys(all);
+    if (codes.length < 2) return;
+    const label = document.createElement('label');
+    label.className = 'language-pick';
+    label.innerHTML =
+      `<span>${W.text('app').language}</span><select id="language">` +
+      codes.map((c) => `<option value="${c}"${c === W.lang ? ' selected' : ''}>${all[c].name}</option>`).join('') +
+      '</select>';
+    document.querySelector('footer').appendChild(label);
+    $('language').addEventListener('change', (e) => {
+      try {
+        localStorage.setItem('wonderloom.lang', e.target.value);
+      } catch {
+        /* the address below still carries the choice */
+      }
+      const url = new URL(location.href);
+      url.searchParams.set('lang', e.target.value);
+      location.href = url.href;
+    });
+  }
+
   function start() {
+    W.applyPageText();
+    buildLanguagePicker();
     stage.init();
     buildHome();
     bindDialogs();

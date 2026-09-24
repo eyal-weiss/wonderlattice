@@ -13,6 +13,7 @@
   // The single-file export (npm run build) embeds portraits as data URLs here.
   const portrait = (file) => W.portraitSources?.[file] ?? `./portraits/${file}`;
   const selected = Object.create(null);
+  const words = () => W.text('app').guests;
 
   /** Choose a visitor for a room, never repeating the current one. */
   function pick(room) {
@@ -112,23 +113,24 @@
     if (!pool?.length) return;
     if (selected[room] === undefined) pick(room);
     const guest = pool[selected[room]];
-    const link = 'target="_blank" rel="noopener noreferrer"';
+    const link = 'target="_blank" rel="noopener noreferrer"',
+      t = words();
     const story = guest.bio
-      ? `<a href="${biography(guest.bio)}" ${link} aria-label="Read about ${guest.name}">Story ↗</a>`
+      ? `<a href="${biography(guest.bio)}" ${link} aria-label="${t.storyLabel(guest.name)}">${t.story}</a>`
       : '';
     const source = guest.source
-      ? `<a class="math-guest-source" href="${commons(guest.source)}" ${link} aria-label="Portrait source for ${guest.name}">Portrait ↗</a>`
+      ? `<a class="math-guest-source" href="${commons(guest.source)}" ${link} aria-label="${t.portraitLabel(guest.name)}">${t.portrait}</a>`
       : '';
     const credit = guest.credit
-      ? `<span class="math-guest-credit">Photo: ${guest.credit} · <a href="${guest.license.url}" ${link}>${guest.license.name}</a></span>`
+      ? `<span class="math-guest-credit">${t.photo(guest.credit)} · <a href="${guest.license.url}" ${link}>${guest.license.name}</a></span>`
       : '';
     const another =
       pool.length > 1
-        ? '<button type="button" class="math-guest-next" aria-label="Meet another mathematician" title="Meet another mathematician">↻</button>'
+        ? `<button type="button" class="math-guest-next" aria-label="${t.another}" title="${t.another}">↻</button>`
         : '';
     target.innerHTML =
       puppet(guest) +
-      `<div class="math-guest-copy"><span class="math-guest-eyebrow">Math history · ${guest.image ? 'historical portrait' : 'a playful sketch'}</span>` +
+      `<div class="math-guest-copy"><span class="math-guest-eyebrow">${guest.image ? t.eyebrowPortrait : t.eyebrowSketch}</span>` +
       `<strong>${guest.name}</strong><p>${guest.note}</p>${story}${source}${credit}</div>${another}`;
     target.querySelector('.math-guest-next')?.addEventListener('click', () => {
       pick(room);

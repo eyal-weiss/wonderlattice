@@ -91,21 +91,26 @@ touches the page or needs set-up must supply `preview`).
 
 ## Words and languages
 
-The page language is fixed for a visit: `?lang=he`, else a saved choice, else English (`Wonderloom.lang`). A room keeps
-its visitor-facing words in `src/rooms/<id>/text.en.js`:
+Every visitor-facing word lives in a dictionary, so the site can be translated without touching code:
 
-```js
-Wonderloom.defineText('dice', 'en', { title: 'The dice that beat each other.', rolls: (n) => `${n} rolls` });
-```
+- A room's words are in `src/rooms/<id>/text.en.js`
+  (`Wonderloom.defineText('dice', 'en', { title: '…', rolls: (n) => \`${n} rolls\` })`), read once in `room.js`with`const t = Wonderloom.text('dice')`. Strings can be functions when they need numbers.
+- Shared words are in `src/core/text.en.js` (the `app` scope). Fixed page text stays in `index.html`, marked with
+  `data-t` / `data-t-attr`.
+- A language is one file, `src/lang/<code>.js`, created with `npm run i18n:new`. It is linked between the
+  `<!-- languages -->` markers in `index.html`, and it starts with `Wonderloom.defineLanguage(code, { name, dir,
+speech })`. Any key it leaves out falls back to English.
+- The page language is fixed for a visit: `?lang=he`, else a saved choice, else English (`Wonderloom.lang`).
+  `document.documentElement` gets its `lang` and `dir`, and a footer menu appears once two languages exist.
 
-and reads them once with `const t = Wonderloom.text('dice')`. A translation is another file, such as `text.he.js`,
-loaded after the English one; any key it leaves out falls back to English. Strings can be functions when they need
-numbers. The mathematics in `model.js` never contains visitor-facing words.
+`npm run i18n:check` validates language files, and a pseudo-language browser test fails if any visible text bypasses the
+dictionaries. The step-by-step guide for translators is docs/TRANSLATING.md.
 
 ## Add a room: checklist
 
 1. Copy `src/rooms/traffic/` to `src/rooms/<id>/` and rename. Put the mathematics in `model.js` and attach it to
-   `Wonderloom.models.<id>`, and the words in `text.en.js`. Pick a `theme` and write a `tagline`.
+   `Wonderloom.models.<id>`, and every visitor-facing word (including canvas labels and aria-labels) in `text.en.js`.
+   Pick a `theme` and write a `tagline`.
 2. Add the `<script>` tags (`model.js`, `text.en.js`, `room.js`) to `index.html`, before `src/core/app.js`.
 3. Add unit tests for the model in `tests/unit/`, and import the model in `tests/unit/load.js`.
 4. Optionally add a visitor: a drawn `sketch` (below) needs no image rights. A photograph goes in `portraits/`, with

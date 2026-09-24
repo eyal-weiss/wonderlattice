@@ -5,6 +5,7 @@
   const W = Wonderloom;
   const { $, TAU, clamp } = W;
   const model = W.models.flock;
+  const t = W.text('flock');
 
   let birds = [],
     point = null, // the visitor's attractor/repeller, in unit coordinates
@@ -68,7 +69,7 @@
       ctx.closePath();
       ctx.fill();
     }
-    $('scene-status').textContent = birds.length + ' individual decisions';
+    $('scene-status').textContent = t.status(birds.length);
     if ($('flock-order')) {
       $('flock-order').textContent = Math.round(order * 100) + '%';
       $('flock-meter').style.width = Math.round(order * 100) + '%';
@@ -78,57 +79,37 @@
   W.defineRoom({
     id: 'flock',
     symbol: '⋰',
-    eyebrow: 'EMERGENCE',
-    name: 'A mind of many',
+    eyebrow: t.eyebrow,
+    name: t.name,
     theme: 'life',
-    tagline: 'No leader, just neighbours: guide a flock into motion.',
+    tagline: t.tagline,
     accent: { background: '#20302a', border: '#85c6a2', color: '#b5f4cd' },
 
-    title: 'A mind of many.',
-    subtitle: 'No leader. Just neighbors. Guide a little world into motion.',
-    field: 'Dynamical systems · Emergence',
-    sceneLabel: 'A world of local decisions',
-    sceneName: 'The moving collective',
-    tip: 'Touch or drag to guide the flock · Edges wrap around',
-    actionLabel: 'Scatter the flock',
-    canvasLabel: 'A flock of moving marks. Touch, drag, or use arrow keys to guide. Press Escape to release.',
-    panelEyebrow: 'Local rules',
-    whyLabel: 'Who is in charge?',
-    nudge: 'Turn “Match direction” down to zero. Can a crowd stay together without agreeing where to go?',
-    connection: {
-      html: '<strong>A pattern without a planner.</strong> Here, a whole flock emerges from little interactions. In the sound room, a new waveform emerges from adding two simpler ones.',
-      go: 'waves',
-      label: 'See waves combine',
-    },
+    title: t.title,
+    subtitle: t.subtitle,
+    field: t.field,
+    sceneLabel: t.sceneLabel,
+    sceneName: t.sceneName,
+    tip: t.tip,
+    actionLabel: t.actionLabel,
+    canvasLabel: t.canvasLabel,
+    panelEyebrow: t.panelEyebrow,
+    whyLabel: t.whyLabel,
+    nudge: t.nudge,
+    connection: { ...t.connection, go: 'waves' },
 
     defaults: { align: 1.2, cohesion: 0.6, separate: 1.5, count: 130, attract: true, trails: true, neighbors: false },
     ranges: { align: [0, 2], cohesion: [0, 2], separate: [0, 2] },
     defaultPreset: 0,
     presets: [
-      {
-        name: 'In company',
-        note: 'Find a shared direction.',
-        badge: '↗',
-        settings: { align: 1.2, cohesion: 0.6, separate: 1.5 },
-      },
-      {
-        name: 'Everyone for themselves',
-        note: 'Let individual paths take over.',
-        badge: '⋰',
-        settings: { align: 0, cohesion: 0, separate: 0.4 },
-      },
-      {
-        name: 'Stay close',
-        note: 'Togetherness without much agreement.',
-        badge: '◌',
-        settings: { align: 0.15, cohesion: 1.8, separate: 1.2 },
-      },
-    ],
+      { badge: '↗', settings: { align: 1.2, cohesion: 0.6, separate: 1.5 } },
+      { badge: '⋰', settings: { align: 0, cohesion: 0, separate: 0.4 } },
+      { badge: '◌', settings: { align: 0.15, cohesion: 1.8, separate: 1.2 } },
+    ].map((p, i) => ({ ...t.presets[i], ...p })),
 
     guests: [
       {
-        name: 'John Conway',
-        note: 'His Game of Life also makes surprises from tiny local rules.',
+        ...t.guests[0],
         bio: 'Conway',
         image: 'conway.jpg',
         source: 'John_H_Conway_2005_(cropped).jpg',
@@ -138,8 +119,7 @@
         license: { name: 'CC BY 2.0', url: 'https://creativecommons.org/licenses/by/2.0/' },
       },
       {
-        name: 'Alan Turing',
-        note: 'His pattern model showed how local changes can make spots and stripes.',
+        ...t.guests[1],
         bio: 'Turing',
         image: 'turing.jpg',
         source: 'Alan_Turing_(1951).jpg',
@@ -148,28 +128,16 @@
       },
     ],
 
-    insight: {
-      title: 'Who is in charge?',
-      html: `<p>Nobody. Each moving mark looks only at nearby neighbors and follows three tendencies: avoid crowding, match their direction, and stay close.</p>
-<div class="insight-visual">Individual interactions → collective motion</div>
-<h3>The pattern lives between the individuals</h3>
-<p>No mark knows the whole shape of the flock. Coherent movement can emerge because each one responds to a small part of the group. Your cursor adds an outside attraction or repulsion.</p>
-<h3>A model, not a whole animal</h3>
-<p>This is a simplified version of Craig Reynolds’s Boids model. It captures some visual qualities of flocks and schools, but it does not explain every decision made by real birds or fish.</p>
-<h3>Look through one pair of eyes</h3>
-<p>Turn on “Show one neighborhood.” The circle marks one individual’s sensing distance; lines point to the neighbors influencing it. Opposite edges connect, so a neighbor can be close across an edge.</p>
-<details><summary>What does “agreement” measure?</summary><p>We average all the unit direction vectors and take the length of the result. Close to 100% means everyone points roughly the same way. Close to zero means directions mostly cancel. It is a description of the current flock, not a score.</p><p>Each step combines separation, alignment, and cohesion steering, then limits speed. All individuals update from the same previous state.</p></details>
-<div class="sources"><a class="source-link" href="https://www.red3d.com/cwr/boids/index.html" target="_blank" rel="noopener">Craig Reynolds on Boids</a></div>`,
-    },
+    insight: t.insight,
 
     controls: (s, stage) =>
-      stage.slider('align', 'Match direction', 0, 2, 0.05, s.align, '') +
-      stage.slider('cohesion', 'Stay together', 0, 2, 0.05, s.cohesion, '') +
-      stage.slider('separate', 'Keep some space', 0, 2, 0.05, s.separate, '') +
-      `<div class="control"><label for="flock-influence">Your touch</label><select id="flock-influence"><option value="attract" ${s.attract ? 'selected' : ''}>Attract</option><option value="repel" ${!s.attract ? 'selected' : ''}>Repel</option></select></div>` +
-      stage.check('trails', 'Leave light trails', s.trails) +
-      stage.check('neighbors', 'Show one neighborhood', s.neighbors) +
-      '<div class="wide readout">Direction agreement <span id="flock-order"></span><div class="meter"><span id="flock-meter"></span></div></div>',
+      stage.slider('align', t.align, 0, 2, 0.05, s.align, '') +
+      stage.slider('cohesion', t.cohesion, 0, 2, 0.05, s.cohesion, '') +
+      stage.slider('separate', t.separate, 0, 2, 0.05, s.separate, '') +
+      `<div class="control"><label for="flock-influence">${t.influence}</label><select id="flock-influence"><option value="attract" ${s.attract ? 'selected' : ''}>${t.attract}</option><option value="repel" ${!s.attract ? 'selected' : ''}>${t.repel}</option></select></div>` +
+      stage.check('trails', t.trails, s.trails) +
+      stage.check('neighbors', t.neighbors, s.neighbors) +
+      `<div class="wide readout">${t.agreement} <span id="flock-order"></span><div class="meter"><span id="flock-meter"></span></div></div>`,
 
     bindControls(panel, s) {
       $('flock-influence').addEventListener('change', (e) => (s.attract = e.target.value === 'attract'));

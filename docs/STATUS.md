@@ -1,5 +1,29 @@
 # Project state — 2026-09-24
 
+## Thirteen rooms, and ready for translation — 2026-09-24
+
+**The roadmap's rooms are all built.** Bend the plane, A spoonful of a city, Grow a fingerprint, and a scoped Inside the
+Rubik's Cube (about moves, not solving) join the earlier nine. Each was built from a written brief (four by sub-agents,
+the cube in the main session), then reviewed by an independent agent before merging. Each review found real issues,
+all fixed and covered by regression tests. For example:
+
+- a false "f′ = 0" claim in Bend the plane;
+- sampling dots replaying their animation;
+- fingerprint replays that didn't match live growth;
+- the cube not redrawing under reduced motion.
+
+**Every visitor-facing word is now in a dictionary:**
+
+- each room's `text.en.js`;
+- the shared `src/core/text.en.js`;
+- the fixed page text, marked `data-t` in `index.html`.
+
+Contributors add a language as one file: `npm run i18n:new -- he "עברית" rtl` creates `src/lang/he.js` from English and
+links it. `npm run i18n:check`, which also runs in CI, reports coverage and mistakes. Right-to-left layout, the
+narration voice and a footer language menu follow the language file. A pseudo-language browser test fails if any
+visible text bypasses the dictionaries. English rendering was verified pixel-identical before and after (58 screenshot
+pairs). No translation is included yet.
+
 ## Three more rooms — 2026-09-24
 
 Each was built by a sub-agent in its own worktree from a written brief, then reviewed and integrated one pull request
@@ -74,8 +98,7 @@ browser tests, ESLint, Prettier, and GitHub Actions CI that runs everything on e
 ## Not yet done
 
 - An in-app "Make your own version" flow: source download and an AI prompt containing the current settings.
-- Hebrew (or other) translation. Visitor-facing words now live in room definitions, which makes this easier, but
-  there's no language dictionary or selector yet.
+- Translations: the structure, tools and checks are ready (docs/TRANSLATING.md); no language has been added yet.
 - Publishing for public visitors under an owner-controlled account. The last ChatGPT-hosted site was owner-only.
   GitHub Pages on this private repository needs a paid plan; Cloudflare Pages or Netlify work on free plans.
 - Manual release checks that automation can't do: listening to audio and narration, real phones, screen readers.
@@ -86,6 +109,6 @@ browser tests, ESLint, Prettier, and GitHub Actions CI that runs everything on e
 
 Following docs/ROADMAP.md (review section):
 
-1. Next rooms: bend the plane, a spoonful of a city, grow a fingerprint; later a scoped Rubik's cube.
-2. With the Hebrew translation: move the five original rooms' words into `text.en.js` files.
+1. Translations by contributors (docs/TRANSLATING.md).
+2. More rooms from docs/ROADMAP.md's longer list.
 3. Decide on hosting and publish `dist/`.

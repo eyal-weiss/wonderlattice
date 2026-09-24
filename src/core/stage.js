@@ -10,6 +10,7 @@
   const W = Wonderloom;
   const { $, clamp } = W;
   const reduced = W.prefersReducedMotion();
+  const words = () => W.text('app').stage;
 
   const settings = Object.create(null); // room id → live settings object
   const chosen = Object.create(null); // room id → highlighted preset index, or -1
@@ -105,12 +106,13 @@
 
   function renderControls() {
     const s = settings[room.id];
-    let h = `<div class="panel-head"><h2>Make it yours</h2><span class="eyebrow">${room.panelEyebrow}</span></div>`;
+    const t = words();
+    let h = `<div class="panel-head"><h2>${t.makeItYours}</h2><span class="eyebrow">${room.panelEyebrow}</span></div>`;
     h +=
-      '<div class="math-guest" id="math-guest-scene" aria-label="A visiting mathematician"></div>' +
-      '<button class="button trail-keep wide" id="trail-keep-scene">✧ Keep this moment</button>';
+      `<div class="math-guest" id="math-guest-scene" aria-label="${t.guestLabel}"></div>` +
+      `<button class="button trail-keep wide" id="trail-keep-scene">${t.keep}</button>`;
     h += room.controls(s, stage);
-    h += `<div class="hint"><strong>A little nudge</strong>${room.nudge}</div><button class="button why" id="scene-why">${room.whyLabel}<span aria-hidden="true">↗</span></button>`;
+    h += `<div class="hint"><strong>${t.nudge}</strong>${room.nudge}</div><button class="button why" id="scene-why">${room.whyLabel}<span aria-hidden="true">↗</span></button>`;
     const panel = $('scene-controls');
     panel.innerHTML = h;
     panel.querySelectorAll('[data-key]').forEach((input) =>
@@ -141,7 +143,7 @@
     document.querySelectorAll('#scene-controls [data-key]').forEach((input) => {
       $('v-' + input.dataset.key).textContent = Number(s[input.dataset.key].toFixed(3)) + input.dataset.unit;
     });
-    $('scene-play').textContent = playing ? 'Pause' : 'Play';
+    $('scene-play').textContent = playing ? words().pause : words().play;
     document.querySelectorAll('.scene-preset').forEach((b, i) => b.setAttribute('aria-pressed', i === chosen[room.id]));
     room.readouts?.(settings[room.id], stage);
   }
@@ -229,8 +231,8 @@
       c.fillRect(0, 0, out.width, out.height);
       c.drawImage(canvas, 0, 0);
       W.savePNG(out, `wonderloom-${room.id}.png`, {
-        saved: 'Your scene is ready to save.',
-        failed: 'Could not save this image.',
+        saved: words().saved,
+        failed: words().saveFailed,
       });
     });
     $('scene-share').addEventListener('click', () => {
@@ -238,12 +240,10 @@
       const s = settings[room.id];
       const text = web
         ? W.shareLink(new URLSearchParams({ room: room.id, ...s }))
-        : 'Wonderloom · ' + room.title + '\n' + JSON.stringify(s, null, 2);
+        : words().shareText(room.title) + '\n' + JSON.stringify(s, null, 2);
       W.copyText(text, {
-        copied: web ? 'Exploration link copied. The recipient needs site access.' : 'Exploration settings copied.',
-        description: web
-          ? 'Copy this link to reopen these settings. The recipient needs access to the site.'
-          : 'Copy these settings to recreate this exploration.',
+        copied: web ? words().linkCopied : words().settingsCopied,
+        description: web ? words().linkDescription : words().settingsDescription,
       });
     });
   }
