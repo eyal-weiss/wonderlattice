@@ -7,6 +7,7 @@ export const ROOMS = {
   ribbon: 'Where is the other side?',
   traffic: 'The tempting shortcut.',
   loom: 'The mathematical loom.',
+  storm: 'Send a picture through a storm.',
 };
 
 // Records page errors, captures clipboard writes, and exposes the optional
