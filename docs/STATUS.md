@@ -1,5 +1,9 @@
 # Project state — 2026-09-23
 
+## Review fix — 2026-09-24
+
+The traffic room now draws distinct, visible moving markers along the active routes and shows a large before/after travel-time comparison. At 4,000 drivers, opening the shortcut changes the display from 65 to 80 minutes and highlights that everyone takes 15 minutes longer. The earlier markers blended into the road and the result was easy to miss. The markers represent route proportions, not individual vehicle trajectories. Browser checks covered the closed/open result and moving frames; the Node traffic tests and static build also passed. The review site has been updated, while the private repository pull request remains open pending owner feedback.
+
 ## Working and included
 
 - Geometry: drawing with combined rotations, presets, parameter controls, PNG export.
@@ -7,11 +11,11 @@
 - Emergence: adjustable flocking model, pointer interaction, neighbor view.
 - Topology: interactive projected ribbon, half-twists, highlighted edges, traveler.
 - Optional explanatory text, browser narration, URL/settings sharing, responsive layout.
+- Networks: traffic shortcut paradox, adjustable demand, route proportions, and optional model explanation (on agent/braess-traffic pending review).
 - Independent source export, offline use, MIT license, AI handoff and translation guides.
 
 ## Requested but not yet implemented
 
-- Add a fifth, less familiar experiment: Braess's traffic paradox (a shortcut can worsen everybody's travel time). It is a classic result, not a new mathematical discovery. Check the model and attribution before implementation. Suggested primary reference: https://www.cs.cornell.edu/home/kleinber/networks-book/networks-book-ch08.pdf
 - Separate experiment code and visitor-facing content into readable modules, retaining an offline export.
 - Add an in-app “Make your own version” flow with source download and an AI prompt containing current settings.
 - Complete visual, mobile, keyboard, and signed-out release checks.
