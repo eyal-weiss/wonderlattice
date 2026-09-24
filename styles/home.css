@@ -161,3 +161,9 @@ a.brand:focus-visible {
     transform: none;
   }
 }
+@media (max-width: 400px) {
+  /* The room's own title says where you are; keep the bar on one line. */
+  .room-bar-theme {
+    display: none;
+  }
+}
