@@ -283,7 +283,14 @@
         $('scene-play').click();
         return;
       }
-      if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) return;
+      if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+        // Any other key goes to the room's optional `key` hook, which returns true if it used it.
+        if (room?.pointer?.key?.(e, settings[room.id], stage)) {
+          e.preventDefault();
+          draw();
+        }
+        return;
+      }
       e.preventDefault();
       const dx = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0,
         dy = e.key === 'ArrowDown' ? 1 : e.key === 'ArrowUp' ? -1 : 0;
