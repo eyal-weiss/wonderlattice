@@ -3,9 +3,10 @@
  *
  * Two signals live on a grid of cells shaped like a fingertip. The activator
  * makes more of itself and of the inhibitor; the inhibitor suppresses the
- * activator and spreads about twice as fast. Their kinetics follow the cubic
- * form of the Barrio–Varea–Aragón–Maini (BVAM) model, whose odd symmetry
- * favours stripes over spots:
+ * activator and spreads about twice as fast. Their kinetics are adapted from
+ * the cubic Barrio–Varea–Aragón–Maini (BVAM) model, whose odd symmetry favours
+ * stripes over spots (h is BVAM's v with its sign flipped, and D = 0.45 instead
+ * of 0.516, so ridges form faster):
  *
  *   da/dt = s·D·∇²a + 0.899 a − h − 3.15 a h²
  *   dh/dt = s·∇²h   + 0.899 a − 0.91 h − 3.15 a h²
@@ -25,7 +26,7 @@
 
   const WIDTH = 168; // grid cells across
   const HEIGHT = 232; // grid cells from tip to crease
-  const DT = 0.3; // time step; stable up to s = 1, the spacing slider's limit (s = 1.2 blows up)
+  const DT = 0.3; // time step; blows up above s ≈ 1.09 (linear bound ≈ 1.125), so the slider stops at s = 1
   const SPREAD = 0.45; // activator diffusion relative to the inhibitor's
   const GROW = 0.899, // activator self-activation, and its production of inhibitor
     DECAY = 0.91, // inhibitor removal
@@ -214,6 +215,7 @@
    * and `start` in steps). `twin` picks the tiny random differences.
    */
   function sitesFor(grid, pattern, headStart, seeds = [], twin = 0) {
+    seeds = seeds.filter((s) => inside(grid, s.x, s.y)); // points off the fingertip start nothing
     const random = rng(0x9e3779b9 ^ Math.imul(twin + 1, 2654435761));
     const jitter = (size) => (random() - 0.5) * 2 * size;
     const lead = headStart * STEPS_PER_RIDGE * (1 + jitter(0.06));
@@ -312,7 +314,6 @@
   /** Add sites to a running simulation, starting now or later. */
   function addSites(sim, sites) {
     sim.sites.push(...sites);
-    sim.fullAt = -1;
   }
 
   /** Poke the activator at every site that is active on this step. */
@@ -394,7 +395,10 @@
     if (sim.sites.some((s) => sim.steps < s.start + s.pulse)) return false;
     if (sim.steps >= MAX_STEPS) return true;
     if (sim.grown === 0) return sim.steps > Math.max(...sim.sites.map((s) => s.start)) + 600;
-    return sim.fullAt >= 0 && sim.steps - sim.fullAt >= settle;
+    // Settle from whichever came later: full coverage, or the last site's final poke. This depends only on
+    // the sites and the field's own history, so a replay from the same settings stops on the same step.
+    const from = Math.max(sim.fullAt, ...sim.sites.map((s) => s.start + s.pulse));
+    return sim.fullAt >= 0 && sim.steps - from >= settle;
   }
 
   /**

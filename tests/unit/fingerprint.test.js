@@ -168,3 +168,34 @@ test('a point of your own grows rings around itself', () => {
   assert.equal(F.classify(sim).type, 'whorl');
   assert.ok(F.finished(sim));
 });
+
+/** Advance one step at a time until finished, as the room does. */
+function finish(sim) {
+  while (!F.finished(sim)) F.advance(sim, 1);
+  return sim;
+}
+
+test('a point planted after the fingertip is covered replays exactly from the settings', () => {
+  // Live: grow a whorl until it is covered, then plant a point, rebuilding the sites as the room does.
+  const live = F.createSim(grid, F.sitesFor(grid, WHORL, 3, [], 2), 0.55);
+  while (live.fullAt < 0) F.advance(live, 1);
+  F.advance(live, 200);
+  const seeds = [{ x: 0.5, y: 0.3, start: live.steps }];
+  live.sites = F.sitesFor(grid, WHORL, 3, seeds, 2);
+  finish(live);
+  // Replay: the same settings from scratch, as a shared link, a trail visit, or "Start again" would.
+  const replay = finish(F.createSim(grid, F.sitesFor(grid, WHORL, 3, seeds, 2), 0.55));
+  assert.ok(live.steps > seeds[0].start + 1000, 'the late point gets time to settle');
+  assert.equal(replay.steps, live.steps);
+  assert.deepEqual(replay.a, live.a);
+  assert.deepEqual(replay.h, live.h);
+});
+
+test('points off the fingertip start nothing', () => {
+  const off = [{ x: 0, y: 0, start: 0 }];
+  assert.equal(F.sitesFor(grid, OWN, 3, off).length, 0);
+  assert.deepEqual(
+    F.sitesFor(grid, WHORL, 3, off).map((s) => s.role),
+    F.sitesFor(grid, WHORL, 3).map((s) => s.role),
+  );
+});

@@ -36,8 +36,11 @@
     shadow = null; // the cached shadow behind the fingertip
   const perf = { msPerStep: 0.5, stepsPerFrame: 0, simMs: 0, renderMs: 0, drawMs: 0 }; // measured timings, for tuning
 
+  /** Is slot k one of your points on the fingertip? A link may carry points off it, which are ignored. */
+  const onTip = (s, k) =>
+    s[k + 'x'] >= 0 && s[k + 'y'] >= 0 && F.inside((grid ??= F.createGrid()), s[k + 'x'], s[k + 'y']);
   const seedsOf = (s) =>
-    SEEDS.map((k) => ({ x: s[k + 'x'], y: s[k + 'y'], start: s[k + 't'] })).filter((p) => p.x >= 0 && p.y >= 0);
+    SEEDS.filter((k) => onTip(s, k)).map((k) => ({ x: s[k + 'x'], y: s[k + 'y'], start: s[k + 't'] }));
   const planOf = (s) =>
     [s.pattern, s.lead, s.spacing, s.twin, ...seedsOf(s).flatMap((p) => [p.x, p.y, p.start])].join(',');
   const clearSeeds = (s) => SEEDS.forEach((k) => Object.assign(s, { [k + 'x']: -1, [k + 'y']: -1, [k + 't']: 0 }));
@@ -70,7 +73,7 @@
       if (token !== quiet || !sim) return;
       if (!stage.isShowing(room)) return void (quiet = 0); // resumes when the room opens again
       const end = performance.now() + 12;
-      while (performance.now() < end && sim.sites.length && !F.finished(sim, QUIET_SETTLE)) F.advance(sim, 20);
+      while (performance.now() < end && sim.sites.length && !F.finished(sim, QUIET_SETTLE)) F.advance(sim, 1);
       if (!sim.sites.length || F.finished(sim, QUIET_SETTLE)) {
         quiet = 0;
         if (sim.sites.length) settle();
@@ -84,7 +87,8 @@
 
   /** Where the fingertip and the legend go. Keeps clear of the stage heading on phones. */
   function measure(width, height) {
-    const top = width < 520 ? 38 : 10,
+    // Below 520px the stage heading sits over the canvas; below 340px the scene name may take two lines.
+    const top = width < 340 ? 84 : width < 520 ? 38 : 10,
       bottom = 10,
       aspect = F.WIDTH / F.HEIGHT;
     const legend = width >= 600 ? Math.min(250, width * 0.3) : 0;
@@ -483,7 +487,7 @@
   /** Start ridges at (x, y) in fingertip units. */
   function plant(s, stage, x, y) {
     if (!grid || !F.inside(grid, x, y)) return W.toast(t.outside);
-    const slot = SEEDS.find((k) => s[k + 'x'] < 0);
+    const slot = SEEDS.find((k) => !onTip(s, k));
     if (!slot) return W.toast(t.full);
     const first = s.pattern === 3 && !seedsOf(s).length;
     s[slot + 'x'] = Math.round(x * 10000) / 10000;
@@ -494,7 +498,6 @@
       // Rebuild the site list from the settings, so replaying this plan grows exactly the same fingertip.
       const sites = F.sitesFor(grid, s.pattern, s.lead, seedsOf(s), s.twin);
       sim.sites = sites;
-      sim.fullAt = -1;
       plan = planOf(s);
       found = null;
       if (reduced && !quiet) growQuietly(stage);
@@ -676,7 +679,9 @@
       if (!sim || quiet) return;
       if (plan !== planOf(s)) regrow(s, stage);
       if (!sim.sites.length) return;
-      if (F.finished(sim)) return settle();
+      // With reduced motion the quiet computation stopped earlier; Play then shouldn't grow on under its result.
+      const settleFor = reduced ? QUIET_SETTLE : undefined;
+      if (F.finished(sim, settleFor)) return settle();
       owed += dt * RATES[s.speed - 1];
       let n = Math.floor(owed);
       owed -= n;
@@ -687,7 +692,8 @@
       }
       if (!n) return;
       const t0 = performance.now();
-      F.advance(sim, n);
+      // One step at a time, so growth stops on exactly the step a replay of the same settings would.
+      for (let k = 0; k < n && !F.finished(sim, settleFor); k++) F.advance(sim, 1);
       perf.simMs = performance.now() - t0;
       perf.msPerStep = perf.msPerStep * 0.9 + (perf.simMs / n) * 0.1;
       perf.stepsPerFrame = n;

@@ -13,6 +13,13 @@
   padding-bottom: 6px;
 }
 
+/* Four presets sit in one row, rather than three and a lonely fourth. */
+@media (min-width: 761px) {
+  body[data-room='fingerprint'] .scene-presets {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
 /* A fingertip is tall, so give the stage more height on phones. */
 @media (max-width: 760px) {
   body[data-room='fingerprint'] .drawing.scene {

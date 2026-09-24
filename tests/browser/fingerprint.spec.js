@@ -91,6 +91,12 @@ test('with reduced motion, a finished fingerprint appears without animating', as
   const still = await snapshot(page);
   await page.waitForTimeout(500);
   expect(await snapshot(page)).toBe(still);
+  // Pressing Play doesn't grow on underneath the finished result.
+  await page.locator('#scene-play').click();
+  await expect(page.locator('#scene-play')).toHaveText('Pause');
+  await page.waitForTimeout(800);
+  expect(await snapshot(page)).toBe(still);
+  await page.locator('#scene-play').click();
   await page.getByRole('button', { name: /Loop/ }).click();
   await expect(page.locator('#scene-status')).toHaveText('A loop · 1 triradius', { timeout: 60000 });
 });
@@ -112,4 +118,15 @@ test('a shared link restores the pattern, the look, and your own points', async 
   expect(link).toContain('room=fingerprint');
   expect(link).toContain('ax=0.5');
   expect(link).toContain('twin=3');
+});
+
+test('a link with a point off the fingertip starts nothing and leaves the slot free', async ({ page }) => {
+  await page.goto('/#room=fingerprint&pattern=3&ax=0&ay=0');
+  await expect(page.locator('#scene-name')).toHaveText('Your own fingerprint');
+  await expect(page.locator('#scene-status')).toHaveText('Tap the fingertip to start ridges');
+  const canvas = page.locator('#scene-canvas');
+  const box = await canvas.boundingBox();
+  await canvas.click({ position: { x: box.width * 0.3, y: box.height * 0.5 } });
+  await expect(page.locator('#scene-status')).toContainText('Growing');
+  expect((await settings(page)).ax).toBeGreaterThan(0);
 });
