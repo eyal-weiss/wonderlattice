@@ -55,6 +55,7 @@ Each agent should clone or check out its own working copy, start a uniquely name
 
 - index.html: complete, editable app; also the offline version.
 - experiments/traffic.js: Braess traffic model and canvas rendering; loaded alongside index.html.
+- experiments/guests.js: small illustrated mathematician visitors; the drawings are playful, not historical likenesses. Captions are original text and biographies are linked in the interface.
 - tests/traffic.test.js: equilibrium checks using Node’s built-in test runner.
 - package.json / package-lock.json / vite.config.js: optional development/build setup.
 - AGENTS.md: instructions for any coding assistant.
