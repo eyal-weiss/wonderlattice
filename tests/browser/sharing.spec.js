@@ -6,12 +6,12 @@ test('copying a pattern produces a link that reopens it', async ({ page }) => {
   await page.goto('/#room=motion');
   await page.locator('#share').click();
   const link = await page.evaluate(() => window.__clipboard.at(-1));
-  expect(link).toBe('http://localhost:4173/#room=motion&k=-5&r=42&p=0&ink=0');
+  expect(link).toBe(new URL('/#room=motion&k=-5&r=42&p=0&ink=0', page.url()).href);
   await openRoom(page, 'traffic');
   await page.locator('#scene-action').click();
   await page.locator('#scene-share').click();
   const trafficLink = await page.evaluate(() => window.__clipboard.at(-1));
-  expect(trafficLink).toBe('http://localhost:4173/#room=traffic&demand=4000&shortcut=true');
+  expect(trafficLink).toBe(new URL('/#room=traffic&demand=4000&shortcut=true', page.url()).href);
 });
 
 test('shared links restore settings on load and on hash change', async ({ page }) => {

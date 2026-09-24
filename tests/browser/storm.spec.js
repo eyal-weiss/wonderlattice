@@ -101,7 +101,7 @@ test('storm room: a shared link restores the code, storm, and picture', async ({
   expect(await settings(page)).toMatchObject({ storm: 12.5, top: 0 });
   await page.locator('#scene-share').click();
   const link = await page.evaluate(() => window.__clipboard.at(-1));
-  expect(link).toBe('http://localhost:4173/#room=storm&storm=12.5&code=3&seed=77&top=0&bottom=255');
+  expect(link).toBe(new URL('/#room=storm&storm=12.5&code=3&seed=77&top=0&bottom=255', page.url()).href);
 });
 
 test('storm room: reduced motion shows the result at once', async ({ page }) => {
