@@ -100,6 +100,7 @@ async function openRoomFromDialog(page, room) {
 }
 
 test('every room can keep a moment in the trail and reopen it', async ({ page }) => {
+  test.setTimeout(10000 * Object.keys(ROOMS).length); // visits every room twice
   await page.goto('/');
   for (const room of Object.keys(ROOMS)) {
     await openRoom(page, room);
