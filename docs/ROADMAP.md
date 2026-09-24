@@ -95,3 +95,54 @@ I’d prototype them in small groups and judge each by three questions:
 3. Does the room invite a second visit with a different question?
 
 The existing trail can support that last part. A saved scene might later offer a connection such as **“You explored how local rules weave cloth. What happens when local chemical interactions make a pattern in skin?”** That makes progress feel like an expanding understanding of the world, with plenty of room for personal curiosity.
+
+---
+
+## Review (Claude, 2026-09-24)
+
+### Verdict
+
+This is a strong list. I'd keep its design rule ("one memorable surprise, one idea worth taking away") and its three depths. Those depths are what the current rooms already do: Play is the canvas, Notice is the "little nudge", Go deeper is the "Why does this happen?" dialog. Most of the eight starred picks are good choices. The roadmap leaves out two things, and they decide whether the expansion works: **the site's structure has to change before it can hold 13+ rooms**, and **the rooms vary a lot in cost**.
+
+### 1. What the roadmap leaves out: a home for many rooms
+
+Today every room is a tab in one row. With the eight starred rooms that becomes 13 tabs: three rows on a laptop, and about seven rows (roughly 450 px of buttons) on a phone before any experiment appears. With all 24 it's unusable. Every room's code also loads at start-up. Before adding rooms, Wonderloom needs:
+
+- **A map / home view.** Rooms grouped by theme (Chance, Shape & space, Games, Making, The body, Signals), each shown as a small live or illustrated card. The room view gets a compact "back to the map" plus next/previous.
+- **Loading on demand.** Each room's scripts load when it's first opened. This still works from `file://` (by injecting `<script>` tags), and the single-file export keeps inlining everything.
+- **Room pages that can be linked.** `#room=dice` already works; the map adds `#` with no room.
+
+This is a contained change to `src/core/app.js` and the page layout, done once. It should be its own pull request, before the new rooms.
+
+### 2. The starred rooms, by cost and risk
+
+| Room                           | Fit                                | Effort       | Notes                                                                                                                                                                                                                                                                                 |
+| ------------------------------ | ---------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| The dice that beat each other  | Excellent                          | Small        | Uses the existing stage as is. Efron's or Grime dice. A perfect first new room: an instant, checkable surprise.                                                                                                                                                                       |
+| The mathematical loom          | Excellent: it's the project's name | Small–medium | A weaving draft is a binary matrix product (threading × tie-up × treadling). Beautiful, and the result can be exported. I'd make this a flagship.                                                                                                                                     |
+| Send a picture through a storm | Very good                          | Small–medium | Repetition code → parity → Hamming(7,4). The surprise: 3 extra bits per 4 fix any single flip.                                                                                                                                                                                        |
+| Sudoku, made transparent       | Very good                          | Medium       | Needs its own grid layout rather than the canvas stage. 4×4 with colours; the constraint-network view is the new idea.                                                                                                                                                                |
+| Bend the plane                 | Very good                          | Medium       | A canvas mapping of a drawn shape and a grid. Pairs naturally with the drawing room and the Möbius ribbon.                                                                                                                                                                            |
+| A spoonful of a city           | Good                               | Medium       | The message (bias doesn't shrink with sample size) is subtle; it needs careful design so the surprise lands.                                                                                                                                                                          |
+| Grow a fingerprint             | Very good                          | Medium–large | A Turing-type reaction–diffusion model on a fingertip. It must say it's _inspired by_ the 2023 research, not a model of it. Turing is already a visitor, which makes a nice thread.                                                                                                   |
+| Inside the Rubik's Cube        | Good, but crowded                  | Large        | A faithful 3D cube with smooth turns, undo and tracking is the most expensive item here, and many cube simulators already exist. The part only Wonderloom offers is "order matters / commutators". I'd scope it to a 2×2×2 cube, or a flat "turning puzzle" first, and build it last. |
+
+### 3. Other things to decide early
+
+- **Translation.** Most of the intended audience reads Hebrew. Eight new rooms of English copy makes a later translation eight times bigger. Moving each room's words into a per-language dictionary _before_ writing new rooms costs little now and saves a lot later.
+- **Mathematician visitors.** Each room needs two, with documented portraits and clear rights. That's research per room. Living people (Efron, for example) need a freely licensed photo. Budget for it, or allow rooms without a visitor.
+- **Sources.** The links in the roadmap look right, but I'll check each one when its room is built, before citing it in the app.
+- **Tests.** Each room gets model unit tests and browser tests, as the current rooms do.
+
+### 4. A few possible swaps
+
+These are optional. "The shape hiding inside randomness" is essentially a Galton board, which is cheaper and more visual as a physical-looking board. Monty Hall is a famous stumbling block for adults and would fit "chance" well. Number theory (primes, a toy RSA) is absent, though "and more" leaves room for it.
+
+### Proposed order
+
+1. **Phase 0 (structure):** the map/home view, loading rooms on demand, and a per-language dictionary for room text. No new rooms yet.
+2. **Phase 1 (quick, varied wins):** dice, loom, picture through a storm, Sudoku.
+3. **Phase 2:** bend the plane, a spoonful of a city, grow a fingerprint.
+4. **Phase 3:** the cube, scoped as above.
+
+Each room is its own branch and pull request. For each, I'd check the three questions at the end of the roadmap in a real browser before calling it done.
