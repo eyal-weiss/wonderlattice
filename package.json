@@ -1,0 +1,13 @@
+{
+  "name": "wonderloom",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 4173",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "vite": "8.0.13"
+  }
+}
