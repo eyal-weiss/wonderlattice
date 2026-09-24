@@ -43,6 +43,7 @@ test('comparing two orders shows when moves commute', async ({ page }) => {
   await page.getByRole('button', { name: /Order matters/ }).click();
   await expect(page.locator('#cube-readout')).toContainText('different order');
   await page.locator('#cube-b').selectOption('4'); // L commutes with R
+  await page.locator('#scene-action').click();
   await expect(page.locator('#cube-readout')).toContainText('commute');
 });
 
@@ -52,4 +53,36 @@ test('a shared cube link restores the sequence; a broken code falls back safely'
   expect(await settings(page)).toMatchObject({ seq: 2, repeats: 3 });
   await page.evaluate(() => (location.hash = 'room=cube&seq=13&mode=0'));
   await expect(page.locator('#cube-readout')).toContainText('No moves yet');
+});
+
+test('actions redraw the cube even when nothing is animating (reduced motion)', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/#room=cube');
+  const picture = () => page.locator('#scene-canvas').evaluate((c) => c.toDataURL());
+  const before = await picture();
+  await page.locator('#scene-action').click(); // Repeat it
+  await expect.poll(picture).not.toBe(before);
+  const once = await picture();
+  await page.locator('#cube-home').click();
+  await expect.poll(picture).not.toBe(once);
+  await expect(page.locator('#scene-status')).toHaveText('Solved');
+});
+
+test('leaving mid-repeat and coming back shows a consistent status', async ({ page }) => {
+  await page.goto('/#room=cube');
+  await page.locator('#cube-home').click();
+  await page.waitForTimeout(600);
+  await page.locator('#room-next').click();
+  await page.locator('#room-prev').click();
+  await expect(page.locator('body')).toHaveAttribute('data-room', 'cube');
+  await expect(page.locator('#scene-status')).toHaveText('Solved');
+  await expect(page.locator('#cube-readout')).toContainText('done 105 times');
+});
+
+test('compare mode waits for a turn before claiming a difference', async ({ page }) => {
+  await page.goto('/#room=cube');
+  await page.locator('[data-mode="1"]').click();
+  await expect(page.locator('#cube-readout')).toContainText('Press “Turn them”');
+  await page.locator('#scene-action').click();
+  await expect(page.locator('#cube-readout')).toContainText('different order');
 });

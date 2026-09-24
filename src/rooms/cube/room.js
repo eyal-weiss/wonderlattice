@@ -19,10 +19,11 @@
     ry = -0.62;
   const cubes = [makeCube(), makeCube()];
   let note = ''; // a one-line message under the cube
+  let compared = false; // in compare mode: have both cubes made their moves yet?
 
   function makeCube() {
     // queue: moves still to make; a `mark` ends one repeat of the sequence, so the counter can tick live.
-    return { state: C.solved(), queue: [], anim: null, speed: TURN, inFlight: 0 };
+    return { state: C.solved(), queue: [], anim: null, inFlight: 0 };
   }
 
   const sequenceOf = (s) => C.decode(s.seq) ?? [];
@@ -83,15 +84,18 @@
         v[b] += db * size;
         return place(v, p);
       };
-      const n = place(normal, p);
-      if (viewNormal(n) <= 0.01) return; // facing away
+      const n = place(normal, p),
+        c = place(centre, p);
+      // Facing the camera (which sits at distance 9 in front): (camera − point) · normal > 0.
+      if (9 * viewNormal(n) - (n[0] * c[0] + n[1] * c[1] + n[2] * c[2]) <= 0) return;
       out.push({ corners: [corner(-1, -1), corner(1, -1), corner(1, 1), corner(-1, 1)], fill });
     };
+    const moved = highlight ? C.movedPieces(cube.state) : null;
     C.stickers.forEach((s, i) => {
       const centre = s.p.map((c, k) => c + s.n[k] * 0.5);
       const colour = cube.state[i];
       face(centre, s.n, 0.5, PLASTIC, s.p);
-      const dim = highlight && colour === s.face;
+      const dim = highlight && !moved.has(s.p.join(','));
       face(
         centre.map((c, k) => c + s.n[k] * 0.002),
         s.n,
@@ -169,7 +173,8 @@
     ctx.fillStyle = '#e8eee2';
     ctx.font = '600 15px ui-monospace, monospace';
     const done = s.repeats - Math.round(cubes[0].inFlight);
-    const line = compare ? '' : t.sequence(C.notation(sequenceOf(s))) + (done > 1 ? `   × ${done}` : '');
+    const seq = sequenceOf(s);
+    const line = compare ? '' : t.sequence(C.notation(seq)) + (seq.length && done > 1 ? `   × ${done}` : '');
     ctx.fillText(line, width / 2, height - 26);
     ctx.fillStyle = '#a9b6c3';
     ctx.font = '13px system-ui';
@@ -186,6 +191,7 @@
 
   /** Show the cube for the current settings at once, with nothing moving. */
   function settle(s) {
+    compared = false;
     for (const cube of cubes) {
       cube.queue = [];
       cube.anim = null;
@@ -203,9 +209,8 @@
       cube.state = C.run(cube.state, moves);
       return;
     }
-    moves.forEach((move, i) => cube.queue.push({ move, mark: every > 0 && (i + 1) % every === 0 }));
+    moves.forEach((move, i) => cube.queue.push({ move, speed, mark: every > 0 && (i + 1) % every === 0 }));
     if (every) cube.inFlight += moves.length / every;
-    cube.speed = speed;
   }
 
   function step(dt) {
@@ -215,11 +220,11 @@
         if (!cube.anim) {
           if (!cube.queue.length) break;
           const next = cube.queue.shift();
-          cube.anim = { move: next.move, mark: next.mark, t: 0 };
+          cube.anim = { ...next, t: 0 };
         }
-        const need = (1 - cube.anim.t) * cube.speed;
+        const need = (1 - cube.anim.t) * cube.anim.speed;
         if (left < need) {
-          cube.anim.t += left / cube.speed;
+          cube.anim.t += left / cube.anim.speed;
           left = 0;
         } else {
           left -= need;
@@ -237,10 +242,7 @@
 
   function press(s, stage, move) {
     const seq = sequenceOf(s);
-    if (seq.length >= C.MAX_LENGTH) {
-      note = t.full;
-      return stage.sync();
-    }
+    if (seq.length >= C.MAX_LENGTH) return;
     if (s.repeats !== 1) {
       // A sequence is a recipe; start the new one from a solved cube.
       s.seq = C.encode([...seq, move]);
@@ -252,11 +254,15 @@
       perform(cubes[0], [move]);
       note = '';
     }
+    if (seq.length + 1 >= C.MAX_LENGTH) note = t.full;
     stage.setChosen(-1);
     stage.refresh();
+    stage.draw();
   }
 
   function undo(s, stage) {
+    // Undo acts on what the settings say; let anything still playing land first.
+    if (cubes[0].queue.length || cubes[0].anim) settle(s);
     const seq = sequenceOf(s);
     if (s.repeats > 1) {
       s.repeats -= 1;
@@ -270,6 +276,7 @@
     note = '';
     stage.setChosen(-1);
     stage.refresh();
+    stage.draw();
   }
 
   function repeat(s, stage, times = 1, speed = TURN) {
@@ -281,6 +288,7 @@
     perform(cubes[0], moves, speed, seq.length);
     note = '';
     stage.sync();
+    stage.draw();
   }
 
   function repeatUntilHome(s, stage) {
@@ -292,13 +300,16 @@
     s.repeats %= order; // back home: count afresh
     s.repeats ||= order;
     stage.sync();
+    stage.draw();
   }
 
   function compare(s, stage) {
     settle(s);
     perform(cubes[0], [s.a, s.b]);
     perform(cubes[1], [s.b, s.a]);
+    compared = true;
     stage.sync();
+    stage.draw();
   }
 
   // ---------- controls ----------
@@ -351,13 +362,16 @@
         stage.setChosen(-1);
         stage.refresh();
         $('scene-action').textContent = s.mode === 1 ? t.actionCompare : t.actionLabel;
-        panel.querySelector(`[data-mode="${s.mode}"]`)?.focus();
+        stage.draw();
+        $('scene-controls').querySelector(`[data-mode="${s.mode}"]`)?.focus();
       }),
     );
     panel.querySelectorAll('[data-move]').forEach((b) =>
       b.addEventListener('click', () => {
         press(s, stage, Number(b.dataset.move));
-        $('scene-controls').querySelector(`[data-move="${b.dataset.move}"]`)?.focus();
+        const again = $('scene-controls').querySelector(`[data-move="${b.dataset.move}"]`);
+        // A full sequence disables the pad; keep focus somewhere useful.
+        (again && !again.disabled ? again : $('cube-undo'))?.focus();
       }),
     );
     panel.querySelectorAll('[data-pick]').forEach((input) =>
@@ -366,6 +380,7 @@
         settle(s);
         stage.setChosen(-1);
         stage.sync();
+        stage.draw();
       }),
     );
     $('cube-undo')?.addEventListener('click', () => {
@@ -379,6 +394,7 @@
       note = '';
       stage.setChosen(-1);
       stage.refresh();
+      stage.draw();
       $('cube-clear')?.focus();
     });
     $('cube-home')?.addEventListener('click', () => repeatUntilHome(s, stage));
@@ -393,7 +409,7 @@
         b = C.run(C.solved(), [s.b, s.a]);
       const differ = a.filter((c, i) => c !== b[i]).length;
       $('scene-status').textContent = differ ? t.compareDiffer(differ).split(':')[0] : t.compareSame.split(':')[0];
-      if (box) box.textContent = differ ? t.compareDiffer(differ) : t.compareSame;
+      if (box) box.textContent = !compared ? t.compareReady : differ ? t.compareDiffer(differ) : t.compareSame;
       return;
     }
     const seq = sequenceOf(s);
@@ -407,7 +423,8 @@
       box.innerHTML =
         `<strong class="cube-notation">${t.sequence(C.notation(seq))}</strong>` +
         `<span>${seq.length ? t.times(done) + ' · ' + t.order(C.order(seq)) : ''}</span>` +
-        `<span>${t.moved(moved)}</span>`;
+        `<span>${t.moved(moved)}</span>` +
+        (seq.length >= C.MAX_LENGTH ? `<span>${t.full}</span>` : '');
   }
 
   // ---------- the room ----------
@@ -473,11 +490,13 @@
     step,
     preview,
 
-    enter(s) {
+    enter(s, stage) {
       // A shared link may carry a sequence code that doesn't decode; fall back to none.
       if (C.decode(s.seq) === null) s.seq = 0;
+      if (s.seq === 0) s.repeats = 1;
       settle(s);
       note = '';
+      stage.sync(); // the panel was built before settle() cleared any old animation
     },
     onPreset(s, stage) {
       settle(s);
@@ -499,20 +518,20 @@
     pointer: {
       move(p, { dragging, dx, dy }, s, stage) {
         if (!dragging) return;
-        ry += dx * 0.009;
+        ry = (ry + dx * 0.009) % TAU;
         rx = clamp(rx + dy * 0.009, -1.4, 1.4);
         stage.draw();
       },
       arrow(dx, dy) {
-        ry += dx * 0.15;
+        ry = (ry + dx * 0.15) % TAU;
         rx = clamp(rx + dy * 0.15, -1.4, 1.4);
       },
     },
 
     extraSettings: () => ({ rx, ry }),
     restore(saved) {
-      rx = Number.isFinite(saved.rx) && Math.abs(saved.rx) < 2 ? saved.rx : 0.5;
-      ry = Number.isFinite(saved.ry) && Math.abs(saved.ry) < 100 ? saved.ry : -0.62;
+      rx = Number.isFinite(saved.rx) ? clamp(saved.rx, -1.4, 1.4) : 0.5;
+      ry = Number.isFinite(saved.ry) ? saved.ry % TAU : -0.62;
     },
   });
 })();
