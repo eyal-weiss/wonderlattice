@@ -1,0 +1,60 @@
+/* Bend the plane: paired selects and sliders, and the compass readout. */
+.plane-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 14px 12px;
+}
+.plane-pair label {
+  font-size: 13px;
+}
+.plane-pair select {
+  font-size: 13px;
+  padding: 7px;
+  margin-top: 6px;
+}
+.plane-pair input[type='range'] {
+  margin-top: 12px;
+}
+.plane-readout {
+  border: 1px solid #34425a;
+  background: #111a27;
+  padding: 12px 14px;
+  border-radius: 9px;
+}
+.plane-rows {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px 12px;
+  font-size: 13px;
+  color: #b5c0ce;
+  font-variant-numeric: tabular-nums;
+}
+.plane-rows strong {
+  color: var(--ink);
+  font-weight: 600;
+  text-align: right;
+}
+.plane-readout p {
+  margin: 10px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #cfe0ff;
+}
+body[data-room='plane'] #scene-canvas.plane-grab {
+  cursor: grab;
+}
+.plane-checks {
+  display: grid;
+  gap: 12px;
+}
+.plane-checks:empty {
+  display: none;
+}
+/* On phones the two pictures sit one above the other, so give the stage more height. */
+@media (max-width: 760px) {
+  body[data-room='plane'] #new-room .drawing {
+    height: 82svh;
+    min-height: 600px;
+    max-height: 760px;
+  }
+}
