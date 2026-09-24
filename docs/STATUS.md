@@ -1,5 +1,9 @@
 # Project state — 2026-09-23
 
+## Review fix — 2026-09-24
+
+The traffic room now draws distinct, visible moving markers along the active routes and shows a large before/after travel-time comparison. At 4,000 drivers, opening the shortcut changes the display from 65 to 80 minutes and highlights that everyone takes 15 minutes longer. The earlier markers blended into the road and the result was easy to miss. The markers represent route proportions, not individual vehicle trajectories. Browser checks covered the closed/open result and moving frames; the Node traffic tests and static build also passed. The review site has been updated, while the private repository pull request remains open pending owner feedback.
+
 ## Working and included
 
 - Geometry: drawing with combined rotations, presets, parameter controls, PNG export.
