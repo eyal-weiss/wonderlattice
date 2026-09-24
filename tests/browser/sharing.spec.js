@@ -44,7 +44,7 @@ test('images can be saved as PNG files', async ({ page }) => {
 
 test('the app runs from a file:// URL without a server', async ({ page }) => {
   await page.goto(pathToFileURL(resolve(process.env.SERVE_DIR || '.', 'index.html')).href);
-  await expect(page.locator('.room-card')).toHaveCount(5);
+  await expect(page.locator('.room-card')).toHaveCount(Object.keys(ROOMS).length);
   for (const room of ['waves', 'flock', 'ribbon', 'traffic', 'motion']) {
     await openRoom(page, room);
     await expect(page.locator(room === 'motion' ? '#motion-room h1' : '#room-title')).toHaveText(ROOMS[room]);

@@ -14,8 +14,14 @@ test('the home map shows every room once, grouped by theme, with a picture', asy
     await expect(page.locator(`#card-${room}`)).toHaveCount(1);
     await expect.poll(() => inkedPixels(page, `#card-${room} canvas`)).toBeGreaterThan(20);
   }
-  const themes = await page.locator('.theme h2').allTextContents();
-  expect(themes).toEqual(['Shape & space', 'Living patterns', 'Signals & networks']);
+  // Themes appear in their declared order, and only when they have rooms.
+  const expected = await page.evaluate(() =>
+    globalThis.Wonderloom.themes
+      .filter((t) => globalThis.Wonderloom.rooms.some((r) => r.theme === t.id))
+      .map((t) => t.name),
+  );
+  expect(await page.locator('.theme h2').allTextContents()).toEqual(expected);
+  expect(expected.length).toBeGreaterThan(1);
 });
 
 test('opens each room with a live picture and an explanation', async ({ page }) => {
