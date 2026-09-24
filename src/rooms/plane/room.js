@@ -10,6 +10,7 @@
   const reduced = W.prefersReducedMotion();
 
   const BEND_TIME = 2.4; // seconds for "Bend it" to go from 0 to 1
+  const GLIDE_TIME = 1.2; // seconds for the compass to walk back onto its path
   const STROLL_TIME = 18; // seconds for the compass to walk once round its path
   // The length of the compass's arrows on the left, in pixels: a little shorter on small screens.
   const arrowFor = (P) => clamp(Math.min(P.w, P.h) * 0.09, 24, 36);
@@ -59,7 +60,7 @@
     layout = null, // the geometry of the last frame, for the pointer
     morph = null, // { elapsed } while "Bend it" plays, else null
     strolling = !reduced, // the compass walks while the stage plays, until the visitor takes it
-    gliding = false, // walking back to its path after the visitor let go
+    glide = null, // { elapsed, from } while the compass walks back onto its path, else null
     stroll = 0, // the angle along the walk
     grabbed = null, // offset from the pointer to the compass while dragging
     firstVisit = true,
@@ -390,11 +391,16 @@
       map = M.blend(s.fn, bend);
     const base = L.z.px(z),
       length = arrowFor(L.z);
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(L.z.x, L.z.y, L.z.w, L.z.h);
+    ctx.clip();
     ctx.fillStyle = COLORS.halo;
     ctx.beginPath();
     ctx.arc(base[0], base[1], length + 8, 0, TAU);
     ctx.fill();
     drawCompass(ctx, base, [length, 0], [0, -length], true);
+    ctx.restore();
 
     const w = map.f(z),
       d = map.df(z);
@@ -409,7 +415,7 @@
       angle = M.arg(d),
       a = [length * k * Math.cos(angle), -length * k * Math.sin(angle)],
       b = [length * k * Math.cos(angle + Math.PI / 2), -length * k * Math.sin(angle + Math.PI / 2)];
-    if (length * k < 3) {
+    if (M.isCritical(s.fn, bend, z)) {
       // At a critical point the arrows vanish: a gentle pulse marks where they went.
       const pulse = reduced ? 0.5 : (clock * 0.9) % 1;
       ctx.strokeStyle = `rgba(221, 246, 163, ${0.9 * (1 - pulse)})`;
@@ -493,6 +499,8 @@
   }
 
   function draw(ctx, s, stage) {
+    // A shared link, saved moment, or resize can leave the compass outside the panel: bring it back.
+    if (keepInside(s, stage.width, stage.height)) readouts(s);
     render(ctx, s, stage, { clock: stage.clock });
     // The tip names where the pictures are: side by side, or one above the other.
     const tip = layout.wide ? t.tip : t.tipStacked;
@@ -511,37 +519,56 @@
 
   // ---- Moving the compass --------------------------------------------------------------
 
-  /** Keep the compass inside the left panel. */
-  function place(s, z) {
-    const P = layout?.z,
-      rx = P ? P.rx * 0.97 : fnOf(s).frame.rx,
-      ry = P ? P.ry * 0.97 : fnOf(s).frame.ry,
-      { cx, cy } = fnOf(s).frame;
+  /**
+   * Put the compass at z, kept inside the left panel P with room for its
+   * arrows and halo. Without a panel, the map's frame is the bound.
+   */
+  function place(s, z, P = layout?.z) {
+    const { cx, cy, rx: frameX, ry: frameY } = fnOf(s).frame;
+    const margin = P ? (arrowFor(P) + 10) / P.scale : 0,
+      rx = P ? Math.max(0, P.rx - margin) : frameX,
+      ry = P ? Math.max(0, P.ry - margin) : frameY;
     s.probeX = round(clamp(z[0], cx - rx, cx + rx), 3);
     s.probeY = round(clamp(z[1], cy - ry, cy + ry), 3);
+  }
+
+  /** Keep the compass inside the left panel as laid out for the current settings (after links, moments, presets). */
+  function keepInside(s, width, height) {
+    const x = s.probeX,
+      y = s.probeY;
+    place(s, [x, y], measure(width, height, s, bentBy(s)).z);
+    return s.probeX !== x || s.probeY !== y;
   }
 
   /** The visitor takes the compass: it stops walking until Play or "Start again". */
   function take() {
     strolling = false;
-    gliding = false;
+    glide = null;
   }
 
+  /** Walk back onto the path from wherever the compass is now. */
+  const startGlide = () => (glide = { elapsed: 0, from: null });
+
+  /**
+   * One step of the walk. While gliding, the compass blends from where it was
+   * onto the moving path over GLIDE_TIME, then simply follows the path.
+   */
   function walk(dt, s) {
     stroll = (stroll + (dt * TAU) / STROLL_TIME) % TAU;
     const target = STROLLS[s.fn](stroll);
-    if (gliding) {
-      const z = [s.probeX, s.probeY],
-        gap = M.sub(target, z);
-      if (M.abs(gap) < 0.02) gliding = false;
-      place(s, M.add(z, M.scale(gap, Math.min(1, dt * 2.2))));
+    if (glide) {
+      glide.from ??= [s.probeX, s.probeY];
+      glide.elapsed += dt;
+      const u = Math.min(1, glide.elapsed / GLIDE_TIME);
+      place(s, M.add(glide.from, M.scale(M.sub(target, glide.from), ease(u))));
+      if (u >= 1) glide = null;
     } else place(s, target);
   }
 
   /** Start walking again from wherever the compass is: first glide back to the path. */
   function resumeStroll() {
     strolling = !reduced;
-    gliding = true;
+    startGlide();
   }
 
   function startBend(s, stage) {
@@ -577,7 +604,7 @@
       d = map.df(z);
     const pole = !M.finite(w) || !M.finite(d),
       stretch = pole ? Infinity : M.abs(d),
-      critical = !pole && stretch < 0.04;
+      critical = !pole && M.isCritical(s.fn, bend, z);
     const turn = pole || critical ? null : Math.round((M.arg(d) * 180) / Math.PI);
     $('scene-name').textContent = bend === 1 ? t.formulas[s.fn] : t.bent(t.formulas[s.fn], Math.round(bend * 100));
     $('scene-status').textContent = pole
@@ -643,7 +670,7 @@
         if (key === 'fn') {
           // A new map has a new frame: keep the compass inside it (the frame is laid out by the draw above).
           place(s, [s.probeX, s.probeY]);
-          if (strolling) gliding = true;
+          if (strolling) startGlide();
           stage.sync();
           stage.draw();
         }
@@ -751,7 +778,9 @@
       const fresh = firstVisit && !reduced && isDefault(s);
       firstVisit = false;
       strolling = fresh && stage.playing;
-      gliding = true;
+      startGlide();
+      // The compass is kept inside its panel by draw(), which the stage calls right after this with
+      // the canvas measured (here the stage may still hold another size, so clamping now could move it wrongly).
       if (fresh) startBend(s, stage);
     },
 
@@ -775,8 +804,9 @@
     },
 
     onPreset(s, stage) {
-      place(s, [s.probeX, s.probeY]);
-      if (strolling) gliding = true;
+      // The preset may change the map: keep the compass inside the new map's panel, not the old one's.
+      keepInside(s, stage.width, stage.height);
+      if (strolling) startGlide();
       startBend(s, stage);
     },
 
@@ -785,8 +815,8 @@
 
     /** "Start again": bend again from the start, and send the compass walking. */
     reset(s, stage) {
+      startBend(s, stage); // this starts the stage playing if it was paused
       resumeStroll();
-      startBend(s, stage);
     },
 
     pointer: {

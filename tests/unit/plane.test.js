@@ -59,6 +59,29 @@ test('where f′ = 0 angles are not kept: z² doubles them at 0', () => {
   for (const fn of FUNCTIONS) for (const c of fn.critical) assert.ok(abs(fn.df(c)) < 1e-12, `${fn.id} at ${c}`);
 });
 
+test('angles break only at critical points: a small stretch alone is not critical', () => {
+  const EXP = 2,
+    INVERT = 1;
+  // e^z far to the left and 1/z far out stretch by very little, yet keep every angle.
+  assert.ok(abs(FUNCTIONS[EXP].df([-5.65, -0.2])) < 0.004);
+  assert.equal(P.isCritical(EXP, 1, [-5.65, -0.2]), false);
+  assert.ok(abs(FUNCTIONS[INVERT].df([-4.5, 4.9])) < 0.03);
+  assert.equal(P.isCritical(INVERT, 1, [-4.5, 4.9]), false);
+  // Fully bent: at and just beside each map's own critical points.
+  assert.equal(P.isCritical(0, 1, [0, 0]), true);
+  assert.equal(P.isCritical(0, 1, [0.015, -0.01]), true);
+  assert.equal(P.isCritical(0, 1, [0.2, 0]), false);
+  assert.equal(P.isCritical(P.JOUKOWSKI, 1, [1, 0]), true);
+  assert.equal(P.isCritical(P.JOUKOWSKI, 1, [-1, 0.01]), true);
+  assert.equal(P.isCritical(3, 1, [Math.PI / 2, 0]), true);
+  // Part-way bent, the blend has its own critical points: for z² at t = 1/2, w′ = 1/2 + z.
+  assert.equal(P.isCritical(0, 0.5, [-0.5, 0]), true);
+  assert.equal(P.isCritical(0, 0.5, [0, 0]), false);
+  // Unbent, nothing is critical; and a pole is not a critical point.
+  assert.equal(P.isCritical(0, 0, [0, 0]), false);
+  assert.equal(P.isCritical(INVERT, 0.5, [0, 0]), false);
+});
+
 test('1/z sends circles through 0 to straight lines, and the line x = 1 to a circle', () => {
   const invert = FUNCTIONS[1];
   // The circle |z − 1/2| = 1/2 passes through 0; its image is the line Re w = 1.

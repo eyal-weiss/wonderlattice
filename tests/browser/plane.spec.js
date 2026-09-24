@@ -8,7 +8,7 @@ const settings = async (page) => (await tool(page, 'read_exploration')).settings
  * stacked (whichever makes them bigger), each showing the map's frame with 8%
  * to spare and x and y at the same scale.
  */
-async function onScreen(page, z) {
+async function leftPanel(page) {
   const box = await page.locator('#scene-canvas').boundingBox();
   const { fn } = await settings(page);
   const frame = await page.evaluate((i) => globalThis.Wonderloom.models.plane.FUNCTIONS[i].frame, fn);
@@ -16,10 +16,29 @@ async function onScreen(page, z) {
     stack = { w: box.width - 8, h: (box.height - 38) / 2 };
   const size = Math.min(side.w, side.h) >= Math.min(stack.w, stack.h) ? side : stack;
   const scale = Math.min(size.w / (2 * frame.rx), size.h / (2 * frame.ry)) / 1.08;
+  return { x: box.x + 4, y: box.y + 4, w: size.w, h: size.h, frame, scale };
+}
+
+async function onScreen(page, z) {
+  const P = await leftPanel(page);
   return {
-    x: box.x + 4 + size.w / 2 + (z[0] - frame.cx) * scale,
-    y: box.y + 4 + size.h / 2 - (z[1] - frame.cy) * scale,
+    x: P.x + P.w / 2 + (z[0] - P.frame.cx) * P.scale,
+    y: P.y + P.h / 2 - (z[1] - P.frame.cy) * P.scale,
   };
+}
+
+/** The compass and its arrows (36 px at most) are inside the left panel. */
+async function expectCompassInside(page) {
+  const s = await settings(page),
+    P = await leftPanel(page),
+    at = await onScreen(page, [s.probeX, s.probeY]);
+  for (const [value, low, high] of [
+    [at.x, P.x, P.x + P.w],
+    [at.y, P.y, P.y + P.h],
+  ]) {
+    expect(value - 36).toBeGreaterThanOrEqual(low);
+    expect(value + 36).toBeLessThanOrEqual(high);
+  }
 }
 
 async function pause(page) {
@@ -172,4 +191,48 @@ test('a shared plane link restores the function, picture, wing, and compass', as
   await page.evaluate(() => (location.hash = 'room=plane&fn=9&thick=2&picture=1.5&bend=100'));
   await expect(page.locator('#v-bend')).toHaveText('100%');
   expect(await settings(page)).toMatchObject({ fn: 4, picture: 4, thick: 0.2, bend: 100 });
+});
+
+test('plane room: the compass always stays inside its panel', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 1000 });
+  // A shared link may place it anywhere in [−5, 5]: it is brought back inside.
+  await page.goto('/#room=plane&probeX=5&probeY=-5');
+  await expect.poll(async () => (await settings(page)).probeX).toBeLessThan(5);
+  await expectCompassInside(page);
+  await page.goto('/#room=plane&fn=1&probeX=2.5&probeY=0');
+  await expect.poll(async () => (await settings(page)).probeX).toBeLessThan(2.5);
+  await expectCompassInside(page);
+  // A preset that changes the map keeps it inside the new map's panel: from the top of e^z's tall strip to z².
+  await page.goto('/#room=plane&fn=2&probeX=-0.3&probeY=3.1');
+  await pause(page);
+  await expectCompassInside(page);
+  await page.getByRole('button', { name: /Square the plane/ }).click();
+  await expect(page.locator('#plane-fn')).toHaveValue('0');
+  await expectCompassInside(page);
+});
+
+test('plane room: angles break only at critical points, not wherever the stretch is small', async ({ page }) => {
+  // e^z far to the left shrinks everything a lot, but it has no critical points: angles are kept.
+  await page.goto('/#room=plane&fn=2&probeX=-5&probeY=-0.2');
+  await expect(page.locator('#plane-readout')).toContainText('still meet at a right angle');
+  await expect(page.locator('#scene-status')).not.toHaveText('Here f′ = 0');
+  await expect(page.locator('#scene-status')).toContainText('×0.');
+  // Joukowski at z = 1, the wing's trailing edge, is critical.
+  await page.evaluate(() => (location.hash = 'room=plane&fn=4&picture=0&probeX=1&probeY=0'));
+  await expect(page.locator('#scene-status')).toHaveText('Here f′ = 0');
+  // Part-way bent, the blend's own critical points count: for z² at 50%, w′ = 0.5 + z vanishes at −0.5.
+  await page.evaluate(() => (location.hash = 'room=plane&fn=0&picture=0&bend=50&probeX=-0.5&probeY=0'));
+  await expect(page.locator('#scene-status')).toHaveText('Here f′ = 0');
+  await page.evaluate(() => (location.hash = 'room=plane&fn=0&picture=0&bend=50&probeX=0&probeY=0'));
+  await expect(page.locator('#plane-readout')).toContainText('blend');
+});
+
+test('plane room: "Start again" while paused bends the plane and sends the compass walking', async ({ page }) => {
+  await page.goto('/#room=plane&probeX=-1&probeY=-1');
+  await pause(page);
+  const before = await settings(page);
+  await page.locator('#scene-reset').click();
+  await expect(page.locator('#scene-play')).toHaveText('Pause');
+  await expect.poll(async () => (await settings(page)).probeX, { timeout: 5000 }).not.toBe(before.probeX);
+  await expect(page.locator('#v-bend')).toHaveText('100%', { timeout: 15000 });
 });

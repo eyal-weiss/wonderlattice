@@ -127,6 +127,21 @@
     };
   }
 
+  /**
+   * Whether angles break at z for the map at blend t. Fully bent, that is only
+   * near one of the map's own critical points (a small |f′| elsewhere, as for
+   * e^z far to the left, still keeps angles). Part-way, the blend's derivative
+   * (1 − t) + t·f′(z) vanishes where its two terms cancel, so the test is
+   * relative to their sizes.
+   */
+  function isCritical(index, t, z, { near = 0.03, ratio = 0.03 } = {}) {
+    const fn = FUNCTIONS[index];
+    if (t >= 1) return fn.critical.some((c) => abs(sub(z, c)) < near);
+    const d = fn.df(z);
+    if (!finite(d)) return false;
+    return abs(add([1 - t, 0], scale(d, t))) < ratio * (1 - t + t * abs(d));
+  }
+
   /** The view of the image plane at blend t: from the picture's frame (t = 0) to the map's image (t = 1). */
   function imageView(index, t) {
     const { frame, image } = FUNCTIONS[index];
@@ -419,6 +434,7 @@
     JOUKOWSKI,
     PICTURES,
     blend,
+    isCritical,
     imageView,
     numericDerivative,
     imageAngle,
