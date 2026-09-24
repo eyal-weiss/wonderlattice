@@ -1,0 +1,28 @@
+/* Send a picture through a storm: the panel's figures and the small damage curve. */
+.storm-readout {
+  border: 1px solid #3a4658;
+  background: #121a25;
+  padding: 14px 16px;
+  border-radius: 9px;
+}
+.storm-figures {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 7px 12px;
+  font-variant-numeric: tabular-nums;
+}
+.storm-value {
+  font-weight: 600;
+  text-align: right;
+}
+.storm-curve-box {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #2a3544;
+}
+.storm-curve {
+  display: block;
+  width: 100%;
+  height: 70px;
+  margin-top: 6px;
+}

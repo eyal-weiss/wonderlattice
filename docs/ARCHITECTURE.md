@@ -30,6 +30,7 @@ src/
   features/trail.js        My trail (localStorage, export/import)
   rooms/<id>/model.js      the room's mathematics: pure functions, no DOM, unit-tested in Node
   rooms/<id>/room.js       the room itself: words, settings, controls, drawing, visitors, explanation
+  rooms/<id>/room.css      optional styles for that room only (class names prefixed with the room id)
 portraits/                 bundled portrait images (rights in docs/PORTRAITS.md)
 scripts/serve.mjs          zero-dependency local server  (npm start)
 scripts/build.mjs          builds dist/ and dist/wonderloom-standalone.html  (npm run build)
@@ -111,7 +112,8 @@ numbers. The mathematics in `model.js` never contains visitor-facing words.
    its source and rights in `docs/PORTRAITS.md`.
 5. Add the room to `ROOMS` in `tests/browser/helpers.js`, and a browser test for its surprise. Mention it in the page
    `description` and the README if it deserves it.
-6. Optional: add trail `bridges` in `src/features/trail.js` and room-specific CSS in `styles/rooms.css`.
+6. Optional: add trail `bridges` in `src/features/trail.js`, and room-specific CSS in `src/rooms/<id>/room.css`, linked
+   in the head of `index.html` after `styles/trail.css` (the build inlines it).
 7. Run `npm run check`. When several checkouts run browser tests at once, give each its own port:
    `PW_PORT=4711 PW_CHANNEL=chrome npm run check`.
 
