@@ -300,3 +300,49 @@ body[data-room='traffic'] .scene-status {
     font-size: 26px;
   }
 }
+
+/* The mathematical loom: the tie-up grid of toggles. */
+.loom-heading {
+  font-size: 14px;
+}
+.loom-tieup {
+  display: grid;
+  grid-template-columns: 26px repeat(4, 34px);
+  gap: 6px;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+}
+.loom-cell {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #4a5563;
+  border-radius: 7px;
+  background: #18212b;
+}
+.loom-cell[aria-pressed='true'] {
+  background: #f3d28c;
+  border-color: #f3d28c;
+}
+.loom-cell:hover {
+  border-color: #d8b877;
+}
+.loom-float {
+  line-height: 1.45;
+}
+
+.loom-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 12px;
+}
+.loom-options label {
+  font-size: 13px;
+}
+.loom-options select {
+  font-size: 13px;
+  padding: 7px;
+  margin-top: 6px;
+}
