@@ -143,6 +143,13 @@ a.brand:focus-visible {
     padding-top: 12px;
     gap: 10px;
   }
+  .room-home {
+    white-space: nowrap;
+  }
+  .room-bar-theme {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
 }
 @media (max-width: 340px) {
   .room-cards {
