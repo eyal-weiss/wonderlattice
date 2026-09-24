@@ -18,7 +18,7 @@ Use a fresh local checkout or a separate Git worktree for each agent. An agent s
 
 ```sh
 npm ci
-npm run build
+npm run check
 git add .
 git commit -m "Describe the change"
 git push -u origin agent/descriptive-task-name
@@ -28,6 +28,6 @@ Open a pull request into `main` with a short summary, a test note, and any remai
 
 ## Future AI prompt
 
-> Clone the private Wonderloom repository I have granted you access to. Read README.md, AGENTS.md, and docs/STATUS.md. Create a new branch named agent/[your-task], implement [TASK], run the build and relevant behavior checks, update the status if needed, and open a pull request into main. Do not push directly to main, merge your own pull request, or publish the site. Report the branch, PR, tests, and unfinished risks.
+> Clone the private Wonderloom repository I have granted you access to. Read README.md, AGENTS.md, docs/ARCHITECTURE.md, and docs/STATUS.md. Create a new branch named agent/[your-task], implement [TASK], run `npm run check` and any manual checks the change needs, update the status if needed, and open a pull request into main. Do not push directly to main, merge your own pull request, or publish the site. Report the branch, PR, tests, and unfinished risks.
 
-The project currently works from index.html directly, so npm is optional for using the app. A build is useful for checking future source edits. Never commit credentials, node_modules, dist, or generated private data. Before inviting an external AI to the private repository, review the access it requests. The repository owner controls access and merges.
+The app works from index.html directly, so npm is optional for using it. `npm run check` runs lint, formatting, model tests, the build, and browser tests, the same checks CI runs on every pull request. Never commit credentials, node_modules, dist, or generated private data. Before inviting an external AI to the private repository, review the access it requests. The repository owner controls access and merges.

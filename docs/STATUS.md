@@ -1,16 +1,26 @@
-# Project state — 2026-09-23
+# Project state — 2026-09-24
 
-## Discovery trail — 2026-09-24
+## Maintainability refactor — 2026-09-24 (branch `agent/maintainability`)
 
-Each room now offers “Keep this moment.” A visitor can save a small still, current settings, and an optional note to a browser-local “My trail.” They can revisit settings, add a later reflection, and follow curated links between related rooms. JSON export/import allows backups and transfer; import replaces the current trail. The trail holds 24 moments and has no score, account, tracking, or server storage. A browser session verified saving motion and waves, restoring a wave ratio, reflections after reload, and controls in all five rooms. The owner-only hosted review version has been updated; the private GitHub repository still lags while earlier repository operations await approval review.
+The single 92 KB `index.html`, written as minified one-line code, is now readable files: `styles/` (4 stylesheets),
+`src/core/` (namespace, shared stage, app shell), `src/features/` (visitors, trail), and `src/rooms/<id>/` (a pure
+`model.js` and a `room.js` per room). Rooms register themselves in one registry. Navigation, keyboard order, shared
+links, trail validation, and agent tools all derive from it, replacing about eight hand-maintained room lists. The page
+still opens from disk with no build.
 
-## Mathematician visitors — 2026-09-24
+Visitor behaviour is unchanged. 17 browser tests were written against the original code first and pass unchanged on
+the new code. Deterministic screenshots of 27 states (every room, dialogs, trail, reduced motion, 320–1280 px) match
+the original pixel for pixel, apart from sub-frame animation timing noise. Deliberate small changes:
 
-Each of the five rooms has a small mathematician cameo chosen at random from a room-specific pair. A visitor can meet another one with the ↻ button. The face is a documented historical photograph or portrait, framed inside an original paper-puppet body that hops and waves on appearance. Motion is disabled when reduced motion is preferred. The captions are original connections, never presented as historical quotations. Each card links to a biography and the source portrait. Images are bundled for offline play, and their rights and attributions are documented in docs/PORTRAITS.md. Figures without a trustworthy likeness were replaced, including Hypatia, Sophie Germain, and Dietrich Braess.
+- "Trace it all" strokes neighbouring same-colour segments together: 1.3–1.7× faster (about 670 → 380 ms on a 4×
+  throttled phone CPU), visually identical.
+- The "My trail" header icon is ✧ instead of ↗ (it opened a dialog, not a link, and duplicated the traffic icon).
+- The page description mentions the traffic room.
+- A shared drawing link without `room=` now also switches to the drawing room when it arrives by hash change.
 
-## Review fix — 2026-09-24
-
-The traffic room now draws distinct, visible moving markers along the active routes and shows a large before/after travel-time comparison. At 4,000 drivers, opening the shortcut changes the display from 65 to 80 minutes and highlights that everyone takes 15 minutes longer. The earlier markers blended into the road and the result was easy to miss. The markers represent route proportions, not individual vehicle trajectories. Browser checks covered the closed/open result and moving frames; the Node traffic tests and static build also passed. The review site has been updated, while the private repository pull request remains open pending owner feedback.
+Tooling: Vite is replaced by zero-dependency `scripts/serve.mjs` and `scripts/build.mjs`. The build writes `dist/` and
+`dist/wonderloom-standalone.html` (one ~480 KB file with portraits inlined). Added 12 model unit tests, 18 Playwright
+browser tests, ESLint, Prettier, and GitHub Actions CI that runs everything on each pull request.
 
 ## Working and included
 
@@ -18,29 +28,28 @@ The traffic room now draws distinct, visible moving markers along the active rou
 - Waves: summed signals, audible tones, phase cancellation, beats, Lissajous portraits.
 - Emergence: adjustable flocking model, pointer interaction, neighbor view.
 - Topology: interactive projected ribbon, half-twists, highlighted edges, traveler.
-- Optional explanatory text, browser narration, URL/settings sharing, responsive layout.
-- Networks: traffic shortcut paradox, adjustable demand, route proportions, and optional model explanation (on agent/braess-traffic pending review).
-- Mathematician visitors: room-specific animated cameos, historical portraits, short factual connections, biography and portrait-source links.
-- Optional saved discovery trail with scene stills, notes, revisit reflections, room connections, and local JSON export/import.
-- Independent source export, offline use, MIT license, AI handoff and translation guides.
+- Networks: Braess traffic paradox with adjustable demand, visible route markers, and a before/after travel-time
+  comparison (65 → 80 minutes at 4,000 drivers).
+- Mathematician visitors: two per room, historical portraits in paper-puppet bodies, original captions, biography and
+  portrait-source links. Figures without a trustworthy likeness were left out (Hypatia, Sophie Germain, Dietrich Braess).
+- My trail: saved stills, settings and notes, later reflections, links between related rooms, JSON export/import,
+  browser-local only, 24 moments.
+- Optional explanations, browser narration, link/settings sharing, responsive layout, reduced motion.
+- Offline use, a single-file export, MIT license, AI handoff, architecture, and translation guides.
 
-## Requested but not yet implemented
+## Not yet done
 
-- Separate experiment code and visitor-facing content into readable modules, retaining an offline export.
-- Add an in-app “Make your own version” flow with source download and an AI prompt containing current settings.
-- Complete visual, mobile, keyboard, and signed-out release checks.
-- The owner created a private `eyal-weiss/wonderloom` GitHub repository. The initial project source and collaboration guides have been imported; GitHub App access to this repository is granted. Making the repository public, if ever desired, is a separate decision.
-- Publish for public visitors; the last confirmed ChatGPT-hosted site access was owner-only.
-- Prepare a short demo video and social launch material. Nothing has been posted to X.
-- Add a permanent link from the personal website only after feedback warrants it.
+- An in-app "Make your own version" flow: source download and an AI prompt containing the current settings.
+- Hebrew (or other) translation. Visitor-facing words now live in room definitions, which makes this easier, but
+  there's no language dictionary or selector yet.
+- Publishing for public visitors under an owner-controlled account. The last ChatGPT-hosted site was owner-only.
+  GitHub Pages on this private repository needs a paid plan; Cloudflare Pages or Netlify work on free plans.
+- Manual release checks that automation can't do: listening to audio and narration, real phones, screen readers.
+- A short demo video and social launch material. Nothing has been posted.
+- A permanent link from the personal website, once feedback warrants it.
 
-## Next priority from the owner
+## Next priorities
 
-Full control: the owner must be able to continue with an editor or another AI even when GPT usage is exhausted. Keep a local copy and use the owner's private repository as the canonical source. This local folder does not itself update GitHub or change hosting.
-
-## Recommended next implementation sequence
-
-1. Use separate branches and pull requests for concurrent work.
-2. Refactor without changing existing behavior; preserve standalone offline output.
-3. Add and verify the traffic experiment and in-app remixing.
-4. Complete release QA, deploy under an owner-controlled account, and review the demo/post before sharing.
+1. Review and merge `agent/maintainability`.
+2. Decide on hosting and publish `dist/`.
+3. New rooms or features, one branch and pull request each (docs/ARCHITECTURE.md has the add-a-room checklist).
