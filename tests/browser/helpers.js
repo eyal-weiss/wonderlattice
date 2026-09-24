@@ -9,6 +9,7 @@ export const ROOMS = {
   loom: 'The mathematical loom.',
   storm: 'Send a picture through a storm.',
   sudoku: 'Sudoku, made transparent.',
+  dice: 'The dice that beat each other.',
 };
 
 // Records page errors, captures clipboard writes, and exposes the optional

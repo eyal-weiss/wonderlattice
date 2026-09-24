@@ -9,3 +9,4 @@ import '../../src/rooms/traffic/model.js';
 import '../../src/rooms/loom/model.js';
 import '../../src/rooms/storm/model.js';
 import '../../src/rooms/sudoku/model.js';
+import '../../src/rooms/dice/model.js';
