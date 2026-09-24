@@ -6,6 +6,7 @@ export const ROOMS = {
   flock: 'A mind of many.',
   ribbon: 'Where is the other side?',
   traffic: 'The tempting shortcut.',
+  loom: 'The mathematical loom.',
 };
 
 // Records page errors, captures clipboard writes, and exposes the optional

@@ -1,5 +1,14 @@
 # Project state — 2026-09-24
 
+## The mathematical loom — 2026-09-24
+
+A new "Making" room. A four-shaft weaving draft (threading, tie-up, treadling) sits beside the cloth it weaves. The
+cloth grows one pass at a time, a shuttle carries each new pass across, and colour orders turn twill into houndstooth.
+Visitors toggle the 16 tie-up squares or pick a preset: plain weave, twill, houndstooth, "stripes, not checks", bird's
+eye, or chevron. The room reports how often the cloth repeats and how long its floats are, including a warning when a
+thread never interlaces. The drawdown is the Boolean product treadling × tie-up × threadingᵀ, unit-tested against an
+independent product. The visitor is a drawn sketch of Ada Lovelace.
+
 ## Home map — 2026-09-24 (branch `agent/home-map`)
 
 The row of room tabs is replaced by a home map, so Wonderloom can grow past a handful of rooms. It shows rooms as

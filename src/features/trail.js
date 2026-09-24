@@ -15,6 +15,7 @@
     ['motion', 'waves', 'A turning circle can leave a wave in its wake.'],
     ['flock', 'traffic', 'A crowd can surprise itself, one local choice at a time.'],
     ['ribbon', 'motion', 'Follow a point and a shape can reveal another side.'],
+    ['loom', 'flock', 'One small rule, repeated everywhere, can shape the whole.'],
   ];
   const name = (id) => W.room(id)?.name ?? id;
   let entries = [],
