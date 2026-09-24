@@ -84,7 +84,7 @@ test('sample room: biased presets are tight around the wrong answer, and batches
     return m.oddestHood(m.city(44));
   });
   await expect(page.locator('#sample-hood')).toHaveValue(String(oddest));
-  await expect(page.locator('#scene-name')).toHaveText('Only in Lantern Hill');
+  await expect(page.locator('#scene-name')).toHaveText('In Lantern Hill');
   await page.locator('#scene-action').click();
   await expect(page.locator('#sample-count')).toHaveText('50 surveys of 50 people');
   ({ mean, truth } = await meanAndTruth(page));
@@ -105,7 +105,7 @@ test('sample room: the map, the keyboard, and a new city', async ({ page }) => {
   await page.keyboard.press('ArrowRight');
   await expect(page.locator('#sample-method')).toHaveValue('1');
   await expect(page.locator('#sample-hood')).toHaveValue('11');
-  await expect(page.locator('#scene-name')).toHaveText('Only in Ropewalk');
+  await expect(page.locator('#scene-name')).toHaveText('In Ropewalk');
   await page.keyboard.press('ArrowUp');
   await expect(page.locator('#sample-size-value')).toHaveText('75');
   await page.keyboard.press('ArrowDown');
@@ -122,13 +122,13 @@ test('sample room: the map, the keyboard, and a new city', async ({ page }) => {
   await expect(page.locator('#sample-method')).toHaveValue('1');
   const tapped = Number(await page.locator('#sample-hood').inputValue());
   const names = await page.locator('#sample-hood option').allTextContents();
-  await expect(page.locator('#scene-name')).toHaveText(`Only in ${names[tapped]}`);
+  await expect(page.locator('#scene-name')).toHaveText(`In ${names[tapped]}`);
 
   // Picking a neighbourhood from the list also means asking there.
   await page.locator('#sample-method').selectOption('2');
   await page.locator('#sample-hood').selectOption('4');
   await expect(page.locator('#sample-method')).toHaveValue('1');
-  await expect(page.locator('#scene-name')).toHaveText('Only in Riverside');
+  await expect(page.locator('#scene-name')).toHaveText('In Riverside');
 
   // A new city has a new seed, and the neighbourhood asked is its most unusual one.
   await page.locator('#sample-city').click();
@@ -157,7 +157,7 @@ test('sample room: a shared link restores the survey, and odd values are ignored
   await expect(page.locator('#sample-hood')).toHaveValue('3');
   await expect(page.locator('#sample-size-value')).toHaveText('200');
   await expect(page.locator('[data-check="reveal"]')).toBeChecked();
-  await expect(page.locator('#scene-name')).toHaveText('Only in Mill Row');
+  await expect(page.locator('#scene-name')).toHaveText('In Mill Row');
   await expect(page.locator('#sample-readout')).toHaveAttribute('data-truth', (await cityShare(page, 42)).toFixed(2));
   await page.locator('#scene-share').click();
   const link = await page.evaluate(() => window.__clipboard.at(-1));
@@ -169,4 +169,20 @@ test('sample room: a shared link restores the survey, and odd values are ignored
   await expect(page.locator('#sample-method')).toHaveValue('1');
   await expect(page.locator('#sample-size-value')).toHaveText('200');
   expect((await tool(page, 'read_exploration')).settings.seed).toBe(42);
+});
+
+test('old survey dots stay put after leaving the room and coming back', async ({ page }) => {
+  test.setTimeout(60000);
+  await page.goto('/#room=sample');
+  await page.locator('#scene-action').click(); // Ask 50 times
+  await expect(page.locator('#sample-estimate')).not.toHaveAttribute('aria-busy', 'true', { timeout: 20000 });
+  await page.waitForTimeout(1500);
+  await page.locator('#room-next').click();
+  await page.locator('#room-prev').click();
+  const picture = () => page.locator('#scene-canvas').evaluate((c) => c.toDataURL());
+  // A re-run of the drop animation would change the plot over the next few seconds.
+  await page.waitForTimeout(500);
+  const settled = await picture();
+  await page.waitForTimeout(4500);
+  expect(await picture()).toBe(settled);
 });

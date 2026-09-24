@@ -12,6 +12,9 @@
   const RATE = 16; // surveys a second while a batch is animating
   const MAX_SURVEYS = 250; // the dot plot keeps the latest surveys
   const STEPS = 50; // the dot plot's columns are 2 points apart, centred on 0%, 2%, … 100%
+  // Dots remember when they arrived on a clock that never resets, so re-entering the room
+  // (which restarts the stage clock) doesn't make old dots fall again.
+  const wall = () => performance.now() / 1000;
   const SIZES = [10, 15, 20, 30, 40, 50, 75, 100, 150, 200, 300, 400, 500, 750, 1000];
   // The default city: a close race that blue narrowly wins, with one neighbourhood (Lantern Hill) far more orange.
   const DEFAULT_SEED = 44;
@@ -60,6 +63,7 @@
 
   /** Put odd values (say, from an old link) right, and build the city when its seed changes. */
   function cityFor(s) {
+    s.size = SIZES[nearestStep(s.size)]; // links may carry any size; keep the slider's steps
     s.method = clamp(Math.round(s.method) || 0, 0, 2);
     s.size = clamp(Math.round(s.size) || 50, 10, 1000);
     s.hood = clamp(Math.round(s.hood) || 0, 0, model.HOODS - 1);
@@ -475,7 +479,7 @@
     ctx.fillRect(0, 0, width, height);
     const L = layout(width, height);
     live.geometry = drawMap(ctx, L.map, s, live);
-    drawPlot(ctx, L.plot, s, live, { now: stage.clock, animate: !reduced && stage.playing });
+    drawPlot(ctx, L.plot, s, live, { now: wall(), animate: !reduced && stage.playing });
   }
 
   /** The home-card picture: the city revealed, one neighbourhood's survey lit, and two clouds of estimates. */
@@ -557,7 +561,7 @@
     ensure(s);
     $('scene-name').textContent = sceneName(s);
     showSettings(s);
-    showTally(s, queue === 0);
+    showTally(s, queue === 0 || !W.stage.playing);
   }
 
   /** Any change of how to ask: the preset no longer matches, and the words follow. */
@@ -571,8 +575,8 @@
   function ask(s, stage, count) {
     ensure(s);
     if (reduced || !stage.playing || count === 1) {
-      for (let i = 0; i < count; i++) askOnce(s, stage.clock);
-      showTally(s, queue === 0);
+      for (let i = 0; i < count; i++) askOnce(s, wall());
+      showTally(s, queue === 0 || !W.stage.playing);
       stage.draw();
       return;
     }
@@ -732,8 +736,8 @@
       if (!n) return;
       due -= n;
       queue -= n;
-      for (let i = 0; i < n; i++) askOnce(s, stage.clock);
-      showTally(s, queue === 0);
+      for (let i = 0; i < n; i++) askOnce(s, wall());
+      showTally(s, queue === 0 || !W.stage.playing);
     },
 
     action(s, stage) {

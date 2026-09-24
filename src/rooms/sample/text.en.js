@@ -23,7 +23,7 @@ Wonderloom.defineText('sample', 'en', {
   // Ways of asking, in the model's order (random, one neighbourhood, whoever answers): short for the select.
   methodLabel: 'How to ask',
   methods: ['At random', 'Neighbours', 'Volunteers'],
-  sceneNames: ['Ask at random', (hood) => `Only in ${hood}`, 'Whoever answers'],
+  sceneNames: ['Ask at random', (hood) => `In ${hood}`, 'Whoever answers'],
   hoodLabel: 'Neighbourhood',
   hoods: [
     'Harbour',
@@ -104,11 +104,11 @@ Wonderloom.defineText('sample', 'en', {
 <div class="insight-visual">typical error² = wobble² + bias²</div>
 <p id="sample-live"></p>
 <h3>Millions of answers, the wrong winner</h3>
-<p>In 1936 the American magazine <em>The Literary Digest</em> mailed more than ten million ballots, mostly to names from telephone books and car registrations. Over 2.3 million came back, fewer than one in four. Its final count gave Alf Landon 55% and Franklin Roosevelt 41%. On election day Roosevelt won with 61%. Much smaller polls by George Gallup and others, who chose their samples more carefully, called Roosevelt the winner.</p>
+<p>In 1936 the American magazine <em>The Literary Digest</em> mailed more than ten million ballots, mostly to names from telephone books and car registrations. Over 2.3 million came back, fewer than one in four. Its final count gave Alf Landon 54% and Franklin Roosevelt 41%. On election day Roosevelt won with 61%. Much smaller polls by George Gallup and others, who chose their samples more carefully, called Roosevelt the winner.</p>
 <p>Half a century later, the political scientist Peverill Squire used a 1937 Gallup survey that asked people whether they had received a Digest ballot and sent it back. He found that both the list and the replies leaned towards Landon, and that together they caused the miss. Had everyone on the list replied, the poll would at least have named the right winner.</p>
 <h3>The wobble, exactly</h3>
 <p>For a random sample of <em>n</em> people from a city of <em>N</em>, where a share <em>p</em> prefer orange, the typical wobble (the standard error) is √(<em>p</em>(1 − <em>p</em>)/<em>n</em>) × √((<em>N</em> − <em>n</em>)/(<em>N</em> − 1)). The second factor, the finite-population correction, is there because nobody is asked twice. It matters here because the city is small, and it reaches zero when you ask everyone. The room uses this corrected formula.</p>
 <details><summary>What this toy city leaves out</summary><p>Two colours, neighbourhoods drawn at random, residents who never change their minds, and a reply rate that depends only on colour. Real polls choose people more cleverly (Jerzy Neyman argued in 1934 for random sampling within groups, called strata), then weight the answers to match what is known about the population and adjust for who didn’t reply. Gallup’s own 1930s polls filled quotas of different kinds of people, a method with flaws of its own. The margin of error printed beside a poll describes the random wobble only; it can’t see bias.</p></details>
-<div class="sources"><a class="source-link" href="https://doi.org/10.1086/269085" target="_blank" rel="noopener">Squire: why the 1936 Literary Digest poll failed (1988)</a><a class="source-link" href="https://doi.org/10.1111/j.2397-2335.1934.tb04184.x" target="_blank" rel="noopener">Neyman on random versus purposive sampling (1934)</a><a class="source-link" href="https://online.stat.psu.edu/stat506/Lesson02" target="_blank" rel="noopener">The standard error of a sample share (Penn State STAT 506)</a></div>`,
+<div class="sources"><a class="source-link" href="https://doi.org/10.1086/269085" target="_blank" rel="noopener">Squire: why the 1936 Literary Digest poll failed (1988)</a><a class="source-link" href="https://doi.org/10.2307/2342192" target="_blank" rel="noopener">Neyman on random versus purposive sampling (1934)</a><a class="source-link" href="https://online.stat.psu.edu/stat506/Lesson02" target="_blank" rel="noopener">The standard error of a sample share (Penn State STAT 506)</a></div>`,
   },
 });
