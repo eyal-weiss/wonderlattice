@@ -68,6 +68,8 @@
   }
 
   function leaveRoom() {
+    // A dialog from the last room shouldn't cover the next one (e.g. after Back or a shared link).
+    document.querySelectorAll('dialog[open]').forEach((d) => d.close());
     $('trail-return').hidden = true;
     W.silence();
     W.narration.stop();
