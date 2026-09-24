@@ -98,3 +98,25 @@ async function openRoomFromDialog(page, room) {
   await page.locator('#trail-dialog .trail-close').click();
   await openRoom(page, room);
 }
+
+test('every room can keep a moment in the trail and reopen it', async ({ page }) => {
+  await page.goto('/');
+  for (const room of Object.keys(ROOMS)) {
+    await openRoom(page, room);
+    await page.locator(room === 'motion' ? '#trail-keep-motion' : '#trail-keep-scene').click();
+    await page.locator('#trail-save').click();
+    await expect(page.locator('#trail-status'), `${room} saves`).toHaveText('');
+    await expect(page.locator('#trail-dialog')).toBeVisible();
+    await page.locator('#trail-dialog .trail-close').click();
+  }
+  await page.reload();
+  await page.locator('#trail-open').click();
+  await expect(page.locator('.trail-card')).toHaveCount(Object.keys(ROOMS).length);
+  const names = Object.keys(ROOMS);
+  for (let i = 0; i < names.length; i++) {
+    // Newest first, so the last room saved is the first card.
+    await page.locator('.trail-card').nth(i).getByRole('button', { name: 'Revisit' }).click();
+    await expectRoom(page, names[names.length - 1 - i]);
+    await page.locator('#trail-open').click();
+  }
+});

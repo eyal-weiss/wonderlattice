@@ -56,7 +56,10 @@
     const { x, y, unit: u } = box;
     const threading = L.orders[s.threading],
       treadling = L.orders[s.treadling];
-    const colours = L.cloth(s, DRAFT_THREADS, DRAFT_THREADS);
+    // While weaving, the draft pages along with the cloth: its rows are passes
+    // offset…offset+11, so the highlighted row is always the pass on the loom.
+    const offset = current === null ? 0 : current - (current % DRAFT_THREADS);
+    const colours = L.cloth(s, offset + DRAFT_THREADS, DRAFT_THREADS).slice(offset);
     const cell = (cx, cy, fill) => {
       ctx.fillStyle = fill;
       ctx.fillRect(cx + 0.5, cy + 0.5, u - 1, u - 1);
@@ -79,12 +82,16 @@
     for (let i = 0; i < DRAFT_THREADS; i++) {
       const rowY = y + (5 + i) * u;
       for (let treadle = 0; treadle < 4; treadle++)
-        cell(x + (DRAFT_THREADS + 1 + treadle) * u, rowY, treadling[i % treadling.length] === treadle ? mark : empty);
+        cell(
+          x + (DRAFT_THREADS + 1 + treadle) * u,
+          rowY,
+          treadling[(offset + i) % treadling.length] === treadle ? mark : empty,
+        );
       for (let j = 0; j < DRAFT_THREADS; j++) cell(x + j * u, rowY, yarn(s, colours[i][j]));
     }
     // The pass being woven now, and the treadle it uses.
     if (current !== null) {
-      const i = current % DRAFT_THREADS,
+      const i = current - offset,
         treadle = treadling[current % treadling.length];
       ctx.strokeStyle = '#f7f3e3';
       ctx.lineWidth = 1.5;

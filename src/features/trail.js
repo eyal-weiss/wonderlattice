@@ -57,7 +57,7 @@
       settings.length <= 20 &&
       settings.every(
         ([k, v]) =>
-          /^[a-z]+$/.test(k) &&
+          /^[a-zA-Z]{1,30}$/.test(k) &&
           ['number', 'boolean'].includes(typeof v) &&
           (typeof v !== 'number' || Number.isFinite(v)),
       )
