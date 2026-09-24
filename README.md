@@ -4,7 +4,7 @@ A playground for beautiful mathematical ideas, owned and directed by Eyal Weiss.
 
 ## Start here: no installation, no AI, no account
 
-Extract this ZIP, then double-click **index.html**. It contains the complete app: HTML, styles, explanations, and JavaScript. The five experiments run in a modern browser without a server, GPT credits, an API key, or an internet connection.
+Clone or download this repository, then double-click **index.html**. It loads the app and its local traffic model: HTML, styles, explanations, and JavaScript. The five experiments run in a modern browser without a server, GPT credits, an API key, or an internet connection.
 
 Use a text editor to edit index.html, save, then refresh the browser. Keep a backup before editing. You can give this folder to any coding assistant, including a local model, or work on it by hand. Read AGENTS.md for the project brief.
 
@@ -47,7 +47,7 @@ The existing chatgpt.site address belongs to the current ChatGPT-hosted deployme
 
 ## Keep one canonical repository
 
-The owner has created a private GitHub repository called `eyal-weiss/wonderloom`. This repository is the source of truth. This folder and the earlier ZIP are snapshots; neither updates the repository automatically.
+The owner has created a private GitHub repository called `eyal-weiss/wonderloom`. This repository is the source of truth. A downloaded ZIP is a snapshot and does not update the repository automatically.
 
 Each agent should clone or check out its own working copy, start a uniquely named branch from the latest `main`, and open a pull request. Do not have two agents edit the same shared checkout or push to the same branch. Review and merge one pull request at a time; update the next branch against current `main` when changes overlap. See docs/COLLABORATING.md and AGENTS.md. You do not need ChatGPT to access, edit, or deploy your repository once the repository contains the source.
 
