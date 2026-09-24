@@ -175,7 +175,8 @@ test('old survey dots stay put after leaving the room and coming back', async ({
   test.setTimeout(60000);
   await page.goto('/#room=sample');
   await page.locator('#scene-action').click(); // Ask 50 times
-  await expect(page.locator('#sample-estimate')).not.toHaveAttribute('aria-busy', 'true', { timeout: 20000 });
+  // Wait for the whole batch to land (switching rooms mid-batch would rightly resume it on return).
+  await expect(page.locator('#sample-count')).toHaveText('50 surveys of 50 people', { timeout: 30000 });
   await page.waitForTimeout(1500);
   await page.locator('#room-next').click();
   await page.locator('#room-prev').click();
