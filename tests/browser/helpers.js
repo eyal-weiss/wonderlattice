@@ -13,6 +13,7 @@ export const ROOMS = {
   cube: 'Inside the Rubik’s Cube.',
   sample: 'A spoonful of a city.',
   plane: 'Bend the plane.',
+  fingerprint: 'Grow a fingerprint.',
 };
 
 // Records page errors, captures clipboard writes, and exposes the optional
