@@ -1,5 +1,9 @@
 # Project state — 2026-09-23
 
+## Mathematician visitors — 2026-09-24
+
+Each of the five rooms now has a small illustrated mathematician cameo chosen at random from a room-specific set. A visitor can meet another one with the ↻ button. The captions are original, playful connections to the experiment, never presented as historical quotations. Each card links to a biography or the mathematician's page. The portraits are deliberately stylized and labeled as illustrations rather than historical likenesses. The feature works in the offline source and the static build; no portrait assets or external services load at runtime. Browser review covered all five rooms and the shuffle control; a narrow mobile viewport has not yet been visually inspected.
+
 ## Review fix — 2026-09-24
 
 The traffic room now draws distinct, visible moving markers along the active routes and shows a large before/after travel-time comparison. At 4,000 drivers, opening the shortcut changes the display from 65 to 80 minutes and highlights that everyone takes 15 minutes longer. The earlier markers blended into the road and the result was easy to miss. The markers represent route proportions, not individual vehicle trajectories. Browser checks covered the closed/open result and moving frames; the Node traffic tests and static build also passed. The review site has been updated, while the private repository pull request remains open pending owner feedback.
@@ -12,6 +16,7 @@ The traffic room now draws distinct, visible moving markers along the active rou
 - Topology: interactive projected ribbon, half-twists, highlighted edges, traveler.
 - Optional explanatory text, browser narration, URL/settings sharing, responsive layout.
 - Networks: traffic shortcut paradox, adjustable demand, route proportions, and optional model explanation (on agent/braess-traffic pending review).
+- Mathematician visitors: room-specific illustrated cameos, short factual connections, and biography links.
 - Independent source export, offline use, MIT license, AI handoff and translation guides.
 
 ## Requested but not yet implemented
