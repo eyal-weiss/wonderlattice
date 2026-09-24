@@ -4,9 +4,11 @@ import { readFileSync } from 'node:fs';
 export default defineConfig({
   server: { host: '127.0.0.1', port: 4173, allowedHosts: ['terminal.local'] },
   plugins: [{
-    name: 'copy-offline-experiment',
+    name: 'copy-offline-experiments',
     generateBundle() {
-      this.emitFile({ type: 'asset', fileName: 'experiments/traffic.js', source: readFileSync('experiments/traffic.js') });
+      for (const name of ['traffic', 'guests']) {
+        this.emitFile({ type: 'asset', fileName: `experiments/${name}.js`, source: readFileSync(`experiments/${name}.js`) });
+      }
     },
   }],
 });
