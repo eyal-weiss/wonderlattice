@@ -126,7 +126,7 @@ test('sudoku room: a shared link restores the puzzle and the symbols', async ({ 
   await page.locator('[data-style="1"]').click();
   await page.locator('#scene-share').click();
   const link = await page.evaluate(() => window.__clipboard.at(-1));
-  expect(link).toBe('http://localhost:4173/#room=sudoku&puzzle=2&style=1&network=false');
+  expect(link).toBe(new URL('/#room=sudoku&puzzle=2&style=1&network=false', page.url()).href);
 
   await page.goto('/');
   await page.goto('/#room=sudoku&puzzle=1&style=2');
