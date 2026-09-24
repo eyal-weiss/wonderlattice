@@ -1,0 +1,45 @@
+/* A spoonful of a city · room-specific panel layout. */
+
+/* How to ask and which neighbourhood, side by side, so the panel stays short. */
+.sample-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.sample-pair label {
+  font-size: 13px;
+}
+.sample-pair select {
+  font-size: 13px;
+  padding: 7px;
+  margin-top: 6px;
+  min-width: 0;
+}
+
+.sample-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.sample-buttons .button {
+  min-height: 38px;
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+.sample-readout {
+  display: grid;
+  gap: 5px;
+  line-height: 1.45;
+}
+.sample-readout strong {
+  color: #eef0e6;
+  font-weight: 600;
+}
+#sample-estimate {
+  color: #dfe6dc;
+}
+.sample-note {
+  color: #93a1b3;
+  font-size: 12px;
+}

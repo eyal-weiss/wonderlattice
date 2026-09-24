@@ -11,6 +11,7 @@ export const ROOMS = {
   sudoku: 'Sudoku, made transparent.',
   dice: 'The dice that beat each other.',
   cube: 'Inside the Rubik’s Cube.',
+  sample: 'A spoonful of a city.',
 };
 
 // Records page errors, captures clipboard writes, and exposes the optional
