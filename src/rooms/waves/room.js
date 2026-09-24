@@ -161,6 +161,8 @@
     symbol: '∿',
     eyebrow: 'WAVES & SOUND',
     name: 'Hear the shape',
+    theme: 'signals',
+    tagline: 'Two tones combine into beats, silence, and a looping portrait.',
     accent: { background: '#24233a', border: '#9a96d1', color: '#d0ccff' },
 
     title: 'Hear the shape.',

@@ -138,6 +138,8 @@
     symbol: '↗',
     eyebrow: 'NETWORKS · CHOICES',
     name: 'The tempting shortcut',
+    theme: 'signals',
+    tagline: 'A new road that makes every driver slower.',
     accent: { background: '#242b30', border: '#a9e3d2', color: '#c5f5e4' },
 
     title: 'The tempting shortcut.',
@@ -158,6 +160,7 @@
     },
 
     defaults: { demand: 4000, shortcut: false },
+    previewSettings: { shortcut: true },
     ranges: { demand: [1000, 10000] },
     defaultPreset: 1,
     presets: [

@@ -16,27 +16,35 @@
     />
     <link rel="stylesheet" href="./styles/base.css" />
     <link rel="stylesheet" href="./styles/rooms.css" />
+    <link rel="stylesheet" href="./styles/home.css" />
     <link rel="stylesheet" href="./styles/guests.css" />
     <link rel="stylesheet" href="./styles/trail.css" />
   </head>
-  <body data-room="motion">
+  <body data-room="home">
     <div class="shell">
       <header>
-        <div class="brand">
+        <a class="brand" href="#" aria-label="Wonderloom home">
           <svg aria-hidden="true" viewBox="0 0 32 32">
             <ellipse cx="16" cy="16" rx="6" ry="14" />
             <ellipse cx="16" cy="16" rx="6" ry="14" transform="rotate(60 16 16)" />
             <ellipse cx="16" cy="16" rx="6" ry="14" transform="rotate(120 16 16)" />
           </svg>
           wonderloom
-        </div>
+        </a>
         <span class="edition">A SMALL PLACE FOR BIG CURIOSITY</span>
         <button class="quiet" id="about-button">About this place</button>
         <button class="quiet trail-header" id="trail-open">My trail <span aria-hidden="true">✧</span></button>
       </header>
 
-      <!-- Room tabs are generated from the room registry (src/core/app.js). -->
-      <nav class="room-nav" id="room-nav" aria-label="Choose an exploration" role="tablist"></nav>
+      <!-- Inside a room: back to the map, and neighbouring experiments. -->
+      <nav class="room-bar" id="room-bar" aria-label="Experiments" hidden>
+        <button class="quiet room-home" id="room-home">← All experiments</button>
+        <span class="room-bar-theme" id="room-theme"></span>
+        <span class="room-bar-steps">
+          <button class="button icon-button" id="room-prev" aria-label="Previous experiment">‹</button>
+          <button class="button icon-button" id="room-next" aria-label="Next experiment">›</button>
+        </span>
+      </nav>
 
       <section class="trail-return" id="trail-return" hidden aria-label="Revisited discovery">
         <div>
@@ -51,11 +59,22 @@
         </div>
       </section>
 
+      <!-- The home map. Room cards are generated from the room registry (src/core/app.js). -->
+      <main id="home" aria-labelledby="home-title">
+        <div class="intro home-intro">
+          <div>
+            <h1 id="home-title">Follow your curiosity.</h1>
+            <p>Small experiments with big ideas. Pick one and play. There is nothing to get right.</p>
+          </div>
+        </div>
+        <div id="home-themes"></div>
+      </main>
+
       <!-- Paint with motion has its own layout: src/rooms/motion/room.js -->
-      <main id="motion-room" role="tabpanel" aria-labelledby="tab-motion">
+      <main id="motion-room" aria-labelledby="motion-title" hidden>
         <div class="intro">
           <div>
-            <h1>Paint with motion.</h1>
+            <h1 id="motion-title" tabindex="-1">Paint with motion.</h1>
             <p>Two turning arms. A pen. See what unfolds.</p>
           </div>
           <span class="pill">Exploration 01 · Circles within circles</span>
@@ -197,10 +216,10 @@
       </main>
 
       <!-- The shared stage for canvas rooms: src/core/stage.js fills it from the room definition. -->
-      <main id="new-room" role="tabpanel" aria-labelledby="tab-waves" hidden>
+      <main id="new-room" aria-labelledby="room-title" hidden>
         <div class="intro">
           <div>
-            <h1 id="room-title"></h1>
+            <h1 id="room-title" tabindex="-1"></h1>
             <p id="room-subtitle"></p>
           </div>
           <span class="pill" id="room-field"></span>
@@ -301,13 +320,13 @@
         Make something you like.
       </p>
       <p>
-        Five little worlds connect geometry, sound, collective motion, topology, and the strange choices of a traffic
-        network. There is no lesson to finish and nothing to get right.
+        Each little world connects a piece of mathematics to something you can play with: shapes, sounds, crowds, games,
+        patterns you can make. There is no lesson to finish and nothing to get right.
       </p>
       <div class="idea-card">
         <p>
-          <strong>Make it yours</strong><br />Pick a starting pattern, move a slider, or let “Surprise me” choose. Turn
-          on the arms to peek behind the drawing. Save an image whenever you like.
+          <strong>Make it yours</strong><br />Pick a starting point, move a slider, and follow whatever surprises you.
+          Every room has an optional explanation, and you can save an image whenever you like.
         </p>
       </div>
       <p>

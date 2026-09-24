@@ -8,7 +8,8 @@ const standalone = resolve('dist/wonderloom-standalone.html');
 test('the single-file export works from disk with portraits embedded', async ({ page }) => {
   test.skip(!existsSync(standalone), 'Run npm run build first');
   await page.goto(pathToFileURL(standalone).href);
-  await expect(page.getByRole('tab')).toHaveCount(5);
+  await expect(page.locator('.room-card')).toHaveCount(5);
+  await openRoom(page, 'motion');
   await expect(page.locator('#math-guest-motion img')).toHaveAttribute('src', /^data:image\//);
   await expect
     .poll(() => page.locator('#math-guest-motion img').evaluate((img) => img.complete && img.naturalWidth))

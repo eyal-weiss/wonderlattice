@@ -1,0 +1,156 @@
+/* The home map (themed room cards) and the room bar shown inside a room. */
+a.brand {
+  color: inherit;
+  text-decoration: none;
+}
+a.brand:focus-visible {
+  outline: 2px solid var(--lime);
+  outline-offset: 5px;
+}
+
+.home-intro {
+  padding-bottom: 8px;
+}
+.theme {
+  margin-top: 30px;
+}
+.theme-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.theme-head h2 {
+  font:
+    400 26px/1.2 Georgia,
+    'Times New Roman',
+    serif;
+  margin: 0;
+}
+.theme-head p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+.room-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 14px;
+}
+.room-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+  padding: 10px 10px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel);
+  transition:
+    border-color 0.15s,
+    transform 0.15s;
+}
+.room-card:hover {
+  border-color: var(--card-accent);
+  transform: translateY(-2px);
+}
+.room-card:focus-visible {
+  outline-offset: 3px;
+}
+.room-card canvas {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  display: block;
+  border-radius: 9px;
+  background: var(--stage);
+  margin-bottom: 8px;
+}
+.room-card .eyebrow,
+.room-card strong,
+.room-card-tagline {
+  padding: 0 6px;
+}
+.room-card strong {
+  font:
+    400 21px/1.25 Georgia,
+    serif;
+}
+.room-card-tagline {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.room-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 18px;
+}
+.room-bar-theme {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+.room-bar-steps {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+}
+.room-bar-steps .button {
+  font-size: 20px;
+  line-height: 1;
+}
+.focus-mode .room-bar {
+  display: none;
+}
+.math-guest-head .math-guest-sketch {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+@media (max-width: 760px) {
+  .theme-head h2 {
+    font-size: 23px;
+  }
+  .room-cards {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .room-card {
+    padding: 7px 7px 12px;
+  }
+  .room-card .eyebrow,
+  .room-card strong,
+  .room-card-tagline {
+    padding: 0 3px;
+  }
+  .room-card .eyebrow {
+    font-size: 10px;
+  }
+  .room-card strong {
+    font-size: 17px;
+  }
+  .room-card-tagline {
+    font-size: 12.5px;
+  }
+  .room-bar {
+    padding-top: 12px;
+    gap: 10px;
+  }
+}
+@media (max-width: 340px) {
+  .room-cards {
+    grid-template-columns: 1fr;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .room-card:hover {
+    transform: none;
+  }
+}

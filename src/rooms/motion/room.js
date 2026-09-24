@@ -467,6 +467,8 @@
     symbol: '◌',
     eyebrow: 'GEOMETRY',
     name: 'Paint with motion',
+    theme: 'shape',
+    tagline: 'Two turning arms and a pen draw flowers, stars, and weaves.',
     layout: 'custom',
     panel: 'motion-room',
 
@@ -506,6 +508,11 @@
 
     enter() {
       WonderloomGuests.render('motion', $('math-guest-motion'));
+    },
+
+    preview(ctx, width, height) {
+      const p = presets[0];
+      path(ctx, 0, period(p), p, height * 0.42, width / 2, height / 2, 1.1);
     },
 
     /** Shared links: #room=motion&k=…&r=…&p=…&ink=… */

@@ -16,3 +16,5 @@ The cameo faces use documented portraits or photographs of the named people. The
 | John Forbes Nash | nash.jpg       | [1951 portrait](<https://commons.wikimedia.org/wiki/File:John_Forbes_Nash_(1928-2015)_portrait.jpg>)                         | U.S. public domain per source page; check local reuse rules elsewhere                                                                                               |
 
 Source descriptions and rights details can change; follow the linked file page before redistributing a portrait. The project's MIT license covers its original code and copy, not independently licensed portrait files. We excluded figures for whom we could not identify a credible contemporary likeness.
+
+Rooms added from September 2026 onward may use drawn sketches instead of photographs (`sketch` in a room's `guests`). These are original, stylised drawings of a few recognisable features, not likenesses, and are covered by the project's MIT license.

@@ -1,42 +1,76 @@
-import { test, expect, ROOMS, openRoom, tool, setRange, inkedPixels } from './helpers.js';
+import { test, expect, ROOMS, openRoom, tool, setRange, inkedPixels, expectRoom } from './helpers.js';
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/#room=motion');
 });
 
-test('offers five rooms and opens each one with a live picture', async ({ page }) => {
+test('the home map shows every room once, grouped by theme, with a picture', async ({ page }) => {
+  await page.goto('/');
   await expect(page).toHaveTitle(/Wonderloom/);
-  await expect(page.getByRole('tab')).toHaveCount(5);
+  await expectRoom(page, 'home');
+  await expect(page.locator('#room-bar')).toBeHidden();
+  await expect(page.locator('.room-card')).toHaveCount(Object.keys(ROOMS).length);
+  for (const room of Object.keys(ROOMS)) {
+    await expect(page.locator(`#card-${room}`)).toHaveCount(1);
+    await expect.poll(() => inkedPixels(page, `#card-${room} canvas`)).toBeGreaterThan(20);
+  }
+  const themes = await page.locator('.theme h2').allTextContents();
+  expect(themes).toEqual(['Shape & space', 'Living patterns', 'Signals & networks']);
+});
+
+test('opens each room with a live picture and an explanation', async ({ page }) => {
+  await page.goto('/');
+  await openRoom(page, 'motion');
   await expect(page.locator('#motion-room h1')).toHaveText(ROOMS.motion);
+  await expect(page.locator('#motion-room h1')).toBeFocused();
   await expect.poll(() => inkedPixels(page, '#art')).toBeGreaterThan(50);
   for (const room of ['waves', 'flock', 'ribbon', 'traffic']) {
     await openRoom(page, room);
     await expect(page.locator('#room-title')).toHaveText(ROOMS[room]);
     await expect(page.locator('#motion-room')).toBeHidden();
+    await expect(page.locator('#home')).toBeHidden();
     await expect.poll(() => inkedPixels(page, '#scene-canvas')).toBeGreaterThan(50);
     await expect(page.locator('#scene-presets .scene-preset')).toHaveCount(3);
     await page.locator('#scene-why').click();
     await expect(page.locator('#insight-dialog')).toBeVisible();
     await page.locator('#insight-close').click();
   }
-  await openRoom(page, 'motion');
-  await expect(page.locator('#motion-room')).toBeVisible();
-  await expect(page.locator('#new-room')).toBeHidden();
 });
 
-test('room tabs follow the arrow, Home and End keys', async ({ page }) => {
-  await page.locator('#tab-motion').focus();
-  await page.keyboard.press('ArrowRight');
-  await expect(page.locator('#tab-waves')).toHaveAttribute('aria-selected', 'true');
-  await expect(page.locator('#tab-waves')).toBeFocused();
-  await page.keyboard.press('End');
-  await expect(page.locator('#tab-traffic')).toHaveAttribute('aria-selected', 'true');
-  await page.keyboard.press('ArrowRight');
-  await expect(page.locator('#tab-motion')).toHaveAttribute('aria-selected', 'true');
-  await page.keyboard.press('ArrowLeft');
-  await expect(page.locator('#tab-traffic')).toHaveAttribute('aria-selected', 'true');
-  await page.keyboard.press('Home');
-  await expect(page.locator('#tab-motion')).toHaveAttribute('aria-selected', 'true');
+test('the room bar, Back button, and logo move between the map and rooms', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('#card-ribbon').click();
+  await expectRoom(page, 'ribbon');
+  await expect(page.locator('#room-theme')).toContainText('Shape & space');
+  await expect(page).toHaveURL(/#room=ribbon$/);
+  await page.locator('#room-next').click();
+  const next = await page.evaluate(() => document.body.dataset.room);
+  expect(next).not.toBe('ribbon');
+  await page.locator('#room-prev').click();
+  await expectRoom(page, 'ribbon');
+  await page.goBack();
+  await expectRoom(page, next);
+  await page.goBack();
+  await expectRoom(page, 'ribbon');
+  await page.goBack();
+  await expectRoom(page, 'home');
+  await page.goForward();
+  await expectRoom(page, 'ribbon');
+  await page.locator('#room-home').click();
+  await expectRoom(page, 'home');
+  await expect(page.locator('#card-ribbon')).toBeFocused();
+  await page.locator('#card-traffic').click();
+  await page.locator('.brand').click();
+  await expectRoom(page, 'home');
+  // Stepping through every room with "next" visits each one and comes back round.
+  await page.locator('#card-motion').click();
+  const seen = new Set();
+  for (let i = 0; i < Object.keys(ROOMS).length; i++) {
+    seen.add(await page.evaluate(() => document.body.dataset.room));
+    await page.locator('#room-next').click();
+  }
+  expect([...seen].sort()).toEqual(Object.keys(ROOMS).sort());
+  await expectRoom(page, 'motion');
 });
 
 test('motion room: presets, tracing, play state and surprise', async ({ page }) => {
@@ -150,15 +184,17 @@ test('mathematician visitors appear in every room and can be swapped', async ({ 
 test('optional browser-agent tools are registered and work', async ({ page }) => {
   const names = await page.evaluate(() => Object.keys(window.__tools).sort());
   expect(names).toEqual(['configure_drawing', 'get_drawing_settings', 'open_exploration', 'read_exploration']);
+  await page.goto('/');
+  expect(await tool(page, 'read_exploration')).toMatchObject({ room: null, settings: null });
   await tool(page, 'open_exploration', { room: 'ribbon' });
-  await expect(page.locator('#tab-ribbon')).toHaveAttribute('aria-selected', 'true');
+  await expectRoom(page, 'ribbon');
   expect(await tool(page, 'configure_drawing', { rotation: 3, reach: 30, angle: 10, palette: 2 })).toEqual({
     rotation: 3,
     reach: 30,
     angle: 10,
     palette: 2,
   });
-  await expect(page.locator('#tab-motion')).toHaveAttribute('aria-selected', 'true');
+  await expectRoom(page, 'motion');
   const drawing = await tool(page, 'get_drawing_settings');
   expect(drawing).toMatchObject({ k: 3, r: 30, p: 10, palette: 2, name: 'Your own orbit' });
 });

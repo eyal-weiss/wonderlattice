@@ -80,6 +80,8 @@
     symbol: '⋰',
     eyebrow: 'EMERGENCE',
     name: 'A mind of many',
+    theme: 'life',
+    tagline: 'No leader, just neighbours: guide a flock into motion.',
     accent: { background: '#20302a', border: '#85c6a2', color: '#b5f4cd' },
 
     title: 'A mind of many.',
@@ -171,6 +173,27 @@
 
     bindControls(panel, s) {
       $('flock-influence').addEventListener('change', (e) => (s.attract = e.target.value === 'attract'));
+    },
+
+    /** A still flock for the home map, from a fixed seed so it looks the same every visit. */
+    preview(ctx, width, height) {
+      let seed = 11;
+      const random = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
+      let still = model.seed(90, random);
+      const s = { align: 1.6, cohesion: 0.8, separate: 1.5, attract: true };
+      for (let i = 0; i < 240; i++) still = model.step(still, s, 1 / 30, width / height, null).birds;
+      for (const b of still) {
+        const x = b.x * width,
+          y = b.y * height,
+          a = Math.atan2(b.vy, b.vx);
+        ctx.fillStyle = `hsl(${155 + b.vx * 27},${55 + 15 * b.vy}%,${64 + 10 * b.vy}%)`;
+        ctx.beginPath();
+        ctx.moveTo(x + Math.cos(a) * 5.5, y + Math.sin(a) * 5.5);
+        ctx.lineTo(x + Math.cos(a + 2.45) * 3.7, y + Math.sin(a + 2.45) * 3.7);
+        ctx.lineTo(x + Math.cos(a - 2.45) * 3.7, y + Math.sin(a - 2.45) * 3.7);
+        ctx.closePath();
+        ctx.fill();
+      }
     },
 
     enter(s, stage) {
