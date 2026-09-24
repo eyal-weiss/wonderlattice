@@ -88,6 +88,8 @@
     symbol: '∞',
     eyebrow: 'TOPOLOGY · 3D',
     name: 'The other side',
+    theme: 'shape',
+    tagline: 'Give a ribbon half a twist and one of its sides disappears.',
     accent: { background: '#1c2a32', border: '#88c2d5', color: '#b9f0ff' },
 
     title: 'Where is the other side?',

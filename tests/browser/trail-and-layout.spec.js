@@ -1,8 +1,8 @@
 import { readFile } from 'node:fs/promises';
-import { test, expect, ROOMS, openRoom } from './helpers.js';
+import { test, expect, ROOMS, openRoom, expectRoom } from './helpers.js';
 
 test('a saved moment survives reload and can be revisited', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/#room=motion');
   await page.getByRole('button', { name: /Almost a circle/ }).click();
   await page.locator('#trail-keep-motion').click();
   await expect(page.locator('#trail-capture-dialog')).toBeVisible();
@@ -26,7 +26,7 @@ test('a saved moment survives reload and can be revisited', async ({ page }) => 
   await page.locator('#trail-open').click();
   await expect(page.locator('.trail-card')).toHaveCount(2);
   await page.locator('.trail-card', { hasText: 'Almost a circle' }).getByRole('button', { name: 'Revisit' }).click();
-  await expect(page.locator('#tab-motion')).toHaveAttribute('aria-selected', 'true');
+  await expectRoom(page, 'motion');
   await expect(page.locator('#pattern-name')).toHaveText('Almost a circle');
   await expect(page.locator('#ratio')).toHaveValue('1.03');
   await expect(page.locator('#trail-return')).toBeVisible();
@@ -38,12 +38,12 @@ test('a saved moment survives reload and can be revisited', async ({ page }) => 
   await page.locator('#trail-open').click();
   await expect(page.locator('.trail-card', { hasText: 'Almost a circle' })).toContainText('Now it looks like a spiral');
   await page.locator('.trail-card', { hasText: 'The city crossing' }).getByRole('button', { name: 'Revisit' }).click();
-  await expect(page.locator('#tab-traffic')).toHaveAttribute('aria-selected', 'true');
+  await expectRoom(page, 'traffic');
   await expect(page.locator('#scene-action')).toHaveText('Close the shortcut');
 });
 
 test('a trail can be exported and imported', async ({ page }, testInfo) => {
-  await page.goto('/');
+  await page.goto('/#room=motion');
   await page.locator('#trail-keep-motion').click();
   await page.locator('#trail-save').click();
   const [download] = await Promise.all([page.waitForEvent('download'), page.locator('#trail-export').click()]);
@@ -69,7 +69,7 @@ test('a trail can be exported and imported', async ({ page }, testInfo) => {
 
 test('reduced motion shows finished drawings and still guests', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/');
+  await page.goto('/#room=motion');
   await expect(page.locator('#cycle-status')).toHaveText('The loop is complete');
   await expect(page.locator('#play')).toHaveText('Replay');
   const animation = await page

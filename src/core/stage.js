@@ -163,7 +163,6 @@
     room = next;
     clock = 0;
     last = 0;
-    $('new-room').setAttribute('aria-labelledby', 'tab-' + room.id);
     for (const [id, value] of [
       ['room-title', room.title],
       ['room-subtitle', room.subtitle],

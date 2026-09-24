@@ -37,9 +37,15 @@ export const test = base.extend({
 
 export { expect };
 
+/** Open a room the way a visitor does: back to the map if needed, then its card. */
 export async function openRoom(page, room) {
-  await page.locator(`#tab-${room}`).click();
-  await expect(page.locator(`#tab-${room}`)).toHaveAttribute('aria-selected', 'true');
+  if (await page.locator('#room-home').isVisible()) await page.locator('#room-home').click();
+  await page.locator(`#card-${room}`).click();
+  await expectRoom(page, room);
+}
+
+export async function expectRoom(page, room) {
+  await expect(page.locator('body')).toHaveAttribute('data-room', room);
 }
 
 export async function tool(page, name, input = {}) {

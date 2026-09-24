@@ -1,49 +1,6 @@
-/* Room navigation, the shared canvas stage used by most rooms, and room-specific readouts. */
+/* The shared canvas stage used by most rooms, and room-specific readouts. */
 [hidden] {
   display: none !important;
-}
-.room-nav {
-  display: grid;
-  grid-template-columns: repeat(var(--room-count, 5), 1fr);
-  gap: 8px;
-  padding-top: 22px;
-}
-.room-tab {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  text-align: left;
-  border: 1px solid var(--line);
-  border-radius: 11px;
-  background: transparent;
-  padding: 13px 16px;
-  min-height: 73px;
-  font-size: 15px;
-  color: #aeb6c3;
-}
-.room-tab small {
-  display: block;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  margin-bottom: 3px;
-  color: #a4adbd;
-}
-.room-tab:hover {
-  background: #1c222c;
-}
-.room-tab[aria-selected='true'] {
-  background: var(--tab-bg, #232b22);
-  border-color: var(--tab-border, #849c66);
-  color: var(--tab-ink, var(--lime));
-}
-.room-tab[aria-selected='true'] small {
-  color: #bad397;
-}
-.room-symbol {
-  font-size: 35px;
-  line-height: 1;
-  width: 32px;
-  text-align: center;
 }
 .scene-status {
   color: #a7b4c6;
@@ -212,9 +169,6 @@
 .insight-body h3 {
   margin-bottom: 6px;
 }
-.focus-mode .room-nav {
-  display: none;
-}
 .scene .control p {
   font-size: 13px;
 }
@@ -225,24 +179,6 @@
   color: #a3c8bb;
 }
 @media (max-width: 760px) {
-  .room-nav {
-    grid-template-columns: 1fr 1fr;
-    gap: 7px;
-    padding-top: 15px;
-  }
-  .room-tab {
-    min-height: 62px;
-    padding: 10px;
-    gap: 8px;
-    font-size: 13px;
-  }
-  .room-tab small {
-    font-size: 9px;
-  }
-  .room-symbol {
-    font-size: 28px;
-    width: 27px;
-  }
   .scene .canvas-wrap {
     inset: 75px 10px 112px;
   }
@@ -299,16 +235,6 @@
   border-radius: 9px;
   color: #e4f7ed;
   line-height: 1.55;
-}
-@media (max-width: 900px) {
-  .room-nav {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-@media (max-width: 760px) {
-  .room-nav {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 body[data-room='traffic'] .scene-status {
   font-size: 19px;

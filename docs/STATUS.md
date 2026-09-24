@@ -1,5 +1,15 @@
 # Project state — 2026-09-24
 
+## Home map — 2026-09-24 (branch `agent/home-map`)
+
+The row of room tabs is replaced by a home map, so Wonderloom can grow past a handful of rooms. It shows rooms as
+cards with a still picture, grouped by theme (Shape & space, Chance & evidence, Games & puzzles, Making, Living
+patterns, Signals & networks). Empty themes are hidden. Inside a room, a slim bar offers "All experiments" and
+previous/next. The address follows the visitor (`#room=<id>`, no hash on the map), so Back and Forward work. Rooms
+set themselves up only when first opened. Mathematician visitors are now optional, with no ↻ for a single visitor.
+New rooms can use drawn sketch faces instead of photographs. A small translation mechanism
+(`Wonderloom.defineText` / `text`) is ready for the new rooms; converting the existing rooms' words is the next step.
+
 ## Maintainability refactor — 2026-09-24 (branch `agent/maintainability`)
 
 The single 92 KB `index.html`, written as minified one-line code, is now readable files: `styles/` (4 stylesheets),
@@ -50,6 +60,9 @@ browser tests, ESLint, Prettier, and GitHub Actions CI that runs everything on e
 
 ## Next priorities
 
-1. Review and merge `agent/maintainability`.
-2. Decide on hosting and publish `dist/`.
-3. New rooms or features, one branch and pull request each (docs/ARCHITECTURE.md has the add-a-room checklist).
+Following docs/ROADMAP.md (review section):
+
+1. Move the existing rooms' words into `text.en.js` files.
+2. New rooms, one pull request each: nontransitive dice, the mathematical loom, a picture through a storm, Sudoku.
+3. Then: bend the plane, a spoonful of a city, grow a fingerprint; later a scoped Rubik's cube.
+4. Decide on hosting and publish `dist/`.
