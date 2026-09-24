@@ -16,6 +16,7 @@
   let chosenLang = null; // set once, on first use, from the address or a saved choice
   let toastTimer;
   let narrating = false;
+  let narrationRun = 0; // increases on every start and stop, so stale sentence callbacks do nothing
 
   const $ = (id) => document.getElementById(id);
 
@@ -193,33 +194,164 @@
       }, 'image/png');
     },
 
-    /** Optional spoken narration through the browser's speech synthesis. */
+    /**
+     * Optional spoken narration through the browser's speech synthesis. It reads
+     * only the prose of a dialog (headings, paragraphs, highlighted ideas; not
+     * buttons, links, or formulas), says symbols as words, and speaks one short
+     * sentence at a time: browsers cut off long utterances, some after ~15 seconds.
+     */
     narration: {
       stop() {
+        narrationRun++; // any queued sentences from the last run are dropped
         if ('speechSynthesis' in window) window.speechSynthesis.cancel();
         narrating = false;
         const t = Wonderloom.text('app').narration;
         document.querySelectorAll('.narrate').forEach((b) => (b.textContent = t.listen));
       },
-      speak(element, button) {
-        if (!('speechSynthesis' in window)) {
-          Wonderloom.toast(Wonderloom.text('app').narration.unavailable);
-          return;
+
+      /** The sentences to say for an element, in order. */
+      script(element) {
+        const words = Wonderloom.text('app').narration.symbols;
+        const blocks = [
+          ...element.querySelectorAll('h2, h3, p, li, summary, .insight-visual, .idea-card:not(.formula)'),
+        ]
+          .filter((el) => !el.closest('button, a, .formula, .sources, [aria-hidden="true"]'))
+          .filter((el) => !el.querySelector('p, li, h2, h3')) // take the innermost block only
+          .filter((el) => el.getClientRects().length); // what the reader can see (closed details stay closed)
+        const say = (text) => {
+          let out = ` ${text} `;
+          for (const [symbol, word] of Object.entries(words)) out = out.split(symbol).join(word);
+          return out
+            .replace(/\s+/g, ' ')
+            .replace(/\s+([,.;:!?])/g, '$1')
+            .trim();
+        };
+        const sentences = [];
+        for (const block of blocks) {
+          const text = say(block.innerText);
+          if (!text) continue;
+          // Split into sentences, then keep each piece comfortably short.
+          for (const sentence of text.match(/[^.!?…]+[.!?…]*[”"’)]*\s*/g) ?? [text]) {
+            let rest = sentence.trim();
+            while (rest.length > 220) {
+              const cut = Math.max(
+                rest.lastIndexOf(', ', 220),
+                rest.lastIndexOf('; ', 220),
+                rest.lastIndexOf(' ', 220),
+              );
+              sentences.push(rest.slice(0, cut + 1).trim());
+              rest = rest.slice(cut + 1).trim();
+            }
+            if (rest) sentences.push(rest);
+          }
         }
+        return sentences;
+      },
+
+      /**
+       * A voice for the page language. The browser's own default isn't enough:
+       * Firefox on Linux, for one, lists ~100 speech-dispatcher voices with none
+       * marked default and would otherwise read English in, say, a Catalan voice.
+       * Prefers the exact locale, then the language (Linux voices are often just
+       * "en"), a name that mentions the region, and voices on this device.
+       */
+      voice(voices = window.speechSynthesis.getVoices()) {
+        const wanted = Wonderloom.language().speech.toLowerCase();
+        const [base, region] = wanted.split('-');
+        const regionNames = { us: /america|united states|\bus\b/i, gb: /great britain|united kingdom|\buk\b/i };
+        const score = (v) => {
+          const lang = (v.lang || '').toLowerCase().replace('_', '-');
+          const language = lang === wanted ? 8 : lang.split('-')[0] === base ? 4 : 0;
+          if (!language) return 0;
+          return (
+            language +
+            (region && regionNames[region]?.test(v.name) ? 2 : 0) +
+            (v.localService ? 1 : 0) +
+            (v.default ? 0.5 : 0)
+          );
+        };
+        let best = null;
+        for (const v of voices) if (score(v) > (best ? score(best) : 0)) best = v;
+        return best;
+      },
+
+      /** Voices, waiting briefly for them: some browsers load them only after the first request. */
+      voices() {
+        const synth = window.speechSynthesis;
+        const now = synth.getVoices();
+        if (now.length) return Promise.resolve(now);
+        return new Promise((resolve) => {
+          const done = () => resolve(synth.getVoices());
+          synth.addEventListener('voiceschanged', done, { once: true });
+          setTimeout(done, 1500);
+        });
+      },
+
+      async speak(element, button) {
+        const synth = window.speechSynthesis;
+        const t = Wonderloom.text('app').narration;
+        if (!synth || !window.SpeechSynthesisUtterance) return Wonderloom.toast(t.unavailable);
         if (narrating) return Wonderloom.narration.stop();
         Wonderloom.silence();
-        const utterance = new SpeechSynthesisUtterance(element.innerText);
-        utterance.lang = Wonderloom.language().speech;
-        utterance.rate = 0.96;
-        utterance.volume = 0.65;
-        utterance.onend = Wonderloom.narration.stop;
-        utterance.onerror = Wonderloom.narration.stop;
-        window.speechSynthesis.speak(utterance);
+        const sentences = Wonderloom.narration.script(element);
+        if (!sentences.length) return;
+        const run = ++narrationRun;
         narrating = true;
-        button.textContent = Wonderloom.text('app').narration.stop;
+        button.textContent = t.stop;
+        // Only clear the queue when something is in it, then give the engine a
+        // moment: some engines drop an utterance spoken right after cancel().
+        if (synth.speaking || synth.pending) {
+          synth.cancel();
+          await new Promise((r) => setTimeout(r, 80));
+        }
+        const voice = Wonderloom.narration.voice(await Wonderloom.narration.voices());
+        if (run !== narrationRun) return; // stopped while we waited
+        const lang = voice?.lang || Wonderloom.language().speech;
+        let spoken = 0,
+          failed = false;
+        const finish = () => run === narrationRun && Wonderloom.narration.stop();
+        // Hand every sentence to the browser's own queue. Short utterances avoid
+        // engines that cut long ones off; keeping them referenced (in `queue`)
+        // stops some browsers from dropping them before their end event.
+        const queue = sentences.map((text, i) => {
+          const u = new SpeechSynthesisUtterance(text);
+          u.lang = lang;
+          try {
+            if (voice) u.voice = voice;
+          } catch {
+            /* not a usable voice here; the language tag still guides the browser */
+          }
+          u.rate = 0.95;
+          u.onstart = () => (spoken = Math.max(spoken, 1));
+          u.onend = () => i === sentences.length - 1 && finish();
+          u.onerror = (e) => {
+            if (e.error === 'interrupted' || e.error === 'canceled' || failed || run !== narrationRun) return;
+            failed = true;
+            Wonderloom.narration.stop();
+            Wonderloom.toast(t.unavailable);
+          };
+          return u;
+        });
+        queue.forEach((u) => synth.speak(u));
+        // A safety net for engines that skip end events: once speech has started
+        // and the queue is empty, the narration is over.
+        const watch = setInterval(() => {
+          if (run !== narrationRun) return clearInterval(watch);
+          if (spoken && !synth.speaking && !synth.pending) {
+            clearInterval(watch);
+            finish();
+          }
+        }, 700);
       },
     },
   };
 
   globalThis.Wonderloom = Wonderloom;
+
+  // Ask for the voices early: Firefox, for one, starts loading them only when first asked.
+  try {
+    globalThis.speechSynthesis?.getVoices();
+  } catch {
+    /* no speech synthesis */
+  }
 })();
