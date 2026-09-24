@@ -1,14 +1,14 @@
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { test, expect, openRoom } from './helpers.js';
+import { test, expect, ROOMS, openRoom } from './helpers.js';
 
 const standalone = resolve('dist/wonderloom-standalone.html');
 
 test('the single-file export works from disk with portraits embedded', async ({ page }) => {
   test.skip(!existsSync(standalone), 'Run npm run build first');
   await page.goto(pathToFileURL(standalone).href);
-  await expect(page.locator('.room-card')).toHaveCount(5);
+  await expect(page.locator('.room-card')).toHaveCount(Object.keys(ROOMS).length);
   await openRoom(page, 'motion');
   await expect(page.locator('#math-guest-motion img')).toHaveAttribute('src', /^data:image\//);
   await expect
