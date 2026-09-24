@@ -10,6 +10,8 @@ Use a text editor to edit index.html, save, then refresh the browser. Keep a bac
 
 Sound starts only after a click. Spoken narration depends on your browser and its installed voices; some voices may need the internet. External reading links need the internet. Clipboard permissions vary, so a manual-copy dialog is available. Opening a local file shares settings rather than a public link.
 
+**My trail** is an optional collection of moments you save while exploring. Each moment keeps a small image, the room settings, and an optional thought. Revisit it to compare what you notice later. Its contents live in this browser's local storage, not in an account or on a server. Export the trail as JSON for backup or transfer to another browser; importing replaces the current trail. Clearing site data removes the local trail. It holds up to 24 moments.
+
 ## Optional local web server
 
 If Python 3 is installed, open a terminal in this folder and run:
@@ -41,7 +43,7 @@ The output goes to dist/. Node and Vite are optional for this version: serving i
 
 ## Publish under an account you control
 
-This is a static website. Upload **index.html** to the web root of a static hosting service in your own account, or deploy the contents of dist/ after building. No backend, environment variables, database, or OpenAI credentials are required. Use the host's public HTTPS URL for links you share. The optional external source links in the app are optional reading, not application dependencies.
+This is a static website. Upload **index.html**, **experiments/**, and **portraits/** to the web root of a static hosting service in your own account, or deploy the contents of dist/ after building. No backend, environment variables, database, or OpenAI credentials are required. Use the host's public HTTPS URL for links you share. The optional external source links in the app are optional reading, not application dependencies.
 
 The existing chatgpt.site address belongs to the current ChatGPT-hosted deployment. This export does not transfer that address or change its access settings. A separately hosted copy gets a separate address; a domain you control can be connected through your chosen host.
 
@@ -55,7 +57,8 @@ Each agent should clone or check out its own working copy, start a uniquely name
 
 - index.html: complete, editable app; also the offline version.
 - experiments/traffic.js: Braess traffic model and canvas rendering; loaded alongside index.html.
-- experiments/guests.js: small illustrated mathematician visitors; the drawings are playful, not historical likenesses. Captions are original text and biographies are linked in the interface.
+- experiments/guests.js and portraits/: animated paper-puppet visitors with documented historical portraits for their faces. Each card links to a biography and image source; image rights and attribution are in docs/PORTRAITS.md.
+- experiments/trail.js: optional browser-local saved scenes, reflections, and JSON export/import.
 - tests/traffic.test.js: equilibrium checks using Node’s built-in test runner.
 - package.json / package-lock.json / vite.config.js: optional development/build setup.
 - AGENTS.md: instructions for any coding assistant.
