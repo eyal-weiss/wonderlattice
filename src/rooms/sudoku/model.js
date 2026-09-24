@@ -210,7 +210,7 @@
   function countSolutions(grid, limit = 2) {
     const { side } = shapeOf(grid);
     const solutions = [];
-    if (conflicts(grid).length) return { count: 0, solutions };
+    if (limit < 1 || conflicts(grid).length) return { count: 0, solutions };
     const work = grid.slice();
     const search = () => {
       // Fill the most constrained empty cell first: fewest candidates.

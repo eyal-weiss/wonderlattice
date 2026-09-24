@@ -828,7 +828,7 @@ body[data-room='sudoku'] .scene-tip { color: #d3dccb; font-size: 13px; }
       /** Keys 1–4 place a symbol, Backspace or Delete clears, Ctrl/⌘+Z undoes. */
       key(e, s, stage) {
         if (e.altKey) return false;
-        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') undo();
+        if ((e.ctrlKey || e.metaKey) && !e.shiftKey && e.key.toLowerCase() === 'z') undo();
         else if (e.ctrlKey || e.metaKey) return false;
         else if (/^[1-4]$/.test(e.key)) place(Number(e.key));
         else if (['Backspace', 'Delete', '0'].includes(e.key)) clearSquare();
