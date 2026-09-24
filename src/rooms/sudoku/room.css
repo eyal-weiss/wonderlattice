@@ -1,0 +1,98 @@
+/* Sudoku, made transparent: the symbol buttons, readouts, and both answers. */
+body[data-room='sudoku'] .scene-tip {
+  color: #d3dccb;
+  font-size: 13px;
+}
+.sudoku-label {
+  font-size: 14px;
+  display: block;
+}
+.sudoku-symbols {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 11px;
+}
+.sudoku-symbol {
+  min-height: 48px;
+  border: 1px solid #414b5b;
+  border-radius: 10px;
+  background: #121b26;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sudoku-symbol:hover {
+  border-color: #8a9aa3;
+  background: #1c2631;
+}
+.sudoku-symbol svg {
+  width: 28px;
+  height: 28px;
+  stroke: none;
+}
+.sudoku-symbol[data-possible='false'] svg {
+  opacity: 0.4;
+}
+.sudoku-edit {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+.sudoku-readout {
+  border: 1px solid #3d4a5c;
+  background: #111923;
+  padding: 14px;
+  border-radius: 9px;
+}
+.sudoku-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.sudoku-stats span {
+  display: block;
+  font-size: 12px;
+  color: #a7b4c6;
+}
+.sudoku-stats strong {
+  display: block;
+  font-size: 26px;
+  font-weight: 600;
+  color: #f0f5ea;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+.sudoku-stats small {
+  font-size: 13px;
+  font-weight: 400;
+  color: #a7b4c6;
+}
+.sudoku-answers p {
+  margin: 12px 0 8px;
+  font-size: 13px;
+  color: #d7dfe8;
+  line-height: 1.45;
+}
+.sudoku-answers div {
+  display: flex;
+  gap: 12px;
+}
+.sudoku-answers svg {
+  width: 88px;
+  height: 88px;
+}
+.sudoku-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@media (max-width: 760px) {
+  body[data-room='sudoku'] .scene-tip {
+    display: none;
+  }
+}

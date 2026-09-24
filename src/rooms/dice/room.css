@@ -1,0 +1,11 @@
+/* The dice that beat each other: the verdict line and the explanation's grid of outcomes. */
+.dice-verdict {
+  margin-top: 10px;
+  color: #dfe6dc;
+}
+.dice-grid {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 18px auto 8px;
+}

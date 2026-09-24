@@ -473,7 +473,7 @@
     const j = journey(s),
       code = s.code,
       row = (label, value, color) =>
-        `<span>${label}</span><strong style="color:${color ?? 'var(--ink)'};font-weight:600;text-align:right">${value}</strong>`;
+        `<span>${label}</span><strong class="storm-value" style="color:${color ?? 'var(--ink)'}">${value}</strong>`;
     $('scene-name').textContent = t.codes[code];
     $('scene-status').textContent = t.status(j.wrongCount, j.flips);
     $('scene-tip').textContent = code === 2 ? t.tipParity : t.tip;
@@ -484,8 +484,7 @@
     if (code === 1 || code === 3) rows += row(t.repaired, j.repairedCount, j.repairedCount ? COLORS.fixed : undefined);
     if (code === 2) rows += row(t.knownBad, j.badCount, j.badCount ? COLORS.bad : undefined);
     rows += row(t.wrong, j.wrongCount, j.wrongCount ? COLORS.wrong : COLORS.fixed);
-    $('storm-result').innerHTML =
-      `<div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px 12px;font-variant-numeric:tabular-nums">${rows}</div>`;
+    $('storm-result').innerHTML = `<div class="storm-figures">${rows}</div>`;
     const pixels = pictureOf(s).join('');
     document.querySelectorAll('#storm-pictures button').forEach((b) => {
       b.setAttribute('aria-pressed', PICTURES[b.dataset.picture].join('') === pixels);
@@ -555,11 +554,11 @@
       `<div class="control wide"><label id="storm-pictures-label">${t.pictureLabel}</label>` +
       `<div class="segment" id="storm-pictures" role="group" aria-labelledby="storm-pictures-label">${pictureButtons()}</div>` +
       '</div>' +
-      '<div class="wide readout" style="border:1px solid #3a4658;background:#121a25;padding:14px 16px;border-radius:9px">' +
+      '<div class="wide readout storm-readout">' +
       '<div id="storm-result" role="status"></div>' +
-      '<div id="storm-curve-box" style="margin-top:14px;padding-top:12px;border-top:1px solid #2a3544">' +
+      '<div id="storm-curve-box" class="storm-curve-box">' +
       `<span id="storm-curve-label">${t.curveTitle}</span><canvas id="storm-curve" role="img" ` +
-      'style="display:block;width:100%;height:70px;margin-top:6px"></canvas></div></div>',
+      'class="storm-curve"></canvas></div></div>',
 
     bindControls(panel, s, stage) {
       $('storm-code').addEventListener('change', (e) => {

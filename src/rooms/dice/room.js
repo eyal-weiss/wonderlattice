@@ -650,7 +650,7 @@
       `<div>${t.rollsSoFar} <strong id="dice-rolls">0</strong></div>` +
       '<div id="dice-wins"></div><div id="dice-seen"></div>' +
       '<div class="meter"><span id="dice-meter"></span></div>' +
-      '<div id="dice-verdict" role="status" style="margin-top:10px;color:#dfe6dc"></div></div>'
+      '<div id="dice-verdict" class="dice-verdict" role="status"></div></div>'
     );
   }
 

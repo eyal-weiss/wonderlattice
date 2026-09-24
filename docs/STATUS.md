@@ -88,5 +88,4 @@ Following docs/ROADMAP.md (review section):
 
 1. Next rooms: bend the plane, a spoonful of a city, grow a fingerprint; later a scoped Rubik's cube.
 2. With the Hebrew translation: move the five original rooms' words into `text.en.js` files.
-3. Move the storm, dice, and Sudoku rooms' inline styles into `styles/rooms.css`.
-4. Decide on hosting and publish `dist/`.
+3. Decide on hosting and publish `dist/`.

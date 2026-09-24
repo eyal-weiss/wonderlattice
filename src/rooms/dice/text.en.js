@@ -95,7 +95,7 @@ Wonderloom.defineText('dice', 'en', {
   insight: {
     title: 'How can every die lose?',
     html: `<p>Count instead of guessing. Each die has six faces, so two dice can land in 6 × 6 = 36 equally likely ways. Take A (2, 2, 4, 4, 9, 9) against B (1, 1, 6, 6, 8, 8). A’s two 9s beat all six of B’s faces: 12 ways. A’s 2s and 4s beat only B’s two 1s: 4 × 2 = 8 more. That makes 20 of 36 for A, or 5/9. The same count gives B over C, and C over A.</p>
-<canvas id="dice-grid" style="display:block;width:100%;max-width:300px;margin:18px auto 8px" aria-hidden="true"></canvas>
+<canvas id="dice-grid" class="dice-grid" aria-hidden="true"></canvas>
 <p id="dice-grid-note"></p>
 <div class="insight-visual">A beats B, B beats C, and C beats A. “Usually beats” doesn’t line up in a row, so whoever chooses second can always find a die that wins.</div>
 <h3>Better on average isn’t the same as usually winning</h3>
