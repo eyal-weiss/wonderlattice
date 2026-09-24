@@ -1,8 +1,12 @@
 # Project state — 2026-09-23
 
+## Discovery trail — 2026-09-24
+
+Each room now offers “Keep this moment.” A visitor can save a small still, current settings, and an optional note to a browser-local “My trail.” They can revisit settings, add a later reflection, and follow curated links between related rooms. JSON export/import allows backups and transfer; import replaces the current trail. The trail holds 24 moments and has no score, account, tracking, or server storage. A browser session verified saving motion and waves, restoring a wave ratio, reflections after reload, and controls in all five rooms. The owner-only hosted review version has been updated; the private GitHub repository still lags while earlier repository operations await approval review.
+
 ## Mathematician visitors — 2026-09-24
 
-Each of the five rooms now has a small illustrated mathematician cameo chosen at random from a room-specific set. A visitor can meet another one with the ↻ button. The captions are original, playful connections to the experiment, never presented as historical quotations. Each card links to a biography or the mathematician's page. The portraits are deliberately stylized and labeled as illustrations rather than historical likenesses. The feature works in the offline source and the static build; no portrait assets or external services load at runtime. Browser review covered all five rooms and the shuffle control; a narrow mobile viewport has not yet been visually inspected.
+Each of the five rooms has a small mathematician cameo chosen at random from a room-specific pair. A visitor can meet another one with the ↻ button. The face is a documented historical photograph or portrait, framed inside an original paper-puppet body that hops and waves on appearance. Motion is disabled when reduced motion is preferred. The captions are original connections, never presented as historical quotations. Each card links to a biography and the source portrait. Images are bundled for offline play, and their rights and attributions are documented in docs/PORTRAITS.md. Figures without a trustworthy likeness were replaced, including Hypatia, Sophie Germain, and Dietrich Braess.
 
 ## Review fix — 2026-09-24
 
@@ -16,7 +20,8 @@ The traffic room now draws distinct, visible moving markers along the active rou
 - Topology: interactive projected ribbon, half-twists, highlighted edges, traveler.
 - Optional explanatory text, browser narration, URL/settings sharing, responsive layout.
 - Networks: traffic shortcut paradox, adjustable demand, route proportions, and optional model explanation (on agent/braess-traffic pending review).
-- Mathematician visitors: room-specific illustrated cameos, short factual connections, and biography links.
+- Mathematician visitors: room-specific animated cameos, historical portraits, short factual connections, biography and portrait-source links.
+- Optional saved discovery trail with scene stills, notes, revisit reflections, room connections, and local JSON export/import.
 - Independent source export, offline use, MIT license, AI handoff and translation guides.
 
 ## Requested but not yet implemented

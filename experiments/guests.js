@@ -1,29 +1,30 @@
-/* Little illustrated visitors. The captions are original writing, not quotations. */
+/* Historical portraits in playful paper puppets. Captions are original writing. */
 (() => {
   'use strict';
 
-  const biography = name => `https://mathshistory.st-andrews.ac.uk/Biographies/${name}/`;
+  const bio = name => `https://mathshistory.st-andrews.ac.uk/Biographies/${name}/`;
+  const commons = name => `https://commons.wikimedia.org/wiki/File:${name}`;
+  // Frame: source image width and offset within the 56px circular head.
   const guests = {
     motion: [
-      { name: 'Hypatia', note: 'She taught geometry and astronomy in Alexandria. No pause button required.', url: biography('Hypatia'), color: '#bc9de5', hair: 'wave', skin: '#d5a779' },
-      { name: 'Leonhard Euler', note: 'Circles and exponentials share a rather elegant dance.', url: biography('Euler'), color: '#acd5a5', hair: 'swept', skin: '#e5bb96' },
+      {name:'Emmy Noether',note:'A hidden symmetry can reveal something that never changes.',url:bio('Noether'),image:'noether.jpg',source:commons('Noether.jpg'),color:'#bc9de5',frame:[185,-65,-22]},
+      {name:'Leonhard Euler',note:'Circles and exponentials share a rather elegant dance.',url:bio('Euler'),image:'euler.jpg',source:commons('Leonhard_Euler_-_Jakob_Emanuel_Handmann_(Kunstmuseum_Basel).jpg'),color:'#acd5a5',frame:[125,-36,-21]},
     ],
     waves: [
-      { name: 'Jules Lissajous', note: 'Two simple vibrations can draw a surprisingly elaborate loop.', url: biography('Lissajous'), color: '#b6b2e8', hair: 'swept', skin: '#d4a27d' },
-      { name: 'Sophie Germain', note: 'She studied vibrating plates: geometry you could almost hear.', url: biography('Germain'), color: '#f4b9aa', hair: 'wave', skin: '#c9906c' },
-      { name: 'Joseph Fourier', note: 'Many simple waves can hide inside one complicated sound.', url: biography('Fourier'), color: '#a4d8dc', hair: 'curl', skin: '#d9ad86' },
+      {name:'Jules Lissajous',note:'Two simple vibrations can draw a surprisingly elaborate loop.',url:bio('Lissajous'),image:'lissajous.jpg',source:commons('Jules_Antoine_Lissajous.jpeg'),color:'#b6b2e8',frame:[200,-69,-30]},
+      {name:'Joseph Fourier',note:'Many simple waves can hide inside one complicated sound.',url:bio('Fourier'),image:'fourier.jpg',source:commons('Joseph_Fourier.jpg'),color:'#a4d8dc',frame:[160,-50,-21]},
     ],
     flock: [
-      { name: 'John Conway', note: 'His Game of Life also makes surprises from tiny local rules.', url: biography('Conway'), color: '#a6d4b3', hair: 'curl', skin: '#dfb48e' },
-      { name: 'Alan Turing', note: 'His pattern model showed how local changes can make spots and stripes.', url: biography('Turing'), color: '#b6c8eb', hair: 'swept', skin: '#cc9775' },
+      {name:'John Conway',note:'His Game of Life also makes surprises from tiny local rules.',url:bio('Conway'),image:'conway.jpg',source:commons('John_H_Conway_2005_(cropped).jpg'),color:'#a6d4b3',frame:[100,-23,-12],credit:'Thane Plambeck',license:'https://creativecommons.org/licenses/by/2.0/'},
+      {name:'Alan Turing',note:'His pattern model showed how local changes can make spots and stripes.',url:bio('Turing'),image:'turing.jpg',source:commons('Alan_Turing_(1951).jpg'),color:'#b6c8eb',frame:[115,-28,-21]},
     ],
     ribbon: [
-      { name: 'August Möbius', note: 'One half twist makes “the other side” a trick question.', url: biography('Mobius'), color: '#95d5e1', hair: 'swept', skin: '#e6b895' },
-      { name: 'Johann Listing', note: 'He explored one-sided surfaces, too. History has more than one name.', url: biography('Listing'), color: '#f0c69f', hair: 'curl', skin: '#d7a179' },
+      {name:'August Möbius',note:'One half twist makes “the other side” a trick question.',url:bio('Mobius'),image:'mobius.png',source:commons('August_Ferdinand_Möbius.png'),color:'#95d5e1',frame:[142,-43,-31]},
+      {name:'Johann Listing',note:'He explored one-sided surfaces, too. History has more than one name.',url:bio('Listing'),image:'listing.jpg',source:commons('J-B-Listing.jpg'),color:'#f0c69f',frame:[145,-46,-37]},
     ],
     traffic: [
-      { name: 'Dietrich Braess', note: 'A new road can make everyone arrive later. What a plot twist.', url: 'https://homepage.rub.de/dietrich.braess/', color: '#acd9c2', hair: 'swept', skin: '#dbac86' },
-      { name: 'John Nash', note: 'Here, no driver can improve alone, even while everyone is slower.', url: biography('Nash'), color: '#d5b9ec', hair: 'curl', skin: '#d2a27e' },
+      {name:'John von Neumann',note:'Traffic is a game of choices, and a clever move can surprise everybody.',url:bio('Von_Neumann'),image:'vonneumann.jpg',source:commons('HD.3F.191_(11239892036).jpg'),color:'#acd9c2',frame:[95,-15,-18]},
+      {name:'John Nash',note:'Here, no driver can improve alone, even while everyone is slower.',url:bio('Nash'),image:'nash.jpg',source:commons('John_Forbes_Nash_(1928-2015)_portrait.jpg'),color:'#d5b9ec',frame:[120,-30,-28]},
     ],
   };
   const selected = Object.create(null);
@@ -35,22 +36,19 @@
     selected[room] = (previous + 1 + Math.floor(Math.random() * (pool.length - 1))) % pool.length;
   }
 
-  function portrait(guest) {
-    const hair = guest.hair === 'wave'
-      ? '<path d="M17 36Q12 23 19 16Q28 7 42 15Q52 20 47 38L44 37Q46 25 40 20Q31 14 23 21Q18 28 20 37Z" fill="#2d3441"/><path d="M19 29Q13 39 19 48M45 28Q52 39 45 48" fill="none" stroke="#2d3441" stroke-width="7" stroke-linecap="round"/>'
-      : guest.hair === 'curl'
-        ? '<path d="M17 33Q13 23 20 18Q18 11 26 12Q31 7 37 12Q46 10 46 18Q52 23 47 33L43 31Q46 22 40 20Q30 14 23 21Q18 25 20 33Z" fill="#34303a"/><circle cx="21" cy="18" r="5" fill="#34303a"/><circle cx="42" cy="18" r="5" fill="#34303a"/>'
-        : '<path d="M18 34Q14 25 19 19Q22 12 35 13Q46 12 47 27L45 34Q42 22 36 20Q29 25 20 24Z" fill="#3a3441"/>';
-    return `<svg viewBox="0 0 64 64" role="img" aria-label="Playful illustration of ${guest.name}; not a historical likeness" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="30" fill="${guest.color}"/><circle cx="32" cy="32" r="27" fill="#16202b" opacity=".18"/><path d="M10 57Q12 46 25 44L32 50L39 44Q52 46 54 57Z" fill="#273640" stroke="#eaf3e8" stroke-width="1.5"/><path d="M27 44L32 50L37 44" fill="none" stroke="${guest.color}" stroke-width="2"/><ellipse cx="32" cy="31" rx="15" ry="19" fill="${guest.skin}"/>${hair}<circle cx="26" cy="32" r="1.4" fill="#26303c"/><circle cx="38" cy="32" r="1.4" fill="#26303c"/><path d="M28 40Q32 43 36 40" fill="none" stroke="#814f49" stroke-width="1.6" stroke-linecap="round"/><path d="M30 35L32 36L33 35" fill="none" stroke="#ab755b" stroke-width="1"/></svg>`;
+  function puppet(guest) {
+    const [size,x,y] = guest.frame;
+    return `<div class="math-guest-puppet" style="--guest-accent:${guest.color};--portrait-size:${size}px;--portrait-x:${x}px;--portrait-y:${y}px" aria-hidden="true"><span class="math-guest-spark">✦</span><span class="math-guest-figure"><span class="math-guest-leg math-guest-leg-left"></span><span class="math-guest-leg math-guest-leg-right"></span><span class="math-guest-arm math-guest-arm-left"></span><span class="math-guest-arm math-guest-arm-right"></span><span class="math-guest-outfit"><span class="math-guest-bow">◆</span></span><span class="math-guest-head"><img src="./portraits/${guest.image}" alt="" width="${size}" loading="lazy"></span></span></div>`;
   }
 
-  function render(room, target) {
+  function render(room,target) {
     if (!target || !guests[room]) return;
     if (selected[room] === undefined) pick(room);
     const guest = guests[room][selected[room]];
-    target.innerHTML = `<div class="math-guest-portrait">${portrait(guest)}</div><div class="math-guest-copy"><span class="math-guest-eyebrow">Math history</span><strong>${guest.name}</strong><p>${guest.note}</p><a href="${guest.url}" target="_blank" rel="noopener noreferrer" aria-label="Read about ${guest.name}">Their story ↗</a></div><button type="button" class="math-guest-next" aria-label="Meet another mathematician" title="Meet another mathematician">↻</button>`;
-    target.querySelector('button').addEventListener('click', () => { pick(room); render(room, target); });
+    const credit = guest.credit ? `<span class="math-guest-credit">Photo: ${guest.credit} · <a href="${guest.license}" target="_blank" rel="noopener noreferrer">CC BY 2.0</a></span>` : '';
+    target.innerHTML = `${puppet(guest)}<div class="math-guest-copy"><span class="math-guest-eyebrow">Math history · historical portrait</span><strong>${guest.name}</strong><p>${guest.note}</p><a href="${guest.url}" target="_blank" rel="noopener noreferrer" aria-label="Read about ${guest.name}">Story ↗</a><a class="math-guest-source" href="${guest.source}" target="_blank" rel="noopener noreferrer" aria-label="Portrait source for ${guest.name}">Portrait ↗</a>${credit}</div><button type="button" class="math-guest-next" aria-label="Meet another mathematician" title="Meet another mathematician">↻</button>`;
+    target.querySelector('button').addEventListener('click',()=>{ pick(room); render(room,target); });
   }
 
-  globalThis.WonderloomGuests = Object.freeze({ pick, render });
+  globalThis.WonderloomGuests = Object.freeze({pick,render});
 })();
