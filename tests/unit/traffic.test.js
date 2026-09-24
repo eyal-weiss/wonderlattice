@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import '../experiments/traffic.js';
+import './load.js';
 
-const { equilibrium } = globalThis.WonderloomTraffic;
+const { equilibrium } = globalThis.Wonderloom.models.traffic;
 
 test('adding a road makes the familiar 4000-driver journey slower', () => {
   const before = equilibrium(4000, false);

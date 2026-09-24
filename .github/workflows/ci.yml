@@ -1,0 +1,43 @@
+name: Checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Lint and formatting
+        run: npm run lint && npm run format:check
+      - name: Model tests
+        run: npm test
+      - name: Build
+        run: npm run build
+      - name: Install browser
+        run: npx playwright install --with-deps chromium
+      - name: Browser tests (source)
+        run: npm run test:browser
+      - name: Browser tests (built site)
+        run: npm run test:browser
+        env:
+          SERVE_DIR: dist
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-results
+          path: test-results/
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wonderloom-site
+          path: dist/
+          retention-days: 30

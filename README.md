@@ -1,74 +1,74 @@
-# Wonderloom — your independent copy
+# Wonderloom
 
 A playground for beautiful mathematical ideas, owned and directed by Eyal Weiss.
 
-## Start here: no installation, no AI, no account
+Five rooms: drawing with two turning arms, waves and sound, a flock, a one-sided ribbon in 3D, and a traffic shortcut
+that slows everyone down. Each room has an optional explanation and a visiting mathematician, and you can save
+moments to a private "My trail". There are no accounts, tracking, AI services, or runtime dependencies.
 
-Clone or download this repository, then double-click **index.html**. It loads the app and its local traffic model: HTML, styles, explanations, and JavaScript. The five experiments run in a modern browser without a server, GPT credits, an API key, or an internet connection.
+## Open it
 
-Use a text editor to edit index.html, save, then refresh the browser. Keep a backup before editing. You can give this folder to any coding assistant, including a local model, or work on it by hand. Read AGENTS.md for the project brief.
+Double-click **index.html**. It works offline, in any modern browser, with no installation.
 
-Sound starts only after a click. Spoken narration depends on your browser and its installed voices; some voices may need the internet. External reading links need the internet. Clipboard permissions vary, so a manual-copy dialog is available. Opening a local file shares settings rather than a public link.
+To send someone a single file, run `npm run build` and share `dist/wonderloom-standalone.html`. It holds the whole
+app, portraits included.
 
-**My trail** is an optional collection of moments you save while exploring. Each moment keeps a small image, the room settings, and an optional thought. Revisit it to compare what you notice later. Its contents live in this browser's local storage, not in an account or on a server. Export the trail as JSON for backup or transfer to another browser; importing replaces the current trail. Clearing site data removes the local trail. It holds up to 24 moments.
+Sound starts only after a click. Narration uses the browser's voices, and some voices need the internet. External
+reading links need the internet. A copy opened from disk shares settings as text rather than links.
 
-## Optional local web server
+**My trail** keeps up to 24 saved moments (a small image, the room settings, an optional note) in this browser's local
+storage. Export it as JSON to back it up or move it to another browser; importing replaces the current trail.
+Clearing site data removes it.
 
-If Python 3 is installed, open a terminal in this folder and run:
+## Change it
+
+Edit a file, save, and refresh the browser. There's no build step during development.
+
+- `src/rooms/<room>/room.js`: a room's words, controls, drawing, and visitors
+- `src/rooms/<room>/model.js`: its mathematics
+- `styles/`: the look
+- `index.html`: page structure and dialogs
+
+**docs/ARCHITECTURE.md** explains how the pieces fit and has a checklist for adding a room. **AGENTS.md** is the
+brief for any coding assistant.
+
+## Optional tools
+
+With Node.js 20 or later:
 
 ```sh
-python3 -m http.server 4173 --bind 127.0.0.1
+npm ci                  # once, installs the test and formatting tools
+npm start               # serve at http://localhost:4173
+npm test                # model tests
+npm run test:browser    # behaviour tests in a real browser
+npm run build           # dist/ plus dist/wonderloom-standalone.html
+npm run check           # everything CI runs
 ```
 
-On Windows, you may need `py -m http.server 4173 --bind 127.0.0.1` instead.
-Open http://localhost:4173 in your browser. Stop the server with Ctrl+C.
-A localhost link only works on your own computer.
+The first time you run the browser tests, install their browser with `npx playwright install chromium`. On Linux
+systems Playwright doesn't support, use your own Chrome: `PW_CHANNEL=chrome npm run test:browser`.
 
-## Optional development tools
+Without Node, `python3 -m http.server 4173 --bind 127.0.0.1` also serves the folder.
 
-Node.js 22.12 or later in the Node 22 line supports the included Vite setup. With Node/npm installed:
+## Publish it
 
-```sh
-npm ci
-npm run dev
-```
+It's a static site. Upload the contents of `dist/` (after `npm run build`) to any static host in your own account,
+for example Cloudflare Pages, Netlify, or GitHub Pages (Pages on a private repository needs a paid GitHub plan). No
+backend, environment variables, or credentials are needed. The old ChatGPT-hosted address is separate and was not
+transferred.
 
-The initial dependency install requires internet access. The browser app itself has no runtime package dependencies. To create a static build:
+## Working on it
 
-```sh
-npm run build
-```
+This private repository, `eyal-weiss/wonderloom`, is the source of truth. Work happens on a branch per task with a
+pull request into `main`; CI runs lint, formatting, model tests, a build, and browser tests on every pull request. See
+docs/COLLABORATING.md.
 
-The output goes to dist/. Node and Vite are optional for this version: serving index.html directly works too.
+## Documents
 
-## Publish under an account you control
-
-This is a static website. Upload **index.html**, **experiments/**, and **portraits/** to the web root of a static hosting service in your own account, or deploy the contents of dist/ after building. No backend, environment variables, database, or OpenAI credentials are required. Use the host's public HTTPS URL for links you share. The optional external source links in the app are optional reading, not application dependencies.
-
-The existing chatgpt.site address belongs to the current ChatGPT-hosted deployment. This export does not transfer that address or change its access settings. A separately hosted copy gets a separate address; a domain you control can be connected through your chosen host.
-
-## Keep one canonical repository
-
-The owner has created a private GitHub repository called `eyal-weiss/wonderloom`. This repository is the source of truth. A downloaded ZIP is a snapshot and does not update the repository automatically.
-
-Each agent should clone or check out its own working copy, start a uniquely named branch from the latest `main`, and open a pull request. Do not have two agents edit the same shared checkout or push to the same branch. Review and merge one pull request at a time; update the next branch against current `main` when changes overlap. See docs/COLLABORATING.md and AGENTS.md. You do not need ChatGPT to access, edit, or deploy your repository once the repository contains the source.
-
-## Files
-
-- index.html: complete, editable app; also the offline version.
-- experiments/traffic.js: Braess traffic model and canvas rendering; loaded alongside index.html.
-- experiments/guests.js and portraits/: animated paper-puppet visitors with documented historical portraits for their faces. Each card links to a biography and image source; image rights and attribution are in docs/PORTRAITS.md.
-- experiments/trail.js: optional browser-local saved scenes, reflections, and JSON export/import.
-- tests/traffic.test.js: equilibrium checks using Node’s built-in test runner.
-- package.json / package-lock.json / vite.config.js: optional development/build setup.
-- AGENTS.md: instructions for any coding assistant.
-- docs/TRANSLATING.md: language and Hebrew layout guidance.
-- docs/STATUS.md: implemented features, unfinished work, and next steps.
-- docs/PROVENANCE.md: source snapshot and verification details.
-- LICENSE: MIT license.
-
-## Current scope
-
-Five rooms: drawing with motion, waves and sound, flocking, a 3D Möbius ribbon, and a traffic shortcut paradox. There is no GPT integration, live AI tutor, analytics backend, account system, or remotely stored user data in this snapshot. Optional guarded browser-agent hooks are inert in browsers that do not provide them.
-
-English is the current language. A complete modular source refactor, in-app remix interface, social demo video, public GitHub repository, and public release are unfinished; see docs/STATUS.md.
+- docs/ARCHITECTURE.md: structure, the room contract, adding a room, checks
+- docs/STATUS.md: what exists, what's unfinished, what's next
+- docs/PORTRAITS.md: portrait sources and rights
+- docs/TRANSLATING.md: localization and Hebrew layout guidance
+- docs/COLLABORATING.md: branches, pull requests, prompts for other assistants
+- docs/PROVENANCE.md: where the code came from
+- LICENSE: MIT (code and text; portraits carry their own terms)
