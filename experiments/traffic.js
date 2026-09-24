@@ -55,26 +55,36 @@
     if (flow.lower + flow.middle > 0) seg(south, end, '#b4eed3', density(flow.lower + flow.middle));
     if (shortcut && flow.middle > 0) seg(north, south, '#e2ccff', density(flow.middle));
 
-    // Moving dots represent proportions of route flow, not individual cars.
+    // Visible moving markers represent proportions of route flow, not individual cars.
     const routes = [
       { amount: flow.upper, path: [start, north, end], color: '#fbd4a9' },
       { amount: flow.lower, path: [start, south, end], color: '#fbd4a9' },
       { amount: flow.middle, path: [start, north, south, end], color: '#e2ccff' }
     ];
     for (const route of routes) {
-      const count = Math.min(16, Math.round(route.amount / Math.max(demand, 1) * 15));
+      const count = Math.min(36, Math.round(route.amount / Math.max(demand, 1) * 36));
       if (count < 1) continue;
       const lengths = route.path.slice(1).map((p, i) => Math.hypot(p[0] - route.path[i][0], p[1] - route.path[i][1]));
       const total = lengths.reduce((a, b) => a + b, 0);
       for (let n = 0; n < count; n++) {
-        let distance = ((n / count + clock * .12) % 1) * total;
+        let distance = ((n / count + clock * .16) % 1) * total;
         for (let i = 0; i < lengths.length; i++) {
           if (distance > lengths[i]) { distance -= lengths[i]; continue; }
           const p = route.path[i], q = route.path[i + 1], t = distance / lengths[i];
-          ctx.fillStyle = route.color;
+          const x = p[0] + (q[0] - p[0]) * t, y = p[1] + (q[1] - p[1]) * t;
+          ctx.save();
+          ctx.translate(x, y);
+          ctx.rotate(Math.atan2(q[1] - p[1], q[0] - p[0]));
+          ctx.fillStyle = '#10202a';
+          ctx.strokeStyle = '#f4fff2';
+          ctx.lineWidth = 1.8;
           ctx.beginPath();
-          ctx.arc(p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t, 2.5, 0, 2 * Math.PI);
+          ctx.roundRect(-6, -4, 12, 8, 2);
           ctx.fill();
+          ctx.stroke();
+          ctx.fillStyle = route.color;
+          ctx.fillRect(0, -2.5, 3, 5);
+          ctx.restore();
           break;
         }
       }
