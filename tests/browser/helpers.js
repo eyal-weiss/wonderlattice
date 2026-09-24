@@ -8,6 +8,7 @@ export const ROOMS = {
   traffic: 'The tempting shortcut.',
   loom: 'The mathematical loom.',
   storm: 'Send a picture through a storm.',
+  sudoku: 'Sudoku, made transparent.',
 };
 
 // Records page errors, captures clipboard writes, and exposes the optional
