@@ -12,6 +12,7 @@ export const ROOMS = {
   dice: 'The dice that beat each other.',
   cube: 'Inside the Rubik’s Cube.',
   sample: 'A spoonful of a city.',
+  plane: 'Bend the plane.',
 };
 
 // Records page errors, captures clipboard writes, and exposes the optional
