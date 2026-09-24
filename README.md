@@ -3,8 +3,8 @@
 A playground for beautiful mathematical ideas, owned and directed by Eyal Weiss.
 
 Small rooms, each built around one surprise: drawing with two turning arms, waves and sound, a flock, a one-sided
-ribbon in 3D, a traffic shortcut that slows everyone down, a loom that weaves cloth from a grid of choices, and more on
-the way (docs/ROADMAP.md). Each room has an optional explanation and a visiting mathematician, and you can save
+ribbon in 3D, a traffic shortcut that slows everyone down, a loom that weaves cloth from a grid of choices, dice that beat each other in a circle, a picture sent
+through a storm of flipped bits, and Sudoku seen as colouring a network, with more on the way (docs/ROADMAP.md). Each room has an optional explanation and a visiting mathematician, and you can save
 moments to a private "My trail". There are no accounts, tracking, AI services, or runtime dependencies.
 
 ## Open it

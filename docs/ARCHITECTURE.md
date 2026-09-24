@@ -76,8 +76,8 @@ There are two kinds of room:
 
 Optional hooks, all given `(settings, stage)` unless noted: `bindControls(panel, s, stage)` for custom controls,
 `readouts(s)` to update status text, `step(dt, s, stage)` per animation frame, `action` for the third transport
-button, `reset` for "Start again", `onPreset`, `onInput`, `enter` when the room opens, `pointer: { down, move, up,
-leave, escape, arrow }`, `extraSettings()` / `restore(saved, s, stage)` for trail state that isn't in `settings`, and
+button, `reset` for "Start again", `onPreset`, `onInput`, `enter` when the room opens, `pointer: { down, move, up, leave, escape, arrow, key }` (`key(event, s, stage)` receives
+other keys pressed on the canvas and returns true when it handled one), `extraSettings()` / `restore(saved, s, stage)` for trail state that isn't in `settings`, and
 `silence()` / `soundOn()` for rooms that make sound, and `preview(ctx, width, height)` to draw the home-card picture
 (by default the card shows `draw()` with `defaults` plus optional `previewSettings`, at clock 0; a room whose `draw`
 touches the page or needs set-up must supply `preview`).
@@ -112,7 +112,8 @@ numbers. The mathematics in `model.js` never contains visitor-facing words.
 5. Add the room to `ROOMS` in `tests/browser/helpers.js`, and a browser test for its surprise. Mention it in the page
    `description` and the README if it deserves it.
 6. Optional: add trail `bridges` in `src/features/trail.js` and room-specific CSS in `styles/rooms.css`.
-7. Run `npm run check`.
+7. Run `npm run check`. When several checkouts run browser tests at once, give each its own port:
+   `PW_PORT=4711 PW_CHANNEL=chrome npm run check`.
 
 ## Shared links and saved moments are public contracts
 

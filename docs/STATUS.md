@@ -1,5 +1,20 @@
 # Project state — 2026-09-24
 
+## Three more rooms — 2026-09-24
+
+Each was built by a sub-agent in its own worktree from a written brief, then reviewed and integrated one pull request
+at a time. Independent reviews (Codex/GPT, and a Claude reviewer when Codex hit its usage limit) caught real issues
+before merging.
+
+- **The dice that beat each other** (Chance & evidence). Nontransitive dice: whichever die you pick, the room picks one
+  that usually beats it. Includes Efron's four dice and Grime's dice, whose circle reverses when you roll two of each,
+  with exact odds shown on a circle of victories. Pascal visits as a sketch.
+- **Send a picture through a storm** (Signals & networks). A drawn picture is sent through random bit flips with no
+  protection, three copies, a parity bit, or Hamming(7,4), with exact expected-damage curves. Hamming visits as a
+  sketch.
+- **Sudoku, made transparent** (Games & puzzles). A 4×4 board of colours, shapes or digits; candidates fade as you
+  place, a network view shows Sudoku as graph colouring, and logical steps explain themselves. Euler visits.
+
 ## The mathematical loom — 2026-09-24
 
 A new "Making" room. A four-shaft weaving draft (threading, tie-up, treadling) sits beside the cloth it weaves. The
@@ -71,7 +86,7 @@ browser tests, ESLint, Prettier, and GitHub Actions CI that runs everything on e
 
 Following docs/ROADMAP.md (review section):
 
-1. Move the existing rooms' words into `text.en.js` files.
-2. New rooms, one pull request each: nontransitive dice, the mathematical loom, a picture through a storm, Sudoku.
-3. Then: bend the plane, a spoonful of a city, grow a fingerprint; later a scoped Rubik's cube.
+1. Next rooms: bend the plane, a spoonful of a city, grow a fingerprint; later a scoped Rubik's cube.
+2. With the Hebrew translation: move the five original rooms' words into `text.en.js` files.
+3. Move the storm, dice, and Sudoku rooms' inline styles into `styles/rooms.css`.
 4. Decide on hosting and publish `dist/`.
