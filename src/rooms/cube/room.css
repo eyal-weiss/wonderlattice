@@ -1,0 +1,57 @@
+/* Inside the Rubik's Cube: the move pad and the readout. */
+.cube-heading {
+  font-size: 14px;
+}
+.cube-segment {
+  margin-top: 8px;
+}
+.cube-pad {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 10px;
+}
+.cube-move {
+  min-height: 42px;
+  border: 1px solid #4a5563;
+  border-radius: 8px;
+  background: #18212b;
+  color: var(--ink);
+  font:
+    600 15px ui-monospace,
+    monospace;
+}
+.cube-move:hover:not(:disabled) {
+  border-color: #d87a5a;
+}
+.cube-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.cube-actions .button {
+  min-height: 38px;
+  padding: 7px 12px;
+}
+.cube-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.cube-pair select {
+  font-size: 13px;
+  padding: 7px;
+  margin-top: 6px;
+}
+.cube-readout {
+  display: grid;
+  gap: 4px;
+  line-height: 1.45;
+}
+.cube-notation {
+  font:
+    600 15px ui-monospace,
+    monospace;
+  color: var(--ink);
+}

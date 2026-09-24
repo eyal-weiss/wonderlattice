@@ -10,3 +10,4 @@ import '../../src/rooms/loom/model.js';
 import '../../src/rooms/storm/model.js';
 import '../../src/rooms/sudoku/model.js';
 import '../../src/rooms/dice/model.js';
+import '../../src/rooms/cube/model.js';
