@@ -5,6 +5,7 @@
   const W = Wonderloom;
   const { $, TAU, clamp } = W;
   const { surface, project } = W.models.ribbon;
+  const t = W.text('ribbon');
 
   // View rotation and the traveler's progress (radians around the ring).
   let rx = -0.5,
@@ -86,43 +87,37 @@
   W.defineRoom({
     id: 'ribbon',
     symbol: '∞',
-    eyebrow: 'TOPOLOGY · 3D',
-    name: 'The other side',
+    eyebrow: t.eyebrow,
+    name: t.name,
     theme: 'shape',
-    tagline: 'Give a ribbon half a twist and one of its sides disappears.',
+    tagline: t.tagline,
     accent: { background: '#1c2a32', border: '#88c2d5', color: '#b9f0ff' },
 
-    title: 'Where is the other side?',
-    subtitle: 'Turn a ribbon in space. Follow its edge. Let one twist surprise you.',
-    field: 'Topology · Surfaces · 3D',
-    sceneLabel: 'An ordinary strip, a strange journey',
-    sceneName: 'The Möbius ribbon',
-    tip: 'Drag to rotate · Arrow keys also turn the view',
-    actionLabel: 'Follow the edge',
-    canvasLabel: 'A three-dimensional ribbon. Drag or use arrow keys to rotate.',
-    panelEyebrow: 'Turn & follow',
-    whyLabel: 'Where did the other side go?',
-    nudge:
-      'Watch the golden traveler. With one half-twist, it takes two circuits around the hole to get back to its starting point.',
-    connection: {
-      html: '<strong>Make it real.</strong> Take a strip of paper, give one end a half-twist, and tape the ends together. Trace a line down its middle without lifting your pen.',
-      go: 'motion',
-      label: 'Follow another kind of loop',
-    },
+    title: t.title,
+    subtitle: t.subtitle,
+    field: t.field,
+    sceneLabel: t.sceneLabel,
+    sceneName: t.sceneName,
+    tip: t.tip,
+    actionLabel: t.actionLabel,
+    canvasLabel: t.canvasLabel,
+    panelEyebrow: t.panelEyebrow,
+    whyLabel: t.whyLabel,
+    nudge: t.nudge,
+    connection: { ...t.connection, go: 'motion' },
 
     defaults: { twists: 1, width: 0.46, spin: true, edges: false, walk: true, zoom: 1 },
     ranges: { twists: [0, 2, 'integer'], width: [0.2, 0.65], zoom: [0.75, 1.3] },
     defaultPreset: 1,
     presets: [
-      { name: 'No twist', note: 'A familiar band with two edges.', badge: '0', settings: { twists: 0 } },
-      { name: 'One half-twist', note: 'One continuous side. One edge.', badge: '½', settings: { twists: 1 } },
-      { name: 'A full twist', note: 'Two edges return.', badge: '1', settings: { twists: 2 } },
-    ],
+      { badge: '0', settings: { twists: 0 } },
+      { badge: '½', settings: { twists: 1 } },
+      { badge: '1', settings: { twists: 2 } },
+    ].map((p, i) => ({ ...t.presets[i], ...p })),
 
     guests: [
       {
-        name: 'August Möbius',
-        note: 'One half twist makes “the other side” a trick question.',
+        ...t.guests[0],
         bio: 'Mobius',
         image: 'mobius.png',
         source: 'August_Ferdinand_Möbius.png',
@@ -130,8 +125,7 @@
         frame: [142, -43, -31],
       },
       {
-        name: 'Johann Listing',
-        note: 'He explored one-sided surfaces, too. History has more than one name.',
+        ...t.guests[1],
         bio: 'Listing',
         image: 'listing.jpg',
         source: 'J-B-Listing.jpg',
@@ -140,30 +134,17 @@
       },
     ],
 
-    insight: {
-      title: 'One twist changes the journey.',
-      html: `<p>Join a strip of paper into a ring and you get two sides and two separate edges. Give one end a half-twist before joining it, and something changes: you can reach what looked like the other side without crossing an edge.</p>
-<div class="insight-visual">The Möbius strip has one continuous side and one boundary loop.</div>
-<h3>Follow the golden traveler</h3>
-<p>The traveler starts away from the centerline. On a Möbius ribbon, one circuit around the hole brings it to the opposite width position. A second circuit returns it to the start. It never jumps across the ribbon.</p>
-<h3>Count the edges</h3>
-<p>“Follow the edge” highlights the boundary. With a half-twist, both apparent edges belong to one continuous loop. With no twist or a full twist, they are two separate loops, shown in different colors.</p>
-<h3>A different way of seeing shape</h3>
-<p>Topology studies properties that survive continuous bending and stretching. Turning this object on screen changes your viewpoint, while its one-sidedness stays the same.</p>
-<details><summary>How is the surface drawn?</summary><p>For angle u and width coordinate v:<br>x = (R + v cos(nu/2)) cos(u)<br>y = (R + v cos(nu/2)) sin(u)<br>z = v sin(nu/2)</p><p>n counts half-twists. Odd n gives a Möbius band; even n gives a two-sided band. This is a parametric surface projected into the canvas, with depth-sorted faces. Translucent shading lets you see the traveler through the surface.</p></details>
-<div class="sources"><a class="source-link" href="https://mathworld.wolfram.com/MoebiusStrip.html" target="_blank" rel="noopener">Explore the Möbius strip</a></div>`,
-    },
+    insight: t.insight,
 
     controls: (s, stage) =>
-      '<div class="control wide"><label for="twists">Give the ribbon a twist</label><select id="twists">' +
-      `<option value="0" ${s.twists === 0 ? 'selected' : ''}>No twist · a band</option>` +
-      `<option value="1" ${s.twists === 1 ? 'selected' : ''}>Half a twist · Möbius</option>` +
-      `<option value="2" ${s.twists === 2 ? 'selected' : ''}>A full twist · a band</option></select></div>` +
-      stage.slider('width', 'Ribbon width', 0.2, 0.65, 0.01, s.width, '') +
-      stage.slider('zoom', 'Look closer', 0.75, 1.3, 0.01, s.zoom, '×') +
-      stage.check('spin', 'Let it turn', s.spin) +
-      stage.check('walk', 'Show the traveler', s.walk) +
-      stage.check('edges', 'Highlight the edges', s.edges),
+      `<div class="control wide"><label for="twists">${t.twists}</label><select id="twists">` +
+      t.twistOptions.map((o, i) => `<option value="${i}" ${s.twists === i ? 'selected' : ''}>${o}</option>`).join('') +
+      '</select></div>' +
+      stage.slider('width', t.width, 0.2, 0.65, 0.01, s.width, '') +
+      stage.slider('zoom', t.zoom, 0.75, 1.3, 0.01, s.zoom, '×') +
+      stage.check('spin', t.spin, s.spin) +
+      stage.check('walk', t.walk, s.walk) +
+      stage.check('edges', t.edges, s.edges),
 
     bindControls(panel, s, stage) {
       $('twists').addEventListener('change', (e) => {
@@ -177,9 +158,9 @@
 
     readouts(s) {
       const oneSided = s.twists % 2 === 1;
-      $('scene-name').textContent = oneSided ? 'The Möbius ribbon' : 'The twisted band';
-      $('scene-status').textContent = oneSided ? 'One side · one edge' : 'Two sides · two edges';
-      $('scene-action').textContent = s.edges ? 'Hide the edges' : 'Follow the edge';
+      $('scene-name').textContent = oneSided ? t.nameOneSided : t.nameTwoSided;
+      $('scene-status').textContent = oneSided ? t.statusOneSided : t.statusTwoSided;
+      $('scene-action').textContent = s.edges ? t.hideEdges : t.showEdges;
     },
 
     step(dt, s, stage) {

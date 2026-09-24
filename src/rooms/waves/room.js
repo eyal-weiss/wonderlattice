@@ -5,6 +5,7 @@
   const W = Wonderloom;
   const { $, TAU } = W;
   const { wavePoint, beat } = W.models.waves;
+  const t = W.text('waves');
 
   // Web Audio state. Sound starts only after a click and stops on leaving.
   let audio = null,
@@ -23,7 +24,7 @@
       }
     }
     nodes = [];
-    if (W.stage.isShowing(room)) $('scene-action').textContent = 'Turn sound on';
+    if (W.stage.isShowing(room)) $('scene-action').textContent = t.soundOff;
   }
 
   function startTones() {
@@ -76,11 +77,11 @@
       sounding = true;
       W.stage.setPlaying(true);
       startTones();
-      $('scene-action').textContent = 'Sound on · mute';
+      $('scene-action').textContent = t.soundOn;
       W.stage.sync();
     } catch {
       stopSound();
-      W.toast('Sound is unavailable in this browser. You can still explore the waves.');
+      W.toast(t.noSound);
     }
   }
 
@@ -113,9 +114,9 @@
       }
       ctx.fillStyle = '#b6c0d4';
       ctx.font = '12px system-ui';
-      ctx.fillText('FIRST TONE →', 12, ch - 10);
+      ctx.fillText(t.labels.firstTone, 12, ch - 10);
       ctx.textAlign = 'right';
-      ctx.fillText('SECOND TONE ↑', cw - 12, ch - 10);
+      ctx.fillText(t.labels.secondTone, cw - 12, ch - 10);
       ctx.textAlign = 'left';
       return;
     }
@@ -133,8 +134,7 @@
       ctx.stroke();
       ctx.fillStyle = colors[row];
       ctx.font = '12px system-ui';
-      const label =
-        row === 0 ? 'A · ' + s.f + ' Hz' : row === 1 ? 'B · ' + (s.f * s.ratio).toFixed(1) + ' Hz' : 'A + B · COMBINED';
+      const label = row === 0 ? t.labels.a(s.f) : row === 1 ? t.labels.b((s.f * s.ratio).toFixed(1)) : t.labels.sum;
       ctx.fillText(label, 5, cy - amp - 9);
       ctx.strokeStyle = colors[row];
       ctx.lineWidth = row === 2 ? 2 : 1.4;
@@ -159,57 +159,37 @@
   const room = W.defineRoom({
     id: 'waves',
     symbol: '∿',
-    eyebrow: 'WAVES & SOUND',
-    name: 'Hear the shape',
+    eyebrow: t.eyebrow,
+    name: t.name,
     theme: 'signals',
-    tagline: 'Two tones combine into beats, silence, and a looping portrait.',
+    tagline: t.tagline,
     accent: { background: '#24233a', border: '#9a96d1', color: '#d0ccff' },
 
-    title: 'Hear the shape.',
-    subtitle: 'Two tones. A little space between them. Listen to what changes.',
-    field: 'Waves · Ratios · Interference',
-    sceneLabel: 'A conversation in waves',
-    sceneName: 'Two tones, together',
-    tip: 'Slow-motion wave model · Sound plays at real pitch',
-    actionLabel: 'Turn sound on',
-    canvasLabel: 'Two sine waves and their combined signal. Choose Circle portrait for a second representation.',
-    panelEyebrow: 'Listen & look',
-    whyLabel: 'Why does this happen?',
-    nudge: 'Try “Almost in tune.” Hear the volume swell and fade as two close pitches drift in and out of step.',
-    connection: {
-      html: '<strong>Circles become waves.</strong> The height of a point going around a circle follows a sine wave. Combine circular motions, and you’re back in the drawing studio.',
-      go: 'motion',
-      label: 'Paint with these ideas',
-    },
+    title: t.title,
+    subtitle: t.subtitle,
+    field: t.field,
+    sceneLabel: t.sceneLabel,
+    sceneName: t.sceneName,
+    tip: t.tip,
+    actionLabel: t.actionLabel,
+    canvasLabel: t.canvasLabel,
+    panelEyebrow: t.panelEyebrow,
+    whyLabel: t.whyLabel,
+    nudge: t.nudge,
+    connection: { ...t.connection, go: 'motion' },
 
     defaults: { f: 220, ratio: 1.5, phase: 0, volume: 20, portrait: false },
     ranges: { f: [110, 440], ratio: [0.5, 2], phase: [0, 360], volume: [0, 50] },
     defaultPreset: 0,
     presets: [
-      {
-        name: 'A perfect fifth',
-        note: 'A simple 3:2 relationship.',
-        badge: '3:2',
-        settings: { f: 220, ratio: 1.5, phase: 0 },
-      },
-      {
-        name: 'Almost in tune',
-        note: 'Two nearby tones make a pulse.',
-        badge: '≈',
-        settings: { f: 220, ratio: 1.02, phase: 0 },
-      },
-      {
-        name: 'The sound of silence',
-        note: 'Matching waves, half a turn apart.',
-        badge: '0',
-        settings: { f: 220, ratio: 1, phase: 180 },
-      },
-    ],
+      { badge: '3:2', settings: { f: 220, ratio: 1.5, phase: 0 } },
+      { badge: '≈', settings: { f: 220, ratio: 1.02, phase: 0 } },
+      { badge: '0', settings: { f: 220, ratio: 1, phase: 180 } },
+    ].map((p, i) => ({ ...t.presets[i], ...p })),
 
     guests: [
       {
-        name: 'Jules Lissajous',
-        note: 'Two simple vibrations can draw a surprisingly elaborate loop.',
+        ...t.guests[0],
         bio: 'Lissajous',
         image: 'lissajous.jpg',
         source: 'Jules_Antoine_Lissajous.jpeg',
@@ -217,8 +197,7 @@
         frame: [200, -69, -30],
       },
       {
-        name: 'Joseph Fourier',
-        note: 'Many simple waves can hide inside one complicated sound.',
+        ...t.guests[1],
         bio: 'Fourier',
         image: 'fourier.jpg',
         source: 'Joseph_Fourier.jpg',
@@ -228,30 +207,19 @@
     ],
 
     insight: {
-      title: 'When waves meet.',
-      html: `<p>One tone is a smooth, repeating wave. Two tones add together: at each moment, their displacements reinforce or oppose each other. The bright bottom line is their sum.</p>
-<h3>A rhythm inside two tones</h3>
-<p>When two frequencies are close, their sum grows and shrinks in strength. Those pulses are called <em>beats</em>. Their rate is the difference between the frequencies.</p>
-<div class="insight-visual" id="beat-detail"></div>
-<h3>Two sounds can make silence</h3>
-<p>Choose “The sound of silence.” Equal waves half a cycle apart cancel in this electronic mix. Real-world cancellation depends on where you listen and how the waves reach you.</p>
-<h3>Look sideways</h3>
-<p>Try “Circle portrait.” We use the first wave for the horizontal position and the second for the vertical position. The resulting Lissajous figure turns a relationship between rhythms into a shape.</p>
-<details><summary>The mathematics, if you want it</summary><p>A(t) = sin(2πft)<br>B(t) = sin(2πfrt + φ)<br>The combined signal is A(t) + B(t).</p><p>The slow-motion model preserves the frequency ratio and starting phase. Audible tones run at the pitches shown. Simple ratios repeat quickly; nearby unequal pitches produce beats.</p></details>
-<div class="sources"><a class="source-link" href="https://www.physicsclassroom.com/class/sound/Lesson-3/Interference-and-Beats" target="_blank" rel="noopener">Explore interference and beats</a></div>`,
+      ...t.insight,
       onOpen(s) {
-        $('beat-detail').textContent =
-          `Your tones: ${s.f} Hz and ${(s.f * s.ratio).toFixed(1)} Hz. Their frequency difference is ${beat(s).toFixed(1)} Hz.`;
+        $('beat-detail').textContent = t.beatDetail(s.f, (s.f * s.ratio).toFixed(1), beat(s).toFixed(1));
       },
     },
 
     controls: (s, stage) =>
-      stage.slider('f', 'First tone', 110, 440, 1, s.f, ' Hz') +
-      stage.slider('ratio', 'Second tone', 0.5, 2, 0.005, s.ratio, '×', 'Relative to the first tone.') +
-      stage.slider('phase', 'Starting phase', 0, 360, 1, s.phase, '°') +
-      stage.slider('volume', 'Volume', 0, 50, 1, s.volume, '%') +
-      '<div class="control wide"><span style="font-size:14px">Another way to see it</span><div class="segment" role="group" aria-label="Wave view">' +
-      `<button id="view-waves" aria-pressed="${!s.portrait}">Adding waves</button><button id="view-portrait" aria-pressed="${s.portrait}">Circle portrait</button></div></div>`,
+      stage.slider('f', t.firstTone, 110, 440, 1, s.f, t.hz) +
+      stage.slider('ratio', t.secondTone, 0.5, 2, 0.005, s.ratio, '×', t.secondToneHint) +
+      stage.slider('phase', t.phase, 0, 360, 1, s.phase, '°') +
+      stage.slider('volume', t.volume, 0, 50, 1, s.volume, '%') +
+      `<div class="control wide"><span style="font-size:14px">${t.view}</span><div class="segment" role="group" aria-label="${t.viewGroup}">` +
+      `<button id="view-waves" aria-pressed="${!s.portrait}">${t.viewWaves}</button><button id="view-portrait" aria-pressed="${s.portrait}">${t.viewPortrait}</button></div></div>`,
 
     bindControls(panel, s, stage) {
       for (const [id, portrait] of [
@@ -268,8 +236,8 @@
     },
 
     readouts(s) {
-      $('scene-status').textContent = Math.round(s.f) + ' Hz + ' + (s.f * s.ratio).toFixed(1) + ' Hz';
-      $('scene-action').textContent = sounding ? 'Sound on · mute' : 'Turn sound on';
+      $('scene-status').textContent = t.status(Math.round(s.f), (s.f * s.ratio).toFixed(1));
+      $('scene-action').textContent = sounding ? t.soundOn : t.soundOff;
     },
 
     draw,
