@@ -18,6 +18,8 @@ jobs:
       - run: npm ci
       - name: Lint and formatting
         run: npm run lint && npm run format:check
+      - name: Translation files
+        run: npm run i18n:check
       - name: Model tests
         run: npm test
       - name: Build

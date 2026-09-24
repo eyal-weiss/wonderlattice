@@ -2,10 +2,22 @@
 
 A playground for beautiful mathematical ideas, owned and directed by Eyal Weiss.
 
-Small rooms, each built around one surprise: drawing with two turning arms, waves and sound, a flock, a one-sided
-ribbon in 3D, a traffic shortcut that slows everyone down, a loom that weaves cloth from a grid of choices, dice that beat each other in a circle, a picture sent
-through a storm of flipped bits, and Sudoku seen as colouring a network, with more on the way (docs/ROADMAP.md). Each room has an optional explanation and a visiting mathematician, and you can save
-moments to a private "My trail". There are no accounts, tracking, AI services, or runtime dependencies.
+Thirteen small rooms, each built around one surprise, grouped on a home map by theme:
+
+- **Shape & space:** drawing with two turning arms, a one-sided ribbon in 3D, and bending the plane with complex
+  functions (a circle becomes a wing).
+- **Chance & evidence:** dice that beat each other in a circle, and a toy city where a huge biased poll is confidently
+  wrong.
+- **Games & puzzles:** Sudoku seen as colouring a network, and the Rubik's Cube's moves (R U needs 105 repeats to come
+  home).
+- **Making:** a loom that weaves cloth, twill, and houndstooth from a grid of choices.
+- **Living patterns:** a flock with no leader, and fingerprints grown by reaction–diffusion.
+- **Signals & networks:** waves and sound, a picture sent through a storm of flipped bits, and a road that slows every
+  driver.
+
+Each room has an optional explanation, with sources, and a visiting mathematician. You can save moments to a private
+"My trail". There are no accounts, tracking, AI services, or runtime dependencies. Every word can be translated: see
+docs/TRANSLATING.md.
 
 ## Open it
 
@@ -43,6 +55,7 @@ npm start               # serve at http://localhost:4173
 npm test                # model tests
 npm run test:browser    # behaviour tests in a real browser
 npm run build           # dist/ plus dist/wonderloom-standalone.html
+npm run i18n:check      # check translation files
 npm run check           # everything CI runs
 ```
 

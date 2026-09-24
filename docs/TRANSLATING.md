@@ -1,20 +1,60 @@
-# Translation and localization
+# Adding a language
 
-The current release is English-only. Most of the intended initial audience reads Hebrew natively and can also read English. Translation should preserve the playful tone and optional insight, not turn the experience into a textbook.
+Wonderloom is written in English, and every visitor-facing word lives in a dictionary, so a translation is a single
+file. You don't need to touch any room's code.
 
-## Ready-to-copy instruction for any coding assistant
+## Start a language
 
-> Read AGENTS.md and docs/ARCHITECTURE.md. Visitor-facing words live in index.html (page structure and dialogs) and in each room definition, src/rooms/*/room.js. Translate all visitor-facing material into [LANGUAGE], including room labels, presets, controls, hints, explanations, dialogs, image labels, error/toast text, accessibility labels, page title and description, and shared settings descriptions. Keep program identifiers, room IDs, URL parameter keys, numeric values, and mathematical behavior unchanged. Set the HTML language correctly and choose an appropriate narration locale. Preserve a complete English copy or add a simple language selector. Explain what you changed, and check every room on desktop and mobile.
+With Node.js installed (see the README):
 
-## Hebrew / Arabic and other right-to-left languages
+```sh
+npm ci                                   # once
+npm run i18n:new -- he "עברית" rtl        # code, the language's own name, and rtl for right-to-left
+```
 
-- Set the appropriate lang and dir on the document or localized container (Hebrew: lang="he", dir="rtl").
-- Replace layout-dependent left/right CSS with logical properties where appropriate. Check navigation, control alignment, dialogs, toolbars, and narrow screens rather than blindly mirroring every visual.
-- Keep formulas, coordinate labels, URLs, code, and technical number expressions in isolated left-to-right spans (for example dir="ltr" and unicode-bidi:isolate).
-- Keep the mathematics and motion geometry unchanged. A language switch should not reverse a simulation.
-- Decide intentionally how sliders and arrow-key navigation should behave. Test that the visible value and direction remain understandable.
-- Canvas labels must be translated too. Set canvas text direction/alignment explicitly where needed; document direction alone does not localize drawn text.
-- Narration currently uses en-US. Update it for the language; if a suitable voice is missing, keep the text readable and handle speech failure gracefully.
-- Ask a native speaker to review tone, line wrapping, mixed-direction text, and mathematical terminology.
+This creates `src/lang/he.js`, filled with every English string as a starting point, and links it from `index.html`.
+Open `index.html?lang=he` to see it. A language menu appears in the footer once there is more than one language, and
+the choice is remembered.
 
-Localization is guidance, not an implemented feature. The mathematics already lives apart from the words (src/rooms/*/model.js has no visitor-facing text). A next step is to move each room's words into per-language dictionaries and add a language selector.
+## Translate
+
+Edit `src/lang/<code>.js` in any text editor. It has one block per part of the site: `app` for shared words, one per
+room (`loom`, `dice`, …), and `page` for the fixed text of the page.
+
+- **Translate as much or as little as you like.** Anything you delete, or haven't reached yet, shows in English.
+- **Strings written as functions**, such as `(n) => \`${n} rolls\``, receive numbers or names. Keep each `${…}`, and
+move it wherever your language needs it. You can also add grammar, for example `(n) => (n === 1 ? … : …)`.
+- **Keys ending in `Html`** may contain a little markup, such as `<strong>`, `<em>` or `<br />`. Keep the tags balanced.
+- **Keep formulas, units and numbers as they are**: x, y, z, cos, Hz, %. Use the local conventions for everything
+  around them.
+- **Right-to-left languages** get `dir="rtl"`, which mirrors the layout. Canvas pictures stay the same, because the
+  mathematics doesn't change direction.
+- **Narration** uses the `speech` locale in `defineLanguage` (for example `he-IL`). If the browser has no voice for it,
+  the text is still there to read.
+
+## Check
+
+```sh
+npm run i18n:check
+```
+
+It reports how much of each language is translated and lists what's still in English. It fails on mistakes: an
+unknown key (usually a typo or an outdated key), a string where a function is expected (or the reverse), or a language
+file that isn't linked from `index.html`. It also warns when a function takes a different number of values, or a
+string's `${…}` placeholders differ from English. CI runs it on every pull request.
+
+Then look at the result: open each room with `?lang=<code>`, and try a phone-width window too. Ask a native speaker to
+read it for tone and line breaks.
+
+## For developers: keeping the site translatable
+
+- **Room words** go in `src/rooms/<id>/text.en.js` (`Wonderloom.defineText('<id>', 'en', {...})`), and `room.js` reads
+  them with `const t = Wonderloom.text('<id>')`. That includes words drawn on a canvas and aria-labels. The mathematics
+  in `model.js` never contains visitor-facing words.
+- **Shared words** (the stage, navigation, trail, visitors, narration) are in `src/core/text.en.js`, under `app`.
+- **Fixed page text** stays in `index.html`, in English, marked with `data-t="key"` (or `data-t="keyHtml"` when it
+  contains markup) and `data-t-attr="aria-label:key; title:key"` for attributes. The tools read the English from there.
+- **A browser test enforces all this.** `tests/browser/i18n.spec.js` loads a pseudo-language that wraps every string
+  in ⟦…⟧ and uses right-to-left layout. It then visits every room, its explanation and the trail, and fails if any
+  visible text or label was never wrapped: a word someone forgot to put in a dictionary.
+- **Shared-link parameters and room ids** are not translated.
