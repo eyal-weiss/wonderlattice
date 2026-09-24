@@ -4,7 +4,7 @@ A playground for beautiful mathematical ideas, owned and directed by Eyal Weiss.
 
 ## Start here: no installation, no AI, no account
 
-Extract this ZIP, then double-click **index.html**. It contains the complete app: HTML, styles, explanations, and JavaScript. The four experiments run in a modern browser without a server, GPT credits, an API key, or an internet connection.
+Extract this ZIP, then double-click **index.html**. It contains the complete app: HTML, styles, explanations, and JavaScript. The five experiments run in a modern browser without a server, GPT credits, an API key, or an internet connection.
 
 Use a text editor to edit index.html, save, then refresh the browser. Keep a backup before editing. You can give this folder to any coding assistant, including a local model, or work on it by hand. Read AGENTS.md for the project brief.
 
@@ -41,7 +41,7 @@ The output goes to dist/. Node and Vite are optional for this version: serving i
 
 ## Publish under an account you control
 
-This is a static website. Upload **index.html** to the web root of a static hosting service in your own account, or deploy the contents of dist/ after building. No backend, environment variables, database, or OpenAI credentials are required. Use the host's public HTTPS URL for links you share. The three external source links in the app are optional reading, not application dependencies.
+This is a static website. Upload **index.html** to the web root of a static hosting service in your own account, or deploy the contents of dist/ after building. No backend, environment variables, database, or OpenAI credentials are required. Use the host's public HTTPS URL for links you share. The optional external source links in the app are optional reading, not application dependencies.
 
 The existing chatgpt.site address belongs to the current ChatGPT-hosted deployment. This export does not transfer that address or change its access settings. A separately hosted copy gets a separate address; a domain you control can be connected through your chosen host.
 
@@ -54,6 +54,8 @@ Each agent should clone or check out its own working copy, start a uniquely name
 ## Files
 
 - index.html: complete, editable app; also the offline version.
+- experiments/traffic.js: Braess traffic model and canvas rendering; loaded alongside index.html.
+- tests/traffic.test.js: equilibrium checks using Node’s built-in test runner.
 - package.json / package-lock.json / vite.config.js: optional development/build setup.
 - AGENTS.md: instructions for any coding assistant.
 - docs/TRANSLATING.md: language and Hebrew layout guidance.
@@ -63,6 +65,6 @@ Each agent should clone or check out its own working copy, start a uniquely name
 
 ## Current scope
 
-Four rooms: drawing with motion, waves and sound, flocking, and a 3D Möbius ribbon. There is no GPT integration, live AI tutor, analytics backend, account system, or remotely stored user data in this snapshot. Optional guarded browser-agent hooks are inert in browsers that do not provide them.
+Five rooms: drawing with motion, waves and sound, flocking, a 3D Möbius ribbon, and a traffic shortcut paradox. There is no GPT integration, live AI tutor, analytics backend, account system, or remotely stored user data in this snapshot. Optional guarded browser-agent hooks are inert in browsers that do not provide them.
 
-English is the current language. The traffic paradox room, modular source refactor, in-app remix interface, social demo video, public GitHub repository, and public release are unfinished; see docs/STATUS.md.
+English is the current language. A complete modular source refactor, in-app remix interface, social demo video, public GitHub repository, and public release are unfinished; see docs/STATUS.md.

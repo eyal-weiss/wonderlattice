@@ -8,7 +8,7 @@ A noncommercial mathematical playground for Eyal Weiss. Fun, beauty, curiosity, 
 
 ## Architecture today
 
-index.html contains everything, including inline CSS and two script closures. The first closure implements motion drawing; the second implements shared room navigation, waves/audio, flocking, and the projected ribbon. Search for roomInfo, insights, controls, choose, stepFlock, wavePoint, surface, drawRibbon, and ranges. Navigation and agent tool enums currently assume exactly four rooms: update all of them when adding a room.
+index.html contains everything, including inline CSS and two script closures. The first closure implements motion drawing; the second implements shared room navigation, waves/audio, flocking, the projected ribbon, and traffic UI. The traffic mathematics and rendering live in experiments/traffic.js, loaded as a regular script for offline use. Search for roomInfo, insights, controls, choose, stepFlock, wavePoint, surface, drawRibbon, and ranges. Navigation and agent tool enums currently assume exactly five rooms: update all of them when adding a room.
 
 Math models, rendering, and UI are currently mixed. A readable per-experiment module refactor is desired but has NOT happened. If refactoring, keep a generated standalone offline HTML export and document how to rebuild it.
 
@@ -24,7 +24,7 @@ Math models, rendering, and UI are currently mixed. A readable per-experiment mo
 
 ## Verify changes
 
-Use a real browser for interaction/visual changes. Check all four rooms, a narrow mobile viewport, keyboard navigation, audio start/stop, reduced motion, sharing, and PNG export. A successful build alone does not verify these behaviors. Check mathematical invariants when changing the models. Report what was tested and what remains unverified.
+Use a real browser for interaction/visual changes. Check all five rooms, a narrow mobile viewport, keyboard navigation, audio start/stop, reduced motion, sharing, and PNG export. A successful build alone does not verify these behaviors. Check mathematical invariants when changing the models. Report what was tested and what remains unverified.
 
 ## Working with other agents
 

@@ -7,11 +7,11 @@
 - Emergence: adjustable flocking model, pointer interaction, neighbor view.
 - Topology: interactive projected ribbon, half-twists, highlighted edges, traveler.
 - Optional explanatory text, browser narration, URL/settings sharing, responsive layout.
+- Networks: traffic shortcut paradox, adjustable demand, route proportions, and optional model explanation (on agent/braess-traffic pending review).
 - Independent source export, offline use, MIT license, AI handoff and translation guides.
 
 ## Requested but not yet implemented
 
-- Add a fifth, less familiar experiment: Braess's traffic paradox (a shortcut can worsen everybody's travel time). It is a classic result, not a new mathematical discovery. Check the model and attribution before implementation. Suggested primary reference: https://www.cs.cornell.edu/home/kleinber/networks-book/networks-book-ch08.pdf
 - Separate experiment code and visitor-facing content into readable modules, retaining an offline export.
 - Add an in-app “Make your own version” flow with source download and an AI prompt containing current settings.
 - Complete visual, mobile, keyboard, and signed-out release checks.
