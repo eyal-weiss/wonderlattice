@@ -30,7 +30,7 @@
   <body data-room="home">
     <div class="shell">
       <header>
-        <a class="brand" href="#" aria-label="Wonderloom home">
+        <a class="brand" href="#" aria-label="Wonderloom home" data-t-attr="aria-label:header.home">
           <svg aria-hidden="true" viewBox="0 0 32 32">
             <ellipse cx="16" cy="16" rx="6" ry="14" />
             <ellipse cx="16" cy="16" rx="6" ry="14" transform="rotate(60 16 16)" />
@@ -38,14 +38,16 @@
           </svg>
           wonderloom
         </a>
-        <span class="edition">A SMALL PLACE FOR BIG CURIOSITY</span>
-        <button class="quiet" id="about-button">About this place</button>
-        <button class="quiet trail-header" id="trail-open">My trail <span aria-hidden="true">✧</span></button>
+        <span class="edition" data-t="header.edition">A SMALL PLACE FOR BIG CURIOSITY</span>
+        <button class="quiet" id="about-button" data-t="header.about">About this place</button>
+        <button class="quiet trail-header" id="trail-open">
+          <span data-t="header.trail">My trail</span> <span aria-hidden="true">✧</span>
+        </button>
       </header>
 
       <!-- Inside a room: back to the map, and neighbouring experiments. -->
-      <nav class="room-bar" id="room-bar" aria-label="Experiments" hidden>
-        <button class="quiet room-home" id="room-home">← All experiments</button>
+      <nav class="room-bar" id="room-bar" aria-label="Experiments" data-t-attr="aria-label:roomBar.label" hidden>
+        <button class="quiet room-home" id="room-home" data-t="roomBar.home">← All experiments</button>
         <span class="room-bar-theme" id="room-theme"></span>
         <span class="room-bar-steps">
           <button class="button icon-button" id="room-prev" aria-label="Previous experiment">‹</button>
@@ -53,16 +55,30 @@
         </span>
       </nav>
 
-      <section class="trail-return" id="trail-return" hidden aria-label="Revisited discovery">
+      <section
+        class="trail-return"
+        id="trail-return"
+        hidden
+        aria-label="Revisited discovery"
+        data-t-attr="aria-label:trailReturn.label"
+      >
         <div>
           <span class="eyebrow" id="trail-return-title"></span>
           <p id="trail-return-thought"></p>
-          <label for="trail-return-note">What do you notice now? <span>(optional)</span></label>
-          <textarea id="trail-return-note" maxlength="400" rows="2" placeholder="A small thought is enough."></textarea>
+          <label for="trail-return-note" data-t="trailReturn.noteHtml"
+            >What do you notice now? <span>(optional)</span></label
+          >
+          <textarea
+            id="trail-return-note"
+            maxlength="400"
+            rows="2"
+            placeholder="A small thought is enough."
+            data-t-attr="placeholder:trailReturn.placeholder"
+          ></textarea>
         </div>
         <div class="trail-return-actions">
-          <button class="button primary" id="trail-return-save">Keep this thought</button>
-          <button class="quiet" id="trail-return-close">Dismiss</button>
+          <button class="button primary" id="trail-return-save" data-t="trailReturn.save">Keep this thought</button>
+          <button class="quiet" id="trail-return-close" data-t="trailReturn.dismiss">Dismiss</button>
         </div>
       </section>
 
@@ -70,8 +86,10 @@
       <main id="home" aria-labelledby="home-title">
         <div class="intro home-intro">
           <div>
-            <h1 id="home-title">Follow your curiosity.</h1>
-            <p>Small experiments with big ideas. Pick one and play. There is nothing to get right.</p>
+            <h1 id="home-title" data-t="home.title">Follow your curiosity.</h1>
+            <p data-t="home.intro">
+              Small experiments with big ideas. Pick one and play. There is nothing to get right.
+            </p>
           </div>
         </div>
         <div id="home-themes"></div>
@@ -81,16 +99,16 @@
       <main id="motion-room" aria-labelledby="motion-title" hidden>
         <div class="intro">
           <div>
-            <h1 id="motion-title" tabindex="-1">Paint with motion.</h1>
-            <p>Two turning arms. A pen. See what unfolds.</p>
+            <h1 id="motion-title" tabindex="-1" data-t="motion.title">Paint with motion.</h1>
+            <p data-t="motion.subtitle">Two turning arms. A pen. See what unfolds.</p>
           </div>
-          <span class="pill">Exploration 01 · Circles within circles</span>
+          <span class="pill" data-t="motion.field">Exploration 01 · Circles within circles</span>
         </div>
         <div class="workspace">
-          <section class="drawing" aria-label="Your live drawing">
+          <section class="drawing" aria-label="Your live drawing" data-t-attr="aria-label:motion.drawingLabel">
             <div class="stage-head">
               <div>
-                <span class="eyebrow">On the canvas</span>
+                <span class="eyebrow" data-t="motion.onCanvas">On the canvas</span>
                 <div id="pattern-name">Wildflower</div>
               </div>
               <span id="cycle-status"></span>
@@ -100,6 +118,7 @@
                 id="art"
                 role="img"
                 aria-label="An animated curve traced by the tip of two rotating arms. Use the adjacent controls to change its shape."
+                data-t-attr="aria-label:motion.canvasLabel"
                 >Your browser needs Canvas support to show this drawing.</canvas
               >
             </div>
@@ -112,32 +131,53 @@
                 id="restart"
                 title="Start the drawing again"
                 aria-label="Start the drawing again"
+                data-t-attr="title:motion.restart; aria-label:motion.restart"
               >
                 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 7a7 7 0 1 1-1 6M4 3v5h5" /></svg>
               </button>
-              <button class="button" id="finish">Trace it all</button>
+              <button class="button" id="finish" data-t="motion.finish">Trace it all</button>
               <button class="button icon-button end" id="focus" aria-label="Enter focus view" title="Focus view">
                 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7V3h4m6 0h4v4M3 13v4h4m6 0h4v-4" /></svg>
               </button>
-              <button class="button icon-button" id="save" aria-label="Save drawing as PNG" title="Save image">
+              <button
+                class="button icon-button"
+                id="save"
+                aria-label="Save drawing as PNG"
+                title="Save image"
+                data-t-attr="aria-label:motion.saveLabel; title:stage.saveTitle"
+              >
                 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2v11m-4-4 4 4 4-4M3 13v4h14v-4" /></svg>
               </button>
             </div>
           </section>
-          <aside class="controls" aria-label="Drawing controls">
+          <aside class="controls" aria-label="Drawing controls" data-t-attr="aria-label:motion.controlsLabel">
             <div class="panel-head">
-              <h2>Make it yours</h2>
-              <button class="quiet" id="surprise" title="Try a new combination">✧ Surprise me</button>
+              <h2 data-t="stage.makeItYours">Make it yours</h2>
+              <button
+                class="quiet"
+                id="surprise"
+                title="Try a new combination"
+                data-t="motion.surprise"
+                data-t-attr="title:motion.surpriseTitle"
+              >
+                ✧ Surprise me
+              </button>
             </div>
-            <div class="math-guest" id="math-guest-motion" aria-label="A visiting mathematician"></div>
-            <button class="button trail-keep" id="trail-keep-motion">✧ Keep this moment</button>
+            <div
+              class="math-guest"
+              id="math-guest-motion"
+              aria-label="A visiting mathematician"
+              data-t-attr="aria-label:stage.guestLabel"
+            ></div>
+            <button class="button trail-keep" id="trail-keep-motion" data-t="stage.keep">✧ Keep this moment</button>
             <div class="control">
               <label for="ratio"
-                >Inner rotation
+                ><span data-t="motion.rotation">Inner rotation</span>
                 <span class="number-wrap"
                   ><input
                     id="rotation-number"
                     aria-label="Exact inner rotation speed"
+                    data-t-attr="aria-label:motion.rotationExact"
                     type="number"
                     min="-10"
                     max="10"
@@ -147,25 +187,33 @@
                 ></label
               >
               <input id="ratio" type="range" min="-10" max="10" step="0.01" value="-5" />
-              <div class="split-labels"><span>Opposite direction</span><span>Same direction</span></div>
+              <div class="split-labels">
+                <span data-t="motion.opposite">Opposite direction</span><span data-t="motion.same">Same direction</span>
+              </div>
             </div>
             <div class="control">
-              <label for="reach">Pen reach <output id="reach-value" for="reach">42%</output></label>
+              <label for="reach"
+                ><span data-t="motion.reach">Pen reach</span> <output id="reach-value" for="reach">42%</output></label
+              >
               <input id="reach" type="range" min="10" max="85" step="1" value="42" />
-              <p>Change the balance of the two arms.</p>
+              <p data-t="motion.reachHint">Change the balance of the two arms.</p>
             </div>
             <div class="control">
-              <label for="phase">Starting angle <output id="phase-value" for="phase">0°</output></label>
+              <label for="phase"
+                ><span data-t="motion.angle">Starting angle</span>
+                <output id="phase-value" for="phase">0°</output></label
+              >
               <input id="phase" type="range" min="0" max="360" step="1" value="0" />
-              <p>Turn the inner arm’s starting position.</p>
+              <p data-t="motion.angleHint">Turn the inner arm’s starting position.</p>
             </div>
             <div class="control">
-              <span style="font-size: 14px">Ink</span>
-              <div class="palettes" role="group" aria-label="Ink palette">
+              <span style="font-size: 14px" data-t="motion.ink">Ink</span>
+              <div class="palettes" role="group" aria-label="Ink palette" data-t-attr="aria-label:motion.inkLabel">
                 <button
                   class="swatch"
                   data-palette="0"
                   aria-label="Aurora: mint to violet"
+                  data-t-attr="aria-label:motion.palette0"
                   aria-pressed="true"
                   style="background: conic-gradient(#93e5ca, #8eb0ff, #d49af1, #93e5ca)"
                 ></button>
@@ -173,6 +221,7 @@
                   class="swatch"
                   data-palette="1"
                   aria-label="Ember: gold to rose"
+                  data-t-attr="aria-label:motion.palette1"
                   aria-pressed="false"
                   style="background: conic-gradient(#ffe5a5, #ff997c, #e16fbd, #ffe5a5)"
                 ></button>
@@ -180,6 +229,7 @@
                   class="swatch"
                   data-palette="2"
                   aria-label="Glacier: blue to silver"
+                  data-t-attr="aria-label:motion.palette2"
                   aria-pressed="false"
                   style="background: conic-gradient(#99ecff, #798eff, #d5ecff, #99ecff)"
                 ></button>
@@ -187,38 +237,47 @@
                   class="swatch"
                   data-palette="3"
                   aria-label="Moonlight: warm white"
+                  data-t-attr="aria-label:motion.palette3"
                   aria-pressed="false"
                   style="background: #eee8d7"
                 ></button>
               </div>
             </div>
             <div class="separator"></div>
-            <label class="toggle"><input id="mechanism" type="checkbox" />Show the moving arms</label>
-            <div class="speed-row" role="group" aria-label="Drawing speed">
-              <button data-speed="0.5" aria-pressed="false">Slow</button>
-              <button data-speed="1" aria-pressed="true">Flow</button>
-              <button data-speed="3" aria-pressed="false">Fast</button>
+            <label class="toggle"
+              ><input id="mechanism" type="checkbox" /><span data-t="motion.arms">Show the moving arms</span></label
+            >
+            <div class="speed-row" role="group" aria-label="Drawing speed" data-t-attr="aria-label:motion.speedLabel">
+              <button data-speed="0.5" aria-pressed="false" data-t="motion.slow">Slow</button>
+              <button data-speed="1" aria-pressed="true" data-t="motion.flow">Flow</button>
+              <button data-speed="3" aria-pressed="false" data-t="motion.fast">Fast</button>
             </div>
             <div class="hint">
-              <strong>A little nudge</strong
+              <strong data-t="stage.nudge">A little nudge</strong
               ><span id="nudge">Try changing −5 to −5.1. A tiny shift gives the flower a very different future.</span>
             </div>
             <button class="button why" id="why-button">
-              Why does this happen?<svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 6 6-6 6" /></svg>
+              <span data-t="motion.why">Why does this happen?</span
+              ><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 6 6-6 6" /></svg>
             </button>
           </aside>
         </div>
         <div class="presets-header">
-          <h2>Somewhere to begin</h2>
-          <button class="quiet" id="share">Copy this pattern</button>
+          <h2 data-t="motion.presetsTitle">Somewhere to begin</h2>
+          <button class="quiet" id="share" data-t="motion.share">Copy this pattern</button>
         </div>
-        <div class="preset-grid" id="presets" aria-label="Starting patterns"></div>
+        <div
+          class="preset-grid"
+          id="presets"
+          aria-label="Starting patterns"
+          data-t-attr="aria-label:motion.presetsLabel"
+        ></div>
         <div class="connection">
-          <p>
+          <p data-t="motion.connectionHtml">
             <strong>What if a drawing had a voice?</strong> Follow the connection between circular motion, waves, and
             sound.
           </p>
-          <button class="button" data-go="waves">Step into sound</button>
+          <button class="button" data-go="waves" data-t="motion.connectionGo">Step into sound</button>
         </div>
       </main>
 
@@ -232,7 +291,7 @@
           <span class="pill" id="room-field"></span>
         </div>
         <div class="workspace">
-          <section class="drawing scene" aria-label="Interactive exploration">
+          <section class="drawing scene" aria-label="Interactive exploration" data-t-attr="aria-label:stage.sceneLabel">
             <div class="stage-head">
               <div>
                 <span class="eyebrow" id="scene-label"></span>
@@ -246,71 +305,79 @@
             <div class="scene-tip" id="scene-tip"></div>
             <div class="transport">
               <button class="button primary" id="scene-play">Pause</button>
-              <button class="button" id="scene-reset">Start again</button>
+              <button class="button" id="scene-reset" data-t="stage.reset">Start again</button>
               <button class="button" id="scene-action"></button>
               <button
                 class="button icon-button end"
                 id="scene-save"
                 aria-label="Save this scene as an image"
                 title="Save image"
+                data-t-attr="aria-label:stage.saveLabel; title:stage.saveTitle"
               >
                 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2v11m-4-4 4 4 4-4M3 13v4h14v-4" /></svg>
               </button>
             </div>
           </section>
-          <aside class="controls" id="scene-controls" aria-label="Exploration controls"></aside>
+          <aside
+            class="controls"
+            id="scene-controls"
+            aria-label="Exploration controls"
+            data-t-attr="aria-label:stage.controlsLabel"
+          ></aside>
         </div>
         <div class="presets-header">
-          <h2>Follow a different possibility</h2>
-          <button class="quiet" id="scene-share">Copy this exploration</button>
+          <h2 data-t="stage.presetsTitle">Follow a different possibility</h2>
+          <button class="quiet" id="scene-share" data-t="stage.share">Copy this exploration</button>
         </div>
         <div class="scene-presets" id="scene-presets"></div>
         <div class="connection" id="connection"></div>
       </main>
 
       <footer>
-        <p class="footer-note">Follow a shape. Find a little wonder.</p>
-        <p>No scores. No right answers.</p>
+        <p class="footer-note" data-t="footer.note">Follow a shape. Find a little wonder.</p>
+        <p data-t="footer.promise">No scores. No right answers.</p>
       </footer>
     </div>
 
     <dialog id="why-dialog" aria-labelledby="why-title">
       <div class="dialog-head">
-        <h2 id="why-title">A little motion,<br />a lot of possibility.</h2>
-        <button class="button icon-button close" aria-label="Close explanation">✕</button>
+        <h2 id="why-title" data-t="why.titleHtml">A little motion,<br />a lot of possibility.</h2>
+        <button class="button icon-button close" aria-label="Close explanation" data-t-attr="aria-label:why.close">
+          ✕
+        </button>
       </div>
-      <button class="button narrate" id="narrate-why">Listen to this idea</button>
-      <p>
+      <button class="button narrate" id="narrate-why" data-t="narration.listen">Listen to this idea</button>
+      <p data-t="why.p1">
         Imagine a pen on the end of an arm. Now attach that arm to the end of another turning arm. Each movement is
         simple. Their combination draws the curve you see.
       </p>
-      <button class="button primary" id="reveal-arms">Show me the arms</button>
-      <h3>When the rhythms meet again</h3>
-      <p>
+      <button class="button primary" id="reveal-arms" data-t="why.reveal">Show me the arms</button>
+      <h3 data-t="why.h2">When the rhythms meet again</h3>
+      <p data-t="why.p2">
         If one arm makes a whole number of turns while the other also makes a whole number, both can return to their
         starting positions together. The pen closes its loop.
       </p>
       <div class="idea-card"><p id="ratio-explanation"></p></div>
-      <p>
+      <p data-t="why.p3">
         A tiny change in speed can make that reunion take much longer. You get new loops in between, weaving a much
         denser drawing. Try “Almost a circle” and then “Trace it all.”
       </p>
-      <h3>There’s a musical connection</h3>
-      <p>
+      <h3 data-t="why.h3">There’s a musical connection</h3>
+      <p data-t="why.p4">
         A rotating point’s horizontal and vertical positions each move like a smooth wave. Add the positions of two
         rotating points, and you’re adding waves. Combining waves is also central to sound. This drawing is a visual
         relative of that idea, not a simulation of a musical instrument.
       </p>
       <details>
-        <summary>Curious about the mathematics?</summary>
-        <p>The pen’s position is the sum of two circular motions:</p>
+        <summary data-t="why.more">Curious about the mathematics?</summary>
+        <p data-t="why.p5">The pen’s position is the sum of two circular motions:</p>
         <div class="idea-card formula">x = a cos(t) + b cos(kt + φ)<br />y = a sin(t) + b sin(kt + φ)</div>
-        <p>
+        <p data-t="why.p6Html">
           Here, <em>a</em> and <em>b</em> are the arm lengths, <em>k</em> is the inner arm’s rotation speed relative to
           the outer arm’s speed, and <em>φ</em> is its starting angle. Both angles are measured against the canvas, not
           against the other arm.
         </p>
-        <p>
+        <p data-t="why.p7">
           A rational speed ratio gives a closed path. An irrational ratio would never close exactly. All the finite
           decimal settings in this playground are rational, even when their paths take a long time to close.
         </p>
@@ -319,24 +386,26 @@
 
     <dialog id="about-dialog" aria-labelledby="about-title">
       <div class="dialog-head">
-        <h2 id="about-title">Welcome to Wonderloom.</h2>
-        <button class="button icon-button close" aria-label="Close about">✕</button>
+        <h2 id="about-title" data-t="about.title">Welcome to Wonderloom.</h2>
+        <button class="button icon-button close" aria-label="Close about" data-t-attr="aria-label:about.close">
+          ✕
+        </button>
       </div>
-      <p>
+      <p data-t="about.p1">
         A small experiment in enjoying mathematical ideas through play. Change something. Follow what catches your eye.
         Make something you like.
       </p>
-      <p>
+      <p data-t="about.p2">
         Each little world connects a piece of mathematics to something you can play with: shapes, sounds, crowds, games,
         patterns you can make. There is no lesson to finish and nothing to get right.
       </p>
       <div class="idea-card">
-        <p>
+        <p data-t="about.cardHtml">
           <strong>Make it yours</strong><br />Pick a starting point, move a slider, and follow whatever surprises you.
           Every room has an optional explanation, and you can save an image whenever you like.
         </p>
       </div>
-      <p>
+      <p data-t="about.p3">
         Everything here runs in your browser, including when this file is opened offline. No accounts, tracking, or AI
         chat. Sound is off until you turn it on. Optional narration uses your browser’s available voice service. Your
         creations stay with you. My trail saves optional discoveries in this browser; export a copy if you want to keep
@@ -346,8 +415,10 @@
 
     <dialog id="copy-dialog" aria-labelledby="copy-title">
       <div class="dialog-head">
-        <h2 id="copy-title">Your pattern, to keep.</h2>
-        <button class="button icon-button close" aria-label="Close pattern details">✕</button>
+        <h2 id="copy-title" data-t="copy.title">Your pattern, to keep.</h2>
+        <button class="button icon-button close" aria-label="Close pattern details" data-t-attr="aria-label:copy.close">
+          ✕
+        </button>
       </div>
       <p id="copy-description">Copy these settings to recreate your pattern.</p>
       <textarea
@@ -356,57 +427,80 @@
         rows="5"
         readonly
         aria-label="Pattern settings or shareable link"
+        data-t-attr="aria-label:copy.textLabel"
       ></textarea>
-      <button class="button" id="select-copy">Select text</button>
+      <button class="button" id="select-copy" data-t="copy.select">Select text</button>
     </dialog>
 
     <dialog id="insight-dialog" aria-labelledby="insight-title">
       <div class="dialog-head">
         <h2 id="insight-title"></h2>
-        <button class="button icon-button" id="insight-close" aria-label="Close insight">✕</button>
+        <button
+          class="button icon-button"
+          id="insight-close"
+          aria-label="Close insight"
+          data-t-attr="aria-label:insight.close"
+        >
+          ✕
+        </button>
       </div>
-      <button class="button narrate" id="narrate">Listen to this idea</button>
+      <button class="button narrate" id="narrate" data-t="narration.listen">Listen to this idea</button>
       <div id="insight-body"></div>
     </dialog>
 
     <dialog id="trail-capture-dialog" aria-labelledby="trail-capture-title">
       <div class="dialog-head">
-        <h2 id="trail-capture-title">A moment worth keeping.</h2>
-        <button class="button icon-button trail-close" aria-label="Close save dialog">✕</button>
+        <h2 id="trail-capture-title" data-t="trailSave.title">A moment worth keeping.</h2>
+        <button
+          class="button icon-button trail-close"
+          aria-label="Close save dialog"
+          data-t-attr="aria-label:trailSave.close"
+        >
+          ✕
+        </button>
       </div>
       <div class="trail-preview" id="trail-preview"></div>
       <p id="trail-capture-name" class="trail-capture-name"></p>
-      <label for="trail-note">What caught your eye? <span>(optional)</span></label>
+      <label for="trail-note" data-t="trailSave.noteHtml">What caught your eye? <span>(optional)</span></label>
       <textarea
         id="trail-note"
         maxlength="400"
         rows="3"
         placeholder="A question, a surprise, a tiny observation…"
+        data-t-attr="placeholder:trailSave.placeholder"
       ></textarea>
-      <p class="trail-private">Saved in this browser only. You can export your trail later.</p>
-      <button class="button primary" id="trail-save">Save to my trail</button>
+      <p class="trail-private" data-t="trailSave.private">
+        Saved in this browser only. You can export your trail later.
+      </p>
+      <button class="button primary" id="trail-save" data-t="trailSave.save">Save to my trail</button>
     </dialog>
 
     <dialog id="trail-dialog" aria-labelledby="trail-title">
       <div class="dialog-head">
-        <h2 id="trail-title">My trail.</h2>
-        <button class="button icon-button trail-close" aria-label="Close trail">✕</button>
+        <h2 id="trail-title" data-t="trail.title">My trail.</h2>
+        <button class="button icon-button trail-close" aria-label="Close trail" data-t-attr="aria-label:trail.close">
+          ✕
+        </button>
       </div>
-      <p>A few moments you chose to keep. Revisit a room with those settings, and see what you notice next.</p>
+      <p data-t="trail.intro">
+        A few moments you chose to keep. Revisit a room with those settings, and see what you notice next.
+      </p>
       <div id="trail-list" class="trail-list"></div>
-      <h3 id="trail-connections-heading">Threads to follow</h3>
+      <h3 id="trail-connections-heading" data-t="trail.threads">Threads to follow</h3>
       <div id="trail-connections" class="trail-connections"></div>
       <div class="trail-data">
-        <button class="button" id="trail-export">Export my trail</button>
+        <button class="button" id="trail-export" data-t="trail.export">Export my trail</button>
         <label class="button trail-import-label" for="trail-import"
-          >Import a trail<input
+          ><span data-t="trail.import">Import a trail</span
+          ><input
             type="file"
             id="trail-import"
             accept=".json,application/json"
             aria-label="Import Wonderloom trail JSON"
+            data-t-attr="aria-label:trail.importLabel"
         /></label>
       </div>
-      <p class="trail-private">
+      <p class="trail-private" data-t="trail.private">
         This stays on this device unless you export it. Importing replaces the current trail. Clearing browser data
         removes it.
       </p>
@@ -417,14 +511,19 @@
 
     <!--
       Classic scripts, in dependency order (they must work from file:// too).
-      To add a room: add its model.js and room.js here, before src/core/app.js.
-      The navigation follows this order. See docs/ARCHITECTURE.md.
+      To add a room: add its model.js, text.en.js and room.js here, before src/core/app.js.
+      Languages: one file each in src/lang/, listed right after the English core text
+      (npm run i18n:new adds the tag). See docs/ARCHITECTURE.md and docs/TRANSLATING.md.
     -->
     <script src="./src/core/wonderloom.js"></script>
+    <script src="./src/core/text.en.js"></script>
+    <!-- languages -->
+    <!-- /languages -->
     <script src="./src/core/stage.js"></script>
     <script src="./src/features/guests.js"></script>
     <script src="./src/features/trail.js"></script>
     <script src="./src/rooms/motion/model.js"></script>
+    <script src="./src/rooms/motion/text.en.js"></script>
     <script src="./src/rooms/motion/room.js"></script>
     <script src="./src/rooms/waves/model.js"></script>
     <script src="./src/rooms/waves/room.js"></script>

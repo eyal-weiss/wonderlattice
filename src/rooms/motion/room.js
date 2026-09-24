@@ -10,66 +10,19 @@
   const { $, TAU } = W;
   const M = W.models.motion;
 
+  const words = W.text('motion');
+  // Starting patterns: the numbers here, the words in text.en.js.
   const presets = [
-    {
-      name: 'Wildflower',
-      note: 'Six petals, one line',
-      k: -5,
-      r: 42,
-      p: 0,
-      palette: 0,
-      nudge: 'Try changing −5 to −5.1. A tiny shift gives the flower a very different future.',
-    },
-    {
-      name: 'Silken orbit',
-      note: 'A loop inside a loop',
-      k: 2.5,
-      r: 36,
-      p: 0,
-      palette: 1,
-      nudge: 'Turn on the moving arms. Watch how each simple circle adds to the other.',
-    },
-    {
-      name: 'Starling',
-      note: 'A soft-edged star',
-      k: -3,
-      r: 25,
-      p: 45,
-      palette: 2,
-      nudge: 'Move the pen reach toward 50%. Watch the soft corners turn into deep loops.',
-    },
-    {
-      name: 'Woven light',
-      note: 'Take the long way round',
-      k: -3.8,
-      r: 48,
-      p: 0,
-      palette: 0,
-      nudge: 'Use “Trace it all” to reveal the full weave. Then try −4 for a simpler relative.',
-    },
-    {
-      name: 'Almost a circle',
-      note: 'A tiny change, a long story',
-      k: 1.03,
-      r: 50,
-      p: 0,
-      palette: 1,
-      nudge: 'Two almost-matching speeds slowly drift apart. Trace it all to see their whole reunion.',
-    },
-    {
-      name: 'Ribbons',
-      note: 'Find the hidden rhythm',
-      k: -2.25,
-      r: 65,
-      p: 90,
-      palette: 2,
-      nudge: 'Try a different starting angle. The rhythm stays the same while the drawing turns.',
-    },
-  ];
-  const paletteNames = ['Aurora', 'Ember', 'Glacier', 'Moonlight'];
+    { k: -5, r: 42, p: 0, palette: 0 },
+    { k: 2.5, r: 36, p: 0, palette: 1 },
+    { k: -3, r: 25, p: 45, palette: 2 },
+    { k: -3.8, r: 48, p: 0, palette: 0 },
+    { k: 1.03, r: 50, p: 0, palette: 1 },
+    { k: -2.25, r: 65, p: 90, palette: 2 },
+  ].map((p, i) => ({ ...words.presets[i], ...p }));
   const reduced = W.prefersReducedMotion();
 
-  const state = { k: -5, r: 42, p: 0, palette: 0, speed: 1, arms: false, name: 'Wildflower' };
+  const state = { k: -5, r: 42, p: 0, palette: 0, speed: 1, arms: false, name: words.presets[0].name };
   let running = !reduced,
     t = 1.55, // outer-arm angle traced so far
     oldTime = 0,
@@ -239,26 +192,24 @@
   function updateStatus() {
     const rounds = Math.round(period() / TAU);
     $('cycle-status').textContent = complete()
-      ? 'The loop is complete'
+      ? words.status.complete
       : rounds === 1
-        ? 'One turn. A whole world.'
-        : rounds + ' outer turns to reunite';
+        ? words.status.oneTurn
+        : words.status.turns(rounds);
     $('finish').disabled = complete();
     const n = Math.round(Math.abs(state.k) * 100),
       g = M.gcd(n, 100),
       outer = 100 / g,
       inner = n / g;
     $('ratio-explanation').textContent =
-      state.k === 0
-        ? 'The inner arm holds its direction while the outer arm turns. The pen traces a shifted circle.'
-        : `At ${format(state.k)}×, both arms return to their starting positions after ${outer} outer ${outer === 1 ? 'turn' : 'turns'} and ${inner} inner ${inner === 1 ? 'turn' : 'turns'}. ${state.k < 0 ? 'They turn in opposite directions.' : 'They turn in the same direction.'}`;
+      state.k === 0 ? words.explainStill : words.explain(format(state.k), outer, inner, state.k < 0);
   }
 
   function updatePlay() {
     const icon = running ? '<path d="M7 5v10M13 5v10"/>' : '<path d="m7 4 9 6-9 6Z"/>';
     $('play').innerHTML =
       `<svg viewBox="0 0 20 20" aria-hidden="true">${icon}</svg><span>` +
-      (running ? 'Pause' : complete() ? 'Replay' : 'Play') +
+      (running ? words.play.pause : complete() ? words.play.replay : words.play.play) +
       '</span>';
   }
 
@@ -274,11 +225,9 @@
     state.k = Number($('ratio').value);
     state.r = Number($('reach').value);
     state.p = Number($('phase').value);
-    state.name = 'Your own orbit';
+    state.name = words.names.own;
     selected = -1;
-    $('nudge').textContent = Number.isInteger(state.k)
-      ? 'Try nudging the rotation away from a whole number. Watch the path take a longer way home.'
-      : 'Try “Trace it all” to see the entire pattern. Every setting here eventually closes its loop.';
+    $('nudge').textContent = Number.isInteger(state.k) ? words.nudges.whole : words.nudges.traceAll;
     reset();
   }
 
@@ -312,8 +261,8 @@
     c.font = '18px sans-serif';
     c.fillText(format(state.k) + '×  ·  ' + state.r + '%  ·  ' + state.p + '°', 1728, 1728);
     W.savePNG(out, 'wonderloom-' + state.k + '-' + state.r + '.png', {
-      saved: 'Your drawing is ready to save.',
-      failed: 'The image could not be saved. Please try again.',
+      saved: words.saved,
+      failed: words.saveFailed,
     });
   }
 
@@ -322,12 +271,10 @@
     const web = W.isWeb();
     const text = web
       ? W.shareLink(params)
-      : `Wonderloom · Paint with motion\nInner rotation: ${state.k}×\nPen reach: ${state.r}%\nStarting angle: ${state.p}°\nInk: ${paletteNames[state.palette]}`;
+      : words.shareText(state.k, state.r, state.p, words.paletteNames[state.palette]);
     W.copyText(text, {
-      copied: web ? 'Pattern link copied. Anyone with site access can open it.' : 'Pattern settings copied.',
-      description: web
-        ? 'Copy this link to reopen the same pattern. The recipient needs access to this site.'
-        : 'Copy these settings to recreate your pattern.',
+      copied: web ? words.linkCopied : words.settingsCopied,
+      description: web ? words.linkDescription : words.settingsDescription,
     });
   }
 
@@ -336,7 +283,7 @@
       const value = e.target.valueAsNumber;
       if (!Number.isFinite(value) || value < -10 || value > 10) {
         e.target.value = state.k;
-        W.toast('Choose a rotation between −10 and 10.');
+        W.toast(words.rotationRange);
         return;
       }
       $('ratio').value = Math.round(value * 100) / 100;
@@ -390,8 +337,8 @@
     });
     $('focus').addEventListener('click', () => {
       const focused = document.body.classList.toggle('focus-mode');
-      $('focus').setAttribute('aria-label', focused ? 'Leave focus view' : 'Enter focus view');
-      $('focus').title = focused ? 'Leave focus view' : 'Focus view';
+      $('focus').setAttribute('aria-label', focused ? words.focus.leave : words.focus.enter);
+      $('focus').title = focused ? words.focus.leave : words.focus.title;
       resize();
     });
     $('surprise').addEventListener('click', () => {
@@ -401,10 +348,10 @@
         r: 20 + Math.floor(Math.random() * 51),
         p: Math.floor(Math.random() * 360),
         palette: Math.floor(Math.random() * 3),
-        name: 'A happy accident',
+        name: words.names.surprise,
       });
       selected = -1;
-      $('nudge').textContent = 'Something new, just for you. Change one thing and see where it leads.';
+      $('nudge').textContent = words.nudges.surprise;
       reset(1.55);
     });
     $('why-button').addEventListener('click', () => {
@@ -465,17 +412,16 @@
   W.defineRoom({
     id: 'motion',
     symbol: '◌',
-    eyebrow: 'GEOMETRY',
-    name: 'Paint with motion',
+    eyebrow: words.eyebrow,
+    name: words.name,
     theme: 'shape',
-    tagline: 'Two turning arms and a pen draw flowers, stars, and weaves.',
+    tagline: words.tagline,
     layout: 'custom',
     panel: 'motion-room',
 
     guests: [
       {
-        name: 'Emmy Noether',
-        note: 'A hidden symmetry can reveal something that never changes.',
+        ...words.guests[0],
         bio: 'Noether',
         image: 'noether.jpg',
         source: 'Noether.jpg',
@@ -483,8 +429,7 @@
         frame: [185, -65, -22],
       },
       {
-        name: 'Leonhard Euler',
-        note: 'Circles and exponentials share a rather elegant dance.',
+        ...words.guests[1],
         bio: 'Euler',
         image: 'euler.jpg',
         source: 'Leonhard_Euler_-_Jakob_Emanuel_Handmann_(Kunstmuseum_Basel).jpg',
@@ -499,6 +444,10 @@
       ink = document.createElement('canvas');
       ic = ink.getContext('2d');
       bindControls();
+      // Words that the page starts with in English, set here so translations reach them too.
+      $('focus').setAttribute('aria-label', words.focus.enter);
+      $('focus').title = words.focus.title;
+      $('nudge').textContent = presets[0].nudge;
       if (reduced) t = period();
       sync();
       resize();
@@ -528,10 +477,10 @@
         r: Math.round(r),
         p: Math.round(p),
         palette,
-        name: 'A shared orbit',
+        name: words.names.shared,
       });
       selected = -1;
-      $('nudge').textContent = 'Someone left you a pattern. Try changing one thing to make it yours.';
+      $('nudge').textContent = words.nudges.shared;
       reset(1.55);
       return true;
     },
@@ -567,7 +516,7 @@
         name: title.slice(0, 90),
       });
       selected = -1;
-      $('nudge').textContent = 'A familiar pattern can still have a surprise. Change one thing and look again.';
+      $('nudge').textContent = words.nudges.revisit;
       reset(Number.isFinite(saved.t) && saved.t >= 0 ? Math.min(saved.t, period()) : 1.55);
     },
 
@@ -612,7 +561,7 @@
             r: input.reach,
             p: input.angle,
             palette: input.palette,
-            name: 'Your own orbit',
+            name: words.names.own,
           });
           selected = -1;
           app.choose('motion');

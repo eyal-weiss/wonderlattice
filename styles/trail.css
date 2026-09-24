@@ -3,7 +3,7 @@
   color: var(--lime);
   white-space: nowrap;
 }
-.trail-header span {
+.trail-header span[aria-hidden='true'] {
   margin-left: 3px;
 }
 .trail-keep {
