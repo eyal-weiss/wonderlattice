@@ -474,15 +474,18 @@
       ctx.stroke();
       ctx.fillText(Math.round(f * 100) + '%', left - 6, Y(f) + labelPx * 0.35);
     }
+    const same = c.you === c.me; // one die against itself: no exact target to aim at
     // The exact chance, as a dashed target line.
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 1.5;
-    ctx.setLineDash([6, 5]);
-    ctx.beginPath();
-    ctx.moveTo(left, Y(c.chance));
-    ctx.lineTo(right, Y(c.chance));
-    ctx.stroke();
-    ctx.setLineDash([]);
+    if (!same) {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([6, 5]);
+      ctx.beginPath();
+      ctx.moveTo(left, Y(c.chance));
+      ctx.lineTo(right, Y(c.chance));
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
     const span = Math.max(BATCH, tally.rolls);
     ctx.textAlign = 'right';
     ctx.fillStyle = MUTED;
@@ -514,6 +517,7 @@
       ctx.fillText(t.startHint, (left + right) / 2, Y(0.78));
     }
     // A key for the dashed line in the lower right, where the running share rarely goes.
+    if (same) return;
     font(ctx, labelPx, 600);
     const key = t.exactLabel(c.fraction),
       keyWidth = ctx.measureText(key).width;
@@ -559,7 +563,8 @@
     ctx.moveTo(8, L.rule);
     ctx.lineTo(width - 8, L.rule);
     ctx.stroke();
-    drawDuel(ctx, L.duel, c, tally.last, reduced ? 0 : flash, tally.recent);
+    // The tumble only shows while playing, so a pause mid-roll leaves the dice upright.
+    drawDuel(ctx, L.duel, c, tally.last, reduced || !stage.playing ? 0 : flash, tally.recent);
     nodes = drawCircle(ctx, L.circle, c);
     drawRace(ctx, L.race, c);
     drawShare(ctx, L.share, c);
@@ -575,7 +580,8 @@
     if (!$('dice-rolls')) return;
     $('dice-rolls').textContent = tally.rolls.toLocaleString('en');
     $('dice-wins').textContent = t.winsLine(nameOf(c, c.you), nameOf(c, c.me), tally.you, tally.me);
-    $('dice-seen').textContent = t.seenLine(fav, seen, c.fraction, Math.round(c.chance * 100));
+    $('dice-seen').textContent =
+      c.you === c.me ? t.sameDie : t.seenLine(fav, seen, c.fraction, Math.round(c.chance * 100));
     $('dice-meter').style.width = (seen ?? 0) + '%';
     $('dice-meter').style.background = colorOf(c, c.favourite);
     if (!settled) return;

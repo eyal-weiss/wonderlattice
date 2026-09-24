@@ -255,7 +255,8 @@
 
   function bindInput() {
     canvas.addEventListener('pointerdown', (e) => {
-      canvas.focus();
+      // preventScroll: a scroll here would shift the canvas under the pointer mid-click.
+      canvas.focus({ preventScroll: true });
       canvas.setPointerCapture(e.pointerId);
       drag = { x: e.clientX, y: e.clientY };
       room?.pointer?.down?.(pointer(e), settings[room.id], stage);
