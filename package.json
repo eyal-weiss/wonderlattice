@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node scripts/serve.mjs . 4173",
     "build": "node scripts/build.mjs",
-    "test": "node --test tests/unit/",
+    "test": "node --test tests/unit/*.test.js",
     "test:browser": "playwright test",
     "lint": "eslint .",
     "format": "prettier --write .",
