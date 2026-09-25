@@ -1,7 +1,7 @@
 /* Visitor-facing English for the storm room. Other languages: text.<lang>.js (docs/TRANSLATING.md). */
 Wonderloom.defineText('storm', 'en', {
-  eyebrow: 'CODES · NOISE',
-  name: 'A picture in a storm',
+  eyebrow: 'ERROR CORRECTION',
+  name: 'Send a picture through a storm',
   tagline: 'A few clever extra bits let a picture repair itself.',
 
   title: 'Send a picture through a storm.',
@@ -17,8 +17,8 @@ Wonderloom.defineText('storm', 'en', {
   nudge:
     'Count the damage with no protection. Then try Hamming’s trick in the same storm. How wild a storm can it take?',
   connection: {
-    html: '<strong>Signals that travel.</strong> Here a message survives a noisy journey. In the wave room, two tones travel together and draw a shape you can hear.',
-    label: 'Listen to two signals',
+    html: '<strong>Signals that travel.</strong> Here a message survives a noisy journey. In “Hear the shape”, two tones travel together and draw a shape you can hear.',
+    label: 'Visit “Hear the shape”',
   },
 
   // Canvas labels.
@@ -46,7 +46,10 @@ Wonderloom.defineText('storm', 'en', {
 
   // Readouts.
   sent: 'Bits sent',
-  sentValue: (bits, extra) => `${bits} (+${extra}%)`,
+  sentValue: (bits, extra) => `${bits} (+${extra}% extra)`,
+  // The presets' badges: how many extra bits each way of protecting costs.
+  badge: (extra) => `+${extra}%`,
+  badgeNote: 'extra bits',
   flipped: 'Flipped by the storm',
   repaired: 'Repaired on arrival',
   knownBad: 'Blocks known bad',

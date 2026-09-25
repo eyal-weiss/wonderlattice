@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { readFileSync } from 'node:fs';
 import './load.js';
 
 const storm = globalThis.Wonderloom.models.storm;
@@ -171,4 +172,37 @@ test('pictures pack into two whole numbers for links and unpack unchanged', () =
   const full = new Array(PIXELS).fill(1);
   assert.deepEqual(storm.pack(full), { top: 2 ** 32 - 1, bottom: 2 ** 32 - 1 });
   assert.deepEqual(storm.unpack(0, 1), [...new Array(PIXELS - 1).fill(0), 1]);
+});
+
+// ---- Colour contrast (WCAG 2), with the room's colours read from its source ----
+
+/** The contrast ratio between two colours given as '#rrggbb' or [r, g, b]. */
+function contrast(a, b) {
+  const lum = (c) => {
+    const rgb = typeof c === 'string' ? [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16)) : c;
+    const [r, g, b] = rgb.map((v) => (v / 255 <= 0.04045 ? v / 255 / 12.92 : ((v / 255 + 0.055) / 1.055) ** 2.4));
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  };
+  const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p);
+  return (x + 0.05) / (y + 0.05);
+}
+
+const stormSource = readFileSync(new URL('../../src/rooms/storm/room.js', import.meta.url), 'utf8');
+const colour = (name) => stormSource.match(new RegExp(`\\n\\s+${name}: '(#[0-9a-f]{6})'`))[1];
+
+test('the keyboard cursor, drawn bright over a dark halo, stands out at least 3:1 on every pixel colour', () => {
+  for (const pixel of [colour('ink'), colour('paper')]) {
+    const best = Math.max(contrast(colour('cursor'), pixel), contrast(colour('halo'), pixel));
+    assert.ok(best >= 3, `cursor on ${pixel}: ${best.toFixed(2)}:1`);
+  }
+  assert.match(stormSource, /haloStroke\(ctx, COLORS\.cursor, 2\)/);
+});
+
+test('the damage curve key names every code legibly (at least 4.5:1), selected or not', () => {
+  for (const text of [colour('label'), '#e8edf3']) {
+    const ratio = contrast(text, colour('background'));
+    assert.ok(ratio >= 4.5, `${text}: ${ratio.toFixed(2)}:1`);
+  }
+  // The dimming applies to the key's line only: it is reset before the name is written.
+  assert.match(stormSource, /ctx\.stroke\(\);\n\s+ctx\.globalAlpha = 1;\n\s+ctx\.fillStyle = c === s\.code/);
 });

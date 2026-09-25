@@ -58,3 +58,8 @@ body[data-room='plane'] #scene-canvas.plane-grab {
     max-height: 760px;
   }
 }
+/* The notation after the plain words stays on one line. */
+.plane-math {
+  white-space: nowrap;
+  color: var(--muted);
+}

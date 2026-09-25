@@ -16,6 +16,7 @@
   const arrowFor = (P) => clamp(Math.min(P.w, P.h) * 0.09, 24, 36);
   const WING = PICTURES.indexOf('wing');
   const GRID = PICTURES.indexOf('grid');
+  const SMALL = 760; // a stage narrower than this (a phone) draws at a lower resolution
   const CARD_VIEW = { cx: -0.05, cy: 0.2, rx: 2.35, ry: 1.2 }; // the home card, close in on the wing
 
   const COLORS = {
@@ -25,6 +26,7 @@
     axis: '#2c3b4f',
     faint: '#243244',
     label: '#a7b4c6',
+    tick: '#8595aa', // the "1" and "i" beside the axes: at least 4.5:1 on the panel
     ink: '#f4e3b5',
     wing: 'rgba(244, 227, 181, 0.12)',
     flow: 'rgba(120, 170, 215, 0.34)',
@@ -64,6 +66,10 @@
     stroll = 0, // the angle along the walk
     grabbed = null, // offset from the pointer to the compass while dragging
     firstVisit = true,
+    spoken = null, // the special point last announced to screen readers ('critical' or 'pole'), or null
+    heard = null, // the special point the compass is on now, waiting to be announced
+    speakTimer = 0,
+    layer = { key: '', canvas: null }, // everything that doesn't move, drawn once and reused every frame
     cache = { key: '', value: null },
     flows = { key: '', value: null },
     streamlines = { key: '', value: null }; // traced in z; they don't change as the plane bends
@@ -235,7 +241,7 @@
     ctx.moveTo(x0 - 4, yi);
     ctx.lineTo(x0 + 4, yi);
     ctx.stroke();
-    ctx.fillStyle = '#5d6f86';
+    ctx.fillStyle = COLORS.tick;
     ctx.font = '11px system-ui';
     ctx.textAlign = 'left';
     ctx.fillText('1', x1 + 3, y0 + 13);
@@ -276,8 +282,8 @@
     }
   }
 
-  /** Streamlines, and drops of air carried along them (moving only while the stage plays). */
-  function drawFlow(ctx, lines, side, clock) {
+  /** The streamlines of the air around the wing. */
+  function drawFlow(ctx, lines, side) {
     ctx.strokeStyle = COLORS.flow;
     ctx.lineWidth = 1;
     ctx.beginPath();
@@ -286,6 +292,10 @@
       px.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1])));
     }
     ctx.stroke();
+  }
+
+  /** Drops of air carried along the streamlines (moving only while the stage plays). */
+  function drawDrops(ctx, lines, side, clock) {
     ctx.fillStyle = COLORS.drop;
     const spacing = 0.45;
     for (const line of lines) {
@@ -438,22 +448,62 @@
     ctx.stroke();
   }
 
+  /**
+   * Draw a frame. The panels, grid, picture, and streamlines only change when the
+   * settings or the size do, so on the stage they are drawn once into `layer`
+   * and copied each frame; only the drops of air and the compass are redrawn.
+   */
   function render(ctx, s, view, { labels = true, clock = 0, zoom = null } = {}) {
     const { width, height } = view;
     const bend = bentBy(s);
     const L = measure(width, height, s, bend, labels, zoom);
     if (labels) layout = L;
-    ctx.fillStyle = COLORS.background;
-    ctx.fillRect(0, 0, width, height);
     const traced = strokes(s, L, bend),
       wing = s.picture === WING,
       lines = wing && s.flow && s.fn === JOUKOWSKI ? flowLines(s, L, bend) : null;
-    for (const [side, P] of labels
+    const sides = labels
       ? [
           ['z', L.z],
           ['w', L.w],
         ]
-      : [['w', L.w]]) {
+      : [['w', L.w]];
+    const still = () => drawStill(ctx, view, s, L, bend, sides, traced, lines, labels);
+    // While the plane bends, every frame is new, so there's nothing to reuse.
+    if (!labels || morph) still();
+    else {
+      const dpr = ctx.getTransform().a;
+      const key = [cache.key, lines ? flows.key : '', bend === 1, width, height, dpr].join('|');
+      if (layer.key !== key) {
+        const canvas = layer.canvas ?? document.createElement('canvas');
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        const c = canvas.getContext('2d');
+        c.setTransform(dpr, 0, 0, dpr, 0, 0);
+        drawStill(c, view, s, L, bend, sides, traced, lines, labels);
+        layer = { key, canvas };
+      }
+      ctx.save();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.drawImage(layer.canvas, 0, 0);
+      ctx.restore();
+    }
+    if (lines)
+      for (const [side, P] of sides) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.roundRect(P.x, P.y, P.w, P.h, 10);
+        ctx.clip();
+        drawDrops(ctx, lines, side, clock);
+        ctx.restore();
+      }
+    if (labels) drawProbes(ctx, s, L, bend, clock);
+  }
+
+  /** Everything that doesn't move from frame to frame: panels, axes, grid, streamlines, picture, and labels. */
+  function drawStill(ctx, { width, height }, s, L, bend, sides, traced, lines, labels) {
+    ctx.fillStyle = COLORS.background;
+    ctx.fillRect(0, 0, width, height);
+    for (const [side, P] of sides) {
       if (labels) drawPanel(ctx, P);
       ctx.save();
       ctx.beginPath();
@@ -461,14 +511,12 @@
       ctx.clip();
       if (labels) drawAxes(ctx, P);
       drawPicture(ctx, traced.grid, side, true, false);
-      if (lines) drawFlow(ctx, lines, side, clock);
-      drawPicture(ctx, traced.picture, side, false, wing);
+      if (lines) drawFlow(ctx, lines, side);
+      drawPicture(ctx, traced.picture, side, false, s.picture === WING);
       if (side === 'z' && bend === 1) drawSpecial(ctx, s, P);
       ctx.restore();
     }
-    if (!labels) return;
-    drawProbes(ctx, s, L, bend, clock);
-    drawLabels(ctx, s, L, bend);
+    if (labels) drawLabels(ctx, s, L, bend);
   }
 
   function drawLabels(ctx, s, L, bend) {
@@ -498,7 +546,21 @@
     ctx.restore();
   }
 
+  /**
+   * Phones have many pixels and little power: on a small stage, draw at most
+   * 1.5 canvas pixels per screen pixel (the stage allows 2). The stage sizes the
+   * canvas again whenever it resizes, and the next frame trims it back.
+   */
+  function fitResolution(ctx, stage) {
+    const most = Math.min(devicePixelRatio || 1, stage.width < SMALL ? 1.5 : 2);
+    if (ctx.getTransform().a <= most + 0.01) return;
+    ctx.canvas.width = Math.round(stage.width * most);
+    ctx.canvas.height = Math.round(stage.height * most);
+    ctx.setTransform(most, 0, 0, most, 0, 0);
+  }
+
   function draw(ctx, s, stage) {
+    fitResolution(ctx, stage);
     // A shared link, saved moment, or resize can leave the compass outside the panel: bring it back.
     if (keepInside(s, stage.width, stage.height)) readouts(s);
     render(ctx, s, stage, { clock: stage.clock });
@@ -571,17 +633,14 @@
     startGlide();
   }
 
+  /** "Bend it". With reduced motion, or while the visitor has paused, the plane is simply shown bent. */
   function startBend(s, stage) {
-    if (reduced) {
+    if (reduced || !stage.playing) {
       morph = null;
       s.bend = 100;
     } else {
       morph = { elapsed: 0 };
       s.bend = 0;
-      if (!stage.playing) {
-        stage.setPlaying(true);
-        strolling = false;
-      }
     }
     showBend(s);
     stage.sync();
@@ -606,22 +665,46 @@
       stretch = pole ? Infinity : M.abs(d),
       critical = !pole && M.isCritical(s.fn, bend, z);
     const turn = pole || critical ? null : Math.round((M.arg(d) * 180) / Math.PI);
-    $('scene-name').textContent = bend === 1 ? t.formulas[s.fn] : t.bent(t.formulas[s.fn], Math.round(bend * 100));
-    $('scene-status').textContent = pole
-      ? t.statusPole
-      : critical
-        ? t.statusCritical
-        : t.status(round(stretch, 2), t.degrees(turn));
+    setText($('scene-name'), bend === 1 ? t.formulas[s.fn] : t.bent(t.formulas[s.fn], Math.round(bend * 100)));
+    setText(
+      $('scene-status'),
+      pole ? t.statusPole : critical ? t.statusCritical : t.status(round(stretch, 2), t.degrees(turn)),
+    );
+    listen(pole ? 'pole' : critical && bend === 1 ? 'critical' : null);
     const box = $('plane-readout');
     if (!box) return;
     const P = layout?.w,
       there = P && !pole ? P.px(w) : null,
       away = there && (there[0] < P.x || there[0] > P.x + P.w || there[1] < P.y || there[1] > P.y + P.h);
     const note = pole ? t.pole : critical ? t.critical : away ? t.away : bend < 1 ? t.blending : t.keeps;
-    box.querySelector('[data-read="at"]').textContent = t.point(round(z[0], 2), round(z[1], 2));
-    box.querySelector('[data-read="stretch"]').textContent = pole ? '∞' : t.times(round(stretch, 2));
-    box.querySelector('[data-read="turn"]').textContent = turn === null ? t.none : t.degrees(turn);
-    box.querySelector('[data-read="note"]').textContent = note;
+    const read = (key) => box.querySelector(`[data-read="${key}"]`);
+    setText(read('at'), t.point(round(z[0], 2), round(z[1], 2)));
+    setText(read('stretch'), pole ? '∞' : t.times(round(stretch, 2)));
+    setText(read('turn'), turn === null ? t.none : t.degrees(turn));
+    setText(read('note'), note);
+  }
+
+  /** Readouts change every frame while the compass walks: touch the page only when the words change. */
+  function setText(element, text) {
+    if (element.textContent !== text) element.textContent = text;
+  }
+
+  /**
+   * Tell screen-reader users when the compass comes to rest on a special
+   * point (f′ = 0, or a pole), once, not on every frame. While it walks by
+   * itself it only passes through, so nothing is said.
+   */
+  function listen(special) {
+    if (special === heard) return;
+    heard = special;
+    clearTimeout(speakTimer);
+    if (!special) return void (spoken = null);
+    if (special === spoken) return;
+    speakTimer = setTimeout(() => {
+      if (heard !== special || strolling || !W.stage.isShowing(room)) return;
+      spoken = special;
+      W.announce(special === 'pole' ? t.announcePole : t.announceCritical);
+    }, 450);
   }
 
   // ---- Controls ---------------------------------------------------------------------------
@@ -633,7 +716,8 @@
 
   function controls(s, stage) {
     const wing = s.picture === WING;
-    const row = (key, label) => `<span>${label}</span><strong data-read="${key}"></strong>`;
+    const row = (key, label, math = '') =>
+      `<span>${label}${math ? ` <span class="plane-math">${math}</span>` : ''}</span><strong data-read="${key}"></strong>`;
     return (
       '<div class="plane-pair wide">' +
       select('fn', t.functionLabel, t.functions, s.fn) +
@@ -652,7 +736,7 @@
       (s.picture === GRID ? '' : stage.check('grid', t.gridLabel, s.grid)) +
       '</div>' +
       '<div class="wide readout plane-readout" id="plane-readout">' +
-      `<div class="plane-rows">${row('at', t.at)}${row('stretch', t.stretch)}${row('turn', t.turn)}</div>` +
+      `<div class="plane-rows">${row('at', t.at)}${row('stretch', t.stretch, t.stretchMath)}${row('turn', t.turn, t.turnMath)}</div>` +
       '<p data-read="note"></p></div>'
     );
   }
@@ -704,7 +788,7 @@
 
   room = W.defineRoom({
     id: 'plane',
-    symbol: '⌘',
+    symbol: 'ℂ',
     theme: 'shape',
     eyebrow: t.eyebrow,
     name: t.name,
@@ -815,7 +899,7 @@
 
     /** "Start again": bend again from the start, and send the compass walking. */
     reset(s, stage) {
-      startBend(s, stage); // this starts the stage playing if it was paused
+      startBend(s, stage); // while paused, this shows the bent plane at once and stays paused
       resumeStroll();
     },
 

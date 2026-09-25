@@ -1,8 +1,8 @@
 /* Grow a fingerprint · visitor-facing words (English). */
 Wonderloom.defineText('fingerprint', 'en', {
-  eyebrow: 'LIVING PATTERNS · SKIN',
+  eyebrow: 'SKIN',
   name: 'Grow a fingerprint',
-  tagline: 'Nobody draws it: two signals spread and react, and ridges grow into whorls, loops, and arches.',
+  tagline: 'Nobody draws it: ridges grow by themselves into whorls, loops, and arches.',
   title: 'Grow a fingerprint.',
   subtitle: 'Nobody draws a fingerprint. Two signals spread and react, and ridges appear by themselves.',
   field: 'Reaction–diffusion · Turing patterns · Development',
@@ -12,12 +12,12 @@ Wonderloom.defineText('fingerprint', 'en', {
   canvasLabel:
     'A fingertip where ridges grow outward from a few starting points. Click or tap to start ridges at a point, or use the arrow keys to aim and Enter to plant.',
   panelEyebrow: 'Shape the growth',
-  whyLabel: 'Where do fingerprints come from?',
+  whyLabel: 'How do ridges form?',
   nudge:
     'Watch where waves meet: three meeting leave a little Y. Then press “Grow again”: same plan, new details, like identical twins.',
   connection: {
-    html: '<strong>No blueprint.</strong> Here, two signals and a few starting points make every ridge. In the flock, a few rules between neighbours move a whole crowd.',
-    label: 'Meet the flock',
+    html: '<strong>No blueprint.</strong> Here, two signals and a few starting points make every ridge. In “A mind of many”, a few rules between neighbours move a whole crowd.',
+    label: 'Visit “A mind of many”',
   },
 
   presets: [
@@ -41,6 +41,7 @@ Wonderloom.defineText('fingerprint', 'en', {
 
   roles: { pad: 'Pad centre', tip: 'Fingertip', crease: 'Crease', yours: 'Your point' },
   legendTitle: 'WHERE RIDGES START',
+  triradiusKey: 'Triradius: a little Y',
   started: 'growing',
   done: 'grown',
   soon: (n) => (n <= 1 ? 'joins in about a ridge' : `joins in about ${n} ridges`),
@@ -72,7 +73,7 @@ Wonderloom.defineText('fingerprint', 'en', {
 <p>In 1952 Alan Turing showed that two chemicals, reacting with each other and spreading at different speeds, can make a pattern appear in an even mixture. A popular way to picture it came later: an <em>activator</em> that makes more of itself, and an <em>inhibitor</em> that it also makes, which holds it back. If the inhibitor spreads faster, each bump of activator surrounds itself with a moat where no other bump can grow. The result is spots or stripes, at a spacing the chemistry chooses.</p>
 <h3>Waves from a few places</h3>
 <p>In 2023 a team led from the University of Edinburgh found that fingerprint ridges follow this kind of Turing system, with the signals WNT and EDAR as activators and BMP as the inhibitor. Ridges don’t appear everywhere at once. They start at a few sites: the centre of the fingertip’s pad, the tip near the nail, and next to the crease of the last joint. From there they spread as waves, laying ridges roughly parallel to their front. Where waves meet, they leave the Y-shaped triradii. The team’s simulations produced arches, loops, and whorls by changing when, where, and at what angle the sites start: a pad that starts late, for instance, leaves room for the crease’s ridges and makes an arch.</p>
-<h3>Why no two are alike</h3>
+<h3>Why prints differ so much</h3>
 <p>The study found that where the sites start, and how their waves meet, makes the variety of fingerprints; in its discussion, the authors add that the tiny random differences typical of Turing patterns make each print more unique still. Identical twins share their genes, and their fingerprints often share a type, but not the details: in one large study twins’ prints had the same type about three times in four, yet a fingerprint matcher told them apart almost as reliably as it tells unrelated people apart. “Grow again” keeps the plan and changes only the tiniest details, and you can watch the ridges end and fork in new places.</p>
 <h3>What this room leaves out</h3>
 <p>This is a simplified model inspired by that research, not a simulation of real embryonic skin. The fingertip is flat, the starting sites are placed by hand, and no genes or real chemicals appear: just two made-up signals with textbook equations. It leaves out the finger’s growth, its three-dimensional pad, and the sweat pores that later dot every ridge.</p>

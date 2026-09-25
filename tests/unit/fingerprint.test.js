@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { readFileSync } from 'node:fs';
 import './load.js';
 
 const F = globalThis.Wonderloom.models.fingerprint;
@@ -198,4 +199,38 @@ test('points off the fingertip start nothing', () => {
     F.sitesFor(grid, WHORL, 3, off).map((s) => s.role),
     F.sitesFor(grid, WHORL, 3).map((s) => s.role),
   );
+});
+
+// ---- Colour contrast (WCAG 2), with the room's colours read from its source ----
+
+/** The contrast ratio between two colours given as '#rrggbb' or [r, g, b]. */
+function contrast(a, b) {
+  const lum = (c) => {
+    const rgb = typeof c === 'string' ? [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16)) : c;
+    const [r, g, b] = rgb.map((v) => (v / 255 <= 0.04045 ? v / 255 / 12.92 : ((v / 255 + 0.055) / 1.055) ** 2.4));
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  };
+  const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p);
+  return (x + 0.05) / (y + 0.05);
+}
+
+const fingerprintSource = readFileSync(new URL('../../src/rooms/fingerprint/room.js', import.meta.url), 'utf8');
+const hex = (name) => fingerprintSource.match(new RegExp(`${name} = '(#[0-9a-f]{6})'`))[1];
+const triples = (key) =>
+  [...fingerprintSource.matchAll(new RegExp(`${key}: \\[(\\d+), (\\d+), (\\d+)\\]`, 'g'))].map((m) =>
+    m.slice(1).map(Number),
+  );
+
+test('starting-site markers read without colour, at least 3:1 against skin, ridges, paper, and night', () => {
+  const dark = hex('MARK_DARK'),
+    light = hex('MARK_LIGHT');
+  const backgrounds = [...triples('base'), ...triples('ridge'), ...triples('glow')];
+  assert.equal(backgrounds.length, 9, 'three looks, each with a base, a ridge, and a glow');
+  for (const c of backgrounds) {
+    const best = Math.max(contrast(dark, c), contrast(light, c));
+    assert.ok(best >= 3, `marker outline on rgb(${c}): ${best.toFixed(2)}:1`);
+  }
+  // Each kind of site has its own shape, so colour is never the only difference.
+  const shapes = fingerprintSource.match(/ROLE_SHAPES = \{([^}]*)\}/)[1].match(/'(\w+)'/g);
+  assert.equal(new Set(shapes).size, 4);
 });

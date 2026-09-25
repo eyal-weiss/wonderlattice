@@ -137,19 +137,24 @@ test('plane room: drag the compass with the mouse, and angles break only where f
   await expect(page.locator('#plane-readout')).toContainText('a pole');
 });
 
-test('plane room: "Bend it" plays the morph from the identity to f', async ({ page }) => {
+test('plane room: "Bend it" plays the morph from the identity to f, and a pause stays a pause', async ({ page }) => {
   await page.goto('/#room=plane&fn=2&bend=100');
   await expect(page.locator('#scene-name')).toHaveText('w = eᶻ');
-  await pause(page);
   await expect(page.locator('#scene-action')).toHaveText('Bend it');
   await page.locator('#scene-action').click();
-  // It starts from the unbent plane and plays even though the stage was paused.
-  await expect(page.locator('#scene-play')).toHaveText('Pause');
+  // It starts from the unbent plane and plays to the end.
   await expect(page.locator('#scene-name')).toContainText('% bent');
   await expect.poll(async () => (await settings(page)).bend, { timeout: 2000 }).toBeGreaterThan(0);
   await expect(page.locator('#v-bend')).toHaveText('100%', { timeout: 15000 });
   await expect(page.locator('#c-bend')).toHaveValue('100');
   await expect(page.locator('#scene-name')).toHaveText('w = eᶻ');
+  // Paused, "Bend it" shows the bent plane at once and leaves the stage paused.
+  await pause(page);
+  await setRange(page, '#c-bend', 30);
+  await page.locator('#scene-action').click();
+  await expect(page.locator('#v-bend')).toHaveText('100%');
+  await page.waitForTimeout(300);
+  await expect(page.locator('#scene-play')).toHaveText('Play');
   // The slider sets any blend by hand.
   await setRange(page, '#c-bend', 40);
   await expect(page.locator('#scene-name')).toHaveText('w = eᶻ · 40% bent');
@@ -227,12 +232,42 @@ test('plane room: angles break only at critical points, not wherever the stretch
   await expect(page.locator('#plane-readout')).toContainText('blend');
 });
 
-test('plane room: "Start again" while paused bends the plane and sends the compass walking', async ({ page }) => {
+test('plane room: "Start again" while paused stays paused; Play sends the compass walking', async ({ page }) => {
   await page.goto('/#room=plane&probeX=-1&probeY=-1');
   await pause(page);
+  await setRange(page, '#c-bend', 20);
   const before = await settings(page);
   await page.locator('#scene-reset').click();
+  await expect(page.locator('#v-bend')).toHaveText('100%');
+  await page.waitForTimeout(400);
+  await expect(page.locator('#scene-play')).toHaveText('Play');
+  expect((await settings(page)).probeX).toBe(before.probeX);
+  await page.locator('#scene-play').click();
   await expect(page.locator('#scene-play')).toHaveText('Pause');
   await expect.poll(async () => (await settings(page)).probeX, { timeout: 5000 }).not.toBe(before.probeX);
-  await expect(page.locator('#v-bend')).toHaveText('100%', { timeout: 15000 });
+});
+
+test('plane room: resting the compass on f′ = 0 is announced once', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 1200 }); // the whole stage on screen, for the mouse
+  await page.goto('/#room=plane&fn=0&picture=0&probeX=1.2&probeY=0.8');
+  await expect(page.locator('#plane-readout')).toBeVisible();
+  // Tap the centre, where z² has f′ = 0: the compass jumps there and rests.
+  const zero = await onScreen(page, [0, 0]);
+  await page.mouse.click(zero.x, zero.y);
+  await expect(page.locator('#scene-status')).toHaveText('Here f′ = 0');
+  await expect(page.locator('#announcer')).toHaveText('f′ = 0 here: angles double');
+  // The readout panel itself is not a live region: it changes every frame.
+  await expect(page.locator('#plane-readout [role="status"], #plane-readout[role="status"]')).toHaveCount(0);
+});
+
+test('plane room: the axis labels are drawn in the lighter tick colour', async ({ page }) => {
+  await page.goto('/#room=plane&fn=0&picture=0');
+  await expect(page.locator('#plane-readout')).toBeVisible();
+  const found = await page.locator('#scene-canvas').evaluate((canvas) => {
+    const { data } = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < data.length; i += 4)
+      if (data[i] === 0x85 && data[i + 1] === 0x95 && data[i + 2] === 0xaa) return true;
+    return false;
+  });
+  expect(found).toBe(true);
 });

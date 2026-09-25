@@ -1,14 +1,15 @@
 /* Bend the plane · visitor-facing words (English). Other languages: text.<lang>.js (docs/TRANSLATING.md). */
 Wonderloom.defineText('plane', 'en', {
-  eyebrow: 'SHAPE · COMPLEX NUMBERS',
+  eyebrow: 'COMPLEX NUMBERS',
   name: 'Bend the plane',
-  tagline: 'Square, flip, and wrap the whole plane at once. Tiny right angles survive, and a circle becomes a wing.',
+  tagline: 'Bend a picture without tearing it; a circle becomes a wing.',
   title: 'Bend the plane.',
   subtitle: 'Send a picture through a complex function. The whole plane bends, yet tiny right angles stay right.',
   field: 'Complex numbers · Conformal maps · Wings',
   sceneLabel: 'The plane, bent',
-  tip: 'Drag the compass on the left · Its twin on the right shows the stretch and the turn',
-  tipStacked: 'Drag the compass in the top picture · Its twin below shows the stretch and the turn',
+  tip: 'Drag the compass on the left, or move it with the arrow keys · Its twin on the right shows the stretch and the turn',
+  tipStacked:
+    'Drag the compass in the top picture, or use the arrow keys · Its twin below shows the stretch and the turn',
   actionLabel: 'Bend it',
   canvasLabel:
     'Two copies of the plane. In the first, a picture and a small compass of two perpendicular arrows; in the ' +
@@ -17,8 +18,8 @@ Wonderloom.defineText('plane', 'en', {
   whyLabel: 'Why do right angles survive?',
   nudge: 'Square the plane, then drag the compass to the very centre. What happens to its twin there?',
   connection: {
-    html: '<strong>Bending without tearing.</strong> Here a function bends the whole plane and keeps its tiny angles. The ribbon bends a strip into a surface with only one side.',
-    label: 'Visit the ribbon',
+    html: '<strong>Bending without tearing.</strong> Here a function bends the whole plane and keeps its tiny angles. In “The other side”, a strip bends into a surface with only one side.',
+    label: 'Visit “The other side”',
   },
 
   // The maps, in the model's order: names for the menu, and the formula shown on the stage.
@@ -37,8 +38,11 @@ Wonderloom.defineText('plane', 'en', {
 
   // Readouts
   at: 'The compass at',
-  stretch: 'Stretch, |f′(z)|',
-  turn: 'Turn, arg f′(z)',
+  // Plain words first, then the notation, which is kept on one line.
+  stretch: 'How much it stretches here',
+  stretchMath: '(|f′(z)|)',
+  turn: 'How much it turns',
+  turnMath: '(arg f′(z))',
   point: (x, y) => `${x} ${y < 0 ? '−' : '+'} ${Math.abs(y)}i`.replace(/^-/, '−'),
   times: (x) => `${x}×`,
   degrees: (d) => `${d < 0 ? '−' : ''}${Math.abs(d)}°`,
@@ -46,6 +50,9 @@ Wonderloom.defineText('plane', 'en', {
   status: (stretch, turn) => `×${stretch} · turn ${turn}`,
   statusCritical: 'Here f′ = 0',
   statusPole: 'A pole: f = ∞',
+  // Said once to screen readers when the compass comes to rest on a special point.
+  announceCritical: 'f′ = 0 here: angles double',
+  announcePole: 'A pole: the function is infinite here',
   keeps: 'Its twin’s arrows still meet at a right angle.',
   critical: 'Here f′ = 0. The twin’s arrows shrink away, and angles double.',
   pole: 'Here f is infinite, a pole. The twin has flown off the map.',

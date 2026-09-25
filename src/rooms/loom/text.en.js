@@ -1,23 +1,24 @@
 /* The mathematical loom · visitor-facing words (English). */
 Wonderloom.defineText('loom', 'en', {
-  eyebrow: 'MAKING · PATTERNS',
+  eyebrow: 'WEAVING',
   name: 'The mathematical loom',
-  tagline: 'Four shafts, four treadles, and a grid of choices weave twill, stripes, and houndstooth.',
+  tagline: 'Flip one square in a tiny grid of yes and no, and the whole cloth changes.',
   title: 'The mathematical loom.',
   subtitle: 'Choose which threads rise. Watch cloth grow from a grid of yes and no.',
   field: 'Weaving · Binary patterns · Repetition',
   sceneLabel: 'A four-shaft loom',
   sceneName: 'Cloth from a draft',
-  tip: 'Left: the weaving draft · Right: the cloth it makes · Click the tie-up to change it',
+  tip: 'Left: the draft · Right: its cloth · Click the tie-up to change it, or use its squares in the panel',
+  tipStacked: 'Top: the draft · Below: its cloth · Click the tie-up, or use its squares in the panel',
   actionLabel: 'Surprise me',
   canvasLabel:
-    'A weaving draft beside the cloth it produces. The tie-up grid can be changed with the controls or by clicking it.',
+    'A weaving draft beside the cloth it produces. Change the tie-up by clicking it here, or with its squares in the panel.',
   panelEyebrow: 'Set up the loom',
   whyLabel: 'How does a grid make cloth?',
-  nudge: 'Start with “Twill”, then switch one square of the tie-up. Every row woven with that treadle changes at once.',
+  nudge: 'Start with “Twill”, then switch one square of the tie-up. Every row woven with that pedal changes at once.',
   connection: {
-    html: '<strong>One small rule, repeated everywhere.</strong> The tie-up decides every crossing in the cloth. In the flock, small rules between neighbours shape a whole crowd.',
-    label: 'Meet the flock',
+    html: '<strong>One small rule, repeated everywhere.</strong> The tie-up decides every crossing in the cloth. In “A mind of many”, small rules between neighbours shape a whole crowd.',
+    label: 'Visit “A mind of many”',
   },
 
   presets: [
@@ -29,16 +30,18 @@ Wonderloom.defineText('loom', 'en', {
     { name: 'Chevron', note: 'Turn the twill back on itself.' },
   ],
 
-  tieup: 'Tie-up: which shafts each treadle lifts',
-  tieupCell: (treadle, shaft) => `Treadle ${treadle} lifts shaft ${shaft}`,
-  treadleLabel: (n) => `T${n}`,
-  shaftLabel: (n) => `S${n}`,
-  threading: 'Threading · warp',
-  treadling: 'Treadling · weft',
-  orders: ['Straight · 1234', 'Point · 123432', 'Broken · 1243', 'Doubled · 11223344'],
-  warpColours: 'Warp colours',
-  weftColours: 'Weft colours',
-  colourOrders: ['All dark', '4 dark, 4 light', 'Alternating', '2 dark, 2 light', 'All light'],
+  tieup: 'Which threads lift for each pedal (the tie-up)',
+  tieupHint:
+    'Each shaft is a frame holding some of the lengthwise threads. A lit square means that pedal lifts that shaft.',
+  tieupCell: (pedal, shaft) => `Pedal ${pedal} lifts shaft ${shaft}`,
+  treadleLabel: (n) => `Pedal ${n}`,
+  shaftLabel: (n) => `Shaft ${n}`,
+  threading: 'Thread order',
+  treadling: 'Pedal order',
+  orders: ['Straight', 'Point', 'Broken', 'Doubled'],
+  warpColours: 'Long threads',
+  weftColours: 'Cross threads',
+  colourOrders: ['All dark', '4 and 4', 'Alternating', '2 and 2', 'All light'],
   palette: 'Yarn',
   palettes: ['Indigo & cream', 'Madder & gold', 'Forest & linen', 'Night & silver'],
 
@@ -57,16 +60,16 @@ Wonderloom.defineText('loom', 'en', {
   guests: [
     {
       name: 'Ada Lovelace',
-      note: 'She saw that the punched cards steering a loom could steer a calculating engine, too.',
+      note: 'She described how Babbage’s engine, steered by punched cards like a Jacquard loom, could weave patterns of algebra.',
     },
   ],
 
   insight: {
     title: 'A grid that weaves.',
-    html: `<p>Every cloth here comes from three short lists. The <em>threading</em> says which of four shafts each lengthwise (warp) thread passes through. The <em>tie-up</em> says which shafts each treadle lifts. The <em>treadling</em> says which treadle is pressed for each crosswise (weft) pass. Wherever a lifted warp thread crosses the weft, the warp shows on top.</p>
+    html: `<p>Every cloth here comes from three short lists. The <em>threading</em> says which of four shafts each lengthwise (warp) thread passes through. The <em>tie-up</em> says which shafts each pedal (a treadle) lifts. The <em>treadling</em> says which pedal is pressed for each crosswise (weft) pass. Wherever a lifted warp thread crosses the weft, the warp shows on top.</p>
 <div class="insight-visual">cloth = treadling × tie-up × threading, a product of grids of 0s and 1s</div>
 <h3>Small change, whole cloth</h3>
-<p>Switch one square of the tie-up and every pass woven with that treadle changes at once. Weavers design on paper this way: the grid on the left of the picture is a real weaving draft.</p>
+<p>Switch one square of the tie-up and every pass woven with that pedal changes at once. Weavers design on paper this way: the grid on the left of the picture is a real weaving draft.</p>
 <h3>Colour is a second pattern</h3>
 <p>Colour the threads too, and the weave and the colour order combine. A 2/2 twill with four dark and four light threads each way makes houndstooth. Plain weave with alternating colours makes stripes, not the check you might expect.</p>
 <h3>Floats hold cloth together</h3>

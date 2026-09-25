@@ -9,11 +9,19 @@
   const reduced = W.prefersReducedMotion();
 
   const RATES = [40, 80, 150, 300, 700]; // simulation steps per second, per growth speed
-  const BUDGET = 7; // at most this many ms of simulation per frame; fewer steps if the device is slow
+  const BUDGET = 7; // ms of simulation a frame may always use
+  const SHARE = 0.45; // on a slow device, up to this share of the time between frames goes to growing
+  const HEAD_START = 240; // steps grown in the background on a fresh start (about three ridges), so it never opens bare
+  const SLOW_RENDER = 9; // ms: drawing the ridges slower than this draws them coarser until growth ends
   const QUIET_SETTLE = 500; // with reduced motion, smooth this long after covering, then show
   const SEEDS = ['a', 'b', 'c', 'd']; // up to four points of your own: ax, ay, at (start step), …
   const ACROSS = F.WIDTH * 0.9; // the fingertip's width in cells, for "about n ridges across"
   const ROLE_COLORS = { pad: '#f2a07b', tip: '#8fc7f2', crease: '#b7e29a', yours: '#e3a6e6' };
+  // Each kind of starting site has its own shape, outlined dark inside a light halo, so it reads without
+  // colour and against every skin, ridge, and paper tone.
+  const ROLE_SHAPES = { pad: 'circle', tip: 'triangle', crease: 'square', yours: 'diamond' };
+  const MARK_DARK = '#10151d',
+    MARK_LIGHT = '#fbf7ee';
   const GLOW_STEPS = 260; // new ridges glow warmly for this many steps
 
   // Colours for each look, as [r, g, b]: background of the fingertip, ridge, new-ridge glow.
@@ -28,13 +36,16 @@
     plan = '', // the settings the current simulation was grown from
     found = null, // { type, cores, deltas } once growth has finished
     owed = 0, // fractional steps owed to the clock
+    lastStep = 0, // performance.now() at the last growth step, so growth follows real time, not the frame rate
     quiet = 0, // token of the reduced-motion computation in progress, 0 when none
+    head = 0, // token of the head-start computation in progress, 0 when none
     layout = null,
     aim = null, // keyboard aiming point, in fingertip units
     hover = null, // mouse position over the fingertip, in fingertip units
     image = null, // the rendered field and what it shows
     shadow = null; // the cached shadow behind the fingertip
-  const perf = { msPerStep: 0.5, stepsPerFrame: 0, simMs: 0, renderMs: 0, drawMs: 0 }; // measured timings, for tuning
+  // Measured timings, for tuning. `renderAvg` decides whether to draw the ridges coarser while they grow.
+  const perf = { msPerStep: 0.5, stepsPerFrame: 0, simMs: 0, renderMs: 0, renderAvg: 0, drawMs: 0 };
 
   /** Is slot k one of your points on the fingertip? A link may carry points off it, which are ignored. */
   const onTip = (s, k) =>
@@ -54,13 +65,37 @@
     plan = planOf(s);
     found = null;
     owed = 0;
+    lastStep = 0;
     if (image) image.steps = -1;
     if (reduced) growQuietly(stage);
+    else growHeadStart(stage);
   }
 
-  /** Once growth has finished, name the pattern and find its triradii (once). */
-  function settle() {
-    if (!found && sim.grown) found = F.classify(sim);
+  /** Once growth has finished, name the pattern and find its triradii (once), and say so. */
+  function settle(s) {
+    if (found || !sim.grown) return;
+    found = F.classify(sim);
+    if (room && W.stage.isShowing(room) && s) W.announce(t.status(t.types[found.type], found.deltas.length));
+  }
+
+  /**
+   * A fresh fingertip grows its first ridges in the background, in small
+   * chunks so the page stays responsive, and shows them as they come: there
+   * is something to see at once, even on a slow device, and even when paused.
+   */
+  function growHeadStart(stage) {
+    const token = ++head;
+    const work = () => {
+      if (token !== head || !sim || quiet) return;
+      if (!stage.isShowing(room)) return void (head = 0);
+      const end = performance.now() + 10;
+      while (performance.now() < end && sim.sites.length && sim.steps < HEAD_START && !F.finished(sim))
+        F.advance(sim, 1);
+      if (!sim.sites.length || sim.steps >= HEAD_START || F.finished(sim)) head = 0;
+      else setTimeout(work, 0);
+      if (!stage.playing) stage.draw();
+    };
+    setTimeout(work, 0);
   }
 
   /**
@@ -76,7 +111,7 @@
       while (performance.now() < end && sim.sites.length && !F.finished(sim, QUIET_SETTLE)) F.advance(sim, 1);
       if (!sim.sites.length || F.finished(sim, QUIET_SETTLE)) {
         quiet = 0;
-        if (sim.sites.length) settle();
+        if (sim.sites.length) settle(W.stage.settingsFor('fingerprint'));
       } else setTimeout(work, 0);
       stage.draw();
     };
@@ -95,12 +130,12 @@
     const below = 0.06; // skin below the crease, as a fraction of the fingertip's height
     let fh = (height - top - bottom) / (1 + below);
     let fw = fh * aspect;
-    const room = width - legend - 24;
+    const gap = legend ? 44 : 0;
+    const room = width - legend - gap - 24;
     if (fw > room) {
       fw = room;
       fh = fw / aspect;
     }
-    const gap = legend ? 44 : 0;
     const x = (width - fw - gap - legend) / 2;
     const y = top + (height - top - bottom - fh * (1 + below)) / 2;
     return { x, y, w: fw, h: fh, below: fh * below, legend: legend ? { x: x + fw + gap, y, w: legend } : null };
@@ -254,12 +289,17 @@
     layout = measure(width, height);
     const { x, y, w, h } = layout;
     // Two pixels per cell is plenty: the browser's smoothing does the rest, and the render stays cheap.
-    const scale = h * Math.min(devicePixelRatio || 1, 2) > F.HEIGHT * 1.4 ? 2 : 1;
+    // While growing on a slow device, one pixel per cell: a quarter of the work. Once grown, full detail.
+    const coarse = !found && perf.renderAvg > SLOW_RENDER;
+    const scale = !coarse && h * Math.min(devicePixelRatio || 1, 2) > F.HEIGHT * 1.4 ? 2 : 1;
     const hidden = quiet !== 0; // reduced motion: growing out of sight
     if (!hidden && (!image || image.scale !== scale || image.steps !== sim.steps || image.look !== s.look)) {
       const t0 = performance.now();
       render(s.look, scale);
       perf.renderMs = performance.now() - t0;
+      // Judge the device by the full-detail render; a coarse one is four times cheaper.
+      const full = perf.renderMs * (scale === 1 && coarse ? 4 : 1);
+      perf.renderAvg = perf.renderAvg ? perf.renderAvg * 0.8 + full * 0.2 : full;
     }
     backdrop(ctx, s.look, layout);
     if (hidden) {
@@ -271,6 +311,9 @@
     if (s.marks) marks(ctx, s, layout);
     pointerMarks(ctx, s, layout);
     if (layout.legend) legend(ctx, s, layout.legend);
+    // Without room for the legend on the canvas (phones), a small one shows in the panel.
+    const key = $('fingerprint-key');
+    if (key && key.hidden !== !!layout.legend) key.hidden = !!layout.legend;
     status(s);
     perf.drawMs = performance.now() - start;
   }
@@ -332,38 +375,81 @@
     return { x: x + site.x * w, y: y + site.y * h };
   }
 
+  /** The path of a starting site's shape, about 2r across, centred on (x, y). */
+  function siteShape(ctx, shape, x, y, r) {
+    ctx.beginPath();
+    if (shape === 'circle') ctx.arc(x, y, r, 0, TAU);
+    else if (shape === 'square') ctx.rect(x - r * 0.85, y - r * 0.85, r * 1.7, r * 1.7);
+    else if (shape === 'triangle') {
+      // Pointing down, into the fingertip from its tip.
+      ctx.moveTo(x, y + r * 1.1);
+      ctx.lineTo(x - r * 1.15, y - r * 0.85);
+      ctx.lineTo(x + r * 1.15, y - r * 0.85);
+      ctx.closePath();
+    } else {
+      ctx.moveTo(x, y - r * 1.25);
+      ctx.lineTo(x + r * 1.25, y);
+      ctx.lineTo(x, y + r * 1.25);
+      ctx.lineTo(x - r * 1.25, y);
+      ctx.closePath();
+    }
+  }
+
+  /** Stroke the current path twice, light then dark, so it reads on skin, ridges, paper, and night alike. */
+  function haloStroke(ctx, width) {
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = MARK_LIGHT;
+    ctx.lineWidth = width + 3;
+    ctx.stroke();
+    ctx.strokeStyle = MARK_DARK;
+    ctx.lineWidth = width;
+    ctx.stroke();
+  }
+
+  /** A starting site's marker: its shape in its colour, outlined dark inside a light halo. */
+  function siteMarker(ctx, role, x, y, r) {
+    siteShape(ctx, ROLE_SHAPES[role], x, y, r);
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = MARK_LIGHT;
+    ctx.lineWidth = 5;
+    ctx.stroke();
+    ctx.fillStyle = ROLE_COLORS[role];
+    ctx.fill();
+    ctx.strokeStyle = MARK_DARK;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+
   /** Rings at the starting sites (dashed while they wait), then the cores and triradii once grown. */
   function marks(ctx, s, box) {
     const unit = box.h / 100;
     for (const site of sim.sites) {
       const p = sitePoint(site, box),
-        wait = site.start - sim.steps;
-      ctx.lineWidth = Math.max(1.5, unit * 0.45);
-      ctx.strokeStyle = ROLE_COLORS[site.role];
-      ctx.fillStyle = ROLE_COLORS[site.role];
+        wait = site.start - sim.steps,
+        ring = Math.max(11, unit * 3.2);
       if (wait > 0) {
         // A dashed ring that fills in as the site's moment approaches.
         const total = Math.max(1, site.start);
         ctx.setLineDash([3, 3]);
         ctx.beginPath();
-        ctx.arc(p.x, p.y, unit * 2.4, 0, TAU);
-        ctx.stroke();
+        ctx.arc(p.x, p.y, ring, 0, TAU);
+        haloStroke(ctx, 1.4);
         ctx.setLineDash([]);
         ctx.beginPath();
-        ctx.arc(p.x, p.y, unit * 2.4, -Math.PI / 2, -Math.PI / 2 + TAU * (1 - wait / total));
-        ctx.stroke();
+        ctx.arc(p.x, p.y, ring, -Math.PI / 2, -Math.PI / 2 + TAU * (1 - wait / total));
+        haloStroke(ctx, 1.8);
       } else {
         const since = -wait,
           pulse = since < 240 && !reduced ? since / 240 : 1;
-        ctx.globalAlpha = 1 - pulse * 0.55;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, unit * (1.4 + pulse * 2), 0, TAU);
-        ctx.stroke();
-        ctx.globalAlpha = 1;
+        if (pulse < 1) {
+          ctx.globalAlpha = 1 - pulse;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, ring * (0.8 + pulse), 0, TAU);
+          haloStroke(ctx, 1.6);
+          ctx.globalAlpha = 1;
+        }
       }
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, unit * 0.7, 0, TAU);
-      ctx.fill();
+      siteMarker(ctx, site.role, p.x, p.y, Math.max(4.5, unit * 1.3));
     }
     if (!found) return;
     const color = LOOKS[s.look].mark;
@@ -433,10 +519,7 @@
       line += 26;
     }
     for (const site of roles) {
-      ctx.fillStyle = ROLE_COLORS[site.role];
-      ctx.beginPath();
-      ctx.arc(x + 5, line - 5, 5, 0, TAU);
-      ctx.fill();
+      siteMarker(ctx, site.role, x + 5, line - 5, 5);
       ctx.font = '500 14px system-ui, sans-serif';
       ctx.fillStyle = '#e8eef5';
       ctx.fillText(t.roles[site.role], x + 18, line, w - 18);
@@ -454,9 +537,8 @@
         line += 20;
         text(t.triradii(found.deltas.length), 13, '#c6d2dc');
       } else {
+        // The words "Growing · n%" are in the status line above; here, just the bar.
         const p = percent();
-        text(quiet ? t.quietly(p) : t.growing(p), 13, '#c6d2dc');
-        line += 10;
         ctx.fillStyle = '#243140';
         ctx.fillRect(x, line, w * 0.8, 4);
         ctx.fillStyle = '#b7e29a';
@@ -503,7 +585,7 @@
       if (reduced && !quiet) growQuietly(stage);
     }
     if (s.pattern !== 3) stage.setChosen(-1);
-    if (!stage.playing && !reduced) stage.setPlaying(true);
+    // A pause stays a pause: the new ridges wait for Play.
     stage.sync();
     stage.draw();
   }
@@ -595,6 +677,29 @@
     ]),
   );
 
+  /** The legend in the panel: each starting site's shape and name, and the little Y of a triradius. */
+  function panelKey() {
+    const shape = {
+      circle: '<circle cx="9" cy="9" r="5"/>',
+      triangle: '<path d="M9 15 3 5h12Z"/>',
+      square: '<rect x="4.5" y="4.5" width="9" height="9"/>',
+      diamond: '<path d="M9 2.5 15.5 9 9 15.5 2.5 9Z"/>',
+    };
+    const icon = (role) =>
+      `<svg viewBox="0 0 18 18" aria-hidden="true"><g fill="none" stroke="${MARK_LIGHT}" stroke-width="4" stroke-linejoin="round">${shape[ROLE_SHAPES[role]]}</g>` +
+      `<g fill="${ROLE_COLORS[role]}" stroke="${MARK_DARK}" stroke-width="1.6" stroke-linejoin="round">${shape[ROLE_SHAPES[role]]}</g></svg>`;
+    const items = Object.keys(ROLE_SHAPES)
+      .map((role) => `<li>${icon(role)}${t.roles[role]}</li>`)
+      .join('');
+    const y =
+      '<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 9V2.5M9 9l5.6 3.3M9 9l-5.6 3.3" fill="none" ' +
+      `stroke="${LOOKS[2].mark}" stroke-width="2" stroke-linecap="round"/></svg>`;
+    return (
+      `<div class="fingerprint-key wide" id="fingerprint-key"><span class="fingerprint-key-title">${t.legendTitle}</span>` +
+      `<ul>${items}<li>${y}${t.triradiusKey}</li></ul></div>`
+    );
+  }
+
   const select = (key, label, options, value) =>
     `<div class="control"><label for="fingerprint-${key}">${label}</label><select id="fingerprint-${key}" data-select="${key}">` +
     options.map((o, i) => `<option value="${i}"${i === value ? ' selected' : ''}>${o}</option>`).join('') +
@@ -652,7 +757,8 @@
       stage.slider('lead', t.lead, 0, 16, 1, s.lead) +
       stage.slider('spacing', t.spacing, 0.4, 1, 0.05, s.spacing) +
       stage.slider('speed', t.speed, 1, RATES.length, 1, s.speed) +
-      `<div class="fingerprint-row wide">${select('look', t.look, t.looks, s.look)}${stage.check('marks', t.marks, s.marks)}</div>`,
+      `<div class="fingerprint-row wide">${select('look', t.look, t.looks, s.look)}${stage.check('marks', t.marks, s.marks)}</div>` +
+      panelKey(),
 
     bindControls(panel, s, stage) {
       panel.querySelector('[data-select="look"]').addEventListener('change', (e) => {
@@ -681,11 +787,18 @@
       if (!sim.sites.length) return;
       // With reduced motion the quiet computation stopped earlier; Play then shouldn't grow on under its result.
       const settleFor = reduced ? QUIET_SETTLE : undefined;
-      if (F.finished(sim, settleFor)) return settle();
-      owed += dt * RATES[s.speed - 1];
+      if (F.finished(sim, settleFor)) return settle(s);
+      // Growth follows the real time since the last step, not the stage's dt, which is capped per frame:
+      // at 15 frames a second the ridges should still spread at the chosen speed if the device can manage it.
+      const now = performance.now(),
+        real = lastStep && now - lastStep < 250 ? (now - lastStep) / 1000 : dt;
+      lastStep = now;
+      owed += real * RATES[s.speed - 1];
       let n = Math.floor(owed);
       owed -= n;
-      const cap = Math.max(1, Math.floor(BUDGET / perf.msPerStep));
+      // The budget: a few ms a frame always, and on slow devices (long frames) a share of the frame's time.
+      const budget = Math.max(BUDGET, real * 1000 * SHARE);
+      const cap = Math.max(1, Math.floor(budget / perf.msPerStep));
       if (n > cap) {
         n = cap;
         owed = 0;
@@ -706,8 +819,7 @@
     /** "Grow again": the same plan, with new tiny differences, like an identical twin. */
     action(s, stage) {
       s.twin = (s.twin + 1) % 1000;
-      regrow(s, stage);
-      if (!reduced) stage.setPlaying(true);
+      regrow(s, stage); // while paused, only the head start grows, and the rest waits for Play
       stage.sync();
       stage.draw();
     },

@@ -21,7 +21,8 @@
     wrong: '#ff5d73', // a pixel that arrived wrong
     fixed: '#6fe3b4', // a pixel the code repaired
     bad: '#ffc857', // a block the receiver knows is damaged
-    halo: '#0b1017',
+    halo: '#0b1017', // the dark edge under every mark, so it reads on ink and paper alike
+    cursor: '#ddf6a3', // the keyboard cursor on your picture
     label: '#a7b4c6',
   };
   const CURVE_COLORS = ['#9aa6b8', '#8ec5ff', '#ffc857', '#6fe3b4'];
@@ -31,6 +32,8 @@
     cursor = null, // keyboard cursor on your picture, { x, y }, or null
     brush = null, // the value a drag paints (0 or 1), or null
     curves = null, // expected wrong pixels per code, cached on first use
+    landing = false, // a message is on its way; its result is announced when it arrives
+    paintTimer = 0, // the result of a burst of painting is announced once the painting pauses
     cached = { key: '', value: null };
 
   const pictureOf = (s) => model.unpack(s.top, s.bottom);
@@ -282,9 +285,9 @@
     if (progress >= 1) drawMarks(ctx, j, L.receiver, L.cell);
 
     if (cursor && labels) {
-      ctx.strokeStyle = '#ddf6a3';
-      ctx.lineWidth = 2;
-      ctx.strokeRect(L.sender.x + cursor.x * L.cell + 1, L.sender.y + cursor.y * L.cell + 1, L.cell - 2, L.cell - 2);
+      ctx.beginPath();
+      ctx.rect(L.sender.x + cursor.x * L.cell + 1, L.sender.y + cursor.y * L.cell + 1, L.cell - 2, L.cell - 2);
+      haloStroke(ctx, COLORS.cursor, 2);
     }
 
     if (L.wide) {
@@ -330,15 +333,34 @@
     pixels[i] = value;
     Object.assign(s, model.pack(pixels));
     sentAt = -Infinity;
+    landing = false;
+    clearTimeout(paintTimer);
+    paintTimer = setTimeout(() => arrived(s), 700);
     stage.sync();
     stage.draw();
   }
 
   /** Send the current picture again, from the start of its journey. */
   function send(stage) {
-    sentAt = stage.clock;
+    depart(stage);
     stage.sync();
     stage.draw();
+  }
+
+  /** A message sets off; while the stage is still, it arrives at once. */
+  function depart(stage) {
+    sentAt = stage.clock;
+    landing = true;
+    clearTimeout(paintTimer);
+    if (!stage.playing) arrived(stage.settingsFor('storm'));
+  }
+
+  /** Tell screen readers how the picture arrived, once per message. */
+  function arrived(s) {
+    landing = false;
+    if (!W.stage.isShowing(room)) return;
+    const j = journey(s);
+    W.announce(t.status(j.wrongCount, j.flips));
   }
 
   /** Expected wrong pixels for every code, every half percent of storm. */
@@ -374,6 +396,7 @@
           x = box.x;
           y += 16;
         }
+        // Only the key's line is dimmed for the other codes; their names stay fully legible.
         ctx.globalAlpha = c === s.code ? 1 : 0.6;
         ctx.strokeStyle = CURVE_COLORS[c];
         ctx.lineWidth = 2;
@@ -382,6 +405,7 @@
         ctx.moveTo(x, y - 4);
         ctx.lineTo(x + 14, y - 4);
         ctx.stroke();
+        ctx.globalAlpha = 1;
         ctx.fillStyle = c === s.code ? '#e8edf3' : COLORS.label;
         ctx.fillText(t.codes[c], x + 19, y);
         x += w + 12;
@@ -499,7 +523,7 @@
 
   room = W.defineRoom({
     id: 'storm',
-    symbol: '⚡',
+    symbol: '↯',
     eyebrow: t.eyebrow,
     name: t.name,
     theme: 'signals',
@@ -531,7 +555,7 @@
     defaultPreset: 0,
     presets: t.presets.map((p, i) => ({
       ...p,
-      badge: `+${Math.round(model.overhead(PRESET_CODES[i]) * 100)}%`,
+      badge: `${t.badge(Math.round(model.overhead(PRESET_CODES[i]) * 100))}<small>${t.badgeNote}</small>`,
       settings: { code: PRESET_CODES[i], storm: 4 },
     })),
 
@@ -555,7 +579,7 @@
       `<div class="segment" id="storm-pictures" role="group" aria-labelledby="storm-pictures-label">${pictureButtons()}</div>` +
       '</div>' +
       '<div class="wide readout storm-readout">' +
-      '<div id="storm-result" role="status"></div>' +
+      '<div id="storm-result"></div>' +
       '<div id="storm-curve-box" class="storm-curve-box">' +
       `<span id="storm-curve-label">${t.curveTitle}</span><canvas id="storm-curve" role="img" ` +
       'class="storm-curve"></canvas></div></div>',
@@ -605,7 +629,10 @@
     enter(s, stage) {
       cursor = null;
       brush = null;
-      sentAt = stage.clock;
+      depart(stage);
+    },
+    step(dt, s, stage) {
+      if (landing && stage.clock - sentAt >= SEND_TIME) arrived(s);
     },
     readouts,
     draw,
@@ -614,7 +641,7 @@
       send(stage);
     },
     reset: (s, stage) => send(stage),
-    onPreset: (s, stage) => (sentAt = stage.clock),
+    onPreset: (s, stage) => depart(stage),
 
     pointer: {
       down(p, s, stage) {

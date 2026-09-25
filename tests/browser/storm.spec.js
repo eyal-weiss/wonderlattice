@@ -13,22 +13,28 @@ test('storm room: codes repair the picture, and the readouts follow', async ({ p
   await expect(page.locator('#scene-name')).toHaveText('No protection');
   await expect(page.locator('#scene-status')).toHaveText('3 pixels wrong');
   const result = page.locator('#storm-result');
-  await expect(result).toContainText('Bits sent64 (+0%)');
+  await expect(result).toContainText('Bits sent64 (+0% extra)');
   await expect(result).toContainText('Flipped by the storm3');
   await expect(result).toContainText('Pixels still wrong3');
+  // The figures change with every setting, so they are not a live region: the arrival is announced once instead.
+  await expect(page.locator('#storm-result')).not.toHaveAttribute('role', 'status');
+  await expect(page.locator('#announcer')).toHaveText('3 pixels wrong');
+  // Each preset's badge says what its percentage counts.
+  await expect(page.locator('.scene-preset').nth(2).locator('.number')).toHaveText('+75%extra bits');
 
   // Hamming's trick in the same storm repairs everything, for 75% extra.
   await page.locator('#storm-code').selectOption('3');
   await expect(page.locator('#scene-name')).toHaveText('Hamming’s trick');
   await expect(page.locator('#scene-status')).toHaveText('Every pixel arrived');
-  await expect(result).toContainText('Bits sent112 (+75%)');
+  await expect(page.locator('#announcer')).toHaveText('Every pixel arrived');
+  await expect(result).toContainText('Bits sent112 (+75% extra)');
   await expect(result).toContainText('Repaired on arrival4');
   await expect(result).toContainText('Pixels still wrong0');
   await expect(page.locator('.scene-preset').nth(2)).toHaveAttribute('aria-pressed', 'true');
 
   // A parity bit only knows which blocks are damaged.
   await page.locator('#storm-code').selectOption('2');
-  await expect(result).toContainText('Bits sent80 (+25%)');
+  await expect(result).toContainText('Bits sent80 (+25% extra)');
   await expect(result).toContainText('Blocks known bad');
   await expect(page.locator('#scene-tip')).toContainText('known bad');
   await expect(page.locator('.scene-preset[aria-pressed="true"]')).toHaveCount(0);
@@ -36,7 +42,7 @@ test('storm room: codes repair the picture, and the readouts follow', async ({ p
   // A preset, a stronger storm, and a new storm.
   await page.getByRole('button', { name: /Say it three times/ }).click();
   await expect(page.locator('#storm-code')).toHaveValue('1');
-  await expect(result).toContainText('Bits sent192 (+200%)');
+  await expect(result).toContainText('Bits sent192 (+200% extra)');
   await setRange(page, '#c-storm', 20);
   await expect(page.locator('#v-storm')).toHaveText('20%');
   expect((await settings(page)).storm).toBe(20);

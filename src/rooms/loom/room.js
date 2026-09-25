@@ -14,8 +14,9 @@
     ['#2f624a', '#e8e1cf'],
     ['#232a3a', '#c9d3e0'],
   ];
-  const DRAFT_THREADS = 12; // warp threads and picks shown in the draft
+  const DRAFT_THREADS = 12; // warp threads shown in the draft, and the fewest picks
   const PICKS_PER_SECOND = 6;
+  const HEAD_START = 0.6; // the share of the cloth already woven when weaving starts, so it never opens bare
   const reduced = W.prefersReducedMotion();
   let layout = null; // the last drawn geometry, for clicks on the tie-up
 
@@ -28,7 +29,8 @@
       .join('');
 
   /**
-   * Where the draft and the cloth go. Side by side on a wide canvas; the draft
+   * Where the draft and the cloth go. Side by side on a wide canvas, both from
+   * the top, with the draft showing as many picks as fit its height; the draft
    * above the cloth on a tall one. Keeps clear of the stage heading on phones.
    */
   function measure(width, height) {
@@ -39,27 +41,29 @@
     let draft, cloth;
     if (usable > width * 1.05) {
       const unit = Math.min((width - 8) / span, (usable * 0.42) / span);
-      draft = { x: (width - span * unit) / 2, y: top, unit };
+      draft = { x: (width - span * unit) / 2, y: top, unit, rows: DRAFT_THREADS };
       const clothTop = top + span * unit + 14 + label;
       cloth = { x: 4, y: clothTop, width: width - 8, height: height - clothTop - 4 };
     } else {
       const unit = Math.min((width * 0.44) / span, usable / span);
-      draft = { x: 4, y: top + (usable - span * unit) / 2, unit };
+      // As many picks as the height allows, so the draft runs down beside the cloth.
+      const rows = Math.max(DRAFT_THREADS, Math.floor(usable / unit) - 5);
+      draft = { x: 4, y: top, unit, rows };
       const clothX = draft.x + span * unit + 22;
       cloth = { x: clothX, y: top, width: width - clothX - 4, height: usable };
     }
     const tieup = { x: draft.x + draft.unit * (DRAFT_THREADS + 1), y: draft.y, size: draft.unit * 4 };
-    return { draft, cloth, tieup, label };
+    return { draft, cloth, tieup, label, stacked: usable > width * 1.05 };
   }
 
   function drawDraft(ctx, s, box, current) {
-    const { x, y, unit: u } = box;
+    const { x, y, unit: u, rows } = box;
     const threading = L.orders[s.threading],
       treadling = L.orders[s.treadling];
     // While weaving, the draft pages along with the cloth: its rows are passes
-    // offset…offset+11, so the highlighted row is always the pass on the loom.
-    const offset = current === null ? 0 : current - (current % DRAFT_THREADS);
-    const colours = L.cloth(s, offset + DRAFT_THREADS, DRAFT_THREADS).slice(offset);
+    // offset…offset + rows − 1, so the highlighted row is always the pass on the loom.
+    const offset = current === null ? 0 : current - (current % rows);
+    const colours = L.cloth(s, offset + rows, DRAFT_THREADS).slice(offset);
     const cell = (cx, cy, fill) => {
       ctx.fillStyle = fill;
       ctx.fillRect(cx + 0.5, cy + 0.5, u - 1, u - 1);
@@ -79,7 +83,7 @@
           L.lifts(s.tieup, treadle, shaft) ? '#f3d28c' : empty,
         );
     // Treadling and drawdown.
-    for (let i = 0; i < DRAFT_THREADS; i++) {
+    for (let i = 0; i < rows; i++) {
       const rowY = y + (5 + i) * u;
       for (let treadle = 0; treadle < 4; treadle++)
         cell(
@@ -100,10 +104,12 @@
     }
   }
 
-  function drawCloth(ctx, s, box, woven) {
+  /** The cloth, with `picks` passes woven since weaving started on top of the head start. */
+  function drawCloth(ctx, s, box, picks) {
     const k = Math.max(7, Math.min(14, box.width / 26));
     const columns = Math.floor(box.width / k),
-      rows = Math.floor(box.height / k);
+      rows = Math.floor(box.height / k),
+      woven = Math.floor(rows * HEAD_START) + picks;
     const x0 = box.x + (box.width - columns * k) / 2,
       bottom = box.y + (box.height + rows * k) / 2;
     const up = L.drawdown(L.orders[s.threading], s.tieup, L.orders[s.treadling], rows, columns);
@@ -162,19 +168,43 @@
     ctx.fillStyle = '#0a0e15';
     ctx.fillRect(0, 0, width, height);
     layout = measure(width, height);
-    const woven = reduced ? Infinity : clock * PICKS_PER_SECOND;
-    const weaving = drawCloth(ctx, s, layout.cloth, woven);
+    const picks = reduced ? Infinity : clock * PICKS_PER_SECOND;
+    const weaving = drawCloth(ctx, s, layout.cloth, picks);
     drawDraft(ctx, s, layout.draft, weaving);
     ctx.fillStyle = '#98aab7';
     ctx.font = '600 11px system-ui';
     ctx.textAlign = 'left';
     ctx.fillText(t.labels.draft, layout.draft.x, layout.draft.y - 7);
     ctx.fillText(t.labels.cloth, layout.cloth.x, layout.cloth.y - 7);
+    // The tip says where the draft and the cloth are: side by side, or one above the other.
+    const tip = layout.stacked ? t.tipStacked : t.tip;
+    if ($('scene-tip').textContent !== tip) $('scene-tip').textContent = tip;
   }
 
   function preview(ctx, width, height) {
     const s = presets[2].settings;
     drawCloth(ctx, { ...defaults, ...s }, { x: 0, y: 0, width, height }, Infinity);
+  }
+
+  /** For the trail: the whole cloth, finished, rather than a frame with bare warp still waiting. */
+  function trailCanvas(s, stage) {
+    const box = measure(stage.width, stage.height).cloth,
+      scale = 2,
+      canvas = document.createElement('canvas');
+    canvas.width = Math.round(box.width * scale);
+    canvas.height = Math.round(box.height * scale);
+    const ctx = canvas.getContext('2d');
+    ctx.setTransform(scale, 0, 0, scale, 0, 0);
+    ctx.fillStyle = '#0a0e15';
+    ctx.fillRect(0, 0, box.width, box.height);
+    drawCloth(ctx, s, { x: 0, y: 0, width: box.width, height: box.height }, Infinity);
+    return canvas;
+  }
+
+  /** Tell screen readers what the cloth has become, once a change settles. */
+  function announce(s) {
+    const { across, down } = L.repeat(s);
+    W.announce(`${t.repeat(across, down)}. ${t.float(L.longestFloat(s))}`);
   }
 
   const select = (key, label, options, value) =>
@@ -189,9 +219,14 @@
       for (let treadle = 0; treadle < 4; treadle++)
         cells +=
           `<button class="loom-cell" data-treadle="${treadle}" data-shaft="${shaft}" ` +
-          `aria-pressed="${L.lifts(s.tieup, treadle, shaft)}" aria-label="${t.tieupCell(treadle + 1, shaft + 1)}"></button>`;
+          `aria-pressed="${L.lifts(s.tieup, treadle, shaft)}" aria-label="${t.tieupCell(treadle + 1, shaft + 1)}" ` +
+          'aria-describedby="loom-tieup-hint"></button>';
     }
-    return `<div class="control wide"><span class="loom-heading">${t.tieup}</span><div class="loom-tieup" role="group" aria-label="${t.tieup}">${cells}</div></div>`;
+    return (
+      `<div class="control wide"><span class="loom-heading" id="loom-tieup-heading">${t.tieup}</span>` +
+      `<div class="loom-tieup" role="group" aria-labelledby="loom-tieup-heading">${cells}</div>` +
+      `<p class="loom-hint" id="loom-tieup-hint">${t.tieupHint}</p></div>`
+    );
   }
 
   function toggle(s, stage, treadle, shaft) {
@@ -199,6 +234,7 @@
     stage.setChosen(-1);
     stage.refresh();
     stage.draw();
+    announce(s);
   }
 
   const defaults = { tieup: L.tieups.twill, threading: 0, treadling: 0, warpColours: 0, weftColours: 4, palette: 0 };
@@ -267,7 +303,7 @@
       select('weftColours', t.weftColours, t.colourOrders, s.weftColours) +
       '</div>' +
       select('palette', t.palette, t.palettes, s.palette) +
-      '<div class="wide readout loom-float" id="loom-float" role="status"></div>',
+      '<div class="wide readout loom-float" id="loom-float"></div>',
 
     bindControls(panel, s, stage) {
       panel.querySelectorAll('.loom-cell').forEach((b) =>
@@ -284,6 +320,7 @@
           stage.setChosen(-1);
           stage.sync();
           stage.draw();
+          announce(s);
         }),
       );
     },
@@ -296,6 +333,8 @@
 
     draw,
     preview,
+    trailCanvas,
+    onPreset: announce,
 
     /** "Surprise me": a random tie-up whose threads all interlace, with floats of at most three. */
     action(s, stage) {
@@ -306,6 +345,7 @@
       stage.setChosen(-1);
       stage.refresh();
       stage.draw();
+      announce(s);
     },
 
     pointer: {

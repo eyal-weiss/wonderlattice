@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { readFileSync } from 'node:fs';
 import './load.js';
 
 const P = globalThis.Wonderloom.models.plane;
@@ -184,4 +185,27 @@ test('every picture draws for every map, and grids fill the frame', () => {
   near(square(0), square(1), 1e-12, 'closed');
   near(square(0.5), [1, 1], 1e-12, 'halfway round');
   near(add(square(0.125), [0, 0]), [0.5, 0], 1e-12, 'an eighth of the way');
+});
+
+// ---- Colour contrast (WCAG 2), with the room's colours read from its source ----
+
+/** The contrast ratio between two colours given as '#rrggbb' or [r, g, b]. */
+function contrast(a, b) {
+  const lum = (c) => {
+    const rgb = typeof c === 'string' ? [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16)) : c;
+    const [r, g, b] = rgb.map((v) => (v / 255 <= 0.04045 ? v / 255 / 12.92 : ((v / 255 + 0.055) / 1.055) ** 2.4));
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  };
+  const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p);
+  return (x + 0.05) / (y + 0.05);
+}
+
+const planeSource = readFileSync(new URL('../../src/rooms/plane/room.js', import.meta.url), 'utf8');
+/** A colour from the room's COLORS table. */
+const colour = (name) => planeSource.match(new RegExp(`\\n\\s+${name}: '(#[0-9a-f]{6})'`))[1];
+
+test('the axis labels "1" and "i" are legible on the panel (at least 4.5:1)', () => {
+  const ratio = contrast(colour('tick'), colour('panel'));
+  assert.ok(ratio >= 4.5, `tick labels at ${ratio.toFixed(2)}:1`);
+  assert.match(planeSource, /ctx\.fillStyle = COLORS\.tick;/);
 });

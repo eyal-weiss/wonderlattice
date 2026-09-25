@@ -26,3 +26,16 @@
   height: 70px;
   margin-top: 6px;
 }
+
+/* The presets' badges say what the percentage counts: "+75%", and under it, "extra bits". */
+body[data-room='storm'] .scene-presets .number {
+  text-align: right;
+  line-height: 1;
+}
+body[data-room='storm'] .scene-presets .number small {
+  display: block;
+  margin-top: 4px;
+  font-family: system-ui, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}

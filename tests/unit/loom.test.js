@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { readFileSync } from 'node:fs';
 import './load.js';
 
 const L = globalThis.Wonderloom.models.loom;
@@ -71,4 +72,31 @@ test('period finds the smallest cyclic repeat', () => {
   assert.equal(L.period([1, 1, 0, 1, 1, 0]), 3);
   assert.equal(L.period([1, 2, 3]), 3);
   assert.equal(L.period([7]), 1);
+});
+
+// ---- Colour contrast (WCAG 2), with the room's colours read from its source ----
+
+/** The contrast ratio between two colours given as '#rrggbb' or [r, g, b]. */
+function contrast(a, b) {
+  const lum = (c) => {
+    const rgb = typeof c === 'string' ? [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16)) : c;
+    const [r, g, b] = rgb.map((v) => (v / 255 <= 0.04045 ? v / 255 / 12.92 : ((v / 255 + 0.055) / 1.055) ** 2.4));
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  };
+  const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p);
+  return (x + 0.05) / (y + 0.05);
+}
+
+const loomCss = readFileSync(new URL('../../src/rooms/loom/room.css', import.meta.url), 'utf8');
+const baseCss = readFileSync(new URL('../../styles/base.css', import.meta.url), 'utf8');
+
+test('an unpressed tie-up square has a border at least 3:1 against the panel and its own fill', () => {
+  const rule = loomCss.match(/\.loom-cell \{([^}]*)\}/)[1];
+  const border = rule.match(/border: 1px solid (#[0-9a-f]{6})/)[1],
+    fill = rule.match(/background: (#[0-9a-f]{6})/)[1],
+    panel = baseCss.match(/--panel: (#[0-9a-f]{6})/)[1];
+  for (const behind of [panel, fill]) {
+    const ratio = contrast(border, behind);
+    assert.ok(ratio >= 3, `border ${border} on ${behind}: ${ratio.toFixed(2)}:1`);
+  }
 });

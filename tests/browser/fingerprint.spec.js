@@ -11,6 +11,9 @@ const snapshot = (page) =>
 
 const settings = async (page) => (await tool(page, 'read_exploration')).settings;
 
+/** The share of the fingertip covered so far, from the status line (100 once grown). */
+const share = async (page) => Number((await page.locator('#scene-status').textContent()).match(/(\d+)%/)?.[1] ?? 100);
+
 test('opens from its card and starts growing ridges right away', async ({ page }) => {
   await page.goto('/');
   await openRoom(page, 'fingerprint');
@@ -87,6 +90,8 @@ test('with reduced motion, a finished fingerprint appears without animating', as
   await page.goto('/#room=fingerprint');
   await expect(page.locator('#scene-play')).toHaveText('Play');
   await expect(page.locator('#scene-status')).toHaveText('A whorl · 2 triradii', { timeout: 60000 });
+  // Screen readers hear the result once, from the page's one live region.
+  await expect(page.locator('#announcer')).toHaveText('A whorl · 2 triradii');
   await expect.poll(() => inkedPixels(page, '#scene-canvas')).toBeGreaterThan(2000);
   const still = await snapshot(page);
   await page.waitForTimeout(500);
@@ -129,4 +134,56 @@ test('a link with a point off the fingertip starts nothing and leaves the slot f
   await canvas.click({ position: { x: box.width * 0.3, y: box.height * 0.5 } });
   await expect(page.locator('#scene-status')).toContainText('Growing');
   expect((await settings(page)).ax).toBeGreaterThan(0);
+});
+
+// Timing tests measure wall-clock time, so a machine busy with other work may need a second try.
+test.describe('growth keeps to the clock', () => {
+  test.describe.configure({ retries: 2 });
+  test('a head start at once, and well along within 2 s', async ({ page }) => {
+    await page.goto('/');
+    await openRoom(page, 'fingerprint');
+    await expect.poll(() => share(page), { timeout: 1000 }).toBeGreaterThan(0);
+    // Unloaded, this is about 60% (it was about 25% when growth followed the frame rate).
+    await expect.poll(() => share(page), { timeout: 2000 }).toBeGreaterThanOrEqual(10);
+  });
+});
+
+test('a pause stays a pause: "Grow again" and a new point wait for Play', async ({ page }) => {
+  await page.goto('/#room=fingerprint');
+  await page.locator('#scene-play').click();
+  await expect(page.locator('#scene-play')).toHaveText('Play');
+  await page.locator('#scene-action').click();
+  expect((await settings(page)).twin).toBe(1);
+  // The head start still grows in the background, so the fingertip isn't bare, but Play isn't pressed for you.
+  await expect.poll(() => share(page)).toBeGreaterThan(0);
+  // Once the head start is done, growth holds still until Play.
+  await expect
+    .poll(async () => {
+      const before = await share(page);
+      await page.waitForTimeout(500);
+      return (await share(page)) - before;
+    })
+    .toBe(0);
+  await expect(page.locator('#scene-play')).toHaveText('Play');
+  const held = await share(page);
+  const canvas = page.locator('#scene-canvas');
+  const box = await canvas.boundingBox();
+  await canvas.click({ position: { x: box.width * 0.3, y: box.height * 0.4 } });
+  await expect(page.locator('#scene-name')).toHaveText('Your own mix');
+  await page.waitForTimeout(300);
+  await expect(page.locator('#scene-play')).toHaveText('Play');
+  await page.locator('#scene-play').click();
+  await expect.poll(() => share(page)).toBeGreaterThan(held);
+});
+
+test('the markers have a legend: on the canvas when wide, in the panel on phones', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/#room=fingerprint');
+  await expect(page.locator('#fingerprint-key')).toBeHidden();
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(page.locator('#fingerprint-key')).toBeVisible();
+  for (const role of ['Pad centre', 'Fingertip', 'Crease', 'Your point'])
+    await expect(page.locator('#fingerprint-key')).toContainText(role);
+  // "Growing · n%" is said once, in the status line; the panel has no live region rebuilt on every change.
+  await expect(page.locator('#scene-controls [role="status"]')).toHaveCount(0);
 });

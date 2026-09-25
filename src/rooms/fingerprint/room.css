@@ -26,3 +26,34 @@
     min-height: 600px;
   }
 }
+
+/* The legend for the markers, in the panel when the canvas has no room for its own (phones). */
+.fingerprint-key[hidden] {
+  display: none;
+}
+.fingerprint-key-title {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.fingerprint-key ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 14px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+}
+.fingerprint-key li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.fingerprint-key svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+}
