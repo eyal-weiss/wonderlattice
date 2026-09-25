@@ -1,88 +1,73 @@
 # Wonderlattice
 
-A playground for beautiful mathematical ideas, owned and directed by Eyal Weiss.
+**Small, hands-on experiments with big mathematical ideas. Pick one and play. There is nothing to get right.**
 
-Thirteen small rooms, each built around one surprise, grouped on a home map by theme:
+**Play it at [wonderlattice.com](https://wonderlattice.com).**
 
-- **Shape & space:** drawing with two turning arms, a one-sided ribbon in 3D, and bending the plane with complex
-  functions (a circle becomes a wing).
-- **Chance & evidence:** dice that beat each other in a circle, and a toy city where a huge biased poll is confidently
+![Wonderlattice: cards for a flower drawn by turning arms, a woven pattern, two dice, and three fingerprints](assets/social.jpg)
+
+Wonderlattice is a free collection of thirteen rooms, each built around one surprise:
+
+- **Shape & space:** draw flowers with two turning arms, walk along a ribbon that has only one side, and bend the plane
+  until a circle becomes a wing.
+- **Chance & evidence:** three dice that beat each other in a circle, and a toy city where a huge poll is confidently
   wrong.
-- **Games & puzzles:** Sudoku seen as colouring a network, and the puzzle cube's moves (R U needs 105 repeats to come
-  home).
-- **Making:** a loom that weaves cloth, twill, and houndstooth from a grid of choices.
-- **Living patterns:** a flock with no leader, and fingerprints grown by reaction–diffusion.
-- **Signals & networks:** waves and sound, a picture sent through a storm of flipped bits, and a road that slows every
-  driver.
+- **Games & puzzles:** Sudoku as colouring a network, and a puzzle cube where two turns, repeated, take 105 rounds to
+  come home.
+- **Making:** a loom that weaves twill, stripes and houndstooth from a tiny grid of choices.
+- **Living patterns:** a flock with no leader, and fingerprints that grow by themselves.
+- **Signals & networks:** waves you can hear, a picture sent through a storm of flipped bits, and a new road that slows
+  every driver down.
 
-Each room has an optional explanation, with sources, and a visiting mathematician. You can save moments to a private
-"My trail". There are no accounts, tracking, AI services, or runtime dependencies. Every word can be translated: see
-docs/TRANSLATING.md.
+Each room has an optional explanation with sources, and a visiting mathematician. There are no scores, accounts, ads
+or tracking. You can keep favourite moments in "My trail", which stays in your own browser.
 
-## Open it
+## Run it yourself
 
-Double-click **index.html**. It works offline, in any modern browser, with no installation.
+Download or clone this repository and double-click **index.html**. It works offline, in any modern browser, with no
+installation or build step.
 
-To send someone a single file, run `npm run build` and share `dist/wonderlattice-standalone.html`. It holds the whole
-app, portraits included.
+For a single file you can email or keep, download
+[wonderlattice-standalone.html](https://wonderlattice.com/wonderlattice-standalone.html) and open it from your
+computer. It holds the whole site, pictures included. (`npm run build` makes the same file in `dist/`.)
 
-Sound starts only after a click. Narration uses the browser's voices, and some voices need the internet. External
-reading links need the internet. A copy opened from disk shares settings as text rather than links.
+## Contribute
 
-**My trail** keeps up to 24 saved moments (a small image, the room settings, an optional note) in this browser's local
-storage. Export it as JSON to back it up or move it to another browser; importing replaces the current trail.
-Clearing site data removes it.
+Ideas, bug reports, fixes and translations are welcome: see **[CONTRIBUTING.md](CONTRIBUTING.md)**. Adding a language
+takes one file and no programming ([docs/TRANSLATING.md](docs/TRANSLATING.md)). To report a security problem, see
+[SECURITY.md](SECURITY.md).
 
-## Change it
-
-Edit a file, save, and refresh the browser. There's no build step during development.
-
-- `src/rooms/<room>/room.js`: a room's words, controls, drawing, and visitors
-- `src/rooms/<room>/model.js`: its mathematics
-- `styles/`: the look
-- `index.html`: page structure and dialogs
-
-**docs/ARCHITECTURE.md** explains how the pieces fit and has a checklist for adding a room. **AGENTS.md** is the
-brief for any coding assistant.
-
-## Optional tools
-
-With Node.js 20 or later:
+For developers, with Node.js 20 or later:
 
 ```sh
-npm ci                  # once, installs the test and formatting tools
-npm start               # serve at http://localhost:4173
-npm test                # model tests
-npm run test:browser    # behaviour tests in a real browser
-npm run build           # dist/ plus dist/wonderlattice-standalone.html
-npm run i18n:check      # check translation files
-npm run check           # everything CI runs
+npm ci           # once: installs the test and formatting tools
+npm start        # serves the site at http://localhost:4173
+npm run check    # everything CI runs: lint, formatting, translations, tests, build, browser tests
 ```
 
-The first time you run the browser tests, install their browser with `npx playwright install chromium`. On Linux
-systems Playwright doesn't support, use your own Chrome: `PW_CHANNEL=chrome npm run test:browser`.
+The browser tests need a browser: run `npx playwright install chromium` once, or use your own Chrome with
+`PW_CHANNEL=chrome npm run check`.
 
-Without Node, `python3 -m http.server 4173 --bind 127.0.0.1` also serves the folder.
+[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) explains how the pieces fit, with a checklist for adding a room.
 
-## Publish it
+## How it was made
 
-It's a static site. Upload the contents of `dist/` (after `npm run build`) to any static host in your own account,
-for example Cloudflare Pages, Netlify, or GitHub Pages (Pages on a private repository needs a paid GitHub plan). No
-backend, environment variables, or credentials are needed. The old ChatGPT-hosted address is separate and was not
-transferred.
-
-## Working on it
-
-The repository `eyal-weiss/wonderlattice` is the source of truth. Work happens on a branch per task with a
-pull request into `main`; CI runs lint, formatting, model tests, a build, and browser tests on every pull request. See
-docs/COLLABORATING.md.
+Wonderlattice was designed and directed by [Eyal Weiss](https://github.com/eyal-weiss). The code was written with AI
+coding assistants, first ChatGPT agents and then Claude Code, and every change was reviewed and tested before it was
+merged. [docs/PROVENANCE.md](docs/PROVENANCE.md) has the history, and [AGENTS.md](AGENTS.md) is the brief any coding
+assistant should read first.
 
 ## Documents
 
-- docs/ARCHITECTURE.md: structure, the room contract, adding a room, checks
-- docs/STATUS.md: what exists, what's unfinished, what's next
-- docs/PORTRAITS.md: portrait sources and rights
-- docs/TRANSLATING.md: localization and Hebrew layout guidance
-- docs/COLLABORATING.md: branches, pull requests, prompts for other assistants
-- docs/PROVENANCE.md: where the code came from
-- LICENSE: MIT (code and text; portraits carry their own terms)
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): structure, the room contract, adding a room
+- [docs/TRANSLATING.md](docs/TRANSLATING.md): adding a language
+- [docs/PORTRAITS.md](docs/PORTRAITS.md): where the portraits come from, and their rights
+- [docs/STATUS.md](docs/STATUS.md): what exists, what's unfinished, what's next
+- [docs/COLLABORATING.md](docs/COLLABORATING.md): branches and pull requests, for people and assistants
+
+## Licence
+
+The code and text are under the [MIT licence](LICENSE). The portrait photographs are third-party works with their
+own terms, listed in [docs/PORTRAITS.md](docs/PORTRAITS.md).
+
+Contact: Eyal Weiss, [eyal8488@gmail.com](mailto:eyal8488@gmail.com).

@@ -3,16 +3,20 @@ import { test, expect, ROOMS, openRoom } from './helpers.js';
 
 const pseudoLocale = readFileSync(new URL('./pseudo-locale.js', import.meta.url), 'utf8');
 
-// Serve index.html with the pseudo-language added, then open the page in it.
+// Serve index.html with the pseudo-language added, then open the page in it. The language is its own
+// script file, as a real one would be, so the page's content policy (no inline scripts) still holds.
 async function openPseudo(page, hash = '') {
   await page.route(/\/(index\.html)?(\?[^#]*)?$/, async (route) => {
     const response = await route.fetch();
     const body = (await response.text()).replace(
       '<!-- /languages -->',
-      () => `<script>${pseudoLocale}</script>\n    <!-- /languages -->`,
+      () => `<script src="./src/lang/xx.js"></script>\n    <!-- /languages -->`,
     );
     await route.fulfill({ response, body });
   });
+  await page.route('**/src/lang/xx.js', (route) =>
+    route.fulfill({ body: pseudoLocale, contentType: 'text/javascript; charset=utf-8' }),
+  );
   await page.goto('/?lang=xx' + hash);
 }
 

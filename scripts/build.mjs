@@ -11,7 +11,7 @@ const read = (path) => readFileSync(join(root, path), 'utf8');
 
 rmSync(dist, { recursive: true, force: true });
 mkdirSync(dist);
-for (const item of ['index.html', 'styles', 'src', 'portraits', 'assets', 'LICENSE']) {
+for (const item of ['index.html', '_headers', 'styles', 'src', 'portraits', 'assets', 'LICENSE']) {
   cpSync(join(root, item), join(dist, item), { recursive: true });
 }
 // The image credits travel with the site, next to the licence that excludes them.
