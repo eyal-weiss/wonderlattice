@@ -5,8 +5,9 @@
 "Wonderloom" is in use by the WonderLoom® children's craft toy and several shops, so the site is now Wonderlattice
 (.com and .org were unregistered when checked). Everything visible, the code namespace (`Wonderlattice`), storage
 keys and file names changed. Trails saved or exported under the old name still open (`wonderloom.trail.v1`,
-`"format": "wonderloom-trail"`). The GitHub repository is still `eyal-weiss/wonderloom`; renaming it is the owner's
-call (GitHub redirects the old address).
+`"format": "wonderloom-trail"`). The project moved to a new repository, `eyal-weiss/wonderlattice`, with the same history. Commits are now authored under the owner's CMU address, and one portrait whose rights were
+unclear (Nash, already replaced by a sketch) was removed from every commit. Pull request numbers in older commit
+messages refer to the original, private repository.
 
 ## Pre-release reviews — 2026-09-24
 

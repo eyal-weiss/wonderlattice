@@ -73,7 +73,7 @@ transferred.
 
 ## Working on it
 
-This private repository, `eyal-weiss/wonderloom` (named before the site became Wonderlattice), is the source of truth. Work happens on a branch per task with a
+The repository `eyal-weiss/wonderlattice` is the source of truth. Work happens on a branch per task with a
 pull request into `main`; CI runs lint, formatting, model tests, a build, and browser tests on every pull request. See
 docs/COLLABORATING.md.
 

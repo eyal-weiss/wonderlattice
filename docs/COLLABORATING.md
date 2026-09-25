@@ -5,7 +5,7 @@ The `main` branch in the owner's private repository should represent the last re
 ## Start a task
 
 ```sh
-git clone https://github.com/eyal-weiss/wonderloom.git
+git clone https://github.com/eyal-weiss/wonderlattice.git
 cd wonderlattice
 git switch main
 git pull --ff-only
