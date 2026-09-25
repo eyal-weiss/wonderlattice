@@ -1,5 +1,16 @@
 # Project state — 2026-09-24
 
+## Getting ready to publish — 2026-09-25
+
+- **Hosting:** Cloudflare Pages at https://wonderlattice.com (bought at Cloudflare Registrar), deployed from `main`,
+  with a preview for every pull request. Build command `npm run build`, output `dist/`, Node from `.node-version`.
+- **Security headers:** `_headers` sets a strict content policy (only the site's own scripts, no framing, no outside
+  connections). `scripts/serve.mjs` applies the same file, so the browser tests on `dist/` run under it.
+- **For strangers:** a new README, CONTRIBUTING.md and SECURITY.md; canonical and link-preview tags use the real
+  address; the privacy note names Cloudflare.
+- **Still manual:** in Cloudflare, keep Web Analytics, Email Address Obfuscation and Rocket Loader off (they would
+  change the page or add tracking). Making the repository public is the owner's switch.
+
 ## Renamed to Wonderlattice — 2026-09-24
 
 "Wonderloom" is in use by the WonderLoom® children's craft toy and several shops, so the site is now Wonderlattice

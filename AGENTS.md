@@ -39,7 +39,7 @@ look and listen in a real browser. Report what you tested and what remains unver
 
 ## Working with other agents
 
-The owner's private GitHub repository is the source of truth. Create a new branch from current `main` for each task
+The owner's GitHub repository, `eyal-weiss/wonderlattice`, is the source of truth. Create a new branch from current `main` for each task
 (for example `agent/hebrew-copy`), keep your own checkout or worktree, open a pull request, and report the branch and
 any conflicts. Don't push to `main`, merge your own pull request, force-push, or publish without the owner's
 approval. See docs/COLLABORATING.md.
