@@ -101,6 +101,9 @@ export function checkLanguageSource(source, file = 'language file', code = file.
           return value(node.object, scope);
         }
         if (node.property.name === 'length') return value(node.object, scope);
+        // The page language, for number formatting: toLocaleString(Wonderloom.lang).
+        if (node.object.type === 'Identifier' && node.object.name === 'Wonderloom' && node.property.name === 'lang')
+          return;
         return fail(node, `reading .${node.property.name}`);
       case 'CallExpression': {
         const callee = node.callee;

@@ -8,7 +8,7 @@ Wonderloom.defineLanguage('he', { name: 'עברית', dir: 'rtl', speech: 'he-IL
 Wonderloom.defineText('dice', 'he', {
   name: 'קוביות',
   list: ['a', 'b'],
-  rolls: (n) => (n === 1 ? 'הטלה אחת' : \`\${n.toLocaleString()} הטלות\`),
+  rolls: (n) => (n === 1 ? 'הטלה אחת' : \`\${n.toLocaleString(Wonderloom.lang)} הטלות\`),
   pair: (a, b) => \`\${a[0].toUpperCase() + a.slice(1)} · \${b}\`,
   float: (n) => (n === Infinity ? '∞' : \`\${Math.round(n)}\`),
   block: (name) => {
@@ -28,6 +28,7 @@ const bad = {
   'another statement': `fetch('https://example.com');`,
   'a variable': `const x = 1; Wonderloom.defineText('a', 'he', {});`,
   'another global': `Wonderloom.defineText('a', 'he', { x: () => fetch('//e') });`,
+  'another Wonderloom property': `Wonderloom.defineText('a', 'he', { x: () => Wonderloom.room });`,
   'a global name': `Wonderloom.defineText('a', 'he', { x: document.cookie });`,
   'reading a property': `Wonderloom.defineText('a', 'he', { x: (n) => n.constructor });`,
   'indexing by name': `Wonderloom.defineText('a', 'he', { x: (n) => n['constructor'] });`,

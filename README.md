@@ -8,7 +8,7 @@ Thirteen small rooms, each built around one surprise, grouped on a home map by t
   functions (a circle becomes a wing).
 - **Chance & evidence:** dice that beat each other in a circle, and a toy city where a huge biased poll is confidently
   wrong.
-- **Games & puzzles:** Sudoku seen as colouring a network, and the Rubik's Cube's moves (R U needs 105 repeats to come
+- **Games & puzzles:** Sudoku seen as colouring a network, and the puzzle cube's moves (R U needs 105 repeats to come
   home).
 - **Making:** a loom that weaves cloth, twill, and houndstooth from a grid of choices.
 - **Living patterns:** a flock with no leader, and fingerprints grown by reaction–diffusion.

@@ -1,9 +1,29 @@
 # Project state — 2026-09-24
 
+## Pre-release reviews — 2026-09-24
+
+Two reviews before going public: one for legal, privacy, security and accessibility, one for design and UX. The shared
+fixes are in #25; the room fixes landed together, after it.
+
+- **Legal and privacy:** About now covers privacy (no accounts, no tracking, the trail stays in the browser), who made
+  it, disclaimers, trademark and image credits. LICENSE excludes the third-party portraits; Lissajous and Nash are now
+  drawn sketches. The cube room is "Inside the puzzle cube", with the trademark named once.
+- **Accessibility:** page titles, a skip link, focus after Back/Forward, labels that start with their visible text,
+  announcements instead of chatty live regions, a keyboard grid for Sudoku, contrast fixes, and no flashing in the
+  cube and dice (measured).
+- **Layout:** the stage is a flex column, so nothing overlaps at any width; a test checks every room at 320–1024px.
+- **Security:** language files must pass an allowlist before they run (`scripts/lang-guard.mjs`), and translated text
+  is matched to English's shape and cleaned. Two Codex reviews found gaps; all are closed and tested.
+- **Rooms:** plainer words, British spelling, faster plane drawing (60 fps on a slowed phone), fingerprints that grow
+  on slow devices.
+
+Left for later: single cube turns still animate (a short motion the visitor asked for), the home map leaves space at
+wide widths, og:image needs an absolute address once hosted, and a trademark search for the name Wonderloom.
+
 ## Thirteen rooms, and ready for translation — 2026-09-24
 
 **The roadmap's rooms are all built.** Bend the plane, A spoonful of a city, Grow a fingerprint, and a scoped Inside the
-Rubik's Cube (about moves, not solving) join the earlier nine. Each was built from a written brief (four by sub-agents,
+puzzle cube (about moves, not solving) join the earlier nine. Each was built from a written brief (four by sub-agents,
 the cube in the main session), then reviewed by an independent agent before merging. Each review found real issues,
 all fixed and covered by regression tests. For example:
 
