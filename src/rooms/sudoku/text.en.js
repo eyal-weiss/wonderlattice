@@ -2,9 +2,6 @@
 (() => {
   'use strict';
 
-  /** Capitalize the first letter of a sentence that starts with a symbol name. */
-  const cap = (text) => text.charAt(0).toUpperCase() + text.slice(1);
-
   Wonderloom.defineText('sudoku', 'en', {
     eyebrow: 'LOGIC · GRAPHS',
     name: 'Sudoku, made transparent',
@@ -63,8 +60,8 @@
     start: (word) => `Tap an empty square, then pick a ${word}.`,
     placed: (name, n) =>
       n === 0
-        ? `${cap(name)} placed. Nothing nearby needed to change.`
-        : `${cap(name)} placed. It can no longer go in ${n} ${n === 1 ? 'square' : 'squares'} nearby.`,
+        ? `${name.charAt(0).toUpperCase() + name.slice(1)} placed. Nothing nearby needed to change.`
+        : `${name.charAt(0).toUpperCase() + name.slice(1)} placed. It can no longer go in ${n} ${n === 1 ? 'square' : 'squares'} nearby.`,
     clashed: (name) => `Two neighbors now both hold ${name}. Undo, or try another.`,
     given: 'This one came with the puzzle. Try an empty square.',
     cleared: 'Cleared. Its possibilities come back.',

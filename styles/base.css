@@ -34,6 +34,8 @@ button {
 }
 button:focus-visible,
 input:focus-visible,
+select:focus-visible,
+canvas:focus-visible,
 summary:focus-visible,
 a:focus-visible {
   outline: 2px solid var(--lime);
@@ -105,6 +107,10 @@ header {
   gap: 20px;
   padding: 28px 0 24px;
 }
+/* Headings receive focus only programmatically (after navigating), so they need no ring. */
+h1[tabindex='-1']:focus {
+  outline: none;
+}
 h1 {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 44px;
@@ -134,17 +140,20 @@ h1 {
   background: var(--panel);
 }
 .drawing {
+  /* A column: title and readout, the picture (taking the rest), then the buttons. Nothing overlaps when text wraps. */
   position: relative;
   min-height: 574px;
   background: var(--stage);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 24px 23px;
 }
 .stage-head {
-  position: absolute;
-  top: 22px;
-  left: 25px;
-  right: 25px;
+  position: relative;
   z-index: 2;
+  padding: 0 1px;
   display: flex;
   justify-content: space-between;
   gap: 12px;
@@ -170,8 +179,14 @@ h1 {
   padding-top: 4px;
 }
 .canvas-wrap {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 220px;
+  margin: 0 -6px;
+}
+.canvas-wrap > canvas {
   position: absolute;
-  inset: 80px 18px 82px;
+  inset: 0;
 }
 #art {
   display: block;
@@ -179,10 +194,7 @@ h1 {
   height: 100%;
 }
 .transport {
-  position: absolute;
-  bottom: 23px;
-  left: 24px;
-  right: 24px;
+  position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -233,11 +245,13 @@ h1 {
 }
 .panel-head {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  gap: 6px 10px;
 }
 .panel-head h2 {
+  white-space: nowrap;
   font-size: 18px;
   font-weight: 500;
   margin: 0;
@@ -358,6 +372,8 @@ h1 {
 }
 .presets-header {
   display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
   align-items: center;
   justify-content: space-between;
   margin: 26px 0 13px;
@@ -409,6 +425,7 @@ h1 {
 }
 footer {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   gap: 15px;
@@ -418,6 +435,11 @@ footer {
 }
 footer p {
   margin: 0;
+}
+.footer-credit .quiet {
+  font-size: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .footer-note {
   font-family: Georgia, serif;
@@ -567,9 +589,6 @@ dialog .button {
   height: calc(100dvh - 140px);
   min-height: 420px;
 }
-.focus-mode .canvas-wrap {
-  inset: 65px 14px 75px;
-}
 @media (min-width: 1500px) {
   .drawing {
     min-height: 650px;
@@ -601,12 +620,40 @@ dialog .button {
   .preset-note {
     font-size: 12px;
   }
-  .transport {
-    left: 16px;
-    right: 16px;
+  .drawing {
+    padding-inline: 16px;
   }
   .transport .button {
     padding: 9px 10px;
+  }
+}
+/* Below this the controls move under the picture, in two columns. */
+@media (max-width: 960px) {
+  .workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .drawing {
+    /* Grows with its content, so wrapped buttons stay inside. */
+    min-height: clamp(440px, 57svh, 590px);
+  }
+  .controls {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px 22px;
+    padding: 20px;
+  }
+  .panel-head,
+  .hint,
+  .why {
+    grid-column: 1/-1;
+  }
+  .separator {
+    display: none;
+  }
+  .hint {
+    margin: 0;
   }
 }
 @media (max-width: 760px) {
@@ -636,43 +683,23 @@ dialog .button {
   .pill {
     display: none;
   }
-  .workspace {
-    grid-template-columns: 1fr;
-  }
   .drawing {
-    min-height: 440px;
-    height: 57svh;
-    max-height: 590px;
-  }
-  .controls {
-    border-left: 0;
-    border-top: 1px solid var(--line);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px 22px;
-    padding: 20px;
-  }
-  .panel-head,
-  .hint,
-  .why {
-    grid-column: 1/-1;
-  }
-  .separator {
-    display: none;
-  }
-  .hint {
-    margin: 0;
-  }
-  .stage-head {
-    left: 20px;
-    right: 20px;
-    top: 18px;
+    padding: 18px 20px 16px;
   }
   .canvas-wrap {
-    inset: 69px 10px 76px;
+    margin: 0 -10px;
+  }
+  /* On a phone: sliders get the full width, and the nudge comes right after the heading. */
+  .controls .control:has(input[type='range']) {
+    grid-column: 1/-1;
+  }
+  .controls .panel-head {
+    order: -2;
+  }
+  .controls .hint {
+    order: -1;
   }
   .transport {
-    bottom: 16px;
     gap: 6px;
   }
   .transport .button {
@@ -705,6 +732,16 @@ dialog .button {
   dialog {
     padding: 22px;
   }
+  /* On a phone the close button stays in reach while a long explanation scrolls. */
+  dialog .dialog-head {
+    position: sticky;
+    top: -22px;
+    z-index: 3;
+    margin: -22px -22px 16px;
+    padding: 16px 22px 12px;
+    background: #191d26;
+    border-bottom: 1px solid #2b313c;
+  }
   .focus-mode .drawing {
     height: calc(100svh - 112px);
   }
@@ -714,9 +751,8 @@ dialog .button {
     font-size: 12px;
     padding: 8px;
   }
-  .transport {
-    left: 10px;
-    right: 10px;
+  .drawing {
+    padding-inline: 12px;
   }
   .controls {
     gap: 22px 14px;
@@ -728,10 +764,6 @@ dialog .button {
   .palettes {
     gap: 8px;
   }
-  .stage-head {
-    left: 15px;
-    right: 15px;
-  }
   .intro p {
     font-size: 13px;
   }
@@ -741,4 +773,29 @@ dialog .button {
     scroll-behavior: auto !important;
     transition: none !important;
   }
+}
+
+/* Small print in the About dialog. */
+.about-small {
+  font-size: 13px;
+  color: var(--muted) !important;
+}
+dialog a {
+  color: #b9d797;
+}
+
+/* Skip link: hidden until focused. */
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 20;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: var(--lime);
+  color: #172011;
+  font-weight: 600;
+}
+.skip-link:focus {
+  top: 12px;
 }

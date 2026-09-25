@@ -76,9 +76,12 @@
     document.body.classList.remove('focus-mode');
   }
 
+  const homeTitle = document.title;
+
   function showHome() {
     leaveRoom();
     current = null;
+    document.title = homeTitle;
     stage.leave();
     document.body.dataset.room = 'home';
     for (const panel of new Set(rooms.map(panelOf))) $(panel).hidden = true;
@@ -95,6 +98,7 @@
     leaveRoom();
     current = next;
     document.body.dataset.room = id;
+    document.title = W.text('app').pageTitle(next.name);
     $('home').hidden = true;
     for (const panel of new Set(rooms.map(panelOf))) $(panel).hidden = panel !== panelOf(next);
     updateRoomBar();
@@ -145,7 +149,11 @@
   }
 
   /** Follow the address: the home map, or a room with optional shared settings. */
+  let routed = false;
   function route() {
+    // Focus moves only on Back and Forward, never when the page first opens.
+    const navigating = routed;
+    routed = true;
     const hash = location.hash.slice(1);
     if (expectedHash !== null && hash === expectedHash) {
       expectedHash = null;
@@ -154,9 +162,16 @@
     expectedHash = null;
     const q = new URLSearchParams(hash);
     const id = q.get('room') || (q.has('k') ? 'motion' : null);
-    if (!W.room(id)) return showHome();
+    const left = current;
+    if (!W.room(id)) {
+      showHome();
+      // After Back to the map, land on the card of the room just left (or the map's heading).
+      if (navigating) (left ? $('card-' + left.id) : $('home-title'))?.focus({ preventScroll: true });
+      return;
+    }
     if (current?.id === id && [...q.keys()].every((k) => k === 'room')) return;
     applyParams(q);
+    if (navigating) document.querySelector(`#${panelOf(current)} h1`)?.focus({ preventScroll: true });
   }
 
   /**
@@ -235,7 +250,8 @@
         if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) d.close();
       }),
     );
-    $('about-button').addEventListener('click', () => $('about-dialog').showModal());
+    for (const id of ['about-button', 'footer-about'])
+      $(id).addEventListener('click', () => $('about-dialog').showModal());
     $('select-copy').addEventListener('click', () => {
       $('copy-text').focus();
       $('copy-text').select();
@@ -251,6 +267,11 @@
       if (go) open(go.dataset.go);
     });
     $('room-home').addEventListener('click', goHome);
+    // Skip past the header to the main content: the first card on the map, or the room's title.
+    $('skip-link').addEventListener('click', (e) => {
+      e.preventDefault();
+      (current ? document.querySelector(`#${panelOf(current)} h1`) : document.querySelector('.room-card'))?.focus();
+    });
     document.querySelector('.brand').addEventListener('click', (e) => {
       e.preventDefault();
       goHome();

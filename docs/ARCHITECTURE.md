@@ -32,8 +32,11 @@ src/
   rooms/<id>/room.js       the room itself: words, settings, controls, drawing, visitors, explanation
   rooms/<id>/room.css      optional styles for that room only (class names prefixed with the room id)
 portraits/                 bundled portrait images (rights in docs/PORTRAITS.md)
+assets/                    link-preview image (social.jpg, 1200×630) and the home-screen icon
 scripts/serve.mjs          zero-dependency local server  (npm start)
 scripts/build.mjs          builds dist/ and dist/wonderloom-standalone.html  (npm run build)
+scripts/i18n.mjs           translation tools  (npm run i18n:check, npm run i18n:new)
+scripts/lang-guard.mjs     the allowlist a language file must pass before it runs
 tests/unit/                model tests (node --test)
 tests/browser/             behaviour tests in a real browser (Playwright)
 ```
@@ -113,7 +116,8 @@ speech })`. Any key it leaves out falls back to English.
 - The page language is fixed for a visit: `?lang=he`, else a saved choice, else English (`Wonderloom.lang`).
   `document.documentElement` gets its `lang` and `dir`, and a footer menu appears once two languages exist.
 
-`npm run i18n:check` validates language files, and a pseudo-language browser test fails if any visible text bypasses the
+`npm run i18n:check` validates language files (first against the allowlist in `scripts/lang-guard.mjs`, since they are
+scripts), and translated markup is cleaned at runtime by `Wonderloom.safeMarkup`. A pseudo-language browser test fails if any visible text bypasses the
 dictionaries. The step-by-step guide for translators is docs/TRANSLATING.md.
 
 ## Add a room: checklist

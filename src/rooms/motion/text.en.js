@@ -67,9 +67,9 @@ Wonderloom.defineText('motion', 'en', {
   saveFailed: 'The image could not be saved. Please try again.',
   shareText: (k, r, p, ink) =>
     `Wonderloom · Paint with motion\nInner rotation: ${k}×\nPen reach: ${r}%\nStarting angle: ${p}°\nInk: ${ink}`,
-  linkCopied: 'Pattern link copied. Anyone with site access can open it.',
+  linkCopied: 'Pattern link copied.',
   settingsCopied: 'Pattern settings copied.',
-  linkDescription: 'Copy this link to reopen the same pattern. The recipient needs access to this site.',
+  linkDescription: 'Copy this link to reopen the same pattern.',
   settingsDescription: 'Copy these settings to recreate your pattern.',
 
   guests: [

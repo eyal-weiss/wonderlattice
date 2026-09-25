@@ -422,7 +422,7 @@
     guests: [
       {
         ...words.guests[0],
-        bio: 'Noether',
+        bio: 'Noether_Emmy',
         image: 'noether.jpg',
         source: 'Noether.jpg',
         color: '#bc9de5',

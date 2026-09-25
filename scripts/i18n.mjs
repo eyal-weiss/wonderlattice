@@ -1,14 +1,16 @@
-// Translation tools. No dependencies.
+// Translation tools.
 //
 //   node scripts/i18n.mjs check                    report every language's coverage; fail on mistakes
 //   node scripts/i18n.mjs new <code> "<name>" [rtl] start src/lang/<code>.js and link it from index.html
 //
 // English is the source: each room's src/rooms/<id>/text.en.js, the shared src/core/text.en.js,
 // and the fixed page text in index.html (elements marked data-t / data-t-attr). A language file
-// may translate any subset; whatever it leaves out falls back to English.
+// may translate any subset; whatever it leaves out falls back to English. Language files are
+// checked against an allowlist (scripts/lang-guard.mjs) before they run.
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { checkLanguageSource } from './lang-guard.mjs';
 
 const root = new URL('..', import.meta.url).pathname;
 const html = readFileSync(join(root, 'index.html'), 'utf8');
@@ -106,10 +108,14 @@ function countMissing(en, path, report) {
 }
 
 async function check() {
+  // First make sure every language file is plain data; only then run them.
+  const files = existsSync(langDir) ? readdirSync(langDir).filter((f) => f.endsWith('.js')) : [];
+  for (const file of files) checkLanguageSource(readFileSync(join(langDir, file), 'utf8'), `src/lang/${file}`);
   const { dictionaries, languages, scripts } = await load();
+  // A new language file starts as a copy of English, so English must pass the same allowlist.
+  checkLanguageSource(starter(dictionaries, 'xx', 'Check', false), 'English, as copied by i18n:new', 'xx');
   const page = pageText();
   const scopes = Object.keys(dictionaries).filter((s) => dictionaries[s].en);
-  const files = existsSync(langDir) ? readdirSync(langDir).filter((f) => f.endsWith('.js')) : [];
   let errors = 0;
   const fail = (m) => {
     errors++;
@@ -177,14 +183,8 @@ function literal(value, indent = '  ') {
   return String(value);
 }
 
-async function create(code, name, rtl) {
-  if (!code || !/^[a-z]{2,3}(-[A-Z]{2})?$/.test(code) || !name)
-    throw new Error(
-      'Usage: npm run i18n:new -- <code> "<language name>" [rtl]   e.g. npm run i18n:new -- he "עברית" rtl',
-    );
-  const file = join(langDir, `${code}.js`);
-  if (existsSync(file)) throw new Error(`src/lang/${code}.js already exists`);
-  const { dictionaries } = await load();
+/** The text of a new language file: every English string, ready to translate. */
+function starter(dictionaries, code, name, rtl) {
   const scopes = Object.keys(dictionaries).filter((s) => dictionaries[s].en);
   let out = `/*
  * ${name} (${code}). Started from English by \`npm run i18n:new\`; translate the strings in place.
@@ -199,6 +199,19 @@ Wonderloom.defineLanguage('${code}', { name: ${JSON.stringify(name)}, dir: '${rt
   for (const scope of scopes)
     out += `\nWonderloom.defineText('${scope}', '${code}', ${literal(dictionaries[scope].en, '')});\n`;
   out += `\n// The fixed text of the page (index.html, elements marked data-t).\nWonderloom.defineText('page', '${code}', ${literal(pageText(), '')});\n`;
+  return out;
+}
+
+async function create(code, name, rtl) {
+  if (!code || !/^[a-z]{2,3}(-[A-Z]{2})?$/.test(code) || !name)
+    throw new Error(
+      'Usage: npm run i18n:new -- <code> "<language name>" [rtl]   e.g. npm run i18n:new -- he "עברית" rtl',
+    );
+  const file = join(langDir, `${code}.js`);
+  if (existsSync(file)) throw new Error(`src/lang/${code}.js already exists`);
+  const { dictionaries } = await load();
+  const out = starter(dictionaries, code, name, rtl);
+  checkLanguageSource(out, `src/lang/${code}.js`, code);
   mkdirSync(langDir, { recursive: true });
   writeFileSync(file, out);
   const marker = '    <!-- /languages -->';

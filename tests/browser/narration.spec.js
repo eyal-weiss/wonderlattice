@@ -73,13 +73,20 @@ test('picks an English voice from a Firefox-on-Linux style list (no default, Cat
     { name: 'Hebrew', lang: 'he', localService: true, default: false },
   ];
   expect(await pick(firefoxLinux)).toBe('English (America)');
-  // An exact locale beats a bare language; a device voice beats a network one.
+  // A voice on the device beats an online one (privacy), even with a less exact locale.
   expect(
     await pick([
       { name: 'Network en-US', lang: 'en-US', localService: false, default: false },
       { name: 'Local en-GB', lang: 'en-GB', localService: true, default: true },
     ]),
-  ).toBe('Network en-US');
+  ).toBe('Local en-GB');
+  // Among voices on the device, the exact locale wins.
+  expect(
+    await pick([
+      { name: 'Local en-GB', lang: 'en-GB', localService: true, default: false },
+      { name: 'Local en-US', lang: 'en-US', localService: true, default: false },
+    ]),
+  ).toBe('Local en-US');
   // No voice for the language: choose none rather than a wrong one.
   expect(await pick([{ name: 'Catalan', lang: 'ca', localService: true, default: true }])).toBe(null);
 });

@@ -20,15 +20,88 @@
 
   const $ = (id) => document.getElementById(id);
 
-  /** Deep merge for dictionaries: a translation may leave out any key, at any depth. */
+  /**
+   * Deep merge for dictionaries: a translation may leave out any key, at any depth. A
+   * translated value is used only where it has the same shape as the English one, and
+   * translated text is made safe for wherever the English text goes (see safeText).
+   */
   function merge(base, over) {
-    if (Array.isArray(base)) return base.map((b, i) => (over?.[i] === undefined ? b : merge(b, over[i])));
-    if (base && typeof base === 'object' && typeof over === 'object' && over) {
+    if (over === undefined || over === null) return base;
+    if (Array.isArray(base)) return Array.isArray(over) ? base.map((b, i) => merge(b, over[i])) : base;
+    if (typeof base === 'function') {
+      if (typeof over !== 'function') return base;
+      return (...values) => {
+        const english = base(...values);
+        let out;
+        try {
+          out = over(...values);
+        } catch {
+          return english;
+        }
+        if (typeof out !== typeof english) return english;
+        return typeof out === 'string' ? safeText(english, out) : out;
+      };
+    }
+    if (base && typeof base === 'object') {
+      if (typeof over !== 'object' || Array.isArray(over)) return base;
       const out = { ...base };
-      for (const key of Object.keys(over)) out[key] = key in base ? merge(base[key], over[key]) : over[key];
+      for (const key of Object.keys(base)) out[key] = merge(base[key], over[key]);
       return out;
     }
-    return over === undefined ? base : over;
+    if (typeof over !== typeof base) return base;
+    return typeof over === 'string' ? safeText(base, over) : over;
+  }
+
+  /**
+   * Rooms put words both into elements and into attributes (aria-label="…"). Where the
+   * English has markup, a translation may have markup too, cleaned by safeMarkup. Anywhere
+   * else it is plain text: no tag can open (“<b” becomes “‹b”) and no straight double quote
+   * can close an attribute (" becomes ”).
+   */
+  function safeText(english, text) {
+    if (/<[a-z]/i.test(english)) return safeMarkup(text);
+    return text.replace(/<(?=[a-z!/?])/gi, '‹').replace(/"/g, '”');
+  }
+
+  /*
+   * Translations come from contributors, and some strings are shown as HTML. Markup in a
+   * translated string keeps only the tags and attributes the English text uses (links only
+   * to web or mail addresses); anything else becomes plain text or is dropped.
+   */
+  const TAGS = new Set(
+    'p h3 h4 div span a em strong b i br sup sub small code ul ol li details summary canvas'.split(' '),
+  );
+  const DROP = new Set('script style template iframe object embed link meta svg math form input button'.split(' '));
+  const ATTRIBUTES = new Set('class id href target rel title lang dir aria-hidden'.split(' '));
+  function safeMarkup(text) {
+    if (typeof document === 'undefined' || !/<[a-z!/]/i.test(text)) return text;
+    const holder = document.createElement('template');
+    holder.innerHTML = text;
+    const clean = (node) => {
+      for (const el of [...node.children]) {
+        const tag = el.localName;
+        if (DROP.has(tag)) {
+          el.remove();
+          continue;
+        }
+        if (!TAGS.has(tag)) {
+          el.replaceWith(document.createTextNode(el.textContent));
+          continue;
+        }
+        for (const { name, value } of [...el.attributes]) {
+          const unsafeLink = name === 'href' && !/^(https?:|mailto:|#)/i.test(value.trim());
+          if (!ATTRIBUTES.has(name) || unsafeLink) el.removeAttribute(name);
+        }
+        if (tag === 'a' && el.getAttribute('target')) el.setAttribute('rel', 'noopener');
+        clean(el);
+      }
+    };
+    clean(holder.content);
+    const comments = document.createTreeWalker(holder.content, NodeFilter.SHOW_COMMENT);
+    const drop = [];
+    while (comments.nextNode()) drop.push(comments.currentNode);
+    drop.forEach((c) => c.remove());
+    return holder.innerHTML;
   }
 
   const Wonderloom = {
@@ -75,6 +148,7 @@
      */
     defineLanguage(code, info) {
       if (!/^[a-z]{2,3}(-[A-Z]{2})?$/.test(code)) throw new Error(`Bad language code: ${code}`);
+      if (languages[code]) throw new Error(`Language ${code} is already defined`);
       languages[code] = { dir: 'ltr', speech: code, ...info };
     },
     languages: () => ({ ...languages }),
@@ -102,6 +176,8 @@
 
     /** Register visitor-facing words for a scope (usually a room id) in one language. */
     defineText(scope, lang, strings) {
+      // English is the trusted source; a language file can't replace it (or another language).
+      if (texts[scope]?.[lang]) throw new Error(`Text for ${scope} in ${lang} is already defined`);
       (texts[scope] ??= Object.create(null))[lang] = strings;
     },
 
@@ -115,6 +191,9 @@
 
     /** Every registered dictionary, for the translation tools: scope → language → strings. */
     dictionaries: () => texts,
+
+    /** Markup from a translation, reduced to the allowed tags and attributes (see safeMarkup). */
+    safeMarkup,
 
     /**
      * Translate the fixed text in index.html. Elements carry data-t="key" (keys
@@ -132,7 +211,7 @@
       root.querySelectorAll('[data-t]').forEach((el) => {
         const value = find(el.dataset.t);
         if (typeof value !== 'string') return;
-        if (el.dataset.t.endsWith('Html')) el.innerHTML = value;
+        if (el.dataset.t.endsWith('Html')) el.innerHTML = safeMarkup(value);
         else el.textContent = value;
       });
       root.querySelectorAll('[data-t-attr]').forEach((el) => {
@@ -183,6 +262,8 @@
         $('copy-description').textContent = description;
         $('copy-text').value = text;
         $('copy-dialog').showModal();
+        $('copy-text').focus();
+        $('copy-text').select();
       }
     },
 
@@ -264,8 +345,9 @@
        * A voice for the page language. The browser's own default isn't enough:
        * Firefox on Linux, for one, lists ~100 speech-dispatcher voices with none
        * marked default and would otherwise read English in, say, a Catalan voice.
-       * Prefers the exact locale, then the language (Linux voices are often just
-       * "en"), a name that mentions the region, and voices on this device.
+       * Prefers voices on this device (online voices send the text to a speech
+       * service), then the exact locale, the language (Linux voices are often just
+       * "en"), and a name that mentions the region.
        */
       voice(voices = window.speechSynthesis.getVoices()) {
         const wanted = Wonderloom.language().speech.toLowerCase();
@@ -278,7 +360,7 @@
           return (
             language +
             (region && regionNames[region]?.test(v.name) ? 2 : 0) +
-            (v.localService ? 1 : 0) +
+            (v.localService ? 7 : 0) +
             (v.default ? 0.5 : 0)
           );
         };

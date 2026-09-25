@@ -19,3 +19,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+The MIT licence above covers Wonderloom's original code and text. It does not cover the portrait images in
+portraits/, which are third-party works under their own terms: public domain, except the photograph of John Conway by
+Thane Plambeck, used under CC BY 2.0 (cropped). See CREDITS.md (docs/PORTRAITS.md in the source) for each image's
+source and status.

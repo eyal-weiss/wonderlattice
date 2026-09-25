@@ -13,14 +13,10 @@
   font-size: 22px;
   margin-top: 2px;
 }
-.scene .canvas-wrap {
-  inset: 76px 22px 109px;
+.scene-tip:empty {
+  display: none;
 }
 .scene-tip {
-  position: absolute;
-  bottom: 83px;
-  left: 24px;
-  right: 24px;
   text-align: center;
   font-size: 12px;
   color: #a1b0c4;
@@ -179,9 +175,6 @@
   color: #a3c8bb;
 }
 @media (max-width: 760px) {
-  .scene .canvas-wrap {
-    inset: 75px 10px 112px;
-  }
   .scene-presets {
     grid-template-columns: 1fr;
     gap: 8px;
@@ -215,17 +208,12 @@
   }
   .scene-tip {
     font-size: 11px;
-    bottom: 78px;
   }
   #scene-controls {
     gap: 22px 18px;
   }
   .connection .button {
     white-space: normal;
-  }
-  .scene .stage-head {
-    left: 17px;
-    right: 17px;
   }
 }
 .traffic-result {
@@ -235,13 +223,6 @@
   border-radius: 9px;
   color: #e4f7ed;
   line-height: 1.55;
-}
-body[data-room='traffic'] .scene-status {
-  font-size: 19px;
-  font-weight: 700;
-  max-width: 245px;
-  color: #dafbe9;
-  line-height: 1.2;
 }
 .traffic-result {
   padding: 16px !important;
@@ -292,10 +273,6 @@ body[data-room='traffic'] .scene-status {
   color: #dbf4df;
 }
 @media (max-width: 380px) {
-  body[data-room='traffic'] .scene-status {
-    font-size: 15px;
-    max-width: 140px;
-  }
   .traffic-time strong {
     font-size: 26px;
   }

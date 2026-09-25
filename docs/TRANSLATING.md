@@ -32,6 +32,25 @@ move it wherever your language needs it. You can also add grammar, for example `
 - **Narration** uses the `speech` locale in `defineLanguage` (for example `he-IL`). If the browser has no voice for it,
   the text is still there to read.
 
+## What a language file may contain
+
+A language file is a script that runs on the site, so it is held to a strict shape. `npm run i18n:check` reads it
+before running it and rejects anything else:
+
+- only `Wonderloom.defineLanguage(…)` and `Wonderloom.defineText(…)` calls, with plain values inside: strings, numbers,
+  lists, objects, and small arrow functions like the ones in English;
+- inside a function, only its own values, `Math`, and a few string and number methods (`toLocaleString`, `slice`,
+  `toUpperCase`, `join`, …); no other names, no reading properties, no assignments or loops.
+
+- the file registers only its own language: `src/lang/he.js` may call `defineLanguage('he', …)` and
+  `defineText(…, 'he', …)`, and nothing else (English can't be replaced).
+
+When the page shows a translation, each value must have the same kind as the English one (a string, a function, a list),
+or English is used. Markup is kept only where the English has markup, and then only the tags and attributes English
+uses (`<p>`, `<em>`, `<strong>`, `<a href="https://…">`, …). Elsewhere the text stays plain: use typographic quotes
+(“ ” „ « »), since a straight `"` is shown as ”. Changes to `src/lang/` need the maintainer's
+review (see `.github/CODEOWNERS`).
+
 ## Check
 
 ```sh

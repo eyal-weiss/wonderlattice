@@ -10,6 +10,23 @@
       data-t-attr="content:head.description"
     />
     <meta name="theme-color" content="#101217" />
+    <!-- Link previews. Once the site has an address, make og:image absolute (https://…/assets/social.jpg). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Wonderloom" />
+    <meta property="og:title" content="Wonderloom — Follow your curiosity" />
+    <meta
+      property="og:description"
+      content="Small, hands-on experiments with big mathematical ideas. Pick one and play. There is nothing to get right."
+    />
+    <meta property="og:image" content="./assets/social.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Wonderloom: cards for a flower drawn by turning arms, a woven pattern, two dice, and three fingerprints."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
     <link
       rel="icon"
       type="image/svg+xml"
@@ -29,6 +46,7 @@
     <link rel="stylesheet" href="./src/rooms/fingerprint/room.css" />
   </head>
   <body data-room="home">
+    <a class="skip-link" href="#" id="skip-link" data-t="skip">Skip to the main content</a>
     <div class="shell">
       <header>
         <a class="brand" href="#" aria-label="Wonderloom home" data-t-attr="aria-label:header.home">
@@ -87,9 +105,10 @@
       <main id="home" aria-labelledby="home-title">
         <div class="intro home-intro">
           <div>
-            <h1 id="home-title" data-t="home.title">Follow your curiosity.</h1>
+            <h1 id="home-title" tabindex="-1" data-t="home.title">Follow your curiosity.</h1>
             <p data-t="home.intro">
-              Small experiments with big ideas. Pick one and play. There is nothing to get right.
+              Wonderloom is a free collection of small, hands-on experiments with big mathematical ideas. Pick one and
+              play. There is nothing to get right, and nothing to sign up for.
             </p>
           </div>
         </div>
@@ -103,7 +122,7 @@
             <h1 id="motion-title" tabindex="-1" data-t="motion.title">Paint with motion.</h1>
             <p data-t="motion.subtitle">Two turning arms. A pen. See what unfolds.</p>
           </div>
-          <span class="pill" data-t="motion.field">Exploration 01 · Circles within circles</span>
+          <span class="pill" data-t="motion.field">Circles within circles</span>
         </div>
         <div class="workspace">
           <section class="drawing" aria-label="Your live drawing" data-t-attr="aria-label:motion.drawingLabel">
@@ -167,6 +186,7 @@
             <div
               class="math-guest"
               id="math-guest-motion"
+              role="group"
               aria-label="A visiting mathematician"
               data-t-attr="aria-label:stage.guestLabel"
             ></div>
@@ -270,6 +290,7 @@
         <div
           class="preset-grid"
           id="presets"
+          role="group"
           aria-label="Starting patterns"
           data-t-attr="aria-label:motion.presetsLabel"
         ></div>
@@ -337,6 +358,10 @@
       <footer>
         <p class="footer-note" data-t="footer.note">Follow a shape. Find a little wonder.</p>
         <p data-t="footer.promise">No scores. No right answers.</p>
+        <p class="footer-credit">
+          <span data-t="footer.credit">Made by Eyal Weiss</span> ·
+          <button class="quiet" id="footer-about" data-t="footer.about">About</button>
+        </p>
       </footer>
     </div>
 
@@ -383,6 +408,23 @@
           decimal settings in this playground are rational, even when their paths take a long time to close.
         </p>
       </details>
+      <div class="sources">
+        <a
+          class="source-link"
+          href="https://en.wikipedia.org/wiki/Epitrochoid"
+          target="_blank"
+          rel="noopener"
+          data-t="why.source1"
+          >Epitrochoids and hypotrochoids</a
+        ><a
+          class="source-link"
+          href="https://en.wikipedia.org/wiki/Spirograph"
+          target="_blank"
+          rel="noopener"
+          data-t="why.source2"
+          >The Spirograph</a
+        >
+      </div>
     </dialog>
 
     <dialog id="about-dialog" aria-labelledby="about-title">
@@ -407,10 +449,32 @@
         </p>
       </div>
       <p data-t="about.p3">
-        Everything here runs in your browser, including when this file is opened offline. No accounts, tracking, or AI
-        chat. Sound is off until you turn it on. Optional narration uses your browser’s available voice service. Your
-        creations stay with you. My trail saves optional discoveries in this browser; export a copy if you want to keep
-        them elsewhere.
+        Everything here runs in your browser, even offline. There are no accounts, no tracking, no cookies, and no AI
+        chat. Sound is off until you turn it on.
+      </p>
+      <h3 data-t="about.privacyTitle">Your privacy</h3>
+      <p data-t="about.privacy">
+        Wonderloom collects nothing. The website’s host keeps standard access logs (address, time, page) under its own
+        policy. My trail and your language choice are kept in this browser only, and only when you use them; clearing
+        site data removes them. Narration uses your browser’s voices: some online voices send the text being read (these
+        explanations, never your notes) to the browser maker’s speech service.
+      </p>
+      <h3 data-t="about.whoTitle">Who makes this</h3>
+      <p data-t="about.whoHtml">
+        Wonderloom is a free, noncommercial hobby project by Eyal Weiss. Say hello at
+        <a href="mailto:eyal8488@gmail.com">eyal8488@gmail.com</a> or on
+        <a href="https://github.com/eyal-weiss" target="_blank" rel="noopener noreferrer">GitHub</a>.
+      </p>
+      <p class="about-small" data-t="about.legal">
+        The models here are simplified for play and explanation; they are not predictions, measurements, or advice.
+        Provided as is, without warranty. Links lead to independent sites; no affiliation or endorsement is implied.
+        Rubik’s Cube® is a registered trademark of Spin Master Toys UK Limited; Wonderloom is not affiliated with it.
+      </p>
+      <p class="about-small" data-t="about.creditsHtml">
+        The code and words are free to reuse under the MIT licence. The portraits of historical mathematicians are in
+        the public domain, except the photo of John Conway by Thane Plambeck (cropped,
+        <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener noreferrer">CC BY 2.0</a>).
+        The drawn visitors are playful sketches, not likenesses.
       </p>
     </dialog>
 
@@ -497,7 +561,7 @@
             type="file"
             id="trail-import"
             accept=".json,application/json"
-            aria-label="Import Wonderloom trail JSON"
+            aria-label="Import a trail (a Wonderloom JSON file)"
             data-t-attr="aria-label:trail.importLabel"
         /></label>
       </div>

@@ -109,7 +109,7 @@
     const t = words();
     let h = `<div class="panel-head"><h2>${t.makeItYours}</h2><span class="eyebrow">${room.panelEyebrow}</span></div>`;
     h +=
-      `<div class="math-guest" id="math-guest-scene" aria-label="${t.guestLabel}"></div>` +
+      `<div class="math-guest" id="math-guest-scene" role="group" aria-label="${t.guestLabel}"></div>` +
       `<button class="button trail-keep wide" id="trail-keep-scene">${t.keep}</button>`;
     h += room.controls(s, stage);
     // The explanation opens a dialog, so it gets the same chevron as the drawing room, not an external-link arrow.
@@ -298,8 +298,9 @@
     canvas.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') return void room?.pointer?.escape?.();
       if (e.code === 'Space') {
+        // Space plays and pauses, except in still rooms, which have no Pause.
         e.preventDefault();
-        $('scene-play').click();
+        if (!room?.still) $('scene-play').click();
         return;
       }
       if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {

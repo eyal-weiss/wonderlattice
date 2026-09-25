@@ -24,6 +24,10 @@
     adapter,
     current = null;
 
+  /** Keep only the fields an entry has, so an imported file can't smuggle in anything else. */
+  const FIELDS = ['id', 'room', 'title', 'settings', 'image', 'note', 'returnNote', 'created'];
+  const tidy = (item) => Object.fromEntries(FIELDS.map((k) => [k, item[k]]));
+
   /** Validate a stored or imported entry; anything unexpected is rejected. */
   function valid(item) {
     if (
@@ -33,7 +37,7 @@
       typeof item.id !== 'string' ||
       item.id.length > 90 ||
       typeof item.created !== 'number' ||
-      !Number.isFinite(item.created) ||
+      !(item.created > 0 && item.created < Date.now() + 864e5) ||
       !item.settings ||
       typeof item.settings !== 'object' ||
       Array.isArray(item.settings)
@@ -259,7 +263,7 @@
       )
         throw Error('format');
       if (new Set(data.entries.map((e) => e.id)).size !== data.entries.length) throw Error('duplicate');
-      if (persist(data.entries)) {
+      if (persist(data.entries.map(tidy))) {
         status(words().imported);
         render();
       }
