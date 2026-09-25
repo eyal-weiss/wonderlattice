@@ -31,5 +31,5 @@ createServer(async (req, res) => {
     res.end('Not found');
   }
 }).listen(port, '127.0.0.1', () => {
-  console.log(`Wonderloom at http://localhost:${port}/ (serving ${root}). Stop with Ctrl+C.`);
+  console.log(`Wonderlattice at http://localhost:${port}/ (serving ${root}). Stop with Ctrl+C.`);
 });

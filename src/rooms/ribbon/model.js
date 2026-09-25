@@ -31,5 +31,5 @@
     return { x: cx + x * scale * perspective, y: cy + yy * scale * perspective, z: zz };
   }
 
-  Wonderloom.models.ribbon = Object.freeze({ surface, project });
+  Wonderlattice.models.ribbon = Object.freeze({ surface, project });
 })();

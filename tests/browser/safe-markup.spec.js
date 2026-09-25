@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 
 test('translated markup is reduced to allowed tags, attributes, and links', async ({ page }) => {
   await page.goto('/');
-  const clean = (html) => page.evaluate((h) => globalThis.Wonderloom.safeMarkup(h), html);
+  const clean = (html) => page.evaluate((h) => globalThis.Wonderlattice.safeMarkup(h), html);
   expect(await clean('Plain words, 2 < 3')).toBe('Plain words, 2 < 3');
   expect(await clean('<p>A <strong>bold</strong> <em>idea</em><br></p>')).toBe(
     '<p>A <strong>bold</strong> <em>idea</em><br></p>',
@@ -22,7 +22,7 @@ test('translated markup is reduced to allowed tags, attributes, and links', asyn
 test('markup from translated strings and functions is cleaned', async ({ page }) => {
   await page.goto('/');
   const out = await page.evaluate(() => {
-    const W = globalThis.Wonderloom;
+    const W = globalThis.Wonderlattice;
     W.defineText('probe', 'en', {
       line: (n) => `<strong>${n}</strong>`,
       note: 'plain',

@@ -2,7 +2,7 @@
 (() => {
   'use strict';
 
-  const W = Wonderloom;
+  const W = Wonderlattice;
   const { $, TAU } = W;
   const { wavePoint, beat } = W.models.waves;
   const t = W.text('waves');

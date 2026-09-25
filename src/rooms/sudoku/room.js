@@ -7,7 +7,7 @@
 (() => {
   'use strict';
 
-  const W = Wonderloom;
+  const W = Wonderlattice;
   const { $, clamp, TAU } = W;
   const model = W.models.sudoku;
   const t = W.text('sudoku');

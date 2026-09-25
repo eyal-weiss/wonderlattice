@@ -6,7 +6,7 @@
 (() => {
   'use strict';
 
-  const W = Wonderloom;
+  const W = Wonderlattice;
   const { $, TAU } = W;
   const M = W.models.motion;
 
@@ -256,11 +256,11 @@
     path(c, 0, t, state, 730, 900, 850, 1.7);
     c.fillStyle = '#a6abb5';
     c.font = '22px sans-serif';
-    c.fillText('wonderloom', 72, 1728);
+    c.fillText('wonderlattice', 72, 1728);
     c.textAlign = 'right';
     c.font = '18px sans-serif';
     c.fillText(format(state.k) + '×  ·  ' + state.r + '%  ·  ' + state.p + '°', 1728, 1728);
-    W.savePNG(out, 'wonderloom-' + state.k + '-' + state.r + '.png', {
+    W.savePNG(out, 'wonderlattice-' + state.k + '-' + state.r + '.png', {
       saved: words.saved,
       failed: words.saveFailed,
     });
@@ -456,7 +456,7 @@
     },
 
     enter() {
-      WonderloomGuests.render('motion', $('math-guest-motion'));
+      WonderlatticeGuests.render('motion', $('math-guest-motion'));
     },
 
     preview(ctx, width, height) {

@@ -1,4 +1,4 @@
-# Wonderloom: Experiment Roadmap
+# Wonderlattice: Experiment Roadmap
 
 ## Your question
 
@@ -8,7 +8,7 @@ don't implement anything yet, just help me come up with a high plan for concrete
 
 ## My answer
 
-I’d expand Wonderloom into a collection of **small discoveries about the world**, each built around something the visitor can _do_: make a pattern, investigate a mystery, change a system, or challenge an intuition.
+I’d expand Wonderlattice into a collection of **small discoveries about the world**, each built around something the visitor can _do_: make a pattern, investigate a mystery, change a system, or challenge an intuition.
 
 The key design rule should be: **every experiment has one memorable surprise and one idea worth taking away.** The mathematical field becomes something visitors discover behind the experience.
 
@@ -24,7 +24,7 @@ For **probability and statistics**, I’d emphasize how mathematics helps us rea
 | **The shape hiding inside randomness** | Invent a strange distribution of dice results. Repeatedly draw small groups and plot their averages.                                              | For suitable independent samples, averages develop a surprisingly familiar bell shape. Show the raw outcomes beside the averages so the distinction is clear. |
 | **The leaderboard that lies**          | Compare two basketball players across easy and difficult shots. Combine or separate their statistics.                                             | A player can perform better in both categories yet have a worse overall percentage because they took different mixtures of shots: Simpson’s paradox.          |
 
-Nontransitive dice are particularly suitable for Wonderloom: the rules are immediately understandable, but the result challenges an assumption most people never realized they held. [Source: NRICH — Non-Transitive Dice](https://nrich.maths.org/problems/non-transitive-dice?tab=teacher)
+Nontransitive dice are particularly suitable for Wonderlattice: the rules are immediately understandable, but the result challenges an assumption most people never realized they held. [Source: NRICH — Non-Transitive Dice](https://nrich.maths.org/problems/non-transitive-dice?tab=teacher)
 
 For **complex analysis**, I’d make the abstract ideas feel like places visitors can explore.
 
@@ -84,7 +84,7 @@ I would give every room three optional depths, available to everyone rather than
 - **Notice:** a short invitation such as “What changes if you reverse those two moves?” or “Try sampling from another neighborhood.”
 - **Go deeper:** an animated explanation, optional narration, the mathematical name, and eventually equations or a small proof.
 
-Sound should carry meaning where it helps: rolls accumulating, a loom’s rhythm, a wave passing through cells, or clocks coming into synchrony. The same information should also be available visually. Some rooms could offer a cooperative activity or a printable experiment, so Wonderloom occasionally leads people away from the screen.
+Sound should carry meaning where it helps: rolls accumulating, a loom’s rhythm, a wave passing through cells, or clocks coming into synchrony. The same information should also be available visually. Some rooms could offer a cooperative activity or a printable experiment, so Wonderlattice occasionally leads people away from the screen.
 
 **My recommended first expansion is the eight starred experiments.** Together they cover chance, evidence, complex functions, two familiar games, making, biology, and communication. The cube and fingerprint rooms deserve more development time; their appeal depends on faithful behavior and a strong explanation.
 
@@ -106,7 +106,7 @@ This is a strong list. I'd keep its design rule ("one memorable surprise, one id
 
 ### 1. What the roadmap leaves out: a home for many rooms
 
-Today every room is a tab in one row. With the eight starred rooms that becomes 13 tabs: three rows on a laptop, and about seven rows (roughly 450 px of buttons) on a phone before any experiment appears. With all 24 it's unusable. Every room's code also loads at start-up. Before adding rooms, Wonderloom needs:
+Today every room is a tab in one row. With the eight starred rooms that becomes 13 tabs: three rows on a laptop, and about seven rows (roughly 450 px of buttons) on a phone before any experiment appears. With all 24 it's unusable. Every room's code also loads at start-up. Before adding rooms, Wonderlattice needs:
 
 - **A map / home view.** Rooms grouped by theme (Chance, Shape & space, Games, Making, The body, Signals), each shown as a small live or illustrated card. The room view gets a compact "back to the map" plus next/previous.
 - **Loading on demand.** Each room's scripts load when it's first opened. This still works from `file://` (by injecting `<script>` tags), and the single-file export keeps inlining everything.
@@ -116,16 +116,16 @@ This is a contained change to `src/core/app.js` and the page layout, done once. 
 
 ### 2. The starred rooms, by cost and risk
 
-| Room                           | Fit                                | Effort       | Notes                                                                                                                                                                                                                                                                                 |
-| ------------------------------ | ---------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| The dice that beat each other  | Excellent                          | Small        | Uses the existing stage as is. Efron's or Grime dice. A perfect first new room: an instant, checkable surprise.                                                                                                                                                                       |
-| The mathematical loom          | Excellent: it's the project's name | Small–medium | A weaving draft is a binary matrix product (threading × tie-up × treadling). Beautiful, and the result can be exported. I'd make this a flagship.                                                                                                                                     |
-| Send a picture through a storm | Very good                          | Small–medium | Repetition code → parity → Hamming(7,4). The surprise: 3 extra bits per 4 fix any single flip.                                                                                                                                                                                        |
-| Sudoku, made transparent       | Very good                          | Medium       | Needs its own grid layout rather than the canvas stage. 4×4 with colours; the constraint-network view is the new idea.                                                                                                                                                                |
-| Bend the plane                 | Very good                          | Medium       | A canvas mapping of a drawn shape and a grid. Pairs naturally with the drawing room and the Möbius ribbon.                                                                                                                                                                            |
-| A spoonful of a city           | Good                               | Medium       | The message (bias doesn't shrink with sample size) is subtle; it needs careful design so the surprise lands.                                                                                                                                                                          |
-| Grow a fingerprint             | Very good                          | Medium–large | A Turing-type reaction–diffusion model on a fingertip. It must say it's _inspired by_ the 2023 research, not a model of it. Turing is already a visitor, which makes a nice thread.                                                                                                   |
-| Inside the Rubik's Cube        | Good, but crowded                  | Large        | A faithful 3D cube with smooth turns, undo and tracking is the most expensive item here, and many cube simulators already exist. The part only Wonderloom offers is "order matters / commutators". I'd scope it to a 2×2×2 cube, or a flat "turning puzzle" first, and build it last. |
+| Room                           | Fit                                | Effort       | Notes                                                                                                                                                                                                                                                                                    |
+| ------------------------------ | ---------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| The dice that beat each other  | Excellent                          | Small        | Uses the existing stage as is. Efron's or Grime dice. A perfect first new room: an instant, checkable surprise.                                                                                                                                                                          |
+| The mathematical loom          | Excellent: it's the project's name | Small–medium | A weaving draft is a binary matrix product (threading × tie-up × treadling). Beautiful, and the result can be exported. I'd make this a flagship.                                                                                                                                        |
+| Send a picture through a storm | Very good                          | Small–medium | Repetition code → parity → Hamming(7,4). The surprise: 3 extra bits per 4 fix any single flip.                                                                                                                                                                                           |
+| Sudoku, made transparent       | Very good                          | Medium       | Needs its own grid layout rather than the canvas stage. 4×4 with colours; the constraint-network view is the new idea.                                                                                                                                                                   |
+| Bend the plane                 | Very good                          | Medium       | A canvas mapping of a drawn shape and a grid. Pairs naturally with the drawing room and the Möbius ribbon.                                                                                                                                                                               |
+| A spoonful of a city           | Good                               | Medium       | The message (bias doesn't shrink with sample size) is subtle; it needs careful design so the surprise lands.                                                                                                                                                                             |
+| Grow a fingerprint             | Very good                          | Medium–large | A Turing-type reaction–diffusion model on a fingertip. It must say it's _inspired by_ the 2023 research, not a model of it. Turing is already a visitor, which makes a nice thread.                                                                                                      |
+| Inside the Rubik's Cube        | Good, but crowded                  | Large        | A faithful 3D cube with smooth turns, undo and tracking is the most expensive item here, and many cube simulators already exist. The part only Wonderlattice offers is "order matters / commutators". I'd scope it to a 2×2×2 cube, or a flat "turning puzzle" first, and build it last. |
 
 ### 3. Other things to decide early
 

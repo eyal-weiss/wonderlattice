@@ -2,7 +2,7 @@
 (() => {
   'use strict';
 
-  const W = Wonderloom;
+  const W = Wonderlattice;
   const { $, clamp } = W;
   const model = W.models.storm;
   const { SIZE, CODES, PICTURES } = model;

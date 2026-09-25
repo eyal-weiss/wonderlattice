@@ -59,8 +59,8 @@ test('the loom opens with cloth already woven, and the trail keeps the finished 
   expect(await inkedPixels(page, '#scene-canvas')).toBeGreaterThan(3000);
   // The trail's picture is the whole cloth, finished: woven right up to its top edge.
   const trail = await page.evaluate((count) => {
-    const room = globalThis.Wonderloom.rooms.find((r) => r.id === 'loom');
-    const canvas = room.trailCanvas(globalThis.Wonderloom.stage.settingsFor('loom'), globalThis.Wonderloom.stage);
+    const room = globalThis.Wonderlattice.rooms.find((r) => r.id === 'loom');
+    const canvas = room.trailCanvas(globalThis.Wonderlattice.stage.settingsFor('loom'), globalThis.Wonderlattice.stage);
     return { width: canvas.width, cream: new Function(`return (${count})`)()(canvas) };
   }, creamAtTop.toString());
   expect(trail.width).toBeGreaterThan(100);

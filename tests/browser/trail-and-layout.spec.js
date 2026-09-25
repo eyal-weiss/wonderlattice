@@ -47,11 +47,11 @@ test('a trail can be exported and imported', async ({ page }, testInfo) => {
   await page.locator('#trail-keep-motion').click();
   await page.locator('#trail-save').click();
   const [download] = await Promise.all([page.waitForEvent('download'), page.locator('#trail-export').click()]);
-  expect(download.suggestedFilename()).toBe('wonderloom-my-trail.json');
+  expect(download.suggestedFilename()).toBe('wonderlattice-my-trail.json');
   const file = testInfo.outputPath('trail.json');
   await download.saveAs(file);
   const data = JSON.parse(await readFile(file, 'utf8'));
-  expect(data).toMatchObject({ format: 'wonderloom-trail', version: 1 });
+  expect(data).toMatchObject({ format: 'wonderlattice-trail', version: 1 });
   expect(data.entries).toHaveLength(1);
 
   await page.locator('.trail-card').getByRole('button', { name: 'Remove' }).click();
@@ -63,7 +63,7 @@ test('a trail can be exported and imported', async ({ page }, testInfo) => {
   await page
     .locator('#trail-import')
     .setInputFiles({ name: 'bad.json', mimeType: 'application/json', buffer: Buffer.from('{"format":"nope"}') });
-  await expect(page.locator('#trail-status')).toContainText('not a valid Wonderloom trail');
+  await expect(page.locator('#trail-status')).toContainText('not a valid Wonderlattice trail');
   await expect(page.locator('.trail-card')).toHaveCount(1);
 });
 

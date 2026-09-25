@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { test, expect, ROOMS, openRoom } from './helpers.js';
 
-const standalone = resolve('dist/wonderloom-standalone.html');
+const standalone = resolve('dist/wonderlattice-standalone.html');
 
 test('the single-file export works from disk with portraits embedded', async ({ page }) => {
   test.skip(!existsSync(standalone), 'Run npm run build first');

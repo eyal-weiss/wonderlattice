@@ -148,7 +148,7 @@
 
   const notation = (sequence) => sequence.map((m) => MOVES[m].name).join(' ');
 
-  Wonderloom.models.cube = Object.freeze({
+  Wonderlattice.models.cube = Object.freeze({
     FACES,
     MOVES,
     stickers,

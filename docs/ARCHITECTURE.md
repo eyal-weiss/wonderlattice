@@ -1,6 +1,6 @@
-# How Wonderloom is built
+# How Wonderlattice is built
 
-Wonderloom is a static site with no runtime dependencies. You can open `index.html` from disk, or serve the folder
+Wonderlattice is a static site with no runtime dependencies. You can open `index.html` from disk, or serve the folder
 from any static host. There is no bundler: the browser loads the files in `src/` directly.
 
 ## The one rule that shapes everything
@@ -9,7 +9,7 @@ Every file in `src/` is a **classic script**, not an ES module. Browsers block m
 `file://`, and double-clicking `index.html` must keep working. So:
 
 - scripts load in the order of the `<script>` tags at the bottom of `index.html`;
-- files share one global namespace, `Wonderloom` (plus `WonderloomGuests` and `WonderloomTrail`);
+- files share one global namespace, `Wonderlattice` (plus `WonderlatticeGuests` and `WonderlatticeTrail`);
 - each file wraps itself in `(() => { 'use strict'; … })()` and exports by attaching to that namespace.
 
 ## Map
@@ -23,7 +23,7 @@ styles/
   guests.css               mathematician puppets
   trail.css                My trail
 src/
-  core/wonderloom.js       namespace, helpers (toast, copy, download, narration), room registry, themes, text
+  core/wonderlattice.js       namespace, helpers (toast, copy, download, narration), room registry, themes, text
   core/stage.js            the shared stage used by canvas rooms (#new-room)
   core/app.js              home map, room switching, history and shared links, dialogs, trail and agent wiring; runs last
   features/guests.js       renders a room's mathematician visitors
@@ -34,7 +34,7 @@ src/
 portraits/                 bundled portrait images (rights in docs/PORTRAITS.md)
 assets/                    link-preview image (social.jpg, 1200×630) and the home-screen icon
 scripts/serve.mjs          zero-dependency local server  (npm start)
-scripts/build.mjs          builds dist/ and dist/wonderloom-standalone.html  (npm run build)
+scripts/build.mjs          builds dist/ and dist/wonderlattice-standalone.html  (npm run build)
 scripts/i18n.mjs           translation tools  (npm run i18n:check, npm run i18n:new)
 scripts/lang-guard.mjs     the allowlist a language file must pass before it runs
 tests/unit/                model tests (node --test)
@@ -43,9 +43,9 @@ tests/browser/             behaviour tests in a real browser (Playwright)
 
 ## Rooms
 
-A room is one call to `Wonderloom.defineRoom({...})` in `src/rooms/<id>/room.js`. The registry is the single list of
+A room is one call to `Wonderlattice.defineRoom({...})` in `src/rooms/<id>/room.js`. The registry is the single list of
 rooms. The home map, the room bar's previous/next, shared links, trail validation, and agent tools all read from it.
-On the map, rooms are grouped by `theme` (the list is `Wonderloom.themes`); within a theme they follow script order.
+On the map, rooms are grouped by `theme` (the list is `Wonderlattice.themes`); within a theme they follow script order.
 A theme with no rooms is not shown.
 
 The address always says where you are: `#room=<id>` in a room and no hash on the map, so Back and Forward work and
@@ -93,7 +93,7 @@ Stage extras:
   mid-animation frame.
 - A room with any `pointer` hook gets an interactive canvas (`role="application"`, described by the visible tip), so
   keep the tip's keyboard hints accurate.
-- Call `Wonderloom.announce(text)` when a result settles, so screen readers hear it once. Don't put `role="status"` on
+- Call `Wonderlattice.announce(text)` when a result settles, so screen readers hear it once. Don't put `role="status"` on
   panels that are rebuilt often.
 
 ### Custom room hooks
@@ -107,23 +107,23 @@ Stage extras:
 Every visitor-facing word lives in a dictionary, so the site can be translated without touching code:
 
 - A room's words are in `src/rooms/<id>/text.en.js`
-  (`Wonderloom.defineText('dice', 'en', { title: '…', rolls: (n) => \`${n} rolls\` })`), read once in `room.js`with`const t = Wonderloom.text('dice')`. Strings can be functions when they need numbers.
+  (`Wonderlattice.defineText('dice', 'en', { title: '…', rolls: (n) => \`${n} rolls\` })`), read once in `room.js`with`const t = Wonderlattice.text('dice')`. Strings can be functions when they need numbers.
 - Shared words are in `src/core/text.en.js` (the `app` scope). Fixed page text stays in `index.html`, marked with
   `data-t` / `data-t-attr`.
 - A language is one file, `src/lang/<code>.js`, created with `npm run i18n:new`. It is linked between the
-  `<!-- languages -->` markers in `index.html`, and it starts with `Wonderloom.defineLanguage(code, { name, dir,
+  `<!-- languages -->` markers in `index.html`, and it starts with `Wonderlattice.defineLanguage(code, { name, dir,
 speech })`. Any key it leaves out falls back to English.
-- The page language is fixed for a visit: `?lang=he`, else a saved choice, else English (`Wonderloom.lang`).
+- The page language is fixed for a visit: `?lang=he`, else a saved choice, else English (`Wonderlattice.lang`).
   `document.documentElement` gets its `lang` and `dir`, and a footer menu appears once two languages exist.
 
 `npm run i18n:check` validates language files (first against the allowlist in `scripts/lang-guard.mjs`, since they are
-scripts), and translated markup is cleaned at runtime by `Wonderloom.safeMarkup`. A pseudo-language browser test fails if any visible text bypasses the
+scripts), and translated markup is cleaned at runtime by `Wonderlattice.safeMarkup`. A pseudo-language browser test fails if any visible text bypasses the
 dictionaries. The step-by-step guide for translators is docs/TRANSLATING.md.
 
 ## Add a room: checklist
 
 1. Copy `src/rooms/traffic/` to `src/rooms/<id>/` and rename. Put the mathematics in `model.js` and attach it to
-   `Wonderloom.models.<id>`, and every visitor-facing word (including canvas labels and aria-labels) in `text.en.js`.
+   `Wonderlattice.models.<id>`, and every visitor-facing word (including canvas labels and aria-labels) in `text.en.js`.
    Pick a `theme` and write a `tagline`.
 2. Add the `<script>` tags (`model.js`, `text.en.js`, `room.js`) to `index.html`, before `src/core/app.js`.
 3. Add unit tests for the model in `tests/unit/`, and import the model in `tests/unit/load.js`.
@@ -138,7 +138,7 @@ dictionaries. The step-by-step guide for translators is docs/TRANSLATING.md.
 
 ## Shared links and saved moments are public contracts
 
-Links like `#room=motion&k=-5&r=42&p=0&ink=0` and trail exports (`wonderloom-trail`, version 1) live outside the app.
+Links like `#room=motion&k=-5&r=42&p=0&ink=0` and trail exports (`wonderlattice-trail`, version 1) live outside the app.
 Keep existing parameter names (for example `ink`, not `palette`, in drawing links) and accept old values. If a
 format must change, bump the trail `version` and keep reading version 1.
 
@@ -158,7 +158,7 @@ Captions are original writing, never quotations.
 
 ## Builds
 
-`npm run build` copies the site to `dist/` and writes `dist/wonderloom-standalone.html`, a single file with every
+`npm run build` copies the site to `dist/` and writes `dist/wonderlattice-standalone.html`, a single file with every
 stylesheet, script, and portrait inlined. The build reads the `<link>` and `<script>` tags from `index.html`, so
 there's no separate list to keep up to date.
 

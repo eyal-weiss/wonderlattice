@@ -1,5 +1,5 @@
 /* Where is the other side? · visitor-facing words (English). */
-Wonderloom.defineText('ribbon', 'en', {
+Wonderlattice.defineText('ribbon', 'en', {
   eyebrow: 'TOPOLOGY · 3D',
   name: 'Where is the other side?',
   tagline: 'Give a ribbon half a twist and one of its sides disappears.',

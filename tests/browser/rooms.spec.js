@@ -6,7 +6,7 @@ test.beforeEach(async ({ page }) => {
 
 test('the home map shows every room once, grouped by theme, with a picture', async ({ page }) => {
   await page.goto('/');
-  await expect(page).toHaveTitle(/Wonderloom/);
+  await expect(page).toHaveTitle(/Wonderlattice/);
   await expectRoom(page, 'home');
   await expect(page.locator('#room-bar')).toBeHidden();
   await expect(page.locator('.room-card')).toHaveCount(Object.keys(ROOMS).length);
@@ -16,8 +16,8 @@ test('the home map shows every room once, grouped by theme, with a picture', asy
   }
   // Themes appear in their declared order, and only when they have rooms.
   const expected = await page.evaluate(() =>
-    globalThis.Wonderloom.themes
-      .filter((t) => globalThis.Wonderloom.rooms.some((r) => r.theme === t.id))
+    globalThis.Wonderlattice.themes
+      .filter((t) => globalThis.Wonderlattice.rooms.some((r) => r.theme === t.id))
       .map((t) => t.name),
   );
   expect(await page.locator('.theme h2').allTextContents()).toEqual(expected);

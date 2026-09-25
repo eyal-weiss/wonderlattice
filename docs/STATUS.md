@@ -1,5 +1,13 @@
 # Project state — 2026-09-24
 
+## Renamed to Wonderlattice — 2026-09-24
+
+"Wonderloom" is in use by the WonderLoom® children's craft toy and several shops, so the site is now Wonderlattice
+(.com and .org were unregistered when checked). Everything visible, the code namespace (`Wonderlattice`), storage
+keys and file names changed. Trails saved or exported under the old name still open (`wonderloom.trail.v1`,
+`"format": "wonderloom-trail"`). The GitHub repository is still `eyal-weiss/wonderloom`; renaming it is the owner's
+call (GitHub redirects the old address).
+
 ## Pre-release reviews — 2026-09-24
 
 Two reviews before going public: one for legal, privacy, security and accessibility, one for design and UX. The shared
@@ -18,7 +26,7 @@ fixes are in #25; the room fixes landed together, after it.
   on slow devices.
 
 Left for later: single cube turns still animate (a short motion the visitor asked for), the home map leaves space at
-wide widths, og:image needs an absolute address once hosted, and a trademark search for the name Wonderloom.
+wide widths, og:image needs an absolute address once hosted, and a trademark search for the name Wonderlattice.
 
 ## Thirteen rooms, and ready for translation — 2026-09-24
 
@@ -70,13 +78,13 @@ independent product. The visitor is a drawn sketch of Ada Lovelace.
 
 ## Home map — 2026-09-24 (branch `agent/home-map`)
 
-The row of room tabs is replaced by a home map, so Wonderloom can grow past a handful of rooms. It shows rooms as
+The row of room tabs is replaced by a home map, so Wonderlattice can grow past a handful of rooms. It shows rooms as
 cards with a still picture, grouped by theme (Shape & space, Chance & evidence, Games & puzzles, Making, Living
 patterns, Signals & networks). Empty themes are hidden. Inside a room, a slim bar offers "All experiments" and
 previous/next. The address follows the visitor (`#room=<id>`, no hash on the map), so Back and Forward work. Rooms
 set themselves up only when first opened. Mathematician visitors are now optional, with no ↻ for a single visitor.
 New rooms can use drawn sketch faces instead of photographs. A small translation mechanism
-(`Wonderloom.defineText` / `text`) is ready for the new rooms; converting the existing rooms' words is the next step.
+(`Wonderlattice.defineText` / `text`) is ready for the new rooms; converting the existing rooms' words is the next step.
 
 ## Maintainability refactor — 2026-09-24 (branch `agent/maintainability`)
 
@@ -97,7 +105,7 @@ the original pixel for pixel, apart from sub-frame animation timing noise. Delib
 - A shared drawing link without `room=` now also switches to the drawing room when it arrives by hash change.
 
 Tooling: Vite is replaced by zero-dependency `scripts/serve.mjs` and `scripts/build.mjs`. The build writes `dist/` and
-`dist/wonderloom-standalone.html` (one ~480 KB file with portraits inlined). Added 12 model unit tests, 18 Playwright
+`dist/wonderlattice-standalone.html` (one ~480 KB file with portraits inlined). Added 12 model unit tests, 18 Playwright
 browser tests, ESLint, Prettier, and GitHub Actions CI that runs everything on each pull request.
 
 ## Working and included

@@ -1,5 +1,5 @@
 /* Inside the puzzle cube · visitor-facing words (English). */
-Wonderloom.defineText('cube', 'en', {
+Wonderlattice.defineText('cube', 'en', {
   eyebrow: 'MOVES · GROUPS',
   name: 'Inside the puzzle cube',
   tagline: 'Two turns in a different order, a move that needs 105 repeats to come home, and pieces that barely budge.',

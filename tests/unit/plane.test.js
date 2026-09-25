@@ -3,7 +3,7 @@ import test from 'node:test';
 import { readFileSync } from 'node:fs';
 import './load.js';
 
-const P = globalThis.Wonderloom.models.plane;
+const P = globalThis.Wonderlattice.models.plane;
 const { FUNCTIONS, add, sub, abs } = P;
 const near = (a, b, tol, message) => assert.ok(abs(sub(a, b)) < tol, `${message}: ${a} vs ${b}`);
 

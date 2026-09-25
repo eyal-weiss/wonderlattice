@@ -4,7 +4,7 @@
  * hasn't been moved into a dictionary. Injected by tests/browser/i18n.spec.js.
  */
 (() => {
-  const W = globalThis.Wonderloom;
+  const W = globalThis.Wonderlattice;
   const wrap = (s) =>
     typeof s !== 'string'
       ? s

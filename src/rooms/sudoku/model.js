@@ -273,7 +273,7 @@
     '.1..' + '.3..' + '3.2.' + '1.4.', // six clues and exactly two completions
   ]);
 
-  Wonderloom.models.sudoku = Object.freeze({
+  Wonderlattice.models.sudoku = Object.freeze({
     geometry,
     rowOf,
     colOf,

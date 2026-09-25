@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import './load.js';
 
-const { motion, waves, flock, ribbon } = globalThis.Wonderloom.models;
+const { motion, waves, flock, ribbon } = globalThis.Wonderlattice.models;
 const TAU = Math.PI * 2;
 const close = (a, b, eps = 1e-9) => Math.abs(a - b) < eps;
 

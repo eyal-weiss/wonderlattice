@@ -241,7 +241,7 @@
     ),
   );
 
-  Wonderloom.models.storm = Object.freeze({
+  Wonderlattice.models.storm = Object.freeze({
     SIZE,
     PIXELS,
     DATA,

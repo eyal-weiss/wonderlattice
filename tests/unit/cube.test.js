@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import './load.js';
 
-const C = globalThis.Wonderloom.models.cube;
+const C = globalThis.Wonderlattice.models.cube;
 const [U, R, F, D, L, B] = [0, 1, 2, 3, 4, 5];
 const prime = (m) => m + 6;
 

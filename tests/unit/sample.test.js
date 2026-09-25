@@ -3,7 +3,7 @@ import test from 'node:test';
 import './load.js';
 
 const { city, frame, frameShare, neighbourhoods, oddestHood, survey, standardError, summary, rng, HOODS, METHODS } =
-  globalThis.Wonderloom.models.sample;
+  globalThis.Wonderlattice.models.sample;
 
 /** Run `times` surveys of size n with one method and summarise them against the true share. */
 function repeat(town, method, n, times, seed, hood = 0) {

@@ -512,7 +512,7 @@
     return { type: turn >= 1 ? 'whorl' : turn > 0 ? 'loop' : 'arch', cores, deltas };
   }
 
-  Wonderloom.models.fingerprint = {
+  Wonderlattice.models.fingerprint = {
     WIDTH,
     HEIGHT,
     DT,

@@ -3,7 +3,7 @@ import test from 'node:test';
 import { readFileSync } from 'node:fs';
 import './load.js';
 
-const F = globalThis.Wonderloom.models.fingerprint;
+const F = globalThis.Wonderlattice.models.fingerprint;
 const grid = F.createGrid();
 const WHORL = 0,
   LOOP = 1,

@@ -40,7 +40,7 @@ test('each room names the page, and home restores the title', async ({ page }) =
   await page.goto('/');
   const home = await page.title();
   await page.goto('/#room=dice');
-  await expect(page).toHaveTitle('The dice that beat each other · Wonderloom');
+  await expect(page).toHaveTitle('The dice that beat each other · Wonderlattice');
   await page.locator('#room-home').click();
   await expect(page).toHaveTitle(home);
 });
@@ -80,14 +80,14 @@ test('an imported trail keeps only known fields', async ({ page }) => {
   };
   const { extra, ...kept } = entry;
   expect(extra).toBeTruthy();
-  const file = { format: 'wonderloom-trail', version: 1, entries: [entry] };
+  const file = { format: 'wonderlattice-trail', version: 1, entries: [entry] };
   await page.locator('#trail-import').setInputFiles({
     name: 'trail.json',
     mimeType: 'application/json',
     buffer: Buffer.from(JSON.stringify(file)),
   });
   await expect
-    .poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('wonderloom.trail.v1') || '[]')))
+    .poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('wonderlattice.trail.v1') || '[]')))
     .toEqual([kept]);
   // A date far in the future is not a real save.
   file.entries = [{ ...entry, id: 'b', created: Date.now() + 1e12 }];
@@ -97,4 +97,41 @@ test('an imported trail keeps only known fields', async ({ page }) => {
     buffer: Buffer.from(JSON.stringify(file)),
   });
   await expect(page.locator('#trail-status')).toContainText('not a valid');
+});
+
+test('trails saved or exported under the old name, Wonderloom, still open', async ({ page }) => {
+  const entry = {
+    id: 'old',
+    room: 'dice',
+    title: 'Dice',
+    settings: {},
+    image: '',
+    note: 'from before the rename',
+    returnNote: '',
+    created: 1767225600000,
+  };
+  await page.addInitScript((e) => {
+    if (!sessionStorage.getItem('seeded')) {
+      localStorage.setItem('wonderloom.trail.v1', JSON.stringify([e]));
+      localStorage.setItem('wonderloom.lang', 'en');
+      sessionStorage.setItem('seeded', '1');
+    }
+  }, entry);
+  await page.goto('/');
+  await page.locator('#trail-open').click();
+  await expect(page.locator('#trail-dialog')).toContainText('from before the rename');
+  await page.keyboard.press('Escape');
+  // An export file from before the rename imports too.
+  const file = { format: 'wonderloom-trail', version: 1, entries: [{ ...entry, id: 'old2', note: 'old export' }] };
+  await page.locator('#trail-import').setInputFiles({
+    name: 'wonderloom-my-trail.json',
+    mimeType: 'application/json',
+    buffer: Buffer.from(JSON.stringify(file)),
+  });
+  await expect(page.locator('#trail-status')).toContainText('imported');
+  const stored = await page.evaluate(() => [
+    JSON.parse(localStorage.getItem('wonderlattice.trail.v1'))[0].note,
+    localStorage.getItem('wonderloom.trail.v1'),
+  ]);
+  expect(stored).toEqual(['old export', null]);
 });

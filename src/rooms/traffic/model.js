@@ -25,5 +25,5 @@
     return { upper: outer, lower: outer, middle, time, baseline };
   }
 
-  Wonderloom.models.traffic = Object.freeze({ equilibrium });
+  Wonderlattice.models.traffic = Object.freeze({ equilibrium });
 })();

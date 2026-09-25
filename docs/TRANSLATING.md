@@ -1,6 +1,6 @@
 # Adding a language
 
-Wonderloom is written in English, and every visitor-facing word lives in a dictionary, so a translation is a single
+Wonderlattice is written in English, and every visitor-facing word lives in a dictionary, so a translation is a single
 file. You don't need to touch any room's code.
 
 ## Start a language
@@ -37,7 +37,7 @@ move it wherever your language needs it. You can also add grammar, for example `
 A language file is a script that runs on the site, so it is held to a strict shape. `npm run i18n:check` reads it
 before running it and rejects anything else:
 
-- only `Wonderloom.defineLanguage(…)` and `Wonderloom.defineText(…)` calls, with plain values inside: strings, numbers,
+- only `Wonderlattice.defineLanguage(…)` and `Wonderlattice.defineText(…)` calls, with plain values inside: strings, numbers,
   lists, objects, and small arrow functions like the ones in English;
 - inside a function, only its own values, `Math`, and a few string and number methods (`toLocaleString`, `slice`,
   `toUpperCase`, `join`, …); no other names, no reading properties, no assignments or loops.
@@ -67,8 +67,8 @@ read it for tone and line breaks.
 
 ## For developers: keeping the site translatable
 
-- **Room words** go in `src/rooms/<id>/text.en.js` (`Wonderloom.defineText('<id>', 'en', {...})`), and `room.js` reads
-  them with `const t = Wonderloom.text('<id>')`. That includes words drawn on a canvas and aria-labels. The mathematics
+- **Room words** go in `src/rooms/<id>/text.en.js` (`Wonderlattice.defineText('<id>', 'en', {...})`), and `room.js` reads
+  them with `const t = Wonderlattice.text('<id>')`. That includes words drawn on a canvas and aria-labels. The mathematics
   in `model.js` never contains visitor-facing words.
 - **Shared words** (the stage, navigation, trail, visitors, narration) are in `src/core/text.en.js`, under `app`.
 - **Fixed page text** stays in `index.html`, in English, marked with `data-t="key"` (or `data-t="keyHtml"` when it

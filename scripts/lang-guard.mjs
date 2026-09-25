@@ -3,7 +3,7 @@
 // This allowlist accepts only what a dictionary needs and rejects everything else before
 // the file is ever run:
 //
-//   Wonderloom.defineLanguage('<code>', { … })     Wonderloom.defineText('<scope>', '<code>', { … })
+//   Wonderlattice.defineLanguage('<code>', { … })     Wonderlattice.defineText('<scope>', '<code>', { … })
 //
 // with plain values inside: strings, numbers, template strings, arrays, objects, and arrow
 // functions such as (n) => (n === 1 ? '1 roll' : `${n} rolls`) that use only their own
@@ -101,8 +101,8 @@ export function checkLanguageSource(source, file = 'language file', code = file.
           return value(node.object, scope);
         }
         if (node.property.name === 'length') return value(node.object, scope);
-        // The page language, for number formatting: toLocaleString(Wonderloom.lang).
-        if (node.object.type === 'Identifier' && node.object.name === 'Wonderloom' && node.property.name === 'lang')
+        // The page language, for number formatting: toLocaleString(Wonderlattice.lang).
+        if (node.object.type === 'Identifier' && node.object.name === 'Wonderlattice' && node.property.name === 'lang')
           return;
         return fail(node, `reading .${node.property.name}`);
       case 'CallExpression': {
@@ -149,10 +149,10 @@ export function checkLanguageSource(source, file = 'language file', code = file.
       !callee ||
       callee.type !== 'MemberExpression' ||
       callee.computed ||
-      callee.object.name !== 'Wonderloom' ||
+      callee.object.name !== 'Wonderlattice' ||
       !DEFINE.has(callee.property.name)
     )
-      fail(statement, 'anything but Wonderloom.defineLanguage(…) and Wonderloom.defineText(…)');
+      fail(statement, 'anything but Wonderlattice.defineLanguage(…) and Wonderlattice.defineText(…)');
     const scope = new Map([
       ['Math', 'value'],
       ['Infinity', 'value'],

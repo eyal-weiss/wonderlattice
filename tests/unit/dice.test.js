@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import './load.js';
 
-const { SETS, reduce, outcomes, exact, bestReply, victories, mean, rng, play } = globalThis.Wonderloom.models.dice;
+const { SETS, reduce, outcomes, exact, bestReply, victories, mean, rng, play } = globalThis.Wonderlattice.models.dice;
 const set = (id) => SETS.find((s) => s.id === id);
 
 /** Exact chance that die i beats die j, as a reduced fraction [n, d]. */

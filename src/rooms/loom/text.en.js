@@ -1,5 +1,5 @@
 /* The mathematical loom · visitor-facing words (English). */
-Wonderloom.defineText('loom', 'en', {
+Wonderlattice.defineText('loom', 'en', {
   eyebrow: 'WEAVING',
   name: 'The mathematical loom',
   tagline: 'Flip one square in a tiny grid of yes and no, and the whole cloth changes.',

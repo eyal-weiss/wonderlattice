@@ -1,5 +1,5 @@
 /* Bend the plane · visitor-facing words (English). Other languages: text.<lang>.js (docs/TRANSLATING.md). */
-Wonderloom.defineText('plane', 'en', {
+Wonderlattice.defineText('plane', 'en', {
   eyebrow: 'COMPLEX NUMBERS',
   name: 'Bend the plane',
   tagline: 'Bend a picture without tearing it; a circle becomes a wing.',

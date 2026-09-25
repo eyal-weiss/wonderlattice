@@ -1,5 +1,5 @@
 /* Visitor-facing English for the storm room. Other languages: text.<lang>.js (docs/TRANSLATING.md). */
-Wonderloom.defineText('storm', 'en', {
+Wonderlattice.defineText('storm', 'en', {
   eyebrow: 'ERROR CORRECTION',
   name: 'Send a picture through a storm',
   tagline: 'A few clever extra bits let a picture repair itself.',

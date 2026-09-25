@@ -1,5 +1,5 @@
 /* Words · The dice that beat each other (English). Every visitor-facing string for the dice room. */
-Wonderloom.defineText('dice', 'en', {
+Wonderlattice.defineText('dice', 'en', {
   eyebrow: 'COUNTING',
   name: 'The dice that beat each other',
   tagline: 'Pick any die. There is always one that beats it.',
@@ -53,7 +53,7 @@ Wonderloom.defineText('dice', 'en', {
   iTake: (you, me) => `You picked ${you}. I’ll take ${me}.`,
   against: (you, me) => `${you} against ${me}. You chose both.`,
   ready: 'Ready to roll',
-  rolls: (n) => (n === 1 ? '1 roll' : `${n.toLocaleString(Wonderloom.lang)} rolls`),
+  rolls: (n) => (n === 1 ? '1 roll' : `${n.toLocaleString(Wonderlattice.lang)} rolls`),
   circleTitle: 'The circle of victories',
   even: 'even',
   winsTitle: 'Wins',
@@ -70,7 +70,7 @@ Wonderloom.defineText('dice', 'en', {
     `${name} wins: ${seen === null ? '–' : seen + '%'} so far · exactly ${fraction} ≈ ${exact}%`,
   verdictStart: (favourite, fraction) => `Exactly, ${favourite} wins ${fraction} of the time. Roll to see it happen.`,
   verdict: (n, favourite, seen, fraction) =>
-    `After ${n.toLocaleString(Wonderloom.lang)} rolls, ${favourite} has won ${seen}% of the time. The exact chance is ${fraction}.`,
+    `After ${n.toLocaleString(Wonderlattice.lang)} rolls, ${favourite} has won ${seen}% of the time. The exact chance is ${fraction}.`,
   evenVerdict: 'These two are evenly matched.',
   sameDie: 'The same die on both sides: an even match.',
 
@@ -89,7 +89,7 @@ Wonderloom.defineText('dice', 'en', {
 
   gridAxes: (me, you) => `Rows are my die, ${me}; columns are your die, ${you}. Each square is coloured by its winner.`,
   gridNote: (win, lose, tie, total, me, you) =>
-    `${me} wins ${win} of the ${total.toLocaleString(Wonderloom.lang)} equally likely pairings, ${you} wins ${lose}` +
+    `${me} wins ${win} of the ${total.toLocaleString(Wonderlattice.lang)} equally likely pairings, ${you} wins ${lose}` +
     (tie ? `, and ${tie} are ties.` : '.'),
 
   insight: {

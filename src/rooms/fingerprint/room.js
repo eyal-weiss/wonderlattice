@@ -2,7 +2,7 @@
 (() => {
   'use strict';
 
-  const W = Wonderloom;
+  const W = Wonderlattice;
   const { $, TAU, clamp } = W;
   const F = W.models.fingerprint;
   const t = W.text('fingerprint');

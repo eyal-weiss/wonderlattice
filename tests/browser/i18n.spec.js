@@ -21,7 +21,7 @@ function untranslated(page) {
   return page.evaluate(() => {
     const bad = new Set();
     // Words that stay as they are in every language: the name, a license, and formula notation.
-    const keep = new Set(['wonderloom', 'CC BY 2.0']);
+    const keep = new Set(['wonderlattice', 'CC BY 2.0']);
     const strip = (s) => {
       let out = s;
       while (/⟦[^⟦⟧]*⟧/.test(out)) out = out.replace(/⟦[^⟦⟧]*⟧/g, '');

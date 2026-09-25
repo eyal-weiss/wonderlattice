@@ -2,7 +2,7 @@
 (() => {
   'use strict';
 
-  Wonderloom.defineText('sudoku', 'en', {
+  Wonderlattice.defineText('sudoku', 'en', {
     eyebrow: 'LOGIC · GRAPHS',
     name: 'Sudoku, made transparent',
     tagline: 'A number puzzle where the numbers never mattered.',

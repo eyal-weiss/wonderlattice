@@ -36,10 +36,10 @@ test('shared links restore settings on load and on hash change', async ({ page }
 test('images can be saved as PNG files', async ({ page }) => {
   await page.goto('/#room=motion');
   const [motion] = await Promise.all([page.waitForEvent('download'), page.locator('#save').click()]);
-  expect(motion.suggestedFilename()).toBe('wonderloom--5-42.png');
+  expect(motion.suggestedFilename()).toBe('wonderlattice--5-42.png');
   await openRoom(page, 'waves');
   const [scene] = await Promise.all([page.waitForEvent('download'), page.locator('#scene-save').click()]);
-  expect(scene.suggestedFilename()).toBe('wonderloom-waves.png');
+  expect(scene.suggestedFilename()).toBe('wonderlattice-waves.png');
 });
 
 test('the app runs from a file:// URL without a server', async ({ page }) => {

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import './load.js';
 
-const { equilibrium } = globalThis.Wonderloom.models.traffic;
+const { equilibrium } = globalThis.Wonderlattice.models.traffic;
 
 test('adding a road makes the familiar 4000-driver journey slower', () => {
   const before = equilibrium(4000, false);

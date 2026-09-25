@@ -22,5 +22,5 @@
   /** Beat rate in Hz: the difference between the two frequencies. */
   const beat = (s) => Math.abs(s.f - s.f * s.ratio);
 
-  Wonderloom.models.waves = Object.freeze({ wavePoint, beat });
+  Wonderlattice.models.waves = Object.freeze({ wavePoint, beat });
 })();

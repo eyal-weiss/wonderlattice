@@ -194,7 +194,7 @@
     return { count, mean, spread, error, bias: mean - truth };
   }
 
-  Wonderloom.models.sample = Object.freeze({
+  Wonderlattice.models.sample = Object.freeze({
     COLS,
     ROWS,
     HOODS,

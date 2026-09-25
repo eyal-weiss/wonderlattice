@@ -1,5 +1,5 @@
 /* The tempting shortcut · visitor-facing words (English). */
-Wonderloom.defineText('traffic', 'en', {
+Wonderlattice.defineText('traffic', 'en', {
   eyebrow: 'GAME THEORY',
   name: 'The tempting shortcut',
   tagline: 'A new road that makes every driver slower.',

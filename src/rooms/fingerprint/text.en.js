@@ -1,5 +1,5 @@
 /* Grow a fingerprint · visitor-facing words (English). */
-Wonderloom.defineText('fingerprint', 'en', {
+Wonderlattice.defineText('fingerprint', 'en', {
   eyebrow: 'SKIN',
   name: 'Grow a fingerprint',
   tagline: 'Nobody draws it: ridges grow by themselves into whorls, loops, and arches.',

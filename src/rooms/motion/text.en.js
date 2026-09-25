@@ -3,7 +3,7 @@
  * fixed labels and its explanation dialog live in index.html (data-t="motion.*"
  * and "why.*"), so they are translated through the 'page' scope instead.
  */
-Wonderloom.defineText('motion', 'en', {
+Wonderlattice.defineText('motion', 'en', {
   eyebrow: 'GEOMETRY',
   name: 'Paint with motion',
   tagline: 'Two turning arms and a pen draw flowers, stars, and weaves.',
@@ -66,7 +66,7 @@ Wonderloom.defineText('motion', 'en', {
   saved: 'Your drawing is ready to save.',
   saveFailed: 'The image could not be saved. Please try again.',
   shareText: (k, r, p, ink) =>
-    `Wonderloom · Paint with motion\nInner rotation: ${k}×\nPen reach: ${r}%\nStarting angle: ${p}°\nInk: ${ink}`,
+    `Wonderlattice · Paint with motion\nInner rotation: ${k}×\nPen reach: ${r}%\nStarting angle: ${p}°\nInk: ${ink}`,
   linkCopied: 'Pattern link copied.',
   settingsCopied: 'Pattern settings copied.',
   linkDescription: 'Copy this link to reopen the same pattern.',

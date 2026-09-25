@@ -1,4 +1,4 @@
-# Wonderloom
+# Wonderlattice
 
 A playground for beautiful mathematical ideas, owned and directed by Eyal Weiss.
 
@@ -23,7 +23,7 @@ docs/TRANSLATING.md.
 
 Double-click **index.html**. It works offline, in any modern browser, with no installation.
 
-To send someone a single file, run `npm run build` and share `dist/wonderloom-standalone.html`. It holds the whole
+To send someone a single file, run `npm run build` and share `dist/wonderlattice-standalone.html`. It holds the whole
 app, portraits included.
 
 Sound starts only after a click. Narration uses the browser's voices, and some voices need the internet. External
@@ -54,7 +54,7 @@ npm ci                  # once, installs the test and formatting tools
 npm start               # serve at http://localhost:4173
 npm test                # model tests
 npm run test:browser    # behaviour tests in a real browser
-npm run build           # dist/ plus dist/wonderloom-standalone.html
+npm run build           # dist/ plus dist/wonderlattice-standalone.html
 npm run i18n:check      # check translation files
 npm run check           # everything CI runs
 ```
@@ -73,7 +73,7 @@ transferred.
 
 ## Working on it
 
-This private repository, `eyal-weiss/wonderloom`, is the source of truth. Work happens on a branch per task with a
+This private repository, `eyal-weiss/wonderloom` (named before the site became Wonderlattice), is the source of truth. Work happens on a branch per task with a
 pull request into `main`; CI runs lint, formatting, model tests, a build, and browser tests on every pull request. See
 docs/COLLABORATING.md.
 

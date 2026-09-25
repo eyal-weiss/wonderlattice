@@ -90,5 +90,5 @@
     return { birds: next, order: Math.hypot(avx, avy) / birds.length };
   }
 
-  Wonderloom.models.flock = Object.freeze({ SIGHT, seed, step, wrap, delta });
+  Wonderlattice.models.flock = Object.freeze({ SIGHT, seed, step, wrap, delta });
 })();

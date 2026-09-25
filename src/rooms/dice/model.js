@@ -142,5 +142,5 @@
     return { a: ra, b: rb, totalA: sa, totalB: sb, result: Math.sign(sa - sb) };
   }
 
-  Wonderloom.models.dice = Object.freeze({ SETS, reduce, outcomes, exact, bestReply, victories, mean, rng, play });
+  Wonderlattice.models.dice = Object.freeze({ SETS, reduce, outcomes, exact, bestReply, victories, mean, rng, play });
 })();

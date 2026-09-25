@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import './load.js';
 
-const W = globalThis.Wonderloom;
+const W = globalThis.Wonderlattice;
 
 test('text falls back to English key by key', () => {
   W.defineText('sample', 'en', { hello: 'Hello', bye: 'Goodbye' });

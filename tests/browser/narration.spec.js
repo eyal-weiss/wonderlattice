@@ -29,7 +29,7 @@ test('narration reads the prose sentence by sentence, in a matching voice, and r
   expect(spoken.every((s) => s.text.length <= 230)).toBe(true);
   expect(spoken.every((s) => s.lang === 'en-US')).toBe(true);
   // The voice is chosen for the page language, preferring one on the device, not the system default.
-  expect(await page.evaluate(() => globalThis.Wonderloom.narration.voice()?.name)).toBe('Local English');
+  expect(await page.evaluate(() => globalThis.Wonderlattice.narration.voice()?.name)).toBe('Local English');
   // Only the content: no button labels or close marks.
   for (const noise of ['✕', 'Listen to this idea', 'Show me the arms', 'Stop narration'])
     expect(text).not.toContain(noise);
@@ -64,7 +64,8 @@ test('picks an English voice from a Firefox-on-Linux style list (no default, Cat
   page,
 }) => {
   await page.goto('/');
-  const pick = (voices) => page.evaluate((list) => globalThis.Wonderloom.narration.voice(list)?.name ?? null, voices);
+  const pick = (voices) =>
+    page.evaluate((list) => globalThis.Wonderlattice.narration.voice(list)?.name ?? null, voices);
   const firefoxLinux = [
     { name: 'Catalan', lang: 'ca', localService: true, default: false },
     { name: 'Bishnupriya Manipuri', lang: 'bpy', localService: true, default: false },

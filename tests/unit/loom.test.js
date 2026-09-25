@@ -3,7 +3,7 @@ import test from 'node:test';
 import { readFileSync } from 'node:fs';
 import './load.js';
 
-const L = globalThis.Wonderloom.models.loom;
+const L = globalThis.Wonderlattice.models.loom;
 const STRAIGHT = 0,
   POINT = 1,
   SOLID = 0,

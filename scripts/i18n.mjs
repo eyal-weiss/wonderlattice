@@ -19,11 +19,11 @@ const langDir = join(root, 'src/lang');
 // ---------- loading the dictionaries ----------
 
 async function load() {
-  await import(pathToFileURL(join(root, 'src/core/wonderloom.js')).href);
+  await import(pathToFileURL(join(root, 'src/core/wonderlattice.js')).href);
   const scripts = [...html.matchAll(/<script src="\.\/([^"]+)"><\/script>/g)].map((m) => m[1]);
   for (const path of scripts.filter((p) => /text\.en\.js$|^src\/lang\//.test(p)))
     await import(pathToFileURL(join(root, path)).href);
-  const W = globalThis.Wonderloom;
+  const W = globalThis.Wonderlattice;
   return { W, dictionaries: W.dictionaries(), languages: W.languages(), scripts };
 }
 
@@ -194,11 +194,11 @@ function starter(dictionaries, code, name, rtl) {
  * - Keys ending in Html may contain markup such as <strong> or <em>; keep the tags balanced.
  * - Check your work with: npm run i18n:check
  */
-Wonderloom.defineLanguage('${code}', { name: ${JSON.stringify(name)}, dir: '${rtl ? 'rtl' : 'ltr'}', speech: '${code}' });
+Wonderlattice.defineLanguage('${code}', { name: ${JSON.stringify(name)}, dir: '${rtl ? 'rtl' : 'ltr'}', speech: '${code}' });
 `;
   for (const scope of scopes)
-    out += `\nWonderloom.defineText('${scope}', '${code}', ${literal(dictionaries[scope].en, '')});\n`;
-  out += `\n// The fixed text of the page (index.html, elements marked data-t).\nWonderloom.defineText('page', '${code}', ${literal(pageText(), '')});\n`;
+    out += `\nWonderlattice.defineText('${scope}', '${code}', ${literal(dictionaries[scope].en, '')});\n`;
+  out += `\n// The fixed text of the page (index.html, elements marked data-t).\nWonderlattice.defineText('page', '${code}', ${literal(pageText(), '')});\n`;
   return out;
 }
 

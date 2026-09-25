@@ -1,5 +1,5 @@
 /* Hear the shape · visitor-facing words (English). */
-Wonderloom.defineText('waves', 'en', {
+Wonderlattice.defineText('waves', 'en', {
   eyebrow: 'WAVES · SOUND',
   name: 'Hear the shape',
   tagline: 'Two tones combine into beats, silence, and a looping portrait.',

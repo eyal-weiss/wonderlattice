@@ -2,7 +2,7 @@
 (() => {
   'use strict';
 
-  const W = Wonderloom;
+  const W = Wonderlattice;
   const { $, clamp, TAU } = W;
   const M = W.models.plane;
   const { FUNCTIONS, PICTURES, JOUKOWSKI } = M;

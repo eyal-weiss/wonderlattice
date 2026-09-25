@@ -6,10 +6,13 @@
 (() => {
   'use strict';
 
-  const W = Wonderloom;
+  const W = Wonderlattice;
   const { $ } = W;
-  const KEY = 'wonderloom.trail.v1',
+  const KEY = 'wonderlattice.trail.v1',
     MAX = 24;
+  // Before 2026-09-24 the site was called Wonderloom; its saved trails and exports still open.
+  const OLD_KEY = 'wonderloom.trail.v1',
+    FORMATS = ['wonderlattice-trail', 'wonderloom-trail'];
   // Threads between rooms, offered once a visitor has saved something from one side.
   // Their words are in the 'app' text under trail.bridges, keyed "a-b".
   const bridges = [
@@ -72,7 +75,7 @@
 
   function load() {
     try {
-      const data = JSON.parse(localStorage.getItem(KEY) || '[]');
+      const data = JSON.parse(localStorage.getItem(KEY) || localStorage.getItem(OLD_KEY) || '[]');
       if (Array.isArray(data) && data.length <= MAX && data.every(valid)) entries = data;
       else throw Error('Invalid trail');
     } catch {
@@ -89,6 +92,7 @@
   function persist(next) {
     try {
       localStorage.setItem(KEY, JSON.stringify(next));
+      localStorage.removeItem(OLD_KEY);
       entries = next;
       return true;
     } catch {
@@ -244,10 +248,10 @@
   }
 
   function download() {
-    const blob = new Blob([JSON.stringify({ format: 'wonderloom-trail', version: 1, entries }, null, 2)], {
+    const blob = new Blob([JSON.stringify({ format: 'wonderlattice-trail', version: 1, entries }, null, 2)], {
       type: 'application/json',
     });
-    W.download(blob, 'wonderloom-my-trail.json');
+    W.download(blob, 'wonderlattice-my-trail.json');
   }
 
   async function importFile(file) {
@@ -255,7 +259,7 @@
     try {
       const data = JSON.parse(await file.text());
       if (
-        data.format !== 'wonderloom-trail' ||
+        !FORMATS.includes(data.format) ||
         data.version !== 1 ||
         !Array.isArray(data.entries) ||
         data.entries.length > MAX ||
@@ -305,5 +309,5 @@
     render();
   }
 
-  window.WonderloomTrail = { init, valid };
+  window.WonderlatticeTrail = { init, valid };
 })();

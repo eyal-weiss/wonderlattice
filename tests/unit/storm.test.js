@@ -3,7 +3,7 @@ import test from 'node:test';
 import { readFileSync } from 'node:fs';
 import './load.js';
 
-const storm = globalThis.Wonderloom.models.storm;
+const storm = globalThis.Wonderlattice.models.storm;
 const { CODES, PICTURES, PIXELS, BLOCKS } = storm;
 const NONE = 0,
   REPEAT = 1,

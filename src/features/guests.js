@@ -7,7 +7,7 @@
 (() => {
   'use strict';
 
-  const W = Wonderloom;
+  const W = Wonderlattice;
   const biography = (page) => `https://mathshistory.st-andrews.ac.uk/Biographies/${page}/`;
   const commons = (file) => `https://commons.wikimedia.org/wiki/File:${file}`;
   // The single-file export (npm run build) embeds portraits as data URLs here.
@@ -138,5 +138,5 @@
     });
   }
 
-  globalThis.WonderloomGuests = Object.freeze({ pick, render, sketch });
+  globalThis.WonderlatticeGuests = Object.freeze({ pick, render, sketch });
 })();

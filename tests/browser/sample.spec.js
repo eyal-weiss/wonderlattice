@@ -6,7 +6,8 @@ async function meanAndTruth(page) {
   return { mean: Number(data.mean), truth: Number(data.truth) };
 }
 
-const cityShare = (page, seed) => page.evaluate((s) => globalThis.Wonderloom.models.sample.city(s).share * 100, seed);
+const cityShare = (page, seed) =>
+  page.evaluate((s) => globalThis.Wonderlattice.models.sample.city(s).share * 100, seed);
 
 test('sample room: open from the map, ask, repeat, and reveal the truth', async ({ page }) => {
   await page.goto('/');
@@ -80,7 +81,7 @@ test('sample room: biased presets are tight around the wrong answer, and batches
   await page.getByRole('button', { name: /Ask the neighbours/ }).click();
   await expect(page.locator('#sample-method')).toHaveValue('1');
   const oddest = await page.evaluate(() => {
-    const m = globalThis.Wonderloom.models.sample;
+    const m = globalThis.Wonderlattice.models.sample;
     return m.oddestHood(m.city(44));
   });
   await expect(page.locator('#sample-hood')).toHaveValue(String(oddest));
@@ -135,7 +136,7 @@ test('sample room: the map, the keyboard, and a new city', async ({ page }) => {
   const { settings } = await tool(page, 'read_exploration');
   expect(settings.seed).not.toBe(44);
   const oddest = await page.evaluate((seed) => {
-    const m = globalThis.Wonderloom.models.sample;
+    const m = globalThis.Wonderlattice.models.sample;
     return m.oddestHood(m.city(seed));
   }, settings.seed);
   expect(settings.hood).toBe(oddest);
@@ -192,7 +193,7 @@ test('sample room: the estimate is announced once per batch, not on every survey
   await page.goto('/#room=sample');
   await expect(page.locator('#sample-estimate')).not.toHaveAttribute('role', 'status');
   await page.evaluate(() => {
-    const W = globalThis.Wonderloom;
+    const W = globalThis.Wonderlattice;
     const say = W.announce;
     window.__said = [];
     W.announce = (text) => (window.__said.push(text), say(text));

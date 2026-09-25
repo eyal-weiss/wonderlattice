@@ -11,7 +11,7 @@ const settings = async (page) => (await tool(page, 'read_exploration')).settings
 async function leftPanel(page) {
   const box = await page.locator('#scene-canvas').boundingBox();
   const { fn } = await settings(page);
-  const frame = await page.evaluate((i) => globalThis.Wonderloom.models.plane.FUNCTIONS[i].frame, fn);
+  const frame = await page.evaluate((i) => globalThis.Wonderlattice.models.plane.FUNCTIONS[i].frame, fn);
   const side = { w: (box.width - 38) / 2, h: box.height - 8 },
     stack = { w: box.width - 8, h: (box.height - 38) / 2 };
   const size = Math.min(side.w, side.h) >= Math.min(stack.w, stack.h) ? side : stack;

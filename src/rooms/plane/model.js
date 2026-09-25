@@ -412,7 +412,7 @@
     return lines;
   }
 
-  Wonderloom.models.plane = Object.freeze({
+  Wonderlattice.models.plane = Object.freeze({
     ZERO,
     ONE,
     I,

@@ -134,7 +134,7 @@
     return Math.max(weft, warp);
   }
 
-  Wonderloom.models.loom = Object.freeze({
+  Wonderlattice.models.loom = Object.freeze({
     SHAFTS,
     orders,
     colourOrders,

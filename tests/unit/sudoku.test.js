@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import './load.js';
 
-const M = globalThis.Wonderloom.models.sudoku;
+const M = globalThis.Wonderlattice.models.sudoku;
 const { parse, format } = M;
 
 // A well-known 9×9 puzzle and its solution, to check the same code at full size.

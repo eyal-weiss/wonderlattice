@@ -3,9 +3,9 @@
  * Each room keeps its own words in src/rooms/<id>/text.en.js; the fixed page text
  * lives in index.html (elements marked data-t). See docs/TRANSLATING.md.
  */
-Wonderloom.defineLanguage('en', { name: 'English', dir: 'ltr', speech: 'en-US' });
+Wonderlattice.defineLanguage('en', { name: 'English', dir: 'ltr', speech: 'en-US' });
 
-Wonderloom.defineText('app', 'en', {
+Wonderlattice.defineText('app', 'en', {
   themes: {
     shape: { name: 'Shape & space', blurb: 'Curves, surfaces, and the spaces they live in.' },
     chance: { name: 'Chance & evidence', blurb: 'Reasoning well when single events are unpredictable.' },
@@ -19,7 +19,7 @@ Wonderloom.defineText('app', 'en', {
     next: (name) => `Next experiment: ${name}`,
   },
   language: 'Language',
-  pageTitle: (room) => `${room} · Wonderloom`,
+  pageTitle: (room) => `${room} · Wonderlattice`,
 
   stage: {
     makeItYours: 'Make it yours',
@@ -31,7 +31,7 @@ Wonderloom.defineText('app', 'en', {
     play: 'Play',
     saved: 'Your scene is ready to save.',
     saveFailed: 'Could not save this image.',
-    shareText: (title) => `Wonderloom · ${title}`,
+    shareText: (title) => `Wonderlattice · ${title}`,
     linkCopied: 'Exploration link copied.',
     settingsCopied: 'Exploration settings copied.',
     linkDescription: 'Copy this link to reopen these settings.',
@@ -100,9 +100,9 @@ Wonderloom.defineText('app', 'en', {
     returnTitle: (room) => `A moment you kept · ${room}`,
     thenYouNoticed: (note) => `Then you noticed: “${note}”`,
     noticeNow: 'What do you notice now?',
-    tooLarge: 'Choose a Wonderloom trail export smaller than 2.4 MB.',
+    tooLarge: 'Choose a Wonderlattice trail export smaller than 2.4 MB.',
     imported: 'Trail imported. Your previous trail was replaced.',
-    invalid: 'That file is not a valid Wonderloom trail export. Your trail was not changed.',
+    invalid: 'That file is not a valid Wonderlattice trail export. Your trail was not changed.',
     thoughtSaved: 'Your new thought is saved. Come back to it whenever you like.',
   },
 });

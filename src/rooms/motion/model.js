@@ -59,5 +59,5 @@
     return 'rgb(' + a.map((x, j) => Math.round(x + (b[j] - x) * f)).join(',') + ')';
   }
 
-  Wonderloom.models.motion = Object.freeze({ palettes, gcd, period, position, color });
+  Wonderlattice.models.motion = Object.freeze({ palettes, gcd, period, position, color });
 })();

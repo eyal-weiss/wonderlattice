@@ -1,10 +1,10 @@
 /*
- * Wonderloom core: one shared namespace, small helpers, and the room registry.
+ * Wonderlattice core: one shared namespace, small helpers, and the room registry.
  *
  * Every file in src/ is a classic script rather than an ES module, so that
  * index.html keeps working when it is opened straight from disk (browsers
  * block module imports from file:// pages). Scripts load in the order listed
- * in index.html and talk to each other only through `Wonderloom`.
+ * in index.html and talk to each other only through `Wonderlattice`.
  */
 (() => {
   'use strict';
@@ -104,7 +104,7 @@
     return holder.innerHTML;
   }
 
-  const Wonderloom = {
+  const Wonderlattice = {
     TAU: Math.PI * 2,
     $,
     clamp: (x, a, b) => Math.max(a, Math.min(b, x)),
@@ -120,10 +120,10 @@
     themes: ['shape', 'chance', 'games', 'making', 'life', 'signals'].map((id) => ({
       id,
       get name() {
-        return Wonderloom.text('app').themes[id].name;
+        return Wonderlattice.text('app').themes[id].name;
       },
       get blurb() {
-        return Wonderloom.text('app').themes[id].blurb;
+        return Wonderlattice.text('app').themes[id].blurb;
       },
     })),
 
@@ -134,7 +134,8 @@
     defineRoom(room) {
       if (!room || !/^[a-z]+$/.test(room.id)) throw new Error(`Room ids must be lowercase letters: ${room?.id}`);
       if (byId[room.id]) throw new Error(`Room "${room.id}" is defined twice`);
-      if (!Wonderloom.themes.some((t) => t.id === room.theme)) throw new Error(`Room "${room.id}" needs a known theme`);
+      if (!Wonderlattice.themes.some((t) => t.id === room.theme))
+        throw new Error(`Room "${room.id}" needs a known theme`);
       rooms.push(room);
       byId[room.id] = room;
       return room;
@@ -162,7 +163,10 @@
       if (chosenLang) return chosenLang;
       let asked = null;
       try {
-        asked = new URLSearchParams(location.search).get('lang') || localStorage.getItem('wonderloom.lang');
+        asked =
+          new URLSearchParams(location.search).get('lang') ||
+          localStorage.getItem('wonderlattice.lang') ||
+          localStorage.getItem('wonderloom.lang'); // the site's earlier name
       } catch {
         /* no address or storage (e.g. Node tests) */
       }
@@ -172,7 +176,7 @@
     set lang(code) {
       chosenLang = code;
     },
-    language: () => languages[Wonderloom.lang] ?? languages.en ?? { dir: 'ltr', speech: 'en-US' },
+    language: () => languages[Wonderlattice.lang] ?? languages.en ?? { dir: 'ltr', speech: 'en-US' },
 
     /** Register visitor-facing words for a scope (usually a room id) in one language. */
     defineText(scope, lang, strings) {
@@ -185,7 +189,7 @@
     text(scope) {
       const t = texts[scope];
       if (!t?.en) throw new Error(`No English text defined for "${scope}"`);
-      const lang = Wonderloom.lang;
+      const lang = Wonderlattice.lang;
       return lang === 'en' || !t[lang] ? t.en : merge(t.en, t[lang]);
     },
 
@@ -202,11 +206,11 @@
      * 'page' scope of their language file.
      */
     applyPageText(root = document) {
-      const language = Wonderloom.language();
-      document.documentElement.lang = Wonderloom.lang;
+      const language = Wonderlattice.language();
+      document.documentElement.lang = Wonderlattice.lang;
       document.documentElement.dir = language.dir;
-      const page = texts.page?.[Wonderloom.lang];
-      if (!page || Wonderloom.lang === 'en') return;
+      const page = texts.page?.[Wonderlattice.lang];
+      if (!page || Wonderlattice.lang === 'en') return;
       const find = (key) => key.split('.').reduce((o, k) => (o == null ? undefined : o[k]), page);
       root.querySelectorAll('[data-t]').forEach((el) => {
         const value = find(el.dataset.t);
@@ -257,7 +261,7 @@
     async copyText(text, { copied, description }) {
       try {
         await navigator.clipboard.writeText(text);
-        Wonderloom.toast(copied);
+        Wonderlattice.toast(copied);
       } catch {
         $('copy-description').textContent = description;
         $('copy-text').value = text;
@@ -281,9 +285,9 @@
     /** Save a canvas as a PNG download. */
     savePNG(canvas, filename, { saved, failed }) {
       canvas.toBlob((blob) => {
-        if (!blob) return Wonderloom.toast(failed);
-        Wonderloom.download(blob, filename);
-        Wonderloom.toast(saved);
+        if (!blob) return Wonderlattice.toast(failed);
+        Wonderlattice.download(blob, filename);
+        Wonderlattice.toast(saved);
       }, 'image/png');
     },
 
@@ -298,13 +302,13 @@
         narrationRun++; // any queued sentences from the last run are dropped
         if ('speechSynthesis' in window) window.speechSynthesis.cancel();
         narrating = false;
-        const t = Wonderloom.text('app').narration;
+        const t = Wonderlattice.text('app').narration;
         document.querySelectorAll('.narrate').forEach((b) => (b.textContent = t.listen));
       },
 
       /** The sentences to say for an element, in order. */
       script(element) {
-        const words = Wonderloom.text('app').narration.symbols;
+        const words = Wonderlattice.text('app').narration.symbols;
         const blocks = [
           ...element.querySelectorAll('h2, h3, p, li, summary, .insight-visual, .idea-card:not(.formula)'),
         ]
@@ -350,7 +354,7 @@
        * "en"), and a name that mentions the region.
        */
       voice(voices = window.speechSynthesis.getVoices()) {
-        const wanted = Wonderloom.language().speech.toLowerCase();
+        const wanted = Wonderlattice.language().speech.toLowerCase();
         const [base, region] = wanted.split('-');
         const regionNames = { us: /america|united states|\bus\b/i, gb: /great britain|united kingdom|\buk\b/i };
         const score = (v) => {
@@ -383,11 +387,11 @@
 
       async speak(element, button) {
         const synth = window.speechSynthesis;
-        const t = Wonderloom.text('app').narration;
-        if (!synth || !window.SpeechSynthesisUtterance) return Wonderloom.toast(t.unavailable);
-        if (narrating) return Wonderloom.narration.stop();
-        Wonderloom.silence();
-        const sentences = Wonderloom.narration.script(element);
+        const t = Wonderlattice.text('app').narration;
+        if (!synth || !window.SpeechSynthesisUtterance) return Wonderlattice.toast(t.unavailable);
+        if (narrating) return Wonderlattice.narration.stop();
+        Wonderlattice.silence();
+        const sentences = Wonderlattice.narration.script(element);
         if (!sentences.length) return;
         const run = ++narrationRun;
         narrating = true;
@@ -398,12 +402,12 @@
           synth.cancel();
           await new Promise((r) => setTimeout(r, 80));
         }
-        const voice = Wonderloom.narration.voice(await Wonderloom.narration.voices());
+        const voice = Wonderlattice.narration.voice(await Wonderlattice.narration.voices());
         if (run !== narrationRun) return; // stopped while we waited
-        const lang = voice?.lang || Wonderloom.language().speech;
+        const lang = voice?.lang || Wonderlattice.language().speech;
         let spoken = 0,
           failed = false;
-        const finish = () => run === narrationRun && Wonderloom.narration.stop();
+        const finish = () => run === narrationRun && Wonderlattice.narration.stop();
         // Hand every sentence to the browser's own queue. Short utterances avoid
         // engines that cut long ones off; keeping them referenced (in `queue`)
         // stops some browsers from dropping them before their end event.
@@ -421,8 +425,8 @@
           u.onerror = (e) => {
             if (e.error === 'interrupted' || e.error === 'canceled' || failed || run !== narrationRun) return;
             failed = true;
-            Wonderloom.narration.stop();
-            Wonderloom.toast(t.unavailable);
+            Wonderlattice.narration.stop();
+            Wonderlattice.toast(t.unavailable);
           };
           return u;
         });
@@ -440,7 +444,7 @@
     },
   };
 
-  globalThis.Wonderloom = Wonderloom;
+  globalThis.Wonderlattice = Wonderlattice;
 
   // Ask for the voices early: Firefox, for one, starts loading them only when first asked.
   try {

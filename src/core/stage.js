@@ -7,7 +7,7 @@
 (() => {
   'use strict';
 
-  const W = Wonderloom;
+  const W = Wonderlattice;
   const { $, clamp } = W;
   const reduced = W.prefersReducedMotion();
   const words = () => W.text('app').stage;
@@ -133,7 +133,7 @@
     );
     room.bindControls?.(panel, s, stage);
     $('scene-why').addEventListener('click', openInsight);
-    WonderloomGuests.render(room.id, $('math-guest-scene'));
+    WonderlatticeGuests.render(room.id, $('math-guest-scene'));
     sync();
   }
 
@@ -248,7 +248,7 @@
       c.fillStyle = '#0a0e15';
       c.fillRect(0, 0, out.width, out.height);
       c.drawImage(canvas, 0, 0);
-      W.savePNG(out, `wonderloom-${room.id}.png`, {
+      W.savePNG(out, `wonderlattice-${room.id}.png`, {
         saved: words().saved,
         failed: words().saveFailed,
       });

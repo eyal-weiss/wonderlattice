@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title data-t="head.title">Wonderloom — Follow your curiosity</title>
+    <title data-t="head.title">Wonderlattice — Follow your curiosity</title>
     <meta
       name="description"
       content="Small rooms of playful mathematics: draw with turning arms, weave cloth, pit dice against each other, send a picture through a storm, bend the plane, grow a fingerprint, and more."
@@ -12,8 +12,8 @@
     <meta name="theme-color" content="#101217" />
     <!-- Link previews. Once the site has an address, make og:image absolute (https://…/assets/social.jpg). -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Wonderloom" />
-    <meta property="og:title" content="Wonderloom — Follow your curiosity" />
+    <meta property="og:site_name" content="Wonderlattice" />
+    <meta property="og:title" content="Wonderlattice — Follow your curiosity" />
     <meta
       property="og:description"
       content="Small, hands-on experiments with big mathematical ideas. Pick one and play. There is nothing to get right."
@@ -23,7 +23,7 @@
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="Wonderloom: cards for a flower drawn by turning arms, a woven pattern, two dice, and three fingerprints."
+      content="Wonderlattice: cards for a flower drawn by turning arms, a woven pattern, two dice, and three fingerprints."
     />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
@@ -50,13 +50,13 @@
     <a class="skip-link" href="#" id="skip-link" data-t="skip">Skip to the main content</a>
     <div class="shell">
       <header>
-        <a class="brand" href="#" aria-label="Wonderloom home" data-t-attr="aria-label:header.home">
+        <a class="brand" href="#" aria-label="Wonderlattice home" data-t-attr="aria-label:header.home">
           <svg aria-hidden="true" viewBox="0 0 32 32">
             <ellipse cx="16" cy="16" rx="6" ry="14" />
             <ellipse cx="16" cy="16" rx="6" ry="14" transform="rotate(60 16 16)" />
             <ellipse cx="16" cy="16" rx="6" ry="14" transform="rotate(120 16 16)" />
           </svg>
-          wonderloom
+          wonderlattice
         </a>
         <span class="edition" data-t="header.edition">A SMALL PLACE FOR BIG CURIOSITY</span>
         <button class="quiet" id="about-button" data-t="header.about">About this place</button>
@@ -108,8 +108,8 @@
           <div>
             <h1 id="home-title" tabindex="-1" data-t="home.title">Follow your curiosity.</h1>
             <p data-t="home.intro">
-              Wonderloom is a free collection of small, hands-on experiments with big mathematical ideas. Pick one and
-              play. There is nothing to get right, and nothing to sign up for.
+              Wonderlattice is a free collection of small, hands-on experiments with big mathematical ideas. Pick one
+              and play. There is nothing to get right, and nothing to sign up for.
             </p>
           </div>
         </div>
@@ -430,7 +430,7 @@
 
     <dialog id="about-dialog" aria-labelledby="about-title">
       <div class="dialog-head">
-        <h2 id="about-title" data-t="about.title">Welcome to Wonderloom.</h2>
+        <h2 id="about-title" data-t="about.title">Welcome to Wonderlattice.</h2>
         <button class="button icon-button close" aria-label="Close about" data-t-attr="aria-label:about.close">
           ✕
         </button>
@@ -455,21 +455,21 @@
       </p>
       <h3 data-t="about.privacyTitle">Your privacy</h3>
       <p data-t="about.privacy">
-        Wonderloom collects nothing. The website’s host keeps standard access logs (address, time, page) under its own
-        policy. My trail and your language choice are kept in this browser only, and only when you use them; clearing
-        site data removes them. Narration uses your browser’s voices: some online voices send the text being read (these
-        explanations, never your notes) to the browser maker’s speech service.
+        Wonderlattice collects nothing. The website’s host keeps standard access logs (address, time, page) under its
+        own policy. My trail and your language choice are kept in this browser only, and only when you use them;
+        clearing site data removes them. Narration uses your browser’s voices: some online voices send the text being
+        read (these explanations, never your notes) to the browser maker’s speech service.
       </p>
       <h3 data-t="about.whoTitle">Who makes this</h3>
       <p data-t="about.whoHtml">
-        Wonderloom is a free, noncommercial hobby project by Eyal Weiss. Say hello at
+        Wonderlattice is a free, noncommercial hobby project by Eyal Weiss. Say hello at
         <a href="mailto:eyal8488@gmail.com">eyal8488@gmail.com</a> or on
         <a href="https://github.com/eyal-weiss" target="_blank" rel="noopener noreferrer">GitHub</a>.
       </p>
       <p class="about-small" data-t="about.legal">
         The models here are simplified for play and explanation; they are not predictions, measurements, or advice.
         Provided as is, without warranty. Links lead to independent sites; no affiliation or endorsement is implied.
-        Rubik’s Cube® is a registered trademark of Spin Master Toys UK Limited; Wonderloom is not affiliated with it.
+        Rubik’s Cube® is a registered trademark of Spin Master Toys UK Limited; Wonderlattice is not affiliated with it.
       </p>
       <p class="about-small" data-t="about.creditsHtml">
         The code and words are free to reuse under the MIT licence. The portraits of historical mathematicians are in
@@ -562,7 +562,7 @@
             type="file"
             id="trail-import"
             accept=".json,application/json"
-            aria-label="Import a trail (a Wonderloom JSON file)"
+            aria-label="Import a trail (a Wonderlattice JSON file)"
             data-t-attr="aria-label:trail.importLabel"
         /></label>
       </div>
@@ -574,7 +574,7 @@
     </dialog>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <!-- One polite live region for results (Wonderloom.announce). -->
+    <!-- One polite live region for results (Wonderlattice.announce). -->
     <div class="visually-hidden" id="announcer" role="status" aria-live="polite"></div>
 
     <!--
@@ -583,7 +583,7 @@
       Languages: one file each in src/lang/, listed right after the English core text
       (npm run i18n:new adds the tag). See docs/ARCHITECTURE.md and docs/TRANSLATING.md.
     -->
-    <script src="./src/core/wonderloom.js"></script>
+    <script src="./src/core/wonderlattice.js"></script>
     <script src="./src/core/text.en.js"></script>
     <!-- languages -->
     <!-- /languages -->

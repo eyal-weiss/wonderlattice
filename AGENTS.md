@@ -1,4 +1,4 @@
-# Wonderloom: brief for the next collaborator
+# Wonderlattice: brief for the next collaborator
 
 Read README.md, docs/ARCHITECTURE.md, and docs/STATUS.md first. Don't assume access to earlier chat history or the
 original hosting service.
@@ -11,7 +11,7 @@ people without a strong mathematical background. Preserve both solo exploration 
 
 ## Architecture in one paragraph
 
-`index.html` holds page structure only. Each room is one `Wonderloom.defineRoom({...})` in `src/rooms/<id>/room.js`,
+`index.html` holds page structure only. Each room is one `Wonderlattice.defineRoom({...})` in `src/rooms/<id>/room.js`,
 with its mathematics in `src/rooms/<id>/model.js` (pure, Node-tested). Canvas rooms share the stage in
 `src/core/stage.js`; the drawing room has its own layout. `src/core/app.js` builds navigation, links, trail, and agent
 hooks from the room registry, so there's one list of rooms. All scripts are classic scripts (not ES modules) so the

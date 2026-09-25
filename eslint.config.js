@@ -5,15 +5,15 @@ export default [
   { ignores: ['dist/', 'node_modules/', 'test-results/', 'playwright-report/', '.claude/'] },
   js.configs.recommended,
   {
-    // App code: classic browser scripts sharing the Wonderloom namespace.
+    // App code: classic browser scripts sharing the Wonderlattice namespace.
     files: ['src/**/*.js'],
     languageOptions: {
       sourceType: 'script',
       globals: {
         ...globals.browser,
-        Wonderloom: 'readonly',
-        WonderloomGuests: 'readonly',
-        WonderloomTrail: 'readonly',
+        Wonderlattice: 'readonly',
+        WonderlatticeGuests: 'readonly',
+        WonderlatticeTrail: 'readonly',
       },
     },
     rules: { 'no-unused-vars': ['error', { args: 'none' }] },

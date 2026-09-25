@@ -18,7 +18,7 @@ test('a first tap on a die in the circle picks it, without the page jumping', as
       document.activeElement?.blur();
       scrollTo(0, 0);
       window.__arcs = [];
-      globalThis.Wonderloom.stage.draw();
+      globalThis.Wonderlattice.stage.draw();
       const nodes = window.__arcs.filter((a) => a[2] >= 11.9);
       const box = document.getElementById('scene-canvas').getBoundingClientRect();
       return nodes.map(([x, y]) => [box.left + x, box.top + y]);

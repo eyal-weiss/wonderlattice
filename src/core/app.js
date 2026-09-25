@@ -7,7 +7,7 @@
 (() => {
   'use strict';
 
-  const W = Wonderloom;
+  const W = Wonderlattice;
   const { $, rooms, stage } = W;
 
   let current = null; // the room being shown, or null on the home map
@@ -94,7 +94,7 @@
     const next = W.room(id);
     if (!next) return;
     prepare(next);
-    WonderloomGuests.pick(id);
+    WonderlatticeGuests.pick(id);
     leaveRoom();
     current = next;
     document.body.dataset.room = id;
@@ -294,7 +294,7 @@
     for (const room of rooms) room.agentTools?.(app).forEach(register);
     register({
       name: 'open_exploration',
-      description: 'Open one of Wonderloom’s visible playgrounds. Sound remains off.',
+      description: 'Open one of Wonderlattice’s visible playgrounds. Sound remains off.',
       inputSchema: {
         type: 'object',
         properties: { room: { type: 'string', enum: ids } },
@@ -338,7 +338,7 @@
     document.querySelector('footer').appendChild(label);
     $('language').addEventListener('change', (e) => {
       try {
-        localStorage.setItem('wonderloom.lang', e.target.value);
+        localStorage.setItem('wonderlattice.lang', e.target.value);
       } catch {
         /* the address below still carries the choice */
       }
@@ -366,7 +366,7 @@
       W.silence();
       W.narration.stop();
     });
-    WonderloomTrail.init({ capture, restore, open });
+    WonderlatticeTrail.init({ capture, restore, open });
     registerAgentTools();
   }
 

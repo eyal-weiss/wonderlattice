@@ -1,5 +1,5 @@
 /* Words · A spoonful of a city (English). Every visitor-facing string for the sampling room. */
-Wonderloom.defineText('sample', 'en', {
+Wonderlattice.defineText('sample', 'en', {
   eyebrow: 'SAMPLING',
   name: 'A spoonful of a city',
   tagline: 'A huge poll can be sure and wrong. A small random one is roughly right.',
@@ -45,38 +45,38 @@ Wonderloom.defineText('sample', 'en', {
   newCity: 'A new city',
 
   // The stage
-  cityTitle: (n) => `The city · ${n.toLocaleString(Wonderloom.lang)} residents`,
-  plotTitle: (n) => `Share who prefer orange · one dot per survey of ${n.toLocaleString(Wonderloom.lang)}`,
+  cityTitle: (n) => `The city · ${n.toLocaleString(Wonderlattice.lang)} residents`,
+  plotTitle: (n) => `Share who prefer orange · one dot per survey of ${n.toLocaleString(Wonderlattice.lang)}`,
   plotTitleShort: 'Orange share · one dot per survey',
   blueWins: 'blue wins',
   orangeWins: 'orange wins',
   wholeCity: (pct) => (pct === null ? 'whole city: ?' : `whole city ${pct}%`),
-  before: (name, n) => `○ Before: ${name}, ${n.toLocaleString(Wonderloom.lang)} each`,
+  before: (name, n) => `○ Before: ${name}, ${n.toLocaleString(Wonderlattice.lang)} each`,
   startHint: 'Press “Ask 50 times”',
   ready: 'Ready to ask',
-  surveys: (n) => (n === 1 ? '1 survey' : `${n.toLocaleString(Wonderloom.lang)} surveys`),
+  surveys: (n) => (n === 1 ? '1 survey' : `${n.toLocaleString(Wonderlattice.lang)} surveys`),
 
   // Readouts in the panel
   noSurveys: 'No surveys yet.',
   noEstimate: 'Each survey will add one dot.',
   surveyLine: (count, n) =>
-    `<strong>${count.toLocaleString(Wonderloom.lang)}</strong> ${count === 1 ? 'survey' : 'surveys'} of ${n.toLocaleString(Wonderloom.lang)} ${n === 1 ? 'person' : 'people'}`,
+    `<strong>${count.toLocaleString(Wonderlattice.lang)}</strong> ${count === 1 ? 'survey' : 'surveys'} of ${n.toLocaleString(Wonderlattice.lang)} ${n === 1 ? 'person' : 'people'}`,
   estimateLine: (mean, spread) =>
     spread === null
       ? `This one says ${mean}% prefer orange.`
       : `They say ${mean}% prefer orange, give or take ${spread} points.`,
-  theoryLine: (n, se) => `A random sample of ${n.toLocaleString(Wonderloom.lang)} wobbles by about ±${se} points.`,
+  theoryLine: (n, se) => `A random sample of ${n.toLocaleString(Wonderlattice.lang)} wobbles by about ±${se} points.`,
   truthHidden: 'The whole city’s answer is hidden.',
   truthLine: (pct, miss) =>
     miss === null ? `The whole city: ${pct}% orange.` : `The whole city: ${pct}% orange. Typical miss: ${miss} points.`,
   randomNote: 'Anyone in the city might be asked.',
-  hoodNote: (size, name) => `${size.toLocaleString(Wonderloom.lang)} people live in ${name}.`,
+  hoodNote: (size, name) => `${size.toLocaleString(Wonderlattice.lang)} people live in ${name}.`,
   hoodAll: (size, name) =>
-    `Only ${size.toLocaleString(Wonderloom.lang)} people live in ${name}, so each survey asks everyone there.`,
+    `Only ${size.toLocaleString(Wonderlattice.lang)} people live in ${name}, so each survey asks everyone there.`,
   volunteerNote: (answer, total) =>
-    `Only those who reply count: ${answer.toLocaleString(Wonderloom.lang)} of ${total.toLocaleString(Wonderloom.lang)}. Orange fans are keener to reply.`,
+    `Only those who reply count: ${answer.toLocaleString(Wonderlattice.lang)} of ${total.toLocaleString(Wonderlattice.lang)}. Orange fans are keener to reply.`,
   volunteerAll: (answer) =>
-    `Only ${answer.toLocaleString(Wonderloom.lang)} people ever reply, so each survey hears from all of them.`,
+    `Only ${answer.toLocaleString(Wonderlattice.lang)} people ever reply, so each survey hears from all of them.`,
 
   presets: [
     { name: 'A quick random poll', note: '50 people, anyone in the city.' },
@@ -93,7 +93,7 @@ Wonderloom.defineText('sample', 'en', {
 
   // The live paragraph in the explanation, for the visitor's own city.
   live: (n, se, hood, hoodOff, answerOff) =>
-    `In your city, a random sample of ${n.toLocaleString(Wonderloom.lang)} wobbles by about ±${se} points. ` +
+    `In your city, a random sample of ${n.toLocaleString(Wonderlattice.lang)} wobbles by about ±${se} points. ` +
     `Asking only in ${hood} is off by ${hoodOff} points, and counting whoever answers is off by ${answerOff}, however many people you ask.`,
 
   insight: {

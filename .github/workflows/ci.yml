@@ -43,6 +43,6 @@ jobs:
           retention-days: 7
       - uses: actions/upload-artifact@v4
         with:
-          name: wonderloom-site
+          name: wonderlattice-site
           path: dist/
           retention-days: 30

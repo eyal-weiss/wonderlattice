@@ -1,5 +1,5 @@
 /* A mind of many · visitor-facing words (English). */
-Wonderloom.defineText('flock', 'en', {
+Wonderlattice.defineText('flock', 'en', {
   eyebrow: 'EMERGENCE',
   name: 'A mind of many',
   tagline: 'No leader, just neighbours: guide a flock into motion.',

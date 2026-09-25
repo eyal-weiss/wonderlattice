@@ -2,7 +2,7 @@
 (() => {
   'use strict';
 
-  const W = Wonderloom;
+  const W = Wonderlattice;
   const { $ } = W;
   const L = W.models.loom;
   const t = W.text('loom');
