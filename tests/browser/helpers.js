@@ -10,7 +10,7 @@ export const ROOMS = {
   storm: 'Send a picture through a storm.',
   sudoku: 'Sudoku, made transparent.',
   dice: 'The dice that beat each other.',
-  cube: 'Inside the Rubik’s Cube.',
+  cube: 'Inside the puzzle cube.',
   sample: 'A spoonful of a city.',
   plane: 'Bend the plane.',
   fingerprint: 'Grow a fingerprint.',

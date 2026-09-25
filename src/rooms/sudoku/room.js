@@ -1,7 +1,7 @@
 /*
  * Room · Sudoku, made transparent. A 4×4 Sudoku drawn on the stage: each empty
  * square shows its remaining candidates, a placement visibly removes
- * possibilities from its neighbors, and the same puzzle can be redrawn as the
+ * possibilities from its neighbours, and the same puzzle can be redrawn as the
  * graph it really is. The mathematics is in model.js; the words in text.en.js.
  */
 (() => {
@@ -15,7 +15,7 @@
   const SIDE = 4;
   const GRAPH = model.graph(SIDE);
   const PUZZLES = model.puzzles.map(model.parse);
-  // Colorblind-friendly hues (after Okabe & Ito), lightened for the dark stage.
+  // Colour-blind-friendly hues (after Okabe & Ito), lightened for the dark stage.
   const COLORS = ['#62b8ee', '#f2a541', '#e58ec2', '#4fcf9f'];
   const SHAPES = ['circle', 'square', 'triangle', 'diamond'];
   const GIVEN_INK = '#f1f2ed',
@@ -24,15 +24,18 @@
     WARM = '#ffb38a',
     SWAP = '#e2ccff';
   const FADE_TIME = 1.1; // seconds for a ruled-out candidate to fade
+  const TILE_INK = 'rgba(10, 14, 21, 0.62)'; // the shape drawn inside a colour tile, so colour is never the only cue
 
   let board = null; // { puzzle, givens, grid, history: [{ cell, from, to }] }
   let info = null; // analysis of board.grid: candidates, clashes, solutions
   let selected = 0; // the chosen square
   let note = null; // { say(s) → the line under the board, mark: what to outline }
   let fades = []; // candidates just ruled out: { cell, value, age }
-  let flash = null; // the placement whose neighbors are lighting up: { cell, age }
+  let flash = null; // the placement whose neighbours are lighting up: { cell, age }
   let morph = 0; // 0 = the board, 1 = the network
   let finishesOnStage = false; // whether the stage has room to show two finishes itself
+  let cells = null; // the accessible board over the canvas: 16 gridcell buttons
+  let placedAt = ''; // where the board's buttons were last put, to skip needless updates
 
   const rowOf = (cell) => model.rowOf(cell, SIDE);
   const colOf = (cell) => model.colOf(cell, SIDE);
@@ -180,15 +183,6 @@
     };
   }
 
-  /** The square or node under a point, or -1. */
-  function hit(L, x, y) {
-    for (let cell = 0; cell < SIDE * SIDE; cell++) {
-      const p = centre(L, cell);
-      if (Math.abs(x - p.x) < L.cell / 2 && Math.abs(y - p.y) < L.cell / 2) return cell;
-    }
-    return -1;
-  }
-
   // ---------------------------------------------------------------- drawing
 
   function shapePath(ctx, kind, x, y, r) {
@@ -209,7 +203,7 @@
     }
   }
 
-  /** A shape or digit glyph (the colors style paints whole tiles instead). */
+  /** A shape or digit glyph. */
   function glyph(ctx, style, value, x, y, r, ink) {
     if (style === 2) {
       ctx.fillStyle = ink;
@@ -323,6 +317,7 @@
         tilePath(ctx, x, y, inset, given ? corner : corner * 0.8 + inset * 0.2);
         ctx.fillStyle = COLORS[value - 1];
         ctx.fill();
+        glyph(ctx, 1, value, x, y, inset * 0.42, TILE_INK);
       } else if (value) {
         glyph(ctx, style, value, x, y, half * 0.42, given ? GIVEN_INK : PLACED_INK);
       }
@@ -355,12 +350,9 @@
             ctx.scale(1 + p * 1.2, 1 + p * 1.2);
             ctx.translate(-mx, -my);
           }
-          if (style === 0) {
-            ctx.fillStyle = COLORS[v - 1];
-            ctx.beginPath();
-            ctx.arc(mx, my, r, 0, TAU);
-            ctx.fill();
-          } else glyph(ctx, style, v, mx, my, r * 0.95, '#9eabbb');
+          // Colours are drawn as their shapes too, so no two candidates differ by colour alone.
+          if (style === 0) glyph(ctx, 1, v, mx, my, r * 1.05, COLORS[v - 1]);
+          else glyph(ctx, style, v, mx, my, r * 0.95, '#9eabbb');
           ctx.restore();
         }
       }
@@ -414,7 +406,7 @@
       ctx.restore();
     }
 
-    // The neighbors of a fresh placement light up for a moment.
+    // The neighbours of a fresh placement light up for a moment.
     if (scene.flash && !scene.still) {
       const p = clamp(scene.flash.age / 0.9, 0, 1);
       ctx.save();
@@ -451,6 +443,7 @@
     ctx.fillStyle = '#0a0e15';
     ctx.fillRect(0, 0, width, height);
     const L = layout(width, height, morph);
+    placeBoard(L);
     drawScene(ctx, {
       grid: board.grid,
       givens: board.givens,
@@ -565,10 +558,13 @@
 
   // ---------------------------------------------------------------- panel
 
-  /** An SVG picture of one symbol, for buttons and the two-finish readout. */
+  /** An SVG picture of one symbol, for buttons and the two-finish readout. A colour tile carries its shape. */
   function svgSymbol(style, value, x, y, r, ink = GIVEN_INK) {
     if (style === 0) {
-      return `<rect x="${x - r}" y="${y - r}" width="${2 * r}" height="${2 * r}" rx="${r * 0.28}" fill="${COLORS[value - 1]}"/>`;
+      return (
+        `<rect x="${x - r}" y="${y - r}" width="${2 * r}" height="${2 * r}" rx="${r * 0.28}" fill="${COLORS[value - 1]}"/>` +
+        svgSymbol(1, value, x, y, r * 0.5, TILE_INK)
+      );
     }
     if (style === 2) {
       return `<text x="${x}" y="${y + r * 0.62}" font-family="Georgia, serif" font-size="${r * 1.9}" text-anchor="middle" fill="${ink}">${value}</text>`;
@@ -623,35 +619,127 @@
     return (
       `<div class="control wide"><span class="sudoku-label" id="sudoku-place-label">${t.placeLabel}</span>` +
       `<div class="sudoku-symbols" role="group" aria-labelledby="sudoku-place-label">${symbols}</div>` +
+      `<p class="sudoku-faded">${t.faded(t.symbolWord[s.style])}</p>` +
       `<div class="sudoku-edit"><button type="button" class="button" id="sudoku-undo">↶ ${t.undo}</button>` +
       `<button type="button" class="button" id="sudoku-clear">${t.clear}</button></div></div>` +
       `<div class="control wide"><span class="sudoku-label" id="sudoku-style-label">${t.styleLabel}</span>` +
       `<div class="segment" id="sudoku-style" role="group" aria-labelledby="sudoku-style-label">${styles}</div>` +
       `<p>${t.styleHint}</p></div>` +
       `<div class="wide">${stage.check('network', t.network, s.network)}</div>` +
-      '<div class="wide readout sudoku-readout" id="sudoku-readout" role="status"></div>'
+      // Not a live region: it is rebuilt on every move. What happened is announced instead.
+      '<div class="wide readout sudoku-readout" id="sudoku-readout"></div>'
     );
   }
 
-  function bindControls(panel, s, stage) {
-    const after = () => {
+  /** Do something to the board, then redraw and say once what happened. */
+  function act(s, stage, change) {
+    change();
+    stage.sync();
+    stage.draw();
+    if (note) W.announce(note.say(s));
+  }
+
+  // ---------------------------------------------------------------- the accessible board
+
+  /**
+   * A real grid of 16 buttons over the canvas squares, so the board works with a screen reader and the
+   * keyboard: one tab stop (a roving tabindex), arrow keys to move, 1–4 to place, Backspace to clear,
+   * Ctrl/⌘+Z to undo. The canvas stays the picture; these buttons are transparent.
+   */
+  function buildBoard(stage) {
+    const canvas = $('scene-canvas');
+    const grid = document.createElement('div');
+    grid.className = 'sudoku-board';
+    grid.setAttribute('role', 'grid');
+    grid.setAttribute('aria-label', t.boardLabel);
+    grid.setAttribute('aria-describedby', 'scene-tip');
+    cells = [];
+    for (let row = 0; row < SIDE; row++) {
+      const line = document.createElement('div');
+      line.setAttribute('role', 'row');
+      for (let col = 0; col < SIDE; col++) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'sudoku-cell';
+        b.setAttribute('role', 'gridcell');
+        b.dataset.cell = String(row * SIDE + col);
+        line.appendChild(b);
+        cells.push(b);
+      }
+      grid.appendChild(line);
+    }
+    grid.addEventListener('click', (e) => {
+      const b = e.target.closest('.sudoku-cell');
+      if (!b) return;
+      selected = Number(b.dataset.cell);
       stage.sync();
       stage.draw();
-    };
-    panel.querySelectorAll('[data-symbol]').forEach((b) =>
-      b.addEventListener('click', () => {
-        place(Number(b.dataset.symbol));
-        after();
-      }),
-    );
-    $('sudoku-undo').addEventListener('click', () => {
-      undo();
-      after();
     });
-    $('sudoku-clear').addEventListener('click', () => {
-      clearSquare();
-      after();
+    grid.addEventListener('keydown', (e) => {
+      if (e.altKey) return;
+      const s = stage.settingsFor('sudoku');
+      const moves = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] };
+      if (moves[e.key]) {
+        const [dx, dy] = moves[e.key];
+        selected = clamp(rowOf(selected) + dy, 0, SIDE - 1) * SIDE + clamp(colOf(selected) + dx, 0, SIDE - 1);
+        stage.sync();
+        stage.draw();
+        cells[selected].focus();
+      } else if (e.key === 'Home' || e.key === 'End') {
+        selected = rowOf(selected) * SIDE + (e.key === 'Home' ? 0 : SIDE - 1);
+        stage.sync();
+        stage.draw();
+        cells[selected].focus();
+      } else if ((e.ctrlKey || e.metaKey) && !e.shiftKey && e.key.toLowerCase() === 'z') act(s, stage, undo);
+      else if (e.ctrlKey || e.metaKey) return;
+      else if (/^[1-4]$/.test(e.key)) act(s, stage, () => place(Number(e.key)));
+      else if (['Backspace', 'Delete', '0'].includes(e.key)) act(s, stage, clearSquare);
+      else return;
+      e.preventDefault();
     });
+    canvas.parentElement.appendChild(grid);
+    placedAt = '';
+  }
+
+  /** Put each button over its square (or node, in the network view). */
+  function placeBoard(L) {
+    if (!cells) return;
+    const canvas = $('scene-canvas');
+    const key = [L.x0, L.y0, L.cell, L.gap, canvas.offsetLeft, canvas.offsetTop].map((v) => v.toFixed(1)).join();
+    if (key === placedAt) return;
+    placedAt = key;
+    cells.forEach((b, cell) => {
+      const p = centre(L, cell);
+      b.style.left = `${canvas.offsetLeft + p.x - L.cell / 2}px`;
+      b.style.top = `${canvas.offsetTop + p.y - L.cell / 2}px`;
+      b.style.width = b.style.height = `${L.cell}px`;
+    });
+  }
+
+  /** Names, the roving tab stop, and the chosen square, after every change. */
+  function describeBoard(s) {
+    if (!cells) return;
+    const grid = board.grid;
+    cells.forEach((b, cell) => {
+      const value = grid[cell];
+      const options = info.options[cell];
+      const content = value
+        ? t.holds(nameOf(s, value), !!board.givens[cell])
+        : options.length
+          ? t.emptyWith(options.map((v) => nameOf(s, v)))
+          : t.emptyNone;
+      b.setAttribute('aria-label', t.describe(rowOf(cell) + 1, colOf(cell) + 1, content));
+      b.setAttribute('aria-selected', String(cell === selected));
+      b.tabIndex = cell === selected ? 0 : -1;
+    });
+  }
+
+  function bindControls(panel, s, stage) {
+    panel
+      .querySelectorAll('[data-symbol]')
+      .forEach((b) => b.addEventListener('click', () => act(s, stage, () => place(Number(b.dataset.symbol)))));
+    $('sudoku-undo').addEventListener('click', () => act(s, stage, undo));
+    $('sudoku-clear').addEventListener('click', () => act(s, stage, clearSquare));
     panel.querySelectorAll('[data-style]').forEach((b) =>
       b.addEventListener('click', () => {
         s.style = Number(b.dataset.style);
@@ -666,23 +754,11 @@
     if (!board) load(s.puzzle); // the panel is drawn before enter() on a first visit
     const grid = board.grid;
     const filled = grid.filter(Boolean).length;
-    const options = info.options[selected];
     $('scene-name').textContent = t.presets[board.puzzle].name;
     $('scene-status').textContent = t.status(filled);
     const line = note ? note.say(s) : t.start(t.symbolWord[s.style]);
-    $('scene-tip').textContent = t.tip;
-
-    // What a screen reader hears when the board has focus.
     const value = grid[selected];
-    const content = value
-      ? t.holds(nameOf(s, value), !!board.givens[selected])
-      : options.length
-        ? t.emptyWith(options.map((v) => nameOf(s, v)))
-        : t.emptyNone;
-    $('scene-canvas').setAttribute(
-      'aria-label',
-      `${t.canvasLabel} ${t.describe(rowOf(selected) + 1, colOf(selected) + 1, content)}`,
-    );
+    describeBoard(s);
 
     document.querySelectorAll('.sudoku-symbol').forEach((b) => {
       const v = Number(b.dataset.symbol);
@@ -713,6 +789,7 @@
   W.defineRoom({
     id: 'sudoku',
     symbol: '▦',
+    still: true, // it moves only when you do; the gentle fades need no pause button
     eyebrow: t.eyebrow,
     name: t.name,
     theme: 'games',
@@ -732,7 +809,7 @@
     nudge: t.nudge,
     connection: { html: t.connection.html, go: 'traffic', label: t.connection.label },
 
-    // puzzle: which preset; style: 0 colors, 1 shapes, 2 digits. Both are shared in links.
+    // puzzle: which preset; style: 0 colours, 1 shapes, 2 digits. Both are shared in links.
     defaults: { puzzle: 0, style: 0, network: false },
     ranges: { puzzle: [0, PUZZLES.length - 1, 'integer'], style: [0, 2, 'integer'] },
     defaultPreset: 0,
@@ -766,6 +843,7 @@
 
     enter(s, stage) {
       if (!board || board.puzzle !== s.puzzle) load(s.puzzle);
+      if (!cells) buildBoard(stage);
       stage.setChosen(s.puzzle); // presets are the puzzles, in order
       stage.sync();
     },
@@ -773,40 +851,16 @@
       load(s.puzzle);
     },
     reset(s, stage) {
-      load(s.puzzle);
-      note = { say: () => t.fresh };
-      stage.sync();
+      act(s, stage, () => {
+        load(s.puzzle);
+        note = { say: () => t.fresh };
+      });
     },
     action(s, stage) {
-      logicalStep();
-      stage.sync();
-      stage.draw();
+      act(s, stage, logicalStep);
     },
 
-    pointer: {
-      down(p, s, stage) {
-        const cell = hit(layout(stage.width, stage.height, morph), p.x * stage.width, p.y * stage.height);
-        if (cell < 0) return;
-        selected = cell;
-        stage.sync();
-        stage.draw();
-      },
-      arrow(dx, dy, s, stage) {
-        selected = clamp(rowOf(selected) + dy, 0, SIDE - 1) * SIDE + clamp(colOf(selected) + dx, 0, SIDE - 1);
-        stage.sync();
-      },
-      /** Keys 1–4 place a symbol, Backspace or Delete clears, Ctrl/⌘+Z undoes. */
-      key(e, s, stage) {
-        if (e.altKey) return false;
-        if ((e.ctrlKey || e.metaKey) && !e.shiftKey && e.key.toLowerCase() === 'z') undo();
-        else if (e.ctrlKey || e.metaKey) return false;
-        else if (/^[1-4]$/.test(e.key)) place(Number(e.key));
-        else if (['Backspace', 'Delete', '0'].includes(e.key)) clearSquare();
-        else return false;
-        stage.sync();
-        return true;
-      },
-    },
+    // No pointer hooks: the board of buttons over the canvas takes taps and keys, so the canvas is a picture.
 
     /**
      * Saved moments keep the board as it was. The trail stores only numbers, so

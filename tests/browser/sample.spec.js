@@ -187,3 +187,32 @@ test('old survey dots stay put after leaving the room and coming back', async ({
   await page.waitForTimeout(4500);
   expect(await picture()).toBe(settled);
 });
+
+test('sample room: the estimate is announced once per batch, not on every survey', async ({ page }) => {
+  await page.goto('/#room=sample');
+  await expect(page.locator('#sample-estimate')).not.toHaveAttribute('role', 'status');
+  await page.locator('#scene-action').click();
+  await expect(page.locator('#sample-count')).toHaveText('50 surveys of 50 people', { timeout: 10000 });
+  await expect(page.locator('#announcer')).toHaveText(/^50 surveys\. They say \d+% prefer orange, give or take/);
+  await expect(page.locator('#scene-tip')).toContainText('← →');
+});
+
+for (const [width, height] of [
+  [1024, 768],
+  [768, 1024],
+]) {
+  test(`sample room: words on the canvas stay clear of the stage heading at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height });
+    await page.goto('/#room=sample');
+    await expect(page.locator('#scene-status')).toHaveText('Ready to ask');
+    // Nothing but the background in the canvas's top strip, just under "Ask at random".
+    const inked = await page.locator('#scene-canvas').evaluate((canvas) => {
+      const scale = canvas.width / canvas.clientWidth;
+      const { data } = canvas.getContext('2d').getImageData(0, 0, canvas.width, Math.round(14 * scale));
+      let count = 0;
+      for (let i = 0; i < data.length; i += 4) if (data[i] + data[i + 1] + data[i + 2] > 90) count++;
+      return count;
+    });
+    expect(inked).toBe(0);
+  });
+}

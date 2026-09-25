@@ -10,7 +10,8 @@ async function squareCentre(page, row, col) {
   return { x: box.x + x0 + (col + 0.5) * (size / 4), y: box.y + y0 + (row + 0.5) * (size / 4) };
 }
 
-const canvasLabel = (page) => page.locator('#scene-canvas').getAttribute('aria-label');
+// What a screen reader hears for the chosen square on the accessible board.
+const canvasLabel = (page) => page.locator('.sudoku-cell[aria-selected="true"]').getAttribute('aria-label');
 
 test('sudoku room: place by click and keyboard, undo, and take logical steps', async ({ page }) => {
   await page.goto('/');
@@ -21,7 +22,7 @@ test('sudoku room: place by click and keyboard, undo, and take logical steps', a
   await expect(page.locator('#sudoku-solutions')).toHaveText('1');
   await expect(page.locator('#sudoku-undo')).toBeDisabled();
   // The first empty square is chosen already, so one tap on a color places it.
-  expect(await canvasLabel(page)).toContain('Row 1, column 2: empty, could be orange');
+  expect(await canvasLabel(page)).toContain('Row 1, column 2, empty, could be orange');
   await page.getByRole('button', { name: 'Place orange' }).click();
   await expect(page.locator('#sudoku-filled')).toHaveText('9/16');
   await expect(page.locator('#sudoku-readout')).toContainText('Orange placed.');
@@ -30,18 +31,18 @@ test('sudoku room: place by click and keyboard, undo, and take logical steps', a
   // Tap a square on the canvas to choose it, then use the keyboard.
   const target = await squareCentre(page, 3, 0);
   await page.mouse.click(target.x, target.y);
-  expect(await canvasLabel(page)).toContain('Row 4, column 1: empty');
+  expect(await canvasLabel(page)).toContain('Row 4, column 1, empty');
   await page.keyboard.press('ArrowUp');
   await page.keyboard.press('ArrowRight');
   await page.keyboard.press('ArrowRight');
-  expect(await canvasLabel(page)).toContain('Row 3, column 3: blue, a clue');
+  expect(await canvasLabel(page)).toContain('Row 3, column 3, blue, a clue');
   await page.keyboard.press('ArrowUp');
   await page.keyboard.press('ArrowUp');
   await page.keyboard.press('ArrowRight');
-  expect(await canvasLabel(page)).toContain('Row 1, column 4: empty');
+  expect(await canvasLabel(page)).toContain('Row 1, column 4, empty');
   await page.keyboard.press('4');
   await expect(page.locator('#sudoku-filled')).toHaveText('10/16');
-  expect(await canvasLabel(page)).toContain('Row 1, column 4: green.');
+  expect(await canvasLabel(page)).toContain('Row 1, column 4, green');
   await page.keyboard.press('Backspace');
   await expect(page.locator('#sudoku-filled')).toHaveText('9/16');
   await expect(page.locator('#sudoku-readout')).toContainText('Its possibilities come back');
@@ -51,7 +52,7 @@ test('sudoku room: place by click and keyboard, undo, and take logical steps', a
   // A clash glows gently and can be undone; nothing is lost.
   await page.keyboard.press('ArrowLeft');
   await page.keyboard.press('1');
-  await expect(page.locator('#sudoku-readout')).toContainText('Two neighbors now both hold blue');
+  await expect(page.locator('#sudoku-readout')).toContainText('Two neighbours now both hold blue');
   await expect(page.locator('#sudoku-solutions')).toHaveText('none');
   await page.locator('#scene-action').click();
   await expect(page.locator('#sudoku-readout')).toContainText('Undo or clear one of the glowing squares');
@@ -68,7 +69,7 @@ test('sudoku room: place by click and keyboard, undo, and take logical steps', a
   await expect(page.locator('#sudoku-readout')).toContainText('Complete.');
   await expect(page.locator('#sudoku-candidates')).toHaveText('0');
 
-  // Digits instead of colors: the same board, new labels.
+  // Digits instead of colours: the same board, new labels.
   await page.locator('[data-style="2"]').click();
   await expect(page.locator('[data-style="2"]')).toHaveAttribute('aria-pressed', 'true');
   await expect(page.getByRole('button', { name: /^Place 3/ })).toBeVisible();
@@ -86,7 +87,7 @@ test('sudoku room: the network view and a puzzle with two answers', async ({ pag
   expect((await tool(page, 'read_exploration')).settings.network).toBe(true);
   await expect.poll(() => page.locator('#scene-canvas').evaluate((c) => c.toDataURL())).not.toBe(before);
   // Choosing a node in the network works like choosing a square.
-  await page.locator('#scene-canvas').focus();
+  await page.locator('.sudoku-cell[tabindex="0"]').focus();
   await page.keyboard.press('ArrowDown');
   expect(await canvasLabel(page)).toContain('Row 2, column 2');
 
@@ -98,14 +99,14 @@ test('sudoku room: the network view and a puzzle with two answers', async ({ pag
   await expect(page.locator('#scene-status')).toHaveText('12 of 16 filled');
   await expect(page.locator('#sudoku-solutions')).toHaveText('2');
   // Choosing one of the two ways leaves exactly one answer.
-  await page.locator('#scene-canvas').focus();
+  await page.locator('.sudoku-cell[tabindex="0"]').focus();
   await page.keyboard.press('ArrowUp');
   await page.keyboard.press('ArrowUp');
   await page.keyboard.press('ArrowUp');
   await page.keyboard.press('ArrowLeft');
   await page.keyboard.press('ArrowLeft');
   await page.keyboard.press('ArrowLeft');
-  expect(await canvasLabel(page)).toContain('Row 1, column 1: empty, could be orange or green');
+  expect(await canvasLabel(page)).toContain('Row 1, column 1, empty, could be orange or green');
   await page.keyboard.press('2');
   await expect(page.locator('#sudoku-solutions')).toHaveText('1');
 });
@@ -169,4 +170,71 @@ test('sudoku room: reduced motion still shows what a placement ruled out', async
   await page.waitForTimeout(300);
   // Nothing animates: the picture stays exactly as drawn.
   expect(await page.locator('#scene-canvas').evaluate((c) => c.toDataURL())).toBe(after);
+});
+
+test('sudoku room: the board is a real grid, playable with the keyboard alone', async ({ page }) => {
+  await page.goto('/#room=sudoku');
+  await expect(page.locator('#scene-play')).toBeHidden(); // turn-based: nothing to pause
+  const grid = page.getByRole('grid', { name: 'Sudoku board, four by four' });
+  await expect(grid.getByRole('row')).toHaveCount(4);
+  await expect(grid.getByRole('gridcell')).toHaveCount(16);
+  // The canvas is only the picture now; the readout is no live region, and one tab stop leads into the board.
+  await expect(page.locator('#scene-canvas')).toHaveAttribute('role', 'img');
+  await expect(page.locator('#sudoku-readout')).not.toHaveAttribute('role', 'status');
+  await expect(page.locator('.sudoku-cell[tabindex="0"]')).toHaveCount(1);
+
+  // Tab from the page into the board, the way a keyboard user arrives.
+  await page.locator('#room-next').focus();
+  for (let i = 0; i < 40; i++) {
+    await page.keyboard.press('Tab');
+    if (await page.evaluate(() => document.activeElement?.getAttribute('role') === 'gridcell')) break;
+  }
+  const focused = page.locator('.sudoku-cell:focus');
+  await expect(focused).toHaveAttribute('aria-label', 'Row 1, column 2, empty, could be orange');
+  await expect(focused).toHaveAttribute('aria-selected', 'true');
+
+  // Move, place, and hear the result once.
+  await page.keyboard.press('ArrowRight');
+  await page.keyboard.press('ArrowRight');
+  await expect(focused).toHaveAttribute('aria-label', /^Row 1, column 4, empty, could be/);
+  await expect(page.locator('.sudoku-cell[tabindex="0"]')).toHaveCount(1);
+  await page.keyboard.press('4');
+  await expect(page.locator('#sudoku-filled')).toHaveText('9/16');
+  await expect(focused).toHaveAttribute('aria-label', 'Row 1, column 4, green');
+  await expect(page.locator('#announcer')).toHaveText(/^Green placed\./);
+  // A clash is announced too.
+  await page.keyboard.press('ArrowLeft');
+  await page.keyboard.press('1');
+  await expect(page.locator('#announcer')).toHaveText('Two neighbours now both hold blue. Undo, or try another.');
+  await page.keyboard.press('Control+z');
+  await expect(page.locator('#announcer')).toHaveText('Stepped back.');
+  await expect(page.locator('#sudoku-solutions')).toHaveText('1');
+  await page.keyboard.press('ArrowRight');
+  await page.keyboard.press('Backspace');
+  await expect(page.locator('#sudoku-filled')).toHaveText('8/16');
+  await expect(focused).toHaveAttribute('aria-label', /^Row 1, column 4, empty/);
+  // Home jumps to the start of the row; a clue can't be changed.
+  await page.keyboard.press('Home');
+  await expect(focused).toHaveAttribute('aria-label', 'Row 1, column 1, blue, a clue');
+  await page.keyboard.press('2');
+  await expect(page.locator('#announcer')).toHaveText('This one came with the puzzle. Try an empty square.');
+  await expect(page.locator('#sudoku-filled')).toHaveText('8/16');
+});
+
+test('sudoku room: colours carry their shapes, faded choices are explained, and the tip stays on phones', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/#room=sudoku');
+  // Each colour tile in the picker holds its shape, so colour is never the only cue.
+  await expect(page.locator('.sudoku-symbol svg rect')).toHaveCount(5); // four tiles and the square's shape
+  await expect(page.locator('.sudoku-symbol svg circle')).toHaveCount(1);
+  await expect(page.locator('.sudoku-symbol svg polygon')).toHaveCount(2);
+  await expect(page.locator('.sudoku-faded')).toHaveText('Faded colours can’t go here.');
+  await expect(page.locator('#scene-tip')).toBeVisible();
+  await expect(page.locator('#scene-tip')).toContainText('arrows move');
+  // A tap on a square still chooses it.
+  const target = await squareCentre(page, 3, 0);
+  await page.mouse.click(target.x, target.y);
+  expect(await canvasLabel(page)).toContain('Row 4, column 1, empty');
 });

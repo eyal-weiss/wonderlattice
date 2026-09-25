@@ -1,5 +1,5 @@
 /*
- * Inside the Rubik's Cube · moves as permutations of the 54 stickers. Pure functions, no DOM.
+ * Inside the puzzle cube · moves as permutations of the 54 stickers. Pure functions, no DOM.
  *
  * Coordinates: x to the right, y up, z towards the viewer. Each sticker sits on
  * a cubie at position p (components in {−1, 0, 1}) and faces outward along a

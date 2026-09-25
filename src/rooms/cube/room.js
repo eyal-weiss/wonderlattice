@@ -1,4 +1,4 @@
-/* Room · Inside the Rubik's Cube: moves as things you combine, undo, and repeat. */
+/* Room · Inside the puzzle cube: moves as things you combine, undo, and repeat. */
 (() => {
   'use strict';
 
@@ -11,8 +11,12 @@
   // Standard colours: white top, green front, red right; opposite faces yellow, blue, orange.
   const COLOURS = ['#f3f1e8', '#d8433b', '#3aa45a', '#f2cc3a', '#f18a2c', '#3566c8'];
   const PLASTIC = '#10141b';
-  const TURN = 0.26, // seconds per quarter turn
-    FAST = 0.06; // while repeating until home
+  const TURN = 0.26; // seconds per quarter turn, for a single move
+  // While a sequence repeats, the cube never spins through turns quickly: each repeat (or, for a long run,
+  // several) lands as one gentle crossfade, and visible changes come less than twice a second, so nothing flashes.
+  const HOLD = 0.6, // seconds between visible changes while repeating
+    FADE = 0.4, // seconds of each crossfade
+    STEPS = 16; // "Repeat until home" lands in at most this many visible changes
 
   // View rotation, shared by both cubes, and what each cube is doing.
   let rx = 0.5,
@@ -22,8 +26,9 @@
   let compared = false; // in compare mode: have both cubes made their moves yet?
 
   function makeCube() {
-    // queue: moves still to make; a `mark` ends one repeat of the sequence, so the counter can tick live.
-    return { state: C.solved(), queue: [], anim: null, inFlight: 0 };
+    // queue: single turns ({ move, speed }) and repeats that land at once ({ moves, times, repeats });
+    // inFlight: repeats queued but not yet shown, so the counter can tick live; from: the state fading out.
+    return { state: C.solved(), queue: [], anim: null, inFlight: 0, from: null };
   }
 
   const sequenceOf = (s) => C.decode(s.seq) ?? [];
@@ -68,11 +73,11 @@
   };
 
   /** Quads (four corners, a fill, depth) for one cube, mid-turn if a layer is turning. */
-  function quads(cube, highlight) {
+  function quads(cube, highlight, state = cube.state, stickersOnly = false) {
     const out = [];
     const anim = cube.anim;
-    const move = anim ? C.MOVES[anim.move] : null;
-    const angle = anim ? move.sign * (TAU / 4) * ease(anim.t) : 0;
+    const move = anim && !anim.moves ? C.MOVES[anim.move] : null;
+    const angle = move ? move.sign * (TAU / 4) * ease(anim.t) : 0;
     const turning = (p) => move && p[move.axis] === move.side;
     const place = (v, p) => (turning(p) ? rotate(v, move.axis, angle) : v);
     const face = (centre, normal, size, fill, p) => {
@@ -90,11 +95,11 @@
       if (9 * viewNormal(n) - (n[0] * c[0] + n[1] * c[1] + n[2] * c[2]) <= 0) return;
       out.push({ corners: [corner(-1, -1), corner(1, -1), corner(1, 1), corner(-1, 1)], fill });
     };
-    const moved = highlight ? C.movedPieces(cube.state) : null;
+    const moved = highlight ? C.movedPieces(state) : null;
     C.stickers.forEach((s, i) => {
       const centre = s.p.map((c, k) => c + s.n[k] * 0.5);
-      const colour = cube.state[i];
-      face(centre, s.n, 0.5, PLASTIC, s.p);
+      const colour = state[i];
+      if (!stickersOnly) face(centre, s.n, 0.5, PLASTIC, s.p);
       const dim = highlight && !moved.has(s.p.join(','));
       face(
         centre.map((c, k) => c + s.n[k] * 0.002),
@@ -125,7 +130,17 @@
   };
 
   function drawCube(ctx, cube, view, highlight) {
-    const list = quads(cube, highlight).map((q) => {
+    drawState(ctx, cube, view, highlight, cube.state);
+    // While repeating, the state before this step fades out over the new one (the shapes are the same).
+    if (cube.from && cube.anim?.moves) {
+      ctx.globalAlpha = 1 - ease(clamp((cube.anim.t * HOLD) / FADE, 0, 1));
+      drawState(ctx, cube, view, highlight, cube.from, true); // stickers only, so the plastic never shows through
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  function drawState(ctx, cube, view, highlight, state, stickersOnly) {
+    const list = quads(cube, highlight, state, stickersOnly).map((q) => {
       const pts = q.corners.map((c) => project(c, view));
       return { pts, fill: q.fill, z: pts.reduce((a, p) => a + p.z, 0) / 4 };
     });
@@ -196,6 +211,7 @@
       cube.queue = [];
       cube.anim = null;
       cube.inFlight = 0;
+      cube.from = null;
     }
     if (s.mode === 1) {
       cubes[0].state = C.solved();
@@ -203,17 +219,36 @@
     } else cubes[0].state = C.run(C.solved(), sequenceOf(s), s.repeats);
   }
 
-  /** Queue moves on a cube; with reduced motion they happen at once. `every` marks the end of each repeat. */
-  function perform(cube, moves, speed = TURN, every = 0) {
+  /** Queue single turns on a cube, each shown turning; with reduced motion they happen at once. */
+  function perform(cube, moves) {
     if (reduced) {
       cube.state = C.run(cube.state, moves);
       return;
     }
-    moves.forEach((move, i) => cube.queue.push({ move, speed, mark: every > 0 && (i + 1) % every === 0 }));
-    if (every) cube.inFlight += moves.length / every;
+    moves.forEach((move) => cube.queue.push({ move, speed: TURN }));
   }
 
-  function step(dt) {
+  /**
+   * Queue `times` repeats of `moves` that land together as one crossfade; the counter gains `repeats`
+   * when they show. With reduced motion they happen at once.
+   */
+  function jump(cube, moves, times, repeats) {
+    if (reduced) {
+      cube.state = C.run(cube.state, moves, times);
+      return;
+    }
+    cube.queue.push({ moves, times, repeats, speed: HOLD });
+    cube.inFlight += repeats;
+  }
+
+  /** Say how a run of repeats ended, once it has visibly finished. */
+  function landed(s) {
+    const seq = sequenceOf(s);
+    if (s.mode !== 0 || !seq.length) return;
+    W.announce(t.landed(C.movedPieces(cubes[0].state).size, s.repeats, C.order(seq)));
+  }
+
+  function step(dt, s) {
     for (const cube of cubes) {
       let left = dt;
       while (left > 0) {
@@ -221,6 +256,14 @@
           if (!cube.queue.length) break;
           const next = cube.queue.shift();
           cube.anim = { ...next, t: 0 };
+          if (next.moves) {
+            // Repeats land at once and fade in; the counter ticks as they show.
+            cube.from = cube.state;
+            cube.state = C.run(cube.state, next.moves, next.times);
+            cube.inFlight -= next.repeats;
+            W.stage.sync();
+            if (!cube.queue.length && cube === cubes[0]) landed(s);
+          }
         }
         const need = (1 - cube.anim.t) * cube.anim.speed;
         if (left < need) {
@@ -228,12 +271,9 @@
           left = 0;
         } else {
           left -= need;
-          cube.state = C.apply(cube.state, cube.anim.move);
-          if (cube.anim.mark) {
-            cube.inFlight -= 1;
-            W.stage.sync();
-          }
+          if (!cube.anim.moves) cube.state = C.apply(cube.state, cube.anim.move);
           cube.anim = null;
+          cube.from = null;
           if (!cube.queue.length) W.stage.sync();
         }
       }
@@ -266,7 +306,7 @@
     const seq = sequenceOf(s);
     if (s.repeats > 1) {
       s.repeats -= 1;
-      perform(cubes[0], C.inverse(seq), FAST * 2);
+      jump(cubes[0], C.inverse(seq), 1, 0);
     } else if (seq.length) {
       s.seq = C.encode(seq.slice(0, -1));
       if (s.repeats === 0)
@@ -279,16 +319,18 @@
     stage.draw();
   }
 
-  function repeat(s, stage, times = 1, speed = TURN) {
+  /** Repeat the sequence `times` more times, in at most STEPS visible changes. */
+  function repeat(s, times = 1) {
     const seq = sequenceOf(s);
-    if (!seq.length) return;
+    if (!seq.length) return false;
     s.repeats += times;
-    const moves = [];
-    for (let k = 0; k < times; k++) moves.push(...seq);
-    perform(cubes[0], moves, speed, seq.length);
+    const chunk = Math.ceil(times / STEPS);
+    for (let done = 0; done < times; done += chunk) {
+      const n = Math.min(chunk, times - done);
+      jump(cubes[0], seq, n, n);
+    }
     note = '';
-    stage.sync();
-    stage.draw();
+    return true;
   }
 
   function repeatUntilHome(s, stage) {
@@ -296,11 +338,12 @@
     if (!seq.length) return;
     const order = C.order(seq);
     const left = order - (s.repeats % order);
-    repeat(s, stage, left === 0 ? order : left, FAST);
+    repeat(s, left === 0 ? order : left);
     s.repeats %= order; // back home: count afresh
     s.repeats ||= order;
     stage.sync();
     stage.draw();
+    if (reduced) landed(s);
   }
 
   function compare(s, stage) {
@@ -325,12 +368,13 @@
     const move = C.MOVES[m];
     return t.turn(t.faces[move.name[0]], m >= 6);
   };
+  // The accessible name starts with the button's visible text: "R′: turn the right face anticlockwise".
+  const moveLabel = (m) => t.moveLabel(C.MOVES[m].name, moveName(m));
 
   const select = (key, label, value) =>
     `<div class="control"><label for="cube-${key}">${label}</label><select id="cube-${key}" data-pick="${key}">` +
     C.MOVES.map(
-      (m, i) =>
-        `<option value="${i}"${i === value ? ' selected' : ''}>${m.name} · ${moveName(i).toLowerCase()}</option>`,
+      (m, i) => `<option value="${i}"${i === value ? ' selected' : ''}>${m.name} · ${moveName(i)}</option>`,
     ).join('') +
     '</select></div>';
 
@@ -339,10 +383,11 @@
     if (s.mode === 0) {
       const full = sequenceOf(s).length >= C.MAX_LENGTH;
       h +=
-        `<div class="control wide"><span class="cube-heading">${t.movePad}</span><div class="cube-pad">` +
+        `<div class="control wide"><span class="cube-heading">${t.movePad}</span>` +
+        `<p class="cube-key">${t.notation}</p><div class="cube-pad">` +
         C.MOVES.map(
           (m, i) =>
-            `<button type="button" class="cube-move" data-move="${i}" aria-label="${moveName(i)}"${full ? ' disabled' : ''}>${m.name}</button>`,
+            `<button type="button" class="cube-move" data-move="${i}" aria-label="${moveLabel(i)}"${full ? ' disabled' : ''}>${m.name}</button>`,
         ).join('') +
         '</div><div class="cube-actions">' +
         `<button type="button" class="button" id="cube-undo">${t.undo}</button>` +
@@ -350,7 +395,8 @@
         `<button type="button" class="button" id="cube-home">${t.home}</button></div></div>` +
         stage.check('highlight', t.highlight, s.highlight);
     } else h += `<div class="cube-pair wide">${select('a', t.first, s.a)}${select('b', t.second, s.b)}</div>`;
-    return h + '<div class="wide readout cube-readout" id="cube-readout" role="status"></div>';
+    // Not a live region: it is rebuilt on every change. A finished run of repeats is announced instead.
+    return h + '<div class="wide readout cube-readout" id="cube-readout"></div>';
   }
 
   function bindControls(panel, s, stage) {
@@ -424,7 +470,7 @@
         `<strong class="cube-notation">${t.sequence(C.notation(seq))}</strong>` +
         `<span>${seq.length ? t.times(done) + ' · ' + t.order(C.order(seq)) : ''}</span>` +
         `<span>${t.moved(moved)}</span>` +
-        (seq.length >= C.MAX_LENGTH ? `<span>${t.full}</span>` : '');
+        (seq.length >= C.MAX_LENGTH ? `<span>${t.full}</span>` : note ? `<span>${note}</span>` : '');
   }
 
   // ---------- the room ----------
@@ -443,6 +489,7 @@
   W.defineRoom({
     id: 'cube',
     symbol: '▣',
+    still: true, // turns happen when asked: nothing runs on its own to pause
     theme: 'games',
     eyebrow: t.eyebrow,
     name: t.name,
@@ -504,8 +551,11 @@
       if (s.mode === 1) compare(s, stage);
     },
     action(s, stage) {
-      if (s.mode === 1) compare(s, stage);
-      else repeat(s, stage);
+      if (s.mode === 1) return compare(s, stage);
+      if (!repeat(s)) return;
+      stage.sync();
+      stage.draw();
+      if (reduced) landed(s);
     },
     reset(s, stage) {
       if (s.mode === 1) return settle(s);

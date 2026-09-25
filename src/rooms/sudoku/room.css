@@ -34,6 +34,11 @@ body[data-room='sudoku'] .scene-tip {
 .sudoku-symbol[data-possible='false'] svg {
   opacity: 0.4;
 }
+.sudoku-faded {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: #a7b4c6;
+}
 .sudoku-edit {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -91,8 +96,31 @@ body[data-room='sudoku'] .scene-tip {
   clip-path: inset(50%);
   white-space: nowrap;
 }
-@media (max-width: 760px) {
-  body[data-room='sudoku'] .scene-tip {
-    display: none;
-  }
+
+/* The accessible board: transparent buttons over the squares drawn on the canvas. */
+.sudoku-board {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+body:not([data-room='sudoku']) .sudoku-board {
+  display: none;
+}
+.sudoku-cell {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 12%;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+.sudoku-cell:focus {
+  outline: none;
+}
+.sudoku-cell:focus-visible {
+  outline: 2px dashed #f4f5e9;
+  outline-offset: -7px;
 }

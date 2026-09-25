@@ -1,4 +1,4 @@
-/* Inside the Rubik's Cube: the move pad and the readout. */
+/* Inside the puzzle cube: the move pad and the readout. */
 .cube-heading {
   font-size: 14px;
 }
@@ -54,4 +54,10 @@
     600 15px ui-monospace,
     monospace;
   color: var(--ink);
+}
+.cube-key {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #a9b6c3;
 }

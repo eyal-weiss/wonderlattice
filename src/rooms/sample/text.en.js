@@ -1,13 +1,13 @@
 /* Words · A spoonful of a city (English). Every visitor-facing string for the sampling room. */
 Wonderloom.defineText('sample', 'en', {
-  eyebrow: 'CHANCE · SAMPLING',
+  eyebrow: 'SAMPLING',
   name: 'A spoonful of a city',
   tagline: 'A huge poll can be sure and wrong. A small random one is roughly right.',
   title: 'A spoonful of a city.',
   subtitle: 'Orange or blue: what does the whole city prefer? You can only ask some of them.',
   field: 'Statistics · Sampling · Random error and bias',
   sceneLabel: 'Polling a toy city',
-  tip: 'Tap a neighbourhood to ask only there · Each dot is one survey',
+  tip: 'Tap a neighbourhood, or press ← →, to ask only there · ↑ ↓ change the survey size',
   actionLabel: 'Ask 50 times',
   canvasLabel:
     'A map of a small city whose residents each prefer orange or blue, with the people asked in the latest survey lit up, beside a dot plot with one dot for each survey’s estimate. Tap a neighbourhood, or use the left and right arrow keys, to ask only there. The up and down arrow keys change how many people each survey asks.',
@@ -45,38 +45,38 @@ Wonderloom.defineText('sample', 'en', {
   newCity: 'A new city',
 
   // The stage
-  cityTitle: (n) => `The city · ${n.toLocaleString('en')} residents`,
-  plotTitle: (n) => `Share who prefer orange · one dot per survey of ${n.toLocaleString('en')}`,
+  cityTitle: (n) => `The city · ${n.toLocaleString(Wonderloom.lang)} residents`,
+  plotTitle: (n) => `Share who prefer orange · one dot per survey of ${n.toLocaleString(Wonderloom.lang)}`,
   plotTitleShort: 'Orange share · one dot per survey',
   blueWins: 'blue wins',
   orangeWins: 'orange wins',
   wholeCity: (pct) => (pct === null ? 'whole city: ?' : `whole city ${pct}%`),
-  before: (name, n) => `○ Before: ${name}, ${n.toLocaleString('en')} each`,
+  before: (name, n) => `○ Before: ${name}, ${n.toLocaleString(Wonderloom.lang)} each`,
   startHint: 'Press “Ask 50 times”',
   ready: 'Ready to ask',
-  surveys: (n) => (n === 1 ? '1 survey' : `${n.toLocaleString('en')} surveys`),
+  surveys: (n) => (n === 1 ? '1 survey' : `${n.toLocaleString(Wonderloom.lang)} surveys`),
 
   // Readouts in the panel
   noSurveys: 'No surveys yet.',
   noEstimate: 'Each survey will add one dot.',
   surveyLine: (count, n) =>
-    `<strong>${count.toLocaleString('en')}</strong> ${count === 1 ? 'survey' : 'surveys'} of ${n.toLocaleString('en')} ${n === 1 ? 'person' : 'people'}`,
+    `<strong>${count.toLocaleString(Wonderloom.lang)}</strong> ${count === 1 ? 'survey' : 'surveys'} of ${n.toLocaleString(Wonderloom.lang)} ${n === 1 ? 'person' : 'people'}`,
   estimateLine: (mean, spread) =>
     spread === null
       ? `This one says ${mean}% prefer orange.`
       : `They say ${mean}% prefer orange, give or take ${spread} points.`,
-  theoryLine: (n, se) => `A random sample of ${n.toLocaleString('en')} wobbles by about ±${se} points.`,
+  theoryLine: (n, se) => `A random sample of ${n.toLocaleString(Wonderloom.lang)} wobbles by about ±${se} points.`,
   truthHidden: 'The whole city’s answer is hidden.',
   truthLine: (pct, miss) =>
     miss === null ? `The whole city: ${pct}% orange.` : `The whole city: ${pct}% orange. Typical miss: ${miss} points.`,
   randomNote: 'Anyone in the city might be asked.',
-  hoodNote: (size, name) => `${size.toLocaleString('en')} people live in ${name}.`,
+  hoodNote: (size, name) => `${size.toLocaleString(Wonderloom.lang)} people live in ${name}.`,
   hoodAll: (size, name) =>
-    `Only ${size.toLocaleString('en')} people live in ${name}, so each survey asks everyone there.`,
+    `Only ${size.toLocaleString(Wonderloom.lang)} people live in ${name}, so each survey asks everyone there.`,
   volunteerNote: (answer, total) =>
-    `Only those who reply count: ${answer.toLocaleString('en')} of ${total.toLocaleString('en')}. Orange fans are keener to reply.`,
+    `Only those who reply count: ${answer.toLocaleString(Wonderloom.lang)} of ${total.toLocaleString(Wonderloom.lang)}. Orange fans are keener to reply.`,
   volunteerAll: (answer) =>
-    `Only ${answer.toLocaleString('en')} people ever reply, so each survey hears from all of them.`,
+    `Only ${answer.toLocaleString(Wonderloom.lang)} people ever reply, so each survey hears from all of them.`,
 
   presets: [
     { name: 'A quick random poll', note: '50 people, anyone in the city.' },
@@ -93,7 +93,7 @@ Wonderloom.defineText('sample', 'en', {
 
   // The live paragraph in the explanation, for the visitor's own city.
   live: (n, se, hood, hoodOff, answerOff) =>
-    `In your city, a random sample of ${n.toLocaleString('en')} wobbles by about ±${se} points. ` +
+    `In your city, a random sample of ${n.toLocaleString(Wonderloom.lang)} wobbles by about ±${se} points. ` +
     `Asking only in ${hood} is off by ${hoodOff} points, and counting whoever answers is off by ${answerOff}, however many people you ask.`,
 
   insight: {

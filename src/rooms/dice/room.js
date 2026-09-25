@@ -9,6 +9,9 @@
   const reduced = W.prefersReducedMotion();
 
   const BATCH = 100; // rolls per press of the action button
+  // While a batch runs, the dice show a new roll at most this often (seconds), so nothing flashes;
+  // only the tally and the graph keep up with every roll.
+  const SHOW_EVERY = 0.34;
   const INK = '#10141c';
   const MUTED = '#8f9cad';
   // Die colours per set, in the model's order. Grime's dice are named for theirs.
@@ -23,7 +26,8 @@
   let tally = fresh(''),
     queue = 0, // rolls still to show in the current batch
     due = 0, // fractional rolls owed to the animation clock
-    flash = 0, // 1 just after a roll, fading to 0
+    shown = { last: null, recent: [] }, // the roll the dice show, and the latest-results strip
+    sinceShown = 0, // seconds since the dice last showed a new roll
     nodes = [], // circle positions from the last frame, for tapping
     u = 1; // drawing scale for the current canvas
 
@@ -71,6 +75,13 @@
     tally = fresh(c.key);
     queue = 0;
     due = 0;
+    show();
+  }
+
+  /** Let the dice and the strip catch up with the tally. */
+  function show() {
+    shown = { last: tally.last, recent: tally.recent.slice() };
+    sinceShown = 0;
   }
 
   const nameOf = (c, i) => t.names[c.index][i];
@@ -117,7 +128,7 @@
     return fits;
   }
 
-  /** One die face showing a number, optionally tilted mid-tumble. */
+  /** One die face showing a number, optionally tilted. */
   function die(ctx, x, y, size, color, value, { dim = false, ring = false, tilt = 0 } = {}) {
     ctx.save();
     ctx.translate(x + size / 2, y + size / 2);
@@ -178,8 +189,11 @@
     });
   }
 
-  /** The two dice face to face: who picked what, the last roll, every face, and the latest results. */
-  function drawDuel(ctx, box, c, last, lively, recent = []) {
+  /**
+   * The two dice face to face: who picked what, the last roll shown, every face, and the latest results.
+   * `busy` while a batch runs: the loser isn't dimmed then, so the dice stay steady.
+   */
+  function drawDuel(ctx, box, c, last, busy, recent = []) {
     const pad = 6 * u + 4,
       indent = Math.max(3, 12 - 8 * u); // lines the sentence up with the stage heading above
     const line = c.auto ? t.iTake(nameOf(c, c.you), nameOf(c, c.me)) : t.against(nameOf(c, c.you), nameOf(c, c.me));
@@ -229,20 +243,15 @@
       fit(ctx, label, cardWidth, Math.max(10, 12 * u), 600);
       ctx.fillText(label, cx, top);
       ctx.letterSpacing = '0px';
-      const tilt = lively * (k ? -0.22 : 0.22);
-      const lost = last && last.result !== 0 && !side.won;
+      const lost = !busy && last && last.result !== 0 && !side.won;
       if (!two) {
         const value = last ? faces[side.rolled[0]] : '?';
-        die(ctx, cx - size / 2, dy, size, color, value, { dim: lost, ring: side.won, tilt });
+        die(ctx, cx - size / 2, dy, size, color, value, { dim: lost, ring: side.won });
       } else {
         const g = size * 0.18;
         [0, 1].forEach((j) => {
           const value = last ? faces[side.rolled[j]] : '?';
-          die(ctx, cx - size - g / 2 + j * (size + g), dy, size, color, value, {
-            dim: lost,
-            ring: side.won,
-            tilt: tilt * (j ? -1 : 1),
-          });
+          die(ctx, cx - size - g / 2 + j * (size + g), dy, size, color, value, { dim: lost, ring: side.won });
         });
       }
       let y = dy + size + dieGap;
@@ -563,8 +572,7 @@
     ctx.moveTo(8, L.rule);
     ctx.lineTo(width - 8, L.rule);
     ctx.stroke();
-    // The tumble only shows while playing, so a pause mid-roll leaves the dice upright.
-    drawDuel(ctx, L.duel, c, tally.last, reduced || !stage.playing ? 0 : flash, tally.recent);
+    drawDuel(ctx, L.duel, c, shown.last, queue > 0, shown.recent);
     nodes = drawCircle(ctx, L.circle, c);
     drawRace(ctx, L.race, c);
     drawShare(ctx, L.share, c);
@@ -572,13 +580,13 @@
 
   // ─── Readouts and controls ─────────────────────────────────────────────
 
-  /** Update the words beside the canvas. `settled` also refreshes the spoken summary. */
-  function showTally(c, settled) {
+  /** Update the words beside the canvas. `settled` also refreshes the verdict; `speak` announces it. */
+  function showTally(c, settled, speak = false) {
     const fav = nameOf(c, c.favourite);
     const seen = tally.rolls ? Math.round((favouriteWins(c) / tally.rolls) * 100) : null;
     $('scene-status').textContent = tally.rolls ? t.rolls(tally.rolls) : t.ready;
     if (!$('dice-rolls')) return;
-    $('dice-rolls').textContent = tally.rolls.toLocaleString('en');
+    $('dice-rolls').textContent = tally.rolls.toLocaleString(W.lang);
     $('dice-wins').textContent = t.winsLine(nameOf(c, c.you), nameOf(c, c.me), tally.you, tally.me);
     $('dice-seen').textContent =
       c.you === c.me ? t.sameDie : t.seenLine(fav, seen, c.fraction, Math.round(c.chance * 100));
@@ -586,7 +594,7 @@
     $('dice-meter').style.background = colorOf(c, c.favourite);
     if (!settled) return;
     const even = c.odds.win === c.odds.lose;
-    $('dice-verdict').textContent =
+    const verdict =
       c.you === c.me
         ? t.sameDie
         : even
@@ -594,6 +602,8 @@
           : tally.rolls
             ? t.verdict(tally.rolls, fav, seen, c.fraction)
             : t.verdictStart(fav, c.fraction);
+    $('dice-verdict').textContent = verdict;
+    if (speak) W.announce(verdict); // once per batch, when it has landed
   }
 
   /** Mark the chosen dice in the pickers, without rebuilding the panel (so focus stays put). */
@@ -650,7 +660,7 @@
       `<div>${t.rollsSoFar} <strong id="dice-rolls">0</strong></div>` +
       '<div id="dice-wins"></div><div id="dice-seen"></div>' +
       '<div class="meter"><span id="dice-meter"></span></div>' +
-      '<div id="dice-verdict" class="dice-verdict" role="status"></div></div>'
+      '<div id="dice-verdict" class="dice-verdict"></div></div>'
     );
   }
 
@@ -751,6 +761,7 @@
   W.defineRoom({
     id: 'dice',
     symbol: '⚄',
+    still: true, // rolls come in batches when asked: nothing runs on its own to pause
     eyebrow: t.eyebrow,
     name: t.name,
     theme: 'chance',
@@ -805,18 +816,18 @@
     preview,
 
     step(dt, s) {
-      flash = Math.max(0, flash - dt * 5);
       if (!queue) return;
       const c = contest(s);
       ensure(c);
+      sinceShown += dt;
       due += dt * s.speed;
       const n = Math.min(queue, Math.floor(due));
       if (!n) return;
       due -= n;
       queue -= n;
       for (let i = 0; i < n; i++) rollOnce(c);
-      flash = 1;
-      showTally(c, queue === 0);
+      if (queue === 0 || sinceShown >= SHOW_EVERY) show();
+      showTally(c, queue === 0, queue === 0);
     },
 
     /** Roll a batch: animated while playing, all at once when paused or when motion is reduced. */
@@ -825,10 +836,12 @@
       ensure(c);
       if (reduced || !stage.playing) {
         for (let i = 0; i < BATCH; i++) rollOnce(c);
-        showTally(c, true);
+        show();
+        showTally(c, true, true);
         stage.draw();
         return;
       }
+      if (!queue) sinceShown = SHOW_EVERY; // the first roll of a batch shows straight away
       queue += BATCH;
       due = Math.max(due, 1); // the first roll lands straight away
     },
@@ -837,6 +850,7 @@
       tally = fresh(contest(s).key);
       queue = 0;
       due = 0;
+      show();
       showTally(contest(s), true);
       stage.draw();
     },

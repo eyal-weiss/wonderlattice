@@ -27,14 +27,16 @@
   const ORANGE = '#f4a259';
   const BLUE = '#6cb6e8';
   const EVEN = '#c8d0da';
-  // Resident colours, [blue, orange]: unknown until asked, faintly remembered once asked,
-  // shown when the whole city is revealed, and lit while in the latest survey.
-  const UNKNOWN = '#323d4c';
-  const SEEN = ['#2c5068', '#74502f'];
-  const SHOWN = ['#4b86ad', '#b97942'];
-  const QUIET = ['#243a4b', '#4a3626']; // revealed, but never replies (shown while "whoever answers")
-  const LIT = ['#a8deff', '#ffc684'];
-  const VIVID = ['#5b9ccb', '#d88a4a']; // the revealed city on the small home card
+  // Residents, [blue, orange]. Every state is at least 3:1 against the block, blue is always darker than
+  // orange, and each state has its own size or shape as well as colour: a small grey dot until asked, a
+  // middling square once asked, a full square when the whole city is revealed, a larger glowing square in
+  // the latest survey, and a hollow square for those who never reply.
+  const UNKNOWN = '#6b7788';
+  const SEEN = ['#3a7ab4', '#c28a50'];
+  const SHOWN = ['#4a8fd0', '#f2b26f'];
+  const LIT = ['#9ad4ff', '#ffe3b5'];
+  // Canvas words stay this far below the top edge, clear of the stage heading just above the canvas.
+  const CLEAR = 18;
 
   // Surveys are drawn from a seedable generator; each visit starts from a fresh seed.
   const random = model.rng(Math.floor(Math.random() * 2 ** 32));
@@ -157,7 +159,7 @@
     const town = view.town,
       { cols, rows } = town;
     const { x0, y0, cell, mw, mh } = mapGeometry(box);
-    if (box.titled) eyebrow(ctx, t.cityTitle(town.size), x0, box.y + 12 * u + 2, mw);
+    if (box.titled) eyebrow(ctx, t.cityTitle(town.size), x0, y0 - 8 * u - 6, mw);
 
     ctx.beginPath();
     ctx.roundRect(x0 - 3, y0 - 3, mw + 6, mh + 6, 6);
@@ -192,45 +194,65 @@
     ctx.stroke();
     ctx.lineCap = 'butt';
 
-    // Residents, one colour at a time so each colour is a single fill.
-    const shade = (i) => {
+    // Residents, grouped by how they are drawn, so each group is a single fill or stroke.
+    const kind = (i) => {
       const like = town.likes[i];
-      if (view.lit?.[i]) return LIT[like];
-      if (view.bare) return VIVID[like];
-      if (s.reveal) return s.method === 2 && !town.answers[i] ? QUIET[like] : SHOWN[like];
-      return view.seen?.[i] ? SEEN[like] : UNKNOWN;
+      if (view.lit?.[i]) return `lit${like}`;
+      if (view.bare) return `full${like}`;
+      if (s.reveal) return s.method === 2 && !town.answers[i] ? `ring${like}` : `full${like}`;
+      return view.seen?.[i] ? `seen${like}` : 'unknown';
     };
-    const dot = Math.max(1.2, cell * (view.bare ? 0.62 : 0.5)),
-      inset = (cell - dot) / 2;
     const groups = new Map();
     for (let i = 0; i < town.size; i++) {
-      const colour = shade(i);
-      if (!groups.has(colour)) groups.set(colour, []);
-      groups.get(colour).push(i);
+      const k = kind(i);
+      if (!groups.has(k)) groups.set(k, []);
+      groups.get(k).push(i);
     }
-    // The latest survey glows a little.
-    if (view.lit) {
-      ctx.globalAlpha = 0.3;
-      for (const like of [0, 1]) {
-        ctx.fillStyle = LIT[like];
-        ctx.beginPath();
-        for (const i of groups.get(LIT[like]) ?? []) {
-          const c = i % cols,
-            r = (i - c) / cols;
-          ctx.rect(x0 + c * cell + inset - dot * 0.45, y0 + r * cell + inset - dot * 0.45, dot * 1.9, dot * 1.9);
-        }
-        ctx.fill();
-      }
-      ctx.globalAlpha = 1;
-    }
-    for (const [colour, list] of groups) {
-      ctx.fillStyle = colour;
-      ctx.beginPath();
+    const full = Math.max(1.4, cell * (view.bare ? 0.62 : 0.56));
+    /** Add a square of side `size`, centred in each listed resident's cell, to the current path. */
+    const squares = (list, size) => {
+      const inset = (cell - size) / 2;
       for (const i of list) {
         const c = i % cols,
           r = (i - c) / cols;
-        ctx.rect(x0 + c * cell + inset, y0 + r * cell + inset, dot, dot);
+        ctx.rect(x0 + c * cell + inset, y0 + r * cell + inset, size, size);
       }
+    };
+    ctx.beginPath();
+    squares(groups.get('unknown') ?? [], Math.max(1, cell * 0.3));
+    ctx.fillStyle = UNKNOWN;
+    ctx.fill();
+    for (const like of [0, 1]) {
+      const rings = groups.get(`ring${like}`) ?? [];
+      if (rings.length) {
+        const width = Math.max(0.8, cell * 0.13);
+        ctx.beginPath();
+        squares(rings, full - width);
+        ctx.strokeStyle = SHOWN[like];
+        ctx.lineWidth = width;
+        ctx.stroke();
+      }
+      ctx.beginPath();
+      squares(groups.get(`seen${like}`) ?? [], Math.max(1.2, cell * 0.42));
+      ctx.fillStyle = SEEN[like];
+      ctx.fill();
+      ctx.beginPath();
+      squares(groups.get(`full${like}`) ?? [], full);
+      ctx.fillStyle = SHOWN[like];
+      ctx.fill();
+    }
+    // The latest survey: larger, lighter, with a soft glow.
+    for (const like of [0, 1]) {
+      const list = groups.get(`lit${like}`) ?? [];
+      if (!list.length) continue;
+      ctx.fillStyle = LIT[like];
+      ctx.globalAlpha = 0.3;
+      ctx.beginPath();
+      squares(list, full * 1.9);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.beginPath();
+      squares(list, Math.min(cell, full * 1.15));
       ctx.fill();
     }
 
@@ -280,12 +302,15 @@
 
   const dotColour = (e) => (e > 0.5 + 1e-9 ? ORANGE : e < 0.5 - 1e-9 ? BLUE : EVEN);
 
+  /** Space above the map: its heading, and a margin below the stage heading. */
+  const headOf = (titled) => (titled ? 20 * u + 8 + CLEAR : CLEAR / 2);
+
   /**
    * Where the map sits in its box: the largest cell size that fits, with room
    * for a heading when `box.titled`, centred across (and down, when `box.middle`).
    */
   function mapGeometry(box) {
-    const head = box.titled ? 20 * u + 8 : 0;
+    const head = headOf(box.titled);
     const cell = Math.min(box.w / model.COLS, (box.h - head) / model.ROWS);
     const mw = cell * model.COLS,
       mh = cell * model.ROWS;
@@ -458,10 +483,11 @@
     if (width >= 600 && width > height * 1.35) {
       const mapWidth = Math.round((width - gap) * 0.56);
       const map = { x: 0, y: 0, w: mapWidth, h: height, titled: true, middle: true };
-      return { map, plot: { x: mapWidth + gap, y: 0, w: width - mapWidth - gap, h: height, titled: true } };
+      const plot = { x: mapWidth + gap, y: CLEAR, w: width - mapWidth - gap, h: height - CLEAR, titled: true };
+      return { map, plot };
     }
     const titled = height >= 400;
-    const head = titled ? 20 * u + 8 : 0;
+    const head = headOf(titled);
     const mapHeight = Math.round(Math.min(height * 0.58, (width / model.COLS) * model.ROWS + head));
     const map = { x: 0, y: 0, w: width, h: mapHeight, titled };
     const g = mapGeometry(map);
@@ -510,8 +536,11 @@
 
   const points = (x) => (x * 100).toFixed(1);
 
-  /** Update the words beside the canvas. `settled` is false while a batch is still landing. */
-  function showTally(s, settled) {
+  /**
+   * Update the words beside the canvas. `settled` is false while a batch is still landing; `speak`
+   * announces the estimate once a batch has landed (the line itself isn't a live region: it changes too often).
+   */
+  function showTally(s, settled, speak = false) {
     const town = live.town,
       series = live.series,
       count = series.estimates.length;
@@ -537,11 +566,11 @@
     // Numbers for tests and the curious: the average estimate and the truth, in percent.
     $('sample-readout').dataset.mean = count ? (sum.mean * 100).toFixed(2) : '';
     $('sample-readout').dataset.truth = (town.share * 100).toFixed(2);
-    // While a batch lands the line keeps up, but is only announced once the batch is done.
-    $('sample-estimate').setAttribute('aria-busy', String(!settled));
-    $('sample-estimate').textContent = count
+    const estimate = count
       ? t.estimateLine(Math.round(sum.mean * 100), count > 1 ? points(sum.spread) : null)
       : t.noEstimate;
+    $('sample-estimate').textContent = estimate;
+    if (speak && settled && count) W.announce(`${t.surveys(count)}. ${estimate}`);
   }
 
   /** Keep the panel in step with settings changed elsewhere (the map, the keyboard, a link). */
@@ -552,7 +581,7 @@
     const step = nearestStep(s.size);
     $('sample-size').value = String(step);
     $('sample-size').setAttribute('aria-valuetext', String(s.size));
-    $('sample-size-value').textContent = s.size.toLocaleString('en');
+    $('sample-size-value').textContent = s.size.toLocaleString(W.lang);
     const reveal = document.querySelector('#scene-controls [data-check="reveal"]');
     if (reveal) reveal.checked = s.reveal;
   }
@@ -576,7 +605,7 @@
     ensure(s);
     if (reduced || !stage.playing || count === 1) {
       for (let i = 0; i < count; i++) askOnce(s, wall());
-      showTally(s, queue === 0 || !W.stage.playing);
+      showTally(s, queue === 0 || !W.stage.playing, true);
       stage.draw();
       return;
     }
@@ -610,7 +639,7 @@
       `<button type="button" class="button" id="sample-once">${t.askOnce}</button>` +
       `<button type="button" class="button" id="sample-city">${t.newCity}</button></div>` +
       '<div class="wide readout sample-readout" id="sample-readout">' +
-      '<div id="sample-count"></div><div id="sample-estimate" role="status"></div>' +
+      '<div id="sample-count"></div><div id="sample-estimate"></div>' +
       '<div id="sample-theory"></div><div id="sample-truth"></div><div id="sample-note" class="sample-note"></div></div>'
     );
   }
@@ -737,7 +766,7 @@
       due -= n;
       queue -= n;
       for (let i = 0; i < n; i++) askOnce(s, wall());
-      showTally(s, queue === 0 || !W.stage.playing);
+      showTally(s, queue === 0 || !W.stage.playing, queue === 0);
     },
 
     action(s, stage) {
