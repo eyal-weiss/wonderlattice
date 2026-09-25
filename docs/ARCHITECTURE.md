@@ -83,6 +83,16 @@ other keys pressed on the canvas and returns true when it handled one), `extraSe
 (by default the card shows `draw()` with `defaults` plus optional `previewSettings`, at clock 0; a room whose `draw`
 touches the page or needs set-up must supply `preview`).
 
+Stage extras:
+
+- `still: true` hides Pause, for turn-based rooms with no continuous animation.
+- `trailCanvas(s, stage)` returns a canvas to save as the trail picture, e.g. a finished drawing rather than a
+  mid-animation frame.
+- A room with any `pointer` hook gets an interactive canvas (`role="application"`, described by the visible tip), so
+  keep the tip's keyboard hints accurate.
+- Call `Wonderloom.announce(text)` when a result settles, so screen readers hear it once. Don't put `role="status"` on
+  panels that are rebuilt often.
+
 ### Custom room hooks
 
 `layout: 'custom'`, `panel` (element id), `init()`, `enter()`, `preview(ctx, width, height)`,

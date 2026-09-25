@@ -151,6 +151,18 @@
 
     soundOn: () => rooms.some((room) => room.soundOn?.()),
 
+    /**
+     * Tell screen-reader users about a result, politely and once: one shared live
+     * region, so rooms don't have to make their panels chatty. Call it when a
+     * result settles (a batch finishes, a pattern is found), not on every frame.
+     */
+    announce(message) {
+      const region = $('announcer');
+      if (!region || !message) return;
+      region.textContent = '';
+      setTimeout(() => (region.textContent = message), 60); // a change, even for a repeated message
+    },
+
     toast(message) {
       $('toast').textContent = message;
       clearTimeout(toastTimer);

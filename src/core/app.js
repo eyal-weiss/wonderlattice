@@ -192,7 +192,8 @@
       room: current.id,
       title: $('scene-name').textContent,
       settings: { ...stage.settingsFor(current.id), ...current.extraSettings?.() },
-      canvas: $('scene-canvas'),
+      // A room can offer a finished picture for the trail (e.g. the whole cloth), not a mid-animation frame.
+      canvas: current.trailCanvas?.(stage.settingsFor(current.id), stage) ?? $('scene-canvas'),
     };
   }
 

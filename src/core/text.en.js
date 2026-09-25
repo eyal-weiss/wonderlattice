@@ -25,6 +25,7 @@ Wonderloom.defineText('app', 'en', {
     keep: '✧ Keep this moment',
     nudge: 'A little nudge',
     guestLabel: 'A visiting mathematician',
+    canvasRole: 'interactive picture',
     pause: 'Pause',
     play: 'Play',
     saved: 'Your scene is ready to save.',

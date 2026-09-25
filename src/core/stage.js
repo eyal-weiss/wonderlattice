@@ -63,7 +63,7 @@
     /** Markup for a range slider bound to settings[key]. */
     slider(key, label, min, max, step, value, unit = '', hint = '') {
       return (
-        `<div class="control"><label for="c-${key}">${label}<output id="v-${key}">${value}${unit}</output></label>` +
+        `<div class="control"><label for="c-${key}">${label}<output id="v-${key}" aria-live="off">${value}${unit}</output></label>` +
         `<input id="c-${key}" type="range" min="${min}" max="${max}" step="${step}" value="${value}" data-key="${key}" data-unit="${unit}">` +
         `${hint ? `<p>${hint}</p>` : ''}</div>`
       );
@@ -112,7 +112,8 @@
       `<div class="math-guest" id="math-guest-scene" aria-label="${t.guestLabel}"></div>` +
       `<button class="button trail-keep wide" id="trail-keep-scene">${t.keep}</button>`;
     h += room.controls(s, stage);
-    h += `<div class="hint"><strong>${t.nudge}</strong>${room.nudge}</div><button class="button why" id="scene-why">${room.whyLabel}<span aria-hidden="true">↗</span></button>`;
+    // The explanation opens a dialog, so it gets the same chevron as the drawing room, not an external-link arrow.
+    h += `<div class="hint"><strong>${t.nudge}</strong>${room.nudge}</div><button class="button why" id="scene-why"><span>${room.whyLabel}</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 6 6-6 6" /></svg></button>`;
     const panel = $('scene-controls');
     panel.innerHTML = h;
     panel.querySelectorAll('[data-key]').forEach((input) =>
@@ -141,7 +142,9 @@
     if (!room) return;
     const s = settings[room.id];
     document.querySelectorAll('#scene-controls [data-key]').forEach((input) => {
-      $('v-' + input.dataset.key).textContent = Number(s[input.dataset.key].toFixed(3)) + input.dataset.unit;
+      const text = Number(s[input.dataset.key].toFixed(3)) + input.dataset.unit;
+      $('v-' + input.dataset.key).textContent = text;
+      input.setAttribute('aria-valuetext', text); // the slider says its own value; the <output> stays quiet
     });
     $('scene-play').textContent = playing ? words().pause : words().play;
     document.querySelectorAll('.scene-preset').forEach((b, i) => b.setAttribute('aria-pressed', i === chosen[room.id]));
@@ -165,6 +168,9 @@
     room = next;
     clock = 0;
     last = 0;
+    playing = !reduced; // every room starts moving; a pause in one room doesn't follow you to the next
+    // Turn-based rooms ("still: true") have nothing continuous to pause.
+    $('scene-play').hidden = !!room.still;
     for (const [id, value] of [
       ['room-title', room.title],
       ['room-subtitle', room.subtitle],
@@ -176,6 +182,18 @@
     ])
       $(id).textContent = value;
     canvas.setAttribute('aria-label', room.canvasLabel);
+    // A canvas that takes keys is an interactive widget, not a picture: screen readers then pass keys
+    // through to it. The visible tip describes how to use it.
+    const interactive = !!(room.pointer && (room.pointer.arrow || room.pointer.key || room.pointer.down));
+    canvas.setAttribute('role', interactive ? 'application' : 'img');
+    canvas.tabIndex = interactive ? 0 : -1;
+    if (interactive) {
+      canvas.setAttribute('aria-roledescription', words().canvasRole);
+      canvas.setAttribute('aria-describedby', 'scene-tip');
+    } else {
+      canvas.removeAttribute('aria-roledescription');
+      canvas.removeAttribute('aria-describedby');
+    }
     const presets = $('scene-presets');
     presets.innerHTML = '';
     room.presets.forEach((p, index) => {
