@@ -1,6 +1,6 @@
-# Project state — 2026-09-24
+# Project state — 2026-09-25
 
-## Getting ready to publish — 2026-09-25
+## Live and public — 2026-09-25
 
 - **Hosting:** Cloudflare Pages at https://wonderlattice.com (bought at Cloudflare Registrar), deployed from `main`,
   with a preview for every pull request. Build command `npm run build`, output `dist/`, Node from `.node-version`.
@@ -8,8 +8,12 @@
   connections). `scripts/serve.mjs` applies the same file, so the browser tests on `dist/` run under it.
 - **For strangers:** a new README, CONTRIBUTING.md and SECURITY.md; canonical and link-preview tags use the real
   address; the privacy note names Cloudflare.
-- **Still manual:** in Cloudflare, keep Web Analytics, Email Address Obfuscation and Rocket Loader off (they would
-  change the page or add tracking). Making the repository public is the owner's switch.
+- **Cloudflare settings:** Web Analytics, Email Address Obfuscation and Rocket Loader are off (they would change the
+  page or add tracking), and a redirect rule sends `www.wonderlattice.com` to `wonderlattice.com` (301, path and
+  query kept).
+- **The repository is public.** Private vulnerability reporting, secret scanning with push protection and Dependabot
+  alerts are on. `main` is protected: changes arrive by pull request with the `check` job passing; no force-pushes or
+  deletion (the owner can bypass in an emergency).
 
 ## Renamed to Wonderlattice — 2026-09-24
 
@@ -139,8 +143,6 @@ browser tests, ESLint, Prettier, and GitHub Actions CI that runs everything on e
 
 - An in-app "Make your own version" flow: source download and an AI prompt containing the current settings.
 - Translations: the structure, tools and checks are ready (docs/TRANSLATING.md); no language has been added yet.
-- Publishing for public visitors under an owner-controlled account. The last ChatGPT-hosted site was owner-only.
-  GitHub Pages on this private repository needs a paid plan; Cloudflare Pages or Netlify work on free plans.
 - Manual release checks that automation can't do: listening to audio and narration, real phones, screen readers.
 - A short demo video and social launch material. Nothing has been posted.
 - A permanent link from the personal website, once feedback warrants it.
