@@ -19,6 +19,20 @@ test('storm room: codes repair the picture, and the readouts follow', async ({ p
   // The figures change with every setting, so they are not a live region: the arrival is announced once instead.
   await expect(page.locator('#storm-result')).not.toHaveAttribute('role', 'status');
   await expect(page.locator('#announcer')).toHaveText('3 pixels wrong');
+  // A stronger storm changes the result, and it is said once the slider settles.
+  await page.evaluate(() => (document.getElementById('announcer').textContent = ''));
+  await page.locator('[data-key="storm"]').evaluate((input) => {
+    input.value = '20';
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+  await expect(page.locator('#announcer')).toHaveText(/^\d+ pixels wrong$/);
+  await page.locator('[data-key="storm"]').evaluate((input) => {
+    input.value = '4';
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+  await expect(page.locator('#announcer')).toHaveText('3 pixels wrong');
   // Each preset's badge says what its percentage counts.
   await expect(page.locator('.scene-preset').nth(2).locator('.number')).toHaveText('+75%extra bits');
 

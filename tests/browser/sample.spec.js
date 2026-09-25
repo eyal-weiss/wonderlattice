@@ -191,9 +191,18 @@ test('old survey dots stay put after leaving the room and coming back', async ({
 test('sample room: the estimate is announced once per batch, not on every survey', async ({ page }) => {
   await page.goto('/#room=sample');
   await expect(page.locator('#sample-estimate')).not.toHaveAttribute('role', 'status');
+  await page.evaluate(() => {
+    const W = globalThis.Wonderloom;
+    const say = W.announce;
+    window.__said = [];
+    W.announce = (text) => (window.__said.push(text), say(text));
+  });
   await page.locator('#scene-action').click();
   await expect(page.locator('#sample-count')).toHaveText('50 surveys of 50 people', { timeout: 10000 });
   await expect(page.locator('#announcer')).toHaveText(/^50 surveys\. They say \d+% prefer orange, give or take/);
+  await page.waitForTimeout(1000);
+  const said = await page.evaluate(() => window.__said.filter((s) => /surveys?\./.test(s)));
+  expect(said).toHaveLength(1);
   await expect(page.locator('#scene-tip')).toContainText('← →');
 });
 

@@ -857,6 +857,9 @@
     enter(s, stage) {
       morph = null;
       grabbed = null;
+      // Start listening afresh: an announcement cut short by leaving can be heard on return.
+      clearTimeout(speakTimer);
+      heard = spoken = null;
       // The very first visit, with nothing shared, opens with the plane bending and the compass
       // walking. Shared links, saved moments, and later visits keep the compass where it was put.
       const fresh = firstVisit && !reduced && isDefault(s);

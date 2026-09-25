@@ -690,8 +690,11 @@
         stage.sync();
         stage.draw();
         cells[selected].focus();
-      } else if ((e.ctrlKey || e.metaKey) && !e.shiftKey && e.key.toLowerCase() === 'z') act(s, stage, undo);
-      else if (e.ctrlKey || e.metaKey) return;
+      } else if ((e.ctrlKey || e.metaKey) && !e.shiftKey && e.key.toLowerCase() === 'z') {
+        // Undo selects the square it restored; focus follows, so typing goes where the label says.
+        act(s, stage, undo);
+        cells[selected].focus();
+      } else if (e.ctrlKey || e.metaKey) return;
       else if (/^[1-4]$/.test(e.key)) act(s, stage, () => place(Number(e.key)));
       else if (['Backspace', 'Delete', '0'].includes(e.key)) act(s, stage, clearSquare);
       else return;

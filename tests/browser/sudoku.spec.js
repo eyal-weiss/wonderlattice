@@ -206,9 +206,12 @@ test('sudoku room: the board is a real grid, playable with the keyboard alone', 
   await page.keyboard.press('ArrowLeft');
   await page.keyboard.press('1');
   await expect(page.locator('#announcer')).toHaveText('Two neighbours now both hold blue. Undo, or try another.');
+  // Undo after moving away: focus goes back to the restored square, so typing lands where the label says.
+  await page.keyboard.press('ArrowRight');
   await page.keyboard.press('Control+z');
   await expect(page.locator('#announcer')).toHaveText('Stepped back.');
   await expect(page.locator('#sudoku-solutions')).toHaveText('1');
+  await expect(focused).toHaveAttribute('aria-label', /^Row 1, column 3, empty/);
   await page.keyboard.press('ArrowRight');
   await page.keyboard.press('Backspace');
   await expect(page.locator('#sudoku-filled')).toHaveText('8/16');

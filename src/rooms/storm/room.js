@@ -585,6 +585,10 @@
       'class="storm-curve"></canvas></div></div>',
 
     bindControls(panel, s, stage) {
+      // A new storm strength changes the result: say it once the slider settles, unless a message is on its way.
+      panel.querySelector('[data-key="storm"]')?.addEventListener('change', () => {
+        if (!landing) arrived(s);
+      });
       $('storm-code').addEventListener('change', (e) => {
         s.code = Number(e.target.value);
         stage.setChosen(PRESET_CODES.indexOf(s.code));

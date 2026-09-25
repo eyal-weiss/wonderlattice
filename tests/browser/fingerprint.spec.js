@@ -143,8 +143,9 @@ test.describe('growth keeps to the clock', () => {
     await page.goto('/');
     await openRoom(page, 'fingerprint');
     await expect.poll(() => share(page), { timeout: 1000 }).toBeGreaterThan(0);
-    // Unloaded, this is about 60% (it was about 25% when growth followed the frame rate).
-    await expect.poll(() => share(page), { timeout: 2000 }).toBeGreaterThanOrEqual(10);
+    // The head start alone reaches about 14%, so this needs the animation itself to grow.
+    // Unloaded, it is about 60% at 2 s (about 25% when growth followed the frame rate).
+    await expect.poll(() => share(page), { timeout: 3000 }).toBeGreaterThanOrEqual(25);
   });
 });
 
