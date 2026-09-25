@@ -11,3 +11,6 @@
 # The single-file copy runs its scripts inline, so from the website it downloads, to be opened from disk.
 /wonderlattice-standalone.html
   Content-Disposition: attachment; filename="wonderlattice-standalone.html"
+# Cloudflare also serves it without the .html ending.
+/wonderlattice-standalone
+  Content-Disposition: attachment; filename="wonderlattice-standalone.html"
