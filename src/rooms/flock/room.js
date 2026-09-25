@@ -115,7 +115,7 @@
         source: 'John_H_Conway_2005_(cropped).jpg',
         color: '#a6d4b3',
         frame: [100, -23, -12],
-        credit: 'Thane Plambeck',
+        // The credit, "Thane Plambeck (cropped)", is in text.en.js: CC BY 2.0 asks that an adaptation say so.
         license: { name: 'CC BY 2.0', url: 'https://creativecommons.org/licenses/by/2.0/' },
       },
       {

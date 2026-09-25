@@ -1,6 +1,6 @@
 /* Hear the shape · visitor-facing words (English). */
 Wonderloom.defineText('waves', 'en', {
-  eyebrow: 'WAVES & SOUND',
+  eyebrow: 'WAVES · SOUND',
   name: 'Hear the shape',
   tagline: 'Two tones combine into beats, silence, and a looping portrait.',
   title: 'Hear the shape.',
@@ -13,9 +13,9 @@ Wonderloom.defineText('waves', 'en', {
   canvasLabel: 'Two sine waves and their combined signal. Choose Circle portrait for a second representation.',
   panelEyebrow: 'Listen & look',
   whyLabel: 'Why does this happen?',
-  nudge: 'Try “Almost in tune.” Hear the volume swell and fade as two close pitches drift in and out of step.',
+  nudge: 'Try “Almost in tune”. Hear the volume swell and fade as two close pitches drift in and out of step.',
   connection: {
-    html: '<strong>Circles become waves.</strong> The height of a point going around a circle follows a sine wave. Combine circular motions, and you’re back in the drawing studio.',
+    html: '<strong>Circles become waves.</strong> The height of a point going around a circle follows a sine wave. Combine circular motions, and you’re back in Paint with motion.',
     label: 'Paint with these ideas',
   },
 
@@ -62,9 +62,9 @@ Wonderloom.defineText('waves', 'en', {
 <p>When two frequencies are close, their sum grows and shrinks in strength. Those pulses are called <em>beats</em>. Their rate is the difference between the frequencies.</p>
 <div class="insight-visual" id="beat-detail"></div>
 <h3>Two sounds can make silence</h3>
-<p>Choose “The sound of silence.” Equal waves half a cycle apart cancel in this electronic mix. Real-world cancellation depends on where you listen and how the waves reach you.</p>
+<p>Choose “The sound of silence”. Equal waves half a cycle apart cancel in this electronic mix. Real-world cancellation depends on where you listen and how the waves reach you.</p>
 <h3>Look sideways</h3>
-<p>Try “Circle portrait.” We use the first wave for the horizontal position and the second for the vertical position. The resulting Lissajous figure turns a relationship between rhythms into a shape.</p>
+<p>Try “Circle portrait”. We use the first wave for the horizontal position and the second for the vertical position. The resulting Lissajous figure turns a relationship between rhythms into a shape.</p>
 <details><summary>The mathematics, if you want it</summary><p>A(t) = sin(2πft)<br>B(t) = sin(2πfrt + φ)<br>The combined signal is A(t) + B(t).</p><p>The slow-motion model preserves the frequency ratio and starting phase. Audible tones run at the pitches shown. Simple ratios repeat quickly; nearby unequal pitches produce beats.</p></details>
 <div class="sources"><a class="source-link" href="https://www.physicsclassroom.com/class/sound/Lesson-3/Interference-and-Beats" target="_blank" rel="noopener">Explore interference and beats</a></div>`,
   },

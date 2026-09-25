@@ -34,8 +34,8 @@
       [start, south],
       [south, end],
     ])
-      seg(a, b, '#344552', 10);
-    seg(north, south, shortcut ? '#4e6673' : '#41505c', 10, !shortcut);
+      seg(a, b, '#566e7e', 10); // empty roads keep at least 3:1 against the night background
+    seg(north, south, shortcut ? '#6a8595' : '#5d6b78', 10, !shortcut);
     const density = (x) => 2 + 7 * Math.sqrt(x / Math.max(demand, 1));
     if (flow.upper + flow.middle > 0) seg(start, north, '#b4eed3', density(flow.upper + flow.middle));
     if (flow.upper > 0) seg(north, end, '#f7c998', density(flow.upper));
@@ -112,31 +112,42 @@
     ctx.fillText(t.labels.caption, width * 0.5, height * 0.975);
   }
 
-  function readouts(s) {
+  /** The travel times, and the verdict with its arrow (↑ slower, ↓ faster, or none). */
+  function outcome(s) {
     const f = equilibrium(s.demand, s.shortcut),
       diff = f.time - f.baseline,
       time = Number(f.time.toFixed(1)),
       baseline = Number(f.baseline.toFixed(1));
+    if (!s.shortcut) return { time, baseline, verdict: t.verdict.closed, arrow: '' };
+    if (Math.abs(diff) < 0.05) return { time, baseline, verdict: t.verdict.same, arrow: '' };
+    return diff > 0
+      ? { time, baseline, verdict: t.verdict.slower(Number(diff.toFixed(1))), arrow: '↑' }
+      : { time, baseline, verdict: t.verdict.faster(Number((-diff).toFixed(1))), arrow: '↓' };
+  }
+
+  /** Say the settled result once: the verdict with the shortcut open, the plain trip time with it closed. */
+  function announce(s) {
+    const { time, verdict } = outcome(s);
+    W.announce(s.shortcut ? verdict : t.status(false, time));
+  }
+
+  function readouts(s) {
+    const { time, baseline, verdict, arrow } = outcome(s);
     $('scene-status').textContent = t.status(s.shortcut, time);
     $('scene-action').textContent = s.shortcut ? t.close : t.open;
-    const verdict = !s.shortcut
-      ? t.verdict.closed
-      : Math.abs(diff) < 0.05
-        ? t.verdict.same
-        : diff > 0
-          ? t.verdict.slower(Number(diff.toFixed(1)))
-          : t.verdict.faster(Number((-diff).toFixed(1)));
+    // The shared slider readout shows plain digits; the room writes the demand the way the text does (4,000).
+    if ($('v-demand')) $('v-demand').textContent = t.drivers(s.demand);
     $('traffic-result').innerHTML =
       '<div class="traffic-compare">' +
       `<div class="traffic-time ${!s.shortcut ? 'active' : ''}"><span>${t.before}</span><strong>${baseline}<small>${t.minutes}</small></strong></div>` +
       '<span class="traffic-arrow" aria-hidden="true">→</span>' +
       `<div class="traffic-time ${s.shortcut ? 'active' : ''}"><span>${t.after}</span><strong>${s.shortcut ? time : '?'}<small>${t.minutes}</small></strong></div>` +
-      `</div><p class="traffic-verdict">${verdict}</p>`;
+      `</div><p class="traffic-verdict">${arrow ? `<span aria-hidden="true">${arrow}</span> ` : ''}${verdict}</p>`;
   }
 
   W.defineRoom({
     id: 'traffic',
-    symbol: '↗',
+    symbol: '⇄',
     eyebrow: t.eyebrow,
     name: t.name,
     theme: 'signals',
@@ -178,10 +189,9 @@
       {
         ...t.guests[1],
         bio: 'Nash',
-        image: 'nash.jpg',
-        source: 'John_Forbes_Nash_(1928-2015)_portrait.jpg',
         color: '#d5b9ec',
-        frame: [120, -30, -28],
+        // Nash in the 1950s: short, neat dark hair.
+        sketch: { hairStyle: 'short', hair: '#2a2220', skin: '#f0cba9', backdrop: '#e4ddee' },
       },
     ],
 
@@ -189,14 +199,20 @@
 
     controls: (s, stage) =>
       stage.slider('demand', t.demand, 1000, 10000, 100, s.demand, '', t.demandHint) +
-      '<div class="wide readout traffic-result" id="traffic-result" role="status"></div>',
+      // Rebuilt on every change, so it is not a live region; the settled verdict is announced instead.
+      '<div class="wide readout traffic-result" id="traffic-result"></div>',
 
+    bindControls(panel, s) {
+      // "change" fires when the slider is let go (or after each key step), not while it is dragged.
+      $('c-demand').addEventListener('change', () => announce(s));
+    },
     readouts,
     draw,
     action(s, stage) {
       s.shortcut = !s.shortcut;
       stage.refresh();
       stage.draw();
+      announce(s);
     },
   });
 })();

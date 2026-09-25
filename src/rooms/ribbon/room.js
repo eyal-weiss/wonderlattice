@@ -1,4 +1,4 @@
-/* Room · The other side: a ribbon in 3D, with zero, one, or two half-twists. */
+/* Room · Where is the other side? a ribbon in 3D, with zero, one, or two half-twists. */
 (() => {
   'use strict';
 
@@ -7,10 +7,19 @@
   const { surface, project } = W.models.ribbon;
   const t = W.text('ribbon');
 
-  // View rotation and the traveler's progress (radians around the ring).
+  // View rotation and the traveller's progress (radians around the ring).
   let rx = -0.5,
     ry = 0.25,
     walk = 0;
+
+  // The turn buttons: [id, symbol, label key, horizontal turn, vertical tilt]. They match the arrow keys.
+  const TURN_STEP = 0.26;
+  const TURNS = [
+    ['left', '↺', 'turnLeft', -1, 0],
+    ['right', '↻', 'turnRight', 1, 0],
+    ['up', '↑', 'tiltUp', 0, -1],
+    ['down', '↓', 'tiltDown', 0, 1],
+  ];
 
   function draw(ctx, s, stage) {
     const { width: cw, height: ch } = stage;
@@ -60,8 +69,13 @@
     const oneSided = s.twists % 2 === 1;
     if (s.edges) {
       // A Möbius band's boundary is one loop that goes around twice.
+      // The second edge is dashed, so the two loops differ by more than colour.
       curve(s.width, TAU * (oneSided ? 2 : 1), '#ffe4a3', 2);
-      if (!oneSided) curve(-s.width, TAU, '#f4a6d2', 2);
+      if (!oneSided) {
+        ctx.setLineDash([7, 5]);
+        curve(-s.width, TAU, '#f4a6d2', 2);
+        ctx.setLineDash([]);
+      }
     }
     if (s.walk) {
       const period = TAU * (oneSided ? 2 : 1),
@@ -144,9 +158,23 @@
       stage.slider('zoom', t.zoom, 0.75, 1.3, 0.01, s.zoom, '×') +
       stage.check('spin', t.spin, s.spin) +
       stage.check('walk', t.walk, s.walk) +
-      stage.check('edges', t.edges, s.edges),
+      stage.check('edges', t.edges, s.edges) +
+      // Buttons that turn the view, for anyone who can't drag (WCAG 2.5.7).
+      `<div class="control wide"><span id="ribbon-turn-label" style="font-size:14px">${t.turn}</span>` +
+      '<div class="segment ribbon-turn" role="group" aria-labelledby="ribbon-turn-label">' +
+      TURNS.map(
+        ([id, symbol, label]) =>
+          `<button type="button" id="ribbon-${id}" aria-label="${t[label]}" title="${t[label]}" style="font-size:17px;min-width:42px">${symbol}</button>`,
+      ).join('') +
+      '</div></div>',
 
     bindControls(panel, s, stage) {
+      for (const [id, , , dx, dy] of TURNS)
+        $('ribbon-' + id).addEventListener('click', () => {
+          ry += dx * TURN_STEP;
+          rx += dy * TURN_STEP;
+          stage.draw();
+        });
       $('twists').addEventListener('change', (e) => {
         s.twists = Number(e.target.value);
         walk = 0;

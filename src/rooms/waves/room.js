@@ -6,6 +6,8 @@
   const { $, TAU } = W;
   const { wavePoint, beat } = W.models.waves;
   const t = W.text('waves');
+  // Pitches to one decimal, without a trailing ".0" (330 Hz, not 330.0 Hz).
+  const tenths = (x) => Number(x.toFixed(1));
 
   // Web Audio state. Sound starts only after a click and stops on leaving.
   let audio = null,
@@ -75,7 +77,8 @@
       await audio.resume();
       if (!W.stage.isShowing(room)) return;
       sounding = true;
-      W.stage.setPlaying(true);
+      // Sound plays at once, but with reduced motion the picture stays still until Play.
+      if (!W.prefersReducedMotion()) W.stage.setPlaying(true);
       startTones();
       $('scene-action').textContent = t.soundOn;
       W.stage.sync();
@@ -134,7 +137,7 @@
       ctx.stroke();
       ctx.fillStyle = colors[row];
       ctx.font = '12px system-ui';
-      const label = row === 0 ? t.labels.a(s.f) : row === 1 ? t.labels.b((s.f * s.ratio).toFixed(1)) : t.labels.sum;
+      const label = row === 0 ? t.labels.a(s.f) : row === 1 ? t.labels.b(tenths(s.f * s.ratio)) : t.labels.sum;
       ctx.fillText(label, 5, cy - amp - 9);
       ctx.strokeStyle = colors[row];
       ctx.lineWidth = row === 2 ? 2 : 1.4;
@@ -191,10 +194,17 @@
       {
         ...t.guests[0],
         bio: 'Lissajous',
-        image: 'lissajous.jpg',
-        source: 'Jules_Antoine_Lissajous.jpeg',
         color: '#b6b2e8',
-        frame: [200, -69, -30],
+        // A 19th-century physicist: dark hair receding from the brow, and a full beard.
+        sketch: {
+          hairStyle: 'receding',
+          hair: '#2e2420',
+          skin: '#efc7a5',
+          beard: 'full',
+          moustache: true,
+          brows: 'bold',
+          backdrop: '#e2e0ee',
+        },
       },
       {
         ...t.guests[1],
@@ -209,7 +219,7 @@
     insight: {
       ...t.insight,
       onOpen(s) {
-        $('beat-detail').textContent = t.beatDetail(s.f, (s.f * s.ratio).toFixed(1), beat(s).toFixed(1));
+        $('beat-detail').textContent = t.beatDetail(s.f, tenths(s.f * s.ratio), tenths(beat(s)));
       },
     },
 
@@ -236,7 +246,7 @@
     },
 
     readouts(s) {
-      $('scene-status').textContent = t.status(Math.round(s.f), (s.f * s.ratio).toFixed(1));
+      $('scene-status').textContent = t.status(Math.round(s.f), tenths(s.f * s.ratio));
       $('scene-action').textContent = sounding ? t.soundOn : t.soundOff;
     },
 

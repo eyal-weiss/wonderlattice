@@ -122,7 +122,7 @@ test('traffic room shows the paradox only over part of the range', async ({ page
   await expect(page.locator('#traffic-result')).toContainText('15 minutes slower for everyone');
   await setRange(page, '#c-demand', 1000);
   await expect(page.locator('#traffic-result')).toContainText('30 minutes faster for everyone');
-  await expect(page.locator('#v-demand')).toHaveText('1000');
+  await expect(page.locator('#v-demand')).toHaveText('1,000');
   await page.getByRole('button', { name: /Rush hour/ }).click();
   await expect(page.locator('#scene-action')).toHaveText('Open the shortcut');
   await expect(page.locator('#traffic-result')).toContainText('95 min');
@@ -132,7 +132,7 @@ test('traffic room shows the paradox only over part of the range', async ({ page
 
 test('waves room: sound is opt-in and stops when leaving', async ({ page }) => {
   await openRoom(page, 'waves');
-  await expect(page.locator('#scene-status')).toHaveText('220 Hz + 330.0 Hz');
+  await expect(page.locator('#scene-status')).toHaveText('220 Hz + 330 Hz');
   await expect(page.locator('#scene-action')).toHaveText('Turn sound on');
   expect((await tool(page, 'read_exploration')).soundOn).toBe(false);
   await page.locator('#scene-action').click();
@@ -167,6 +167,51 @@ test('flock and ribbon controls update their readouts', async ({ page }) => {
   await expect(page.locator('#scene-play')).toHaveText('Play');
 });
 
+test('traffic room announces its verdict once, when the shortcut opens or closes or the demand settles', async ({
+  page,
+}) => {
+  await openRoom(page, 'traffic');
+  await expect(page.locator('#traffic-result')).not.toHaveAttribute('role', 'status');
+  await expect(page.locator('#v-demand')).toHaveText('4,000');
+  await page.locator('#scene-action').click();
+  await expect(page.locator('#announcer')).toHaveText('15 minutes slower for everyone.');
+  await page.locator('#c-demand').evaluate((input) => {
+    input.value = '1000';
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+  await expect(page.locator('#announcer')).toHaveText('30 minutes faster for everyone.');
+  await page.locator('#scene-action').click();
+  await expect(page.locator('#announcer')).toHaveText('Shortcut closed · 50 min now');
+});
+
+test('ribbon view buttons turn the view without dragging', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' }); // a still picture, so only the button changes it
+  await page.goto('/'); // the stage reads the motion preference when the page loads
+  await openRoom(page, 'ribbon');
+  expect((await tool(page, 'read_exploration')).playing).toBe(false);
+  const picture = () => page.locator('#scene-canvas').evaluate((canvas) => canvas.toDataURL());
+  const before = await picture();
+  for (const name of ['Turn the view left', 'Turn the view right', 'Tilt the view up', 'Tilt the view down'])
+    await expect(page.getByRole('button', { name, exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Turn the view right', exact: true }).click();
+  await expect.poll(picture).not.toBe(before);
+  const turned = await picture();
+  await page.getByRole('button', { name: 'Tilt the view down', exact: true }).click();
+  await expect.poll(picture).not.toBe(turned);
+});
+
+test('waves room: with reduced motion, turning sound on leaves the picture paused', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/'); // the stage reads the motion preference when the page loads
+  await openRoom(page, 'waves');
+  expect((await tool(page, 'read_exploration')).playing).toBe(false);
+  await page.locator('#scene-action').click();
+  await expect(page.locator('#scene-action')).toHaveText('Sound on · mute');
+  expect((await tool(page, 'read_exploration')).playing).toBe(false);
+  await expect(page.locator('#scene-play')).toHaveText('Play');
+});
+
 test('mathematician visitors appear in every room and can be swapped', async ({ page }) => {
   const pairs = {
     motion: ['Emmy Noether', 'Leonhard Euler'],
@@ -180,7 +225,14 @@ test('mathematician visitors appear in every room and can be swapped', async ({ 
     const card = page.locator(room === 'motion' ? '#math-guest-motion' : '#math-guest-scene');
     const first = await card.locator('strong').textContent();
     expect(names).toContain(first);
-    await expect.poll(() => card.locator('img').evaluate((img) => img.complete && img.naturalWidth)).toBeGreaterThan(0);
+    // A face is a photograph that has loaded, or a drawn sketch.
+    await expect
+      .poll(() =>
+        card
+          .locator('.math-guest-head')
+          .evaluate((head) => !!head.querySelector('svg') || head.querySelector('img')?.naturalWidth > 0),
+      )
+      .toBe(true);
     await card.getByRole('button', { name: 'Meet another mathematician' }).click();
     const second = await card.locator('strong').textContent();
     expect(names.filter((n) => n !== first)).toContain(second);

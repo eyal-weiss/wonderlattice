@@ -1,6 +1,6 @@
 /* The tempting shortcut · visitor-facing words (English). */
 Wonderloom.defineText('traffic', 'en', {
-  eyebrow: 'NETWORKS · CHOICES',
+  eyebrow: 'GAME THEORY',
   name: 'The tempting shortcut',
   tagline: 'A new road that makes every driver slower.',
   title: 'The tempting shortcut.',
@@ -15,7 +15,7 @@ Wonderloom.defineText('traffic', 'en', {
   whyLabel: 'How could that happen?',
   nudge: 'Start with 4,000 drivers. Open the shortcut. Then try much lighter traffic. Is the road always a bad idea?',
   connection: {
-    html: '<strong>Simple rules, unexpected result.</strong> The flock makes a pattern from local interactions. Here, each driver choosing a fast route can make the whole trip slower.',
+    html: '<strong>Simple rules, unexpected result.</strong> In A mind of many, a flock makes a pattern from local interactions. Here, each driver choosing a fast route can make the whole trip slower.',
     label: 'Follow another crowd',
   },
 
@@ -27,6 +27,7 @@ Wonderloom.defineText('traffic', 'en', {
 
   demand: 'Drivers crossing the city',
   demandHint: 'How crowded is the city?',
+  drivers: (n) => n.toLocaleString('en'),
 
   status: (open, minutes) => `${open ? 'Shortcut open' : 'Shortcut closed'} · ${minutes} min now`,
   open: 'Open the shortcut',
@@ -37,8 +38,8 @@ Wonderloom.defineText('traffic', 'en', {
   verdict: {
     closed: 'Open the shortcut to reveal the new travel time.',
     same: 'The new road leaves the trip time unchanged.',
-    slower: (minutes) => `↑ ${minutes} minutes slower for everyone.`,
-    faster: (minutes) => `↓ ${minutes} minutes faster for everyone.`,
+    slower: (minutes) => `${minutes} minutes slower for everyone.`,
+    faster: (minutes) => `${minutes} minutes faster for everyone.`,
   },
 
   labels: {

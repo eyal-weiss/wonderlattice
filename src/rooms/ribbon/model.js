@@ -1,5 +1,5 @@
 /*
- * The other side · a ribbon with n half-twists. Pure functions, no DOM.
+ * Where is the other side? · a ribbon with n half-twists. Pure functions, no DOM.
  *   x = (R + v cos(nu/2)) cos(u),  y = (R + v cos(nu/2)) sin(u),  z = v sin(nu/2)
  * Odd n gives a one-sided Möbius band; even n a two-sided band.
  */
