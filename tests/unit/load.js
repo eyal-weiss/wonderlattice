@@ -6,6 +6,7 @@ import '../../src/rooms/waves/model.js';
 import '../../src/rooms/flock/model.js';
 import '../../src/rooms/ribbon/model.js';
 import '../../src/rooms/traffic/model.js';
+import '../../src/rooms/shots/model.js';
 import '../../src/rooms/loom/model.js';
 import '../../src/rooms/storm/model.js';
 import '../../src/rooms/sudoku/model.js';

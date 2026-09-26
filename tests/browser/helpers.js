@@ -6,6 +6,7 @@ export const ROOMS = {
   flock: 'A mind of many.',
   ribbon: 'Where is the other side?',
   traffic: 'The tempting shortcut.',
+  shots: 'Two players, three leaderboards.',
   loom: 'The mathematical loom.',
   storm: 'Send a picture through a storm.',
   sudoku: 'Sudoku, made transparent.',
