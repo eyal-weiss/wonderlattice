@@ -26,8 +26,12 @@
   width: 100%;
   height: 100%;
   display: block;
-  touch-action: none;
+  /* A finger on the canvas scrolls the page, except in rooms that drag (see pointer.drag). */
+  touch-action: manipulation;
   outline-offset: -3px;
+}
+.scene canvas[data-touch='drag'] {
+  touch-action: none;
 }
 .scene-presets {
   display: grid;

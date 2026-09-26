@@ -91,6 +91,9 @@ Stage extras:
 - `still: true` hides Pause, for turn-based rooms with no continuous animation.
 - `trailCanvas(s, stage)` returns a canvas to save as the trail picture, e.g. a finished drawing rather than a
   mid-animation frame.
+- `pointer.drag` says where a finger drags instead of scrolling the page. Leave it out for rooms that only take taps
+  (the canvas then scrolls like the rest of the page); `true` for rooms that drag anywhere on the canvas; or a function
+  `(p, s, stage) => boolean` for rooms that drag only in places, such as the plane's left picture.
 - A room with any `pointer` hook gets an interactive canvas (`role="application"`, described by the visible tip), so
   keep the tip's keyboard hints accurate.
 - Call `Wonderlattice.announce(text)` when a result settles, so screen readers hear it once. Don't put `role="status"` on

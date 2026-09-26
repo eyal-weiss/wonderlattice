@@ -180,6 +180,7 @@
     onPreset: seedFlock,
 
     pointer: {
+      drag: true, // drags anywhere on the canvas, so touches there don't scroll the page
       down(p) {
         point = p;
       },
