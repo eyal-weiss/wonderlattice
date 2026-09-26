@@ -101,9 +101,6 @@ a.brand:focus-visible {
   display: flex;
   gap: 8px;
 }
-[dir='rtl'] .room-bar-steps .button {
-  transform: scaleX(-1);
-}
 .room-bar-steps .button {
   font-size: 20px;
   line-height: 1;
