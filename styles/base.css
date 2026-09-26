@@ -100,6 +100,46 @@ header {
 .quiet:hover {
   color: var(--ink);
 }
+#about-button {
+  white-space: nowrap;
+}
+/* The tagline gives way first when the header gets crowded. */
+@media (max-width: 1024px) {
+  .edition {
+    display: none;
+  }
+}
+/* The language menu sits in the header, after My trail. */
+.language-pick {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+}
+.language-pick svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+.language-pick select {
+  max-width: 9.5em;
+  padding: 5px 6px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+}
+.language-pick select:hover {
+  border-color: var(--muted);
+}
+.language-pick option {
+  background: var(--panel);
+  color: var(--ink);
+}
 .intro {
   display: flex;
   justify-content: space-between;

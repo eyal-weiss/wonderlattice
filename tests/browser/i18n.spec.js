@@ -56,7 +56,7 @@ test('every visible word goes through a dictionary, in every room and dialog', a
   await openPseudo(page);
   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
   await expect(page.locator('html')).toHaveAttribute('lang', 'xx');
-  await expect(page.locator('#language')).toBeVisible();
+  await expect(page.locator('header #language')).toBeVisible();
   const found = new Set(await untranslated(page));
   for (const room of Object.keys(ROOMS)) {
     await openRoom(page, room);
