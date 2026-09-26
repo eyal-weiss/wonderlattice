@@ -350,6 +350,14 @@
     });
   }
 
+  /** Phones pin the picture (see base.css): how far its title scrolls before the picture sticks. */
+  function measurePins() {
+    for (const drawing of document.querySelectorAll('.workspace > .drawing')) {
+      const wrap = drawing.querySelector('.canvas-wrap');
+      if (wrap) drawing.style.setProperty('--pin-offset', `${Math.max(0, wrap.offsetTop - 8)}px`);
+    }
+  }
+
   function start() {
     W.applyPageText();
     buildLanguagePicker();
@@ -358,6 +366,9 @@
     bindDialogs();
     route();
     window.addEventListener('hashchange', route);
+    // The title's height changes with the room, the language and the width.
+    const pins = new ResizeObserver(measurePins);
+    document.querySelectorAll('.workspace > .drawing').forEach((d) => pins.observe(d));
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
         W.silence();
