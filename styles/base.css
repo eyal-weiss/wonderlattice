@@ -166,6 +166,10 @@ h1 {
   text-transform: uppercase;
   color: var(--muted);
 }
+/* Spaced capitals don't carry over to scripts without capitals: spaced-out Hebrew reads badly. */
+:lang(he) :is(.eyebrow, .edition, .hint strong, .room-bar-theme, .math-guest-eyebrow) {
+  letter-spacing: normal;
+}
 #pattern-name {
   font-family: Georgia, serif;
   font-size: 22px;
