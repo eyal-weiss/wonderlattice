@@ -19,6 +19,11 @@ export default [
     rules: { 'no-unused-vars': ['error', { args: 'none' }] },
   },
   {
+    // Translations may use non-breaking spaces in their text (French puts one before ? ! : ; and %).
+    files: ['src/lang/*.js'],
+    rules: { 'no-irregular-whitespace': ['error', { skipStrings: true, skipTemplates: true }] },
+  },
+  {
     files: ['tests/**/*.js', 'scripts/**/*.mjs', '*.config.js'],
     languageOptions: { sourceType: 'module', globals: { ...globals.node, ...globals.browser } },
   },
