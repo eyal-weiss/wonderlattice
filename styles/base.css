@@ -286,6 +286,12 @@ h1 {
   color: var(--lime);
   font-size: 14px;
 }
+/* On right-to-left pages, numbers still read left to right: −5 and 1.5×, not 5- and ×1.5. */
+[dir='rtl'] .number-wrap,
+[dir='rtl'] .control:has(input[type='range']) output {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
 .control p {
   font-size: 13px;
   color: var(--muted);
