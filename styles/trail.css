@@ -210,7 +210,8 @@ textarea:focus-visible {
     margin-right: auto;
   }
   .trail-header,
-  #about-button {
+  #about-button,
+  .language-pick select {
     font-size: 12px;
   }
   .trail-return {
@@ -240,9 +241,34 @@ textarea:focus-visible {
     flex-wrap: wrap;
     height: auto;
     padding: 9px 0;
+    row-gap: 2px;
+  }
+  /* Two rows: the brand and the language menu, then About and My trail. */
+  .brand {
+    flex: 1;
+  }
+  .language-pick {
+    order: 1;
+  }
+  .language-pick svg {
+    display: none;
+  }
+  header::after {
+    content: '';
+    order: 2;
+    flex-basis: 100%;
+  }
+  #about-button,
+  .trail-header {
+    order: 3;
+  }
+}
+@media (max-width: 360px) {
+  header {
+    column-gap: 8px;
   }
   .brand {
-    width: 100%;
+    font-size: 18px;
   }
   .trail-card {
     grid-template-columns: 1fr;

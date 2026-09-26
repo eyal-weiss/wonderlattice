@@ -6,7 +6,7 @@
  * - Keys ending in Html may contain markup such as <strong> or <em>; keep the tags balanced.
  * - Check your work with: npm run i18n:check
  */
-Wonderlattice.defineLanguage('pt', { name: 'Português (Brasil)', dir: 'ltr', speech: 'pt-BR' });
+Wonderlattice.defineLanguage('pt', { name: 'Português', dir: 'ltr', speech: 'pt-BR' });
 
 Wonderlattice.defineText('app', 'pt', {
   themes: {
