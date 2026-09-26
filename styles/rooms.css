@@ -5,7 +5,7 @@
 .scene-status {
   color: #a7b4c6;
   font-size: 13px;
-  text-align: right;
+  text-align: end;
   max-width: 160px;
 }
 .scene #scene-name {
@@ -39,7 +39,7 @@
   border: 1px solid var(--line);
   border-radius: 12px;
   background: #161c25;
-  text-align: left;
+  text-align: start;
 }
 .scene-preset:hover {
   border-color: #72838b;
@@ -170,6 +170,7 @@
 }
 .scene-presets .number {
   float: right;
+  float: inline-end;
   font-family: Georgia, serif;
   font-size: 22px;
   color: #a3c8bb;
@@ -269,6 +270,10 @@
 .traffic-arrow {
   font-size: 20px;
   color: #d3e9cf;
+}
+[dir='rtl'] .traffic-arrow {
+  display: inline-block;
+  transform: scaleX(-1);
 }
 .traffic-verdict {
   margin: 12px 0 0;

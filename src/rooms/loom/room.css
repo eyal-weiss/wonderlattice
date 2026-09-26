@@ -16,7 +16,7 @@
 }
 .loom-tieup > span:nth-child(5n + 1) {
   justify-self: end;
-  padding-right: 4px;
+  padding-inline-end: 4px;
 }
 .loom-cell {
   width: 34px;
