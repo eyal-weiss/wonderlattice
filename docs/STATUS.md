@@ -1,5 +1,24 @@
 # Project state — 2026-09-25
 
+## New room: The shot mix — 2026-09-26
+
+A new "Chance & evidence" room, `shots`. Two players take close-range and far-range shots; the visitor drags how
+many attempts each player takes of each type and watches three leaderboards (close, far, overall). One player can
+lead both individual leaderboards yet trail overall, once the mix of shot types differs enough between them —
+Simpson's paradox. The "Split into close and far" action swaps each player's close/far attempt counts so the
+reversal can be watched happening live. Presets: an even mix (no reversal), a skewed mix, and an extreme mix
+(90%/80% skill, 10 vs. 900 attempts — the clearest flip). Only the Overall bars move as the sliders change; the
+Close-range and Far-range bars stay fixed length, since they show each player's unchanging skill rate — this is
+intentional, not a bug, but it can look static at first. The explanation cites Simpson's 1951 paper and the 1973
+Berkeley admissions case (Bickel, Hammel & O'Connell, *Science* 1975). Visitors: Edward H. Simpson (drawn sketch,
+no MacTutor biography exists so no `bio` link) and George Udny Yule (drawn sketch, `bio: 'Yule'`).
+
+Unit tests cover the model (`tests/unit/shots.test.js`): the paradox itself with the extreme-preset numbers, a
+basic sanity check, and the zero-attempts edge case. Not yet added: a browser test in `tests/browser/`. Two
+pre-existing, unrelated issues found along the way: `tests/browser/plane.spec.js`'s axis-label test fails on this
+machine, and `npm run build` / `npm run i18n:check` crash on Windows from a doubled drive-letter path bug in
+`scripts/build.mjs` / `scripts/i18n.mjs`. Neither is caused by this change.
+
 ## Live and public — 2026-09-25
 
 - **Hosting:** Cloudflare Pages at https://wonderlattice.com (bought at Cloudflare Registrar), deployed from `main`,
