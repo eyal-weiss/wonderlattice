@@ -211,6 +211,7 @@
     },
 
     pointer: {
+      drag: true, // drags anywhere on the canvas, so touches there don't scroll the page
       move(p, { dragging, dx, dy }, s, stage) {
         if (!dragging) return;
         ry += dx * 0.009;
