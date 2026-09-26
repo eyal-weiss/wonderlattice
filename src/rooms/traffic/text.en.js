@@ -38,8 +38,8 @@ Wonderlattice.defineText('traffic', 'en', {
   verdict: {
     closed: 'Open the shortcut to reveal the new travel time.',
     same: 'The new road leaves the trip time unchanged.',
-    slower: (minutes) => `${minutes} minutes slower for everyone.`,
-    faster: (minutes) => `${minutes} minutes faster for everyone.`,
+    slower: (minutes) => `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} slower for everyone.`,
+    faster: (minutes) => `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} faster for everyone.`,
   },
 
   labels: {

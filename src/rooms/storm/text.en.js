@@ -58,7 +58,8 @@ Wonderlattice.defineText('storm', 'en', {
     !flips ? 'A calm sky' : !wrong ? 'Every pixel arrived' : wrong === 1 ? '1 pixel wrong' : `${wrong} pixels wrong`,
   curveTitle: 'Pixels wrong on average, as the storm grows',
   about: (wrong) => `≈ ${wrong}`,
-  curveLabel: (code, wrong) => `${code}: about ${wrong} pixels wrong on average at this storm strength.`,
+  curveLabel: (code, wrong) =>
+    `${code}: about ${wrong} ${wrong === 1 ? 'pixel' : 'pixels'} wrong on average at this storm strength.`,
   calm: 'calm',
   wild: '20%',
 
