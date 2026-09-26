@@ -12,6 +12,8 @@
   margin-top: 10px;
 }
 .cube-move {
+  /* Move notation reads left to right in every language: U′, never ′U in right-to-left pages. */
+  direction: ltr;
   min-height: 42px;
   border: 1px solid #4a5563;
   border-radius: 8px;

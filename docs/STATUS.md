@@ -1,4 +1,21 @@
-# Project state — 2026-09-25
+# Project state — 2026-09-26
+
+## Four languages, room ideas, and the launch — 2026-09-26
+
+- **Launch:** posted on X and LinkedIn; about 600 unique visitors in the first days, mostly from Israel, some from the
+  US. No written feedback yet.
+- **Translations:** Hebrew (right-to-left), Spanish, Brazilian Portuguese and French, one pull request each (#20–#23).
+  Each was drafted by a Claude agent, reviewed by GPT (`gpt-6-astra`, high effort) acting as a native editor and
+  mathematician, and the findings judged one by one before merging. They're machine translations with review, not a
+  native speaker's read: the owner is asking for corrections from native speakers. Hebrew wraps formulas and signed
+  numbers in bidi isolates so they read left to right.
+- **Fixes the reviews found:** three explanations were made precise in every language (conformal maps need a complex
+  derivative and f′ ≠ 0; Euler's officers need two Latin squares laid over each other; the fingerprint model has no
+  quadratic terms). English plurals for "1 minute" and "1 pixel"; Hebrew labels are no longer letter-spaced; cube move
+  buttons read U′ in right-to-left pages.
+- **Room ideas as issues:** 14 proposed rooms are GitHub issues #5–#18 (labels `room idea`, `effort: …`, `theme: …`),
+  indexed in the pinned issue #19. Four are marked `good first issue`.
+- **Size:** the standalone file carries every language and is now about 1.6 MB.
 
 ## Live and public — 2026-09-25
 
@@ -141,16 +158,16 @@ browser tests, ESLint, Prettier, and GitHub Actions CI that runs everything on e
 
 ## Not yet done
 
-- An in-app "Make your own version" flow: source download and an AI prompt containing the current settings.
-- Translations: the structure, tools and checks are ready (docs/TRANSLATING.md); no language has been added yet.
-- Manual release checks that automation can't do: listening to audio and narration, real phones, screen readers.
-- A short demo video and social launch material. Nothing has been posted.
+- An in-app "Make your own version" flow: source download and an AI prompt containing the current settings. It fits
+  the owner's aim of making maths a hobby with AI help.
+- Native-speaker reads of the four translations, and listening to narration in each language.
+- Manual checks that automation can't do: real phones and screen readers.
+- Wider launch: Carnival of Mathematics, Mathstodon, Bluesky, r/math's weekly thread, Show HN (hand-written, per HN's
+  rules), Israeli teacher groups after Sukkot (from 2026-10-04), and IMAGINARY.
 - A permanent link from the personal website, once feedback warrants it.
 
 ## Next priorities
 
-Following docs/ROADMAP.md (review section):
-
-1. Translations by contributors (docs/TRANSLATING.md).
-2. More rooms from docs/ROADMAP.md's longer list.
-3. Decide on hosting and publish `dist/`.
+1. Gather feedback on the rooms and the translations.
+2. Help contributors build rooms from issues #5–#18.
+3. More languages when native reviewers are available.
