@@ -42,7 +42,7 @@ a.brand:focus-visible {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  text-align: left;
+  text-align: start;
   padding: 10px 10px 16px;
   border: 1px solid var(--line);
   border-radius: 14px;
@@ -97,7 +97,7 @@ a.brand:focus-visible {
   text-transform: uppercase;
 }
 .room-bar-steps {
-  margin-left: auto;
+  margin-inline-start: auto;
   display: flex;
   gap: 8px;
 }

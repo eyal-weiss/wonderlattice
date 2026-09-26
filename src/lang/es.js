@@ -60,6 +60,8 @@ Wonderlattice.defineText('app', 'es', {
     listen: 'Escuchar esta idea',
     stop: 'Detener la narración',
     unavailable: 'La narración no está disponible en este navegador. Aquí tienes el texto completo para leer.',
+    noVoice:
+      'Este dispositivo no tiene una voz en español para leer en voz alta. Puedes añadir una en los ajustes de voz del sistema.',
     symbols: {
       '−': ' menos ',
       '×': ' por ',

@@ -4,7 +4,7 @@
   white-space: nowrap;
 }
 .trail-header span[aria-hidden='true'] {
-  margin-left: 3px;
+  margin-inline-start: 3px;
 }
 .trail-keep {
   width: 100%;
@@ -207,7 +207,7 @@ textarea:focus-visible {
     gap: 12px;
   }
   .brand {
-    margin-right: auto;
+    margin-inline-end: auto;
   }
   .trail-header,
   #about-button,
