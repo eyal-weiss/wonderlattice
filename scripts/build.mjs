@@ -4,8 +4,10 @@
 // Usage: node scripts/build.mjs
 import { cpSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { extname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const root = new URL('..', import.meta.url).pathname;
+// fileURLToPath, not URL.pathname: pathname gives "/C:/…" on Windows and keeps spaces as "%20".
+const root = fileURLToPath(new URL('..', import.meta.url));
 const dist = join(root, 'dist');
 const read = (path) => readFileSync(join(root, path), 'utf8');
 
@@ -21,6 +23,9 @@ const html = read('index.html');
 const styles = [...html.matchAll(/<link rel="stylesheet" href="\.\/([^"]+)" \/>/g)].map((m) => m[1]);
 const scripts = [...html.matchAll(/<script src="\.\/([^"]+)"><\/script>/g)].map((m) => m[1]);
 if (!styles.length || !scripts.length) throw new Error('Could not find stylesheets or scripts in index.html');
+// A local script written without "./" would be skipped here and left out of the standalone file.
+const unprefixed = [...html.matchAll(/<script src="(?!\.\/)([^"]+)"/g)].map((m) => m[1]);
+if (unprefixed.length) throw new Error(`index.html: write local scripts as "./path": ${unprefixed.join(', ')}`);
 
 const mime = { '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png' };
 const portraits = Object.fromEntries(
