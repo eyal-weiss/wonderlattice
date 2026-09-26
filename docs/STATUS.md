@@ -15,7 +15,7 @@
   buttons read U′ in right-to-left pages.
 - **Room ideas as issues:** 14 proposed rooms are GitHub issues #5–#18 (labels `room idea`, `effort: …`, `theme: …`),
   indexed in the pinned issue #19. Four are marked `good first issue`.
-- **Size:** the standalone file carries every language and is now about 1.6 MB.
+- **Size:** the standalone file carries every language and is now about 1.3 MB.
 
 ## Live and public — 2026-09-25
 
