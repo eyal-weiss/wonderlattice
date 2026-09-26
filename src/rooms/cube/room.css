@@ -22,6 +22,7 @@
   font:
     600 15px ui-monospace,
     monospace;
+  direction: ltr;
 }
 .cube-move:hover:not(:disabled) {
   border-color: #d87a5a;
