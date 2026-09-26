@@ -853,3 +853,30 @@ dialog a {
 .skip-link:focus {
   top: 12px;
 }
+
+/*
+ * Phones: the picture stays in view while the controls scroll under it, so a slider's effect
+ * is visible as it moves. The title scrolls away (--pin-offset, measured by app.js); the
+ * picture, tip and buttons stay pinned until the controls end. Only on screens tall enough
+ * to share.
+ */
+@media (max-width: 760px) and (min-height: 560px) {
+  .workspace {
+    overflow: clip; /* hidden would make the workspace a scroll box, and nothing inside could stick */
+  }
+  .workspace > .drawing,
+  body[data-room] #new-room .workspace > .drawing {
+    position: sticky;
+    top: calc(-1 * var(--pin-offset, 0px));
+    z-index: 3;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    box-shadow: 0 10px 18px -12px rgb(0 0 0 / 0.8);
+  }
+  .workspace > .drawing .canvas-wrap {
+    flex: none;
+    height: clamp(190px, 34svh, 300px);
+    min-height: 0;
+  }
+}
