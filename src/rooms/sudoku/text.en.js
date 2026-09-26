@@ -86,7 +86,7 @@
 
     guest: {
       name: 'Leonhard Euler',
-      note: 'A finished Sudoku is a Latin square plus a rule for boxes. My 36 officers needed two Latin squares at once, which proved impossible.',
+      note: 'A finished Sudoku is a Latin square plus a rule for boxes. My 36 officers needed two Latin squares laid over each other so that every pair appears once, which proved impossible.',
     },
 
     insight: {
