@@ -42,6 +42,7 @@ Wonderlattice.defineText('app', 'en', {
     listen: 'Listen to this idea',
     stop: 'Stop narration',
     unavailable: 'Narration is unavailable in this browser. The full text is here to read.',
+    noVoice: 'This device has no English voice to read aloud. You can add one in your system’s speech settings.',
     // How symbols are said aloud. Translators: use your language's words (keep the spaces).
     symbols: {
       '−': ' minus ',
