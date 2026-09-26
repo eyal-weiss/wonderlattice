@@ -259,7 +259,9 @@
         ctx.fillStyle = lost ? MUTED : '#eef0e6';
         ctx.textAlign = 'center';
         font(ctx, Math.max(12, 17 * u), 650);
+        ctx.direction = 'ltr';
         ctx.fillText(last ? `= ${side.total}` : '= ?', cx, y + 10 * u);
+        ctx.direction = 'inherit';
         y += totalGap;
       }
       faceTiles(ctx, cx, y, Math.min(cardWidth, 230), faces, color, last ? side.rolled : []);

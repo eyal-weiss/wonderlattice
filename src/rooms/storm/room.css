@@ -13,7 +13,7 @@
 }
 .storm-value {
   font-weight: 600;
-  text-align: right;
+  text-align: end;
 }
 .storm-curve-box {
   margin-top: 14px;
@@ -29,7 +29,7 @@
 
 /* The presets' badges say what the percentage counts: "+75%", and under it, "extra bits". */
 body[data-room='storm'] .scene-presets .number {
-  text-align: right;
+  text-align: end;
   line-height: 1;
 }
 body[data-room='storm'] .scene-presets .number small {
