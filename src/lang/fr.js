@@ -93,7 +93,7 @@ Wonderlattice.defineText('app', 'fr', {
     story: 'Son histoire ↗',
     storyLabel: (name) => `Son histoire : en savoir plus sur ${name} (s’ouvre dans un nouvel onglet)`,
     portrait: 'Portrait ↗',
-    portraitLabel: (name) => `Portrait : la source du portrait de ${name} (s’ouvre dans un nouvel onglet)`,
+    portraitLabel: (name) => `Portrait (${name}) : source de l’image (s’ouvre dans un nouvel onglet)`,
     photo: (credit) => `Photo : ${credit}`,
     another: 'Rencontrer quelqu’un d’autre',
   },
@@ -172,7 +172,7 @@ Wonderlattice.defineText('motion', 'fr', {
   },
   nudges: {
     whole:
-      'Essayez d’écarter la rotation d’un nombre entier. Regardez le tracé prendre un plus long chemin pour revenir.',
+      'Essayez une rotation légèrement différente d’un nombre entier. Regardez le tracé prendre un plus long chemin pour revenir.',
     traceAll: 'Essayez « Tout tracer » pour voir le motif entier. Ici, chaque réglage finit par refermer sa boucle.',
     surprise: 'Quelque chose de nouveau, rien que pour vous. Changez une chose et voyez où cela mène.',
     shared: 'Quelqu’un vous a laissé un motif. Changez une chose pour vous l’approprier.',
@@ -261,16 +261,16 @@ Wonderlattice.defineText('waves', 'fr', {
   secondToneHint: 'Par rapport au premier son.',
   phase: 'Phase de départ',
   volume: 'Volume',
-  hz: ' Hz',
+  hz: ' Hz',
   view: 'Une autre façon de voir',
   viewGroup: 'Vue des ondes',
   viewWaves: 'Additionner les ondes',
   viewPortrait: 'Portrait en cercle',
-  beatDetail: (f, g, d) => `Vos sons : ${f} Hz et ${g} Hz. Leur différence de fréquence est de ${d} Hz.`,
-  status: (f, g) => `${f} Hz + ${g} Hz`,
+  beatDetail: (f, g, d) => `Vos sons : ${f} Hz et ${g} Hz. Leur différence de fréquence est de ${d} Hz.`,
+  status: (f, g) => `${f} Hz + ${g} Hz`,
   labels: {
-    a: (f) => `A · ${f} Hz`,
-    b: (f) => `B · ${f} Hz`,
+    a: (f) => `A · ${f} Hz`,
+    b: (f) => `B · ${f} Hz`,
     sum: 'A + B · ENSEMBLE',
     firstTone: 'PREMIER SON →',
     secondTone: 'SECOND SON ↑',
@@ -309,7 +309,7 @@ Wonderlattice.defineText('flock', 'fr', {
   field: 'Systèmes dynamiques · Émergence',
   sceneLabel: 'Un monde de décisions locales',
   sceneName: 'Le collectif en mouvement',
-  tip: 'Touchez ou faites glisser pour guider la nuée · Les flèches déplacent votre toucher, Échap le relâche · Les bords se rejoignent',
+  tip: 'Touchez ou faites glisser pour guider la nuée · Les flèches déplacent votre point d’influence, Échap le relâche · Les bords se rejoignent',
   actionLabel: 'Disperser la nuée',
   canvasLabel:
     'Une nuée de marques en mouvement. Touchez, faites glisser ou utilisez les flèches pour la guider. Appuyez sur Échap pour la relâcher.',
@@ -338,7 +338,7 @@ Wonderlattice.defineText('flock', 'fr', {
   align: 'Suivre la direction',
   cohesion: 'Rester ensemble',
   separate: 'Garder ses distances',
-  influence: 'Votre toucher',
+  influence: 'Votre influence',
   attract: 'Attirer',
   repel: 'Repousser',
   trails: 'Laisser des traînées lumineuses',
@@ -460,7 +460,7 @@ Wonderlattice.defineText('traffic', 'fr', {
   tip: 'Les points en mouvement montrent des proportions du trafic, pas des voitures individuelles',
   actionLabel: 'Ouvrir le raccourci',
   canvasLabel:
-    'Un réseau routier à sens uniques. Ouvrez ou fermez le raccourci du milieu, et faites varier le nombre de conducteurs.',
+    'Un réseau de routes à sens unique. Ouvrez ou fermez le raccourci du milieu, et faites varier le nombre de conducteurs.',
   panelEyebrow: 'Changer une route',
   whyLabel: 'Comment est-ce possible ?',
   nudge:
@@ -486,17 +486,20 @@ Wonderlattice.defineText('traffic', 'fr', {
   demand: 'Conducteurs qui traversent la ville',
   demandHint: 'À quel point la ville est-elle encombrée ?',
   drivers: (n) => n.toLocaleString(Wonderlattice.lang),
-  status: (open, minutes) => `${open ? 'Raccourci ouvert' : 'Raccourci fermé'} · ${minutes} min en ce moment`,
+  status: (open, minutes) =>
+    `${open ? 'Raccourci ouvert' : 'Raccourci fermé'} · ${minutes.toLocaleString(Wonderlattice.lang)} min en ce moment`,
   open: 'Ouvrir le raccourci',
   close: 'Fermer le raccourci',
   before: 'Avant',
   after: 'Après ouverture',
-  minutes: ' min',
+  minutes: ' min',
   verdict: {
     closed: 'Ouvrez le raccourci pour découvrir le nouveau temps de trajet.',
     same: 'La nouvelle route ne change pas le temps de trajet.',
-    slower: (minutes) => `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} de plus pour tout le monde.`,
-    faster: (minutes) => `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} de moins pour tout le monde.`,
+    slower: (minutes) =>
+      `${minutes.toLocaleString(Wonderlattice.lang)} ${minutes < 2 ? 'minute' : 'minutes'} de plus pour tout le monde.`,
+    faster: (minutes) =>
+      `${minutes.toLocaleString(Wonderlattice.lang)} ${minutes < 2 ? 'minute' : 'minutes'} de moins pour tout le monde.`,
   },
   labels: {
     nodes: {
@@ -506,8 +509,8 @@ Wonderlattice.defineText('traffic', 'fr', {
       end: 'T',
     },
     congestion: 'bouchons',
-    fixed: '45 min',
-    shortcutOpen: '0 min',
+    fixed: '45 min',
+    shortcutOpen: '0 min',
     shortcutClosed: 'fermé',
     caption: 'S → T · chacun prend son trajet le plus rapide',
   },
@@ -528,7 +531,7 @@ Wonderlattice.defineText('traffic', 'fr', {
 <h3>Essayez une ville plus calme</h3>
 <p>Déplacez le curseur de la demande vers 1 000. Le raccourci aide alors. Quand la demande est très forte, il n’est plus utilisé. Le paradoxe ne se produit que sur une partie de la plage.</p>
 <h3>Ce que ce modèle suppose</h3>
-<p>Chaque conducteur choisit pour lui-même un trajet le plus rapide. Leurs décisions combinées se stabilisent dans un équilibre où aucun conducteur ne peut gagner du temps en changeant seul de route. C’est un réseau simplifié à sens uniques, avec un raccourci gratuit et des temps de trajet qui ne dépendent que du flux de trafic. Les points en mouvement montrent la part du trafic sur chaque trajet, pas des décisions individuelles simulées, ni une prévision pour une vraie ville.</p>
+<p>Chaque conducteur choisit pour lui-même un trajet le plus rapide. Leurs décisions combinées se stabilisent dans un équilibre où aucun conducteur ne peut gagner du temps en changeant seul de route. C’est un réseau simplifié de routes à sens unique, avec un raccourci gratuit et des temps de trajet qui ne dépendent que du flux de trafic. Les points en mouvement montrent la part du trafic sur chaque trajet, pas des décisions individuelles simulées, ni une prévision pour une vraie ville.</p>
 <details><summary>Les mathématiques, si le cœur vous en dit</summary><p>Les tronçons sujets aux bouchons coûtent x/100 minutes, où x est le nombre de conducteurs qui les empruntent. Les deux autres tronçons coûtent chacun 45 minutes ; le raccourci A → B ne coûte rien. Sans lui, le temps de trajet est de 45 + D/200 pour D conducteurs. Pour D = 4 000, cela fait 65 minutes. Avec lui, l’équilibre passe par la route du milieu et coûte 2D/100 = 80 minutes.</p></details>
 <div class="sources"><a class="source-link" href="https://www.cs.cornell.edu/home/kleinber/networks-book/networks-book-ch08.pdf" target="_blank" rel="noopener">Explorer le paradoxe de Braess (Easley &amp; Kleinberg, en anglais)</a></div>`,
   },
@@ -543,18 +546,18 @@ Wonderlattice.defineText('loom', 'fr', {
   field: 'Tissage · Motifs binaires · Répétition',
   sceneLabel: 'Un métier à quatre cadres',
   sceneName: 'Du schéma au tissu',
-  tip: 'À gauche : le schéma · À droite : son tissu · Cliquez sur l’attache pour la modifier, ou utilisez ses cases dans le panneau',
+  tip: 'À gauche : le schéma · À droite : son tissu · Cliquez sur l’attachage pour le modifier, ou utilisez ses cases dans le panneau',
   tipStacked:
-    'En haut : le schéma · En dessous : son tissu · Cliquez sur l’attache, ou utilisez ses cases dans le panneau',
+    'En haut : le schéma · En dessous : son tissu · Cliquez sur l’attachage, ou utilisez ses cases dans le panneau',
   actionLabel: 'Surprenez-moi',
   canvasLabel:
-    'Un schéma de tissage à côté du tissu qu’il produit. Modifiez l’attache en cliquant dessus ici, ou avec ses cases dans le panneau.',
+    'Un schéma de tissage à côté du tissu qu’il produit. Modifiez l’attachage en cliquant dessus ici, ou avec ses cases dans le panneau.',
   panelEyebrow: 'Préparer le métier',
   whyLabel: 'Comment une grille fait-elle du tissu ?',
   nudge:
-    'Commencez par « Sergé », puis changez une case de l’attache. Chaque rang tissé avec cette pédale change d’un coup.',
+    'Commencez par « Sergé », puis changez une case de l’attachage. Chaque rang tissé avec cette pédale change d’un coup.',
   connection: {
-    html: '<strong>Une petite règle, répétée partout.</strong> L’attache décide de chaque croisement dans le tissu. Dans « Un esprit collectif », de petites règles entre voisins façonnent toute une foule.',
+    html: '<strong>Une petite règle, répétée partout.</strong> L’attachage décide de chaque croisement dans le tissu. Dans « Un esprit collectif », de petites règles entre voisins façonnent toute une foule.',
     label: 'Visiter « Un esprit collectif »',
   },
   presets: [
@@ -583,7 +586,7 @@ Wonderlattice.defineText('loom', 'fr', {
       note: 'Le sergé revient sur lui-même.',
     },
   ],
-  tieup: 'Quels cadres se lèvent pour chaque pédale (l’attache)',
+  tieup: 'Quels cadres se lèvent pour chaque pédale (l’attachage)',
   tieupHint:
     'Chaque cadre porte une partie des fils de chaîne, ceux qui vont dans la longueur. Une case allumée signifie que cette pédale lève ce cadre.',
   tieupCell: (pedal, shaft) => `La pédale ${pedal} lève le cadre ${shaft}`,
@@ -603,7 +606,7 @@ Wonderlattice.defineText('loom', 'fr', {
     n === Infinity
       ? 'Ici, un fil ne s’entrecroise jamais. Ce tissu tomberait en morceaux.'
       : n === 1
-        ? 'Chaque fil passe un dessus, un dessous : un tissu ferme.'
+        ? 'Chaque fil passe au-dessus d’un fil, puis au-dessous du suivant : un tissu ferme.'
         : n <= 3
           ? `Les fils flottent par-dessus ${n} autres au plus : un tissu plus souple, plus fluide.`
           : `Des flottés de ${n} fils : longs et lâches, ils s’accrochent facilement.`,
@@ -619,15 +622,15 @@ Wonderlattice.defineText('loom', 'fr', {
   ],
   insight: {
     title: 'Une grille qui tisse.',
-    html: `<p>Chaque tissu, ici, naît de trois courtes listes. L’<em>enfilage</em> dit dans lequel des quatre cadres passe chaque fil de chaîne (dans la longueur). L’<em>attache</em> dit quels cadres chaque pédale soulève. Le <em>pédalage</em> dit quelle pédale on enfonce à chaque passage de trame (en travers). Partout où un fil de chaîne levé croise la trame, la chaîne apparaît dessus.</p>
-<div class="insight-visual">tissu = pédalage × attache × enfilage, un produit de grilles de 0 et de 1</div>
+    html: `<p>Chaque tissu, ici, naît de trois courtes listes. L’<em>enfilage</em> dit dans lequel des quatre cadres passe chaque fil de chaîne (dans la longueur). L’<em>attachage</em> dit quels cadres chaque pédale soulève. Le <em>pédalage</em> dit quelle pédale on enfonce à chaque passage de trame (en travers). Partout où un fil de chaîne levé croise la trame, la chaîne apparaît dessus.</p>
+<div class="insight-visual">tissu = pédalage × attachage × enfilage, un produit de grilles de 0 et de 1</div>
 <h3>Petit changement, tissu entier</h3>
-<p>Changez une case de l’attache, et chaque passage tissé avec cette pédale change d’un coup. C’est ainsi que les tisserands conçoivent sur papier : la grille à gauche de l’image est un vrai schéma de tissage.</p>
+<p>Changez une case de l’attachage, et chaque passage tissé avec cette pédale change d’un coup. C’est ainsi que les tisserands conçoivent sur papier : la grille à gauche de l’image est un vrai schéma de tissage.</p>
 <h3>La couleur est un second motif</h3>
 <p>Colorez aussi les fils, et l’armure se combine avec l’ordre des couleurs. Un sergé 2/2 avec quatre fils foncés et quatre clairs dans chaque sens donne du pied-de-poule. Une toile aux couleurs alternées donne des rayures, pas les carreaux auxquels on pourrait s’attendre.</p>
 <h3>Les flottés tiennent le tissu</h3>
-<p>Un fil qui passe par-dessus plusieurs autres sans s’entrecroiser forme un flotté. Des flottés courts font un tissu ferme ; des flottés longs le rendent souple et facile à accrocher. Un fil qui ne s’entrecroise jamais ne fait pas de tissu du tout.</p>
-<details><summary>Les mathématiques, si le cœur vous en dit</summary><p>Écrivez l’enfilage comme une grille H (le fil de chaîne j est sur le cadre s), l’attache comme U (la pédale t lève le cadre s) et le pédalage comme T (le passage i utilise la pédale t). Le tissu est D = T · U · Hᵀ, en arithmétique booléenne, où 1 + 1 = 1. Comme les trois listes se répètent, le tissu aussi : sa période divise le plus petit commun multiple des longueurs des listes et des ordres de couleurs.</p><p>Ce métier a quatre cadres et quatre pédales, comme beaucoup de métiers de table et de métiers à pédales. Un vrai tissu dépend aussi du fil, de l’espacement et de la tension, que cette image laisse de côté.</p></details>
+<p>Un fil qui passe par-dessus plusieurs autres sans s’entrecroiser forme un flotté. Des flottés courts font un tissu ferme ; des flottés longs le rendent souple, mais plus sujet aux accrocs. Un fil qui ne s’entrecroise jamais ne fait pas de tissu du tout.</p>
+<details><summary>Les mathématiques, si le cœur vous en dit</summary><p>Écrivez l’enfilage comme une grille H (le fil de chaîne j est sur le cadre s), l’attachage comme U (la pédale t lève le cadre s) et le pédalage comme T (le passage i utilise la pédale t). Le tissu est D = T · U · Hᵀ, en arithmétique booléenne, où 1 + 1 = 1. Comme les trois listes se répètent, le tissu aussi : sa période divise le plus petit commun multiple des longueurs des listes et des ordres de couleurs.</p><p>Ce métier a quatre cadres et quatre pédales, comme beaucoup de métiers de table et de métiers à pédales. Un vrai tissu dépend aussi du fil, de l’espacement et de la tension, que cette image laisse de côté.</p></details>
 <div class="sources"><a class="source-link" href="https://www.tandfonline.com/doi/abs/10.1080/0025570X.1980.11976845" target="_blank" rel="noopener">Satins et sergés : la géométrie des tissus (Grünbaum &amp; Shephard, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Houndstooth" target="_blank" rel="noopener">Comment se tisse le pied-de-poule (en anglais)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Lovelace/" target="_blank" rel="noopener">Ada Lovelace et le métier Jacquard (en anglais)</a></div>`,
   },
 });
@@ -749,7 +752,7 @@ Wonderlattice.defineText('sudoku', 'fr', {
   panelEyebrow: 'Placer, annuler, regarder à nouveau',
   whyLabel: 'Pourquoi est-ce une histoire de coloriage ?',
   nudge:
-    'Placez une couleur et regardez ses petites marques s’estomper le long de sa ligne, de sa colonne et de son bloc. Puis faites une étape logique. Êtes-vous d’accord avec sa raison ?',
+    'Placez une couleur et regardez ses petites marques s’estomper le long de sa ligne, de sa colonne et de son bloc. Puis faites une étape logique. L’explication vous convainc-elle ?',
   connection: {
     html: '<strong>Un autre réseau de voisins.</strong> Ici, chaque case limite les cases auxquelles elle est reliée. Dans la traversée de la ville, le choix de chaque conducteur change le trajet de tous.',
     label: 'Visiter « Le raccourci tentant »',
@@ -764,8 +767,8 @@ Wonderlattice.defineText('sudoku', 'fr', {
       note: 'Seulement quatre indices, et pourtant une seule réponse.',
     },
     {
-      name: 'Deux réponses',
-      note: 'Six indices, et de la place pour deux fins.',
+      name: 'Deux solutions',
+      note: 'Six indices, et de la place pour deux solutions.',
     },
   ],
   styles: ['Couleurs', 'Formes', 'Chiffres'],
@@ -791,10 +794,10 @@ Wonderlattice.defineText('sudoku', 'fr', {
   network: 'Montrer le réseau',
   filled: 'Remplies',
   candidatesLeft: 'Candidats',
-  waysToFinish: 'Réponses',
+  waysToFinish: 'Solutions',
   none: 'aucune',
-  twoFinishes: 'Le solveur a trouvé les deux fins. Elles ne diffèrent que par les cases entourées.',
-  answerLabel: (n) => `Fin ${n}`,
+  twoFinishes: 'Le solveur a trouvé les deux solutions. Elles ne diffèrent que par les cases entourées.',
+  answerLabel: (n) => `Solution ${n}`,
   status: (filled) => `${filled} sur 16 remplies`,
   networkCaption: '16 cases · 56 liens · deux cases liées ne sont jamais pareilles',
   start: (word) => `Touchez une case vide, puis choisissez ${word === 'chiffre' ? 'un' : 'une'} ${word}.`,
@@ -808,7 +811,7 @@ Wonderlattice.defineText('sudoku', 'fr', {
   undone: 'Un pas en arrière.',
   naked: (name) => `Seul ${name} convient ici : sa ligne, sa colonne et son bloc contiennent les trois autres.`,
   hidden: (name, unit) => `Dans ${unit}, ${name} n’a plus qu’une place possible.`,
-  stuckTwo: 'Rien n’est imposé maintenant. Les cases entourées peuvent s’échanger, et les deux fins marchent.',
+  stuckTwo: 'Rien n’est imposé maintenant. Les cases entourées peuvent s’échanger, et les deux solutions marchent.',
   stuckOne: 'Aucune étape n’est imposée ici. Tentez une supposition, et annulez si elle tourne mal.',
   stuckNone: 'Cette grille ne peut plus être terminée. Annulez une étape ou deux.',
   clashFirst: 'Deux voisines partagent un symbole. Annulez ou videz d’abord l’une des cases qui brillent.',
@@ -820,7 +823,7 @@ Wonderlattice.defineText('sudoku', 'fr', {
   emptyNone: 'vide, rien ne convient',
   guest: {
     name: 'Leonhard Euler',
-    note: 'Un sudoku terminé est un carré latin, plus une règle pour les blocs. Mes 36 officiers demandaient deux carrés latins à la fois, ce qui s’est révélé impossible.',
+    note: 'Un sudoku terminé est un carré latin, plus une règle pour les blocs. Mes 36 officiers demandaient deux carrés latins 6 × 6 superposés, où chaque paire de symboles n’apparaît qu’une fois : c’est impossible.',
   },
   insight: {
     title: 'Pourquoi le sudoku est-il une histoire de coloriage ?',
@@ -833,12 +836,12 @@ Wonderlattice.defineText('sudoku', 'fr', {
 <h3>Un graphe à colorier</h3>
 <p>Activez le réseau. Chaque case devient un point, et un trait relie deux points dès que leurs cases partagent une ligne, une colonne ou un bloc : 16 points et 56 traits. Remplir la grille revient à donner à chaque point l’une de quatre couleurs de sorte qu’aucun trait ne relie deux points de même couleur, un peu comme on colorie une carte pour que des pays voisins soient différents. Les mathématiciens appellent cela une coloration propre d’un graphe.</p>
 <h3>Pourquoi une bonne grille a exactement une réponse</h3>
-<p>Les indices sont une coloration déjà commencée. Une grille bien faite a juste assez d’indices pour qu’il ne reste qu’une seule façon de la terminer : chaque étape peut alors se raisonner au lieu de se deviner. Sur une grille 4×4, il faut au moins quatre indices pour y parvenir. Avec moins, un choix reste toujours ouvert. « Deux réponses » a six indices, mais quatre cases forment un rectangle dont les deux couleurs peuvent s’échanger, et le solveur trouve les deux fins.</p>
+<p>Les indices sont une coloration déjà commencée. Une grille bien faite a juste assez d’indices pour qu’il ne reste qu’une seule façon de la terminer : chaque étape peut alors se raisonner au lieu de se deviner. Sur une grille 4×4, il faut au moins quatre indices pour y parvenir. Avec moins, un choix reste toujours ouvert. « Deux solutions » a six indices, mais quatre cases forment un rectangle dont les deux couleurs peuvent s’échanger, et le solveur trouve les deux solutions.</p>
 <h3>La grille en taille réelle</h3>
 <p>Le sudoku du journal repose sur la même idée à plus grande échelle : 81 cases, chacune avec 20 voisines, 810 traits et neuf couleurs. Il existe 288 grilles 4×4 complètes, mais environ 6,7 × 10<sup>21</sup> grilles 9×9 complètes. Le plus petit nombre d’indices pouvant donner une réponse unique à une grille 9×9 est 17, un fait établi par une vaste recherche informatique.</p>
 <h3>Carrés latins</h3>
 <p>Une grille où chaque symbole apparaît une fois dans chaque ligne et chaque colonne s’appelle un carré latin. Leonhard Euler les a étudiés, notamment dans son problème des 36 officiers : six grades et six régiments, disposés de sorte que chaque ligne et chaque colonne contienne chaque grade et chaque régiment une fois. Tout sudoku terminé est un carré latin avec une règle de plus pour ses blocs.</p>
-<details><summary>Ce que fait cette salle, et ce qu’elle laisse de côté</summary><p>Les candidats n’utilisent ici que l’élimination directe : un symbole est exclu quand une voisine le contient déjà. L’étape logique connaît deux sortes de déductions, les singletons nus et cachés ; les grilles plus difficiles en demandent davantage. Le nombre de façons de terminer vient d’une petite recherche par retour sur trace. Elle essaie chaque possibilité dans la case vide la plus contrainte et s’arrête dès qu’elle a trouvé deux fins. Herzberg et Murty comptent les façons de prolonger une coloration partielle à l’aide d’un polynôme chromatique : une grille a une solution unique exactement quand ce nombre vaut 1. Cette salle a seulement besoin de distinguer aucune, une et deux.</p></details>
+<details><summary>Ce que fait cette salle, et ce qu’elle laisse de côté</summary><p>Les candidats n’utilisent ici que l’élimination directe : un symbole est exclu quand une voisine le contient déjà. L’étape logique connaît deux sortes de déductions, les singletons nus et cachés ; les grilles plus difficiles en demandent davantage. Le nombre de façons de terminer vient d’une petite recherche par retour sur trace. Elle essaie chaque possibilité dans la case vide la plus contrainte et s’arrête dès qu’elle a trouvé deux solutions. Herzberg et Murty comptent les façons de prolonger une coloration partielle à l’aide d’un polynôme chromatique : une grille a une solution unique exactement quand ce nombre vaut 1. Cette salle a seulement besoin de distinguer aucune, une et deux.</p></details>
 <div class="sources"><a class="source-link" href="https://people.math.sc.edu/girardi/sudoku/ChromaticPoly.pdf" target="_blank" rel="noopener">Sudoku Squares and Chromatic Polynomials (Herzberg &amp; Murty, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Mathematics_of_Sudoku" target="_blank" rel="noopener">Les mathématiques du sudoku (en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Thirty-six_officers_problem" target="_blank" rel="noopener">Les 36 officiers d’Euler (en anglais)</a></div>`,
   },
 });
@@ -897,7 +900,7 @@ Wonderlattice.defineText('dice', 'fr', {
   winsTitle: 'Victoires',
   latestTitle: 'Derniers lancers, du plus récent au plus ancien',
   ties: (n) => (n <= 1 ? `${n} égalité` : `${n} égalités`),
-  shareTitle: (name) => `Part des victoires de ${name}`,
+  shareTitle: (name) => `Taux de victoire · ${name}`,
   exactLabel: (fraction) => `exactement ${fraction}`,
   startHint: 'Appuyez sur « Lancer 100 fois »',
   rollsSoFar: 'Lancers jusqu’ici',
@@ -907,9 +910,9 @@ Wonderlattice.defineText('dice', 'fr', {
   verdictStart: (favourite, fraction) =>
     `En théorie, ${favourite} gagne exactement ${fraction} des parties. Lancez pour le voir se produire.`,
   verdict: (n, favourite, seen, fraction) =>
-    `Après ${n.toLocaleString(Wonderlattice.lang)} lancers, ${favourite} a gagné ${seen} % des parties. La probabilité exacte est ${fraction}.`,
-  evenVerdict: 'Ces deux-là sont à égalité.',
-  sameDie: 'Le même dé des deux côtés : égalité parfaite.',
+    `Après ${n.toLocaleString(Wonderlattice.lang)} ${n <= 1 ? 'lancer' : 'lancers'}, ${favourite} a gagné ${seen} % des parties. La probabilité exacte est ${fraction}.`,
+  evenVerdict: 'Ces deux dés ont les mêmes chances de gagner.',
+  sameDie: 'Le même dé des deux côtés : mêmes chances de gagner.',
   presets: [
     {
       name: 'Choisir en premier',
@@ -972,7 +975,7 @@ Wonderlattice.defineText('cube', 'fr', {
   panelEyebrow: 'Combiner des mouvements',
   whyLabel: 'Pourquoi l’ordre compte-t-il ?',
   nudge:
-    'Essayez « Retour au départ », puis « Répéter jusqu’au retour ». Combien de répétitions pariez-vous avant qu’il y arrive ?',
+    'Essayez « Retour au départ », puis « Répéter jusqu’au retour ». À votre avis, combien de répétitions lui faudra-t-il pour revenir au départ ?',
   connection: {
     html: '<strong>Des règles qu’on peut combiner et défaire.</strong> Un mouvement du cube est une règle qui dit où va chaque autocollant. Dans la salle du sudoku, des règles entre voisins décident où chaque couleur peut aller.',
     label: 'Visiter le sudoku',
@@ -995,7 +998,7 @@ Wonderlattice.defineText('cube', 'fr', {
   moveLabel: (name, turn) => `${name} : ${turn}`,
   movePad: 'Construire une séquence',
   notation:
-    'U = haut (up), R = droite (right), F = avant (front), D = bas (down), L = gauche (left), B = arrière (back) ; ′ tourne dans l’autre sens.',
+    'U = haut (up), R = droite (right), F = avant (front), D = bas (down), L = gauche (left), B = arrière (back) ; ′ tourne dans l’autre sens.',
   undo: 'Annuler',
   clear: 'Effacer',
   home: 'Répéter jusqu’au retour',
@@ -1117,14 +1120,14 @@ Wonderlattice.defineText('sample', 'fr', {
   estimateLine: (mean, spread) =>
     spread === null
       ? `Celui-ci dit que ${mean} % préfèrent l’orange.`
-      : `Ils disent que ${mean} % préfèrent l’orange, à ${spread} points près.`,
+      : `En moyenne, ${mean} % préfèrent l’orange ; d’un sondage à l’autre, l’écart typique est de ${spread.replace('.', ',')} points.`,
   theoryLine: (n, se) =>
-    `Un échantillon aléatoire de ${n.toLocaleString(Wonderlattice.lang)} personnes fluctue d’environ ±${se} points.`,
+    `Un échantillon aléatoire de ${n.toLocaleString(Wonderlattice.lang)} personnes fluctue d’environ ±${se.replace('.', ',')} points.`,
   truthHidden: 'La réponse de la ville entière est cachée.',
   truthLine: (pct, miss) =>
     miss === null
       ? `La ville entière : ${pct} % d’orange.`
-      : `La ville entière : ${pct} % d’orange. Écart typique : ${miss} points.`,
+      : `La ville entière : ${pct} % d’orange. Écart typique : ${miss.replace('.', ',')} points.`,
   randomNote: 'N’importe qui dans la ville peut être interrogé.',
   hoodNote: (size, name) => `${size.toLocaleString(Wonderlattice.lang)} personnes habitent à ${name}.`,
   hoodAll: (size, name) =>
@@ -1132,7 +1135,7 @@ Wonderlattice.defineText('sample', 'fr', {
   volunteerNote: (answer, total) =>
     `Seuls ceux qui répondent comptent : ${answer.toLocaleString(Wonderlattice.lang)} sur ${total.toLocaleString(Wonderlattice.lang)}. Les fans d’orange répondent plus volontiers.`,
   volunteerAll: (answer) =>
-    `Seules ${answer.toLocaleString(Wonderlattice.lang)} personnes répondent un jour : chaque sondage les entend donc toutes.`,
+    `Seules ${answer.toLocaleString(Wonderlattice.lang)} personnes acceptent de répondre : chaque sondage les interroge donc toutes.`,
   presets: [
     {
       name: 'Un petit sondage au hasard',
@@ -1154,8 +1157,8 @@ Wonderlattice.defineText('sample', 'fr', {
     },
   ],
   live: (n, se, hood, hoodOff, answerOff) =>
-    `Dans votre ville, un échantillon aléatoire de ${n.toLocaleString(Wonderlattice.lang)} personnes fluctue d’environ ±${se} points. ` +
-    `Interroger seulement à ${hood} donne un écart de ${hoodOff} points, et compter ceux qui répondent un écart de ${answerOff}, quel que soit le nombre de personnes interrogées.`,
+    `Dans votre ville, un échantillon aléatoire de ${n.toLocaleString(Wonderlattice.lang)} personnes fluctue d’environ ±${se.replace('.', ',')} points. ` +
+    `Interroger seulement à ${hood} donne un écart de ${hoodOff.replace('.', ',')} points, et compter ceux qui répondent un écart de ${answerOff.replace('.', ',')}, quel que soit le nombre de personnes interrogées.`,
   insight: {
     title: 'Pourquoi interroger plus de monde n’aide-t-il pas ?',
     html: `<p>Ici, chaque sondage choisit des gens au hasard. Mais le hasard ne peut choisir que parmi les personnes qu’une méthode peut atteindre : toute la ville, un seul quartier, ou les habitants qui prennent la peine de répondre. Les statisticiens appellent cette liste la <em>base de sondage</em>. Un tirage au hasard dans la base vous renseigne sur la base, pas sur la ville.</p>
@@ -1265,7 +1268,7 @@ Wonderlattice.defineText('plane', 'fr', {
 <h3>Multiplier, c’est tourner et étirer</h3>
 <p>Multiplier par i fait tourner le plan d’un quart de tour. Multiplier par 2 double sa taille. Chaque nombre complexe fait les deux à la fois : il étire selon sa taille et tourne selon son angle. Un étirement suivi d’une rotation conserve tous les angles, même quand les tailles changent.</p>
 <h3>De près, une courbure est une multiplication</h3>
-<p>Zoomez près d’un point z : une fonction complexe lisse ressemble alors à la multiplication par un seul nombre, sa dérivée f′(z), car f(z + h) ≈ f(z) + f′(z)·h pour un h minuscule. Ainsi, chaque petite flèche en z est étirée de |f′(z)| et tournée de l’angle de f′(z), de la même façon dans toutes les directions. Les deux flèches de la boussole tournent ensemble et se croisent toujours à angle droit. Une transformation qui garde ainsi les angles est dite <em>conforme</em>. Les lignes de la grille se croisent elles aussi à angle droit après la courbure, même quand les carrés deviennent courbes.</p>
+<p>Zoomez près d’un point z : une fonction complexe dérivable (au sens complexe) ressemble alors à la multiplication par un seul nombre, sa dérivée f′(z), car f(z + h) ≈ f(z) + f′(z)·h pour un h minuscule. Ainsi, chaque petite flèche en z est étirée de |f′(z)| et tournée de l’angle de f′(z), de la même façon dans toutes les directions. Les deux flèches de la boussole tournent ensemble et se croisent toujours à angle droit. Une transformation qui garde ainsi les angles est dite <em>conforme</em>. Les lignes de la grille se croisent elles aussi à angle droit après la courbure, même quand les carrés deviennent courbes.</p>
 <h3>Là où f′ = 0, les angles se brisent</h3>
 <p>Si f′(z) = 0, il n’y a plus rien par quoi multiplier, et le terme suivant prend le relais. Près de 0, z² envoie h sur h², ce qui double chaque angle : l’angle droit entre 1 et i s’ouvre en une ligne droite. Voilà pourquoi la jumelle de la boussole rétrécit jusqu’à disparaître au centre de « Mettre le plan au carré », et pourquoi les lignes de la grille qui passent par 0 s’y plient.</p>
 <h3>Retourné comme un gant</h3>
@@ -1366,14 +1369,14 @@ Wonderlattice.defineText('fingerprint', 'fr', {
     html: `<p>Personne ne dessine une empreinte digitale. Avant la naissance, la peau de chaque bout de doigt dispose ses crêtes d’elle-même, et le motif reste pour la vie.</p>
 <div class="insight-visual">activateur + inhibiteur, qui se propagent à des vitesses différentes → crêtes</div>
 <h3>L’idée de Turing</h3>
-<p>En 1952, Alan Turing a montré que deux substances chimiques, qui réagissent entre elles et se propagent à des vitesses différentes, peuvent faire apparaître un motif dans un mélange uniforme. Une façon populaire de se le représenter est venue plus tard : un <em>activateur</em> qui se fabrique lui-même, et un <em>inhibiteur</em> qu’il fabrique aussi et qui le freine. Si l’inhibiteur se propage plus vite, chaque bosse d’activateur s’entoure d’une douve où aucune autre bosse ne peut pousser. Le résultat, ce sont des taches ou des rayures, à un espacement que choisit la chimie.</p>
+<p>En 1952, Alan Turing a montré que deux substances chimiques, qui réagissent entre elles et se propagent à des vitesses différentes, peuvent faire apparaître un motif dans un mélange uniforme. Une façon courante de se le représenter est apparue plus tard : un <em>activateur</em> qui se fabrique lui-même, et un <em>inhibiteur</em> qu’il fabrique aussi et qui le freine. Si l’inhibiteur se propage plus vite, chaque bosse d’activateur s’entoure d’une douve où aucune autre bosse ne peut pousser. Le résultat, ce sont des taches ou des rayures, à un espacement que choisit la chimie.</p>
 <h3>Des vagues parties de quelques endroits</h3>
 <p>En 2023, une équipe dirigée depuis l’université d’Édimbourg a découvert que les crêtes des empreintes digitales suivent ce genre de système de Turing, avec les signaux WNT et EDAR comme activateurs et BMP comme inhibiteur. Les crêtes n’apparaissent pas partout à la fois. Elles démarrent en quelques sites : le centre de la pulpe du doigt, le bout près de l’ongle, et à côté du pli de la dernière articulation. De là, elles se propagent en vagues et déposent des crêtes à peu près parallèles à leur front. Là où les vagues se rencontrent, elles laissent des deltas en forme de Y. Les simulations de l’équipe ont produit des arcs, des boucles et des verticilles en changeant quand, où et sous quel angle les sites démarrent : une pulpe qui démarre tard, par exemple, laisse de la place aux crêtes du pli et forme un arc.</p>
 <h3>Pourquoi les empreintes diffèrent autant</h3>
 <p>L’étude a montré que l’endroit où les sites démarrent, et la façon dont leurs vagues se rencontrent, font la variété des empreintes ; dans leur discussion, les auteurs ajoutent que les minuscules différences aléatoires typiques des motifs de Turing rendent chaque empreinte plus unique encore. Les vrais jumeaux partagent leurs gènes, et leurs empreintes ont souvent le même type, mais pas les mêmes détails : dans une vaste étude, les empreintes de jumeaux avaient le même type environ trois fois sur quatre, et pourtant un logiciel de comparaison d’empreintes les distinguait presque aussi sûrement que celles de personnes sans lien de parenté. « Faire repousser » garde le plan et ne change que les détails les plus infimes : vous pouvez voir les crêtes s’arrêter et bifurquer à de nouveaux endroits.</p>
 <h3>Ce que cette salle laisse de côté</h3>
 <p>Ceci est un modèle simplifié inspiré de ces recherches, pas une simulation de la vraie peau d’un embryon. Le bout du doigt est plat, les sites de départ sont placés à la main, et aucun gène ni aucune vraie substance chimique n’apparaît : juste deux signaux inventés, avec des équations de manuel. Il laisse de côté la croissance du doigt, sa pulpe en trois dimensions, et les pores sudoripares qui parsèment plus tard chaque crête.</p>
-<details><summary>Les mathématiques, si le cœur vous en dit</summary><p>Les deux signaux a (activateur) et h (inhibiteur) suivent des équations adaptées du modèle cubique de Barrio–Varea–Aragón–Maini (ici l’activateur se propage un peu plus lentement, 0,45 au lieu de 0,516, et h est leur v changé de signe) : ∂a/∂t = 0.45 s ∇²a + 0.899 a − h − 3.15 a h², et ∂h/∂t = s ∇²h + 0.899 a − 0.91 h − 3.15 a h². L’état uniforme a = h = 0 est instable pour toute une gamme d’ondulations, dont la plus rapide a une longueur d’onde d’environ 9,5√s cellules de la grille, mais il reste exactement uniforme tant qu’un site ne le pousse pas : les crêtes ne se propagent donc qu’en vagues depuis les sites. Sans termes au carré, les rayures l’emportent sur les taches. Le curseur d’espacement des crêtes change s.</p><p>La salle nomme le résultat en faisant le tour de chaque point où la direction des crêtes n’est plus définie et en additionnant de combien cette direction tourne (son indice de Poincaré) : un demi-tour dans un sens pour le cœur d’une boucle, un tour entier pour le centre d’un verticille, et un demi-tour dans l’autre sens pour un delta. Les experts en empreintes digitales utilisent les mêmes repères. Les points situés tout au bord du bout du doigt ne sont pas détectés.</p></details>
+<details><summary>Les mathématiques, si le cœur vous en dit</summary><p>Les deux signaux a (activateur) et h (inhibiteur) suivent des équations adaptées du modèle cubique de Barrio–Varea–Aragón–Maini (ici l’activateur se propage un peu plus lentement, 0,45 au lieu de 0,516, et h est leur v changé de signe) : ∂a/∂t = 0.45 s ∇²a + 0.899 a − h − 3.15 a h², et ∂h/∂t = s ∇²h + 0.899 a − 0.91 h − 3.15 a h². L’état uniforme a = h = 0 est instable pour toute une gamme d’ondulations, dont la plus rapide a une longueur d’onde d’environ 9,5√s cellules de la grille, mais il reste exactement uniforme tant qu’un site ne le pousse pas : les crêtes ne se propagent donc qu’en vagues depuis les sites. Sans termes de degré deux, les rayures l’emportent sur les taches. Le curseur d’espacement des crêtes change s.</p><p>La salle nomme le résultat en faisant le tour de chaque point où la direction des crêtes n’est plus définie et en additionnant de combien cette direction tourne (son indice de Poincaré) : un demi-tour dans un sens pour le cœur d’une boucle, un tour entier pour le centre d’un verticille, et un demi-tour dans l’autre sens pour un delta. Les experts en empreintes digitales utilisent les mêmes repères. Les points situés tout au bord du bout du doigt ne sont pas détectés.</p></details>
 <div class="sources"><a class="source-link" href="https://www.research.ed.ac.uk/en/publications/the-developmental-basis-of-fingerprint-pattern-formation-and-vari/" target="_blank" rel="noopener">Glover et al. (2023), The developmental basis of fingerprint pattern formation and variation (en anglais)</a><a class="source-link" href="https://doi.org/10.1098/rstb.1952.0012" target="_blank" rel="noopener">Turing (1952), The chemical basis of morphogenesis (en anglais)</a><a class="source-link" href="https://doi.org/10.1371/journal.pone.0035704" target="_blank" rel="noopener">Tao et al. (2012), reconnaître les empreintes de vrais jumeaux (en anglais)</a><a class="source-link" href="https://doi.org/10.1006/bulm.1998.0093" target="_blank" rel="noopener">Barrio et al. (1999), le modèle dont ces équations sont adaptées (en anglais)</a></div>`,
   },
 });
