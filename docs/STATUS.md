@@ -1,4 +1,26 @@
-# Project state — 2026-09-26
+# Project state — 2026-09-27
+
+## The first community room, a promo video, and wider reach — 2026-09-27
+
+- **First room built by a contributor:** "Two players, three leaderboards" (`shots`, Chance & evidence), Simpson's
+  paradox on a basketball court, by maham146 (#25, closing room idea #7). Reviewed twice (security and maths were
+  fine). The maintainer pushed a polish commit to the contributor's branch: clearer bars, the leader in bold, and a
+  compact one-line-per-player layout that fits phones and the pinned picture. It was translated into all four
+  languages the same day (#35). Wonderlattice now has fourteen rooms.
+- **Fresh files after every deploy:** browsers kept scripts and stylesheets for four hours (Cloudflare's default)
+  while the page was always fresh, so returning visitors could get a new page with old scripts. The build now adds a
+  content fingerprint to each file's address in `dist/index.html` (`app.js?v=…`); a browser test checks every
+  fingerprint on the built site (#34).
+- **Hebrew credit** spells the owner's name איל וייס (#33).
+- **Promo video:** a 61-second square video of the real site (recorded frame by frame under Playwright's fake
+  clock), with captions and original music generated in code. It shows the drawing room, the dice flipping, the new
+  room, the ribbon, the plane, the cube coming home after 105 repeats, a fingerprint growing, the traffic paradox and
+  the storm. The tools are kept outside the repository.
+- **Reach:** almost 1,000 unique visitors from about 50 countries (mostly Israel and the US). The owner submitted to
+  Hacker News and posted the video on X, asking people to share it with teenagers and in the Israeli maths teachers'
+  Facebook group.
+- **Housekeeping:** the old private repository `wonderloom` was deleted after its history and pull requests were
+  backed up offline.
 
 ## First feedback, first contributors, and phones — 2026-09-26 (later)
 
@@ -205,11 +227,10 @@ browser tests, ESLint, Prettier, and GitHub Actions CI that runs everything on e
 - Wider launch: Mathstodon, Bluesky, r/math's weekly thread, Show HN (hand-written, per HN's rules), Israeli teacher
   groups after Sukkot (from 2026-10-04), and the Haifa elementary-maths teacher centre.
 - The dice-picking report from iPhone Safari (above), and checking #30 and #31 on a real iPhone.
-- Translations of the new room once #25 lands.
 - A permanent link from the personal website, once feedback warrants it.
 
 ## Next priorities
 
-1. Gather feedback on the rooms and the translations.
-2. Help contributors build rooms from issues #5–#18.
-3. More languages when native reviewers are available.
+1. Gather feedback on the rooms, the translations and the phone fixes.
+2. Help contributors build rooms from the remaining ideas (#5, #6, #8–#18); #7 is done.
+3. More languages when native reviewers are available; the country list can guide which.
