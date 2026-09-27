@@ -85,7 +85,7 @@
     const gap = Math.max(3, unit * (compact ? 0.05 : 0.06));
     ctx.font = `700 ${small + 1}px system-ui`;
     const tagW = compact ? Math.max(ctx.measureText(t.short.a).width, ctx.measureText(t.short.b).width) + 8 : 0;
-    const pctW = compact ? ctx.measureText('100%').width + 8 : 0;
+    const pctW = compact ? ctx.measureText(t.percent(1)).width + 8 : 0;
     const barX = pad + tagW,
       barW = fullWidth - tagW - pctW;
 
