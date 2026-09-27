@@ -868,7 +868,7 @@ dialog a {
   body[data-room] #new-room .workspace > .drawing {
     position: sticky;
     top: calc(-1 * var(--pin-offset, 0px));
-    z-index: 3;
+    z-index: 6; /* above the visitor card below it (its head and spark reach 5), below the toast (8) */
     height: auto;
     min-height: 0;
     max-height: none;
