@@ -42,10 +42,22 @@
         );
       })
       .join('');
-    for (const button of $('home-themes').querySelectorAll('.room-card')) {
-      button.addEventListener('click', () => open(button.dataset.room));
-      drawPreview(W.room(button.dataset.room), button.querySelector('canvas'));
-    }
+    const cards = [...$('home-themes').querySelectorAll('.room-card')];
+    for (const button of cards) button.addEventListener('click', () => open(button.dataset.room));
+    // Each card's picture is drawn when it first comes near the screen, so a long map starts quickly.
+    const draw = (button) => drawPreview(W.room(button.dataset.room), button.querySelector('canvas'));
+    if (!('IntersectionObserver' in window)) return cards.forEach(draw);
+    const watcher = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          watcher.unobserve(entry.target);
+          draw(entry.target);
+        }
+      },
+      { rootMargin: '300px 0px' },
+    );
+    cards.forEach((button) => watcher.observe(button));
   }
 
   /** A still picture of a room for its card: its own preview, or a frame of its default settings. */

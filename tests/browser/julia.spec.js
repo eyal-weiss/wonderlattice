@@ -61,6 +61,8 @@ test('the home card fills its picture on a sharp (2×) screen', async ({ browser
   const page = await context.newPage();
   await page.goto('/');
   // The rabbit is centred: its bottom-right quarter must have pixels that aren't the dark background.
+  await page.locator('#card-julia canvas').scrollIntoViewIfNeeded(); // cards draw once they come into view
+  await page.waitForTimeout(100);
   const drawn = await page.locator('#card-julia canvas').evaluate((c) => {
     const { data } = c.getContext('2d').getImageData(c.width * 0.5, c.height * 0.5, c.width * 0.25, c.height * 0.25);
     let bright = 0;

@@ -74,6 +74,8 @@ export async function setRange(page, selector, value) {
 
 // Counts pixels that differ from the dark stage background.
 export async function inkedPixels(page, selector) {
+  // Home cards draw their pictures only once they come near the screen.
+  await page.locator(selector).scrollIntoViewIfNeeded();
   return page.locator(selector).evaluate((canvas) => {
     const { data } = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height);
     let count = 0;

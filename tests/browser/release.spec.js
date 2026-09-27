@@ -161,3 +161,20 @@ test('the published page fingerprints every script and stylesheet with its conte
     expect(f.digest.startsWith(f.version ?? 'missing'), f.url).toBe(true);
   }
 });
+
+test('home cards draw their pictures as they come into view', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 700 });
+  await page.goto('/');
+  const lastCard = page.locator('.room-card canvas').last();
+  // An undrawn canvas is fully transparent; a drawn card is painted edge to edge.
+  const painted = () =>
+    lastCard.evaluate((c) => {
+      const { data } = c.getContext('2d').getImageData(0, 0, c.width, c.height);
+      let n = 0;
+      for (let i = 3; i < data.length; i += 64) if (data[i] > 0) n++;
+      return n;
+    });
+  expect(await painted()).toBe(0);
+  await lastCard.scrollIntoViewIfNeeded();
+  await expect.poll(painted).toBeGreaterThan(0);
+});
