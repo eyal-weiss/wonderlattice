@@ -648,6 +648,7 @@
     onPreset: (s, stage) => depart(stage),
 
     pointer: {
+      drag: (p, s, stage) => pixelAt(p, stage) >= 0, // painting; elsewhere a finger scrolls the page
       down(p, s, stage) {
         const i = pixelAt(p, stage);
         if (i < 0) return;

@@ -117,6 +117,7 @@
       }
       ctx.fillStyle = '#b6c0d4';
       ctx.font = '12px system-ui';
+      ctx.textAlign = 'left';
       ctx.fillText(t.labels.firstTone, 12, ch - 10);
       ctx.textAlign = 'right';
       ctx.fillText(t.labels.secondTone, cw - 12, ch - 10);
@@ -138,6 +139,7 @@
       ctx.fillStyle = colors[row];
       ctx.font = '12px system-ui';
       const label = row === 0 ? t.labels.a(s.f) : row === 1 ? t.labels.b(tenths(s.f * s.ratio)) : t.labels.sum;
+      ctx.textAlign = 'left';
       ctx.fillText(label, 5, cy - amp - 9);
       ctx.strokeStyle = colors[row];
       ctx.lineWidth = row === 2 ? 2 : 1.4;

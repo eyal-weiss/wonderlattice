@@ -168,7 +168,7 @@
 }
 .math-guest-copy {
   min-width: 0;
-  padding-right: 18px;
+  padding-inline-end: 18px;
 }
 .math-guest-eyebrow {
   display: block;
@@ -198,7 +198,7 @@
   text-underline-offset: 3px;
 }
 .math-guest-source {
-  margin-left: 8px;
+  margin-inline-start: 8px;
 }
 .math-guest-credit {
   display: block;
@@ -212,7 +212,7 @@
 .math-guest-next {
   position: absolute;
   top: 9px;
-  right: 9px;
+  inset-inline-end: 9px;
   width: 27px;
   height: 27px;
   display: grid;

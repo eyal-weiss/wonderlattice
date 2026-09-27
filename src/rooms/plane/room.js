@@ -372,6 +372,15 @@
   }
 
   /** The compass: two arrows from `base`, given as screen vectors, with a right-angle mark when they are long enough. */
+  /** Whether a pointer position falls inside the left picture, where the compass can go. */
+  function inPicture(p, stage) {
+    if (!layout) return false;
+    const x = p.x * stage.width,
+      y = p.y * stage.height,
+      P = layout.z;
+    return x >= P.x && x <= P.x + P.w && y >= P.y && y <= P.y + P.h;
+  }
+
   function drawCompass(ctx, base, a, b, square) {
     const la = Math.hypot(a[0], a[1]),
       lb = Math.hypot(b[0], b[1]);
@@ -907,11 +916,12 @@
     },
 
     pointer: {
+      // The compass lives in the left picture: touches there drag it, elsewhere they scroll the page.
+      drag: (p, s, stage) => inPicture(p, stage),
       down(p, s, stage) {
-        if (!layout) return;
+        if (!inPicture(p, stage)) return;
         const q = [p.x * stage.width, p.y * stage.height],
           P = layout.z;
-        if (q[0] < P.x || q[0] > P.x + P.w || q[1] < P.y || q[1] > P.y + P.h) return;
         const base = P.px([s.probeX, s.probeY]);
         // Grab the compass where it is, or, with a tap elsewhere on the left, bring it there.
         grabbed =

@@ -2,10 +2,13 @@
 //   dist/                             the site, ready for any static host
 //   dist/wonderlattice-standalone.html   one self-contained file (styles, scripts, portraits inlined)
 // Usage: node scripts/build.mjs
+import { createHash } from 'node:crypto';
 import { cpSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { extname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const root = new URL('..', import.meta.url).pathname;
+// fileURLToPath, not URL.pathname: pathname gives "/C:/…" on Windows and keeps spaces as "%20".
+const root = fileURLToPath(new URL('..', import.meta.url));
 const dist = join(root, 'dist');
 const read = (path) => readFileSync(join(root, path), 'utf8');
 
@@ -21,6 +24,9 @@ const html = read('index.html');
 const styles = [...html.matchAll(/<link rel="stylesheet" href="\.\/([^"]+)" \/>/g)].map((m) => m[1]);
 const scripts = [...html.matchAll(/<script src="\.\/([^"]+)"><\/script>/g)].map((m) => m[1]);
 if (!styles.length || !scripts.length) throw new Error('Could not find stylesheets or scripts in index.html');
+// A local script written without "./" would be skipped here and left out of the standalone file.
+const unprefixed = [...html.matchAll(/<script src="(?!\.\/)([^"]+)"/g)].map((m) => m[1]);
+if (unprefixed.length) throw new Error(`index.html: write local scripts as "./path": ${unprefixed.join(', ')}`);
 
 const mime = { '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png' };
 const portraits = Object.fromEntries(
@@ -62,6 +68,20 @@ writeFileSync(
   join(dist, 'wonderlattice-standalone.html'),
   standalone.replace('<!doctype html>\n', (d) => d + notice),
 );
+
+// The published page names each script and stylesheet with a fingerprint of its contents
+// (app.js?v=3f9c…), so a browser fetches a file again exactly when a deploy changed it,
+// instead of mixing a new page with scripts it cached hours ago. The source index.html stays
+// clean, so the page still opens from disk.
+const version = (path) =>
+  createHash('sha256')
+    .update(readFileSync(join(root, path)))
+    .digest('hex')
+    .slice(0, 10);
+let published = html;
+for (const path of styles) published = published.replace(`href="./${path}"`, `href="./${path}?v=${version(path)}"`);
+for (const path of scripts) published = published.replace(`src="./${path}"`, `src="./${path}?v=${version(path)}"`);
+writeFileSync(join(dist, 'index.html'), published);
 
 const kb = (text) => (Buffer.byteLength(text) / 1024).toFixed(0) + ' KB';
 console.log(`Built dist/ (${scripts.length} scripts, ${styles.length} stylesheets)`);

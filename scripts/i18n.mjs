@@ -9,11 +9,18 @@
 // checked against an allowlist (scripts/lang-guard.mjs) before they run.
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { checkLanguageSource } from './lang-guard.mjs';
 
-const root = new URL('..', import.meta.url).pathname;
+// fileURLToPath, not URL.pathname: pathname gives "/C:/…" on Windows and keeps spaces as "%20".
+const root = fileURLToPath(new URL('..', import.meta.url));
 const html = readFileSync(join(root, 'index.html'), 'utf8');
+// A text file linked without "./" would be skipped below, and its words never checked.
+const unprefixed = [...html.matchAll(/<script src="(?!\.\/)([^"]+)"/g)].map((m) => m[1]);
+if (unprefixed.length) {
+  console.error(`index.html: write local scripts as "./path": ${unprefixed.join(', ')}`);
+  process.exit(1);
+}
 const langDir = join(root, 'src/lang');
 
 // ---------- loading the dictionaries ----------

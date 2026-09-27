@@ -135,3 +135,29 @@ test('trails saved or exported under the old name, Wonderloom, still open', asyn
   ]);
   expect(stored).toEqual(['old export', null]);
 });
+
+// The build names each file with a fingerprint of its contents, so a deploy never pairs a new page with
+// scripts a browser cached hours ago. Only the built site (SERVE_DIR=dist, as in CI) has them.
+test('the published page fingerprints every script and stylesheet with its contents', async ({ page }) => {
+  test.skip(process.env.SERVE_DIR !== 'dist', 'fingerprints are added by the build');
+  await page.goto('/');
+  const files = await page.evaluate(async () => {
+    const urls = [
+      ...[...document.querySelectorAll('script[src]')].map((s) => s.getAttribute('src')),
+      ...[...document.querySelectorAll('link[rel="stylesheet"]')].map((l) => l.getAttribute('href')),
+    ];
+    const hex = (buffer) => [...new Uint8Array(buffer)].map((b) => b.toString(16).padStart(2, '0')).join('');
+    return Promise.all(
+      urls.map(async (url) => {
+        const response = await fetch(url);
+        const digest = hex(await crypto.subtle.digest('SHA-256', await response.arrayBuffer()));
+        return { url, ok: response.ok, version: new URL(url, location.href).searchParams.get('v'), digest };
+      }),
+    );
+  });
+  expect(files.length).toBeGreaterThan(40);
+  for (const f of files) {
+    expect(f.ok, f.url).toBe(true);
+    expect(f.digest.startsWith(f.version ?? 'missing'), f.url).toBe(true);
+  }
+});

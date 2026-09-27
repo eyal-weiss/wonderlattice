@@ -402,8 +402,16 @@
           synth.cancel();
           await new Promise((r) => setTimeout(r, 80));
         }
-        const voice = Wonderlattice.narration.voice(await Wonderlattice.narration.voices());
+        const voices = await Wonderlattice.narration.voices();
+        const voice = Wonderlattice.narration.voice(voices);
         if (run !== narrationRun) return; // stopped while we waited
+        // The device lists voices but none for this language: reading anyway would be
+        // silent, or another language's voice mangling the text. Say so instead. (With no
+        // list at all, some browsers still speak, so they get their chance.)
+        if (!voice && voices.length) {
+          Wonderlattice.narration.stop();
+          return Wonderlattice.toast(t.noVoice);
+        }
         const lang = voice?.lang || Wonderlattice.language().speech;
         let spoken = 0,
           failed = false;

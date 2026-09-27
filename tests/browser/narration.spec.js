@@ -91,3 +91,40 @@ test('picks an English voice from a Firefox-on-Linux style list (no default, Cat
   // No voice for the language: choose none rather than a wrong one.
   expect(await pick([{ name: 'Catalan', lang: 'ca', localService: true, default: true }])).toBe(null);
 });
+
+/** A speech engine offering only these voices, recording what it is asked to say. */
+async function voicesOnly(page, voices) {
+  await page.addInitScript((list) => {
+    window.__spoken = [];
+    const synth = window.speechSynthesis;
+    synth.getVoices = () => list;
+    synth.cancel = () => {};
+    synth.speak = (u) => {
+      window.__spoken.push(u.text);
+      setTimeout(() => u.onend?.(), 5);
+    };
+  }, voices);
+}
+
+test('with no voice for the page language, narration says so instead of reading in the wrong voice', async ({
+  page,
+}) => {
+  await voicesOnly(page, [
+    { name: 'Google US English', lang: 'en-US', localService: false, default: true },
+    { name: 'Google español', lang: 'es-ES', localService: false, default: false },
+  ]);
+  await page.goto('/?lang=he#room=motion');
+  await page.locator('#why-button').click();
+  await page.locator('#narrate-why').click();
+  await expect(page.locator('#toast')).toContainText('אין במכשיר הזה קול שמקריא בעברית');
+  await expect(page.locator('#narrate-why')).toHaveText('להאזין לרעיון');
+  expect(await page.evaluate(() => window.__spoken.length)).toBe(0);
+});
+
+test('a browser that lists no voices still gets to speak', async ({ page }) => {
+  await voicesOnly(page, []);
+  await page.goto('/?lang=he#room=motion');
+  await page.locator('#why-button').click();
+  await page.locator('#narrate-why').click();
+  await expect.poll(() => page.evaluate(() => window.__spoken.length), { timeout: 5000 }).toBeGreaterThan(5);
+});

@@ -324,7 +324,7 @@
     window.addEventListener('pagehide', () => lifecycle.abort(), { once: true });
   }
 
-  /** A language menu in the footer, shown only once a second language exists. */
+  /** A language menu at the top of the page, after My trail, shown only once a second language exists. */
   function buildLanguagePicker() {
     const all = W.languages();
     const codes = Object.keys(all);
@@ -332,10 +332,12 @@
     const label = document.createElement('label');
     label.className = 'language-pick';
     label.innerHTML =
-      `<span>${W.text('app').language}</span><select id="language">` +
+      '<svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" />' +
+      '<path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z" /></svg>' +
+      `<span class="visually-hidden">${W.text('app').language}</span><select id="language">` +
       codes.map((c) => `<option value="${c}"${c === W.lang ? ' selected' : ''}>${all[c].name}</option>`).join('') +
       '</select>';
-    document.querySelector('footer').appendChild(label);
+    $('trail-open').after(label);
     $('language').addEventListener('change', (e) => {
       try {
         localStorage.setItem('wonderlattice.lang', e.target.value);
@@ -348,6 +350,14 @@
     });
   }
 
+  /** Phones pin the picture (see base.css): how far its title scrolls before the picture sticks. */
+  function measurePins() {
+    for (const drawing of document.querySelectorAll('.workspace > .drawing')) {
+      const wrap = drawing.querySelector('.canvas-wrap');
+      if (wrap) drawing.style.setProperty('--pin-offset', `${Math.max(0, wrap.offsetTop - 8)}px`);
+    }
+  }
+
   function start() {
     W.applyPageText();
     buildLanguagePicker();
@@ -356,6 +366,9 @@
     bindDialogs();
     route();
     window.addEventListener('hashchange', route);
+    // The title's height changes with the room, the language and the width.
+    const pins = new ResizeObserver(measurePins);
+    document.querySelectorAll('.workspace > .drawing').forEach((d) => pins.observe(d));
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
         W.silence();

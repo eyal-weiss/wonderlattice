@@ -1,4 +1,42 @@
-# Project state — 2026-09-25
+# Project state — 2026-09-26
+
+## First feedback, first contributors, and phones — 2026-09-26 (later)
+
+- **Phones (from an iPhone tester):** a finger on a room's picture now scrolls the page unless the room drags there
+  (#30): rooms declare it with `pointer.drag` (ARCHITECTURE.md). On phones the picture stays pinned at the top while
+  the controls scroll under it, so a slider's effect is visible as it moves (#31). Both were tested in Chrome's iPhone
+  emulation only; Playwright's WebKit doesn't run on this machine.
+- **Still open from the same tester:** "choosing the dice doesn't work" on iPhone Safari. Every way of picking (the
+  buttons, the set menu, tapping a die in the circle) works in emulation; the owner is asking which control failed.
+- **Narration:** when a device has voices but none for the page language (often Hebrew on Windows and Linux), a message
+  says how to add one instead of reading silently or in the wrong voice (#27). Nobody has listened to the four new
+  languages yet.
+- **Language menu** moved from the footer to the header (#28); "Português (Brasil)" is now "Português" there.
+- **First outside contributions:** #24 (yonatangross) mirrors the layout on right-to-left pages with logical CSS
+  properties and keeps numbers in order; merged. #25 (maham146) adds a Simpson's paradox room for issue #7; reviewed
+  (no security concerns, maths correct) and changes requested: `./` script paths, formatting, a text scope matching
+  the room id, and a browser test.
+- **Tooling:** the build and translation scripts work on Windows and in folders with spaces (`fileURLToPath`), and
+  both stop with a clear message when `index.html` links a local script without `./` (#29).
+- **Launch:** the owner submitted to Carnival of Mathematics, emailed IMAGINARY and the Davidson Institute, and asked
+  for feedback on X on the room issues and the translations.
+
+## Four languages, room ideas, and the launch — 2026-09-26
+
+- **Launch:** posted on X and LinkedIn; about 600 unique visitors in the first days, mostly from Israel, some from the
+  US. No written feedback yet.
+- **Translations:** Hebrew (right-to-left), Spanish, Brazilian Portuguese and French, one pull request each (#20–#23).
+  Each was drafted by a Claude agent, reviewed by GPT (`gpt-6-astra`, high effort) acting as a native editor and
+  mathematician, and the findings judged one by one before merging. They're machine translations with review, not a
+  native speaker's read: the owner is asking for corrections from native speakers. Hebrew wraps formulas and signed
+  numbers in bidi isolates so they read left to right.
+- **Fixes the reviews found:** three explanations were made precise in every language (conformal maps need a complex
+  derivative and f′ ≠ 0; Euler's officers need two Latin squares laid over each other; the fingerprint model has no
+  quadratic terms). English plurals for "1 minute" and "1 pixel"; Hebrew labels are no longer letter-spaced; cube move
+  buttons read U′ in right-to-left pages.
+- **Room ideas as issues:** 14 proposed rooms are GitHub issues #5–#18 (labels `room idea`, `effort: …`, `theme: …`),
+  indexed in the pinned issue #19. Four are marked `good first issue`.
+- **Size:** the standalone file carries every language and is now about 1.3 MB.
 
 ## New room: The shot mix — 2026-09-26
 
@@ -160,16 +198,18 @@ browser tests, ESLint, Prettier, and GitHub Actions CI that runs everything on e
 
 ## Not yet done
 
-- An in-app "Make your own version" flow: source download and an AI prompt containing the current settings.
-- Translations: the structure, tools and checks are ready (docs/TRANSLATING.md); no language has been added yet.
-- Manual release checks that automation can't do: listening to audio and narration, real phones, screen readers.
-- A short demo video and social launch material. Nothing has been posted.
+- An in-app "Make your own version" flow: source download and an AI prompt containing the current settings. It fits
+  the owner's aim of making maths a hobby with AI help.
+- Native-speaker reads of the four translations, and listening to narration in each language.
+- Manual checks that automation can't do: real phones and screen readers.
+- Wider launch: Mathstodon, Bluesky, r/math's weekly thread, Show HN (hand-written, per HN's rules), Israeli teacher
+  groups after Sukkot (from 2026-10-04), and the Haifa elementary-maths teacher centre.
+- The dice-picking report from iPhone Safari (above), and checking #30 and #31 on a real iPhone.
+- Translations of the new room once #25 lands.
 - A permanent link from the personal website, once feedback warrants it.
 
 ## Next priorities
 
-Following docs/ROADMAP.md (review section):
-
-1. Translations by contributors (docs/TRANSLATING.md).
-2. More rooms from docs/ROADMAP.md's longer list.
-3. Decide on hosting and publish `dist/`.
+1. Gather feedback on the rooms and the translations.
+2. Help contributors build rooms from issues #5–#18.
+3. More languages when native reviewers are available.

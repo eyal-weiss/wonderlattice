@@ -166,6 +166,8 @@
   /** Show a stage room. Called by the app after navigation bookkeeping. */
   function enter(next) {
     room = next;
+    // Touch: a finger on the canvas scrolls the page unless the room drags there (pointer.drag).
+    canvas.dataset.touch = next.pointer?.drag === true ? 'drag' : 'scroll';
     clock = 0;
     last = 0;
     playing = !reduced; // every room starts moving; a pause in one room doesn't follow you to the next
@@ -272,6 +274,21 @@
   }
 
   function bindInput() {
+    // A room whose drags start only in places (pointer.drag as a function) keeps just those
+    // touches; a finger anywhere else still scrolls the page.
+    canvas.addEventListener(
+      'touchstart',
+      (e) => {
+        const drag = room?.pointer?.drag;
+        if (
+          typeof drag === 'function' &&
+          e.touches.length === 1 &&
+          drag(pointer(e.touches[0]), settings[room.id], stage)
+        )
+          e.preventDefault();
+      },
+      { passive: false },
+    );
     canvas.addEventListener('pointerdown', (e) => {
       // preventScroll: a scroll here would shift the canvas under the pointer mid-click.
       canvas.focus({ preventScroll: true });
