@@ -1,4 +1,22 @@
-# Project state — 2026-09-27
+# Project state — 2026-09-28
+
+## Four more rooms overnight, per-room link previews — 2026-09-28
+
+Built overnight by four agents in parallel (one room each, in its own branch), reviewed by the main session, and
+merged by the owner in the morning. The site now has eighteen rooms.
+
+- **A seed for an infinite landscape** (`julia`, Shape & space, #41, closes #9): drag a seed on the Mandelbrot set and
+  its Julia set changes live; tap to follow one point's journey. The review fixed its home card on sharp screens.
+- **A body full of clocks** (`fireflies`, Living patterns, #39, closes #15): Kuramoto synchronisation with a
+  day–night cycle and jet lag. Soft glows; the worst-case flicker is about 2% of the view.
+- **A heartbeat travels** (`heart`, Living patterns, #40, closes #14): waves in an excitable medium (Barkley's model)
+  that curl into spirals; explicitly a toy, not a heart simulation.
+- **A tile that fills the world** (`tiles`, Making, #42, part of #12): an Escher-style tile editor with four edge
+  rules. The "hat" aperiodic tile (part 2 of #12) is not done yet.
+- **Share pages** (#38): `/room/<id>/` for every room, with its own title, tagline and picture
+  (`assets/rooms/<id>.jpg`, from `npm run previews`), so links shared on Facebook, WhatsApp and X preview the room.
+  "Copy this exploration" uses them on the built site; old links still work.
+- **Phone fix** (#43): the visitor card no longer paints over the pinned picture.
 
 ## The first community room, a promo video, and wider reach — 2026-09-27
 
@@ -226,11 +244,16 @@ browser tests, ESLint, Prettier, and GitHub Actions CI that runs everything on e
 - Manual checks that automation can't do: real phones and screen readers.
 - Wider launch: Mathstodon, Bluesky, r/math's weekly thread, Show HN (hand-written, per HN's rules), Israeli teacher
   groups after Sukkot (from 2026-10-04), and the Haifa elementary-maths teacher centre.
-- The dice-picking report from iPhone Safari (above), and checking #30 and #31 on a real iPhone.
+- The dice-picking report from iPhone Safari (above), and checking the phone fixes and the four new rooms on a real
+  iPhone.
+- Native-speaker reads of the new rooms' translations.
 - A permanent link from the personal website, once feedback warrants it.
 
 ## Next priorities
 
 1. Gather feedback on the rooms, the translations and the phone fixes.
-2. Help contributors build rooms from the remaining ideas (#5, #6, #8–#18); #7 is done.
+2. Help contributors build rooms from the remaining ideas (#5, #6, #8, #10, #11, #13, #16–#18), and part 2 of #12
+   (the hat tile).
 3. More languages when native reviewers are available; the country list can guide which.
+4. Small decisions left from the overnight rooms: a name that mentions the fireflies, and the empty space around the
+   Julia pictures on desktop.
