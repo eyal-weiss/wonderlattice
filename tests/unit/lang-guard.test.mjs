@@ -54,3 +54,16 @@ for (const [what, source] of Object.entries(bad)) {
     assert.throws(() => checkLanguageSource(source, 'he.js'), /not allowed in a language file|Unexpected/);
   });
 }
+
+test('a file in a language folder speaks only for its folder and its own name', () => {
+  const ok = "Wonderlattice.defineText('dice', 'he', { title: 'קוביות' });";
+  checkLanguageSource(ok, 'src/lang/he/dice.js');
+  checkLanguageSource("Wonderlattice.defineLanguage('he', { name: 'עברית', dir: 'rtl' });", 'src/lang/he/language.js');
+  for (const [source, file] of [
+    ["Wonderlattice.defineText('cube', 'he', {});", 'src/lang/he/dice.js'], // another room's words
+    ["Wonderlattice.defineText('dice', 'es', {});", 'src/lang/he/dice.js'], // another language
+    ["Wonderlattice.defineLanguage('he', {});", 'src/lang/he/dice.js'], // declaring the language in a room file
+    ["Wonderlattice.defineText('dice', 'he', {});", 'src/lang/he/language.js'], // words in language.js
+  ])
+    assert.throws(() => checkLanguageSource(source, file), /not allowed in a language file/, file);
+});

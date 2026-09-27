@@ -36,7 +36,7 @@ computer. It holds the whole site, pictures included. (`npm run build` makes the
 ## Contribute
 
 Ideas, bug reports, fixes and translations are welcome: see **[CONTRIBUTING.md](CONTRIBUTING.md)**. Adding a language
-takes one file and no programming ([docs/TRANSLATING.md](docs/TRANSLATING.md)). To report a security problem, see
+takes one folder of small files and no programming ([docs/TRANSLATING.md](docs/TRANSLATING.md)). To report a security problem, see
 [SECURITY.md](SECURITY.md).
 
 For developers, with Node.js 20 or later:

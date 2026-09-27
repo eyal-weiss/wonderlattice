@@ -15,7 +15,7 @@ ads, tracking or outside services won't be accepted.
   what you expected, and your browser and device. A screenshot helps.
 - **Suggest an idea:** open an issue first, before writing code, especially for a new room. Say what the surprise is:
   the one moment a visitor should remember.
-- **Translate:** a language is a single file, and you don't need to program. See
+- **Translate:** a language is a folder of small files, one per room, and you don't need to program. See
   [docs/TRANSLATING.md](docs/TRANSLATING.md).
 - **Fix something:** small fixes (wording, accessibility, a bug with a clear cause) are welcome as a pull request
   straight away.

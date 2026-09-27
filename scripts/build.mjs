@@ -21,6 +21,12 @@ for (const item of ['index.html', '_headers', 'styles', 'src', 'portraits', 'ass
 cpSync(join(root, 'docs/PORTRAITS.md'), join(dist, 'CREDITS.md'));
 
 const html = read('index.html');
+// The languages and their files, straight from the generated list (the standalone file inlines them all).
+await import(pathToFileURL(join(root, 'src/core/wonderlattice.js')).href);
+await import(pathToFileURL(join(root, 'src/lang/languages.js')).href);
+const languageFiles = Object.entries(globalThis.Wonderlattice.languageFiles ?? {}).flatMap(([code, scopes]) =>
+  scopes.map((scope) => ({ code, scope, path: `src/lang/${code}/${scope}.js` })),
+);
 const styles = [...html.matchAll(/<link rel="stylesheet" href="\.\/([^"]+)" \/>/g)].map((m) => m[1]);
 const scripts = [...html.matchAll(/<script src="\.\/([^"]+)"><\/script>/g)].map((m) => m[1]);
 if (!styles.length || !scripts.length) throw new Error('Could not find stylesheets or scripts in index.html');
@@ -51,8 +57,10 @@ let standalone = html
 for (const path of styles) {
   standalone = standalone.replace(`<link rel="stylesheet" href="./${path}" />`, () => `<style>\n${read(path)}</style>`);
 }
+// Every language's words, for the standalone file (it can't load files, and offers the language menu offline).
+const allLanguages = () => languageFiles.map(({ path }) => inlineScript(read(path), path)).join('\n');
 for (const path of scripts) {
-  let block = inlineScript(read(path), path);
+  let block = path === 'src/lang/load.js' ? allLanguages() : inlineScript(read(path), path);
   // Portrait images travel inside the file, right after the core namespace exists.
   if (path === 'src/core/wonderlattice.js') {
     block += '\n' + inlineScript(`Wonderlattice.portraitSources = ${JSON.stringify(portraits)};\n`, 'portraits');
@@ -75,9 +83,18 @@ writeFileSync(
 // clean, so the page still opens from disk.
 const version = (path) =>
   createHash('sha256')
-    .update(readFileSync(join(root, path)))
+    .update(readFileSync(join(dist, path)))
     .digest('hex')
     .slice(0, 10);
+// load.js writes the language files' addresses itself, so their fingerprints go into the published languages.js.
+{
+  const versions = {};
+  for (const { code, scope, path } of languageFiles) (versions[code] ??= {})[scope] = version(path);
+  writeFileSync(
+    join(dist, 'src/lang/languages.js'),
+    `${read('src/lang/languages.js')}Wonderlattice.languageVersions = ${JSON.stringify(versions)};\n`,
+  );
+}
 let published = html.replace(
   '<meta name="twitter:card"',
   // Tells the page that /room/<id>/ share pages exist here, so "Copy this exploration" can use them.
@@ -92,7 +109,6 @@ writeFileSync(join(dist, 'index.html'), published);
 // tagline and picture (assets/rooms/<id>.jpg, from `npm run previews`), then forward to the room,
 // keeping any shared settings and the language.
 const SITE = 'https://wonderlattice.com';
-await import(pathToFileURL(join(root, 'src/core/wonderlattice.js')).href);
 const roomIds = [...html.matchAll(/src="\.\/src\/rooms\/([a-z]+)\/room\.js"/g)].map((m) => m[1]);
 for (const id of roomIds) await import(pathToFileURL(join(root, `src/rooms/${id}/text.en.js`)).href);
 const attr = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');

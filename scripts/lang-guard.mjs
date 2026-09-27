@@ -53,8 +53,15 @@ const OPERATORS = new Set([
   '!',
 ]);
 
-/** Throws an Error naming the first thing a language file may not contain. */
-export function checkLanguageSource(source, file = 'language file', code = file.match(/([\w-]+)\.js$/)?.[1]) {
+/**
+ * Throws an Error naming the first thing a language file may not contain. A file in src/lang/<code>/ speaks for
+ * that language only: language.js may only declare it (defineLanguage), and <scope>.js may only give the words of
+ * that one scope (a room id, app or page).
+ */
+export function checkLanguageSource(source, file = 'language file', code = languageOf(file)) {
+  const folder = file.match(/([\w-]+)\/([\w-]+)\.js$/); // src/lang/<code>/<scope>.js
+  const only = folder ? (folder[2] === 'language' ? 'defineLanguage' : 'defineText') : null;
+  const scopeName = folder && folder[2] !== 'language' ? folder[2] : null;
   const ast = acorn.parse(source, { ecmaVersion: 'latest', sourceType: 'script', locations: true });
   const fail = (node, what) => {
     throw new Error(`${file}:${node.loc.start.line}: ${what} is not allowed in a language file`);
@@ -161,9 +168,23 @@ export function checkLanguageSource(source, file = 'language file', code = file.
     const lang = call.arguments[callee.property.name === 'defineLanguage' ? 0 : 1];
     if (lang?.type !== 'Literal' || lang.value !== code || code === 'en')
       fail(statement, `registering a language other than "${code}" (the file's name)`);
+    if (only && callee.property.name !== only)
+      fail(
+        statement,
+        only === 'defineLanguage'
+          ? 'words (they go in their own files)'
+          : 'declaring the language (language.js does that)',
+      );
+    if (scopeName && (call.arguments[0]?.type !== 'Literal' || call.arguments[0].value !== scopeName))
+      fail(statement, `words for a scope other than "${scopeName}" (the file's name)`);
     call.arguments.forEach((a, i) => {
       if (i < call.arguments.length - 1 && a.type !== 'Literal') fail(a, 'a computed code or scope');
       value(a, scope);
     });
   }
+}
+
+/** The language a file speaks for: its folder (src/lang/he/dice.js), or its name (he.js). */
+export function languageOf(file) {
+  return file.match(/([\w-]+)\/[\w-]+\.js$/)?.[1] ?? file.match(/([\w-]+)\.js$/)?.[1];
 }

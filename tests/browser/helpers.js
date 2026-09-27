@@ -1,25 +1,20 @@
+import { readFileSync } from 'node:fs';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { test as base, expect } from '@playwright/test';
 
-export const ROOMS = {
-  motion: 'Paint with motion.',
-  waves: 'Hear the shape.',
-  flock: 'A mind of many.',
-  fireflies: 'Fireflies that fall into step.',
-  ribbon: 'Where is the other side?',
-  traffic: 'The tempting shortcut.',
-  shots: 'Two players, three leaderboards.',
-  loom: 'The mathematical loom.',
-  tiles: 'A tile that fills the world.',
-  storm: 'Send a picture through a storm.',
-  sudoku: 'Sudoku, made transparent.',
-  dice: 'The dice that beat each other.',
-  cube: 'Inside the puzzle cube.',
-  sample: 'A spoonful of a city.',
-  plane: 'Bend the plane.',
-  julia: 'A seed for an infinite landscape.',
-  fingerprint: 'Grow a fingerprint.',
-  heart: 'A heartbeat travels.',
-};
+// Every room linked from index.html, in page order, with its English title (read from its text.en.js),
+// so a new room needs no edit here. npm run rooms checks every room folder is linked.
+const root = fileURLToPath(new URL('../../', import.meta.url));
+await import(pathToFileURL(`${root}src/core/wonderlattice.js`).href);
+const roomIds = [
+  ...readFileSync(`${root}index.html`, 'utf8').matchAll(/src="\.\/src\/rooms\/([a-z]+)\/room\.js"/g),
+].map((m) => m[1]);
+for (const id of roomIds) await import(pathToFileURL(`${root}src/rooms/${id}/text.en.js`).href);
+// The drawing room's title is fixed page text (data-t="motion.title"), not in its room text.
+const page = readFileSync(`${root}index.html`, 'utf8');
+const titleOf = (id) =>
+  globalThis.Wonderlattice.text(id).title ?? page.match(new RegExp(`data-t="${id}\\.title">([^<]+)<`))?.[1];
+export const ROOMS = Object.fromEntries(roomIds.map((id) => [id, titleOf(id)]));
 
 // Records page errors, captures clipboard writes, and exposes the optional
 // browser-agent tools so tests can read app state the way an agent would.

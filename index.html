@@ -582,17 +582,15 @@
 
     <!--
       Classic scripts, in dependency order (they must work from file:// too).
-      To add a room: add its model.js, text.en.js and room.js here, before src/core/app.js.
-      Languages: one file each in src/lang/, listed right after the English core text
-      (npm run i18n:new adds the tag). See docs/ARCHITECTURE.md and docs/TRANSLATING.md.
+      To add a room: npm run rooms adds its model.js, text.en.js and room.js here, before src/core/app.js.
+      Languages: src/lang/languages.js lists them, and load.js loads only the visitor's
+      (one folder per language, one file per room). See docs/ARCHITECTURE.md and docs/TRANSLATING.md.
     -->
     <script src="./src/core/wonderlattice.js"></script>
     <script src="./src/core/text.en.js"></script>
     <!-- languages -->
-    <script src="./src/lang/es.js"></script>
-    <script src="./src/lang/pt.js"></script>
-    <script src="./src/lang/fr.js"></script>
-    <script src="./src/lang/he.js"></script>
+    <script src="./src/lang/languages.js"></script>
+    <script src="./src/lang/load.js"></script>
     <!-- /languages -->
     <script src="./src/core/stage.js"></script>
     <script src="./src/features/guests.js"></script>

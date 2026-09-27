@@ -20,7 +20,7 @@ export default [
   },
   {
     // Translations may use non-breaking spaces in their text (French puts one before ? ! : ; and %).
-    files: ['src/lang/*.js'],
+    files: ['src/lang/**/*.js'],
     rules: { 'no-irregular-whitespace': ['error', { skipStrings: true, skipTemplates: true }] },
   },
   {
