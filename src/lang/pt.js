@@ -1383,7 +1383,8 @@ Wonderlattice.defineText('shots', 'pt', {
   sceneName: 'A mistura de arremessos',
   tip: 'Arraste os controles para mudar quantos arremessos de perto e de longe cada jogador faz',
   actionLabel: 'Trocar a mistura',
-  canvasLabel: 'Dois jogadores arremessando de perto e de longe, com placares de perto, de longe e no total.',
+  canvasLabel:
+    'Uma quadra de basquete com os arremessos de perto e de longe de cada jogador como pontos, e placares de perto, de longe e no total.',
   panelEyebrow: 'Mude a mistura de arremessos',
   whyLabel: 'Como isso pode acontecer?',
   nudge:
@@ -1410,6 +1411,11 @@ Wonderlattice.defineText('shots', 'pt', {
     aWins: 'O jogador A lidera no total.',
     bWins: 'O jogador B lidera no total.',
     reversal: (winner) => `${winner} vence de perto e de longe, e mesmo assim fica atrás no total.`,
+  },
+  legend: {
+    made: 'cesta',
+    missed: 'erro',
+    perDot: (n) => (n === 1 ? 'um ponto por arremesso' : `um ponto ≈ ${n} arremessos`),
   },
   labels: {
     caption: 'A porcentagem total de cada jogador é a soma das cestas dividida pela soma dos arremessos.',

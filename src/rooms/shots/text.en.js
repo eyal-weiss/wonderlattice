@@ -10,7 +10,8 @@ Wonderlattice.defineText('shots', 'en', {
   sceneName: 'The shot mix',
   tip: 'Drag the sliders to change how many close and far shots each player takes',
   actionLabel: 'Swap the shot mix',
-  canvasLabel: 'Two players shooting from close range and far range, with close, far, and overall leaderboards.',
+  canvasLabel:
+    'A basketball court with each player’s close and far shots as dots, and close, far, and overall leaderboards.',
   panelEyebrow: 'Change the shot mix',
   whyLabel: 'How could that happen?',
   nudge:
@@ -43,6 +44,8 @@ Wonderlattice.defineText('shots', 'en', {
     reversal: (winner) => `${winner} wins both close and far range, yet trails overall.`,
   },
 
+  // Under the court: what a filled and a hollow dot mean, and how many shots one dot stands for.
+  legend: { made: 'made', missed: 'missed', perDot: (n) => (n === 1 ? 'one dot per shot' : `one dot ≈ ${n} shots`) },
   labels: {
     caption: 'Each player’s overall percentage is their combined makes over their combined attempts.',
   },

@@ -1396,7 +1396,8 @@ Wonderlattice.defineText('shots', 'fr', {
   sceneName: 'Le mélange de tirs',
   tip: 'Faites glisser les curseurs pour changer le nombre de tirs de près et de loin de chaque joueur',
   actionLabel: 'Échanger les mélanges',
-  canvasLabel: 'Deux joueurs qui tirent de près et de loin, avec des classements de près, de loin et au total.',
+  canvasLabel:
+    'Un terrain de basket où chaque tir de près ou de loin de chaque joueur est un point, avec des classements de près, de loin et au total.',
   panelEyebrow: 'Changez le mélange de tirs',
   whyLabel: 'Comment est-ce possible\u202f?',
   nudge:
@@ -1423,6 +1424,11 @@ Wonderlattice.defineText('shots', 'fr', {
     aWins: 'Le joueur A mène au total.',
     bWins: 'Le joueur B mène au total.',
     reversal: (winner) => `${winner} gagne de près et de loin, et pourtant reste derrière au total.`,
+  },
+  legend: {
+    made: 'réussi',
+    missed: 'manqué',
+    perDot: (n) => (n === 1 ? 'un point par tir' : `un point ≈ ${n}\u202ftirs`),
   },
   labels: {
     caption: 'Le pourcentage global de chaque joueur est le total de ses paniers divisé par le total de ses tirs.',

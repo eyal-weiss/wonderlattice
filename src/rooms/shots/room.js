@@ -36,6 +36,120 @@
     return line ? [...lines, line] : lines;
   }
 
+  // A half court in feet: the hoop near the top, the key, and the three-point arc (NBA proportions).
+  const COURT = { width: 50, depth: 33, hoop: 5.25, key: 16, keyDepth: 19, arc: 23.75, corner: 22 };
+
+  /** A repeatable pseudo-random number in [0, 1) for shot `i` of a player and range, so dots stay put. */
+  function jitter(player, range, i, k) {
+    const x = Math.sin((player * 7919 + range * 104729 + i * 1299709 + k * 15485863) * 0.000123) * 43758.5453;
+    return x - Math.floor(x);
+  }
+
+  /** Where one shot lands, in feet from the hoop: close ones in the key, far ones just beyond the arc. */
+  function spot(player, range, i) {
+    const u = jitter(player, range, i, 1),
+      v = jitter(player, range, i, 2);
+    if (range === 0) {
+      const r = 1.5 + Math.sqrt(u) * 6.5,
+        angle = (v - 0.5) * Math.PI * 1.1;
+      return [Math.sin(angle) * r, Math.cos(angle) * r];
+    }
+    const r = COURT.arc + 1 + u * 2.6,
+      angle = (v - 0.5) * Math.PI * 0.86;
+    const y = Math.min(COURT.depth - COURT.hoop - 0.8, Math.cos(angle) * r);
+    return [Math.max(-23.5, Math.min(23.5, Math.sin(angle) * r)), y];
+  }
+
+  /** The court with every shot as a dot (filled when made), so the mix of shots is visible at a glance. */
+  function drawCourt(ctx, box, a, b, small) {
+    const scale = Math.min(box.w / (COURT.width + 2), (box.h - small * 3.8) / (COURT.depth + 1));
+    const w = COURT.width * scale,
+      d = COURT.depth * scale;
+    const ox = box.x + (box.w - w) / 2,
+      oy = box.y + 2;
+    const hx = ox + w / 2,
+      hy = oy + COURT.hoop * scale;
+    const at = ([x, y]) => [hx + x * scale, hy + y * scale];
+
+    ctx.fillStyle = '#141b24';
+    ctx.fillRect(ox, oy, w, d);
+    ctx.strokeStyle = '#3a4756';
+    ctx.lineWidth = Math.max(1, scale * 0.18);
+    ctx.strokeRect(ox, oy, w, d);
+    ctx.strokeRect(hx - (COURT.key / 2) * scale, oy, COURT.key * scale, COURT.keyDepth * scale);
+    ctx.beginPath();
+    ctx.arc(hx, oy + COURT.keyDepth * scale, 6 * scale, 0, Math.PI);
+    ctx.stroke();
+    // The three-point line: straight in the corners, then the arc.
+    const cornerY = Math.sqrt(COURT.arc ** 2 - COURT.corner ** 2);
+    const edge = Math.atan2(cornerY, COURT.corner);
+    ctx.beginPath();
+    ctx.moveTo(hx - COURT.corner * scale, oy);
+    ctx.lineTo(hx - COURT.corner * scale, hy + cornerY * scale);
+    ctx.arc(hx, hy, COURT.arc * scale, Math.PI - edge, edge, true);
+    ctx.lineTo(hx + COURT.corner * scale, oy);
+    ctx.stroke();
+    // Backboard and hoop.
+    ctx.strokeStyle = '#c9d6df';
+    ctx.beginPath();
+    ctx.moveTo(hx - 3 * scale, hy - 1.25 * scale);
+    ctx.lineTo(hx + 3 * scale, hy - 1.25 * scale);
+    ctx.stroke();
+    ctx.strokeStyle = '#f08a4b';
+    ctx.lineWidth = Math.max(1.5, scale * 0.25);
+    ctx.beginPath();
+    ctx.arc(hx, hy, 0.75 * scale, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Dots: one per shot, or one per few shots when there are many, so the court stays readable.
+    const most = Math.max(a.closeAttempts + a.farAttempts, b.closeAttempts + b.farAttempts, 1);
+    const perDot = Math.max(1, Math.ceil(most / 40));
+    const radius = Math.max(2, Math.min(5, scale * 0.55));
+    [
+      [a, '#f7c998'],
+      [b, '#b4eed3'],
+    ].forEach(([p, colour], player) => {
+      [
+        [p.closeAttempts, p.closeMakes],
+        [p.farAttempts, p.farMakes],
+      ].forEach(([tries, makes], range) => {
+        const dots = tries ? Math.max(1, Math.round(tries / perDot)) : 0;
+        const made = Math.round((dots * makes) / Math.max(tries, 1));
+        for (let i = 0; i < dots; i++) {
+          const [x, y] = at(spot(player, range, i));
+          ctx.beginPath();
+          ctx.arc(x, y, radius, 0, Math.PI * 2);
+          if (i < made) {
+            ctx.fillStyle = colour;
+            ctx.fill();
+          } else {
+            ctx.strokeStyle = colour;
+            ctx.lineWidth = Math.max(1, radius * 0.4);
+            ctx.globalAlpha = 0.75;
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+          }
+        }
+      });
+    });
+
+    // Zone names, quietly: close at the foot of the key, far in the empty corner beyond the arc.
+    ctx.font = `600 ${small - 1}px system-ui`;
+    ctx.fillStyle = '#7d8a9a';
+    ctx.textAlign = 'center';
+    ctx.fillText(t.closeLabel, hx, oy + COURT.keyDepth * scale - small * 0.45);
+    ctx.textAlign = 'left';
+    ctx.fillText(t.farLabel, ox + small * 0.5, oy + d - small * 0.5);
+    // What a dot means, wrapped to the court's width.
+    ctx.font = `${small - 1}px system-ui`;
+    ctx.fillStyle = '#98aab7';
+    ctx.textAlign = 'center';
+    const legend = `● ${t.legend.made}   ○ ${t.legend.missed}   ·   ${t.legend.perDot(perDot)}`;
+    wrap(ctx, legend, box.w).forEach((line, i) =>
+      ctx.fillText(line, box.x + box.w / 2, oy + d + small * (1.5 + 1.25 * i)),
+    );
+  }
+
   function draw(ctx, s, stage) {
     const { width, height } = stage;
     const { a, b } = compare(fullSettings(s));
@@ -69,8 +183,26 @@
       },
     ];
 
-    // Sizes follow the canvas. When the full layout (a label line above each bar) doesn't fit, as on
-    // phones, each player gets one line instead: a short tag, the bar, and the percentage.
+    // The court beside the leaderboards on wide, short canvases (phones), above them otherwise.
+    const small = Math.round(Math.min(13, Math.max(10, Math.min(width, height) / 32)));
+    const pad = Math.max(10, Math.min(width, height) * 0.035);
+    if (width > height * 1.15) {
+      const courtW = Math.min(width * 0.46, (height - 2 * pad) * 1.45);
+      drawCourt(ctx, { x: pad, y: pad, w: courtW, h: height - 2 * pad }, a, b, small);
+      drawBoards(ctx, { x: courtW + pad, y: 0, w: width - courtW - pad, h: height }, groups);
+    } else {
+      const courtH = Math.max(150, height * 0.44);
+      drawCourt(ctx, { x: pad, y: pad, w: width - 2 * pad, h: courtH }, a, b, small);
+      drawBoards(ctx, { x: 0, y: courtH + pad, w: width, h: height - courtH - pad }, groups);
+    }
+  }
+
+  /** The three leaderboards inside `box`. Sizes follow the box. When the full layout (a label line above each bar) doesn't fit, as on
+    // phones, each player gets one line instead: a short tag, the bar, and the percentage. */
+  function drawBoards(ctx, box, groups) {
+    const { w: width, h: height } = box;
+    ctx.save();
+    ctx.translate(box.x, box.y);
     const pad = Math.max(12, Math.min(width, height) * 0.05);
     const small = Math.round(Math.min(13, Math.max(11, width / 48)));
     ctx.font = `${small - 1}px system-ui`;
@@ -140,6 +272,7 @@
       ctx.font = `${small - 1}px system-ui`;
       caption.forEach((line, i) => ctx.fillText(line, width / 2, height - pad - captionH + 6 + (i + 1) * (small + 3)));
     }
+    ctx.restore();
   }
 
   /** The verdict text: who leads overall, and whether that's a reversal from both individual categories. */

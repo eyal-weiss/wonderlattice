@@ -1390,7 +1390,8 @@ Wonderlattice.defineText('shots', 'es', {
   sceneName: 'La mezcla de tiros',
   tip: 'Arrastra los controles para cambiar cuántos tiros de cerca y de lejos hace cada jugador',
   actionLabel: 'Intercambiar la mezcla',
-  canvasLabel: 'Dos jugadores que tiran de cerca y de lejos, con clasificaciones de cerca, de lejos y en total.',
+  canvasLabel:
+    'Una cancha de baloncesto con los tiros de cerca y de lejos de cada jugador como puntos, y clasificaciones de cerca, de lejos y en total.',
   panelEyebrow: 'Cambia la mezcla de tiros',
   whyLabel: '¿Cómo puede pasar eso?',
   nudge:
@@ -1417,6 +1418,11 @@ Wonderlattice.defineText('shots', 'es', {
     aWins: 'El jugador A va primero en total.',
     bWins: 'El jugador B va primero en total.',
     reversal: (winner) => `${winner} gana de cerca y de lejos, y aun así va por detrás en total.`,
+  },
+  legend: {
+    made: 'acierto',
+    missed: 'fallo',
+    perDot: (n) => (n === 1 ? 'un punto por tiro' : `un punto ≈ ${n} tiros`),
   },
   labels: {
     caption: 'El porcentaje total de cada jugador es la suma de sus aciertos dividida entre la suma de sus intentos.',
