@@ -512,18 +512,29 @@
     );
   }
 
-  /** The home card: the rabbit, drawn once, small. */
+  /**
+   * The home card: the rabbit, drawn once, small. Pixels go to a canvas at the screen's real resolution first,
+   * then drawn in: putImageData ignores the card's scaling, so on a sharp screen it filled only a corner.
+   */
   function preview(ctx, width, height) {
     const [cx, cy] = [presets[0].settings.cx, presets[0].settings.cy];
-    const image = ctx.createImageData(width, height);
+    const scale = ctx.getTransform?.().a || 1;
+    const w = Math.round(width * scale),
+      h = Math.round(height * scale);
+    const canvas = document.createElement('canvas');
+    canvas.width = w;
+    canvas.height = h;
+    const off = canvas.getContext('2d');
+    const image = off.createImageData(w, h);
     const pixels = new Uint32Array(image.data.buffer);
-    const s = (2.5 * JULIA_VIEW.half) / width;
-    for (let y = 0; y < height; y++)
-      for (let x = 0; x < width; x++) {
-        const v = M.escape((x - width / 2) * s, (height / 2 - y) * s, cx, cy, 120);
-        pixels[y * width + x] = v < 0 ? JULIA_INSIDE : shade(JULIA_RAMP, v, 120);
+    const s = (2.5 * JULIA_VIEW.half) / w;
+    for (let y = 0; y < h; y++)
+      for (let x = 0; x < w; x++) {
+        const v = M.escape((x - w / 2) * s, (h / 2 - y) * s, cx, cy, 120);
+        pixels[y * w + x] = v < 0 ? JULIA_INSIDE : shade(JULIA_RAMP, v, 120);
       }
-    ctx.putImageData(image, 0, 0);
+    off.putImageData(image, 0, 0);
+    ctx.drawImage(canvas, 0, 0, width, height);
   }
 
   const defaults = { cx: -0.123, cy: 0.745, zx: 0.32, zy: 0.28, journey: false };

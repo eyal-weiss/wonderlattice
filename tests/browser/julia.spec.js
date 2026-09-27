@@ -55,3 +55,18 @@ test('julia room: with reduced motion the seed stays put and the picture is stil
   await page.waitForTimeout(600);
   await expect(page.locator('#c-cx')).toHaveValue('-0.123');
 });
+
+test('the home card fills its picture on a sharp (2×) screen', async ({ browser }) => {
+  const context = await browser.newContext({ deviceScaleFactor: 2 });
+  const page = await context.newPage();
+  await page.goto('/');
+  // The rabbit is centred: its bottom-right quarter must have pixels that aren't the dark background.
+  const drawn = await page.locator('#card-julia canvas').evaluate((c) => {
+    const { data } = c.getContext('2d').getImageData(c.width * 0.5, c.height * 0.5, c.width * 0.25, c.height * 0.25);
+    let bright = 0;
+    for (let i = 0; i < data.length; i += 4) if (data[i] + data[i + 1] + data[i + 2] > 60) bright++;
+    return bright;
+  });
+  expect(drawn).toBeGreaterThan(50);
+  await context.close();
+});
