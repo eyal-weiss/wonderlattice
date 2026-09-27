@@ -2,7 +2,7 @@ import { test, expect, ROOMS, openRoom, tool } from './helpers.js';
 
 // On a phone the canvas fills much of the screen, so a finger on it must scroll the page
 // unless the room really drags there.
-const DRAGS_EVERYWHERE = ['flock', 'ribbon', 'cube'];
+const DRAGS_EVERYWHERE = ['flock', 'ribbon', 'cube', 'heart'];
 
 test.use({ hasTouch: true });
 

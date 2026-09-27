@@ -15,6 +15,7 @@ export const ROOMS = {
   sample: 'A spoonful of a city.',
   plane: 'Bend the plane.',
   fingerprint: 'Grow a fingerprint.',
+  heart: 'A heartbeat travels.',
 };
 
 // Records page errors, captures clipboard writes, and exposes the optional
