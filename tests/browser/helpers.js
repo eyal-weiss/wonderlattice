@@ -8,6 +8,7 @@ export const ROOMS = {
   traffic: 'The tempting shortcut.',
   shots: 'Two players, three leaderboards.',
   loom: 'The mathematical loom.',
+  tiles: 'A tile that fills the world.',
   storm: 'Send a picture through a storm.',
   sudoku: 'Sudoku, made transparent.',
   dice: 'The dice that beat each other.',
