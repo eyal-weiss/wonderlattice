@@ -14,6 +14,7 @@ export const ROOMS = {
   cube: 'Inside the puzzle cube.',
   sample: 'A spoonful of a city.',
   plane: 'Bend the plane.',
+  julia: 'A seed for an infinite landscape.',
   fingerprint: 'Grow a fingerprint.',
 };
 

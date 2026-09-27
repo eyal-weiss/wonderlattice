@@ -1,0 +1,21 @@
+/* A seed for an infinite landscape: the readout under the sliders. */
+.julia-readout {
+  display: grid;
+  gap: 8px;
+  padding: 12px 14px;
+  border: 1px solid #253244;
+  border-radius: 10px;
+  background: #0f1620;
+}
+.julia-readout div {
+  display: grid;
+  gap: 2px;
+}
+.julia-readout span {
+  font-size: 12px;
+  color: #8795a8;
+}
+.julia-readout strong {
+  font-weight: 500;
+  color: #e6ebe6;
+}
