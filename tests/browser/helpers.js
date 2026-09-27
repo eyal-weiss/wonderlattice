@@ -79,3 +79,9 @@ export async function inkedPixels(page, selector) {
     return count;
   });
 }
+
+/** The link to expect: the room's share page on the built site (it has /room/<id>/ pages), the page itself elsewhere. */
+export async function expectedLink(page, room, settings) {
+  const pages = await page.locator('meta[name="wonderlattice-room-pages"]').count();
+  return new URL(pages ? `/room/${room}/#${settings}` : `/#${settings}`, page.url()).href;
+}

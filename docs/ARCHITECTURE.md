@@ -136,10 +136,18 @@ dictionaries. The step-by-step guide for translators is docs/TRANSLATING.md.
    `description` and the README if it deserves it.
 6. Optional: add trail `bridges` in `src/features/trail.js`, and room-specific CSS in `src/rooms/<id>/room.css`, linked
    in the head of `index.html` after `styles/trail.css` (the build inlines it).
-7. Run `npm run check`. When several checkouts run browser tests at once, give each its own port:
+7. Run `npm run previews -- <id>` to make the room's link-preview picture (`assets/rooms/<id>.jpg`) and commit it.
+   Without one, its share page falls back to the site's picture.
+8. Run `npm run check`. When several checkouts run browser tests at once, give each its own port:
    `PW_PORT=4711 PW_CHANNEL=chrome npm run check`.
 
 ## Shared links and saved moments are public contracts
+
+Link previews (Facebook, WhatsApp, X) read no further than the address before `#`, so the build also makes a share page
+per room, `dist/room/<id>/index.html`, with the room's own title, tagline and picture (`assets/rooms/<id>.jpg`, made by
+`npm run previews`). It forwards to `/#room=<id>…`, keeping the settings after `#` and `?lang=`. On the built site
+"Copy this exploration" links to the share page (`/room/<id>/#room=<id>&…`); opened from disk it links to the page
+itself. Both kinds of link keep working.
 
 Links like `#room=motion&k=-5&r=42&p=0&ink=0` and trail exports (`wonderlattice-trail`, version 1) live outside the app.
 Keep existing parameter names (for example `ink`, not `palette`, in drawing links) and accept old values. If a

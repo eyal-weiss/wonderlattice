@@ -3,9 +3,9 @@
 //   dist/wonderlattice-standalone.html   one self-contained file (styles, scripts, portraits inlined)
 // Usage: node scripts/build.mjs
 import { createHash } from 'node:crypto';
-import { cpSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { extname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 // fileURLToPath, not URL.pathname: pathname gives "/C:/…" on Windows and keeps spaces as "%20".
 const root = fileURLToPath(new URL('..', import.meta.url));
@@ -78,11 +78,71 @@ const version = (path) =>
     .update(readFileSync(join(root, path)))
     .digest('hex')
     .slice(0, 10);
-let published = html;
+let published = html.replace(
+  '<meta name="twitter:card"',
+  // Tells the page that /room/<id>/ share pages exist here, so "Copy this exploration" can use them.
+  '<meta name="wonderlattice-room-pages" content="1" />\n    <meta name="twitter:card"',
+);
 for (const path of styles) published = published.replace(`href="./${path}"`, `href="./${path}?v=${version(path)}"`);
 for (const path of scripts) published = published.replace(`src="./${path}"`, `src="./${path}?v=${version(path)}"`);
 writeFileSync(join(dist, 'index.html'), published);
 
+// A share page per room (/room/<id>/): link previews read no further than the address before "#", so a
+// link to #room=dice looks like any other link to the site. These pages carry the room's own title,
+// tagline and picture (assets/rooms/<id>.jpg, from `npm run previews`), then forward to the room,
+// keeping any shared settings and the language.
+const SITE = 'https://wonderlattice.com';
+await import(pathToFileURL(join(root, 'src/core/wonderlattice.js')).href);
+const roomIds = [...html.matchAll(/src="\.\/src\/rooms\/([a-z]+)\/room\.js"/g)].map((m) => m[1]);
+for (const id of roomIds) await import(pathToFileURL(join(root, `src/rooms/${id}/text.en.js`)).href);
+const attr = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+mkdirSync(join(dist, 'room'), { recursive: true });
+writeFileSync(
+  join(dist, 'room/go.js'),
+  `// Forwards a room's share page to the room, keeping shared settings (after #) and the language (?lang=).
+(() => {
+  const id = document.documentElement.dataset.room;
+  location.replace('/' + location.search + (location.hash.length > 1 ? location.hash : '#room=' + id));
+})();
+`,
+);
+for (const id of roomIds) {
+  const t = globalThis.Wonderlattice.text(id);
+  const name = t.name ?? t.title;
+  const image = existsSync(join(root, `assets/rooms/${id}.jpg`)) ? `assets/rooms/${id}.jpg` : 'assets/social.jpg';
+  mkdirSync(join(dist, 'room', id), { recursive: true });
+  writeFileSync(
+    join(dist, 'room', id, 'index.html'),
+    `<!doctype html>
+<html lang="en" data-room="${id}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>${attr(name)} · Wonderlattice</title>
+    <meta name="description" content="${attr(t.tagline)}" />
+    <link rel="canonical" href="${SITE}/room/${id}/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Wonderlattice" />
+    <meta property="og:title" content="${attr(name)}" />
+    <meta property="og:description" content="${attr(t.tagline)}" />
+    <meta property="og:url" content="${SITE}/room/${id}/" />
+    <meta property="og:image" content="${SITE}/${image}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta http-equiv="refresh" content="3; url=/#room=${id}" />
+    <script src="/room/go.js"></script>
+  </head>
+  <body style="background: #101217; color: #f1f2ed; font: 18px system-ui, sans-serif; padding: 40px">
+    <a href="/#room=${id}" style="color: #ddf6a3">${attr(name)} · Wonderlattice</a>
+  </body>
+</html>
+`,
+  );
+}
+
 const kb = (text) => (Buffer.byteLength(text) / 1024).toFixed(0) + ' KB';
-console.log(`Built dist/ (${scripts.length} scripts, ${styles.length} stylesheets)`);
+console.log(
+  `Built dist/ (${scripts.length} scripts, ${styles.length} stylesheets, ${roomIds.length} room share pages)`,
+);
 console.log(`Built dist/wonderlattice-standalone.html (${kb(standalone)})`);

@@ -255,7 +255,11 @@
     /** True when served over http(s), so a link can be shared instead of plain settings. */
     isWeb: () => /^https?:$/.test(location.protocol),
 
-    shareLink: (params) => location.origin + location.pathname + '#' + params.toString(),
+    /** A link to these settings. On the published site each room has a share page with its own link preview. */
+    shareLink: (params) =>
+      params.get('room') && document.querySelector('meta[name="wonderlattice-room-pages"]')
+        ? `${location.origin}/room/${params.get('room')}/#${params}`
+        : location.origin + location.pathname + '#' + params.toString(),
 
     /** Copy text, falling back to a dialog with the text selected for manual copying. */
     async copyText(text, { copied, description }) {

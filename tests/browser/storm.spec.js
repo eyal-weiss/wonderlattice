@@ -1,4 +1,4 @@
-import { test, expect, ROOMS, openRoom, tool, setRange, inkedPixels, expectRoom } from './helpers.js';
+import { test, expect, ROOMS, openRoom, tool, setRange, inkedPixels, expectRoom, expectedLink } from './helpers.js';
 
 const settings = async (page) => (await tool(page, 'read_exploration')).settings;
 
@@ -121,7 +121,7 @@ test('storm room: a shared link restores the code, storm, and picture', async ({
   expect(await settings(page)).toMatchObject({ storm: 12.5, top: 0 });
   await page.locator('#scene-share').click();
   const link = await page.evaluate(() => window.__clipboard.at(-1));
-  expect(link).toBe(new URL('/#room=storm&storm=12.5&code=3&seed=77&top=0&bottom=255', page.url()).href);
+  expect(link).toBe(await expectedLink(page, 'storm', 'room=storm&storm=12.5&code=3&seed=77&top=0&bottom=255'));
 });
 
 test('storm room: reduced motion shows the result at once', async ({ page }) => {

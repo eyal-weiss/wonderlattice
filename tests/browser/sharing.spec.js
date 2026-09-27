@@ -1,17 +1,21 @@
 import { pathToFileURL } from 'node:url';
 import { resolve } from 'node:path';
-import { test, expect, ROOMS, openRoom, expectRoom } from './helpers.js';
+import { test, expect, ROOMS, openRoom, expectRoom, expectedLink } from './helpers.js';
 
 test('copying a pattern produces a link that reopens it', async ({ page }) => {
   await page.goto('/#room=motion');
   await page.locator('#share').click();
   const link = await page.evaluate(() => window.__clipboard.at(-1));
-  expect(link).toBe(new URL('/#room=motion&k=-5&r=42&p=0&ink=0', page.url()).href);
+  expect(link).toBe(await expectedLink(page, 'motion', 'room=motion&k=-5&r=42&p=0&ink=0'));
   await openRoom(page, 'traffic');
   await page.locator('#scene-action').click();
   await page.locator('#scene-share').click();
   const trafficLink = await page.evaluate(() => window.__clipboard.at(-1));
-  expect(trafficLink).toBe(new URL('/#room=traffic&demand=4000&shortcut=true', page.url()).href);
+  expect(trafficLink).toBe(await expectedLink(page, 'traffic', 'room=traffic&demand=4000&shortcut=true'));
+  // Following the copied link reopens the same exploration, share page or not.
+  await page.goto(trafficLink);
+  await expectRoom(page, 'traffic');
+  await expect(page).toHaveURL(/#room=traffic&demand=4000&shortcut=true$/);
 });
 
 test('shared links restore settings on load and on hash change', async ({ page }) => {

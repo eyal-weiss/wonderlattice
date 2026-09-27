@@ -1,4 +1,4 @@
-import { test, expect, ROOMS, openRoom, tool, expectRoom } from './helpers.js';
+import { test, expect, ROOMS, openRoom, tool, expectRoom, expectedLink } from './helpers.js';
 
 // The centre of a square on the board, in page coordinates, following layout() in room.js.
 async function squareCentre(page, row, col) {
@@ -127,7 +127,7 @@ test('sudoku room: a shared link restores the puzzle and the symbols', async ({ 
   await page.locator('[data-style="1"]').click();
   await page.locator('#scene-share').click();
   const link = await page.evaluate(() => window.__clipboard.at(-1));
-  expect(link).toBe(new URL('/#room=sudoku&puzzle=2&style=1&network=false', page.url()).href);
+  expect(link).toBe(await expectedLink(page, 'sudoku', 'room=sudoku&puzzle=2&style=1&network=false'));
 
   await page.goto('/');
   await page.goto('/#room=sudoku&puzzle=1&style=2');
