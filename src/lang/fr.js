@@ -375,9 +375,9 @@ Wonderlattice.defineText('flock', 'fr', {
 
 Wonderlattice.defineText('fireflies', 'fr', {
   eyebrow: 'SYNCHRONIE',
-  name: 'Un corps plein d’horloges',
-  tagline: 'Des lucioles, chacune à son rythme, se mettent à clignoter ensemble dès qu’elles se remarquent.',
-  title: 'Un corps plein d’horloges.',
+  name: 'Des lucioles qui se synchronisent',
+  tagline: 'Chacune à son rythme, jusqu’à ce qu’elles commencent à se remarquer.',
+  title: 'Des lucioles qui se synchronisent.',
   subtitle: 'Chaque luciole a son propre tempo. Laissez-les se remarquer, et regardez un rythme commun apparaître.',
   field: 'Systèmes dynamiques · Oscillateurs couplés · Biologie',
   sceneLabel: 'Une prairie · beaucoup d’horloges',

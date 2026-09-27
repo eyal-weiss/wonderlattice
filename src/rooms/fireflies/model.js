@@ -1,5 +1,5 @@
 /*
- * A body full of clocks · coupled oscillators (the Kuramoto model), with an optional day–night drive.
+ * Fireflies that fall into step · coupled oscillators (the Kuramoto model), with an optional day–night drive.
  * Pure functions, no DOM.
  *
  * Each clock i has a phase θᵢ (radians) and a natural frequency ωᵢ (cycles per second). It moves on at its own

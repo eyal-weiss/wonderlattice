@@ -7,7 +7,7 @@ merged by the owner in the morning. The site now has eighteen rooms.
 
 - **A seed for an infinite landscape** (`julia`, Shape & space, #41, closes #9): drag a seed on the Mandelbrot set and
   its Julia set changes live; tap to follow one point's journey. The review fixed its home card on sharp screens.
-- **A body full of clocks** (`fireflies`, Living patterns, #39, closes #15): Kuramoto synchronisation with a
+- **Fireflies that fall into step** (`fireflies`, first named "A body full of clocks"; Living patterns, #39, closes #15): Kuramoto synchronisation with a
   day–night cycle and jet lag. Soft glows; the worst-case flicker is about 2% of the view.
 - **A heartbeat travels** (`heart`, Living patterns, #40, closes #14): waves in an excitable medium (Barkley's model)
   that curl into spirals; explicitly a toy, not a heart simulation.

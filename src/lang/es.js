@@ -367,9 +367,9 @@ Wonderlattice.defineText('flock', 'es', {
 
 Wonderlattice.defineText('fireflies', 'es', {
   eyebrow: 'SINCRONÍA',
-  name: 'Un cuerpo lleno de relojes',
-  tagline: 'Luciérnagas con su propio ritmo empiezan a destellar juntas en cuanto se fijan unas en otras.',
-  title: 'Un cuerpo lleno de relojes.',
+  name: 'Luciérnagas que se sincronizan',
+  tagline: 'Cada una lleva su propio ritmo, hasta que empiezan a fijarse unas en otras.',
+  title: 'Luciérnagas que se sincronizan.',
   subtitle:
     'Cada luciérnaga lleva su propio tiempo. Deja que se fijen unas en otras y mira cómo aparece un ritmo común.',
   field: 'Sistemas dinámicos · Osciladores acoplados · Biología',

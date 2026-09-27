@@ -366,9 +366,9 @@ Wonderlattice.defineText('flock', 'pt', {
 
 Wonderlattice.defineText('fireflies', 'pt', {
   eyebrow: 'SINCRONIA',
-  name: 'Um corpo cheio de relógios',
-  tagline: 'Vaga-lumes, cada um no seu ritmo, começam a piscar juntos assim que prestam atenção uns nos outros.',
-  title: 'Um corpo cheio de relógios.',
+  name: 'Vaga-lumes que entram no ritmo',
+  tagline: 'Cada um no seu ritmo, até que começam a prestar atenção uns nos outros.',
+  title: 'Vaga-lumes que entram no ritmo.',
   subtitle:
     'Cada vaga-lume marca o seu próprio tempo. Deixe que prestem atenção uns nos outros e veja surgir um ritmo comum.',
   field: 'Sistemas dinâmicos · Osciladores acoplados · Biologia',

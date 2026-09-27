@@ -1,9 +1,9 @@
-/* A body full of clocks · visitor-facing words (English). */
+/* Fireflies that fall into step · visitor-facing words (English). */
 Wonderlattice.defineText('fireflies', 'en', {
   eyebrow: 'SYNCHRONY',
-  name: 'A body full of clocks',
-  tagline: 'Fireflies with their own rhythms fall into step once they notice each other.',
-  title: 'A body full of clocks.',
+  name: 'Fireflies that fall into step',
+  tagline: 'Each keeps its own time, until they start noticing each other.',
+  title: 'Fireflies that fall into step.',
   subtitle: 'Each firefly keeps its own time. Let them notice each other, and watch a shared rhythm appear.',
   field: 'Dynamical systems · Coupled oscillators · Biology',
   sceneLabel: 'One meadow · many clocks',

@@ -1,4 +1,4 @@
-/* Room · A body full of clocks: fireflies that fall into step (coupled oscillators). */
+/* Room · Fireflies that fall into step: coupled oscillators, and the body's clocks. */
 (() => {
   'use strict';
 

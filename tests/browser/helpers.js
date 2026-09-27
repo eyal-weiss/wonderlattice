@@ -4,7 +4,7 @@ export const ROOMS = {
   motion: 'Paint with motion.',
   waves: 'Hear the shape.',
   flock: 'A mind of many.',
-  fireflies: 'A body full of clocks.',
+  fireflies: 'Fireflies that fall into step.',
   ribbon: 'Where is the other side?',
   traffic: 'The tempting shortcut.',
   shots: 'Two players, three leaderboards.',
