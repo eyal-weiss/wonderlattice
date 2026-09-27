@@ -1434,7 +1434,7 @@ Wonderlattice.defineText('page', 'he', {
   footer: {
     note: 'עקבו אחרי צורה. מצאו קצת פלא.',
     promise: 'בלי ציונים. בלי תשובות נכונות.',
-    credit: 'נוצר על ידי אייל וייס',
+    credit: 'נוצר על ידי איל וייס',
     about: 'אודות',
   },
   why: {
@@ -1470,7 +1470,7 @@ Wonderlattice.defineText('page', 'he', {
       'Wonderlattice לא אוסף שום מידע. האתר מתארח ב־Cloudflare, ששומרת יומני גישה רגילים (כתובת IP, שעה, דף) לפי מדיניות הפרטיות שלה. השביל שלי ובחירת השפה שלכם נשמרים רק בדפדפן הזה, ורק כשאתם משתמשים בהם; ניקוי נתוני האתר מוחק אותם. ההקראה משתמשת בקולות של הדפדפן שלכם: חלק מהקולות המקוונים שולחים את הטקסט שמוקרא (ההסברים האלה, אף פעם לא ההערות שלכם) לשירות הדיבור של יצרן הדפדפן.',
     whoTitle: 'מי עושה את זה',
     whoHtml:
-      'Wonderlattice הוא פרויקט תחביב חינמי ולא מסחרי של אייל וייס. אפשר לומר שלום ב־<a href="mailto:eyal8488@gmail.com">eyal8488@gmail.com</a> או ב־<a href="https://github.com/eyal-weiss" target="_blank" rel="noopener noreferrer">GitHub</a>.',
+      'Wonderlattice הוא פרויקט תחביב חינמי ולא מסחרי של איל וייס. אפשר לומר שלום ב־<a href="mailto:eyal8488@gmail.com">eyal8488@gmail.com</a> או ב־<a href="https://github.com/eyal-weiss" target="_blank" rel="noopener noreferrer">GitHub</a>.',
     legal:
       'המודלים כאן מפושטים לצורך משחק והסבר; הם אינם תחזיות, מדידות או ייעוץ. האתר מסופק כמות שהוא, ללא אחריות. הקישורים מובילים לאתרים עצמאיים; אין בהם כדי לרמוז על קשר או המלצה. Rubik’s Cube® הוא סימן מסחרי רשום של Spin Master Toys UK Limited; ל־Wonderlattice אין קשר אליו.',
     creditsHtml:
