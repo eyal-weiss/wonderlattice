@@ -4,6 +4,7 @@ import '../../src/core/wonderlattice.js';
 import '../../src/rooms/motion/model.js';
 import '../../src/rooms/waves/model.js';
 import '../../src/rooms/flock/model.js';
+import '../../src/rooms/fireflies/model.js';
 import '../../src/rooms/ribbon/model.js';
 import '../../src/rooms/traffic/model.js';
 import '../../src/rooms/shots/model.js';
