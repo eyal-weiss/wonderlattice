@@ -27,6 +27,8 @@ Wonderlattice.defineText('shots', 'en', {
   ],
 
   players: { a: 'Player A', b: 'Player B' },
+  // Short tags for the players, used when the picture is small (phones).
+  short: { a: 'A', b: 'B' },
   closeLabel: 'Close range',
   farLabel: 'Far range',
   overallLabel: 'Overall',
@@ -42,8 +44,6 @@ Wonderlattice.defineText('shots', 'en', {
   },
 
   labels: {
-    
-   
     caption: 'Each player’s overall percentage is their combined makes over their combined attempts.',
   },
 
