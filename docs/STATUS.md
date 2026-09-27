@@ -10,7 +10,7 @@ reversal can be watched happening live. Presets: an even mix (no reversal), a sk
 (90%/80% skill, 10 vs. 900 attempts — the clearest flip). Only the Overall bars move as the sliders change; the
 Close-range and Far-range bars stay fixed length, since they show each player's unchanging skill rate — this is
 intentional, not a bug, but it can look static at first. The explanation cites Simpson's 1951 paper and the 1973
-Berkeley admissions case (Bickel, Hammel & O'Connell, *Science* 1975). Visitors: Edward H. Simpson (drawn sketch,
+Berkeley admissions case (Bickel, Hammel & O'Connell, _Science_ 1975). Visitors: Edward H. Simpson (drawn sketch,
 no MacTutor biography exists so no `bio` link) and George Udny Yule (drawn sketch, `bio: 'Yule'`).
 
 Unit tests cover the model (`tests/unit/shots.test.js`): the paradox itself with the extreme-preset numbers, a

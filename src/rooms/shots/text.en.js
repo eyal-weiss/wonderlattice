@@ -1,5 +1,5 @@
 /* Two players, three leaderboards · visitor-facing words (English). */
-Wonderlattice.defineText('shotMix', 'en', {
+Wonderlattice.defineText('shots', 'en', {
   eyebrow: 'STATISTICS',
   name: 'Two players, three leaderboards',
   tagline: 'A shooter can win close range and win far range, yet lose overall.',
@@ -9,7 +9,7 @@ Wonderlattice.defineText('shotMix', 'en', {
   sceneLabel: 'One court · Two players · Three leaderboards',
   sceneName: 'The shot mix',
   tip: 'Drag the sliders to change how many close and far shots each player takes',
-  actionLabel: 'Split into close and far',
+  actionLabel: 'Swap the shot mix',
   canvasLabel: 'Two players shooting from close range and far range, with close, far, and overall leaderboards.',
   panelEyebrow: 'Change the shot mix',
   whyLabel: 'How could that happen?',
@@ -21,9 +21,9 @@ Wonderlattice.defineText('shotMix', 'en', {
   },
 
   presets: [
-    { name: 'Even mix', note: 'The better player wins overall too.',badge: 'Even' },
-    { name: 'Skewed mix', note: 'Try the surprise.', badge: 'Skewed'  },
-    { name: 'Extreme mix', note: 'How far can the gap stretch?', badge: 'Extreme'  },
+    { name: 'Even mix', note: 'The better player wins overall too.', badge: 'Even' },
+    { name: 'Skewed mix', note: 'Try the surprise.', badge: 'Skewed' },
+    { name: 'Extreme mix', note: 'How far can the gap stretch?', badge: 'Extreme' },
   ],
 
   players: { a: 'Player A', b: 'Player B' },
@@ -42,8 +42,8 @@ Wonderlattice.defineText('shotMix', 'en', {
   },
 
   labels: {
-    court: 'Close range · Far range',
-    leaderboard: 'Leaderboard',
+    
+   
     caption: 'Each player’s overall percentage is their combined makes over their combined attempts.',
   },
 

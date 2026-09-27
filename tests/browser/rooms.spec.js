@@ -130,6 +130,13 @@ test('traffic room shows the paradox only over part of the range', async ({ page
   await expect(page.locator('#traffic-result')).toContainText('leaves the trip time unchanged');
 });
 
+test('shots room shows a player who wins both ranges but trails overall', async ({ page }) => {
+  await openRoom(page, 'shots');
+  await expect(page.locator('#scene-status')).toHaveText('Player A wins both close and far range, yet trails overall.');
+  await page.getByRole('button', { name: /Even mix/ }).click();
+  await expect(page.locator('#scene-status')).toHaveText('Player A leads overall.');
+});
+
 test('waves room: sound is opt-in and stops when leaving', async ({ page }) => {
   await openRoom(page, 'waves');
   await expect(page.locator('#scene-status')).toHaveText('220 Hz + 330 Hz');

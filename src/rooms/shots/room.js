@@ -5,7 +5,7 @@
   const W = Wonderlattice;
   const { $ } = W;
   const { compare } = W.models.shotMix;
-  const t = W.text('shotMix');
+  const t = W.text('shots');
 
   // Fixed skill: how often each player makes a shot of each type. The visitor
   // controls how many shots of each type are taken, not how skilled anyone is.
@@ -149,10 +149,10 @@
     },
     defaultPreset: 1,
     presets: [
-  { settings: { aClose: 500, aFar: 500, bClose: 500, bFar: 500 } },
-  { settings: { aClose: 100, aFar: 500, bClose: 500, bFar: 100 } },
-  { settings: { aClose: 10, aFar: 900, bClose: 900, bFar: 10 } },
-  ].map((p, i) => ({ ...t.presets[i], ...p })),
+      { settings: { aClose: 500, aFar: 500, bClose: 500, bFar: 500 } },
+      { settings: { aClose: 100, aFar: 500, bClose: 500, bFar: 100 } },
+      { settings: { aClose: 10, aFar: 900, bClose: 900, bFar: 10 } },
+    ].map((p, i) => ({ ...t.presets[i], ...p })),
 
     guests: [
       {
