@@ -10,7 +10,8 @@ const port = Number(process.env.PW_PORT || 4173);
 export default defineConfig({
   testDir: 'tests/browser',
   fullyParallel: true,
-  workers: process.env.CI ? 2 : 6,
+  // PW_WORKERS lets a background run use fewer cores (the build loop sets 2; see docs/agents/BUILD_LOOP.md).
+  workers: Number(process.env.PW_WORKERS) || (process.env.CI ? 2 : 6),
   reporter: process.env.CI ? 'github' : 'list',
   use: {
     baseURL: `http://localhost:${port}`,
