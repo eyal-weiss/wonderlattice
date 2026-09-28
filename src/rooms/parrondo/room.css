@@ -1,0 +1,51 @@
+/* Two losing games that win: the rules, the pattern being tapped out, and the expected winnings. */
+.parrondo-rules p,
+.parrondo-readout p {
+  margin: 6px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.parrondo-rules strong {
+  color: #e6ecf2;
+}
+.parrondo-big {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+.parrondo-big strong {
+  font:
+    600 32px Georgia,
+    serif;
+}
+.parrondo-letters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  min-height: 34px;
+  margin-top: 10px;
+}
+.parrondo-letter {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 32px;
+  border: 1px solid #3f6fa0;
+  border-radius: 6px;
+  background: #13263a;
+  color: #9fd8ff;
+  font:
+    600 16px Georgia,
+    serif;
+}
+.parrondo-letter.is-b {
+  border-color: #7d5ea8;
+  background: #231a33;
+  color: #dcc2ff;
+}
+.parrondo-letters + .segment button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
