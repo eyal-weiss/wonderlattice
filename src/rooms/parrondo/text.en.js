@@ -4,19 +4,20 @@ Wonderlattice.defineText('parrondo', 'en', {
   name: 'Two losing games that win',
   tagline: 'Each coin game slowly drains your money. Mix them, and the money climbs.',
   title: 'Two losing games that win.',
-  subtitle: 'Game A loses. Game B loses. Watch a thousand players try each one, then mix them.',
+  subtitle: 'Game A loses. Game B loses. Watch a thousand players try each one, and a thousand more mix them.',
   field: 'Probability · Markov chains · A paradox',
-  sceneLabel: '1,000 players · 1,000 rounds each',
+  sceneLabel: '1,000 players per game · 1,000 rounds',
   sceneNames: ['Only A', 'Only B', 'A or B at random'],
+  raceName: 'A, B and the mix, side by side',
   patternName: (pattern) => `The pattern ${pattern}`,
-  tip: 'Each faint dot is a player · The thick line is their average, the dashed line the exact expectation · Pick a game in the panel',
+  tip: 'Thick lines are the average player, dashed lines the exact expectation · Alone, a game also shows a band holding the middle half of its players · Pick a game in the panel',
   actionLabel: 'New players',
   canvasLabel:
-    'A chart of winnings over 1,000 rounds. Faint dots are 1,000 players; a thick line is their average winnings, and a dashed line the exact expected winnings. Lines from games already tried stay on faintly. With the buckets shown, three bars give the share of players whose coins are a multiple of 3, one more, or two more.',
+    'A chart of winnings over 1,000 rounds. At first three crowds of 1,000 players play A, B, and A or B at random side by side: thick lines are their average winnings, dashed lines the exact expected winnings. A game played alone also shows a shaded band holding the middle half of its players, and lines from games already tried stay on faintly. With the buckets shown, three bars give the share of players whose coins are a multiple of 3, one more, or two more.',
   panelEyebrow: 'Pick a game',
   whyLabel: 'How can two losers win?',
   nudge:
-    'Try Only A, then Only B: both sink. Then mix them. Then tap out patterns of your own: many win, but some, like A B, still lose.',
+    'Watch the three lines: A and B sink while the mix climbs. Then play each game alone, and tap out patterns of your own: many win, but some, like A B, still lose.',
   connection: {
     html: '<strong>Fair-looking, and full of surprises.</strong> Here, two losing games win together. In The dice that beat each other, every die has another that beats it.',
     label: 'Roll the odd dice',
@@ -39,7 +40,8 @@ Wonderlattice.defineText('parrondo', 'en', {
   // The games' names, as letters (the model always calls them A and B).
   letters: ['A', 'B'],
   modeLabel: 'Which game do they play?',
-  modes: ['Only A', 'Only B', 'Mix at random', 'My pattern'],
+  // By mode number; the race (4) is shown first.
+  modes: ['Only A', 'Only B', 'Mix at random', 'My pattern', 'All three at once'],
 
   patternLabel: 'Tap out your own pattern',
   patternHint: 'It repeats, round after round, for every player. Up to 12 letters.',
@@ -53,6 +55,11 @@ Wonderlattice.defineText('parrondo', 'en', {
     expected: (rounds) => `Expected after ${rounds} rounds`,
     perRound: (value) => `${value} a round, in the long run`,
     average: (players, value) => `Average of ${players} players so far: ${value}`,
+    games: ['Only A', 'Only B', 'A or B at random'],
+    averages: (players, a, b, mix) => `Averages of ${players} players each so far: A ${a} · B ${b} · mix ${mix}`,
+    perRounds: (a, b, mix) => `In the long run, a round: A ${a} · B ${b} · mix ${mix}`,
+    badShareRace: (live, alone, mixed, line) =>
+      `B’s rounds played on a multiple of 3: ${alone} when B plays alone, ${mixed} in the mix (${live} so far). B pays only below ${line}.`,
     badShare: (live, exact, line) =>
       `B’s rounds played on a multiple of 3: ${live} so far, ${exact} in the long run. B pays only below ${line}.`,
     noB: 'Only A never plays B, so the buckets just even out at a third each.',
@@ -64,6 +71,8 @@ Wonderlattice.defineText('parrondo', 'en', {
   },
   announce: {
     done: (game, average, expected) => `${game}: the average player ends with ${average} coins; expected ${expected}.`,
+    race: (a, b, mix) =>
+      `After 1,000 rounds the average player has ${a} coins with A, ${b} with B, and ${mix} with the mix.`,
   },
 
   // Words drawn on the picture.
@@ -74,6 +83,7 @@ Wonderlattice.defineText('parrondo', 'en', {
     average: (value) => `average ${value}`,
     short: ['A', 'B', 'mix'],
     buckets: 'Players by the coins left over when shared into threes',
+    bucketsMix: 'Players in the mix, by the coins left over when shared into threes',
     bucket: ['multiple of 3', 'one more', 'two more'],
     coin: ['B’s bad coin', 'B’s good coin', 'B’s good coin'],
     breakEven: 'B breaks even',
@@ -82,7 +92,7 @@ Wonderlattice.defineText('parrondo', 'en', {
   guests: [
     {
       name: 'Juan Parrondo',
-      note: 'I dreamt up these games in 1996, as a coin-tossing version of a ratchet that makes jiggling particles drift one way.',
+      note: 'He devised these games in 1996, as a coin-tossing version of a ratchet that makes jiggling particles drift one way.',
     },
     {
       name: 'Richard Feynman',

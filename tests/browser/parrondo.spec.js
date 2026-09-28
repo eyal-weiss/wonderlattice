@@ -2,10 +2,29 @@ import { test, expect, openRoom } from './helpers.js';
 
 const expected = (page) => page.locator('.parrondo-big strong');
 
-test('parrondo room: A loses, B loses, and mixing them at random wins', async ({ page }) => {
+const numbers = (text) => [...text.matchAll(/[−+]?\d+(?:\.\d+)?/g)].map((m) => Number(m[0].replace('−', '-')));
+
+test('parrondo room: opens on a race where A and B sink and the mix climbs', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' }); // each run is played to the end at once
   await page.goto('/');
   await openRoom(page, 'parrondo');
+  await expect(page.locator('#scene-name')).toHaveText('A, B and the mix, side by side');
+  await expect(page.locator('#scene-status')).toHaveText('1,000 rounds played');
+  await expect(page.locator('.parrondo-race-row strong')).toHaveText(['−10.0', '−9.2', '+15.4']);
+  // Each crowd's simulated average lands near its exact value: A and B below zero, the mix well above.
+  const [a, b, mix] = numbers((await page.locator('#parrondo-average').textContent()).split('so far:')[1]);
+  expect(a).toBeLessThan(-5);
+  expect(b).toBeLessThan(-4);
+  expect(mix).toBeGreaterThan(11);
+  await page.getByLabel('Why? Show the three buckets').check();
+  await expect(page.locator('#parrondo-bad')).toContainText('38.4% when B plays alone, 34.5% in the mix');
+});
+
+test('parrondo room: A loses, B loses, and mixing them at random wins', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  await openRoom(page, 'parrondo');
+  await page.getByRole('button', { name: 'Only A', exact: true }).click();
   await expect(page.locator('#scene-name')).toHaveText('Only A');
   await expect(page.locator('#scene-status')).toHaveText('1,000 rounds played');
   await expect(expected(page)).toHaveText('−10.0');

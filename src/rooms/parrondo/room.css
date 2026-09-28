@@ -49,3 +49,19 @@
   opacity: 0.45;
   cursor: default;
 }
+.parrondo-race-title {
+  margin: 0 0 4px;
+}
+.parrondo-race-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 14px;
+  color: #e6ecf2;
+}
+.parrondo-race-row strong {
+  font:
+    600 22px Georgia,
+    serif;
+}

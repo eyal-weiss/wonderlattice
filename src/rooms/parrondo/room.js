@@ -1,4 +1,4 @@
-/* Room · Two losing games that win: Parrondo's paradox, with a crowd of players and the exact expectation. */
+/* Room · Two losing games that win: Parrondo's paradox, with crowds of players and the exact expectation. */
 (() => {
   'use strict';
 
@@ -13,6 +13,11 @@
     ROUNDS_PER_SECOND = 100,
     MAX_PATTERN = 12,
     DEFAULT_PATTERN = M.encodePattern('AABB');
+  // Modes 0–3 play one game: A, B, the random mix, the visitor's pattern. The race plays the first three at once,
+  // and is the room's opening view, so the whole paradox shows before any choice is made.
+  const RACE = 4,
+    RACE_MODES = [0, 1, 2],
+    MODE_ORDER = [RACE, 0, 1, 2, 3];
   // One colour per game: A, B, the random mix, and the visitor's own pattern.
   const GAME_COLOURS = ['#6cc3ff', '#c792ff', '#f7c948', '#7ee0a1'];
   const COLOURS = {
@@ -29,52 +34,72 @@
   const percent = (x) => `${(x * 100).toLocaleString(W.lang, { maximumFractionDigits: 1 })}%`;
   const count = (n) => n.toLocaleString(W.lang);
 
-  /** The games played, as the model spells them: 'A', 'B', 'R' (A or B at random) or the visitor's pattern. */
-  const patternOf = (s) => ['A', 'B', 'R'][s.mode] ?? (M.decodePattern(s.pattern) || 'AABB');
+  /** The games a mode plays, as the model spells them: 'A', 'B', 'R' (A or B at random) or the visitor's pattern. */
+  const gameOf = (mode, s) => ['A', 'B', 'R'][mode] ?? (M.decodePattern(s.pattern) || 'AABB');
+  /** The modes a run plays side by side: all three in the race, otherwise just the one. */
+  const modesOf = (s) => (s.mode === RACE ? RACE_MODES : [s.mode]);
   /** A pattern as the visitor reads it, letter by letter. */
   const spell = (pattern, gap = ' ') => [...pattern].map((g) => t.letters[g === 'B' ? 1 : 0]).join(gap);
-  const nameOf = (s) => (s.mode < 3 ? t.sceneNames[s.mode] : t.patternName(spell(patternOf(s))));
-  const shortOf = (s) => (s.mode < 3 ? t.labels.short[s.mode] : spell(patternOf(s), ''));
+  const nameOf = (s) =>
+    s.mode === RACE ? t.raceName : s.mode < 3 ? t.sceneNames[s.mode] : t.patternName(spell(gameOf(3, s)));
+  const shortOf = (mode, s) => (mode < 3 ? t.labels.short[mode] : spell(gameOf(3, s), ''));
 
-  // The run being played. Every player's capital after every round is kept, so the cloud of players can be
-  // redrawn at a new size. `memory` keeps the average line of the last run of each game, drawn faintly.
+  // The run being played: one crowd of players per game. `memory` keeps the average line of the last run of each
+  // game, drawn faintly when a game is played alone.
   let run = null,
-    runs = 0, // counts runs, so each has its own id for the offscreen cloud
+    runs = 0, // counts runs, so each has its own id
     due = 0, // rounds owed to the animation, fractional
     announced = false;
   const memory = new Map(); // game key → { label, colour, average, t }
-  const plume = { canvas: null, key: '', drawn: 0 }; // the cloud of players, drawn offscreen round by round
+
+  /** A crowd of players for one game, all starting at 0 coins. */
+  function crowd(mode, s) {
+    const pattern = gameOf(mode, s);
+    return {
+      key: `${mode}|${pattern}`,
+      mode,
+      pattern,
+      label: shortOf(mode, s),
+      colour: GAME_COLOURS[mode],
+      rand: M.random(s.seed * 7919 + mode * 31 + s.pattern),
+      capital: new Int32Array(PLAYERS),
+      average: new Float64Array(ROUNDS + 1),
+      // The middle half of the crowd after each round: the players a quarter and three quarters of the way up.
+      low: new Float64Array(ROUNDS + 1),
+      high: new Float64Array(ROUNDS + 1),
+      b: 0,
+      bad: 0,
+      exact: M.expected(pattern, ROUNDS),
+      long: M.longRun(pattern),
+    };
+  }
+
+  function makeRun(s, id) {
+    const crowds = modesOf(s).map((mode) => crowd(mode, s));
+    const r = {
+      settings: `${s.mode}|${gameOf(s.mode, s)}|${s.seed}`,
+      id,
+      race: s.mode === RACE,
+      crowds,
+      t: 0,
+    };
+    // The vertical scale is fixed for a run, and fits every expected line. Played alone, a game also shows the
+    // middle half of its crowd, which spreads to about 0.7 × √rounds coins either side of the expectation.
+    let peak = 0;
+    for (const c of crowds) for (const v of c.exact.mean) peak = Math.max(peak, Math.abs(v));
+    let span = Math.max(10, Math.ceil(peak * 1.35 + 3));
+    if (!r.race) {
+      for (const m of memory.values()) for (let k = 0; k <= m.t; k++) peak = Math.max(peak, Math.abs(m.average[k]));
+      const spread = 0.7 * Math.sqrt(ROUNDS);
+      span = Math.max(Math.ceil(peak * 1.35 + 3), Math.ceil((Math.abs(crowds[0].exact.mean[ROUNDS]) + spread) * 1.1));
+    }
+    r.span = span;
+    return r;
+  }
 
   function start(s) {
     remember();
-    const pattern = patternOf(s);
-    const exact = M.expected(pattern, ROUNDS);
-    run = {
-      key: `${s.mode}|${pattern}`,
-      settings: `${s.mode}|${pattern}|${s.seed}`,
-      id: ++runs,
-      mode: s.mode,
-      pattern,
-      label: shortOf(s),
-      colour: GAME_COLOURS[s.mode],
-      rand: M.random(s.seed * 7919 + s.mode * 31 + s.pattern),
-      capital: new Int32Array(PLAYERS),
-      history: new Int16Array(PLAYERS * (ROUNDS + 1)),
-      average: new Float64Array(ROUNDS + 1),
-      t: 0,
-      b: 0,
-      bad: 0,
-      exact,
-      long: M.longRun(pattern),
-    };
-    // The vertical scale is fixed for a run, so the cloud can be drawn a round at a time. It fits the expected
-    // lines (this game's and the remembered ones) and most of the crowd, about 1.4 times a lone player's typical
-    // spread after the last round; the few who wander further simply leave the picture.
-    let peak = 0;
-    for (const v of exact.mean) peak = Math.max(peak, Math.abs(v));
-    for (const m of memory.values()) for (let k = 0; k <= m.t; k++) peak = Math.max(peak, Math.abs(m.average[k]));
-    run.span = Math.max(Math.ceil(1.4 * Math.sqrt(ROUNDS)), Math.ceil(peak * 1.35 + 3));
-    plume.key = '';
+    run = makeRun(s, ++runs);
     due = 0;
     announced = false;
     if (reduced) {
@@ -83,43 +108,85 @@
     }
   }
 
-  /** Keep the finished (or half-finished) run's average line, faintly, for comparison with the next game. */
+  /** Keep the finished (or half-finished) run's average lines, faintly, for comparison with the next game. */
   function remember() {
     if (!run || run.t < 20) return;
-    memory.delete(run.key); // re-inserted last, so it is drawn on top
-    memory.set(run.key, { label: run.label, colour: run.colour, average: run.average, t: run.t });
+    for (const c of run.crowds) {
+      memory.delete(c.key); // re-inserted last, so it is drawn on top
+      memory.set(c.key, { label: c.label, colour: c.colour, average: c.average, t: run.t });
+    }
+  }
+
+  // Players per whole number of coins, reused every round to find the middle half of a crowd.
+  const tally = new Uint16Array(2 * ROUNDS + 1);
+
+  /**
+   * Record the capital a quarter and three quarters of the way up the crowd after this round. After a round every
+   * capital has the round's parity, so each whole number stands for the two coins either side of it; the quartile
+   * is read off smoothly within that stretch rather than jumping from one whole number to the next.
+   */
+  function band(c, round) {
+    let lo = 2 * ROUNDS,
+      hi = 0;
+    for (let i = 0; i < PLAYERS; i++) {
+      const k = c.capital[i] + ROUNDS;
+      tally[k]++;
+      if (k < lo) lo = k;
+      if (k > hi) hi = k;
+    }
+    const q1 = PLAYERS / 4,
+      q3 = (PLAYERS * 3) / 4;
+    let seen = 0;
+    for (let k = lo; k <= hi; k++) {
+      const n = tally[k];
+      if (!n) continue;
+      tally[k] = 0; // ready for the next round
+      if (seen < q1 && seen + n >= q1) c.low[round] = k - ROUNDS - 1 + (2 * (q1 - seen)) / n;
+      if (seen < q3 && seen + n >= q3) c.high[round] = k - ROUNDS - 1 + (2 * (q3 - seen)) / n;
+      seen += n;
+    }
   }
 
   function play(rounds) {
     for (let k = 0; k < rounds && run.t < ROUNDS; k++) {
-      const round = M.playRound(run.capital, run.pattern[run.t % run.pattern.length], run.rand);
+      for (const c of run.crowds) {
+        const round = M.playRound(c.capital, c.pattern[run.t % c.pattern.length], c.rand);
+        c.average[run.t + 1] = round.total / PLAYERS;
+        c.b += round.b;
+        c.bad += round.bad;
+        band(c, run.t + 1);
+      }
       run.t++;
-      run.average[run.t] = round.total / PLAYERS;
-      run.b += round.b;
-      run.bad += round.bad;
-      run.history.set(run.capital, run.t * PLAYERS);
     }
   }
 
   /** The run for these settings, starting a new one when the game or the seed has changed. */
   const current = (s) => {
-    if (!run || run.settings !== `${s.mode}|${patternOf(s)}|${s.seed}`) start(s);
+    if (!run || run.settings !== `${s.mode}|${gameOf(s.mode, s)}|${s.seed}`) start(s);
     return run;
   };
 
-  /** Where the chart and the buckets go: buckets to the right on wide pictures, underneath on tall ones. */
+  /** The crowd the buckets and the "bad coin" readout follow: the mix in the race, otherwise the one game. */
+  const followed = (r) => (r.race ? r.crowds[2] : r.crowds[0]);
+
+  /**
+   * Where the chart and the buckets go: buckets to the right on wide pictures, underneath on tall ones. Beside a
+   * long panel the canvas can be taller than the screen, so the chart keeps a landscape shape at the top rather
+   * than stretching until its lower half, where the losing games go, falls below the fold.
+   */
   function place(width, height, buckets) {
     const small = Math.round(Math.min(13, Math.max(10, Math.min(width, height) / 32)));
     const pad = Math.max(10, Math.min(width, height) * 0.035);
     const wide = width > height * 1.2;
-    const chart = { x: pad, y: pad, w: width - pad * 2, h: height - pad * 2 };
+    const chart = { x: pad, y: pad, w: width - pad * 2, h: Math.min(height - pad * 2, (width - pad * 2) * 0.72) };
     let tubs = null;
     if (buckets && wide) {
       chart.w = width * 0.7 - pad * 1.5;
       tubs = { x: width * 0.7 + pad * 0.5, y: pad, w: width * 0.3 - pad * 1.5, h: height - pad * 2 };
     } else if (buckets) {
-      chart.h = height * 0.64 - pad * 1.5;
-      tubs = { x: pad, y: height * 0.64 + pad * 0.5, w: width - pad * 2, h: height * 0.36 - pad * 1.5 };
+      chart.h = Math.min(height * 0.64 - pad * 1.5, chart.h);
+      const top = chart.y + chart.h + pad * 2;
+      tubs = { x: pad, y: top, w: width - pad * 2, h: Math.min(height - pad - top, chart.w * 0.45) };
     }
     // Room for the axis numbers on the left and the round numbers below.
     const plot = { x: chart.x + small * 2.6, y: chart.y + small * 0.6, w: 0, h: 0 };
@@ -131,65 +198,6 @@
   const xOf = (L, round) => L.plot.x + (round / ROUNDS) * L.plot.w;
   const yOf = (L, span, value) => L.plot.y + L.plot.h / 2 - (value / span) * (L.plot.h / 2);
 
-  /** Draw rounds [from, to] of the cloud of players onto the offscreen canvas, a column per round. */
-  function drawPlume(c, L, r, from, to) {
-    const { plot } = L;
-    const unit = plot.h / 2 / r.span;
-    // After each round every player's capital has the same parity as the round, so players sit on every other
-    // whole number: each band is two coins tall, so the bands meet and the crowd reads as a soft glow.
-    const dotW = Math.max(1, plot.w / ROUNDS),
-      dotH = Math.max(1, unit * 2);
-    const counts = new Uint16Array(2 * ROUNDS + 1);
-    // On narrow pictures several rounds share a pixel column: each gives less light, so phones don't saturate.
-    // The cloud stays well below full brightness, so the average line stands out against it.
-    const light = 0.5 * Math.min(1, plot.w / ROUNDS);
-    c.fillStyle = r.colour;
-    for (let round = from; round <= to; round++) {
-      // Count players at each capital, remembering the lowest and highest so only those places are visited.
-      const row = round * PLAYERS;
-      let lo = 2 * ROUNDS,
-        hi = 0;
-      for (let i = 0; i < PLAYERS; i++) {
-        const k = r.history[row + i] + ROUNDS;
-        counts[k]++;
-        if (k < lo) lo = k;
-        if (k > hi) hi = k;
-      }
-      const x = xOf(L, round) - plot.x - dotW / 2;
-      for (let k = lo; k <= hi; k++) {
-        const n = counts[k];
-        if (!n) continue;
-        counts[k] = 0; // ready for the next round
-        const y = yOf(L, r.span, k - ROUNDS) - plot.y;
-        if (y < -dotH || y > plot.h + dotH) continue;
-        // Each player adds a little light, so crowded places glow and lone wanderers stay faint.
-        c.globalAlpha = light * (1 - 0.97 ** n);
-        c.fillRect(x, y - dotH / 2, dotW, dotH);
-      }
-    }
-    c.globalAlpha = 1;
-  }
-
-  /** The cloud, kept offscreen and extended as rounds are played; rebuilt when the size or the run changes. */
-  function plumeImage(L, r, dpr) {
-    const { plot } = L;
-    const key = `${r.id}|${Math.round(plot.w)}|${Math.round(plot.h)}|${dpr}`;
-    if (!plume.canvas) plume.canvas = document.createElement('canvas');
-    const c = plume.canvas.getContext('2d');
-    if (key !== plume.key) {
-      plume.key = key;
-      plume.canvas.width = Math.max(1, Math.round(plot.w * dpr));
-      plume.canvas.height = Math.max(1, Math.round(plot.h * dpr));
-      c.setTransform(dpr, 0, 0, dpr, 0, 0);
-      plume.drawn = -1;
-    }
-    if (plume.drawn < r.t) {
-      drawPlume(c, L, r, plume.drawn + 1, r.t);
-      plume.drawn = r.t;
-    }
-    return plume.canvas;
-  }
-
   /** A line through the first `upTo` + 1 values of a series. */
   function trace(ctx, L, span, series, upTo) {
     ctx.beginPath();
@@ -200,6 +208,29 @@
       else ctx.lineTo(x, y);
     }
     ctx.stroke();
+  }
+
+  /**
+   * The middle half of a crowd as a soft band. Game B keeps players bunched on a few coin values, so its quartiles
+   * move in stairs; a running average over nearby rounds turns them into a slope the eye can follow.
+   */
+  function drawBand(ctx, L, span, c, upTo) {
+    if (upTo < 1) return;
+    const WINDOW = 12;
+    const smooth = (series, k) => {
+      let sum = 0,
+        n = 0;
+      for (let j = Math.max(0, k - WINDOW); j <= Math.min(upTo, k + WINDOW); j++, n++) sum += series[j];
+      return sum / n;
+    };
+    ctx.beginPath();
+    for (let k = 0; k <= upTo; k++) ctx.lineTo(xOf(L, k), yOf(L, span, smooth(c.high, k)));
+    for (let k = upTo; k >= 0; k--) ctx.lineTo(xOf(L, k), yOf(L, span, smooth(c.low, k)));
+    ctx.closePath();
+    ctx.globalAlpha = 0.16;
+    ctx.fillStyle = c.colour;
+    ctx.fill();
+    ctx.globalAlpha = 1;
   }
 
   /**
@@ -251,15 +282,15 @@
   }
 
   /** Three buckets: players sorted by their coins modulo 3, with B's bad coin in the first. */
-  function drawBuckets(ctx, L, r) {
+  function drawBuckets(ctx, L, c, race) {
     const box = L.tubs,
       small = L.small;
     ctx.font = `600 ${small}px system-ui`;
     ctx.fillStyle = COLOURS.muted;
     ctx.textAlign = 'left';
-    ctx.fillText(t.labels.buckets, box.x, box.y + small, box.w);
+    ctx.fillText(race ? t.labels.bucketsMix : t.labels.buckets, box.x, box.y + small, box.w);
     const shares = [0, 0, 0];
-    for (let i = 0; i < PLAYERS; i++) shares[M.mod3(r.capital[i])] += 1 / PLAYERS;
+    for (let i = 0; i < PLAYERS; i++) shares[M.mod3(c.capital[i])] += 1 / PLAYERS;
     const top = box.y + small * 2.2,
       bottom = box.y + box.h - small * 2.8;
     const gap = box.w * 0.08,
@@ -309,7 +340,7 @@
     ctx.fillText(t.labels.breakEven, box.x + 4, y - 4, bw - 8);
   }
 
-  function scene(ctx, s, width, height, r, dpr, remembered) {
+  function scene(ctx, s, width, height, r, remembered) {
     ctx.fillStyle = '#0a0e15';
     ctx.fillRect(0, 0, width, height);
     ctx.textBaseline = 'alphabetic';
@@ -317,101 +348,83 @@
     const L = place(width, height, s.buckets);
     const { plot, small } = L;
     drawAxes(ctx, L, r.span);
-    ctx.drawImage(plumeImage(L, r, dpr), plot.x, plot.y, plot.w, plot.h);
     ctx.save();
     ctx.beginPath();
     ctx.rect(plot.x - 2, plot.y - 2, plot.w + 4, plot.h + 4);
     ctx.clip();
     ctx.lineJoin = 'round';
     ctx.font = `600 ${small - 1}px system-ui`;
-    // Earlier games, faintly, each labelled where its line ends.
     const used = [];
-    for (const [key, m] of remembered) {
-      if (key === r.key) continue;
-      ctx.globalAlpha = 0.8;
-      ctx.strokeStyle = m.colour;
-      ctx.lineWidth = 2;
-      trace(ctx, L, r.span, m.average, m.t);
-      ctx.globalAlpha = 1;
-      tag(ctx, L, m.label, xOf(L, m.t), yOf(L, r.span, m.average[m.t]), m.colour, m.average[m.t] >= 0, used);
+    if (!r.race) {
+      // A game alone: where the middle half of its players are, then earlier games, faintly, each labelled.
+      drawBand(ctx, L, r.span, r.crowds[0], r.t);
+      for (const [key, m] of remembered) {
+        if (key === r.crowds[0].key) continue;
+        ctx.globalAlpha = 0.8;
+        ctx.strokeStyle = m.colour;
+        ctx.lineWidth = 2;
+        trace(ctx, L, r.span, m.average, m.t);
+        ctx.globalAlpha = 1;
+        tag(ctx, L, m.label, xOf(L, m.t), yOf(L, r.span, m.average[m.t]), m.colour, m.average[m.t] >= 0, used);
+      }
     }
-    // The exact expectation, dashed, and the crowd's average, thick.
-    ctx.strokeStyle = COLOURS.ink;
-    ctx.lineWidth = 1.5;
-    ctx.setLineDash([6, 4]);
-    trace(ctx, L, r.span, r.exact.mean, r.t);
-    ctx.setLineDash([]);
-    ctx.strokeStyle = 'rgba(10, 14, 21, 0.8)';
-    ctx.lineWidth = 7;
-    trace(ctx, L, r.span, r.average, r.t);
-    ctx.strokeStyle = r.colour;
-    ctx.lineWidth = 4;
-    trace(ctx, L, r.span, r.average, r.t);
+    // Each game's exact expectation, dashed, and its crowd's average, thick.
+    for (const c of r.crowds) {
+      ctx.strokeStyle = r.race ? c.colour : COLOURS.ink;
+      ctx.globalAlpha = r.race ? 0.7 : 1;
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([6, 4]);
+      trace(ctx, L, r.span, c.exact.mean, r.t);
+      ctx.setLineDash([]);
+      ctx.globalAlpha = 1;
+    }
+    for (const c of r.crowds) {
+      ctx.strokeStyle = 'rgba(10, 14, 21, 0.8)';
+      ctx.lineWidth = 7;
+      trace(ctx, L, r.span, c.average, r.t);
+      ctx.strokeStyle = c.colour;
+      ctx.lineWidth = 4;
+      trace(ctx, L, r.span, c.average, r.t);
+    }
     if (r.t > 0) {
-      const x = xOf(L, r.t),
-        avg = r.average[r.t],
-        exp = r.exact.mean[r.t];
+      const x = xOf(L, r.t);
       ctx.font = `600 ${small}px system-ui`;
-      tag(ctx, L, t.labels.average(fmt(avg)), x, yOf(L, r.span, avg), r.colour, avg >= exp, used);
-      ctx.font = `${small - 1}px system-ui`;
-      tag(ctx, L, t.labels.expected(fmt(exp)), x, yOf(L, r.span, exp), COLOURS.ink, avg < exp, used);
+      if (r.race) {
+        // The winner's label first, above its line; the two losers below theirs.
+        for (const c of [...r.crowds].reverse()) {
+          const avg = c.average[r.t];
+          tag(ctx, L, `${c.label} ${fmt(avg)}`, x, yOf(L, r.span, avg), c.colour, avg >= 0, used);
+        }
+      } else {
+        const c = r.crowds[0],
+          avg = c.average[r.t],
+          exp = c.exact.mean[r.t];
+        tag(ctx, L, t.labels.average(fmt(avg)), x, yOf(L, r.span, avg), c.colour, avg >= exp, used);
+        ctx.font = `${small - 1}px system-ui`;
+        tag(ctx, L, t.labels.expected(fmt(exp)), x, yOf(L, r.span, exp), COLOURS.ink, avg < exp, used);
+      }
     }
     ctx.restore();
     ctx.font = `${small - 1}px system-ui`;
     ctx.fillStyle = COLOURS.muted;
     ctx.textAlign = 'left';
     ctx.fillText(t.labels.start, plot.x + 4, yOf(L, r.span, 0) - 4);
-    if (s.buckets) drawBuckets(ctx, L, r);
+    if (s.buckets) drawBuckets(ctx, L, followed(r), r.race);
   }
 
   function draw(ctx, s, stage) {
-    const r = current(s);
-    const dpr = stage.width ? ctx.canvas.width / stage.width : 1;
-    scene(ctx, s, stage.width, stage.height, r, dpr, memory);
+    scene(ctx, s, stage.width, stage.height, current(s), memory);
   }
 
-  /** The home card and link preview: A and B sinking faintly, the mix climbing, all already played. */
+  /** The home card and link preview: the race, already played, with A and B sinking and the mix climbing. */
   function preview(ctx, width, height) {
     const saved = run;
-    const remembered = new Map();
-    for (const [mode, seed] of [
-      [0, 2],
-      [1, 3],
-    ]) {
-      const sim = M.simulate(['A', 'B'][mode], ROUNDS, PLAYERS, seed);
-      remembered.set(String(mode), {
-        label: t.labels.short[mode],
-        colour: GAME_COLOURS[mode],
-        average: sim.average,
-        t: ROUNDS,
-      });
-    }
-    const s = { mode: 2, pattern: DEFAULT_PATTERN, buckets: false, seed: 4 };
-    const r = {
-      key: 'preview',
-      id: `preview-${width}x${height}`,
-      pattern: 'R',
-      label: t.labels.short[2],
-      colour: GAME_COLOURS[2],
-      rand: M.random(11),
-      capital: new Int32Array(PLAYERS),
-      history: new Int16Array(PLAYERS * (ROUNDS + 1)),
-      average: new Float64Array(ROUNDS + 1),
-      t: 0,
-      b: 0,
-      bad: 0,
-      exact: M.expected('R', ROUNDS),
-      long: M.longRun('R'),
-      span: 44,
-    };
-    run = r;
+    const s = { mode: RACE, pattern: DEFAULT_PATTERN, buckets: false, seed: 4 };
+    run = makeRun(s, `preview-${width}x${height}`);
     play(ROUNDS);
+    const r = run;
     run = saved;
-    const keep = { ...plume };
-    plume.canvas = null;
-    plume.key = '';
-    scene(ctx, s, width, height, r, 1, remembered);
-    Object.assign(plume, keep);
+    scene(ctx, s, width, height, r, new Map());
   }
 
   function status() {
@@ -423,18 +436,25 @@
     if (!run) return;
     $('scene-status').textContent = status();
     const avg = $('parrondo-average');
-    if (avg) avg.textContent = t.readout.average(count(PLAYERS), fmt(run.average[run.t]));
+    if (avg)
+      avg.textContent = run.race
+        ? t.readout.averages(count(PLAYERS), ...run.crowds.map((c) => fmt(c.average[run.t])))
+        : t.readout.average(count(PLAYERS), fmt(run.crowds[0].average[run.t]));
     const bad = $('parrondo-bad');
     if (bad) {
+      const c = followed(run);
+      const so = c.b ? percent(c.bad / c.b) : '–';
       bad.hidden = !s.buckets;
-      bad.textContent =
-        run.long.badShare === null
+      bad.textContent = run.race
+        ? t.readout.badShareRace(
+            so,
+            percent(run.crowds[1].long.badShare),
+            percent(c.long.badShare),
+            percent(M.breakEven()),
+          )
+        : c.long.badShare === null
           ? t.readout.noB
-          : t.readout.badShare(
-              run.b ? percent(run.bad / run.b) : '–',
-              percent(run.long.badShare),
-              percent(M.breakEven()),
-            );
+          : t.readout.badShare(so, percent(c.long.badShare), percent(M.breakEven()));
     }
   }
 
@@ -444,10 +464,19 @@
     $('scene-action').textContent = t.actionLabel;
     const box = $('parrondo-readout');
     if (box)
-      box.innerHTML =
-        `<div class="parrondo-big"><span>${t.readout.expected(count(ROUNDS))}</span><strong style="color:${r.colour}">${fmt(r.exact.mean[ROUNDS])}</strong></div>` +
-        `<p>${t.readout.perRound(fmt(r.long.gain, 4))}</p>` +
-        '<p id="parrondo-average"></p><p id="parrondo-bad"></p>';
+      box.innerHTML = r.race
+        ? `<p class="parrondo-race-title">${t.readout.expected(count(ROUNDS))}</p>` +
+          r.crowds
+            .map(
+              (c, i) =>
+                `<div class="parrondo-race-row"><span>${t.readout.games[i]}</span><strong style="color:${c.colour}">${fmt(c.exact.mean[ROUNDS])}</strong></div>`,
+            )
+            .join('') +
+          `<p>${t.readout.perRounds(...r.crowds.map((c) => fmt(c.long.gain, 4)))}</p>` +
+          '<p id="parrondo-average"></p><p id="parrondo-bad"></p>'
+        : `<div class="parrondo-big"><span>${t.readout.expected(count(ROUNDS))}</span><strong style="color:${r.crowds[0].colour}">${fmt(r.crowds[0].exact.mean[ROUNDS])}</strong></div>` +
+          `<p>${t.readout.perRound(fmt(r.crowds[0].long.gain, 4))}</p>` +
+          '<p id="parrondo-average"></p><p id="parrondo-bad"></p>';
     const letters = $('parrondo-letters');
     if (letters)
       letters.innerHTML = [...M.decodePattern(s.pattern)]
@@ -468,7 +497,9 @@
       `<div class="wide readout parrondo-rules"><strong>${t.rules.title}</strong><p>${t.rules.aHtml}</p><p>${t.rules.bHtml}</p><p>${t.rules.stakes}</p></div>` +
       `<div class="control wide"><label id="parrondo-mode-label">${t.modeLabel}</label>` +
       `<div class="segment" role="group" aria-labelledby="parrondo-mode-label">` +
-      t.modes.map((m, i) => `<button type="button" data-mode="${i}" ${pressed(s.mode === i)}>${m}</button>`).join('') +
+      MODE_ORDER.map(
+        (i) => `<button type="button" data-mode="${i}" ${pressed(s.mode === i)}>${t.modes[i]}</button>`,
+      ).join('') +
       '</div></div>' +
       `<div class="control wide"><label id="parrondo-pattern-label">${t.patternLabel}</label>` +
       `<div class="parrondo-letters" id="parrondo-letters" aria-labelledby="parrondo-pattern-label"></div>` +
@@ -535,7 +566,7 @@
     subtitle: t.subtitle,
     field: t.field,
     sceneLabel: t.sceneLabel,
-    sceneName: t.sceneNames[0],
+    sceneName: t.raceName,
     tip: t.tip,
     actionLabel: t.actionLabel,
     canvasLabel: t.canvasLabel,
@@ -544,9 +575,9 @@
     nudge: t.nudge,
     connection: { ...t.connection, go: 'dice' },
 
-    defaults: { mode: 0, pattern: DEFAULT_PATTERN, buckets: false, seed: 1 },
+    defaults: { mode: RACE, pattern: DEFAULT_PATTERN, buckets: false, seed: 1 },
     ranges: {
-      mode: [0, 3, 'integer'],
+      mode: [0, RACE, 'integer'],
       pattern: [2, 2 ** (MAX_PATTERN + 1) - 1, 'integer'],
       seed: [1, 9999, 'integer'],
     },
@@ -597,7 +628,10 @@
       if (r.t >= ROUNDS && !announced) {
         announced = true;
         st.sync();
-        W.announce(t.announce.done(nameOf(s), fmt(r.average[ROUNDS]), fmt(r.exact.mean[ROUNDS])));
+        const end = r.crowds.map((c) => fmt(c.average[ROUNDS]));
+        W.announce(
+          r.race ? t.announce.race(...end) : t.announce.done(nameOf(s), end[0], fmt(r.crowds[0].exact.mean[ROUNDS])),
+        );
       }
     },
     action(s, st) {
