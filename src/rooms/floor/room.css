@@ -1,0 +1,41 @@
+/* The impossible floor: the mode buttons, the two actions, and the readout. */
+.floor-label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+.floor-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.floor-readout {
+  border: 1px solid #3d4a5c;
+  background: #111923;
+  padding: 14px;
+  border-radius: 9px;
+}
+.floor-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+}
+.floor-stats span {
+  display: block;
+  font-size: 12px;
+  color: #a7b4c6;
+}
+.floor-stats strong {
+  display: block;
+  font-size: 22px;
+  font-weight: 600;
+  color: #f0f5ea;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.25;
+}
+.floor-verdict {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: #d7dfe8;
+  line-height: 1.45;
+}
