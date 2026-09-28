@@ -1,0 +1,25 @@
+/* How much picture can you throw away? The readout under the controls: each measure beside its value. */
+.compress-readout {
+  display: grid;
+  gap: 6px;
+  padding: 12px 14px;
+  border: 1px solid #253244;
+  border-radius: 10px;
+  background: #0f1620;
+}
+.compress-readout div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+.compress-readout span {
+  font-size: 12px;
+  color: #8795a8;
+}
+.compress-readout strong {
+  font-weight: 500;
+  color: #e6ebe6;
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}

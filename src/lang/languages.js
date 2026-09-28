@@ -7,6 +7,7 @@ Wonderlattice.defineLanguage('pt', { name: 'Português', dir: 'ltr', speech: 'pt
 Wonderlattice.languageFiles = {
   es: [
     'app',
+    'compress',
     'cube',
     'dice',
     'fingerprint',
@@ -29,6 +30,7 @@ Wonderlattice.languageFiles = {
   ],
   fr: [
     'app',
+    'compress',
     'cube',
     'dice',
     'fingerprint',
@@ -51,6 +53,7 @@ Wonderlattice.languageFiles = {
   ],
   he: [
     'app',
+    'compress',
     'cube',
     'dice',
     'fingerprint',
@@ -73,6 +76,7 @@ Wonderlattice.languageFiles = {
   ],
   pt: [
     'app',
+    'compress',
     'cube',
     'dice',
     'fingerprint',
