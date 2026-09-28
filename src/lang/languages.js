@@ -25,6 +25,7 @@ Wonderlattice.languageFiles = {
     'sudoku',
     'tiles',
     'traffic',
+    'treasure',
     'waves',
   ],
   fr: [
@@ -47,6 +48,7 @@ Wonderlattice.languageFiles = {
     'sudoku',
     'tiles',
     'traffic',
+    'treasure',
     'waves',
   ],
   he: [
@@ -69,6 +71,7 @@ Wonderlattice.languageFiles = {
     'sudoku',
     'tiles',
     'traffic',
+    'treasure',
     'waves',
   ],
   pt: [
@@ -91,6 +94,7 @@ Wonderlattice.languageFiles = {
     'sudoku',
     'tiles',
     'traffic',
+    'treasure',
     'waves',
   ],
 };
