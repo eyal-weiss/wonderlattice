@@ -1,5 +1,27 @@
 # Project state — 2026-09-28
 
+## Forty new ideas, and the first room from them: twenty-four — 2026-09-28
+
+- **Two losing games that win** (`parrondo`, Chance & evidence, #96, closes #81): Parrondo's paradox in Harmer and
+  Abbott's version. The room opens on a race: three crowds of 1,000 players play A, B, and A or B at random, and
+  within seconds A and B sink while the mix climbs. Each game can also be played alone, with a band for the middle
+  half of its players, or as a pattern the visitor taps out. The exact expectation comes from each game's 3-state
+  Markov chain. The review changed the opening view, which had shown a single game in a fog of 1,000 dots. The
+  Hebrew, Spanish, Portuguese and French text follows in its own pull request.
+- **A pipeline of forty room ideas** (#56–#95): researched overnight in nine directions and filed as detailed issues.
+  Ten are in a new direction, engineering (label `theme: engineering`): circuits, power lines, structures, lab
+  sampling and feedback control. The pinned index, #19, now groups the ideas by direction and marks five to build
+  first. The owner approved those five, and they carry the new label `ready to build` (#56, #57, #73, #81, #88; #81 is
+  now built).
+- **Protected `main`:** a pull request with a passing `check` is now required of everyone, the owner included.
+- **Test cost, measured:** each room adds about 17 seconds of single-core browser testing. The full browser suite
+  (152 tests) takes 83 seconds on 6 workers, or 2.7 minutes on 2, and CI runs it on GitHub's machines for every pull
+  request.
+- **Next (planned, not built yet):** a background build loop on the owner's machine that takes `ready to build`
+  issues one at a time, never has more than three pull requests waiting for review, never merges, and catches up
+  after the laptop has been closed; a weekly feedback round; an optional in-page feedback box; and a one-line
+  "What's new" on the home page.
+
 ## Five more rooms: twenty-three — 2026-09-28
 
 Built by five agents in parallel from issues, reviewed by the main session, and reviewed and merged by the owner.
