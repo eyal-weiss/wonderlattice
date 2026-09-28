@@ -1,5 +1,17 @@
 # Project state — 2026-09-28
 
+## Ready to grow — 2026-09-28
+
+- **Languages** (#47): each language is a folder, `src/lang/<code>/`, with one file per room, so translators and room
+  authors don't edit the same file. Visitors download only their own language (`src/lang/load.js`, driven by the
+  generated `src/lang/languages.js`): an English first visit fell from about 429 KB to 256 KB compressed.
+- **Rooms found automatically** (#47): tests discover the rooms, and `npm run rooms` links a new room into
+  `index.html` (CI checks every room folder is linked).
+- **Home cards** (#46) draw their pictures only as they come into view.
+- **Download budget** (#47): CI fails past 400 KB compressed for English or 100 KB per language, about 30 rooms. That
+  is the signal to load rooms on demand (ARCHITECTURE.md, "Growing").
+- The fireflies room is now called "Fireflies that fall into step" (#45).
+
 ## Four more rooms overnight, per-room link previews — 2026-09-28
 
 Built overnight by four agents in parallel (one room each, in its own branch), reviewed by the main session, and
