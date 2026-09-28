@@ -185,7 +185,7 @@
       tubs = { x: width * 0.7 + pad * 0.5, y: pad, w: width * 0.3 - pad * 1.5, h: height - pad * 2 };
     } else if (buckets) {
       chart.h = Math.min(height * 0.64 - pad * 1.5, chart.h);
-      const top = chart.y + chart.h + pad * 2;
+      const top = chart.y + chart.h + pad * 0.5;
       tubs = { x: pad, y: top, w: width - pad * 2, h: Math.min(height - pad - top, chart.w * 0.45) };
     }
     // Room for the axis numbers on the left and the round numbers below.
@@ -337,7 +337,9 @@
     ctx.font = `${small - 1}px system-ui`;
     ctx.textAlign = 'left';
     ctx.fillStyle = COLOURS.bad;
-    ctx.fillText(t.labels.breakEven, box.x + 4, y - 4, bw - 8);
+    // In a short bucket (a phone, say) there is no room above the line beside the percentage, so go below it.
+    const above = y - small - 4 > top + small + 4;
+    ctx.fillText(t.labels.breakEven, box.x + 4, above ? y - 4 : y + small + 2, bw - 8);
   }
 
   function scene(ctx, s, width, height, r, remembered) {
@@ -393,7 +395,7 @@
         // The winner's label first, above its line; the two losers below theirs.
         for (const c of [...r.crowds].reverse()) {
           const avg = c.average[r.t];
-          tag(ctx, L, `${c.label} ${fmt(avg)}`, x, yOf(L, r.span, avg), c.colour, avg >= 0, used);
+          tag(ctx, L, t.labels.tag(c.label, fmt(avg)), x, yOf(L, r.span, avg), c.colour, avg >= 0, used);
         }
       } else {
         const c = r.crowds[0],
