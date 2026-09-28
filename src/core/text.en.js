@@ -11,6 +11,7 @@ Wonderlattice.defineText('app', 'en', {
     chance: { name: 'Chance & evidence', blurb: 'Reasoning well when single events are unpredictable.' },
     games: { name: 'Games & puzzles', blurb: 'The hidden structure behind familiar games.' },
     making: { name: 'Making', blurb: 'Mathematics you can weave, fold, and keep.' },
+    engineering: { name: 'Engineering', blurb: 'The mathematics behind bridges, power lines, and clever machines.' },
     life: { name: 'Living patterns', blurb: 'Order that grows from many small interactions.' },
     signals: { name: 'Signals & networks', blurb: 'Waves, messages, and choices that travel.' },
   },

@@ -16,6 +16,10 @@ Wonderlattice.defineText('app', 'es', {
       name: 'Hecho a mano',
       blurb: 'Matemáticas que puedes tejer, doblar y guardar.',
     },
+    engineering: {
+      name: 'Ingeniería',
+      blurb: 'Las matemáticas detrás de puentes, líneas eléctricas y máquinas ingeniosas.',
+    },
     life: {
       name: 'Patrones vivos',
       blurb: 'Orden que surge de muchas interacciones pequeñas.',

@@ -16,6 +16,10 @@ Wonderlattice.defineText('app', 'fr', {
       name: 'Fabriquer',
       blurb: 'Des mathématiques à tisser, à plier et à garder.',
     },
+    engineering: {
+      name: 'Ingénierie',
+      blurb: 'Les mathématiques derrière les ponts, les lignes électriques et les machines ingénieuses.',
+    },
     life: {
       name: 'Motifs vivants',
       blurb: 'Un ordre qui naît de nombreuses petites interactions.',

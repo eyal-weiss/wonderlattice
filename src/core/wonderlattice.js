@@ -117,7 +117,7 @@
     rooms,
 
     /** Groups on the home map, in display order. A room names one in its `theme` field. Names come from the text. */
-    themes: ['shape', 'chance', 'games', 'making', 'life', 'signals'].map((id) => ({
+    themes: ['shape', 'chance', 'games', 'making', 'engineering', 'life', 'signals'].map((id) => ({
       id,
       get name() {
         return Wonderlattice.text('app').themes[id].name;

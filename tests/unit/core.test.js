@@ -15,6 +15,11 @@ test('text falls back to English key by key', () => {
   assert.throws(() => W.text('missing'), /No English text/);
 });
 
+test('engineering is a home-map theme, right after making', () => {
+  const ids = W.themes.map((t) => t.id);
+  assert.equal(ids.indexOf('engineering'), ids.indexOf('making') + 1);
+});
+
 test('rooms need a lowercase id, a unique id, and a known theme', () => {
   assert.throws(() => W.defineRoom({ id: 'Bad', theme: 'shape' }), /lowercase/);
   assert.throws(() => W.defineRoom({ id: 'nowhere', theme: 'moon' }), /known theme/);
