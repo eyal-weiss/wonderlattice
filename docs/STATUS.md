@@ -1,5 +1,21 @@
 # Project state — 2026-09-28
 
+## Five more rooms: twenty-three — 2026-09-28
+
+Built by five agents in parallel from issues, reviewed by the main session, and reviewed and merged by the owner.
+
+- **The imperfect treasure detector** (`treasure`, Chance & evidence, #53, closes #5): Bayes' rule with 1,000 dots;
+  a 95%-accurate detector's beep means treasure only 28% of the time when treasure is rare.
+- **The impossible floor** (`floor`, Games & puzzles, #51, closes #10): dominoes, the colour invariant, Gomory's
+  theorem and a matching solver that explains why a floor can't be tiled.
+- **Weather twins** (`weather`, Signals & networks, #54, closes #16): Lorenz's butterfly; each extra decimal of
+  precision buys about 2.5 more days.
+- **How much picture can you throw away?** (`compress`, Signals & networks, #50, closes #17): the JPEG cosine
+  transform; the strongest 10% of numbers rebuild a picture, the weakest 90% ruin it.
+- **A secret shouted across the room** (`secret`, Signals & networks, #52, closes #18): Diffie–Hellman with paint and
+  clock arithmetic, the site's first number-theory room.
+- An English first visit is now 308 KB compressed (budget 400 KB). #12 was closed; the hat tile is now #49.
+
 ## Ready to grow — 2026-09-28
 
 - **Languages** (#47): each language is a folder, `src/lang/<code>/`, with one file per room, so translators and room
@@ -264,8 +280,7 @@ browser tests, ESLint, Prettier, and GitHub Actions CI that runs everything on e
 ## Next priorities
 
 1. Gather feedback on the rooms, the translations and the phone fixes.
-2. Help contributors build rooms from the remaining ideas (#5, #6, #8, #10, #11, #13, #16–#18), and part 2 of #12
-   (the hat tile).
+2. Help contributors build rooms from the remaining ideas (#6, #8, #11, #13) and the hat tile (#49).
 3. More languages when native reviewers are available; the country list can guide which.
 4. Small decisions left from the overnight rooms: a name that mentions the fireflies, and the empty space around the
    Julia pictures on desktop.

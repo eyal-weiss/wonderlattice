@@ -6,20 +6,22 @@
 
 ![Wonderlattice: cards for a flower drawn by turning arms, a woven pattern, two dice, and three fingerprints](assets/social.jpg)
 
-Wonderlattice is a free collection of eighteen rooms, each built around one surprise:
+Wonderlattice is a free collection of twenty-three rooms, each built around one surprise:
 
 - **Shape & space:** draw flowers with two turning arms, walk along a ribbon that has only one side, bend the plane
   until a circle becomes a wing, and drag one seed to grow infinite fractal coastlines.
 - **Chance & evidence:** three dice that beat each other in a circle, a toy city where a huge poll is confidently
-  wrong, and a basketball court where the better shooter loses overall (built by a contributor).
-- **Games & puzzles:** Sudoku as colouring a network, and a puzzle cube where two turns, repeated, take 105 rounds to
-  come home.
+  wrong, a basketball court where the better shooter loses overall (built by a contributor), and a treasure detector
+  that's usually right, yet whose beeps are usually wrong.
+- **Games & puzzles:** Sudoku as colouring a network, a puzzle cube where two turns, repeated, take 105 rounds to
+  come home, and a floor that one glance at the colours proves no dominoes can cover.
 - **Making:** a loom that weaves twill, stripes and houndstooth from a tiny grid of choices, and an Escher-style tile
   whose edges you bend while it still covers the plane.
 - **Living patterns:** a flock with no leader, fireflies that fall into step, fingerprints that grow by themselves,
   and waves that curl into spirals, as in a heartbeat.
-- **Signals & networks:** waves you can hear, a picture sent through a storm of flipped bits, and a new road that slows
-  every driver down.
+- **Signals & networks:** waves you can hear, a picture sent through a storm of flipped bits, a new road that slows
+  every driver down, a secret agreed out loud, a picture that survives losing most of its numbers, and weather twins
+  that drift apart.
 
 Each room has an optional explanation with sources, and a visiting mathematician. There are no scores, accounts, ads
 or tracking. You can keep favourite moments in "My trail", which stays in your own browser.
