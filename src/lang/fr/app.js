@@ -50,6 +50,7 @@ Wonderlattice.defineText('app', 'fr', {
     settingsCopied: 'Réglages de l’exploration copiés.',
     linkDescription: 'Copiez ce lien pour retrouver ces réglages.',
     settingsDescription: 'Copiez ces réglages pour recréer cette exploration.',
+    percent: (value) => `${value} %`,
   },
   narration: {
     listen: 'Écouter cette idée',

@@ -47,3 +47,15 @@ test('the standalone file carries every language', async ({ page }) => {
     await expect(page.locator('#room-title')).not.toHaveText('The dice that beat each other.');
   }
 });
+
+test('sliders write numbers the way the page language does', async ({ page }) => {
+  await page.goto('/?lang=fr#room=shower&mode=1&impatience=0.9');
+  await expect(page.locator('#v-impatience')).toHaveText('0,9');
+  await expect(page.locator('#c-impatience')).toHaveAttribute('aria-valuetext', '0,9');
+  await page.goto('/?lang=fr#room=pools&floor=1&prev=2.5');
+  await expect(page.locator('#v-prev')).toHaveText('2,5 %');
+  await page.goto('/?lang=es#room=pools&floor=1&prev=2.5');
+  await expect(page.locator('#v-prev')).toHaveText('2,5%');
+  await page.goto('/#room=pools&floor=1&prev=2.5');
+  await expect(page.locator('#v-prev')).toHaveText('2.5%');
+});

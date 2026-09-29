@@ -37,6 +37,8 @@ Wonderlattice.defineText('app', 'en', {
     settingsCopied: 'Exploration settings copied.',
     linkDescription: 'Copy this link to reopen these settings.',
     settingsDescription: 'Copy these settings to recreate this exploration.',
+    // A slider's percentage; the number already uses the language's decimal mark.
+    percent: (value) => `${value}%`,
   },
 
   narration: {

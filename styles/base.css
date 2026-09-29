@@ -766,6 +766,13 @@ dialog .button {
     font-size: 13px;
     padding: 9px 10px;
   }
+  /* The download button keeps its place at the end of the first row; a long action starts the second row. */
+  .transport #scene-save {
+    order: 1;
+  }
+  .transport #scene-action {
+    order: 2;
+  }
   .controls .control p {
     font-size: 12px;
   }

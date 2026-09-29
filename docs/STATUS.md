@@ -15,10 +15,12 @@
   `wonderlattice-loop resume`.
 - **The download budget is nearly used:** an English first visit is 369 KB of 400, and each language's words are
   82–87 KB of 100. One or two more rooms will fail CI until rooms load only when opened (ARCHITECTURE.md, "Growing").
-- **Found while translating, not fixed yet:** the shared slider prints raw decimals ("0.5", not "0,5", in es/pt/fr; 20
-  rooms use it, `src/core/stage.js`); the _pools_ chart's curve runs over its "one by one: 100" label; on phones the
-  _shower_ water curve crosses the "just right" label, and the shower map's lower-left label can touch the dashed line;
-  in French the longer buttons push the download button onto its own row on phones.
+- **Fixed after translating** (#110): sliders write numbers the way the page language does (0,5 in es/pt/fr, and
+  1 % with its narrow space in French); the _pools_ chart's "one by one" label moves below its line when the curve runs
+  through it; the _shower_ chart's "just right" label sits on a dark backing above the water lines, and the map's lowest
+  label keeps clear of the dashed pipe line. On phones, the download button now stays at the end of the first row and a
+  long action button starts the second, so the button row is no taller than before but the icon is never left on a
+  row by itself (it was in 40 of the 130 room and language pairs at 390 px).
 - **Preview links:** Cloudflare comments a PR's preview link only if the PR exists when the deploy finishes, so a PR
   opened seconds after its push (#108) gets none. The link is still under the PR's "Cloudflare Pages" check.
 
