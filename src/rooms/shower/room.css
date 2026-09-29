@@ -1,0 +1,54 @@
+/* The shower that never settles: the bathers' sums and verdicts, and the visitor's tap. */
+.shower-readout p {
+  margin: 6px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.shower-row,
+.shower-big {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  color: #e6ecf2;
+}
+.shower-row + .shower-verdict {
+  margin-top: 2px;
+}
+.shower-row:not(:first-child) {
+  margin-top: 10px;
+}
+.shower-row strong {
+  font:
+    600 17px Georgia,
+    serif;
+}
+.shower-big strong {
+  font:
+    600 32px Georgia,
+    serif;
+}
+.shower-readout .shower-verdict {
+  font-weight: 600;
+}
+.shower-readout .shower-verdict.is-0 {
+  color: #a0d7ff;
+}
+.shower-readout .shower-verdict.is-1 {
+  color: #a0ebb9;
+}
+.shower-readout .shower-verdict.is-2 {
+  color: #ffaa96;
+}
+.shower-hand input[type='range'] {
+  background: linear-gradient(90deg, #2f6fe0, #ffecba 62%, #ff3d2e);
+  border-radius: 99px;
+}
+.shower-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
