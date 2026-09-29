@@ -15,6 +15,8 @@
   const ready = new Set(); // rooms whose init() has run
   let navigation = 0; // counts navigations, so a room that finishes loading after the visitor moved on stays shut
 
+  const NEW_DAYS = 30, // how long a room stays on the home map's "New" line
+    NEW_MOST = 3; // and how many it names at once
   const panelOf = (room) => room.panel ?? 'new-room';
   /** Rooms in map order: by theme, then in registration order. */
   const ordered = () => W.themes.flatMap((theme) => rooms.filter((r) => r.theme === theme.id));
@@ -48,6 +50,22 @@
         if (!current) showHome();
       },
     );
+  }
+
+  /** One line under the map's title naming the newest rooms (a room's `added` date); with none, no line. */
+  function buildWhatsNew() {
+    const since = Date.now() - NEW_DAYS * 24 * 60 * 60 * 1000;
+    const fresh = rooms
+      .map((room, order) => ({ room, order }))
+      .filter(({ room }) => room.added && Date.parse(room.added) >= since)
+      .sort((a, b) => b.room.added.localeCompare(a.room.added) || b.order - a.order) // same day: the later one first
+      .slice(0, NEW_MOST)
+      .map(({ room }) => room);
+    const line = $('whats-new');
+    line.hidden = !fresh.length;
+    line.innerHTML =
+      `<span class="eyebrow">${W.text('app').whatsNew}</span> ` +
+      fresh.map((r) => `<button class="whats-new-room" data-go="${r.id}">${r.name}</button>`).join(' · ');
   }
 
   function buildHome() {
@@ -416,6 +434,7 @@
     buildLanguagePicker();
     stage.init();
     buildHome();
+    buildWhatsNew();
     bindDialogs();
     route();
     window.addEventListener('hashchange', route);

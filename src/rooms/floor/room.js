@@ -421,6 +421,7 @@
     eyebrow: t.eyebrow,
     name: t.name,
     theme: 'games',
+    added: '2026-09-28',
     tagline: t.tagline,
     accent: { background: '#2a2620', border: '#d8c8a8', color: '#f3ead7' },
 

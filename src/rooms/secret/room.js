@@ -456,6 +456,7 @@
     eyebrow: t.eyebrow,
     name: t.name,
     theme: 'signals',
+    added: '2026-09-28',
     tagline: t.tagline,
     accent: { background: '#2a2130', border: '#e89ab0', color: '#f4c7d4' },
 

@@ -20,6 +20,7 @@ Wonderlattice.defineText('app', 'en', {
     next: (name) => `Next experiment: ${name}`,
   },
   language: 'Language',
+  whatsNew: 'New', // before the names of the newest rooms, under the home map's title
   pageTitle: (room) => `${room} · Wonderlattice`,
 
   stage: {

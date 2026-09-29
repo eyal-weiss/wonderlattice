@@ -217,6 +217,7 @@
     eyebrow: t.eyebrow,
     name: t.name,
     theme: 'life',
+    added: '2026-09-27',
     tagline: t.tagline,
     accent: { background: '#232a17', border: '#d4ec8a', color: '#eef8c8' },
 

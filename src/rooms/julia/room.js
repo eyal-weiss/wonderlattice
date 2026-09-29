@@ -553,6 +553,7 @@
     id: 'julia',
     symbol: '𝒥',
     theme: 'shape',
+    added: '2026-09-27',
     eyebrow: t.eyebrow,
     name: t.name,
     tagline: t.tagline,
