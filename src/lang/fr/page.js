@@ -14,6 +14,7 @@ Wonderlattice.defineText('page', 'fr', {
   roomBar: {
     home: '← Toutes les expériences',
     label: 'Expériences',
+    surprise: 'Surprise : une autre expérience',
   },
   trailReturn: {
     noteHtml: 'Que remarquez-vous maintenant ? <span>(facultatif)</span>',
@@ -26,6 +27,7 @@ Wonderlattice.defineText('page', 'fr', {
     title: 'Suivez votre curiosité.',
     intro:
       'Wonderlattice est une collection gratuite de petites expériences à manipuler, autour de grandes idées mathématiques. Choisissez-en une et jouez. Il n’y a rien à réussir, et aucune inscription.',
+    surprise: 'Surprenez-moi',
   },
   motion: {
     title: 'Peindre avec le mouvement.',
@@ -118,7 +120,8 @@ Wonderlattice.defineText('page', 'fr', {
     p3: 'Tout ici fonctionne dans votre navigateur, même hors ligne. Pas de compte, pas de pistage, pas de cookies, et pas de discussion avec une IA. Le son reste coupé tant que vous ne l’activez pas.',
     privacyTitle: 'Votre vie privée',
     privacy:
-      'Wonderlattice ne collecte rien. Le site est hébergé par Cloudflare, qui conserve des journaux d’accès standard (adresse IP, heure, page) selon sa propre politique de confidentialité. Mon parcours et votre choix de langue ne sont conservés que dans ce navigateur, et seulement si vous les utilisez ; effacer les données du site les supprime. La narration utilise les voix de votre navigateur : certaines voix en ligne envoient le texte lu (ces explications, jamais vos notes) au service vocal de l’éditeur du navigateur.',
+      'Wonderlattice ne collecte rien. Le site est hébergé par Cloudflare, qui conserve des journaux d’accès standard (adresse IP, heure, page) selon sa propre politique de confidentialité. Mon parcours, votre choix de langue et les expériences que vous avez déjà ouvertes (pour marquer leurs cartes) ne sont conservés que dans ce navigateur ; effacer les données du site les supprime. La narration utilise les voix de votre navigateur : certaines voix en ligne envoient le texte lu (ces explications, jamais vos notes) au service vocal de l’éditeur du navigateur.',
+    forgetVisited: 'Oublier les expériences que j’ai ouvertes',
     whoTitle: 'Qui fait ce site',
     whoHtml:
       'Wonderlattice est un projet de loisir gratuit et non commercial d’Eyal Weiss. Dites bonjour à <a href="mailto:eyal8488@gmail.com">eyal8488@gmail.com</a> ou sur <a href="https://github.com/eyal-weiss" target="_blank" rel="noopener noreferrer">GitHub</a>.',

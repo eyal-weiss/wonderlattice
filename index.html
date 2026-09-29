@@ -78,6 +78,15 @@
         <button class="quiet room-home" id="room-home" data-t="roomBar.home">← All experiments</button>
         <span class="room-bar-theme" id="room-theme"></span>
         <span class="room-bar-steps">
+          <button
+            class="button icon-button"
+            id="room-surprise"
+            aria-label="A surprise: another experiment"
+            title="A surprise: another experiment"
+            data-t-attr="aria-label:roomBar.surprise; title:roomBar.surprise"
+          >
+            <span aria-hidden="true">⚄</span>
+          </button>
           <button class="button icon-button" id="room-prev" aria-label="Previous experiment">‹</button>
           <button class="button icon-button" id="room-next" aria-label="Next experiment">›</button>
         </span>
@@ -119,7 +128,12 @@
               Wonderlattice is a free collection of small, hands-on experiments with big mathematical ideas. Pick one
               and play. There is nothing to get right, and nothing to sign up for.
             </p>
-            <p id="whats-new" class="whats-new" hidden></p>
+            <div class="home-extras">
+              <button class="button" id="home-surprise">
+                <span aria-hidden="true">⚄</span> <span data-t="home.surprise">Surprise me</span>
+              </button>
+              <p id="whats-new" class="whats-new" hidden></p>
+            </div>
           </div>
         </div>
         <div id="home-themes"></div>
@@ -467,9 +481,15 @@
       <h3 data-t="about.privacyTitle">Your privacy</h3>
       <p data-t="about.privacy">
         Wonderlattice collects nothing. The site is hosted by Cloudflare, which keeps standard access logs (IP address,
-        time, page) under its own privacy policy. My trail and your language choice are kept in this browser only, and
-        only when you use them; clearing site data removes them. Narration uses your browser’s voices: some online
-        voices send the text being read (these explanations, never your notes) to the browser maker’s speech service.
+        time, page) under its own privacy policy. My trail, your language choice and the experiments you’ve opened (so
+        their cards show a small mark) are kept in this browser only; clearing site data removes them. Narration uses
+        your browser’s voices: some online voices send the text being read (these explanations, never your notes) to the
+        browser maker’s speech service.
+      </p>
+      <p>
+        <button class="button quiet" id="forget-visited" data-t="about.forgetVisited">
+          Forget which experiments I’ve opened
+        </button>
       </p>
       <h3 data-t="about.whoTitle">Who makes this</h3>
       <p data-t="about.whoHtml">
