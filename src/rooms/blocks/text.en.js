@@ -4,7 +4,8 @@ Wonderlattice.defineText('blocks', 'en', {
   name: 'The leaning tower of blocks',
   tagline: 'How far can a stack of blocks reach past the edge?',
   title: 'The leaning tower of blocks.',
-  subtitle: 'Drag blocks onto the table edge. How far out can you reach?',
+  subtitle:
+    'Stack blocks at the edge of a table, each one sticking out a little further. How far past the edge can the top one reach?',
   field: 'Centre of mass · Harmonic series · A slow surprise',
   sceneLabel: 'A table edge · Blocks to stack',
   sceneName: (n) => (n === 0 ? 'Empty table' : 'Stacked blocks'),
@@ -19,7 +20,7 @@ Wonderlattice.defineText('blocks', 'en', {
     'Start with a few blocks. Can 4 blocks send the top one entirely past the edge? Try 31 blocks for two lengths.',
 
   connection: {
-    html: '<strong>Another impossibly slow journey.</strong> In The impossible floor, removing two squares of the same colour makes a floor that can never be tiled — the colour argument proves it instantly.',
+    html: '<strong>A simple argument behind a surprise.</strong> Here, balancing each block on the one below explains how far a stack can lean. In The impossible floor, colouring the squares shows why some floors can never be tiled.',
     label: 'See the impossible floor',
   },
 
