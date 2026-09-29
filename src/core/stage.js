@@ -63,7 +63,7 @@
     /** Markup for a range slider bound to settings[key]. */
     slider(key, label, min, max, step, value, unit = '', hint = '') {
       return (
-        `<div class="control"><label for="c-${key}">${label}<output id="v-${key}" aria-live="off">${value}${unit}</output></label>` +
+        `<div class="control"><label for="c-${key}">${label}<output id="v-${key}" aria-live="off">${readout(value, unit)}</output></label>` +
         `<input id="c-${key}" type="range" min="${min}" max="${max}" step="${step}" value="${value}" data-key="${key}" data-unit="${unit}">` +
         `${hint ? `<p>${hint}</p>` : ''}</div>`
       );
@@ -141,12 +141,18 @@
     sync();
   }
 
+  /** A slider's value as the page's language writes it (0.5, or 0,5 in French), with its unit. */
+  function readout(value, unit) {
+    const number = new Intl.NumberFormat(W.lang, { maximumFractionDigits: 3, useGrouping: false }).format(value || 0);
+    return unit === '%' ? words().percent(number) : number + unit;
+  }
+
   /** Refresh slider readouts, play button, preset highlight, and room readouts. */
   function sync() {
     if (!room) return;
     const s = settings[room.id];
     document.querySelectorAll('#scene-controls [data-key]').forEach((input) => {
-      const text = Number(s[input.dataset.key].toFixed(3)) + input.dataset.unit;
+      const text = readout(s[input.dataset.key], input.dataset.unit);
       $('v-' + input.dataset.key).textContent = text;
       input.setAttribute('aria-valuetext', text); // the slider says its own value; the <output> stays quiet
     });

@@ -501,10 +501,23 @@
     ctx.lineTo(G.right, Y(100));
     ctx.stroke();
     ctx.setLineDash([]);
+    // Its label sits above the line, or below it where the curve runs through the label's place.
     ctx.font = `${size}px system-ui, sans-serif`;
     ctx.fillStyle = COLOURS.muted;
     ctx.textAlign = 'right';
-    ctx.fillText(t.labels.oneByOne, G.right, Y(100) - 5);
+    const labelLeft = Math.max(G.x, G.right - ctx.measureText(t.labels.oneByOne).width);
+    const curveY = (x) => {
+      const k = 1 + ((x - G.x) / (G.right - G.x)) * (MAX_POOL - 1);
+      const i = Math.min(MAX_POOL - 2, Math.floor(k - 1));
+      return Y(expected[i] + (expected[i + 1] - expected[i]) * (k - 1 - i));
+    };
+    const crosses = (y0, y1) => {
+      for (let x = labelLeft; x <= G.right; x += 2) if (curveY(x) > y0 - 2 && curveY(x) < y1 + 2) return true;
+      return false;
+    };
+    const above = !crosses(Y(100) - 5 - size, Y(100) - 3) || crosses(Y(100) + 3, Y(100) + 5 + size);
+    ctx.textBaseline = above ? 'alphabetic' : 'top';
+    ctx.fillText(t.labels.oneByOne, G.right, above ? Y(100) - 5 : Y(100) + 5);
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
     for (const k of [1, 5, 10, 15, 20]) ctx.fillText(count(k), X(k), G.bottom + 4);
@@ -568,7 +581,16 @@
         width,
       );
     } else {
-      tag(ctx, t.labels.never, (G.x + G.right) / 2, Y(100) + size + 18, COLOURS.wrong, size, width);
+      // Lower still when the one-by-one label sits under its line.
+      tag(
+        ctx,
+        t.labels.never,
+        (G.x + G.right) / 2,
+        Y(100) + size + 18 + (above ? 0 : size),
+        COLOURS.wrong,
+        size,
+        width,
+      );
     }
   }
 

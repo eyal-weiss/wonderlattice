@@ -52,6 +52,7 @@ Wonderlattice.defineText('app', 'he', {
     settingsCopied: 'הגדרות הניסוי הועתקו.',
     linkDescription: 'העתיקו את הקישור כדי לחזור להגדרות האלה.',
     settingsDescription: 'העתיקו את ההגדרות כדי לשחזר את הניסוי הזה.',
+    percent: (value) => `${value}%`,
   },
   narration: {
     listen: 'להאזין לרעיון',

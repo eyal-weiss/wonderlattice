@@ -34,3 +34,12 @@ test('on a wide screen the panel keeps its order and the label is shown', async 
       .evaluate((e) => e.getBoundingClientRect().top);
   expect(await top('#scene-controls .math-guest')).toBeLessThan(await top('#scene-controls .control'));
 });
+
+test('on a phone the download button stays on the first row, and a long action starts the second', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/?lang=fr#room=shower');
+  const top = (selector) => page.locator(selector).evaluate((e) => e.getBoundingClientRect().top);
+  await expect(page.locator('#scene-action')).toBeVisible();
+  expect(Math.abs((await top('#scene-save')) - (await top('#scene-play')))).toBeLessThan(10);
+  expect(await top('#scene-action')).toBeGreaterThan((await top('#scene-play')) + 30);
+});
