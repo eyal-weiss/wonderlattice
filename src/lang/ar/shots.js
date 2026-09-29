@@ -19,7 +19,7 @@ Wonderlattice.defineText('shots', 'ar', {
     'أعطوا اللاعب أ تسديدات بعيدة في الغالب، واللاعب ب تسديدات قريبة في الغالب. شاهدوا لوحة الصدارة الإجمالية تنقلب، مع أن مهارة اللاعبين لم تتغيّر.',
   connection: {
     html: '<strong>العدد الإجمالي قد يخفي ما في داخله.</strong> هنا النسبة الإجمالية متوسط موزون، والأوزان هي مزيج التسديدات.',
-    label: 'الانتقال إلى مفاجأة أخرى',
+    label: 'تتبّع مفاجأة أخرى',
   },
   presets: [
     {
@@ -98,7 +98,7 @@ Wonderlattice.defineText('shots', 'ar', {
 <p>في جامعة كاليفورنيا في بيركلي، بدا أن نسبة القبول الإجمالية في الدراسات العليا تفضّل الرجال. لكن عند النظر قسمًا قسمًا، لم تُظهر معظم الأقسام انحيازًا ضد النساء، أو أظهرت انحيازًا صغيرًا لصالحهن. فقد تقدّمت النساء بأعداد أكبر إلى أقسام أشدّ تنافسًا، نسبة القبول فيها منخفضة للجميع، وهذا خفّض نسبتهن الإجمالية. بأيّ العددين نثق؟ هذا يتوقف على معرفة سبب اختلاف المزيج، لا على الحساب وحده.</p>
 <h3>ما يفترضه هذا النموذج</h3>
 <p>لكل لاعب نسبة نجاح ثابتة في كل مسافة، تنطبق على أي عدد من التسديدات تعطونه إياه. هذا نموذج مبسّط يوضّح الحساب الكامن وراء المفارقة، وليس محاكاة لتسديد حقيقي أو لقرارات قبول حقيقية.</p>
-<details><summary>الرياضيات، لمن يريدها</summary><p>للاعب نجح في <code>c</code> من أصل <code>C</code> محاولة قريبة، وفي <code>f</code> من أصل <code>F</code> محاولة بعيدة، تكون النسبة الإجمالية \u2066(c\u00a0+\u00a0f)\u00a0/\u00a0(C\u00a0+\u00a0F)\u2069، لا متوسط \u2066c/C\u2069 و\u2066f/F\u2069. يمكن أن تكون نسبتا \u2066c/C\u2069 و\u2066f/F\u2069 لأحد اللاعبين أعلى من نسبتي الآخر، بينما تكون \u2066(c\u00a0+\u00a0f)\u00a0/\u00a0(C\u00a0+\u00a0F)\u2069 للآخر أعلى، متى اختلف عددا المحاولات C وF بين اللاعبين بما يكفي.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Simpson%27s_paradox" target="_blank" rel="noopener">مفارقة سيمبسون، ويكيبيديا (بالإنجليزية)</a> · <a class="source-link" href="https://www.science.org/doi/10.1126/science.187.4175.398" target="_blank" rel="noopener">\u2066Bickel, Hammel & O’Connell, “Sex bias in graduate admissions: data from Berkeley,” Science 187 (1975)\u2069 (بالإنجليزية)</a></div>`,
+<details><summary>الرياضيات، لمن يريدها</summary><p>للاعب نجح في <code>c</code> من أصل <code>C</code> محاولة قريبة، وفي <code>f</code> من أصل <code>F</code> محاولة بعيدة، تكون النسبة الإجمالية \u2066(c\u00a0+\u00a0f)\u00a0/\u2060\u00a0(C\u00a0+\u00a0F)\u2069، لا متوسط \u2066c/\u2060C\u2069 و\u2066f/\u2060F\u2069. يمكن أن تكون نسبتا \u2066c/\u2060C\u2069 و\u2066f/\u2060F\u2069 لأحد اللاعبين أعلى من نسبتي الآخر، بينما تكون \u2066(c\u00a0+\u00a0f)\u00a0/\u2060\u00a0(C\u00a0+\u00a0F)\u2069 للآخر أعلى، متى اختلف عددا المحاولات C وF بين اللاعبين بما يكفي.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Simpson%27s_paradox" target="_blank" rel="noopener">مفارقة سيمبسون (ويكيبيديا، بالإنجليزية)</a> · <a class="source-link" href="https://www.science.org/doi/10.1126/science.187.4175.398" target="_blank" rel="noopener">\u2066Bickel, Hammel & O’Connell, “Sex bias in graduate admissions: data from Berkeley,” Science 187 (1975)\u2069 (بالإنجليزية)</a></div>`,
   },
 });

@@ -50,7 +50,7 @@ Wonderlattice.defineText('waves', 'ar', {
   // Short formulas keep no-break spaces inside their isolates, so a phone never splits one across two lines.
   beatDetail: (f, g, d) =>
     `نغمتاكم: \u2066${f} Hz\u2069 و\u2066${g} Hz\u2069. الفرق بين ترددَيهما \u2066${d} Hz\u2069.`,
-  status: (f, g) => `\u2066${f} Hz + ${g} Hz\u2069`,
+  status: (f, g) => `\u2066${f} Hz + ${g} Hz\u2069`,
   labels: {
     a: (f) => `A · ${f} Hz`,
     b: (f) => `B · ${f} Hz`,

@@ -93,6 +93,6 @@ Wonderlattice.defineText('traffic', 'ar', {
 <h3>ما يفترضه هذا النموذج</h3>
 <p>يختار كل سائق لنفسه أسرع طريق. وتستقر قراراتهم مجتمعة في توازن لا يستطيع فيه أي سائق أن يوفّر وقتًا إن غيّر طريقه وحده. هذه شبكة مبسّطة باتجاه واحد، فيها اختصار مجاني وأزمنة سفر تعتمد على حجم حركة المرور وحده. والنقاط المتحركة تُظهر نِسَب الطرق، لا محاكاة لقرارات سائقين أفراد، ولا توقعًا لمدينة حقيقية.</p>
 <details><summary>الرياضيات، لمن يريدها</summary><p>تكلفة كل من الحافتين المعرّضتين للازدحام x/\u2060100 دقيقة، حيث x عدد السائقين الذين يستعملون تلك الحافة. وتكلفة كل من الحافتين الأخريين 45 دقيقة؛ أما الاختصار \u2066A → B\u2069 فتكلفته صفر. من دونه، يكون زمن الرحلة \u206645 + D/\u2060200\u2069 دقيقة حين يكون عدد السائقين D. وعند \u2066D = 4,000\u2069 يساوي ذلك 65 دقيقة. ومعه، يستعمل التوازن الطريق الأوسط، وتكلفته \u20662D/\u2060100 = 80\u2069 دقيقة.</p></details>
-<div class="sources"><a class="source-link" href="https://www.cs.cornell.edu/home/kleinber/networks-book/networks-book-ch08.pdf" target="_blank" rel="noopener">مفارقة برايس (\u2066Easley &amp; Kleinberg\u2069، بالإنجليزية)</a></div>`,
+<div class="sources"><a class="source-link" href="https://www.cs.cornell.edu/home/kleinber/networks-book/networks-book-ch08.pdf" target="_blank" rel="noopener">مفارقة برايس (\u2066Easley &amp; Kleinberg\u2069، بالإنجليزية)</a></div>`,
   },
 });

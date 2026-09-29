@@ -47,7 +47,8 @@ translate the meaning from English.
 - **Format numbers with `toLocaleString('en')`, not `toLocaleString(Wonderlattice.lang)`.** Current Chrome prints
   0–9 for `'ar'`, but browsers with older locale data print ٠١٢٣. `'en'` gives «1,234.5» everywhere. Options still
   work: `x.toLocaleString('en', { maximumFractionDigits: 1 })`.
-- **Percent**: «95%» with no space, the % after the number (it stays correct in RTL, no isolate needed).
+- **Percent**: «95%» with no space, the % after the number (it stays correct in RTL, no isolate needed). This is
+  decided: see §10, formula line breaks.
 - **Fractions** like 5/9 and **plain numbers** need no isolate. **Signed numbers** (−5، +0.3، −0.010), ranges with a
   dash, and **number + Latin unit** (2.4 MB، 38 °C، 440 Hz) do: see §3.
 - Write a number as a word only where English does ("three dice"). Then the gender rules in §4 apply. Otherwise use
@@ -55,17 +56,18 @@ translate the meaning from English.
 
 ## 3. Direction (bidi)
 
-- **Isolates** `⁦ … ⁩` (LRI … PDI) go around anything that must read left to right as one unit: formulas
-  (`⁦z → z² + c⁩`), signed numbers and values that may be signed (`⁦${value}⁩`), sequences of Latin
-  letters with spaces (`⁦A A B B⁩`), number + unit (`⁦2.4 MB⁩`), trademarks ending in a symbol
-  (`⁦Rubik’s Cube®⁩`), and Latin citations (`⁦G. P. Harmer and D. Abbott, “…”, Nature 402 (1999).⁩`).
-  Prefer the visible escapes `⁦`/`⁩` over the invisible characters. They work in '…' strings and template
-  literals alike.
+- **Isolates** `\u2066 … \u2069` (LRI … PDI) go around anything that must read left to right as one unit: formulas
+  (`\u2066z → z² + c\u2069`), signed numbers and values that may be signed (`\u2066${value}\u2069`), sequences of Latin
+  letters with spaces (`\u2066A A B B\u2069`), number + unit (`\u20662.4 MB\u2069`), trademarks ending in a symbol
+  (`\u2066Rubik’s Cube®\u2069`), and Latin citations (`\u2066G. P. Harmer and D. Abbott, “…”, Nature 402 (1999).\u2069`).
+  Raw characters and `\u2066`/`\u2069` escapes both work, in '…' strings and template literals alike, and the
+  Hebrew files mix them (some rooms use raw characters, some escapes). Keep to the style a file already uses. This
+  glossary writes them as escapes because the raw characters are invisible.
 - **Single Latin words and letters** (A، B، PNG، GitHub، x) need no isolate.
 - **Two Latin items separated only by punctuation or spaces** join into one left-to-right run, and an RTL reader sees
-  them in the wrong order ("A, B" reads B first). Put an Arabic word between them, «A وB وC», or put RLM `‏` after
-  the separator, as Hebrew does («A،‏ B»). The same applies to a number that directly follows a Latin word
-  («مع A: ‏34.5%»).
+  them in the wrong order ("A, B" reads B first). Put an Arabic word between them, «A وB وC», or put RLM (`\u200f`) after
+  the separator, as Hebrew does (`A،\u200f B`). The same applies to a number that directly follows a Latin word
+  (`مع A: \u200f34.5%`).
 - **Prefix letters on Latin or digits.** «و» attaches directly: «وB»، «و5». Avoid «بـ / لـ / كـ» on a Latin word or a
   number. Rephrase instead: «بنسبة 95%»، «في 49.5% من المرات»، «لموقع Wonderlattice»، «إلى B».
 - **Arrows.** Arrow keys stay as they are («اضغطوا ← و→»). An arrow meaning "leads to" in prose points left in RTL:
@@ -197,7 +199,7 @@ the _opposite_ gender: ثلاثة أحجار، ثلاث رميات):
 | pool / pooled testing / group testing         | خليط / الفحص المجمَّع / الفحص الجماعي            | "test the pool" → «افحصوا الخليط»; retest → «إعادة الفحص»                                                                                                          |
 | tube / well (of a tray)                       | أنبوب / تجويف                                    |                                                                                                                                                                    |
 | positive / negative (test)                    | إيجابي / سلبي                                    | false alarm → «إنذار كاذب»                                                                                                                                         |
-| detector / beep                               | كاشف / صفير، يُصفِّر                             |                                                                                                                                                                    |
+| detector / beep                               | كاشف / صفير، يُصفِّر                             | a beep counted as an event ("68 beeps") → «إنذار» (§10)                                                                                                            |
 | statistics                                    | الإحصاء                                          |                                                                                                                                                                    |
 | network                                       | شبكة                                             |                                                                                                                                                                    |
 | graph (nodes and edges)                       | مخطّط                                            | «رسم بياني» is only for a chart of data. Graph colouring → «تلوين المخططات»                                                                                        |
@@ -206,7 +208,7 @@ the _opposite_ gender: ثلاثة أحجار، ثلاث رميات):
 | tile / tiling / tessellation                  | بلاطة / تبليط                                    | «فسيفساء» only for mosaic art                                                                                                                                      |
 | pattern                                       | نمط، pl. أنماط                                   | «نقشة» is fine for a woven design in the loom                                                                                                                      |
 | symmetry                                      | تماثل                                            | «تناظر» competes. Use «تماثل»                                                                                                                                      |
-| grid / square / cell                          | شبكة / مربع / خلية                               | sudoku row/column/box → صف / عمود / مربع (صندوق)                                                                                                                   |
+| grid / square / cell                          | شبكة / مربع / خلية                               | a Sudoku square → «خلية»; row / column / box → صف / عمود / صندوق (§10)                                                                                             |
 | prime (number)                                | عدد أوّلي                                        |                                                                                                                                                                    |
 | remainder / clock arithmetic                  | باقي القسمة / حساب الساعة                        | modular arithmetic → «الحساب النمطي»                                                                                                                               |
 | secret / key                                  | سرّ / مفتاح                                      | key exchange → «تبادل المفاتيح»                                                                                                                                    |
@@ -240,13 +242,13 @@ the _opposite_ gender: ثلاثة أحجار، ثلاث رميات):
 | topology / surface / Möbius strip             | الطوبولوجيا / سطح / شريط موبيوس                  | a side of a surface → «وجه»                                                                                                                                        |
 | centre of mass / harmonic series              | مركز الكتلة / المتسلسلة التوافقية                | overhang → «البروز»                                                                                                                                                |
 | group / order (cube moves)                    | زمرة / رتبة                                      | move → «حركة», sticker → «ملصق»                                                                                                                                    |
-| logic / Latin square                          | المنطق / مربع لاتيني                             | clue → «دليل» (sudoku given → «رقم معطى»)                                                                                                                          |
+| logic / Latin square                          | المنطق / مربع لاتيني                             | a clue as evidence → «دليل»; a Sudoku given → «خلية معطاة» (§10)                                                                                                   |
 | dynamical system / oscillator / coupled       | نظام ديناميكي / مذبذب / مقترن                    |                                                                                                                                                                    |
 | synchrony / fall into step                    | التزامن / تتزامن                                 |                                                                                                                                                                    |
 | emergence / flock / crowd / neighbours        | الانبثاق / سرب / حشد / الجيران                   |                                                                                                                                                                    |
 | excitable media / spiral wave / resting       | الأوساط القابلة للإثارة / موجة حلزونية / في راحة |                                                                                                                                                                    |
 | reaction–diffusion / Turing patterns          | التفاعل والانتشار / أنماط تورينغ                 |                                                                                                                                                                    |
-| fingerprint / ridge / whorl, loop, arch       | بصمة إصبع / نتوء، خط / دوّامة، عروة، قوس         |                                                                                                                                                                    |
+| fingerprint / ridge / whorl, loop, arch       | بصمة إصبع / خط / دوّامة، عروة، قوس               | ridges → «خطوط» («خطوط بارزة» where a sentence describes them)                                                                                                     |
 | weave / loom / thread / cloth / shaft         | نسج / نَوْل / خيط / قماش / إطار                  | a four-shaft loom → «نَوْل بأربعة أطر» (the shaft term needs a native weaver's check). Warp / weft → «السَّدى / اللُّحمة»                                          |
 | model / simulation                            | نموذج / محاكاة                                   |                                                                                                                                                                    |
 | differential equation / forecast              | معادلة تفاضلية / توقعات الطقس، التنبؤ            |                                                                                                                                                                    |
@@ -338,10 +340,150 @@ the right gender. **Nicole Oresme is a man.** Ada Lovelace, Emmy Noether and Mar
 
 The owner's name: إيال فايس (to be confirmed by the owner). "Wonderlattice" always stays in Latin letters.
 
-## 10. Before you hand a room back
+## 10. Terms added by the room translators
+
+The six room translators added these terms, and the consistency pass fixed them across all 27 rooms. Use them in new
+rooms and new strings. None of them clash between rooms. A few Arabic words carry two meanings in different rooms,
+which is fine in context: سلسلة (a cube's sequence of moves; a Markov chain), شبكة (a grid; a network), مخطّط (a graph;
+the loom's weaving draft), شريط (a ribbon; a shaded band on a chart).
+
+**Living patterns** (fingerprint, heart, fireflies, flock)
+
+| English                            | Arabic                                                      |
+| ---------------------------------- | ----------------------------------------------------------- |
+| ridge (of a fingerprint)           | خط، pl. خطوط («خطوط بارزة» where a sentence describes them) |
+| triradius (a little Y)             | نقطة ثلاثية، pl. نقاط ثلاثية («شكل Y صغير»)                 |
+| pad (of the fingertip) / crease    | الوسادة / الثنية                                            |
+| activator / inhibitor              | منشِّط / مثبِّط                                             |
+| pacemaker                          | منظِّم النبض (a pacemaker: «منظِّم نبض»)                    |
+| phase                              | طور                                                         |
+| slime moulds                       | الفطريات الغروية                                            |
+| re-entry (spiral waves in a heart) | «إعادة الدخول»                                              |
+| jet lag                            | إرهاق فارق التوقيت                                          |
+
+**Shape and space** (ribbon, plane, julia, motion)
+
+| English                     | Arabic                                        |
+| --------------------------- | --------------------------------------------- |
+| twist / half-twist          | لفّة / نصف لفّة («أديروا أحد طرفيه نصف لفّة») |
+| band (a two-sided ring)     | طوق                                           |
+| the traveller (on the band) | المسافر                                       |
+| pole (of a function)        | قطب                                           |
+| landscape (a Julia set)     | منظر                                          |
+| limit                       | نهاية («نهاية … حين تؤول h إلى 0»)            |
+| stagnation point            | نقطة ركود                                     |
+| real / imaginary part       | الجزء الحقيقي / الجزء التخيّلي                |
+| focus view / replay         | وضع التركيز / إعادة التشغيل                   |
+
+**Signals and networks** (storm, secret, compress, waves, weather)
+
+| English                    | Arabic                                                                                  |
+| -------------------------- | --------------------------------------------------------------------------------------- |
+| flip (a bit)               | ينقلب / انقلاب (the storm «تقلب» a bit)                                                 |
+| check bit                  | بِت تحقّق، pl. بِتّات تحقّق                                                             |
+| syndrome                   | المتلازمة                                                                               |
+| primitive root             | جذر بدائي                                                                               |
+| discrete logarithm         | اللوغاريتم المتقطّع                                                                     |
+| Lyapunov exponent          | أسّ ليابونوف                                                                            |
+| decimal place              | منزلة عشرية، pl. منازل عشرية                                                            |
+| the panel ("in the panel") | لوحة التحكم, in every room                                                              |
+| arrow keys                 | مفاتيح الأسهم; "the left and right arrow keys" → «مفتاحا/مفتاحي السهمين الأيمن والأيسر» |
+
+**Games and puzzles** (sudoku, cube, floor, loom, tiles)
+
+| English                  | Arabic                                                                                                       |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| a Sudoku square / box    | خلية / صندوق (this replaces «مربع (صندوق)» in §6; row and column stay صف / عمود)                             |
+| clue (a given)           | خلية معطاة، pl. خلايا معطاة; in a cell's label «من معطيات اللغز». Not «رقم معطى»: the symbols can be colours |
+| candidates               | الخيارات («الخيارات الممكنة»); naked / hidden single → «وحيد ظاهر» / «وحيد مخفي»                             |
+| domino                   | حجر دومينو، pl. أحجار دومينو; once introduced, «حجر / أحجار»                                                 |
+| sequence (of moves)      | سلسلة                                                                                                        |
+| commutator / permutation | مبدِّل / تبديلة                                                                                              |
+| shaft / pedal (treadle)  | إطار، pl. أطر / دوّاسة                                                                                       |
+| tie-up                   | جدول الربط                                                                                                   |
+| twill / houndstooth      | المبرد / أسنان الكلب (the pattern: «نقشة أسنان الكلب»)                                                       |
+| edge (of a tile)         | حافة                                                                                                         |
+| isohedral                | متساوية الأوجه                                                                                               |
+
+**Applied engineering** (shower, traffic, blocks, pools)
+
+| English                               | Arabic                                                                                         |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| impatience                            | التعجّل (the eager / patient bather: «المتعجّل / الصبور»)                                      |
+| floor / storey (of the pools picture) | طابق                                                                                           |
+| rack (of tubes)                       | حامل                                                                                           |
+| glowing                               | يتوهّج / متوهّج, also for sudoku's glowing squares («الخلايا المتوهّجة»); a lit well is «مضاء» |
+| stack (of blocks)                     | برج (to stack: «كدّسوا»)                                                                       |
+| helmsman                              | قائد دفّة، pl. قادة الدفّة                                                                     |
+
+**Chance and evidence** (dice, parrondo, sample, shots, treasure)
+
+| English                 | Arabic                                                                                                          |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------- |
+| shot                    | تسديدة                                                                                                          |
+| leaderboard             | لوحة صدارة، pl. لوحات صدارة                                                                                     |
+| nontransitive           | غير متعدية                                                                                                      |
+| fair                    | dice: متوازنة; a coin or a game: عادلة                                                                          |
+| tie                     | تعادل                                                                                                           |
+| false alarm / beep      | إنذار كاذب. The sound stays صفير / يُصفّر; a beep counted as an event ("68 beeps", "Dig every beep") is «إنذار» |
+| natural frequencies     | «التكرارات الطبيعية»                                                                                            |
+| Bayes’ rule / theorem   | قاعدة بايز / مبرهنة بايز                                                                                        |
+| standard error          | الخطأ المعياري                                                                                                  |
+| percentage point        | نقطة مئوية                                                                                                      |
+| Markov chain            | سلسلة ماركوف                                                                                                    |
+| stationary distribution | التوزيع المستقر                                                                                                 |
+
+### Recurring phrases (identical in every room)
+
+- "What this room leaves out" → «ما تُغفله هذه الغرفة». "What this model leaves out" and "What this leaves out" →
+  «ما يُغفله هذا النموذج». "What this toy city leaves out" → «ما تُغفله هذه المدينة المصغّرة». "What this model
+  assumes" → «ما يفترضه هذا النموذج». In running prose, «تتركه جانبًا» is fine.
+- Connection buttons. "Visit “X”" → «زيارة «X»». "See X" → «مشاهدة X» («رؤية» only for seeing something _as_
+  something: «رؤية السودوكو كشبكة»). "Follow another X" → «تتبّع X آخر». "Try X" → «تجربة X». A button that is
+  itself a room's name has no quotes («ثني المستوى»); a room name inside a longer button or a sentence is quoted
+  («مشاهدة «الأرضية المستحيلة»»).
+- "Press “Button”" names a button, so it's «انقروا على «…»». «اضغطوا» is for keys: «اضغطوا B».
+- "use the arrow keys" → «استخدموا مفاتيح الأسهم». "With the keyboard, move with the arrow keys and press Enter to
+  paint" → «وباستخدام لوحة المفاتيح، تحرّكوا بمفاتيح الأسهم واضغطوا Enter للتلوين».
+- Source links end in «(بالإنجليزية)». When the link text already ends in a parenthesis, «بالإنجليزية» goes inside
+  it: «(ويكيبيديا، بالإنجليزية)»، «(MacTutor، بالإنجليزية)»، «(1943، بالإنجليزية)». Put `\u200f` (RLM) before a
+  parenthesis that follows a Latin word or an isolate: `Nature \u200f(1999، بالإنجليزية)`. A book or paper title stays
+  in Latin inside an isolate, with its year outside: `\u2066The Beauty of Fractals\u2069 \u200f(1986، بالإنجليزية)`,
+  and in prose `<em>\u2066The Code Book\u2069</em> (1999)`.
+- Guests who appear in more than one room keep the §9 spelling: ليونهارد أويلر (blocks, motion, secret, sudoku), جوزيف
+  فورييه (compress, waves), آلان تورينغ (fingerprint, flock), آرثر وينفري (fireflies, heart), مارتن غاردنر (dice,
+  floor), فيرما (dice, secret).
+
+### Formula line breaks
+
+A left-to-right isolate that wraps inside a right-to-left line puts the start of the formula at the left end of one
+line and the rest at the right end of the next, which reads scrambled. So:
+
+1. **A formula that fits on one line of a 320-pixel phone never breaks.** In running text that's about 30 characters
+   or fewer. In an `.insight-visual` box, which is narrower and uses larger type, it's about 22. Write its spaces as
+   no-break spaces (`\u00a0`). Add a word joiner (`\u2060`) wherever Chrome would otherwise break without a space:
+   after every "/" (`1/\u2060z`), after "|" and after an en dash (`|\u2060z|\u2060\u00a0&gt;\u00a02`,
+   `1918–\u20601919`; a break is allowed after these even before a no-break space), between ")(", and between a prime
+   and "(" (`f′\u2060(z)`).
+2. **A longer formula breaks only at natural points:** after "=" (or after "→" in a chain, or after a top-level "×"),
+   and before "+" or "−". Leave an ordinary space at those points and no-break spaces everywhere else:
+   `∂u/\u2060∂t\u00a0= ∇²u +\u00a0u(1\u00a0−\u00a0u)…`. The translators first set the limit at 40 characters, but at
+   320 px the explanation dialog is only about 240 px wide, and formulas of 34–39 characters overflowed it. Those
+   formulas keep their natural break points.
+3. **Book and paper titles, names and citations** inside isolates keep ordinary spaces. They may wrap like prose.
+4. **Percent signs (decided, don't change).** A percentage after Arabic text has no isolate: write «بنسبة 90%», with
+   the sign after the digits in the source. Chrome shows «90%», and some renderers show «%90». Both displays are
+   accepted, so don't add isolates to "fix" plain percentages. A signed percentage (`\u2066+75%\u2069`) is a signed
+   number and keeps its isolate (§3).
+5. **Check** the room at 390 and 320 px. Open the explanation, open every `<details>`, and make sure no formula of
+   30 characters or fewer wraps, no formula wraps anywhere except at a natural point, and nothing sticks out of the
+   dialog.
+
+## 11. Before you hand a room back
 
 - `npx prettier --write src/lang/ar/<room>.js`, then `npm run i18n:check`: no «!» warnings for ar.
 - No `toLocaleString(Wonderlattice.lang)` left: `grep -n "Wonderlattice.lang" src/lang/ar/<room>.js`.
 - No straight `"` in plain text, no ٠–٩ digits: `grep -nP '[\x{0660}-\x{0669}]' src/lang/ar/<room>.js`.
 - Open `index.html?lang=ar#room=<room>` at desktop and phone widths. Check the order of mixed Latin/Arabic lines,
   the canvas labels, and the insight dialog.
+- Formulas: follow the line-break rules in §10 and check the explanation at 390 and 320 px.
