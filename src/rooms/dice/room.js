@@ -120,7 +120,7 @@
     const words = text.toUpperCase();
     ctx.fillStyle = MUTED;
     ctx.textAlign = 'left';
-    ctx.letterSpacing = '1.4px';
+    ctx.letterSpacing = W.spacedCapitals ? '1.4px' : '0px';
     fit(ctx, words, maxWidth, Math.max(10, 11 * u), 600);
     const fits = ctx.measureText(words).width <= maxWidth;
     if (fits) ctx.fillText(words, x, y);
@@ -239,7 +239,7 @@
         label = `${side.who} · ${nameOf(c, side.die)}`.toUpperCase();
       ctx.fillStyle = color;
       ctx.textAlign = 'center';
-      ctx.letterSpacing = '1px';
+      ctx.letterSpacing = W.spacedCapitals ? '1px' : '0px';
       fit(ctx, label, cardWidth, Math.max(10, 12 * u), 600);
       ctx.fillText(label, cx, top);
       ctx.letterSpacing = '0px';
@@ -748,7 +748,7 @@
     ].forEach(([i, value, x], k) => {
       ctx.fillStyle = colorOf(c, i);
       ctx.textAlign = 'center';
-      ctx.letterSpacing = '1px';
+      ctx.letterSpacing = W.spacedCapitals ? '1px' : '0px';
       font(ctx, 10, 600);
       ctx.fillText(`${k ? t.me : t.you} · ${nameOf(c, i)}`.toUpperCase(), x + size / 2, y - 12);
       ctx.letterSpacing = '0px';

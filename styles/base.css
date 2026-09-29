@@ -214,6 +214,10 @@ h1 {
 :is(:lang(he), :lang(ar)) :is(.eyebrow, .edition, .hint strong, .room-bar-theme, .math-guest-eyebrow) {
   letter-spacing: normal;
 }
+/* Tightened headings squeeze Arabic's joined letters too. */
+:lang(ar) :is(h1, .panel-head h2) {
+  letter-spacing: normal;
+}
 #pattern-name {
   font-family: Georgia, serif;
   font-size: 22px;

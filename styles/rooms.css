@@ -149,11 +149,14 @@
   text-underline-offset: 3px;
   font-size: 14px;
 }
+/* Sources flow as text, so a citation that isn't a link stays in one piece (and in order on right-to-left pages). */
 .sources {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
   margin-top: 25px;
+  font-size: 14px;
+  line-height: 1.9;
+}
+.sources .source-link {
+  margin-inline-end: 16px;
 }
 .insight-visual {
   padding: 18px;

@@ -58,6 +58,6 @@ Wonderlattice.defineText('shots', 'he', {
 <h3>מה המודל הזה מניח</h3>
 <p>לכל שחקן יש שיעור קליעה קבוע בכל מרחק, שחל על כל מספר זריקות שתתנו לו. זה מודל פשוט להמחשת החשבון שמאחורי הפרדוקס, לא הדמיה של זריקות אמיתיות או של החלטות קבלה אמיתיות.</p>
 <details><summary>המתמטיקה, למי שרוצה</summary><p>לשחקן שקלע <code>c</code> זריקות מתוך <code>C</code> זריקות מקרוב, ו־<code>f</code> מתוך <code>F</code> זריקות מרחוק, השיעור הכולל הוא \u2066(c + f) / (C + F)\u2069, ולא הממוצע של \u2066c/C\u2069 ו־\u2066f/F\u2069. שחקן אחד יכול להיות עם \u2066c/C\u2069 גבוה יותר וגם \u2066f/F\u2069 גבוה יותר מהשני, בזמן שלשני יש \u2066(c + f) / (C + F)\u2069 גבוה יותר, בכל פעם שמספרי הזריקות C ו־F שונים מספיק ביניהם.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Simpson%27s_paradox" target="_blank" rel="noopener">הפרדוקס של סימפסון, ויקיפדיה (באנגלית)</a> · <a class="source-link" href="https://www.science.org/doi/10.1126/science.187.4175.398" target="_blank" rel="noopener">Bickel, Hammel ו־O’Connell, ‏”Sex bias in graduate admissions: data from Berkeley”, ‏Science 187 (1975) (באנגלית)</a></div>`,
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Simpson%27s_paradox" target="_blank" rel="noopener">הפרדוקס של סימפסון, ויקיפדיה (באנגלית)</a><a class="source-link" href="https://www.science.org/doi/10.1126/science.187.4175.398" target="_blank" rel="noopener">Bickel, Hammel ו־O’Connell, ‏”Sex bias in graduate admissions: data from Berkeley”, ‏Science 187 (1975) (באנגלית)</a></div>`,
   },
 });

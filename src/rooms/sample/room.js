@@ -124,7 +124,7 @@
     const words = text.toUpperCase();
     ctx.fillStyle = color;
     ctx.textAlign = 'left';
-    ctx.letterSpacing = '1.2px';
+    ctx.letterSpacing = W.spacedCapitals ? '1.2px' : '0px';
     font(ctx, Math.max(10, 11 * u), 600);
     const fits = ctx.measureText(words).width <= maxWidth;
     if (fits) ctx.fillText(words, x, y);

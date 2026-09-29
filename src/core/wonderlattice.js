@@ -265,6 +265,18 @@
     },
     language: () => languages[Wonderlattice.lang] ?? languages.en ?? { dir: 'ltr', speech: 'en-US' },
 
+    /**
+     * Whether a key press is the letter shortcut `letter` on any keyboard: the letter typed, or, on a keyboard that
+     * types another alphabet there (Hebrew, Arabic), the key where that letter sits on an English keyboard.
+     */
+    isLetter: (e, letter) =>
+      e.key.toLowerCase() === letter || (!/^[a-z]$/i.test(e.key) && e.code === `Key${letter.toUpperCase()}`),
+
+    /** Spaced-out capitals suit scripts that have capitals; Hebrew and Arabic have none (as in styles/base.css). */
+    get spacedCapitals() {
+      return !['he', 'ar'].includes(Wonderlattice.lang);
+    },
+
     /** Italic for canvas text, except in scripts without italic letters, which a slant only distorts (Arabic). */
     get slant() {
       return Wonderlattice.lang === 'ar' ? 'normal' : 'italic';
