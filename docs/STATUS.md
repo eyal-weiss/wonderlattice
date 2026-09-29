@@ -7,7 +7,7 @@
   1,000 by spelling its number in binary, then Dorfman pools for a crowd of 100; and _The shower that never settles_
   (`shower`, #108, closes #57), where an eager and a patient bather share a two-second pipe (a delay equation with sharp
   lines at 1/e and π/2).
-- **Both are in Hebrew, Spanish, Portuguese and French** (this PR). A check compared every number in every translated
+- **Both are in Hebrew, Spanish, Portuguese and French** (#109). A check compared every number in every translated
   string, and every number the translated functions print, with the English: none changed. The Parrondo room's race
   tags are now translated in es/pt/fr too, and on Hebrew pages the shower's tap slider runs cold to hot from left to
   right, like the tap drawn in the picture.
