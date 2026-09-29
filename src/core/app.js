@@ -15,6 +15,7 @@
   const ready = new Set(); // rooms whose init() has run
   let navigation = 0; // counts navigations, so a room that finishes loading after the visitor moved on stays shut
 
+  const VISITED = 'wonderlattice.visited.v1'; // the rooms this visitor has opened, in this browser only
   const NEW_DAYS = 30, // how long a room stays on the home map's "New" line
     NEW_MOST = 3; // and how many it names at once
   const panelOf = (room) => room.panel ?? 'new-room';
@@ -52,6 +53,43 @@
     );
   }
 
+  /** The rooms this visitor has opened. A browser that blocks storage remembers none (and marks none). */
+  function visitedRooms() {
+    try {
+      const list = JSON.parse(localStorage.getItem(VISITED) || '[]');
+      return new Set(Array.isArray(list) ? list.filter((id) => typeof id === 'string') : []);
+    } catch {
+      return new Set();
+    }
+  }
+
+  function rememberVisit(id) {
+    const seen = visitedRooms();
+    if (seen.has(id)) return;
+    seen.add(id);
+    try {
+      localStorage.setItem(VISITED, JSON.stringify([...seen]));
+    } catch {
+      /* storage is blocked: no marks */
+    }
+  }
+
+  /** A small mark on the cards of rooms already opened: never a count, just a quiet sign of where you've been. */
+  function markVisited() {
+    const seen = visitedRooms();
+    for (const card of document.querySelectorAll('.room-card'))
+      card.classList.toggle('visited', seen.has(card.dataset.room));
+  }
+
+  /** A room at random: one this visitor hasn't opened yet while there are any, and never the room they're in. */
+  function surprise() {
+    const seen = visitedRooms();
+    const others = ordered().filter((room) => room.id !== current?.id);
+    const fresh = others.filter((room) => !seen.has(room.id));
+    const pool = fresh.length ? fresh : others;
+    if (pool.length) open(pool[Math.floor(Math.random() * pool.length)].id);
+  }
+
   /** One line under the map's title naming the newest rooms (a room's `added` date); with none, no line. */
   function buildWhatsNew() {
     const since = Date.now() - NEW_DAYS * 24 * 60 * 60 * 1000;
@@ -73,7 +111,8 @@
       `<button class="room-card" id="card-${room.id}" data-room="${room.id}" style="--card-accent:${room.accent?.border ?? '#849c66'}">` +
       '<canvas width="320" height="180" aria-hidden="true"></canvas>' +
       `<span class="eyebrow">${room.eyebrow}</span><strong>${room.name}</strong>` +
-      `<span class="room-card-tagline">${room.tagline}</span></button>`;
+      `<span class="room-card-tagline">${room.tagline}</span>` +
+      `<span class="visually-hidden room-card-visited">${W.text('app').visited}</span></button>`;
     $('home-themes').innerHTML = W.themes
       .map((theme) => {
         const list = rooms.filter((r) => r.theme === theme.id);
@@ -87,6 +126,7 @@
       .join('');
     const cards = [...$('home-themes').querySelectorAll('.room-card')];
     for (const button of cards) button.addEventListener('click', () => open(button.dataset.room));
+    markVisited();
     // Each card's picture is drawn when it first comes near the screen, so a long map starts quickly
     // (on the published site, that's also when the room's code loads).
     const draw = (button) =>
@@ -146,6 +186,7 @@
     document.title = homeTitle;
     stage.leave();
     document.body.dataset.room = 'home';
+    markVisited();
     for (const panel of new Set(rooms.map(panelOf))) $(panel).hidden = true;
     $('room-bar').hidden = true;
     $('home').hidden = false;
@@ -158,6 +199,7 @@
     prepare(next);
     WonderlatticeGuests.pick(id);
     leaveRoom();
+    rememberVisit(id);
     current = next;
     document.body.dataset.room = id;
     document.title = W.text('app').pageTitle(next.name);
@@ -348,6 +390,16 @@
       goHome();
     });
     for (const id of ['room-prev', 'room-next']) $(id).addEventListener('click', () => open($(id).dataset.room));
+    for (const id of ['home-surprise', 'room-surprise']) $(id).addEventListener('click', surprise);
+    $('forget-visited').addEventListener('click', () => {
+      try {
+        localStorage.removeItem(VISITED);
+      } catch {
+        /* nothing was kept */
+      }
+      markVisited();
+      W.toast(W.text('app').visitedForgotten);
+    });
   }
 
   function registerAgentTools() {

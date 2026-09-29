@@ -14,6 +14,7 @@ Wonderlattice.defineText('page', 'pt', {
   roomBar: {
     home: '← Todos os experimentos',
     label: 'Experimentos',
+    surprise: 'Surpresa: outro experimento',
   },
   trailReturn: {
     noteHtml: 'O que você nota agora? <span>(opcional)</span>',
@@ -26,6 +27,7 @@ Wonderlattice.defineText('page', 'pt', {
     title: 'Siga sua curiosidade.',
     intro:
       'O Wonderlattice é uma coleção gratuita de pequenos experimentos práticos com grandes ideias matemáticas. Escolha um e brinque. Não há nada para acertar e nenhum cadastro.',
+    surprise: 'Me surpreenda',
   },
   motion: {
     title: 'Pintar com movimento.',
@@ -118,7 +120,8 @@ Wonderlattice.defineText('page', 'pt', {
     p3: 'Tudo aqui roda no seu navegador, até offline. Não há contas, nem rastreamento, nem cookies, nem chat com IA. O som fica desligado até você ligá-lo.',
     privacyTitle: 'Sua privacidade',
     privacy:
-      'O Wonderlattice não coleta nada. O site é hospedado pela Cloudflare, que mantém registros de acesso padrão (endereço IP, horário, página) sob sua própria política de privacidade. Minha trilha e sua escolha de idioma ficam guardadas só neste navegador, e só quando você as usa; apagar os dados do site as remove. A narração usa as vozes do seu navegador: algumas vozes online enviam o texto lido (estas explicações, nunca suas anotações) para o serviço de voz de quem fez o navegador.',
+      'O Wonderlattice não coleta nada. O site é hospedado pela Cloudflare, que mantém registros de acesso padrão (endereço IP, horário, página) sob sua própria política de privacidade. Minha trilha, sua escolha de idioma e os experimentos que você já abriu (para marcar os cartões deles) ficam guardados só neste navegador; apagar os dados do site os remove. A narração usa as vozes do seu navegador: algumas vozes online enviam o texto lido (estas explicações, nunca suas anotações) para o serviço de voz de quem fez o navegador.',
+    forgetVisited: 'Esquecer quais experimentos já abri',
     whoTitle: 'Quem faz isto',
     whoHtml:
       'O Wonderlattice é um projeto pessoal, gratuito e sem fins comerciais, de Eyal Weiss. Diga oi em <a href="mailto:eyal8488@gmail.com">eyal8488@gmail.com</a> ou no <a href="https://github.com/eyal-weiss" target="_blank" rel="noopener noreferrer">GitHub</a>.',

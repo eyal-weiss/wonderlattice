@@ -35,6 +35,8 @@ Wonderlattice.defineText('app', 'he', {
   },
   language: 'שפה',
   whatsNew: 'חדש',
+  visited: '(כבר פתחתם)',
+  visitedForgotten: 'בוצע: אף ניסוי כבר לא מסומן כפתוח.',
   pageTitle: (room) => `${room} · Wonderlattice`,
   stage: {
     makeItYours: 'תנו לזה מגע משלכם',
