@@ -1,5 +1,16 @@
 # Project state — 2026-09-29
 
+## Visited marks and “Surprise me” — 2026-09-29
+
+- **The owner approved five features, and they now come before new rooms** (label `next`): visited marks (#113),
+  “Surprise me” (#114), a classroom kit (#115), display settings (#116), and a feedback box (#117, waiting for the
+  owner's choice of where messages go).
+- **Visited marks (#113):** a room you've opened shows a small dot in its colour on its card, and screen readers hear
+  “(opened before)” after its name. The list stays in this browser (`wonderlattice.visited.v1`); About says so and has
+  a button to forget it. There are no counts or scores anywhere.
+- **“Surprise me” (#114):** a button under the home map's title, and a die in the room bar, open a room at random:
+  one you haven't opened while any are left, and never the one you're in.
+
 ## A “New” line on the home map — 2026-09-29
 
 - Under the home map's title, one line names the newest rooms: up to three from the last 30 days, newest first, each

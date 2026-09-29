@@ -11,10 +11,21 @@ a.brand:focus-visible {
 .home-intro {
   padding-bottom: 8px;
 }
-/* One line naming the newest rooms (src/core/app.js). */
+/* "Surprise me" and the line naming the newest rooms (src/core/app.js), under the map's title. */
+.home-extras {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+  margin-top: 14px;
+}
 .intro .whats-new {
-  margin-top: 12px;
+  margin: 0;
   font-size: 14px;
+}
+#home-surprise span[aria-hidden] {
+  font-size: 18px;
+  line-height: 1;
 }
 .whats-new .eyebrow {
   margin-inline-end: 6px;
@@ -62,6 +73,7 @@ a.brand:focus-visible {
   gap: 14px;
 }
 .room-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -77,6 +89,21 @@ a.brand:focus-visible {
 .room-card:hover {
   border-color: var(--card-accent);
   transform: translateY(-2px);
+}
+/* A room already opened: a small dot in its colour on the picture's corner (and words for screen readers). */
+.room-card.visited::after {
+  content: '';
+  position: absolute;
+  inset-block-start: 20px;
+  inset-inline-end: 20px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--card-accent);
+  box-shadow: 0 0 0 3px rgb(10 14 21 / 0.75);
+}
+.room-card:not(.visited) .room-card-visited {
+  display: none;
 }
 .room-card:focus-visible {
   outline-offset: 3px;

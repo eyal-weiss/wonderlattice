@@ -21,6 +21,8 @@ Wonderlattice.defineText('app', 'en', {
   },
   language: 'Language',
   whatsNew: 'New', // before the names of the newest rooms, under the home map's title
+  visited: '(opened before)', // read by screen readers after the name of a room already opened
+  visitedForgotten: 'Done: no experiment is marked as opened now.',
   pageTitle: (room) => `${room} · Wonderlattice`,
 
   stage: {
