@@ -505,6 +505,10 @@ footer p {
   font-size: 16px;
   color: #c6cbbd;
 }
+/* Arabic has no italic letters; a slant only distorts them. */
+:lang(ar) .footer-note {
+  font-style: normal;
+}
 dialog {
   color: var(--ink);
   background: #191d26;

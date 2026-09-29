@@ -469,7 +469,7 @@
     if (!series.estimates.length && !ghost && !bare) {
       ctx.fillStyle = '#c8d0da';
       ctx.textAlign = 'center';
-      font(ctx, Math.max(12, 15 * u), 'italic 400', 'Georgia, serif');
+      font(ctx, Math.max(12, 15 * u), `${W.slant} 400`, 'Georgia, serif');
       ctx.fillText(t.startHint, (left + right) / 2, (top + bottom) / 2 + 5);
     }
   }

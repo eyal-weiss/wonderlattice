@@ -530,7 +530,7 @@
 
   function drawLabels(ctx, s, L, bend) {
     ctx.fillStyle = COLORS.label;
-    ctx.font = 'italic 15px Georgia, serif';
+    ctx.font = `${W.slant} 15px Georgia, serif`;
     ctx.textAlign = 'left';
     ctx.fillText(t.zLabel, L.z.x + 12, L.z.y + 21);
     ctx.fillText(t.wLabel, L.w.x + 12, L.w.y + 21);

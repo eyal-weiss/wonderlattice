@@ -265,6 +265,11 @@
     },
     language: () => languages[Wonderlattice.lang] ?? languages.en ?? { dir: 'ltr', speech: 'en-US' },
 
+    /** Italic for canvas text, except in scripts without italic letters, which a slant only distorts (Arabic). */
+    get slant() {
+      return Wonderlattice.lang === 'ar' ? 'normal' : 'italic';
+    },
+
     /** The page language for writing numbers, always with the digits 0–9 (some browsers write Arabic with ٠–٩). */
     get numberLocale() {
       return `${Wonderlattice.lang}-u-nu-latn`;

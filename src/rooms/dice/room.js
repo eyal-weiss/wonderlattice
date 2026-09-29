@@ -199,7 +199,7 @@
     const line = c.auto ? t.iTake(nameOf(c, c.you), nameOf(c, c.me)) : t.against(nameOf(c, c.you), nameOf(c, c.me));
     ctx.fillStyle = '#eef0e6';
     ctx.textAlign = 'left';
-    fit(ctx, line, box.w - indent - pad, Math.max(13, 19 * u), 'italic 400', 'Georgia, serif');
+    fit(ctx, line, box.w - indent - pad, Math.max(13, 19 * u), `${W.slant} 400`, 'Georgia, serif');
     ctx.fillText(line, box.x + indent, box.y + 22 * u + 6);
 
     // Size the dice to the space, then centre the whole group vertically.
@@ -268,7 +268,7 @@
     });
     ctx.fillStyle = MUTED;
     ctx.textAlign = 'center';
-    font(ctx, Math.max(12, 16 * u), 'italic 400', 'Georgia, serif');
+    font(ctx, Math.max(12, 16 * u), `${W.slant} 400`, 'Georgia, serif');
     ctx.fillText(t.vs, box.x + pad + cardWidth + vsWidth / 2, dy + size / 2 + 5);
 
     if (!showStrip) return;
@@ -524,7 +524,7 @@
     } else {
       ctx.textAlign = 'center';
       ctx.fillStyle = '#c8d0da';
-      font(ctx, Math.max(11, 14 * u), 'italic 400', 'Georgia, serif');
+      font(ctx, Math.max(11, 14 * u), `${W.slant} 400`, 'Georgia, serif');
       ctx.fillText(t.startHint, (left + right) / 2, Y(0.78));
     }
     // A key for the dashed line in the lower right, where the running share rarely goes.
@@ -738,7 +738,7 @@
     u = 0.5;
     ctx.fillStyle = '#eef0e6';
     ctx.textAlign = 'left';
-    font(ctx, 14, 'italic 400', 'Georgia, serif');
+    font(ctx, 14, `${W.slant} 400`, 'Georgia, serif');
     ctx.fillText(t.iTake(nameOf(c, 0), nameOf(c, 2)), 14, 26);
     const size = Math.min(58, width * 0.18),
       y = height * 0.5 - size * 0.35;
@@ -755,7 +755,7 @@
       die(ctx, x, y, size, colorOf(c, i), value, { dim: !k, ring: !!k, tilt: k ? -0.1 : 0.14 });
     });
     ctx.fillStyle = MUTED;
-    font(ctx, 13, 'italic 400', 'Georgia, serif');
+    font(ctx, 13, `${W.slant} 400`, 'Georgia, serif');
     ctx.fillText(t.vs, (width * 0.4 + size) / 2, y + size / 2 + 4);
     drawCircle(ctx, { x: width * 0.56, y: 10, w: width * 0.44, h: height - 10 }, c);
   }
