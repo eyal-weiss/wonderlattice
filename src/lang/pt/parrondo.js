@@ -82,6 +82,8 @@ Wonderlattice.defineText('parrondo', 'pt', {
     rounds: 'rodadas',
     start: 'início',
     expected: (value) => `esperado ${value}`,
+    // A game's name and its average, where the race's lines end; languages may reorder them.
+    tag: (name, value) => `${name} ${value}`,
     average: (value) => `média ${value}`,
     short: ['A', 'B', 'mistura'],
     buckets: 'Jogadores pelo resto das moedas divididas em grupos de três',

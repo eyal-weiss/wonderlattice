@@ -1,4 +1,26 @@
-# Project state — 2026-09-28
+# Project state — 2026-09-29
+
+## Two rooms from the background loop, in five languages: twenty-seven — 2026-09-29
+
+- **The loop's first two rooms**, built overnight one at a time and merged by the owner, both in Engineering:
+  _A thousand samples, ten tests_ (`pools`, #107, closes #56), where ten pooled tests find the one glowing tube in
+  1,000 by spelling its number in binary, then Dorfman pools for a crowd of 100; and _The shower that never settles_
+  (`shower`, #108, closes #57), where an eager and a patient bather share a two-second pipe (a delay equation with sharp
+  lines at 1/e and π/2).
+- **Both are in Hebrew, Spanish, Portuguese and French** (#109). A check compared every number in every translated
+  string, and every number the translated functions print, with the English: none changed. The Parrondo room's race
+  tags are now translated in es/pt/fr too, and on Hebrew pages the shower's tap slider runs cold to hot from left to
+  right, like the tap drawn in the picture.
+- **The loop is paused** (owner, 2026-09-29) while the owner works on fixes and infrastructure. Resume with
+  `wonderlattice-loop resume`.
+- **The download budget is nearly used:** an English first visit is 369 KB of 400, and each language's words are
+  82–87 KB of 100. One or two more rooms will fail CI until rooms load only when opened (ARCHITECTURE.md, "Growing").
+- **Found while translating, not fixed yet:** the shared slider prints raw decimals ("0.5", not "0,5", in es/pt/fr; 20
+  rooms use it, `src/core/stage.js`); the _pools_ chart's curve runs over its "one by one: 100" label; on phones the
+  _shower_ water curve crosses the "just right" label, and the shower map's lower-left label can touch the dashed line;
+  in French the longer buttons push the download button onto its own row on phones.
+- **Preview links:** Cloudflare comments a PR's preview link only if the PR exists when the deploy finishes, so a PR
+  opened seconds after its push (#108) gets none. The link is still under the PR's "Cloudflare Pages" check.
 
 ## A second contributor, an Engineering section, clearer phones, and the loop switched on — 2026-09-28 (evening)
 

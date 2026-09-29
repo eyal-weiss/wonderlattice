@@ -83,6 +83,8 @@ Wonderlattice.defineText('parrondo', 'fr', {
     rounds: 'tours',
     start: 'départ',
     expected: (value) => `attendu ${value}`,
+    // Le nom d’un jeu et sa moyenne, là où finissent les courbes de la course.
+    tag: (name, value) => `${name} ${value}`,
     average: (value) => `moyenne ${value}`,
     short: ['A', 'B', 'mélange'],
     buckets: 'Joueurs selon le reste de leurs pièces partagées en trois',
