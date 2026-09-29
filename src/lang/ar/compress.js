@@ -1,99 +1,84 @@
+/* How much picture can you throw away? · visitor-facing words (ar). */
 Wonderlattice.defineText('compress', 'ar', {
-  eyebrow: "COMPRESSION",
-  name: "How much picture can you throw away?",
-  tagline: "Throw away 90% of a picture’s numbers and you can barely tell. Throw away the wrong 10% and it’s ruined.",
-  title: "How much picture can you throw away?",
-  subtitle: "A picture is a list of numbers. Keep only some of them, and see what survives.",
-  field: "Signals · Building blocks · A little surprise",
-  sceneLabel: "64 blocks · 64 numbers each",
-  actionLabel: "Swap strongest and weakest",
-  canvasLabel: "On the left, your picture. In the middle, the picture rebuilt from only the numbers kept. On the right, the 64 building blocks, brighter where more of the picture uses them. Drag on your picture to draw on it. With the keyboard, move with the arrow keys and press Enter to paint.",
-  tip: "Drag on your picture to draw · Arrow keys and Enter paint too",
-  panelEyebrow: "Choose what to keep",
-  whyLabel: "How can most of a picture be missing?",
-  nudge: "Keep only the strongest 10%: can you tell? Now swap to the weakest, and keep 90% of the numbers. What happened?",
+  eyebrow: 'الضغط',
+  name: 'كم من الصورة يمكنكم أن ترموا؟',
+  tagline: 'ارموا 90% من أعداد صورة، وبالكاد تلاحظون شيئًا. ارموا 10% فقط، لكن من الأعداد الخطأ، فتفسد الصورة.',
+
+  title: 'كم من الصورة يمكنكم أن ترموا؟',
+  subtitle: 'الصورة قائمة من الأعداد. احتفظوا ببعضها فقط، وانظروا ماذا يبقى.',
+  field: 'الإشارات · لبنات البناء · مفاجأة صغيرة',
+  sceneLabel: '64 مربعًا · 64 عددًا في كل مربع',
+  actionLabel: 'التبديل بين الأقوى والأضعف',
+  canvasLabel:
+    'على اليسار، صورتكم. في الوسط، الصورة وقد أُعيد بناؤها من الأعداد المحفوظة وحدها. على اليمين، لبنات البناء، ' +
+    'وعددها 64، وهي أكثر سطوعًا حيث تستخدمها أجزاء أكثر من الصورة. اسحبوا على صورتكم لترسموا عليها. وباستخدام ' +
+    'لوحة المفاتيح، تحرّكوا بمفاتيح الأسهم واضغطوا Enter للتلوين.',
+  tip: 'اسحبوا على صورتكم لترسموا · مفاتيح الأسهم وEnter ترسم أيضًا',
+  panelEyebrow: 'اختاروا ما تحتفظون به',
+  whyLabel: 'كيف يمكن أن يغيب معظم الصورة؟',
+  nudge: 'احتفظوا بأقوى 10% فقط: هل تلاحظون الفرق؟ والآن بدّلوا إلى الأضعف، واحتفظوا بنسبة 90% من الأعداد. ماذا حدث؟',
   connection: {
-    html: "<strong>Bits lost by accident, or on purpose.</strong> Here we throw numbers away and hardly notice. In “Send a picture through a storm”, a few clever extra bits stop a storm from ruining a picture.",
-    label: "Visit “Send a picture through a storm”",
+    html: '<strong>بِتّات تضيع صدفةً، أو عمدًا.</strong> هنا نرمي الأعداد ولا نكاد نلاحظ. وفي «إرسال صورة عبر عاصفة»، تمنع بضعة بِتّات إضافية ذكية العاصفةَ من إفساد الصورة.',
+    label: 'زيارة «إرسال صورة عبر عاصفة»',
   },
-  yours: "Your picture",
-  survives: "What survives",
-  blocks: "The building blocks",
-  broad: "broad washes",
-  fine: "fine ripples",
-  pictureLabel: "Pick a picture, or draw on yours",
-  pictures: {
-    sunset: "Sunset",
-    face: "Face",
-    checks: "Checks",
-    rings: "Rings",
-  },
-  modeLabel: "Which numbers to keep",
-  modes: [
-    "The strongest",
-    "The weakest",
-  ],
-  modeHints: [
-    "The biggest numbers, whichever blocks they belong to.",
-    "The smallest numbers; the biggest are thrown away.",
-  ],
-  keepLabel: "How many numbers to keep",
-  keepHint: "Out of 4,096: 64 blocks of 8 × 8 pixels, each written as 64 numbers.",
-  kept: "Numbers kept",
-  keptValue: (count, share) => `${count.toLocaleString(Wonderlattice.lang)} of 4,096 (${share}%)`,
-  energy: "Share of the picture’s energy kept",
+
+  // Canvas labels.
+  yours: 'صورتكم',
+  survives: 'ما يبقى',
+  blocks: 'لبنات البناء',
+  broad: 'مساحات عريضة',
+  fine: 'تموّجات دقيقة',
+
+  pictureLabel: 'اختاروا صورة، أو ارسموا على صورتكم',
+  pictures: { sunset: 'غروب', face: 'وجه', checks: 'رقعة شطرنج', rings: 'حلقات' },
+  modeLabel: 'أيّ الأعداد تُحفظ',
+  modes: ['الأقوى', 'الأضعف'],
+  modeHints: ['الأعداد الأكبر، أيًّا كان المربع الذي تنتمي إليه.', 'الأعداد الأصغر؛ أما الأكبر فتُرمى.'],
+  keepLabel: 'كم من الأعداد تحتفظون به',
+  keepHint: 'من أصل 4,096: \u200f64 مربعًا من \u20668\u00a0×\u00a08\u2069 بكسل، يُكتب كلٌّ منها على شكل 64 عددًا.',
+
+  // Readouts.
+  kept: 'الأعداد المحفوظة',
+  keptValue: (count, share) => `${count.toLocaleString('en')} من 4,096 (${share}%)`,
+  energy: 'نسبة طاقة الصورة المحفوظة',
   energyValue: (share) => `${share}%`,
-  difference: "Difference from your picture",
+  difference: 'الفرق عن صورتكم',
   differenceValue: (share) => `${share}%`,
-  verdicts: [
-    "Hard to tell apart",
-    "A little soft",
-    "Blurry",
-    "Ruined",
-  ],
-  status: (verdict, share) => `${verdict} · ${share}% of the numbers`,
-  announce: (verdict, share, difference) => `${verdict}: ${share}% of the numbers kept, ${difference}% different.`,
-  yourPicture: "Your own picture",
+  verdicts: ['بالكاد يُرى الفرق', 'أقل حدّة قليلًا', 'ضبابية', 'تالفة'],
+  status: (verdict, share) => `${verdict} · ${share}% من الأعداد`,
+  announce: (verdict, share, difference) => `${verdict}: حُفظ ${share}% من الأعداد، والفرق ${difference}%.`,
+  yourPicture: 'صورتكم الخاصة',
+
   presets: [
-    {
-      name: "The strongest 10%",
-      note: "Can you tell?",
-      badge: "10%",
-    },
-    {
-      name: "Throw away the strongest 10%",
-      note: "90% of the numbers, ruined.",
-      badge: "90%",
-    },
-    {
-      name: "Just 2%",
-      note: "Broad washes only.",
-      badge: "2%",
-    },
+    { name: 'أقوى 10%', note: 'هل تلاحظون الفرق؟', badge: '10%' },
+    { name: 'رمي أقوى 10%', note: '90% من الأعداد، والصورة تالفة.', badge: '90%' },
+    { name: '2% فقط', note: 'مساحات عريضة فقط.', badge: '2%' },
   ],
+
   guests: [
     {
-      name: "Joseph Fourier",
-      note: "Studying how heat spreads, he claimed any curve could be built from waves. Pictures can too.",
+      name: 'جوزيف فورييه',
+      note: 'حين درس كيف تنتشر الحرارة، قال إن أي منحنى يمكن بناؤه من موجات. والصور أيضًا.',
     },
     {
-      name: "Nasir Ahmed",
-      note: "He proposed the cosine transform in the early 1970s. Almost every photo on the web is stored with it.",
+      name: 'ناصر أحمد',
+      note: 'اقترح تحويل جيب التمام في مطلع سبعينيات القرن العشرين. وتكاد كل صورة على الإنترنت تُخزَّن بواسطته.',
     },
   ],
+
   insight: {
-    title: "How can most of a picture be missing?",
-    html: `<p>To a computer, this picture is 4,096 numbers: one brightness for each pixel. Cut it into blocks of 8 × 8 pixels, and each block can also be written as a recipe: how much of each of 64 fixed patterns to add together. The patterns run from a flat wash (the block’s average) to finer and finer ripples. The recipe has 64 numbers too, and it rebuilds the block exactly. Nothing is lost yet.</p>
-<div class="insight-visual">64 pixels ⇄ 64 amounts of 64 building blocks</div>
-<h3>Why most numbers hardly matter</h3>
-<p>In most pictures, neighbouring pixels are alike, so a block is mostly its average plus a few gentle waves. Nearly all of the picture’s energy lands in a few big numbers, and the rest are tiny. Keep the big ones, set the rest to zero, and the rebuilt picture looks almost the same. That is the idea behind JPEG.</p>
-<h3>Why the wrong 10% ruins it</h3>
-<p>Throw away the biggest numbers instead, even if you keep 90% of the rest, and what’s left is dust: the averages and main shapes are gone. How many numbers you keep matters much less than which ones.</p>
-<h3>Why edges are expensive</h3>
-<p>A sharp edge or fine stripes are made of many ripples at once, so “Checks” and “Rings” need far more numbers than “Sunset” for the same quality. Throwing too many away leaves blocky squares and faint echoes beside edges, the marks of an over-compressed photo.</p>
-<h3>What this room leaves out</h3>
-<p>Real JPEG also separates brightness from colour and stores colour more coarsely, rounds every number to a step size set by a table (bigger steps for finer ripples, which the eye notices less), and packs the result with clever coding. Here we keep simply the biggest numbers across the whole picture, and don’t round. The building blocks and the surprise are the same.</p>
-<details><summary>The mathematics, if you want it</summary><p>Each block uses the two-dimensional discrete cosine transform (DCT-II): the amount of pattern (u, v) is the sum over the block of the pixel values times C(u, y)·C(v, x), where C(k, n) = a(k)·cos((2n + 1)kπ / 16), with a(0) = √(1/8) and a(k) = √(2/8) otherwise. These 64 patterns are orthonormal, so the inverse transform uses the same table, and the sum of the squares of the numbers equals the sum of the squares of the pixels. So “energy kept” is exactly the share of that sum held by the numbers you keep. The difference shown is the root-mean-square difference in brightness, as a share of full white.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Discrete_cosine_transform" target="_blank" rel="noopener">Discrete cosine transform (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/JPEG" target="_blank" rel="noopener">JPEG (Wikipedia)</a><a class="source-link" href="https://doi.org/10.1145/103085.103089" target="_blank" rel="noopener">Wallace, “The JPEG still picture compression standard”, Communications of the ACM 34 (1991)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Fourier/" target="_blank" rel="noopener">Joseph Fourier (MacTutor)</a></div>`,
+    title: 'كيف يمكن أن يغيب معظم الصورة؟',
+    html: `<p>بالنسبة إلى الحاسوب، هذه الصورة هي 4,096 عددًا: قيمة سطوع واحدة لكل بكسل. قطّعوها إلى مربعات من \u20668\u00a0×\u00a08\u2069 بكسل، ويمكن عندها أن يُكتب كل مربع أيضًا كوصفة: كم نأخذ من كل واحد من 64 نمطًا ثابتًا لنجمعها معًا. تمتد الأنماط من مساحة مستوية (متوسط المربع) إلى تموّجات أدقّ فأدقّ. في الوصفة أيضًا 64 عددًا، وهي تعيد بناء المربع بدقة تامة. لم يضِع شيء بعد.</p>
+<div class="insight-visual">64 بكسلًا ⇄ 64 مقدارًا من 64 لبنة بناء</div>
+<h3>لماذا لا تكاد معظم الأعداد تهمّ</h3>
+<p>في معظم الصور تتشابه البكسلات المتجاورة، لذا يكون المربع في الغالب متوسطه مع بضع موجات لطيفة. تكاد كل طاقة الصورة تتركز في أعداد كبيرة قليلة، والباقي ضئيل جدًا. احتفظوا بالكبيرة، واجعلوا الباقي صفرًا، فتبدو الصورة المعاد بناؤها كما هي تقريبًا. هذه هي الفكرة وراء JPEG.</p>
+<h3>لماذا يكفي رمي 10% خطأ لإفسادها</h3>
+<p>ارموا الأعداد الأكبر بدلًا من ذلك، حتى لو احتفظتم بنسبة 90% من الباقي، فلا يبقى إلا غبار: ذهبت المتوسطات والأشكال الرئيسية. كم عددًا تحتفظون به أقل أهمية بكثير من أيّ الأعداد تختارون.</p>
+<h3>لماذا الحواف مكلفة</h3>
+<p>الحافة الحادة أو الخطوط الرفيعة مصنوعة من تموّجات كثيرة في آن واحد، لذا تحتاج «رقعة شطرنج» و«حلقات» إلى أعداد أكثر بكثير مما يحتاجه «غروب» للجودة نفسها. ورمي الكثير منها يترك مربعات خشنة وأصداءً باهتة بجانب الحواف، وهي علامات الصورة المضغوطة أكثر من اللازم.</p>
+<h3>ما تُغفله هذه الغرفة</h3>
+<p>صيغة JPEG الحقيقية تفصل أيضًا السطوع عن اللون وتخزّن اللون بدقة أقل، وتقرّب كل عدد إلى خطوة يحدّد حجمها جدول (خطوات أكبر للتموّجات الأدق، التي تلاحظها العين أقل)، ثم تحزم النتيجة بترميز ذكي. هنا نحتفظ ببساطة بالأعداد الأكبر في الصورة كلها، ولا نقرّب. لكن لبنات البناء والمفاجأة هي نفسها.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>كل مربع يستخدم تحويل جيب التمام المتقطع ثنائي الأبعاد (DCT-II): مقدار النمط \u2066(u,\u00a0v)\u2069 هو مجموع قيم البكسلات في المربع، كلٌّ منها مضروبًا في \u2066C(u,\u00a0y)·C(v,\u00a0x)\u2069، حيث \u2066C(k,\u00a0n)\u00a0=\u00a0a(k)·cos((2n\u00a0+\u00a01)kπ\u00a0/\u2060\u00a016)\u2069، مع \u2066a(0)\u00a0=\u00a0√(1/\u20608)\u2069، ومع \u2066a(k)\u00a0=\u00a0√(2/\u20608)\u2069 في الحالات الأخرى. وهذه الأنماط، وعددها 64، متعامدة ومعيارية، لذا يستخدم التحويل العكسي الجدول نفسه، ومجموع مربعات الأعداد يساوي مجموع مربعات البكسلات. ولذلك فإن «طاقة الصورة المحفوظة» هي بالضبط نسبة هذا المجموع التي تحملها الأعداد التي تحتفظون بها. والفرق المعروض هو الجذر التربيعي لمتوسط مربعات الفروق في السطوع، كنسبة من الأبيض الكامل.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Discrete_cosine_transform" target="_blank" rel="noopener">تحويل جيب التمام المتقطع (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/JPEG" target="_blank" rel="noopener">JPEG (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://doi.org/10.1145/103085.103089" target="_blank" rel="noopener">والاس، \u2066“The JPEG still picture compression standard”, Communications of the ACM 34 (1991)\u2069 (بالإنجليزية)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Fourier/" target="_blank" rel="noopener">جوزيف فورييه (MacTutor، بالإنجليزية)</a></div>`,
   },
 });

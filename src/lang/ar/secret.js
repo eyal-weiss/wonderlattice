@@ -1,130 +1,143 @@
+/* A secret shouted across the room · visitor-facing words (ar). */
 Wonderlattice.defineText('secret', 'ar', {
-  eyebrow: "NUMBER THEORY",
-  name: "A secret shouted across the room",
-  tagline: "Two people agree on a secret while everyone listens, and the listeners still can’t work it out.",
-  title: "A secret shouted across the room.",
-  subtitle: "Alice and Bob can only talk where everyone can hear. Mix colours with them and see how they still end up sharing a secret.",
-  field: "Number theory · Cryptography · A little surprise",
-  sceneLabel: "Two friends · One eavesdropper · Everything said out loud",
-  sceneName: "Sharing a key in public",
-  tip: "Press “Next step” to follow the exchange · Choose paint or clock arithmetic in the panel",
-  actionLabel: "Next step",
-  canvasLabel: "Alice on the left and Bob on the right, with everything they say out loud in the middle, where Eve is listening.",
-  panelEyebrow: "Pick the secrets",
-  whyLabel: "Why can’t Eve work it out?",
-  nudge: "Follow all three steps with paint, then switch to clock arithmetic and try a bigger clock. Watch how long Eve needs.",
+  eyebrow: 'نظرية الأعداد',
+  name: 'سرّ على الملأ',
+  tagline: 'شخصان يتفقان على سرّ والجميع يسمعون، ومع ذلك لا يستطيع السامعون أن يكشفوه.',
+  title: 'سرّ على الملأ.',
+  subtitle:
+    'لا يستطيع أليس وبوب أن يتحدثا إلا حيث يسمعهما الجميع. امزجوا الألوان معهما، وانظروا كيف يصلان مع ذلك إلى سرّ مشترك.',
+  field: 'نظرية الأعداد · التشفير · مفاجأة صغيرة',
+  sceneLabel: 'صديقان · متنصّتة واحدة · كل شيء يُقال بصوت عالٍ',
+  sceneName: 'تبادل مفتاح على الملأ',
+  tip: 'اضغطوا «الخطوة التالية» لتتبّعوا التبادل · اختاروا الألوان أو حساب الساعة في لوحة التحكم',
+  actionLabel: 'الخطوة التالية',
+  canvasLabel: 'أليس على اليسار وبوب على اليمين، وفي الوسط كل ما يقولانه بصوت عالٍ، حيث تستمع إيف.',
+  panelEyebrow: 'اختاروا الأسرار',
+  whyLabel: 'لماذا لا تستطيع إيف أن تكشف السرّ؟',
+  nudge:
+    'تتبّعوا الخطوات الثلاث كلها بالألوان، ثم انتقلوا إلى حساب الساعة وجرّبوا ساعة أكبر. لاحظوا كم من الوقت تحتاج إيف.',
   connection: {
-    html: "<strong>Keeping a message safe from noise is one problem; keeping it secret is another.</strong> In Send a picture through a storm, extra bits repair what the noise breaks.",
-    label: "Send a picture",
+    html: '<strong>حماية رسالة من التشويش مسألة، وإبقاؤها سرًّا مسألة أخرى.</strong> في «إرسال صورة عبر عاصفة»، تُصلح بِتّات إضافية ما يُفسده التشويش.',
+    label: 'إرسال صورة',
   },
+
   presets: [
-    {
-      name: "Mix paint",
-      note: "Mixing is easy. Unmixing isn’t.",
-      badge: "●",
-    },
-    {
-      name: "A clock of 23",
-      note: "The same trick with numbers.",
-      badge: "23",
-    },
-    {
-      name: "A bigger clock",
-      note: "Eve has to try far more.",
-      badge: "9973",
-    },
+    { name: 'مزج الألوان', note: 'المزج سهل. الفصل ليس كذلك.', badge: '●' },
+    { name: 'ساعة ذات 23 ساعة', note: 'الحيلة نفسها بالأعداد.', badge: '23' },
+    { name: 'ساعة أكبر', note: 'على إيف أن تجرّب أكثر بكثير.', badge: '9973' },
   ],
-  people: {
-    alice: "Alice",
-    bob: "Bob",
-    eve: "Eve",
+
+  people: { alice: 'أليس', bob: 'بوب', eve: 'إيف' },
+  modes: ['الألوان', 'حساب الساعة'],
+  modeLabel: 'العرض باستخدام',
+  paintLabel: (name) => `لون ${name} السرّي`,
+  colours: ['أحمر', 'أزرق', 'أخضر', 'برتقالي', 'بنفسجي', 'وردي'],
+  pickColour: (name, colour) => `لون ${name} السرّي: ${colour}`,
+  clockLabel: 'حجم الساعة',
+  // Every clock on offer (11 … 9,973 hours) takes the singular ساعة; the other branches keep it right for any size.
+  clockOption: (p) => {
+    const k = p % 100;
+    const shown = p.toLocaleString('en');
+    return p === 1 ? 'ساعة واحدة' : p === 2 ? 'ساعتان' : k >= 3 && k <= 10 ? `${shown} ساعات` : `${shown} ساعة`;
   },
-  modes: [
-    "Paint",
-    "Clock arithmetic",
-  ],
-  modeLabel: "Show it with",
-  paintLabel: (name) => `${name}’s secret colour`,
-  colours: [
-    "Red",
-    "Blue",
-    "Green",
-    "Orange",
-    "Violet",
-    "Pink",
-  ],
-  pickColour: (name, colour) => `${name}’s secret colour: ${colour}`,
-  clockLabel: "Size of the clock",
-  clockOption: (p) => `${p.toLocaleString(Wonderlattice.lang)} hours`,
-  secretLabel: (name) => `${name}’s secret number`,
-  secretHint: "Only they know it.",
+  secretLabel: (name) => `عدد ${name} السرّي`,
+  secretHint: 'لا يعرفه أحد غير صاحبه.',
+
+  // Words drawn on the picture.
   labels: {
-    public: "Everyone hears",
-    secret: "Secret",
-    shared: "Shared colour",
-    sends: "Sends",
-    heard: (name) => `${name}’s mixture`,
-    same: "The same!",
-    eve: "Eve’s best try",
-    clock: (p) => `A clock of ${p.toLocaleString(Wonderlattice.lang)} hours`,
-    start: (g) => `Start: ${g}`,
-    shouts: "Shouts",
-    key: "Key",
-    hops: (k) => `${k.toLocaleString(Wonderlattice.lang)} hops`,
-    eveTrying: (k, total) =>
-      `Eve tries 1, 2, 3, …: ${k.toLocaleString(Wonderlattice.lang)} of up to ${total.toLocaleString(Wonderlattice.lang)}`,
-    eveFound: (k) => `Eve found Alice’s secret after ${k.toLocaleString(Wonderlattice.lang)} tries`,
+    public: 'الجميع يسمع',
+    secret: 'سرّ',
+    shared: 'اللون المشترك',
+    sends: 'يُرسَل',
+    heard: (name) => `مزيج ${name}`,
+    same: 'اللون نفسه!',
+    eve: 'أفضل محاولات إيف',
+    clock: (p) => {
+      const k = p % 100;
+      const shown = p.toLocaleString('en');
+      return k >= 3 && k <= 10 ? `ساعة ذات ${shown} ساعات` : `ساعة ذات ${shown} ساعة`;
+    },
+    start: (g) => `البداية: ${g}`,
+    shouts: 'الصيحة',
+    key: 'المفتاح',
+    hops: (k) => {
+      const r = k % 100;
+      const shown = k.toLocaleString('en');
+      return k === 1 ? 'قفزة واحدة' : k === 2 ? 'قفزتان' : r >= 3 && r <= 10 ? `${shown} قفزات` : `${shown} قفزة`;
+    },
+    eveTrying: (k, total) => `إيف تجرّب 1، 2، 3، …: ${k.toLocaleString('en')} من أصل ${total.toLocaleString('en')}`,
+    eveFound: (k) => {
+      const r = k % 100;
+      const shown = k.toLocaleString('en');
+      return k === 1
+        ? 'وجدت إيف سرّ أليس بعد محاولة واحدة'
+        : k === 2
+          ? 'وجدت إيف سرّ أليس بعد محاولتين'
+          : r >= 3 && r <= 10
+            ? `وجدت إيف سرّ أليس بعد ${shown} محاولات`
+            : `وجدت إيف سرّ أليس بعد ${shown} محاولة`;
+    },
   },
+
+  // The status line, one per step (0 = before anything is sent).
   steps: {
     paint: [
-      "Everyone can see the yellow. Alice and Bob each keep a secret colour.",
-      "Step 1 of 3: each mixes their secret into the yellow.",
-      "Step 2 of 3: they swap the mixtures, in full view.",
-      "Step 3 of 3: each adds their own secret again. The same colour on both sides!",
+      'الجميع يرى الأصفر. ويحتفظ كلٌّ من أليس وبوب بلون سرّي.',
+      'الخطوة 1 من 3: يمزج كلٌّ منهما سرّه في الأصفر.',
+      'الخطوة 2 من 3: يتبادلان المزيجين أمام أعين الجميع.',
+      'الخطوة 3 من 3: يضيف كلٌّ منهما سرّه مرة أخرى. اللون نفسه على الجانبين!',
     ],
     clock: [
-      (p, g) => `Everyone knows the clock (${p}) and the start (${g}). Alice and Bob each keep a secret number.`,
-      "Step 1 of 3: each hops around the clock, multiplying by the start, as many times as their secret.",
-      "Step 2 of 3: they shout where they landed.",
-      "Step 3 of 3: each hops again from what they heard. The same number on both sides!",
+      (p, g) => `الجميع يعرف الساعة (${p}) والبداية (${g}). ويحتفظ كلٌّ من أليس وبوب بعدد سرّي.`,
+      'الخطوة 1 من 3: يقفز كلٌّ منهما حول الساعة، ضاربًا في البداية، مرات بعدد سرّه.',
+      'الخطوة 2 من 3: يصيح كلٌّ منهما بالمكان الذي حطّ فيه.',
+      'الخطوة 3 من 3: يقفز كلٌّ منهما مرة أخرى، بدءًا مما سمعه. العدد نفسه على الجانبين!',
     ],
   },
+
+  // The readout below the controls.
   readout: {
-    hears: "Everyone hears",
-    keeps: (name) => `${name} keeps`,
-    result: "The result",
-    nothingYet: "Nothing has been said yet.",
-    paintHeard: "The yellow, and both mixtures.",
-    paintResult: "Alice and Bob hold the same colour. Mixing the two mixtures gives Eve too much yellow.",
-    clockHeard: (p, g, A, B) => `The clock (${p}), the start (${g}), and the two shouts: ${A} and ${B}.`,
+    hears: 'الجميع يسمع',
+    keeps: (name) => `سرّ ${name}`,
+    result: 'النتيجة',
+    nothingYet: 'لم يُقَل شيء بعد.',
+    paintHeard: 'الأصفر، والمزيجين كليهما.',
+    paintResult: 'لدى أليس وبوب اللون نفسه. أما إيف، فإن مزجت المزيجين حصلت على أصفر أكثر من اللازم.',
+    clockHeard: (p, g, A, B) => `الساعة (${p})، والبداية (${g})، والصيحتين: ${A} و${B}.`,
     clockResult: (key) =>
-      `Both keys are ${key}. Eve heard everything, but to get the key she must find a secret number by trying.`,
-    notYet: "Not yet.",
+      `المفتاحان كلاهما ${key}. سمعت إيف كل شيء، لكنها لكي تحصل على المفتاح يجب أن تجد عددًا سرّيًا بالتجريب.`,
+    notYet: 'ليس بعد.',
   },
+
   announce: {
-    same: "Alice and Bob now share the same secret. Eve does not.",
-    found: (k) => `Eve found Alice’s secret after ${k} tries.`,
+    same: 'صار لدى أليس وبوب السرّ نفسه. أما إيف فلا.',
+    // k arrives already written out (1,234), so the count is given as a tally.
+    found: (k) => `وجدت إيف سرّ أليس. عدد محاولاتها: ${k}.`,
   },
+
   guests: [
     {
-      name: "Pierre de Fermat",
-      note: "On a clock with a prime number p of hours, raise any hour to the power p and it comes back to itself.",
+      name: 'بيير دو فيرما',
+      note: 'على ساعة عدد ساعاتها p، وهو عدد أوّلي، ارفعوا أي ساعة إلى القوة p فتعود إلى نفسها.',
     },
     {
-      name: "Leonhard Euler",
-      note: "I stretched Fermat’s rule to clocks of any size. Two centuries later, arithmetic like it guards secrets.",
+      name: 'ليونهارد أويلر',
+      note: 'وسّعتُ قاعدة فيرما لتشمل ساعات من أي حجم. وبعد قرنين، صار حساب مثله يحرس الأسرار.',
     },
   ],
+
+  // Short formulas keep no-break spaces inside their isolates, so a phone never splits one across two lines;
+  // the long chain of equalities may break only after an =.
   insight: {
-    title: "Why can’t Eve work it out?",
-    html: `<p>Everything Alice and Bob say, Eve hears. The trick is a step that is easy to do but very hard to undo. With paint, mixing is easy, and getting a colour back out of a mixture is practically impossible. Each friend adds a secret twice, once before sending and once after receiving, so both end with the same three paints in the pot. Eve only ever sees mixtures that contain one secret each, and mixing those together gives her too much of the shared colour.</p>
-<div class="insight-visual">shared + Alice’s secret + Bob’s secret, mixed in any order</div>
-<h3>The same trick with numbers</h3>
-<p>On a clock of p hours, “multiply by the start g, again and again” is easy: Alice does it a times (her secret) and shouts where she lands, A. Bob does it b times and shouts B. Then Alice hops a times from Bob’s B, and Bob hops b times from Alice’s A. Both land on the same hour, because both did the multiplying a × b times in all.</p>
-<p>Eve knows the clock, the start, A and B. To get the key she needs a or b: how many hops lead from the start to A. Nobody knows a fast way to count them for a well-chosen large clock. Here she can only try 1, 2, 3, …, and on a bigger clock that takes far longer.</p>
-<h3>What this room leaves out</h3>
-<p>The paint is an analogy, and these clocks are tiny. Real systems use numbers hundreds of digits long (or a cousin of this idea on curves), where even the cleverest known methods are hopelessly slow. They also have to check who they are talking to: this trick alone can’t stop someone in the middle from pretending to be Bob. This room shows the idea, not how to secure anything.</p>
-<details><summary>The mathematics, if you want it</summary><p>With a prime p and a start g whose powers reach every hour 1 … p − 1 (a primitive root), Alice sends A = g<sup>a</sup> mod p and Bob sends B = g<sup>b</sup> mod p. Then B<sup>a</sup> = (g<sup>b</sup>)<sup>a</sup> = g<sup>ab</sup> = (g<sup>a</sup>)<sup>b</sup> = A<sup>b</sup> mod p. Finding a from g<sup>a</sup> mod p is the discrete logarithm problem. Whitfield Diffie and Martin Hellman published this exchange in 1976; researchers at the British intelligence agency GCHQ had found it a little earlier, but that stayed secret until 1997. Simon Singh tells the story in <em>The Code Book</em> (1999).</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange" target="_blank" rel="noopener">Diffie–Hellman key exchange</a><a class="source-link" href="https://ee.stanford.edu/~hellman/publications/24.pdf" target="_blank" rel="noopener">Diffie &amp; Hellman, “New directions in cryptography” (1976)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Discrete_logarithm" target="_blank" rel="noopener">Discrete logarithm</a></div>`,
+    title: 'لماذا لا تستطيع إيف أن تكشف السرّ؟',
+    html: `<p>كل ما يقوله أليس وبوب تسمعه إيف. الحيلة خطوة سهلة التنفيذ، لكن التراجع عنها صعب جدًا. مع الألوان، المزج سهل، واستخراج لون من مزيج مستحيل عمليًا. يضيف كلٌّ من الصديقين سرّه مرتين، مرة قبل الإرسال ومرة بعد الاستلام، فينتهي كلاهما بالألوان الثلاثة نفسها في الوعاء. أما إيف فلا ترى إلا مزيجين في كل منهما سرّ واحد، وإن مزجتهما معًا حصلت على قدر زائد من اللون المشترك.</p>
+<div class="insight-visual">المشترك + سرّ أليس + سرّ بوب، ممزوجة بأي ترتيب</div>
+<h3>الحيلة نفسها بالأعداد</h3>
+<p>على ساعة ذات p ساعة، «الضرب في البداية g مرة بعد مرة» أمر سهل: تفعل أليس ذلك a مرة (سرّها) وتصيح بالمكان الذي حطّت فيه، A. ويفعله بوب b مرة ويصيح B. ثم تقفز أليس a مرة بدءًا من B الذي صاح به بوب، ويقفز بوب b مرة بدءًا من A الذي صاحت به أليس. ويحطّ كلاهما على الساعة نفسها، لأن كليهما ضرب \u2066a × b\u2069 مرة في المجموع.</p>
+<p>تعرف إيف الساعة، والبداية، وA وB. ولكي تحصل على المفتاح تحتاج إلى a أو b: كم قفزة تقود من البداية إلى A. ولا أحد يعرف طريقة سريعة لعدّها على ساعة كبيرة مختارة جيدًا. هنا لا تستطيع إلا أن تجرّب 1، 2، 3، …، وعلى ساعة أكبر يستغرق ذلك وقتًا أطول بكثير.</p>
+<h3>ما تتركه هذه الغرفة جانبًا</h3>
+<p>الألوان مجرد تشبيه، وهذه الساعات صغيرة جدًا. الأنظمة الحقيقية تستعمل أعدادًا من مئات الأرقام (أو فكرة قريبة من هذه على المنحنيات)، حيث تكون حتى أذكى الطرق المعروفة بطيئة إلى حدّ ميؤوس منه. وعليها أيضًا أن تتحقق ممن تتحدث إليه: هذه الحيلة وحدها لا تمنع شخصًا في المنتصف من انتحال شخصية بوب. تعرض هذه الغرفة الفكرة، لا طريقة لتأمين أي شيء.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>مع عدد أوّلي p وبداية g تبلغ قواها كل ساعة من \u20661 … p − 1\u2069 (جذر بدائي)، ترسل أليس \u2066A = g<sup>a</sup> mod p\u2069 ويرسل بوب \u2066B = g<sup>b</sup> mod p\u2069. عندئذٍ \u2066B<sup>a</sup> = (g<sup>b</sup>)<sup>a</sup> = g<sup>ab</sup> = (g<sup>a</sup>)<sup>b</sup> = A<sup>b</sup> mod p\u2069. وإيجاد a من \u2066g<sup>a</sup> mod p\u2069 هو مسألة اللوغاريتم المتقطّع. نشر ويتفيلد ديفي ومارتن هيلمان هذا التبادل عام 1976؛ وكان باحثون في وكالة الاستخبارات البريطانية GCHQ قد توصّلوا إليه قبل ذلك بقليل، لكن الأمر بقي سرًّا حتى عام 1997. ويروي سايمون سينغ القصة في كتاب <em>\u2066The Code Book\u2069</em> (1999).</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange" target="_blank" rel="noopener">تبادل مفاتيح ديفي–هيلمان (بالإنجليزية)</a><a class="source-link" href="https://ee.stanford.edu/~hellman/publications/24.pdf" target="_blank" rel="noopener">\u2066Diffie &amp; Hellman, “New directions in cryptography” (1976)\u2069 (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Discrete_logarithm" target="_blank" rel="noopener">اللوغاريتم المتقطّع (بالإنجليزية)</a></div>`,
   },
 });

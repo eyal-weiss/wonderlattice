@@ -1,132 +1,237 @@
+/* A thousand samples, ten tests · visitor-facing words (ar). */
+// Counts arrive already written ('1,000', '10'), so a function that makes a noun agree first reads the number back.
 Wonderlattice.defineText('pools', 'ar', {
-  eyebrow: "GROUP TESTING",
-  name: "A thousand samples, ten tests",
-  tagline: "One tube in a thousand is glowing. Ten tests, all at once, say which.",
-  title: "A thousand samples, ten tests.",
-  subtitle: "One tube is glowing, and you can’t tell which. Mix drops from clever groups of tubes, run ten tests at once, and read the answer off the lights.",
-  field: "Binary numbers · Pooled testing · One bit per test",
+  eyebrow: 'الفحص الجماعي',
+  name: 'ألف عيّنة وعشرة فحوص',
+  tagline: 'أنبوب واحد من ألف يتوهّج. عشرة فحوص، تُجرى كلها دفعة واحدة، تقول أيّها.',
+  title: 'ألف عيّنة وعشرة فحوص.',
+  subtitle:
+    'أنبوب واحد يتوهّج، ولا يمكنكم أن تعرفوا أيّها. اخلطوا قطرات من مجموعات أنابيب مختارة بذكاء، وأجروا عشرة فحوص دفعة واحدة، واقرؤوا الجواب من الأضواء.',
+  field: 'الأعداد الثنائية · الفحص المجمَّع · بِت واحد لكل فحص',
   sceneLabels: [
-    (tubes, tests) => `${tubes} tubes · ${tests} tests`,
-    "A crowd of 100 · pooled tests",
+    (tubes, tests) => {
+      const a = tubes.replace(',', '') * 1;
+      const ka = a % 100;
+      const b = tests.replace(',', '') * 1;
+      const kb = b % 100;
+      const tubeWord =
+        a === 1
+          ? 'أنبوب واحد'
+          : a === 2
+            ? 'أنبوبان'
+            : ka >= 3 && ka <= 10
+              ? `${tubes} أنابيب`
+              : ka >= 11
+                ? `${tubes} أنبوبًا`
+                : `${tubes} أنبوب`;
+      const testWord =
+        b === 1
+          ? 'فحص واحد'
+          : b === 2
+            ? 'فحصان'
+            : kb >= 3 && kb <= 10
+              ? `${tests} فحوص`
+              : kb >= 11
+                ? `${tests} فحصًا`
+                : `${tests} فحص`;
+      return `${tubeWord} · ${testWord}`;
+    },
+    'حشد من 100 شخص · فحوص مجمَّعة',
   ],
   tips: [
-    "Tap a tube to hide the glow there, or a well to see which tubes feed it · Left and right arrow keys pick a well",
-    "Slide how many are infected and how big the pools are · Left and right arrow keys change the pool size",
+    'انقروا على أنبوب لتخبّئوا فيه التوهّج، أو على تجويف لتروا أيّ الأنابيب تغذّيه · مفتاحا السهمين الأيمن والأيسر يختاران تجويفًا',
+    'حرّكوا المنزلقين لتغيير نسبة المصابين وحجم الخلائط · مفتاحا السهمين الأيمن والأيسر يغيّران حجم الخليط',
   ],
-  actionLabels: [
-    "Hide a new tube",
-    "A new crowd",
-  ],
-  canvasLabel: "On the first floor, a rack of tubes with a row of test wells beneath it. Each well takes a drop from a group of tubes; lit wells read as a binary number, which names the glowing tube. On the second floor, a crowd of 100 people split into pools, each pool tested once, with retests for everyone in a positive pool, and a chart of the expected number of tests for each pool size.",
-  panelEyebrow: "Mix the samples",
-  whyLabel: "How can ten tests be enough?",
-  nudge: "Tap a tube, and ten tests find it again. Then try two glowing tubes. On the second floor, push the prevalence above 31% and watch the savings vanish.",
+  actionLabels: ['إخفاء أنبوب جديد', 'حشد جديد'],
+  canvasLabel:
+    'في الطابق الأول، حامل أنابيب تحته صف من تجاويف الفحص. يأخذ كل تجويف قطرة من مجموعة من الأنابيب؛ وتُقرأ التجاويف المضاءة كعدد ثنائي، يدلّ على الأنبوب المتوهّج. في الطابق الثاني، حشد من 100 شخص مقسّم إلى خلائط، يُفحص كل خليط مرة واحدة، ويُعاد فحص كل من في الخليط الإيجابي، مع رسم بياني لعدد الفحوص المتوقع لكل حجم خليط.',
+  panelEyebrow: 'خلط العيّنات',
+  whyLabel: 'كيف تكفي عشرة فحوص؟',
+  nudge:
+    'انقروا على أنبوب، وستجده عشرة فحوص من جديد. ثم جرّبوا أنبوبين متوهّجين. وفي الطابق الثاني، ارفعوا نسبة المصابين فوق 31% وشاهدوا التوفير يختفي.',
+
   connection: {
-    html: "<strong>Yes-or-no answers that spell an address.</strong> Here, ten yes/no tests spell the number of the glowing tube. In Send a picture through a storm, a few check bits spell the address of the bit the noise flipped.",
-    label: "Send a picture through a storm",
+    html: '<strong>إجابات بنعم أو لا تكتب عنوانًا.</strong> هنا، تكتب عشرة فحوص بنعم أو لا رقم الأنبوب المتوهّج. وفي «إرسال صورة عبر عاصفة»، تكتب بضعة بِتّات تحقّق عنوان البِت الذي قلبه التشويش.',
+    label: 'إرسال صورة عبر عاصفة',
   },
+
   presets: [
-    {
-      name: "One glowing tube",
-      note: "The lights spell its number.",
-      badge: "1",
-    },
-    {
-      name: "Two glowing tubes",
-      note: "Now the lights point at the wrong tube.",
-      badge: "2",
-    },
-    {
-      name: "1 in 100 infected",
-      note: "Pools of ten save four tests in five.",
-      badge: "1%",
-    },
+    { name: 'أنبوب متوهّج واحد', note: 'الأضواء تكتب رقمه.', badge: '1' },
+    { name: 'أنبوبان متوهّجان', note: 'الآن تشير الأضواء إلى الأنبوب الخطأ.', badge: '2' },
+    { name: 'مصاب واحد من كل 100', note: 'خلائط من عشرة توفّر أربعة فحوص من كل خمسة.', badge: '1%' },
   ],
-  floorLabel: "Which floor?",
-  floors: [
-    "Ten tests at once",
-    "One test for many",
-  ],
-  hotLabel: "How many tubes are glowing?",
-  hot: [
-    "One",
-    "Two",
-  ],
-  prevalence: "Infected",
-  prevalenceHint: "The share of the crowd carrying the infection, secretly",
-  pool: "Pool size",
-  poolHint: "People whose samples share one test. 1 means testing everyone separately.",
+
+  floorLabel: 'أيّ طابق؟',
+  floors: ['عشرة فحوص دفعة واحدة', 'فحص واحد لكثيرين'],
+  hotLabel: 'كم أنبوبًا يتوهّج؟',
+  hot: ['واحد', 'اثنان'],
+  prevalence: 'نسبة المصابين',
+  prevalenceHint: 'نسبة من يحملون العدوى في الحشد، دون أن يعرف أحد',
+  pool: 'حجم الخليط',
+  poolHint: 'عدد الأشخاص الذين تشترك عيّناتهم في فحص واحد. القيمة 1 تعني فحص كل شخص على حدة.',
+
   sceneNames: {
-    hidden: "One tube is glowing. Which?",
-    hiddenTwo: "Two tubes are glowing",
-    found: (tube) => `The lights say tube ${tube}`,
-    crowd: (percent) => `100 people, ${percent} infected`,
+    hidden: 'أنبوب واحد يتوهّج. أيّ أنبوب؟',
+    hiddenTwo: 'أنبوبان يتوهّجان',
+    found: (tube) => `الأضواء تقول: الأنبوب ${tube}`,
+    crowd: (percent) => `100 شخص، ${percent} منهم مصابون`,
   },
   status: {
-    mixing: (well, tests) => `Mixing drops · well ${well} of ${tests}`,
-    testing: (tests) => `All ${tests} tests at once`,
-    read: (tests) => `${tests} tests · done`,
-    pooling: (done, pools) => `Pooled tests · ${done} of ${pools}`,
-    retesting: (done, retests) => `Retests · ${done} of ${retests}`,
-    used: (tests) => `${tests} tests used`,
+    mixing: (well, tests) => `خلط القطرات · التجويف ${well} من ${tests}`,
+    testing: (tests) => {
+      const n = tests.replace(',', '') * 1;
+      const k = n % 100;
+      const word =
+        n === 1
+          ? 'فحص واحد'
+          : n === 2
+            ? 'فحصان'
+            : k >= 3 && k <= 10
+              ? `${tests} فحوص`
+              : k >= 11
+                ? `${tests} فحصًا`
+                : `${tests} فحص`;
+      return `${word}، كلها دفعة واحدة`;
+    },
+    read: (tests) => {
+      const n = tests.replace(',', '') * 1;
+      const k = n % 100;
+      const word =
+        n === 1
+          ? 'فحص واحد'
+          : n === 2
+            ? 'فحصان'
+            : k >= 3 && k <= 10
+              ? `${tests} فحوص`
+              : k >= 11
+                ? `${tests} فحصًا`
+                : `${tests} فحص`;
+      return `${word} · النتيجة جاهزة`;
+    },
+    pooling: (done, pools) => `فحص الخلائط · ${done} من ${pools}`,
+    retesting: (done, retests) => `إعادة الفحص · ${done} من ${retests}`,
+    used: (tests) => `الفحوص المستخدمة: ${tests}`,
   },
+
+  // Words drawn on the picture.
   labels: {
-    yes: "yes",
-    no: "no",
-    sum: (parts, total) => `${parts} = ${total}`,
-    none: "No well lit: no tube is glowing",
-    here: (tube) => `tube ${tube}`,
-    wrong: (tube) => `tube ${tube}? It isn’t glowing`,
-    missing: (tube, tubes) => `tube ${tube}? There are only ${tubes}`,
-    well: (value) => `takes every tube with ${value} in its sum`,
-    chartTitle: "Expected tests for 100 people",
-    axis: "pool size",
-    oneByOne: "one by one: 100",
-    best: (k) => `best: ${k}`,
-    never: "pooling never helps here",
-    thisRun: "this crowd",
+    yes: 'نعم',
+    no: 'لا',
+    // A sum such as 512 + 128 + 32 + 1 = 673, isolated so it reads left to right.
+    sum: (parts, total) => `\u2066${parts}\u00a0=\u00a0${total}\u2069`,
+    none: 'لا تجويف مضاء: لا أنبوب يتوهّج',
+    here: (tube) => `الأنبوب ${tube}`,
+    wrong: (tube) => `الأنبوب ${tube}؟ إنه لا يتوهّج`,
+    missing: (tube, tubes) => `الأنبوب ${tube}؟ عدد الأنابيب ${tubes} فقط`,
+    well: (value) => `يأخذ من كل أنبوب يضم مجموعه ${value}`,
+    chartTitle: 'الفحوص المتوقعة لكل 100 شخص',
+    axis: 'حجم الخليط',
+    oneByOne: 'كلٌّ على حدة: 100',
+    best: (k) => `الأفضل: ${k}`,
+    never: 'تجميع العيّنات لا يفيد هنا أبدًا',
+    thisRun: 'هذا الحشد',
   },
+
   readout: {
-    tests: (tests, tubes) => `<strong>${tests}</strong> tests, run at the same time. One by one would take ${tubes}.`,
-    code: (tube, bits) => `Tube ${tube} in binary: <code>${bits}</code>`,
-    lights: (bits, value) => `The lights: <code>${bits}</code> = ${value}`,
-    two: "Each well lights up if either glowing tube feeds it, so the lights show the two numbers merged: a 1 wherever either has a 1. Finding two tubes in one round takes more, cleverer tests.",
-    well: (value, count) =>
-      `This well takes a drop from every tube whose number, written as a sum of 1, 2, 4, 8, …, uses ${value}: ${count} tubes.`,
-    used: (tests) => `Tests used on this crowd: <strong>${tests}</strong>`,
-    expected: (tests) => `Expected, on average: ${tests}. One by one: 100.`,
-    best: (k, tests) => `Best pool size here: ${k}, about ${tests} tests.`,
-    never: "At this prevalence no pool size beats testing everyone separately.",
+    tests: (tests, tubes) => {
+      const n = tests.replace(',', '') * 1;
+      const k = n % 100;
+      const word =
+        n === 1
+          ? '<strong>فحص واحد</strong>'
+          : n === 2
+            ? '<strong>فحصان</strong>'
+            : k >= 3 && k <= 10
+              ? `<strong>${tests}</strong> فحوص`
+              : k >= 11
+                ? `<strong>${tests}</strong> فحصًا`
+                : `<strong>${tests}</strong> فحص`;
+      return `${word}، تُجرى كلها في الوقت نفسه. أما فحص الأنابيب واحدًا واحدًا فيحتاج إلى ${tubes}.`;
+    },
+    code: (tube, bits) => `الأنبوب ${tube} بالنظام الثنائي: <code>${bits}</code>`,
+    lights: (bits, value) => `الأضواء: \u2066<code>${bits}</code>\u00a0=\u00a0${value}\u2069`,
+    two: 'يضيء كل تجويف إذا غذّاه أيٌّ من الأنبوبين المتوهّجين، فتُظهر الأضواء العددين مدموجين: 1 حيثما كان في أحدهما 1. أما إيجاد أنبوبين في جولة واحدة فيحتاج إلى فحوص أكثر وأذكى.',
+    well: (value, count) => {
+      const n = count.replace(',', '') * 1;
+      const k = n % 100;
+      const tubes =
+        n === 1
+          ? 'أنبوب واحد'
+          : n === 2
+            ? 'أنبوبان'
+            : k >= 3 && k <= 10
+              ? `${count} أنابيب`
+              : k >= 11
+                ? `${count} أنبوبًا`
+                : `${count} أنبوب`;
+      return `يأخذ هذا التجويف قطرة من كل أنبوب يضم رقمُه ${value} حين يُكتب كمجموع من \u20661,\u00a02,\u00a04,\u00a08,\u00a0…\u2069: ${tubes}.`;
+    },
+    used: (tests) => `الفحوص المستخدمة لهذا الحشد: <strong>${tests}</strong>`,
+    expected: (tests) => `المتوقع، في المتوسط: ${tests}. كلٌّ على حدة: 100.`,
+    // The expected tests always have a decimal (19.6), so the noun stays singular.
+    best: (k, tests) => `أفضل حجم للخليط هنا: ${k}، بنحو ${tests} فحص.`,
+    never: 'بهذه النسبة من الإصابات، لا يتفوّق أي حجم للخليط على فحص كل شخص على حدة.',
   },
+
   announce: {
-    found: (tube, tests) => `${tests} tests: the lights spell ${tube}, the glowing tube.`,
-    wrong: (a, b, pointed) => `The glowing tubes are ${a} and ${b}, but the lights spell ${pointed}.`,
-    crowd: (tests, expected) => `${tests} tests for 100 people; ${expected} expected; 100 one by one.`,
+    found: (tube, tests) => {
+      const n = tests.replace(',', '') * 1;
+      const k = n % 100;
+      const word =
+        n === 1
+          ? 'فحص واحد'
+          : n === 2
+            ? 'فحصان'
+            : k >= 3 && k <= 10
+              ? `${tests} فحوص`
+              : k >= 11
+                ? `${tests} فحصًا`
+                : `${tests} فحص`;
+      return `${word}: الأضواء تكتب ${tube}، وهو الأنبوب المتوهّج.`;
+    },
+    wrong: (a, b, pointed) => `الأنبوبان المتوهّجان هما ${a} و${b}، لكن الأضواء تكتب ${pointed}.`,
+    crowd: (tests, expected) => {
+      const n = tests.replace(',', '') * 1;
+      const k = n % 100;
+      const word =
+        n === 1
+          ? 'فحص واحد'
+          : n === 2
+            ? 'فحصان'
+            : k >= 3 && k <= 10
+              ? `${tests} فحوص`
+              : k >= 11
+                ? `${tests} فحصًا`
+                : `${tests} فحص`;
+      return `${word} لحشد من 100 شخص؛ المتوقع ${expected}؛ و100 إذا فُحص كل شخص على حدة.`;
+    },
   },
+
   guests: [
     {
-      name: "Robert Dorfman",
-      note: "In 1943 he suggested pooling blood samples when screening wartime recruits for syphilis: test the pool, and retest one by one only if it is positive.",
+      name: 'روبرت دورفمان',
+      note: 'في عام 1943 اقترح خلط عيّنات الدم عند فحص المجنّدين في زمن الحرب بحثًا عن الزهري: فحص الخليط، ثم إعادة الفحص فردًا فردًا فقط إذا كان إيجابيًا.',
     },
     {
-      name: "Claude Shannon",
-      note: "He founded the mathematics of information, counted in bits. A yes-or-no answer carries at most one, so ten answers can tell apart at most 1,024 possibilities.",
+      name: 'كلود شانون',
+      note: 'أسّس رياضيات المعلومات، التي تُقاس بالبِتّات. الإجابة بنعم أو لا تحمل بِتًّا واحدًا على الأكثر، لذا تستطيع عشر إجابات أن تميّز بين 1,024 احتمالًا على الأكثر.',
     },
   ],
+
   insight: {
-    title: "How can ten tests be enough?",
-    html: `<p>Write each tube’s number as a sum of 1, 2, 4, 8, … 512, using each at most once: tube 673 is 512 + 128 + 32 + 1. That is its number in <strong>binary</strong>. The well marked 512 takes a drop from every tube whose sum uses 512, the well marked 1 from every tube whose sum uses 1 (every other tube), and so on. Only the glowing tube makes a well glow, so the lit wells are exactly the parts of its sum. Ten wells, lit or dark, spell any number up to 1,023.</p>
-<div class="insight-visual">Tube 673 = 512 + 128 + 32 + 1 = 1010100001 in binary → wells 512, 128, 32 and 1 light up</div>
-<p>Ten is also the fewest possible. Each yes/no answer can at best halve the possibilities, and there are 1,001 of them: any of the 1,000 tubes, or none. Nine answers tell apart only 512. (On a phone the rack has 63 tubes and needs six tests, for the same reason.) It’s the old puzzle of a thousand bottles and ten tasters.</p>
-<h3>Two glowing tubes</h3>
-<p>A well lights if <em>either</em> glowing tube feeds it, so the lights show both numbers merged, and spell a third tube. To find up to <em>d</em> positives in a single round, the pools must be chosen so that no tube’s wells are covered by the wells of <em>d</em> others. That needs on the order of <em>d</em>² log <em>n</em> / log <em>d</em> tests, where testing in rounds, each chosen after seeing the last, needs only about <em>d</em> log(<em>n</em>/<em>d</em>). Running everything at once has a price.</p>
-<h3>One test for many</h3>
-<p>In 1943 Robert Dorfman suggested a simpler plan for large screenings: pool the samples of <em>k</em> people, test the pool, and retest each person only if it is positive. If a share <em>p</em> of people are infected, the expected number of tests per person is 1/<em>k</em> + 1 − (1 − <em>p</em>)<sup><em>k</em></sup>. At 1% the best pool has 11 people and costs 0.196 tests each, a saving of about 80%. At 5% the best pool is 5 (0.43 tests each), at 10% it is 4 (0.59). The best size is roughly 1/√<em>p</em>. In this room’s crowd of exactly 100, pools of 10 do as well as 11 (19.6 tests), because they split the crowd evenly. The tests used by one crowd wobble around the expectation: count on the average, not a lucky run.</p>
-<h3>The cliff</h3>
-<p>As infections get commoner, more pools come back positive and need retests, and the best pool shrinks. Above 1 − 3<sup>−1/3</sup> ≈ 30.7%, no pool size beats testing everyone separately. Peter Ungar proved in 1960 that above (3 − √5)/2 ≈ 38%, <em>no</em> strategy, however clever, beats it. At the other end, information theory sets a floor: about 100·H(<em>p</em>) tests for 100 people, where H is the binary entropy, around 8 at 1%.</p>
-<h3>What this leaves out</h3>
-<p>Every test here is perfect. Real tests sometimes miss or raise false alarms, and pooling dilutes each sample: Mutesa and colleagues in Rwanda checked that a positive sample was still detected when diluted 100-fold with negative ones. The single-glowing-tube trick is fragile, and labs don’t use it as it stands. Its practical descendants are Dorfman’s pools and designs like Rwanda’s, which arranges samples on a cube-shaped grid, three points to a side, and pools each slice: the same idea as the binary wells, counted in threes. The model also treats infections as independent, while real ones cluster in households, which can actually help pooling. Dorfman made his proposal for wartime screening; this room doesn’t claim how widely it was used then.</p>
-<details><summary>The mathematics, if you want it</summary><p>Binary design: with tubes 1, …, <em>n</em>, test <em>k</em> (from 0) contains every tube whose <em>k</em>-th binary digit is 1; with exactly one positive, the results are its binary digits, and ⌈log₂(<em>n</em> + 1)⌉ tests suffice and are necessary. Dorfman: a pool of <em>k</em> costs one test, plus <em>k</em> more with chance 1 − (1 − <em>p</em>)<sup><em>k</em></sup>. Pooling helps when 1/<em>k</em> + 1 − (1 − <em>p</em>)<sup><em>k</em></sup> &lt; 1, that is (1 − <em>p</em>)<sup><em>k</em></sup> &gt; 1/<em>k</em>; the largest <em>p</em> for which some <em>k</em> works is at <em>k</em> = 3, where (1 − <em>p</em>)³ = 1/3. The room’s crowd counts its leftover pool exactly: with pools of 11, nine pools of 11 and one person tested alone. R. Dorfman, “The detection of defective members of large populations”, Ann. Math. Statist. 14 (1943) 436–440. P. Ungar, “The cutoff point for group testing”, Comm. Pure Appl. Math. 13 (1960). L. Mutesa et al., “A pooled testing strategy for identifying SARS-CoV-2 at low prevalence”, Nature 589 (2021).</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Group_testing" target="_blank" rel="noopener">Group testing</a><a class="source-link" href="https://doi.org/10.1214/aoms/1177731363" target="_blank" rel="noopener">Dorfman (1943)</a><a class="source-link" href="https://www.nature.com/articles/s41586-020-2885-5" target="_blank" rel="noopener">Mutesa et al., Nature (2021)</a><a class="source-link" href="https://arxiv.org/abs/1902.06002" target="_blank" rel="noopener">Aldridge, Johnson and Scarlett (2019)</a><a class="source-link" href="https://arxiv.org/abs/2105.08845" target="_blank" rel="noopener">Aldridge and Ellis, pooled testing in the pandemic</a></div>`,
+    title: 'كيف تكفي عشرة فحوص؟',
+    html: `<p>اكتبوا رقم كل أنبوب كمجموع من \u20661,\u00a02,\u00a04,\u00a08,\u00a0…\u00a0512\u2069، مع استخدام كلٍّ منها مرة واحدة على الأكثر: الأنبوب 673 هو \u2066512\u00a0+\u00a0128\u00a0+\u00a032\u00a0+\u00a01\u2069. هذا هو رقمه <strong>بالنظام الثنائي</strong>. التجويف الذي يحمل الرقم 512 يأخذ قطرة من كل أنبوب يضم مجموعه 512، والتجويف الذي يحمل الرقم 1 يأخذ من كل أنبوب يضم مجموعه 1 (أي من أنبوب واحد في كل اثنين)، وهكذا. الأنبوب المتوهّج وحده يجعل التجويف يتوهّج، لذا فالتجاويف المضاءة هي بالضبط أجزاء مجموعه. عشرة تجاويف، مضاءة أو مطفأة، تكتب أي عدد حتى 1,023.</p>
+<div class="insight-visual">الأنبوب \u2066673\u00a0=\u00a0512\u00a0+\u00a0128\u00a0+\u00a032\u00a0+\u00a01\u2069، أي \u20661010100001\u2069 بالنظام الثنائي ← تضيء التجاويف 512 و128 و32 و1</div>
+<p>وعشرة هو أيضًا أقل عدد ممكن. كل إجابة بنعم أو لا تستطيع في أحسن الأحوال أن تقسم الاحتمالات إلى النصف، وعددها 1,001: أيّ واحد من 1,000 أنبوب، أو لا شيء. تسع إجابات لا تميّز إلا بين 512 احتمالًا. (على الهاتف يحوي الحامل 63 أنبوبًا ويحتاج إلى ستة فحوص، للسبب نفسه.) إنها الأحجية القديمة عن ألف زجاجة وعشرة متذوّقين.</p>
+<h3>أنبوبان متوهّجان</h3>
+<p>يضيء التجويف إذا غذّاه <em>أيٌّ</em> من الأنبوبين المتوهّجين، لذا تُظهر الأضواء العددين مدموجين، فتكتب رقم أنبوب ثالث. لإيجاد ما يصل إلى <em>d</em> من العيّنات الإيجابية في جولة واحدة، يجب اختيار الخلائط بحيث لا تقع تجاويف أي أنبوب كلها ضمن تجاويف <em>d</em> من الأنابيب الأخرى. وهذا يحتاج إلى عدد من الفحوص من رتبة \u2066<em>d</em>²\u00a0log\u00a0<em>n</em>\u00a0/\u2060\u00a0log\u00a0<em>d</em>\u2069، بينما يحتاج الفحص على جولات، كل جولة تُختار بعد رؤية نتيجة سابقتها، إلى نحو \u2066<em>d</em>\u00a0log(<em>n</em>/\u2060<em>d</em>)\u2069 فقط. لإجراء كل شيء دفعة واحدة ثمن.</p>
+<h3>فحص واحد لكثيرين</h3>
+<p>في عام 1943 اقترح روبرت دورفمان خطة أبسط للفحوص الواسعة: خلط عيّنات <em>k</em> من الأشخاص، وفحص الخليط، ثم إعادة فحص كل شخص فقط إذا كان الخليط إيجابيًا. إذا كانت نسبة <em>p</em> من الناس مصابة، فالعدد المتوقع من الفحوص لكل شخص هو \u20661/\u2060<em>k</em>\u00a0+\u00a01\u00a0−\u00a0(1\u00a0−\u00a0<em>p</em>)<sup><em>k</em></sup>\u2069. عند 1% يضم أفضل خليط 11 شخصًا، ويكلّف 0.196 فحص لكل شخص، أي توفيرًا بنحو 80%. عند 5% أفضل خليط هو 5 (0.43 فحص لكل شخص)، وعند 10% هو 4 (0.59). أفضل حجم هو تقريبًا \u20661/\u2060√<em>p</em>\u2069. في حشد هذه الغرفة، المؤلف من 100 شخص بالضبط، تنجح خلائط من 10 كما تنجح خلائط من 11 (19.6 فحص)، لأنها تقسم الحشد بالتساوي. عدد الفحوص التي يستخدمها حشد واحد يتذبذب حول القيمة المتوقعة: اعتمدوا على المتوسط، لا على جولة محظوظة.</p>
+<h3>الجُرف</h3>
+<p>كلما صارت الإصابات أكثر شيوعًا، عاد مزيد من الخلائط بنتيجة إيجابية واحتاج إلى إعادة الفحص، وصغر أفضل خليط. فوق \u20661\u00a0−\u00a03<sup>−1/\u20603</sup>\u00a0≈\u00a030.7%\u2069 لا يتفوّق أي حجم للخليط على فحص كل شخص على حدة. وبرهن بيتر أونغار في عام 1960 أنه فوق \u2066(3\u00a0−\u00a0√5)/\u20602\u00a0≈\u00a038%\u2069 <em>لا</em> تتفوّق عليه أي استراتيجية، مهما كانت ذكية. وفي الطرف الآخر، تضع نظرية المعلومات حدًّا أدنى: نحو \u2066100·H(<em>p</em>)\u2069 فحص لحشد من 100 شخص، حيث H هي الإنتروبيا الثنائية، أي نحو 8 عند 1%.</p>
+<h3>ما يُغفله هذا النموذج</h3>
+<p>كل فحص هنا مثالي. الفحوص الحقيقية تُخطئ أحيانًا فتفوّت إصابة أو تطلق إنذارًا كاذبًا، والخلط يخفّف كل عيّنة: تحقّق موتيسا وزملاؤه في رواندا من أن العيّنة الإيجابية تظل قابلة للكشف حتى حين تُخفَّف 100 مرة بعيّنات سلبية. حيلة الأنبوب المتوهّج الواحد هشّة، والمختبرات لا تستخدمها كما هي. أما ما خرج منها إلى التطبيق فهو خلائط دورفمان وتصاميم مثل تصميم رواندا، الذي يرتّب العيّنات على شبكة على شكل مكعب، في كل ضلع منها ثلاث نقاط، ويخلط كل شريحة منها: الفكرة نفسها التي في التجاويف الثنائية، لكن بالعدّ في مجموعات من ثلاثة. ويعامل النموذج أيضًا الإصابات كأنها مستقلة، بينما تتجمّع الإصابات الحقيقية في البيوت، وهذا قد يساعد الخلط فعلًا. قدّم دورفمان اقتراحه لفحوص زمن الحرب؛ ولا تدّعي هذه الغرفة معرفة مدى استخدامه آنذاك.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>التصميم الثنائي: مع الأنابيب \u20661,\u00a0…,\u00a0<em>n</em>\u2069، يضم الفحص <em>k</em> (بالعدّ من 0) كل أنبوب خانته الثنائية رقم <em>k</em> تساوي 1؛ وحين تكون هناك عيّنة إيجابية واحدة بالضبط، تكون النتائج هي خاناتها الثنائية، وتكفي فحوص عددها \u2066⌈log₂(<em>n</em>\u00a0+\u00a01)⌉\u2069، ولا يمكن بأقل منها. دورفمان: خليط من <em>k</em> يكلّف فحصًا واحدًا، يضاف إليه <em>k</em> من الفحوص الأخرى باحتمال \u20661\u00a0−\u00a0(1\u00a0−\u00a0<em>p</em>)<sup><em>k</em></sup>\u2069. يفيد الخلط حين \u20661/\u2060<em>k</em>\u00a0+\u00a01\u00a0−\u00a0(1\u00a0−\u00a0<em>p</em>)<sup><em>k</em></sup>\u00a0&lt;\u00a01\u2069، أي \u2066(1\u00a0−\u00a0<em>p</em>)<sup><em>k</em></sup>\u00a0&gt;\u00a01/\u2060<em>k</em>\u2069؛ وأكبر <em>p</em> يوجد له <em>k</em> مناسب يتحقق عند \u2066<em>k</em>\u00a0=\u00a03\u2069، حيث \u2066(1\u00a0−\u00a0<em>p</em>)³\u00a0=\u00a01/\u20603\u2069. ويحسب حشد الغرفة الخليط المتبقي بدقة: مع خلائط من 11، هناك تسعة خلائط من 11 وشخص واحد يُفحص وحده. \u2066R. Dorfman, “The detection of defective members of large populations”, Ann. Math. Statist. 14 (1943) 436–440.\u2069 \u2066P. Ungar, “The cutoff point for group testing”, Comm. Pure Appl. Math. 13 (1960).\u2069 \u2066L. Mutesa et al., “A pooled testing strategy for identifying SARS-CoV-2 at low prevalence”, Nature 589 (2021).\u2069</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Group_testing" target="_blank" rel="noopener">الفحص الجماعي (بالإنجليزية)</a><a class="source-link" href="https://doi.org/10.1214/aoms/1177731363" target="_blank" rel="noopener">دورفمان (1943) (بالإنجليزية)</a><a class="source-link" href="https://www.nature.com/articles/s41586-020-2885-5" target="_blank" rel="noopener">موتيسا وزملاؤه، Nature \u200f(2021) (بالإنجليزية)</a><a class="source-link" href="https://arxiv.org/abs/1902.06002" target="_blank" rel="noopener">ألدريدج وجونسون وسكارليت (2019) (بالإنجليزية)</a><a class="source-link" href="https://arxiv.org/abs/2105.08845" target="_blank" rel="noopener">ألدريدج وإليس، الفحص المجمَّع خلال الجائحة (بالإنجليزية)</a></div>`,
   },
 });

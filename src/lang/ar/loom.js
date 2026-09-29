@@ -1,109 +1,87 @@
+/* The mathematical loom · visitor-facing words (ar). */
+// Weaving terms: shaft → «إطار» (short for «إطار الدرأ», the heald frame; the hint explains it), treadle/pedal →
+// «دوّاسة», tie-up → «جدول الربط», warp/weft → «السَّدى / اللُّحمة», float → «خيط عائم», plain weave → «النسج
+// السادة», twill → «المبرد».
 Wonderlattice.defineText('loom', 'ar', {
-  eyebrow: "WEAVING",
-  name: "The mathematical loom",
-  tagline: "Flip one square in a tiny grid of yes and no, and the whole cloth changes.",
-  title: "The mathematical loom.",
-  subtitle: "Tap squares to choose which threads rise, and watch a woven cloth grow from simple yes-or-no choices.",
-  field: "Weaving · Binary patterns · Repetition",
-  sceneLabel: "A four-shaft loom",
-  sceneName: "Cloth from a draft",
-  tip: "Left: the draft · Right: its cloth · Click the tie-up to change it, or use its squares in the panel",
-  tipStacked: "Top: the draft · Below: its cloth · Click the tie-up, or use its squares in the panel",
-  actionLabel: "Surprise me",
-  canvasLabel: "A weaving draft beside the cloth it produces. Change the tie-up by clicking it here, or with its squares in the panel.",
-  panelEyebrow: "Set up the loom",
-  whyLabel: "How does a grid make cloth?",
-  nudge: "Start with “Twill”, then switch one square of the tie-up. Every row woven with that pedal changes at once.",
+  eyebrow: 'نسج',
+  name: 'النَّول الرياضي',
+  tagline: 'اقلبوا مربعًا واحدًا في شبكة صغيرة من «نعم» و«لا»، فيتغيّر القماش كله.',
+  title: 'النَّول الرياضي.',
+  subtitle: 'انقروا على المربعات لتختاروا أي الخيوط ترتفع، وشاهدوا قماشًا منسوجًا ينمو من اختيارات بسيطة بين نعم ولا.',
+  field: 'النسج · أنماط ثنائية · التكرار',
+  sceneLabel: 'نَوْل بأربعة أطر',
+  sceneName: 'قماش من مخطط',
+  // The picture is not mirrored: the draft stays on the left.
+  tip: 'إلى اليسار: المخطط · إلى اليمين: قماشه · انقروا على جدول الربط لتغيّروه، أو استخدموا مربعاته في لوحة التحكم',
+  tipStacked: 'في الأعلى: المخطط · في الأسفل: قماشه · انقروا على جدول الربط، أو استخدموا مربعاته في لوحة التحكم',
+  actionLabel: 'مفاجأة',
+  canvasLabel: 'مخطط نسج بجانب القماش الذي ينتجه. غيّروا جدول الربط بالنقر عليه هنا، أو بمربعاته في لوحة التحكم.',
+  panelEyebrow: 'جهّزوا النَّول',
+  whyLabel: 'كيف تصنع شبكةٌ قماشًا؟',
+  nudge: 'ابدؤوا بنمط «المبرد»، ثم غيّروا مربعًا واحدًا في جدول الربط. كل صف يُنسج بتلك الدوّاسة يتغيّر دفعة واحدة.',
   connection: {
-    html: "<strong>One small rule, repeated everywhere.</strong> The tie-up decides every crossing in the cloth. In “A mind of many”, small rules between neighbours shape a whole crowd.",
-    label: "Visit “A mind of many”",
+    html: '<strong>قاعدة صغيرة واحدة، تتكرر في كل مكان.</strong> جدول الربط يحدد كل تقاطع في القماش. وفي «عقل الجماعة»، تشكّل قواعد صغيرة بين الجيران حشدًا كاملًا.',
+    label: 'زيارة «عقل الجماعة»',
   },
+
   presets: [
-    {
-      name: "Plain weave",
-      note: "Over one, under one.",
-    },
-    {
-      name: "Twill",
-      note: "A diagonal, like denim.",
-    },
-    {
-      name: "Houndstooth",
-      note: "Twill plus four dark, four light.",
-    },
-    {
-      name: "Stripes, not checks",
-      note: "Alternate the colours both ways.",
-    },
-    {
-      name: "Bird’s eye",
-      note: "Point it both ways: tiny diamonds.",
-    },
-    {
-      name: "Chevron",
-      note: "Turn the twill back on itself.",
-    },
+    { name: 'النسج السادة', note: 'فوق واحد، وتحت واحد.' },
+    { name: 'المبرد', note: 'خطوط مائلة، مثل قماش الجينز.' },
+    { name: 'أسنان الكلب', note: 'مبرد مع أربعة خيوط داكنة وأربعة فاتحة.' },
+    { name: 'خطوط لا مربعات', note: 'بدّلوا الألوان بالتناوب في الاتجاهين.' },
+    { name: 'عين الطائر', note: 'ذهاب وإياب في الاتجاهين: معيّنات صغيرة.' },
+    { name: 'شيفرون', note: 'أديروا المبرد ليرتدّ على نفسه.' },
   ],
-  tieup: "Which threads lift for each pedal (the tie-up)",
-  tieupHint: "Each shaft is a frame holding some of the lengthwise threads. A lit square means that pedal lifts that shaft.",
-  tieupCell: (pedal, shaft) => `Pedal ${pedal} lifts shaft ${shaft}`,
-  treadleLabel: (n) => `Pedal ${n}`,
-  shaftLabel: (n) => `Shaft ${n}`,
-  threading: "Thread order",
-  treadling: "Pedal order",
-  orders: [
-    "Straight",
-    "Point",
-    "Broken",
-    "Doubled",
-  ],
-  warpColours: "Long threads",
-  weftColours: "Cross threads",
-  colourOrders: [
-    "All dark",
-    "4 and 4",
-    "Alternating",
-    "2 and 2",
-    "All light",
-  ],
-  palette: "Yarn",
-  palettes: [
-    "Indigo & cream",
-    "Madder & gold",
-    "Forest & linen",
-    "Night & silver",
-  ],
+
+  tieup: 'الخيوط التي ترفعها كل دوّاسة (جدول الربط)',
+  tieupHint: 'كل إطار يحمل بعض الخيوط الطولية (خيوط السَّدى). المربع المضيء يعني أن تلك الدوّاسة ترفع ذلك الإطار.',
+  tieupCell: (pedal, shaft) => `الدوّاسة ${pedal} ترفع الإطار ${shaft}`,
+  treadleLabel: (n) => `دوّاسة ${n}`,
+  shaftLabel: (n) => `إطار ${n}`,
+  threading: 'ترتيب الخيوط',
+  treadling: 'ترتيب الدوّاسات',
+  orders: ['مستقيم', 'ذهاب وإياب', 'مكسور', 'مزدوج'],
+  warpColours: 'الخيوط الطولية',
+  weftColours: 'الخيوط العرضية',
+  colourOrders: ['كلها داكنة', '4 و4', 'بالتناوب', '2 و2', 'كلها فاتحة'],
+  palette: 'الغزل',
+  palettes: ['نيلة وقشدة', 'فُوّة وذهب', 'غابة وكتّان', 'ليل وفضة'],
+
   repeat: (across, down) =>
-    across === 1 && down === 1 ? 'One colour all over' : `Repeats every ${across} × ${down} threads`,
-  float: (n) =>
-    n === Infinity
-      ? 'A thread never interlaces here. This cloth would fall apart.'
+    across === 1 && down === 1
+      ? 'لون واحد في القماش كله'
+      : `يتكرر كل \u2066${across}\u00a0×\u00a0${down}\u2069 من الخيوط`,
+  float: (n) => {
+    const k = n % 100;
+    const threads = n === 2 ? 'خيطين' : k >= 3 && k <= 10 ? `${n} خيوط` : k >= 11 ? `${n} خيطًا` : `${n} خيط`;
+    return n === Infinity
+      ? 'هنا خيط لا يتشابك مع غيره أبدًا. كان هذا القماش سيتفكك.'
       : n === 1
-        ? 'Every thread goes over one, under one: a firm cloth.'
+        ? 'كل خيط يمر فوق واحد وتحت واحد: قماش متين.'
         : n <= 3
-          ? `Threads float over up to ${n} others: a softer, drapier cloth.`
-          : `Floats of ${n} threads: long and loose, easy to snag.`,
-  labels: {
-    draft: "DRAFT",
-    cloth: "CLOTH",
+          ? `تعوم الخيوط فوق ${threads} على الأكثر: قماش أنعم وأكثر انسدالًا.`
+          : `خيوط عائمة فوق ${threads}: طويلة ورخوة، وتعلق بالأشياء بسهولة.`;
   },
+  labels: { draft: 'المخطط', cloth: 'القماش' },
+
   guests: [
     {
-      name: "Ada Lovelace",
-      note: "She described how Babbage’s engine, steered by punched cards like a Jacquard loom, could weave patterns of algebra.",
+      name: 'آدا لوفليس',
+      note: 'وصفت كيف يمكن لآلة بابيج، التي توجّهها بطاقات مثقّبة كما في نَوْل جاكار، أن تنسج أنماطًا جبرية.',
     },
   ],
+
   insight: {
-    title: "A grid that weaves.",
-    html: `<p>Every cloth here comes from three short lists. The <em>threading</em> says which of four shafts each lengthwise (warp) thread passes through. The <em>tie-up</em> says which shafts each pedal (a treadle) lifts. The <em>treadling</em> says which pedal is pressed for each crosswise (weft) pass. Wherever a lifted warp thread crosses the weft, the warp shows on top.</p>
-<div class="insight-visual">cloth = treadling × tie-up × threading, a product of grids of 0s and 1s</div>
-<h3>Small change, whole cloth</h3>
-<p>Switch one square of the tie-up and every pass woven with that pedal changes at once. Weavers design on paper this way: the grid on the left of the picture is a real weaving draft.</p>
-<h3>Colour is a second pattern</h3>
-<p>Colour the threads too, and the weave and the colour order combine. A 2/2 twill with four dark and four light threads each way makes houndstooth. Plain weave with alternating colours makes stripes, not the check you might expect.</p>
-<h3>Floats hold cloth together</h3>
-<p>A thread that passes over several others without interlacing is a float. Short floats make firm cloth; long floats make it soft and easy to snag. A thread that never interlaces makes no cloth at all.</p>
-<details><summary>The mathematics, if you want it</summary><p>Write the threading as a grid H (warp thread j sits on shaft s), the tie-up as U (treadle t lifts shaft s), and the treadling as T (pass i uses treadle t). The cloth is D = T · U · Hᵀ, with Boolean arithmetic, where 1 + 1 = 1. Because the three lists repeat, so does the cloth: its repeat divides the least common multiple of the list lengths and colour orders.</p><p>This loom has four shafts and four treadles, like many table and floor looms. Real cloth also depends on yarn, spacing, and tension, which this picture leaves out.</p></details>
-<div class="sources"><a class="source-link" href="https://www.tandfonline.com/doi/abs/10.1080/0025570X.1980.11976845" target="_blank" rel="noopener">Satins and twills: the geometry of fabrics (Grünbaum &amp; Shephard)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Houndstooth" target="_blank" rel="noopener">How houndstooth is woven</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Lovelace/" target="_blank" rel="noopener">Ada Lovelace and the Jacquard loom</a></div>`,
+    title: 'شبكة تنسج.',
+    html: `<p>كل قماش هنا يأتي من ثلاث قوائم قصيرة. <em>ترتيب الخيوط</em> يحدد من أي إطار من الأطر الأربعة يمر كل خيط طولي (خيط السَّدى). و<em>جدول الربط</em> يحدد أي الأطر ترفعها كل دوّاسة. و<em>ترتيب الدوّاسات</em> يحدد أي دوّاسة يُضغط عليها في كل تمريرة عرضية (تمريرة اللُّحمة). وحيثما عبر خيط سدى مرفوع خيط اللحمة، يظهر السدى في الأعلى.</p>
+<div class="insight-visual">القماش = ترتيب الدوّاسات × جدول الربط × ترتيب الخيوط، وهو حاصل ضرب شبكات من الأصفار والآحاد</div>
+<h3>تغيير صغير، قماش كامل</h3>
+<p>غيّروا مربعًا واحدًا في جدول الربط، فتتغيّر دفعة واحدة كل تمريرة نُسجت بتلك الدوّاسة. هكذا يصمّم النسّاجون على الورق: الشبكة على يسار الصورة مخطط نسج حقيقي.</p>
+<h3>اللون نمط ثانٍ</h3>
+<p>لوّنوا الخيوط أيضًا، فيجتمع النسج وترتيب الألوان. نسج المبرد 2/\u20602 بأربعة خيوط داكنة وأربعة فاتحة في كل اتجاه يصنع نقشة أسنان الكلب. والنسج السادة بألوان متناوبة يصنع خطوطًا، لا المربعات التي قد تتوقعونها.</p>
+<h3>الخيوط العائمة وتماسك القماش</h3>
+<p>الخيط الذي يمر فوق عدة خيوط أخرى دون أن يتشابك معها يسمّى خيطًا عائمًا. الخيوط العائمة القصيرة تصنع قماشًا متينًا؛ والطويلة تجعله ناعمًا وسريع التعلّق بالأشياء. والخيط الذي لا يتشابك أبدًا لا يصنع قماشًا على الإطلاق.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>اكتبوا ترتيب الخيوط شبكةً H (خيط السدى j على الإطار s)، وجدول الربط U (الدوّاسة t ترفع الإطار s)، وترتيب الدوّاسات T (التمريرة i تستخدم الدوّاسة t). القماش هو \u2066D\u00a0=\u00a0T\u00a0·\u00a0U\u00a0·\u00a0Hᵀ\u2069، بالحساب البولياني الذي يكون فيه \u20661\u00a0+\u00a01\u00a0=\u00a01\u2069. ولأن القوائم الثلاث تتكرر، يتكرر القماش أيضًا: طول تكراره يقسم المضاعف المشترك الأصغر لأطوال القوائم وترتيبات الألوان.</p><p>لهذا النَّول أربعة أطر وأربع دوّاسات، مثل كثير من أنوال الطاولة والأنوال الأرضية. والقماش الحقيقي يعتمد أيضًا على الغزل والتباعد بين الخيوط وشدّها، وهذه الصورة تتركها جانبًا.</p></details>
+<div class="sources"><a class="source-link" href="https://www.tandfonline.com/doi/abs/10.1080/0025570X.1980.11976845" target="_blank" rel="noopener">\u2066Grünbaum &amp; Shephard, “Satins and twills: the geometry of fabrics”\u2069 (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Houndstooth" target="_blank" rel="noopener">كيف تُنسج نقشة أسنان الكلب (بالإنجليزية)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Lovelace/" target="_blank" rel="noopener">آدا لوفليس ونَوْل جاكار (بالإنجليزية)</a></div>`,
   },
 });

@@ -1,92 +1,121 @@
+/* Paint with motion · visitor-facing words (ar). */
 Wonderlattice.defineText('motion', 'ar', {
-  eyebrow: "GEOMETRY",
-  name: "Paint with motion",
-  tagline: "Two turning arms and a pen draw flowers, stars, and weaves.",
+  eyebrow: 'الهندسة',
+  name: 'الرسم بالحركة',
+  tagline: 'ذراعان تدوران وقلم يرسم بهما أزهارًا ونجومًا ونقوشًا متشابكة.',
   presets: [
     {
-      name: "Wildflower",
-      note: "Six petals, one line",
-      nudge: "Try changing −5 to −5.1. A tiny shift gives the flower a very different future.",
+      name: 'زهرة برّية',
+      note: 'ست بتلات، خط واحد',
+      nudge: 'جرّبوا تغيير \u2066−5\u2069 إلى \u2066−5.1\u2069. فرق ضئيل يمنح الزهرة مستقبلًا مختلفًا تمامًا.',
     },
     {
-      name: "Silken orbit",
-      note: "A loop inside a loop",
-      nudge: "Turn on the moving arms. Watch how each simple circle adds to the other.",
+      name: 'مدار حريري',
+      note: 'حلقة داخل حلقة',
+      nudge: 'أظهروا الذراعين المتحركتين. ولاحظوا كيف تضيف كل دائرة بسيطة شيئًا إلى الأخرى.',
     },
     {
-      name: "Starling",
-      note: "A soft-edged star",
-      nudge: "Move the pen reach toward 50%. Watch the soft corners turn into deep loops.",
+      name: 'زرزور',
+      note: 'نجمة بحواف ناعمة',
+      nudge: 'حرّكوا مدى القلم نحو 50%. ولاحظوا كيف تتحوّل الزوايا الناعمة إلى حلقات عميقة.',
     },
     {
-      name: "Woven light",
-      note: "Take the long way round",
-      nudge: "Use “Trace it all” to reveal the full weave. Then try −4 for a simpler relative.",
+      name: 'ضوء منسوج',
+      note: 'عبر الطريق الطويل',
+      nudge: 'استخدموا «إكمال الرسم» لتكشفوا النسيج كله. ثم جرّبوا \u2066−4\u2069 لتروا قريبًا له أبسط منه.',
     },
     {
-      name: "Almost a circle",
-      note: "A tiny change, a long story",
-      nudge: "Two almost-matching speeds slowly drift apart. Trace it all to see their whole reunion.",
+      name: 'دائرة تقريبًا',
+      note: 'تغيير صغير، وقصة طويلة',
+      nudge: 'سرعتان متطابقتان تقريبًا تتباعدان ببطء. جرّبوا «إكمال الرسم» لتروا طريقهما كله حتى تلتقيا من جديد.',
     },
     {
-      name: "Ribbons",
-      note: "Find the hidden rhythm",
-      nudge: "Try a different starting angle. The rhythm stays the same while the drawing turns.",
+      name: 'أشرطة',
+      note: 'ابحثوا عن الإيقاع الخفي',
+      nudge: 'جرّبوا زاوية بداية أخرى. يبقى الإيقاع كما هو، بينما يدور الرسم.',
     },
   ],
-  paletteNames: [
-    "Aurora",
-    "Ember",
-    "Glacier",
-    "Moonlight",
-  ],
+  paletteNames: ['شفق قطبي', 'جمر', 'نهر جليدي', 'ضوء القمر'],
   names: {
-    own: "Your own orbit",
-    surprise: "A happy accident",
-    shared: "A shared orbit",
+    own: 'مداركم الخاص',
+    surprise: 'صدفة سعيدة',
+    shared: 'مدار شاركه أحدهم معكم',
   },
   nudges: {
-    whole: "Try nudging the rotation away from a whole number. Watch the path take a longer way home.",
-    traceAll: "Try “Trace it all” to see the entire pattern. Every setting here eventually closes its loop.",
-    surprise: "Something new, just for you. Change one thing and see where it leads.",
-    shared: "Someone left you a pattern. Try changing one thing to make it yours.",
-    revisit: "A familiar pattern can still have a surprise. Change one thing and look again.",
+    whole: 'جرّبوا أن تُبعدوا الدوران قليلًا عن العدد الصحيح. وانظروا كيف يسلك المسار طريقًا أطول إلى البيت.',
+    traceAll: 'جرّبوا «إكمال الرسم» لتروا النمط كله. كل إعداد هنا يُغلق حلقته في النهاية.',
+    surprise: 'شيء جديد، لكم وحدكم. غيّروا شيئًا واحدًا وانظروا إلى أين يقودكم.',
+    shared: 'ترك لكم أحدهم نمطًا. جرّبوا تغيير شيء واحد فيه ليصبح نمطكم.',
+    revisit: 'حتى النمط المألوف قد يخبّئ مفاجأة. غيّروا شيئًا واحدًا وانظروا من جديد.',
   },
   status: {
-    complete: "The loop is complete",
-    oneTurn: "One turn. A whole world.",
-    turns: (n) => `${n} outer turns to reunite`,
+    complete: 'اكتملت الحلقة',
+    oneTurn: 'دورة واحدة. عالم كامل.',
+    // A count of outer turns (دورة is feminine): 2 → dual, 3–10 → plural, 11 and more → singular.
+    turns: (n) => {
+      const k = n % 100;
+      const shown = n.toLocaleString('en');
+      return n === 1
+        ? 'دورة خارجية واحدة حتى تلتقيا'
+        : n === 2
+          ? 'دورتان خارجيتان حتى تلتقيا'
+          : k >= 3 && k <= 10
+            ? `${shown} دورات خارجية حتى تلتقيا`
+            : `${shown} دورة خارجية حتى تلتقيا`;
+    },
   },
-  explainStill: "The inner arm holds its direction while the outer arm turns. The pen traces a shifted circle.",
-  explain: (k, outer, inner, opposite) =>
-    `At ${k}×, both arms return to their starting positions after ${outer} outer ${outer === 1 ? 'turn' : 'turns'} and ${inner} inner ${inner === 1 ? 'turn' : 'turns'}. ${opposite ? 'They turn in opposite directions.' : 'They turn in the same direction.'}`,
+  explainStill: 'تحافظ الذراع الداخلية على اتجاهها بينما تدور الذراع الخارجية. فيرسم القلم دائرة مُزاحة.',
+  // Both counts follow «بعد», so the dual is دورتين.
+  explain: (k, outer, inner, opposite) => {
+    const o = outer % 100;
+    const i = inner % 100;
+    const outerShown = outer.toLocaleString('en');
+    const innerShown = inner.toLocaleString('en');
+    const outerTurns =
+      outer === 1
+        ? 'دورة خارجية واحدة'
+        : outer === 2
+          ? 'دورتين خارجيتين'
+          : o >= 3 && o <= 10
+            ? `${outerShown} دورات خارجية`
+            : `${outerShown} دورة خارجية`;
+    const innerTurns =
+      inner === 1
+        ? 'ودورة داخلية واحدة'
+        : inner === 2
+          ? 'ودورتين داخليتين'
+          : i >= 3 && i <= 10
+            ? `و${innerShown} دورات داخلية`
+            : `و${innerShown} دورة داخلية`;
+    return `عند \u2066${k}×\u2069، تعود الذراعان كلتاهما إلى وضع البداية بعد ${outerTurns} ${innerTurns}. ${opposite ? 'وهما تدوران في اتجاهين متعاكسين.' : 'وهما تدوران في الاتجاه نفسه.'}`;
+  },
   play: {
-    pause: "Pause",
-    play: "Play",
-    replay: "Replay",
+    pause: 'إيقاف مؤقت',
+    play: 'تشغيل',
+    replay: 'إعادة التشغيل',
   },
   focus: {
-    enter: "Enter focus view",
-    leave: "Leave focus view",
-    title: "Focus view",
+    enter: 'الدخول إلى وضع التركيز',
+    leave: 'الخروج من وضع التركيز',
+    title: 'وضع التركيز',
   },
-  rotationRange: "Choose a rotation between −10 and 10.",
-  saved: "Your drawing is ready to save.",
-  saveFailed: "The image could not be saved. Please try again.",
+  rotationRange: 'اختاروا دورانًا بين \u2066−10\u2069 و10.',
+  saved: 'رسمكم جاهز للحفظ.',
+  saveFailed: 'تعذّر حفظ الصورة. حاولوا مجددًا.',
   shareText: (k, r, p, ink) =>
-    `Wonderlattice · Paint with motion\nInner rotation: ${k}×\nPen reach: ${r}%\nStarting angle: ${p}°\nInk: ${ink}`,
-  linkCopied: "Pattern link copied.",
-  settingsCopied: "Pattern settings copied.",
-  linkDescription: "Copy this link to reopen the same pattern.",
-  settingsDescription: "Copy these settings to recreate your pattern.",
+    `Wonderlattice · الرسم بالحركة\nالدوران الداخلي: \u2066${k}×\u2069\nمدى القلم: ${r}%\nزاوية البداية: ${p}°\nالحبر: ${ink}`,
+  linkCopied: 'تم نسخ رابط النمط.',
+  settingsCopied: 'تم نسخ إعدادات النمط.',
+  linkDescription: 'انسخوا هذا الرابط لتفتحوا النمط نفسه من جديد.',
+  settingsDescription: 'انسخوا هذه الإعدادات لتعيدوا رسم نمطكم.',
   guests: [
     {
-      name: "Emmy Noether",
-      note: "A hidden symmetry can reveal something that never changes.",
+      name: 'إيمي نويتر',
+      note: 'تماثل خفي قد يكشف عن شيء لا يتغيّر أبدًا.',
     },
     {
-      name: "Leonhard Euler",
-      note: "Circles and exponentials share a rather elegant dance.",
+      name: 'ليونهارد أويلر',
+      note: 'للدوائر والدوال الأسية رقصة مشتركة، وهي رقصة أنيقة حقًا.',
     },
   ],
 });

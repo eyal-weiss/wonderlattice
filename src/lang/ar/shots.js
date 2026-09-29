@@ -1,88 +1,104 @@
+/* Two players, three leaderboards · visitor-facing words (ar). */
 Wonderlattice.defineText('shots', 'ar', {
-  eyebrow: "STATISTICS",
-  name: "Two players, three leaderboards",
-  tagline: "A shooter can win close range and win far range, yet lose overall.",
-  title: "Two players, three leaderboards.",
-  subtitle: "Two players shoot from close and far. Change how many easy and hard shots each one takes, and watch the overall leaderboard flip.",
-  field: "Statistics · Weighted averages · A little surprise",
-  sceneLabel: "One court · Two players · Three leaderboards",
-  sceneName: "The shot mix",
-  tip: "Drag the sliders to change how many close and far shots each player takes",
-  actionLabel: "Swap the shot mix",
-  canvasLabel: "A basketball court with each player’s close and far shots as dots, and close, far, and overall leaderboards.",
-  panelEyebrow: "Change the shot mix",
-  whyLabel: "How could that happen?",
-  nudge: "Give player A mostly far shots and player B mostly close shots. Watch the overall leaderboard flip, even though neither player’s skill changed.",
+  eyebrow: 'الإحصاء',
+  name: 'لاعبان وثلاث لوحات صدارة',
+  tagline: 'قد يفوز لاعب في التسديد من قريب، ويفوز من بعيد، ومع ذلك يخسر في المجموع.',
+  title: 'لاعبان وثلاث لوحات صدارة.',
+  subtitle:
+    'لاعبان يسدّدان من قريب ومن بعيد. غيّروا عدد التسديدات السهلة والصعبة لكل منهما، وشاهدوا لوحة الصدارة الإجمالية تنقلب.',
+  field: 'الإحصاء · المتوسطات الموزونة · مفاجأة صغيرة',
+  sceneLabel: 'ملعب واحد · لاعبان · ثلاث لوحات صدارة',
+  sceneName: 'مزيج التسديدات',
+  tip: 'اسحبوا المنزلقات لتغيّروا عدد التسديدات القريبة والبعيدة لكل لاعب',
+  actionLabel: 'تبديل مزيج التسديدات',
+  canvasLabel:
+    'ملعب كرة سلة تظهر فيه تسديدات كل لاعب، القريبة والبعيدة، نقاطًا، وبجانبه لوحات صدارة للتسديدات القريبة والبعيدة وللمجموع.',
+  panelEyebrow: 'غيّروا مزيج التسديدات',
+  whyLabel: 'كيف يمكن أن يحدث هذا؟',
+  nudge:
+    'أعطوا اللاعب أ تسديدات بعيدة في الغالب، واللاعب ب تسديدات قريبة في الغالب. شاهدوا لوحة الصدارة الإجمالية تنقلب، مع أن مهارة اللاعبين لم تتغيّر.',
   connection: {
-    html: "<strong>A combined number can hide what’s inside it.</strong> Here, an overall percentage is a weighted average, and the weights are the mix of shots.",
-    label: "Follow another surprise",
+    html: '<strong>العدد الإجمالي قد يخفي ما في داخله.</strong> هنا النسبة الإجمالية متوسط موزون، والأوزان هي مزيج التسديدات.',
+    label: 'الانتقال إلى مفاجأة أخرى',
   },
   presets: [
     {
-      name: "Even mix",
-      note: "The better player wins overall too.",
-      badge: "Even",
+      name: 'مزيج متساوٍ',
+      note: 'اللاعب الأفضل يفوز في المجموع أيضًا.',
+      badge: 'متساوٍ',
     },
     {
-      name: "Skewed mix",
-      note: "Try the surprise.",
-      badge: "Skewed",
+      name: 'مزيج مائل',
+      note: 'جرّبوا المفاجأة.',
+      badge: 'مائل',
     },
     {
-      name: "Extreme mix",
-      note: "How far can the gap stretch?",
-      badge: "Extreme",
+      name: 'مزيج متطرّف',
+      note: 'إلى أي حدّ يمكن أن تتّسع الفجوة؟',
+      badge: 'متطرّف',
     },
   ],
+  // Arabic letters for the players, as Hebrew uses its own (اللاعب أ، اللاعب ب).
   players: {
-    a: "Player A",
-    b: "Player B",
+    a: 'اللاعب أ',
+    b: 'اللاعب ب',
   },
   short: {
-    a: "A",
-    b: "B",
+    a: 'أ',
+    b: 'ب',
   },
-  closeLabel: "Close range",
-  farLabel: "Far range",
-  overallLabel: "Overall",
-  attemptsHint: "How many shots of this type?",
-  makesOf: (makes, attempts) => `${makes} of ${attempts}`,
+  closeLabel: 'من قريب',
+  farLabel: 'من بعيد',
+  overallLabel: 'في المجموع',
+  attemptsHint: 'كم تسديدة من هذا النوع؟',
+  makesOf: (makes, attempts) => `${makes} من ${attempts}`,
   percent: (pct) => `${Math.round(pct * 100)}%`,
   verdict: {
-    tied: "Both players are level overall.",
-    aWins: "Player A leads overall.",
-    bWins: "Player B leads overall.",
-    reversal: (winner) => `${winner} wins both close and far range, yet trails overall.`,
+    tied: 'اللاعبان متعادلان في المجموع.',
+    aWins: 'اللاعب أ متقدّم في المجموع.',
+    bWins: 'اللاعب ب متقدّم في المجموع.',
+    reversal: (winner) => `${winner} يفوز من قريب ومن بعيد معًا، ومع ذلك يتأخر في المجموع.`,
   },
+  // One dot stands for 1 to 50 shots: تسديدة takes the dual, the plural (3–10) or the singular (11 and more).
   legend: {
-    made: "made",
-    missed: "missed",
-    perDot: (n) => (n === 1 ? 'one dot per shot' : `one dot ≈ ${n} shots`),
+    made: 'ناجحة',
+    missed: 'ضائعة',
+    perDot: (n) => {
+      const k = n % 100;
+      const shown = n.toLocaleString('en');
+      return n === 1
+        ? 'نقطة لكل تسديدة'
+        : n === 2
+          ? 'نقطة ≈ تسديدتان'
+          : k >= 3 && k <= 10
+            ? `نقطة ≈ ${shown} تسديدات`
+            : `نقطة ≈ ${shown} تسديدة`;
+    },
   },
   labels: {
-    caption: "Each player’s overall percentage is their combined makes over their combined attempts.",
+    caption: 'النسبة الإجمالية لكل لاعب هي مجموع تسديداته الناجحة مقسومًا على مجموع محاولاته.',
   },
   guests: [
     {
-      name: "Edward H. Simpson",
-      note: "A trend in every group can reverse once the groups are combined.",
+      name: 'إدوارد سيمبسون',
+      note: 'الاتجاه الذي يظهر في كل مجموعة قد ينقلب حين تُدمج المجموعات معًا.',
     },
     {
-      name: "George Udny Yule",
-      note: "The same reversal turns up wherever a combined rate hides an unequal mix.",
+      name: 'جورج أودني يول',
+      note: 'الانقلاب نفسه يظهر حيثما تخفي نسبة إجمالية مزيجًا غير متكافئ.',
     },
   ],
   insight: {
-    title: "Why can the better player lose overall?",
-    html: `<p>An overall shooting percentage is not the average of two percentages. It is total makes divided by total attempts, so it is a <em>weighted</em> average, weighted by how many shots came from each range. When the two players take very different mixes of close and far shots, that weighting can favour the player who is behind in both individual categories.</p>
-<div class="insight-visual">Same skill at each distance, different mix of shots, different overall leader.</div>
-<h3>Try an even mix</h3>
-<p>Give both players the same split of close and far attempts. The better player in both categories now also wins overall. The reversal only appears once the mix differs.</p>
-<h3>A real case: Berkeley, 1973</h3>
-<p>The University of California, Berkeley saw an overall graduate admission rate that appeared to favour men. Looking department by department, most departments showed no bias against women, or a small bias favouring them. Women had applied in greater numbers to more competitive departments with lower admission rates for everyone, which pulled down their combined rate. Which number to trust depends on knowing why the mix differed, not only on the arithmetic.</p>
-<h3>What this model assumes</h3>
-<p>Each player has a fixed make rate at each distance, applied to however many shots you give them. This is a simplified, illustrative model of the arithmetic behind the paradox, not a simulation of real shooting or real admissions decisions.</p>
-<details><summary>The mathematics, if you want it</summary><p>For a player with <code>c</code> close makes out of <code>C</code> close attempts and <code>f</code> far makes out of <code>F</code> far attempts, the overall rate is (c + f) / (C + F), not the average of c/C and f/F. Two players can each have a higher c/C and a higher f/F than the other, while the other has a higher (c + f) / (C + F), whenever the attempt counts C and F differ enough between them.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Simpson%27s_paradox" target="_blank" rel="noopener">Simpson's paradox (Wikipedia)</a> · <a class="source-link" href="https://www.science.org/doi/10.1126/science.187.4175.398" target="_blank" rel="noopener">Bickel, Hammel & O'Connell, "Sex bias in graduate admissions: data from Berkeley," Science 187 (1975)</a></div>`,
+    title: 'لماذا قد يخسر اللاعب الأفضل في المجموع؟',
+    html: `<p>نسبة التسديد الإجمالية ليست متوسط نسبتين. إنها مجموع التسديدات الناجحة مقسومًا على مجموع المحاولات، ولذلك فهي متوسط <em>موزون</em>، أوزانه عدد التسديدات من كل مسافة. حين يسدّد اللاعبان مزيجين مختلفين جدًا من التسديدات القريبة والبعيدة، قد يصبّ هذا الوزن في مصلحة اللاعب المتأخر في الفئتين كلتيهما.</p>
+<div class="insight-visual">المهارة نفسها في كل مسافة، ومزيج تسديدات مختلف، ومتصدّر مختلف في المجموع.</div>
+<h3>جرّبوا مزيجًا متساويًا</h3>
+<p>أعطوا اللاعبَين التقسيم نفسه بين المحاولات القريبة والبعيدة. الآن يفوز اللاعب الأفضل في الفئتين في المجموع أيضًا. لا يظهر الانقلاب إلا حين يختلف المزيج.</p>
+<h3>حالة حقيقية: بيركلي، 1973</h3>
+<p>في جامعة كاليفورنيا في بيركلي، بدا أن نسبة القبول الإجمالية في الدراسات العليا تفضّل الرجال. لكن عند النظر قسمًا قسمًا، لم تُظهر معظم الأقسام انحيازًا ضد النساء، أو أظهرت انحيازًا صغيرًا لصالحهن. فقد تقدّمت النساء بأعداد أكبر إلى أقسام أشدّ تنافسًا، نسبة القبول فيها منخفضة للجميع، وهذا خفّض نسبتهن الإجمالية. بأيّ العددين نثق؟ هذا يتوقف على معرفة سبب اختلاف المزيج، لا على الحساب وحده.</p>
+<h3>ما يفترضه هذا النموذج</h3>
+<p>لكل لاعب نسبة نجاح ثابتة في كل مسافة، تنطبق على أي عدد من التسديدات تعطونه إياه. هذا نموذج مبسّط يوضّح الحساب الكامن وراء المفارقة، وليس محاكاة لتسديد حقيقي أو لقرارات قبول حقيقية.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>للاعب نجح في <code>c</code> من أصل <code>C</code> محاولة قريبة، وفي <code>f</code> من أصل <code>F</code> محاولة بعيدة، تكون النسبة الإجمالية \u2066(c\u00a0+\u00a0f)\u00a0/\u00a0(C\u00a0+\u00a0F)\u2069، لا متوسط \u2066c/C\u2069 و\u2066f/F\u2069. يمكن أن تكون نسبتا \u2066c/C\u2069 و\u2066f/F\u2069 لأحد اللاعبين أعلى من نسبتي الآخر، بينما تكون \u2066(c\u00a0+\u00a0f)\u00a0/\u00a0(C\u00a0+\u00a0F)\u2069 للآخر أعلى، متى اختلف عددا المحاولات C وF بين اللاعبين بما يكفي.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Simpson%27s_paradox" target="_blank" rel="noopener">مفارقة سيمبسون، ويكيبيديا (بالإنجليزية)</a> · <a class="source-link" href="https://www.science.org/doi/10.1126/science.187.4175.398" target="_blank" rel="noopener">\u2066Bickel, Hammel & O’Connell, “Sex bias in graduate admissions: data from Berkeley,” Science 187 (1975)\u2069 (بالإنجليزية)</a></div>`,
   },
 });

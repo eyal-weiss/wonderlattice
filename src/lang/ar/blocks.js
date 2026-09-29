@@ -1,68 +1,87 @@
+/* The leaning tower of blocks · visitor-facing words (ar). */
 Wonderlattice.defineText('blocks', 'ar', {
-  eyebrow: "PHYSICS & MATHS",
-  name: "The leaning tower of blocks",
-  tagline: "How far can a stack of blocks reach past the edge?",
-  title: "The leaning tower of blocks.",
-  subtitle: "Stack blocks at the edge of a table, each one sticking out a little further. How far past the edge can the top one reach?",
-  field: "Centre of mass · Harmonic series · A slow surprise",
-  sceneLabel: "A table edge · Blocks to stack",
-  sceneName: (n) => (n === 0 ? 'Empty table' : 'Stacked blocks'),
-  tip: "Drag a block onto the stack, or use arrow keys to nudge the top block. Press B for Best Stack.",
-  actionLabel: "Best Stack",
-  lengthsLabel: (oh) => `${oh.toFixed(2)} lengths`,
-  canvasLabel: "A table with blocks stacked at its edge. Drag blocks to adjust their positions. The stack tips if the centre of mass goes past the support.",
-  panelEyebrow: "Adjust the stack",
-  whyLabel: "Why can it reach so far?",
-  nudge: "Start with a few blocks. Can 4 blocks send the top one entirely past the edge? Try 31 blocks for two lengths.",
+  eyebrow: 'الفيزياء والرياضيات',
+  name: 'برج المكعبات المائل',
+  tagline: 'إلى أي مدى يمكن لبرج من المكعبات أن يمتد خارج الحافة؟',
+  title: 'برج المكعبات المائل.',
+  subtitle:
+    'كدّسوا المكعبات على حافة طاولة، كل مكعب يبرز أبعد قليلًا من الذي تحته. إلى أي مدى يمكن للمكعب العلوي أن يتجاوز الحافة؟',
+  field: 'مركز الكتلة · المتسلسلة التوافقية · مفاجأة بطيئة',
+  sceneLabel: 'حافة طاولة · مكعبات للتكديس',
+  sceneName: (n) => (n === 0 ? 'طاولة فارغة' : 'مكعبات مكدّسة'),
+  tip: 'اسحبوا مكعبًا إلى البرج، أو حرّكوا المكعب العلوي قليلًا بمفاتيح الأسهم. اضغطوا B لبناء «أفضل برج».',
+  actionLabel: 'أفضل برج',
+  // A length with decimals, so the noun stays singular.
+  lengthsLabel: (oh) => `${oh.toFixed(2)} طول مكعب`,
+  canvasLabel:
+    'طاولة عليها مكعبات مكدّسة عند حافتها. اسحبوا المكعبات لتعديل مواضعها. يسقط البرج إذا تجاوز مركز الكتلة ما يسنده.',
+  panelEyebrow: 'تعديل البرج',
+  whyLabel: 'لماذا يستطيع أن يمتد إلى هذا الحدّ؟',
+  nudge:
+    'ابدؤوا ببضعة مكعبات. هل تستطيع 4 مكعبات أن تُخرج المكعب العلوي كله خارج الحافة؟ جرّبوا 31 مكعبًا لتبلغوا طولين.',
+
   connection: {
-    html: "<strong>A simple argument behind a surprise.</strong> Here, balancing each block on the one below explains how far a stack can lean. In The impossible floor, colouring the squares shows why some floors can never be tiled.",
-    label: "See the impossible floor",
+    html: '<strong>حجة بسيطة وراء مفاجأة.</strong> هنا، موازنة كل مكعب على الذي تحته تشرح إلى أي حدّ يمكن للبرج أن يميل. وفي «الأرضية المستحيلة»، يُظهر تلوين المربعات لماذا لا يمكن تبليط بعض الأرضيات أبدًا.',
+    label: 'رؤية الأرضية المستحيلة',
   },
+
   presets: [
-    {
-      name: "4 blocks",
-      note: "The top block can clear the table edge.",
-    },
-    {
-      name: "31 blocks",
-      note: "Two block-lengths of overhang.",
-    },
-    {
-      name: "Best Stack",
-      note: "Every block at its ideal position.",
-    },
+    { name: '4 مكعبات', note: 'يستطيع المكعب العلوي أن يتجاوز حافة الطاولة بكامله.' },
+    { name: '31 مكعبًا', note: 'بروز بطول مكعبين.' },
+    { name: 'أفضل برج', note: 'كل مكعب في موضعه المثالي.' },
   ],
-  blocks: "Blocks",
-  blocksHint: "How many blocks in the stack",
-  status: (n, overhang) => `${n} block${n === 1 ? '' : 's'} · ${overhang.toFixed(2)} block-lengths out`,
-  toppled: "The stack has toppled.",
-  milestones: {
-    m1: "Top block fully past the edge",
-    m2: "Two block-lengths of overhang",
-    m3: "Three block-lengths",
+
+  blocks: 'المكعبات',
+  blocksHint: 'كم مكعبًا في البرج',
+
+  status: (n, overhang) => {
+    const k = n % 100;
+    const blocks =
+      n === 0
+        ? 'لا مكعبات'
+        : n === 1
+          ? 'مكعب واحد'
+          : n === 2
+            ? 'مكعبان'
+            : k >= 3 && k <= 10
+              ? `${n} مكعبات`
+              : k >= 11
+                ? `${n} مكعبًا`
+                : `${n} مكعب`;
+    return `${blocks} · ${overhang.toFixed(2)}\u00a0طول\u00a0مكعب خارج الحافة`;
   },
-  bestLabel: "Best Stack",
-  resetLabel: "Start again",
+  toppled: 'سقط البرج.',
+
+  milestones: {
+    m1: 'المكعب العلوي خارج الحافة كليًا',
+    m2: 'بروز بطول مكعبين',
+    m3: 'بطول ثلاثة مكعبات',
+  },
+
+  bestLabel: 'أفضل برج',
+  resetLabel: 'إعادة البدء',
+
   guests: [
     {
-      name: "Nicole Oresme",
-      note: "Around 1350, Oresme proved the harmonic series diverges — meaning the overhang has no limit.",
+      name: 'نيكول أوريسم',
+      note: 'نحو عام 1350، برهن أوريسم أن المتسلسلة التوافقية متباعدة، أي أن البروز لا حدّ له.',
     },
     {
-      name: "Leonhard Euler",
-      note: "Euler studied the harmonic series deeply, including how painfully slowly it grows.",
+      name: 'ليونهارد أويلر',
+      note: 'درس أويلر المتسلسلة التوافقية بعمق، ومن ذلك بطؤها المؤلم في النمو.',
     },
   ],
+
   insight: {
-    title: "Why can a stack reach as far as you like?",
-    html: `<p>Each block rests stably on the one below as long as the combined <strong>centre of mass</strong> of all blocks above any interface sits over its support. Stack them greedily from the top down: the top block can lean out by ½ its length, the next by ¼, then ⅙, and so on.</p>
-<p>The total overhang after <em>n</em> blocks is ½(1 + ½ + ⅓ + … + 1/<em>n</em>) — half the <em>n</em>th partial sum of the <strong>harmonic series</strong>. The series diverges, so the overhang is unbounded. But it grows like ½ ln <em>n</em>: agonisingly slowly.</p>
-<div class="insight-visual">4 blocks → 1 block-length out. 31 blocks → 2. 227 blocks → 3.</div>
-<h3>The counting</h3>
-<p>It takes exactly 4 blocks for the top one to clear the table edge (overhang > 1), 31 for two lengths, and 227 for three. Each extra block-length demands roughly <em>e</em><sup>2</sup> ≈ 7.4× more blocks than the last.</p>
-<h3>What this model assumes</h3>
-<p>Idealised blocks: rigid, perfectly uniform, frictionless contact. Real books slide and bend. The single-file arrangement shown here is not the most efficient for many blocks: Paterson and Zwick (2009) found arrangements using several blocks per layer whose overhang grows like <em>n</em><sup>1/3</sup> rather than log <em>n</em>.</p>
-<details><summary>The mathematics, if you want it</summary><p>Let <em>c<sub>k</sub></em> be the centre of block <em>k</em> counting from the top (block 1 = top). The top block alone can be shifted until its centre of mass is directly over the right edge of block 2, giving overhang ½. Then the combined centre of mass of blocks 1 and 2 must be over block 3's right edge, giving an additional ¼. By induction the optimal offset for block <em>k</em> from block <em>k</em>+1 is 1/(2<em>k</em>), and the total overhang is ½ · H(<em>n</em>) where H(<em>n</em>) is the <em>n</em>th harmonic number.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Block-stacking_problem" target="_blank" rel="noopener">Block-stacking problem (Wikipedia)</a> · <a class="source-link" href="https://arxiv.org/abs/0710.2357" target="_blank" rel="noopener">Paterson &amp; Zwick, "Overhang" (2009)</a></div>`,
+    title: 'لماذا يبلغ البرج أي بُعد تريدونه؟',
+    html: `<p>يستقر كل مكعب على الذي تحته ما دام <strong>مركز الكتلة</strong> المشترك لكل المكعبات فوق أي سطح تلامس يقع فوق ما يسنده. كدّسوها من الأعلى إلى الأسفل، وأخرجوا كل مكعب أبعد ما يمكن: يستطيع المكعب العلوي أن يبرز بمقدار ½ طوله، والذي يليه بمقدار ¼، ثم ⅙، وهكذا.</p>
+<p>البروز الكلي بعد <em>n</em> من المكعبات هو \u2066½(1\u00a0+\u00a0½\u00a0+\u00a0⅓\u00a0+\u00a0…\u00a0+\u00a01/\u2060<em>n</em>)\u2069: نصف المجموع الجزئي رقم <em>n</em> من <strong>المتسلسلة التوافقية</strong>. هذه المتسلسلة متباعدة، لذا فالبروز غير محدود. لكنه ينمو مثل \u2066½\u00a0ln\u00a0<em>n</em>\u2069: ببطء مؤلم.</p>
+<div class="insight-visual">4\u00a0مكعبات ← بروز بطول مكعب واحد. 31\u00a0مكعبًا ← 2. 227\u00a0مكعبًا ← 3.</div>
+<h3>العدّ</h3>
+<p>يلزم 4 مكعبات بالضبط كي يتجاوز المكعب العلوي حافة الطاولة (أي بروز أكبر من 1)، و31 لطولين، و227 لثلاثة. ويحتاج كل طول مكعب إضافي إلى نحو \u2066<em>e</em><sup>2</sup>\u00a0≈\u00a07.4\u2069 ضعف عدد المكعبات الذي احتاجه الطول السابق.</p>
+<h3>ما يفترضه هذا النموذج</h3>
+<p>مكعبات مثالية: صلبة، متجانسة تمامًا، وتلامس بلا احتكاك. الكتب الحقيقية تنزلق وتنثني. والترتيب المعروض هنا، بمكعب واحد في كل طبقة، ليس الأكفأ حين تكثر المكعبات: وجد باترسون وزويك (2009) ترتيبات فيها عدة مكعبات في كل طبقة، ينمو بروزها مثل \u2066<em>n</em><sup>1/\u20603</sup>\u2069 لا مثل \u2066log\u00a0<em>n</em>\u2069.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>ليكن \u2066<em>c<sub>k</sub></em>\u2069 مركز المكعب <em>k</em> بالعدّ من الأعلى (المكعب 1 هو العلوي). يمكن إزاحة المكعب العلوي وحده حتى يقع مركز كتلته فوق الحافة اليمنى للمكعب 2 تمامًا، فيكون البروز ½. ثم يجب أن يقع مركز الكتلة المشترك للمكعبين 1 و2 فوق الحافة اليمنى للمكعب 3، فيضيف ذلك ¼. وبالاستقراء، الإزاحة المثلى للمكعب <em>k</em> عن المكعب \u2066<em>k</em>+1\u2069 هي \u20661/\u2060(2<em>k</em>)\u2069، والبروز الكلي هو \u2066½\u00a0·\u00a0H(<em>n</em>)\u2069 حيث \u2066H(<em>n</em>)\u2069 هو العدد التوافقي رقم <em>n</em>.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Block-stacking_problem" target="_blank" rel="noopener">مسألة تكديس المكعبات (ويكيبيديا، بالإنجليزية)</a> · <a class="source-link" href="https://arxiv.org/abs/0710.2357" target="_blank" rel="noopener">باترسون وزويك، \u2066“Overhang”\u2069 \u200f(2009) (بالإنجليزية)</a></div>`,
   },
 });

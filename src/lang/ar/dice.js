@@ -1,141 +1,142 @@
+/* The dice that beat each other · visitor-facing words (ar). */
 Wonderlattice.defineText('dice', 'ar', {
-  eyebrow: "COUNTING",
-  name: "The dice that beat each other",
-  tagline: "Pick any die. There is always one that beats it.",
-  title: "The dice that beat each other.",
-  subtitle: "Pick any of these odd dice, then I pick mine and we roll. Whichever you choose, another one tends to beat it.",
-  field: "Probability · Counting · A little surprise",
-  sceneLabel: "Odd dice · One circle",
-  tip: "Tap a die in the circle, or press ← and →, to pick yours · Each arrow points from winner to loser",
-  actionLabel: "Roll 100 times",
-  canvasLabel: "Two dice rolled against each other, a tally of wins, the running share of wins, and a circle of arrows showing which die usually beats which. Tap a die in the circle, or use the left and right arrow keys, to pick your die.",
-  panelEyebrow: "Choose, then roll",
-  whyLabel: "How can every die lose?",
-  nudge: "Try each die in turn. Every time, I find one that beats yours. Is there a die I can’t beat?",
+  eyebrow: 'العدّ',
+  name: 'أحجار نرد يغلب بعضها بعضًا',
+  tagline: 'اختاروا أي نرد. هناك دائمًا نرد يغلبه.',
+  title: 'أحجار نرد يغلب بعضها بعضًا.',
+  subtitle:
+    'اختاروا أيًّا من أحجار النرد الغريبة هذه، ثم أختار نردي ونرمي. أيًّا كان اختياركم، فغالبًا ما يغلبه نرد آخر.',
+  field: 'الاحتمالات · العدّ · مفاجأة صغيرة',
+  sceneLabel: 'أحجار نرد غريبة · دائرة واحدة',
+  tip: 'انقروا على نرد في الدائرة، أو اضغطوا ← و→، لتختاروا نردكم · كل سهم يشير من الفائز إلى الخاسر',
+  actionLabel: '100 رمية',
+  canvasLabel:
+    'حجرا نرد في مواجهة، وعدد مرات فوز كل منهما، ونسبة الفوز المتراكمة، ودائرة من الأسهم تبيّن أي نرد يغلب الآخر عادةً. انقروا على نرد في الدائرة، أو استعملوا مفتاحي السهمين الأيمن والأيسر، لتختاروا نردكم.',
+  panelEyebrow: 'اختاروا، ثم ارموا',
+  whyLabel: 'كيف يمكن لكل نرد أن يخسر؟',
+  nudge: 'جرّبوا كل نرد بدوره. في كل مرة أجد نردًا يغلب نردكم. هل هناك نرد لا أستطيع أن أغلبه؟',
   connection: {
-    html: "<strong>Intuition, gently overturned.</strong> Here, “better” goes round in a circle. In the city, a brand-new road can make every trip slower.",
-    label: "Try the tempting shortcut",
+    html: '<strong>حدسٌ ينقلب بلطف.</strong> هنا يدور «الأفضل» في دائرة. وفي المدينة، قد يجعل طريق جديد كل رحلة أبطأ.',
+    label: 'تجربة «الاختصار المُغري»',
   },
-  sets: [
-    "Three dice · 5/9",
-    "Efron’s four dice · 2/3",
-    "Grime’s dice · a twist",
-  ],
-  sceneNames: [
-    "Pick first",
-    "Efron’s four",
-    "Grime’s dice",
-  ],
-  twoEach: (name) => `${name} · two each`,
+  sets: ['ثلاثة أحجار نرد · 5/9', 'أحجار إفرون الأربعة · 2/3', 'نرد غرايم · مع مفاجأة'],
+  sceneNames: ['أنتم أولًا', 'رباعية إفرون', 'نرد غرايم'],
+  twoEach: (name) => `${name} · نردان من كل لون`,
+  // Arabic letters for the lettered dice. Grime's dice are named for their colours; أحمر and أزرق both
+  // begin with أ, so the light blue die is «السماوي» (sky blue), and each mark is its colour's first letter.
   marks: [
-    [
-      "A",
-      "B",
-      "C",
-    ],
-    [
-      "A",
-      "B",
-      "C",
-      "D",
-    ],
-    [
-      "R",
-      "B",
-      "O",
-    ],
+    ['أ', 'ب', 'ج'],
+    ['أ', 'ب', 'ج', 'د'],
+    ['أ', 'س', 'ز'],
   ],
+  // Sentences say «النرد ${name}», so the colour names carry the article.
   names: [
-    [
-      "A",
-      "B",
-      "C",
-    ],
-    [
-      "A",
-      "B",
-      "C",
-      "D",
-    ],
-    [
-      "Red",
-      "Blue",
-      "Olive",
-    ],
+    ['أ', 'ب', 'ج'],
+    ['أ', 'ب', 'ج', 'د'],
+    ['الأحمر', 'السماوي', 'الزيتوني'],
   ],
-  setLabel: "Dice set",
-  youLabel: "Your die",
-  rivalLabel: "My die",
-  letMe: "Let me choose",
-  pairs: "Roll two of each and add them",
-  speed: "Rolls a second",
-  speedHint: "Slow enough to watch, or fast enough to settle.",
+  setLabel: 'مجموعة النرد',
+  youLabel: 'نردكم',
+  rivalLabel: 'نردي',
+  letMe: 'سأختار أنا',
+  pairs: 'رمي نردين من كل لون وجمعهما',
+  speed: 'رميات في الثانية',
+  speedHint: 'ببطء يكفي للمشاهدة، أو بسرعة تكفي لتستقر النتيجة.',
   faces: (list) => list.join(' '),
-  pickDie: (name, list) => `Die ${name}: ${list.join(', ')}`,
-  you: "You",
-  me: "Me",
-  vs: "vs",
-  iTake: (you, me) => `You picked ${you}. I’ll take ${me}.`,
-  against: (you, me) => `${you} against ${me}. You chose both.`,
-  ready: "Ready to roll",
-  rolls: (n) => (n === 1 ? '1 roll' : `${n.toLocaleString(Wonderlattice.lang)} rolls`),
-  circleTitle: "The circle of victories",
-  even: "even",
-  winsTitle: "Wins",
-  latestTitle: "Latest rolls, newest first",
-  ties: (n) => (n === 1 ? '1 tie' : `${n} ties`),
-  shareTitle: (name) => `How often ${name} wins`,
-  exactLabel: (fraction) => `exact ${fraction}`,
-  startHint: "Press “Roll 100 times”",
-  rollsSoFar: "Rolls so far",
-  winsLine: (you, me, a, b) => `You (${you}) ${a} · Me (${me}) ${b}`,
+  pickDie: (name, list) => `النرد ${name}: ${list.join('، ')}`,
+  you: 'أنتم',
+  me: 'أنا',
+  vs: 'ضد',
+  iTake: (you, me) => `اخترتم النرد ${you}. سآخذ النرد ${me}.`,
+  against: (you, me) => `النرد ${you} ضد النرد ${me}. أنتم اخترتم الاثنين.`,
+  ready: 'كل شيء جاهز للرمي',
+  rolls: (n) => {
+    const k = n % 100;
+    const shown = n.toLocaleString('en');
+    return n === 1 ? 'رمية واحدة' : n === 2 ? 'رميتان' : k >= 3 && k <= 10 ? `${shown} رميات` : `${shown} رمية`;
+  },
+  circleTitle: 'دائرة الانتصارات',
+  even: 'تعادل',
+  winsTitle: 'الانتصارات',
+  latestTitle: 'آخر الرميات، الأحدث أولًا',
+  ties: (n) => {
+    const k = n % 100;
+    const shown = n.toLocaleString('en');
+    return n === 1
+      ? 'تعادل واحد'
+      : n === 2
+        ? 'تعادلان'
+        : k >= 3 && k <= 10
+          ? `${shown} تعادلات`
+          : k >= 11
+            ? `${shown} تعادلًا`
+            : `${shown} تعادل`;
+  },
+  shareTitle: (name) => `نسبة فوز النرد ${name}`,
+  exactLabel: (fraction) => `بالضبط ${fraction}`,
+  startHint: 'انقروا على «100 رمية»',
+  rollsSoFar: 'الرميات حتى الآن',
+  winsLine: (you, me, a, b) => `أنتم (${you}) ${a} · أنا (${me}) ${b}`,
   seenLine: (name, seen, fraction, exact) =>
-    `${name} wins: ${seen === null ? '–' : seen + '%'} so far · exactly ${fraction} ≈ ${exact}%`,
-  verdictStart: (favourite, fraction) => `Exactly, ${favourite} wins ${fraction} of the time. Roll to see it happen.`,
-  verdict: (n, favourite, seen, fraction) =>
-    `After ${n.toLocaleString(Wonderlattice.lang)} rolls, ${favourite} has won ${seen}% of the time. The exact chance is ${fraction}.`,
-  evenVerdict: "These two are evenly matched.",
-  sameDie: "The same die on both sides: an even match.",
+    `نسبة فوز النرد ${name} حتى الآن: ${seen === null ? '–' : seen + '%'} · بالضبط ${fraction}، أي نحو ${exact}%`,
+  verdictStart: (favourite, fraction) =>
+    `بالحساب الدقيق، يفوز النرد ${favourite} في ${fraction} من المرات. ارموا لتروا ذلك يحدث.`,
+  // After «بعد», two rolls take the dual in ـين.
+  verdict: (n, favourite, seen, fraction) => {
+    const k = n % 100;
+    const shown = n.toLocaleString('en');
+    const rolls = n === 1 ? 'رمية واحدة' : n === 2 ? 'رميتين' : k >= 3 && k <= 10 ? `${shown} رميات` : `${shown} رمية`;
+    return `بعد ${rolls}، فاز النرد ${favourite} في ${seen}% من المرات. الاحتمال الدقيق ${fraction}.`;
+  },
+  evenVerdict: 'هذان النردان متكافئان.',
+  sameDie: 'النرد نفسه في الجهتين: مباراة متكافئة.',
   presets: [
     {
-      name: "Pick first",
-      note: "I choose after you.",
-      badge: "5/9",
+      name: 'أنتم أولًا',
+      note: 'أختار بعدكم.',
+      badge: '5/9',
     },
     {
-      name: "Efron’s four",
-      note: "Four dice, one circle.",
-      badge: "2/3",
+      name: 'رباعية إفرون',
+      note: 'أربعة أحجار نرد، ودائرة واحدة.',
+      badge: '2/3',
     },
     {
-      name: "Two of each",
-      note: "Double the dice, flip the circle.",
-      badge: "↺",
+      name: 'نردان من كل لون',
+      note: 'ضاعفوا أحجار النرد، فتنقلب الدائرة.',
+      badge: '↺',
     },
   ],
   guests: [
     {
-      name: "Blaise Pascal",
-      note: "A gambler’s dice puzzle reached him. His letters with Fermat in 1654 began the mathematics of chance.",
+      name: 'بليز باسكال',
+      note: 'وصله لغز نرد من مُقامر. رسائله مع فيرما عام 1654 كانت بداية رياضيات الصدفة.',
     },
   ],
-  gridAxes: (me, you) => `Rows are my die, ${me}; columns are your die, ${you}. Each square is coloured by its winner.`,
-  gridNote: (win, lose, tie, total, me, you) =>
-    `${me} wins ${win} of the ${total.toLocaleString(Wonderlattice.lang)} equally likely pairings, ${you} wins ${lose}` +
-    (tie ? `, and ${tie} are ties.` : '.'),
+  gridAxes: (me, you) => `الصفوف لنردي (${me})، والأعمدة لنردكم (${you}). كل مربع ملوّن بلون النرد الفائز فيه.`,
+  // total is 36 or 1,296: تركيبة is feminine, so 11 and more read the same as 100.
+  gridNote: (win, lose, tie, total, me, you) => {
+    const k = total % 100;
+    const shown = total.toLocaleString('en');
+    const pairings = k >= 3 && k <= 10 ? `${shown} تركيبات` : `${shown} تركيبة`;
+    return (
+      `يفوز النرد ${me} في ${win} من ${pairings} متساوية الاحتمال، ويفوز النرد ${you} في ${lose}` +
+      (tie ? `، و${tie} منها تعادل.` : '.')
+    );
+  },
   insight: {
-    title: "How can every die lose?",
-    html: `<p>Count instead of guessing. Each die has six faces, so two dice can land in 6 × 6 = 36 equally likely ways. Take A (2, 2, 4, 4, 9, 9) against B (1, 1, 6, 6, 8, 8). A’s two 9s beat all six of B’s faces: 12 ways. A’s 2s and 4s beat only B’s two 1s: 4 × 2 = 8 more. That makes 20 of 36 for A, or 5/9. The same count gives B over C, and C over A.</p>
+    title: 'كيف يمكن لكل نرد أن يخسر؟',
+    html: `<p>بدل التخمين، لنعدّ. لكل نرد ستة وجوه، فيمكن أن يستقر نردان على \u20666\u00a0×\u00a06\u00a0=\u00a036\u2069 طريقة، كلها متساوية الاحتمال. خذوا النرد أ (2، 2، 4، 4، 9، 9) مقابل النرد ب (1، 1، 6، 6، 8، 8). وجها أ اللذان يحملان 9 يغلبان وجوه ب الستة كلها: 12 طريقة. ووجوه أ التي تحمل 2 أو 4 لا تغلب إلا وجهي ب اللذين يحملان 1: \u20664\u00a0×\u00a02\u00a0=\u00a08\u2069 طرق أخرى. المجموع 20 من 36 لصالح أ، أي 5/9. والعدّ نفسه يعطي النرد ب الأفضلية على ج، والنرد ج الأفضلية على أ.</p>
 <canvas id="dice-grid" class="dice-grid" aria-hidden="true"></canvas>
 <p id="dice-grid-note"></p>
-<div class="insight-visual">A beats B, B beats C, and C beats A. “Usually beats” doesn’t line up in a row, so whoever chooses second can always find a die that wins.</div>
-<h3>Better on average isn’t the same as usually winning</h3>
-<p>All three dice in the first set average exactly 5. In Efron’s set, C (6, 6, 2, 2, 2, 2) has the highest average, 3⅓, yet it loses to B, which always shows 3, two times in three. An average cares how big each win is; “usually wins” only counts how often.</p>
-<h3>Two of each turns the circle round</h3>
-<p>With James Grime’s red, blue and olive dice, one die each gives red over blue, blue over olive, and olive over red. Roll two of each and add them, and every arrow flips: blue beats red, olive beats blue, and red beats olive. Adding two dice changes which totals are likely, and that changes who usually wins.</p>
-<h3>What this assumes</h3>
-<p>Fair dice: every face equally likely, and every roll independent of the others. The rolls here come from a pseudo-random number generator. A few dozen rolls can stray far from the exact chance. The typical wobble shrinks slowly, like one over the square root of the number of rolls: about 5% after 100 rolls, about 0.5% after 10,000.</p>
-<details><summary>Is there a die nobody beats?</summary><p>Not in these sets. Every die has another that beats it more often than not. That is what “nontransitive” means: “beats” doesn’t pass along a chain the way “taller than” does. In Efron’s set, the room’s best reply wins two times in three, whatever you pick.</p></details>
-<div class="sources"><a class="source-link" href="https://nrich.maths.org/problems/non-transitive-dice?tab=teacher" target="_blank" rel="noopener">NRICH: non-transitive dice</a><a class="source-link" href="https://www.scientificamerican.com/article/mathematical-games-1970-12/" target="_blank" rel="noopener">Martin Gardner on Efron’s dice (1970)</a><a class="source-link" href="http://singingbanana.com/dice/article.htm" target="_blank" rel="noopener">James Grime’s dice (an earlier numbering, with the same odds)</a></div>`,
+<div class="insight-visual">أ يغلب ب، ب يغلب ج، ثم ج يغلب أ. «يغلب عادةً» لا يصطفّ في صف واحد، ولذلك يستطيع من يختار ثانيًا أن يجد دائمًا نردًا يفوز.</div>
+<h3>الأفضل في المتوسط ليس بالضرورة الأكثر فوزًا</h3>
+<p>متوسط كل واحد من أحجار النرد الثلاثة في المجموعة الأولى 5 بالضبط. في مجموعة إفرون، للنرد ج (6، 6، 2، 2، 2، 2) أعلى متوسط، \u20663⅓\u2069، ومع ذلك يخسر أمام النرد ب، الذي يُظهر 3 دائمًا، مرتين من كل ثلاث. المتوسط يهتم بحجم كل فوز؛ أما «يفوز عادةً» فيعدّ عدد المرات فقط.</p>
+<h3>نردان من كل لون يقلبان الدائرة</h3>
+<p>مع أحجار نرد جيمس غرايم، الأحمر والسماوي والزيتوني، يعطي نرد واحد من كل لون تفوّق الأحمر على السماوي، والسماوي على الزيتوني، والزيتوني على الأحمر. ارموا نردين من كل لون واجمعوهما، فتنقلب كل الأسهم: السماوي يغلب الأحمر، والزيتوني يغلب السماوي، والأحمر يغلب الزيتوني. جمع نردين يغيّر المجاميع المرجّحة، وهذا يغيّر من يفوز عادةً.</p>
+<h3>ما يفترضه هذا</h3>
+<p>أحجار نرد متوازنة: لكل وجه الاحتمال نفسه، وكل رمية مستقلة عن غيرها. الرميات هنا تأتي من مولّد أعداد شبه عشوائية. بضع عشرات من الرميات قد تبتعد كثيرًا عن الاحتمال الدقيق. ويتقلّص التذبذب المعتاد ببطء، مثل واحد مقسومًا على الجذر التربيعي لعدد الرميات: نحو 5% بعد 100 رمية، ونحو 0.5% بعد 10,000.</p>
+<details><summary>هل هناك نرد لا يغلبه أحد؟</summary><p>ليس في هذه المجموعات. لكل نرد نرد آخر يغلبه في أغلب المرات. هذا معنى أن تكون العلاقة «غير متعدية»: علاقة «يغلب» لا تنتقل عبر سلسلة كما تنتقل «أطول من». في مجموعة إفرون، يفوز أفضل ردّ للغرفة مرتين من كل ثلاث، أيًّا كان اختياركم.</p></details>
+<div class="sources"><a class="source-link" href="https://nrich.maths.org/problems/non-transitive-dice?tab=teacher" target="_blank" rel="noopener">NRICH: أحجار النرد غير المتعدية (بالإنجليزية)</a><a class="source-link" href="https://www.scientificamerican.com/article/mathematical-games-1970-12/" target="_blank" rel="noopener">مارتن غاردنر عن نرد إفرون (1970، بالإنجليزية)</a><a class="source-link" href="http://singingbanana.com/dice/article.htm" target="_blank" rel="noopener">نرد جيمس غرايم (ترقيم أقدم، والاحتمالات نفسها؛ بالإنجليزية)</a></div>`,
   },
 });

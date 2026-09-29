@@ -1,83 +1,98 @@
+/* The tempting shortcut · visitor-facing words (ar). */
 Wonderlattice.defineText('traffic', 'ar', {
-  eyebrow: "GAME THEORY",
-  name: "The tempting shortcut",
-  tagline: "A new road that makes every driver slower.",
-  title: "The tempting shortcut.",
-  subtitle: "Every driver takes the quickest route. Open a new shortcut and see whether everyone gets home sooner.",
-  field: "Networks · Game theory · A little surprise",
-  sceneLabel: "One city · Many private choices",
-  sceneName: "The city crossing",
-  tip: "Moving markers show proportions of traffic, not individual cars",
-  actionLabel: "Open the shortcut",
-  canvasLabel: "A directed road network. Open or close the middle shortcut, and vary the number of drivers.",
-  panelEyebrow: "Change one road",
-  whyLabel: "How could that happen?",
-  nudge: "Start with 4,000 drivers. Open the shortcut. Then try much lighter traffic. Is the road always a bad idea?",
+  eyebrow: 'نظرية الألعاب',
+  name: 'الاختصار المُغري',
+  tagline: 'طريق جديد يجعل كل السائقين أبطأ.',
+  title: 'الاختصار المُغري.',
+  subtitle: 'كل سائق يسلك أسرع طريق. افتحوا اختصارًا جديدًا، وانظروا هل يصل الجميع إلى بيوتهم أبكر.',
+  field: 'شبكات · نظرية الألعاب · مفاجأة صغيرة',
+  sceneLabel: 'مدينة واحدة · خيارات شخصية كثيرة',
+  sceneName: 'عبور المدينة',
+  tip: 'العلامات المتحركة تُظهر نِسَب حركة المرور، لا سيارات بعينها',
+  actionLabel: 'فتح الاختصار',
+  canvasLabel: 'شبكة طرق باتجاه واحد. افتحوا الاختصار الأوسط أو أغلقوه، وغيّروا عدد السائقين.',
+  panelEyebrow: 'غيّروا طريقًا واحدًا',
+  whyLabel: 'كيف يمكن أن يحدث هذا؟',
+  nudge: 'ابدؤوا مع 4,000 سائق. افتحوا الاختصار. ثم جرّبوا حركة مرور أخفّ بكثير. هل الطريق الجديد فكرة سيئة دائمًا؟',
   connection: {
-    html: "<strong>Simple rules, unexpected result.</strong> In A mind of many, a flock makes a pattern from local interactions. Here, each driver choosing a fast route can make the whole trip slower.",
-    label: "Follow another crowd",
+    html: '<strong>قواعد بسيطة، ونتيجة غير متوقعة.</strong> في «عقل الجماعة»، يصنع السرب نمطًا من تفاعلات محلية. وهنا، اختيار كل سائق لطريق سريع قد يجعل الرحلة أبطأ على الجميع.',
+    label: 'تتبّع حشد آخر',
   },
+
   presets: [
-    {
-      name: "Quiet roads",
-      note: "The shortcut might help.",
-    },
-    {
-      name: "A crowded city",
-      note: "Try the surprise.",
-    },
-    {
-      name: "Rush hour",
-      note: "Can the shortcut stop mattering?",
-    },
+    { name: 'طرق هادئة', note: 'قد يساعد الاختصار.' },
+    { name: 'مدينة مزدحمة', note: 'جرّبوا المفاجأة.' },
+    { name: 'ساعة الذروة', note: 'هل يمكن أن يفقد الاختصار أهميته؟' },
   ],
-  demand: "Drivers crossing the city",
-  demandHint: "How crowded is the city?",
+
+  demand: 'السائقون الذين يعبرون المدينة',
+  demandHint: 'ما مدى ازدحام المدينة؟',
   drivers: (n) => n.toLocaleString('en'),
-  status: (open, minutes) => `${open ? 'Shortcut open' : 'Shortcut closed'} · ${minutes} min now`,
-  open: "Open the shortcut",
-  close: "Close the shortcut",
-  before: "Before",
-  after: "After opening",
-  minutes: " min",
+
+  status: (open, minutes) => {
+    const k = minutes % 100;
+    const shown = minutes.toLocaleString('en');
+    const unit = minutes % 1 === 0 && k >= 3 && k <= 10 ? 'دقائق' : 'دقيقة';
+    return `${open ? 'الاختصار مفتوح' : 'الاختصار مغلق'} · ${shown} ${unit} الآن`;
+  },
+  open: 'فتح الاختصار',
+  close: 'إغلاق الاختصار',
+  before: 'قبل',
+  after: 'بعد الفتح',
+  // Trips take between 20 and 95 minutes, so the unit is always the singular دقيقة.
+  minutes: ' دقيقة',
   verdict: {
-    closed: "Open the shortcut to reveal the new travel time.",
-    same: "The new road leaves the trip time unchanged.",
-    slower: (minutes) => `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} slower for everyone.`,
-    faster: (minutes) => `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} faster for everyone.`,
+    closed: 'افتحوا الاختصار لتكتشفوا زمن الرحلة الجديد.',
+    same: 'الطريق الجديد لا يغيّر زمن الرحلة.',
+    slower: (minutes) => {
+      const k = minutes % 100;
+      const shown = minutes.toLocaleString('en');
+      return minutes === 1
+        ? 'الرحلة أبطأ على الجميع بدقيقة واحدة.'
+        : minutes === 2
+          ? 'الرحلة أبطأ على الجميع بدقيقتين.'
+          : minutes % 1 === 0 && k >= 3 && k <= 10
+            ? `الرحلة أبطأ على الجميع بمقدار ${shown} دقائق.`
+            : `الرحلة أبطأ على الجميع بمقدار ${shown} دقيقة.`;
+    },
+    faster: (minutes) => {
+      const k = minutes % 100;
+      const shown = minutes.toLocaleString('en');
+      return minutes === 1
+        ? 'الرحلة أسرع للجميع بدقيقة واحدة.'
+        : minutes === 2
+          ? 'الرحلة أسرع للجميع بدقيقتين.'
+          : minutes % 1 === 0 && k >= 3 && k <= 10
+            ? `الرحلة أسرع للجميع بمقدار ${shown} دقائق.`
+            : `الرحلة أسرع للجميع بمقدار ${shown} دقيقة.`;
+    },
   },
+
   labels: {
-    nodes: {
-      start: "S",
-      north: "A",
-      south: "B",
-      end: "T",
-    },
-    congestion: "congestion",
-    fixed: "45 min",
-    shortcutOpen: "0 min",
-    shortcutClosed: "closed",
-    caption: "S → T · everyone chooses their fastest route",
+    nodes: { start: 'S', north: 'A', south: 'B', end: 'T' },
+    congestion: 'ازدحام',
+    fixed: '45 دقيقة',
+    shortcutOpen: '0 دقيقة',
+    shortcutClosed: 'مغلق',
+    caption: 'S → T · كل واحد يختار أسرع طريق له',
   },
+
   guests: [
-    {
-      name: "John von Neumann",
-      note: "Traffic is a game of choices, and a clever move can surprise everybody.",
-    },
-    {
-      name: "John Nash",
-      note: "Here, no driver can improve alone, even while everyone is slower.",
-    },
+    { name: 'جون فون نويمان', note: 'حركة المرور لعبة خيارات، ونقلة ذكية قد تفاجئ الجميع.' },
+    { name: 'جون ناش', note: 'هنا، لا يستطيع أي سائق أن يُحسّن وضعه وحده، حتى والجميع أبطأ.' },
   ],
+
+  // Short formulas keep no-break spaces inside their isolates, and a word joiner (U+2060) after each slash,
+  // so a phone never splits one across two lines.
   insight: {
-    title: "Why can a new road slow everyone down?",
-    html: `<p>With 4,000 drivers and no shortcut, traffic splits evenly between the upper and lower routes. Each trip takes 65 minutes. Open the zero-minute link between A and B, and each driver sees a reason to use it. Everyone takes S → A → B → T, and each trip takes 80 minutes.</p>
-<div class="insight-visual">A shortcut can change people’s choices, and their choices change congestion.</div>
-<h3>Try a quieter city</h3>
-<p>Move the demand slider toward 1,000. The shortcut now helps. At very high demand it goes unused. The paradox happens only over part of the range.</p>
-<h3>What this model assumes</h3>
-<p>Drivers choose a fastest route for themselves. Their combined decisions settle into an equilibrium where no driver can save time by switching alone. This is a simplified, directed network with a free shortcut and travel times that depend only on traffic flow. The moving dots show route proportions, not simulated individual decisions or a prediction for an actual city.</p>
-<details><summary>The mathematics, if you want it</summary><p>The congestible edges cost x/100 minutes, where x is the number of drivers using that edge. The other two edges each cost 45 minutes; the A → B shortcut costs zero. Without it, travel time is 45 + D/200 for D drivers. At D = 4,000 this is 65 minutes. With it, the equilibrium uses the middle route and costs 2D/100 = 80 minutes.</p></details>
-<div class="sources"><a class="source-link" href="https://www.cs.cornell.edu/home/kleinber/networks-book/networks-book-ch08.pdf" target="_blank" rel="noopener">Explore Braess’s paradox (Easley &amp; Kleinberg)</a></div>`,
+    title: 'لماذا قد يُبطئ طريق جديد الجميع؟',
+    html: `<p>مع 4,000 سائق ومن دون اختصار، تنقسم حركة المرور بالتساوي بين الطريق العلوي والطريق السفلي. وتستغرق كل رحلة 65 دقيقة. افتحوا الوصلة بين A وB، التي يستغرق عبورها صفر دقيقة، فيرى كل سائق سببًا لاستعمالها. يسلك الجميع \u2066S → A → B → T\u2069، وتستغرق كل رحلة 80 دقيقة.</p>
+<div class="insight-visual">الاختصار قد يغيّر خيارات الناس، وخياراتهم تغيّر الازدحام.</div>
+<h3>جرّبوا مدينة أهدأ</h3>
+<p>حرّكوا منزلق عدد السائقين نحو 1,000. الآن يساعد الاختصار. وحين يكون عدد السائقين كبيرًا جدًا، لا يستعمله أحد. المفارقة لا تحدث إلا في جزء من المجال.</p>
+<h3>ما يفترضه هذا النموذج</h3>
+<p>يختار كل سائق لنفسه أسرع طريق. وتستقر قراراتهم مجتمعة في توازن لا يستطيع فيه أي سائق أن يوفّر وقتًا إن غيّر طريقه وحده. هذه شبكة مبسّطة باتجاه واحد، فيها اختصار مجاني وأزمنة سفر تعتمد على حجم حركة المرور وحده. والنقاط المتحركة تُظهر نِسَب الطرق، لا محاكاة لقرارات سائقين أفراد، ولا توقعًا لمدينة حقيقية.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>تكلفة كل من الحافتين المعرّضتين للازدحام x/\u2060100 دقيقة، حيث x عدد السائقين الذين يستعملون تلك الحافة. وتكلفة كل من الحافتين الأخريين 45 دقيقة؛ أما الاختصار \u2066A → B\u2069 فتكلفته صفر. من دونه، يكون زمن الرحلة \u206645 + D/\u2060200\u2069 دقيقة حين يكون عدد السائقين D. وعند \u2066D = 4,000\u2069 يساوي ذلك 65 دقيقة. ومعه، يستعمل التوازن الطريق الأوسط، وتكلفته \u20662D/\u2060100 = 80\u2069 دقيقة.</p></details>
+<div class="sources"><a class="source-link" href="https://www.cs.cornell.edu/home/kleinber/networks-book/networks-book-ch08.pdf" target="_blank" rel="noopener">مفارقة برايس (\u2066Easley &amp; Kleinberg\u2069، بالإنجليزية)</a></div>`,
   },
 });

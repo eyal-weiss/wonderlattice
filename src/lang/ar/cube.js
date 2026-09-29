@@ -1,98 +1,164 @@
+/* Inside the puzzle cube · visitor-facing words (ar). */
 Wonderlattice.defineText('cube', 'ar', {
-  eyebrow: "MOVES · GROUPS",
-  name: "Inside the puzzle cube",
-  tagline: "Two turns in a different order, a move that needs 105 repeats to come home, and pieces that barely budge.",
-  title: "Inside the puzzle cube.",
-  subtitle: "Forget solving it. Repeat two turns over and over, and count how long the cube takes to come back to where it started.",
-  field: "Groups · Order · Undoing",
-  sceneLabel: "A cube of moves",
-  tip: "Drag, or use the arrow keys, to turn the view",
-  actionLabel: "Repeat it",
-  actionCompare: "Turn them",
-  canvasLabel: "A puzzle cube. Use the move buttons to turn its faces; drag or use the arrow keys to turn the view.",
-  panelEyebrow: "Combine moves",
-  whyLabel: "Why does order matter?",
-  nudge: "Try “Back where it started”, then “Repeat until home”. How many repeats do you guess before it gets there?",
+  eyebrow: 'حركات · زمر',
+  name: 'داخل مكعّب الألغاز',
+  tagline: 'حركتان بترتيب مختلف، وحركة يجب تكرارها 105 مرات ليعود المكعّب كما كان، وقطع لا تكاد تتحرك.',
+  title: 'داخل مكعّب الألغاز.',
+  subtitle: 'انسوا الحل. كرّروا حركتين مرة بعد مرة، وعدّوا كم تكرارًا يحتاج المكعّب ليعود كما بدأ.',
+  field: 'الزمر · الرتبة · العكس',
+  sceneLabel: 'مكعّب من الحركات',
+  tip: 'اسحبوا، أو استخدموا مفاتيح الأسهم، لتدوير المنظر',
+  actionLabel: 'تكرار السلسلة',
+  actionCompare: 'تنفيذ الحركتين',
+  canvasLabel: 'مكعّب ألغاز. استخدموا أزرار الحركات لتدوير أوجهه؛ واسحبوا أو استخدموا مفاتيح الأسهم لتدوير المنظر.',
+  panelEyebrow: 'ركّبوا الحركات',
+  whyLabel: 'لماذا يهم الترتيب؟',
+  nudge: 'جرّبوا «العودة إلى البداية»، ثم «التكرار حتى العودة». كم تكرارًا تتوقعون قبل أن يعود؟',
   connection: {
-    html: "<strong>Rules you can combine and undo.</strong> A cube move is a rule for where every sticker goes. In the Sudoku room, rules about neighbours decide where every colour can go.",
-    label: "Visit Sudoku",
+    html: '<strong>قواعد يمكن تركيبها وعكسها.</strong> حركة المكعّب قاعدة تحدد أين يذهب كل ملصق. وفي «سودوكو على المكشوف»، تحدد قواعد الجيران أين يمكن أن يذهب كل لون.',
+    label: 'زيارة سودوكو',
   },
-  sceneName: {
-    one: "One cube",
-    compare: "Two orders",
+
+  sceneName: { one: 'مكعّب واحد', compare: 'ترتيبان' },
+  modes: ['مكعّب واحد', 'مقارنة ترتيبين'],
+  mode: 'ماذا نستكشف',
+  faces: { U: 'العلوي', R: 'الأيمن', F: 'الأمامي', D: 'السفلي', L: 'الأيسر', B: 'الخلفي' },
+  turn: (face, prime) => `تدوير الوجه ${face} ${prime ? 'عكس اتجاه عقارب الساعة' : 'باتجاه عقارب الساعة'}`,
+  // A move button's name starts with what it shows, so voice control can find it. The isolate keeps R′ as R′.
+  moveLabel: (name, turn) => `\u2066${name}\u2069: ${turn}`,
+  movePad: 'بناء سلسلة',
+  // The spaces around each = (and after ′) are no-break spaces, so each letter stays with its meaning.
+  notation:
+    'U\u00a0=\u00a0أعلى، R\u00a0=\u00a0يمين، F\u00a0=\u00a0أمام، D\u00a0=\u00a0أسفل، L\u00a0=\u00a0يسار، B\u00a0=\u00a0خلف؛ ′\u00a0يعني الدوران بالاتجاه المعاكس.',
+  undo: 'تراجع',
+  clear: 'مسح',
+  home: 'التكرار حتى العودة',
+  highlight: 'إظهار ما تحرّك فقط',
+  first: 'الحركة الأولى',
+  second: 'الحركة الثانية',
+
+  sequence: (text) => (text ? `\u2066${text}\u2069` : 'لا حركات بعد: اختاروا وجهًا'),
+  times: (n) => {
+    const k = n % 100;
+    return n === 0
+      ? 'لم تُنفَّذ بعد'
+      : n === 1
+        ? 'نُفّذت مرة واحدة'
+        : n === 2
+          ? 'نُفّذت مرتين'
+          : k >= 3 && k <= 10
+            ? `نُفّذت ${n} مرات`
+            : `نُفّذت ${n} مرة`;
   },
-  modes: [
-    "One cube",
-    "Compare two orders",
-  ],
-  mode: "What to explore",
-  faces: {
-    U: "top",
-    R: "right",
-    F: "front",
-    D: "bottom",
-    L: "left",
-    B: "back",
+  order: (n) => {
+    const k = n % 100;
+    const repeats = n === 2 ? 'تكرارين' : k >= 3 && k <= 10 ? `${n} تكرارات` : k >= 11 ? `${n} تكرارًا` : `${n} تكرار`;
+    return n === 1 ? 'لا شيء يحتاج إلى عكس: يبقى المكعّب كما هو.' : `يعود المكعّب كما كان بعد ${repeats}.`;
   },
-  turn: (face, prime) => `turn the ${face} face ${prime ? 'anticlockwise' : 'clockwise'}`,
-  moveLabel: (name, turn) => `${name}: ${turn}`,
-  movePad: "Build a sequence",
-  notation: "U = up, R = right, F = front, D = down, L = left, B = back; ′ turns backwards.",
-  undo: "Undo",
-  clear: "Clear",
-  home: "Repeat until home",
-  highlight: "Show only what moved",
-  first: "First move",
-  second: "Second move",
-  sequence: (text) => (text ? text : 'No moves yet: press a face'),
-  times: (n) => (n === 1 ? 'done once' : n === 0 ? 'not done yet' : `done ${n} times`),
-  order: (n) => (n === 1 ? 'Nothing to undo: it stays home.' : `Comes home after ${n} repeats.`),
-  moved: (n) => (n === 0 ? 'Every piece is home.' : n === 1 ? '1 piece out of place.' : `${n} pieces out of place.`),
-  status: (n) => (n === 0 ? 'Solved' : `${n} pieces moved`),
-  landed: (moved, done, order) =>
-    (moved === 0 ? 'Solved. ' : `Done ${done === 1 ? 'once' : `${done} times`}. ${moved} pieces moved. `) +
-    (order === 1 ? 'It stays home.' : `Comes home after ${order} repeats.`),
-  full: "That’s twelve moves: repeat it, undo, or clear.",
-  restarted: "A new sequence starts from here.",
-  compareLabels: (a, b) => [`${a} then ${b}`, `${b} then ${a}`],
-  compareSame: "These two commute: either order makes the same cube.",
-  compareDiffer: (n) => `Same two moves, different order: ${n} stickers end up in different places.`,
-  compareReady: "Press “Turn them” to make both moves on each cube.",
+  moved: (n) => {
+    const k = n % 100;
+    return n === 0
+      ? 'كل القطع في مكانها.'
+      : n === 1
+        ? 'قطعة واحدة ليست في مكانها.'
+        : n === 2
+          ? 'قطعتان ليستا في مكانهما.'
+          : k >= 3 && k <= 10
+            ? `${n} قطع ليست في مكانها.`
+            : `${n} قطعة ليست في مكانها.`;
+  },
+  status: (n) => {
+    const k = n % 100;
+    return n === 0
+      ? 'محلول'
+      : n === 1
+        ? 'تحرّكت قطعة واحدة'
+        : n === 2
+          ? 'تحرّكت قطعتان'
+          : k >= 3 && k <= 10
+            ? `تحرّكت ${n} قطع`
+            : `تحرّكت ${n} قطعة`;
+  },
+  // Said once when a run of repeats has finished.
+  landed: (moved, done, order) => {
+    const d = done % 100;
+    const m = moved % 100;
+    const o = order % 100;
+    const times =
+      done === 1
+        ? 'نُفّذت مرة واحدة'
+        : done === 2
+          ? 'نُفّذت مرتين'
+          : d >= 3 && d <= 10
+            ? `نُفّذت ${done} مرات`
+            : `نُفّذت ${done} مرة`;
+    const pieces =
+      moved === 1
+        ? 'تحرّكت قطعة واحدة'
+        : moved === 2
+          ? 'تحرّكت قطعتان'
+          : m >= 3 && m <= 10
+            ? `تحرّكت ${moved} قطع`
+            : `تحرّكت ${moved} قطعة`;
+    const repeats =
+      order === 2
+        ? 'تكرارين'
+        : o >= 3 && o <= 10
+          ? `${order} تكرارات`
+          : o >= 11
+            ? `${order} تكرارًا`
+            : `${order} تكرار`;
+    return (
+      (moved === 0 ? 'المكعّب محلول. ' : `${times}. ${pieces}. `) +
+      (order === 1 ? 'يبقى المكعّب كما هو.' : `يعود المكعّب كما كان بعد ${repeats}.`)
+    );
+  },
+  full: 'هذه اثنتا عشرة حركة: كرّروها، أو تراجعوا، أو امسحوا.',
+  restarted: 'تبدأ من هنا سلسلة جديدة.',
+  compareLabels: (a, b) => [`\u2066${a}\u2069 ثم \u2066${b}\u2069`, `\u2066${b}\u2069 ثم \u2066${a}\u2069`],
+  // The status line shows only the words before the colon.
+  compareSame: 'هاتان الحركتان تتبادلان: الترتيبان كلاهما يعطي المكعّب نفسه.',
+  compareDiffer: (n) => {
+    const k = n % 100;
+    const stickers =
+      n === 1
+        ? 'ملصق واحد'
+        : n === 2
+          ? 'ملصقان'
+          : k >= 3 && k <= 10
+            ? `${n} ملصقات`
+            : k >= 11
+              ? `${n} ملصقًا`
+              : `${n} ملصق`;
+    return `الحركتان نفسهما بترتيب مختلف: ينتهي ${stickers} في أماكن مختلفة.`;
+  },
+  compareReady: 'انقروا على «تنفيذ الحركتين» لتُنفَّذ الحركتان على كل مكعّب.',
+
   presets: [
-    {
-      name: "Order matters",
-      note: "Right then top, or top then right?",
-    },
-    {
-      name: "Back where it started",
-      note: "Keep repeating R U.",
-    },
-    {
-      name: "Only a few pieces move",
-      note: "R U R′ U′, a commutator.",
-    },
-    {
-      name: "Undo it backwards",
-      note: "To undo, reverse the order.",
-    },
+    { name: 'الترتيب مهم', note: 'اليمين ثم الأعلى، أم الأعلى ثم اليمين؟' },
+    { name: 'العودة إلى البداية', note: 'كرّروا \u2066R\u00a0U\u2069 مرة بعد مرة.' },
+    { name: 'قطع قليلة فقط تتحرك', note: '\u2066R\u00a0U\u00a0R′\u00a0U′\u2069، وهي مبدِّل.' },
+    { name: 'التراجع من الآخر', note: 'لتلغوا الحركات، اعكسوا ترتيبها.' },
   ],
+
   guests: [
     {
-      name: "Évariste Galois",
-      note: "He died at twenty, leaving the beginnings of group theory: the mathematics of combining and undoing.",
+      name: 'إيفاريست غالوا',
+      note: 'مات في العشرين من عمره، وترك وراءه بدايات نظرية الزمر: رياضيات التركيب والعكس.',
     },
   ],
+
   insight: {
-    title: "Moves you can combine and undo.",
-    html: `<p>This cube works like the Rubik’s Cube® puzzle, but here you play with its moves rather than solve it. Think of a cube move as a rule: every sticker goes to a new place. Doing one move after another combines two rules into a new one. Every move can be undone. And doing nothing at all is a move too. Mathematicians call a collection like this a <em>group</em>.</p>
-<div class="insight-visual">R then U is not U then R. Order matters.</div>
-<h3>Undo in reverse</h3>
-<p>To undo “R then U”, you undo the last move first: U′, then R′. Like taking off shoes and socks, the undoing comes in the opposite order.</p>
-<h3>Everything comes home</h3>
-<p>Repeat any sequence and the cube eventually returns to where it started, because there are only finitely many positions. R U needs 105 repeats. R U R′ U′ needs only 6. No sequence needs more than 1260.</p>
-<h3>Moves that barely move</h3>
-<p>“Do A, do B, undo A, undo B” is a <em>commutator</em>. If A and B had no effect on each other, it would do nothing at all. Because they overlap only a little, it disturbs just a few pieces: R U R′ U′ moves seven of the twenty-six. Solvers use commutators to fix a few pieces without spoiling the rest.</p>
-<details><summary>The mathematics, if you want it</summary><p>Each move is a permutation of the 54 stickers. Combining moves composes permutations. A sequence comes home after the least common multiple of the lengths of its sticker cycles. R U moves stickers around cycles of 3, 7, and 15 places, and the least common multiple of 3, 7, and 15 is 105.</p><p>The cube has 43,252,003,274,489,856,000 positions, and every one of them can be solved in at most 20 moves, a count of face turns proved in 2010 with a great deal of computer time.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Rubik%27s_Cube_group" target="_blank" rel="noopener">The cube’s group of moves</a><a class="source-link" href="https://www.cube20.org/" target="_blank" rel="noopener">God’s number is 20</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Galois/" target="_blank" rel="noopener">Évariste Galois</a></div>`,
+    title: 'حركات يمكن تركيبها وعكسها.',
+    html: `<p>يعمل هذا المكعّب مثل لغز \u2066Rubik’s Cube®\u2069، لكنكم هنا تلعبون بحركاته بدل أن تحلّوه. فكّروا في حركة المكعّب كقاعدة: كل ملصق ينتقل إلى مكان جديد. وتنفيذ حركة بعد أخرى يركّب قاعدتين في قاعدة جديدة. ويمكن عكس كل حركة. وعدم فعل أي شيء حركة أيضًا. يسمّي علماء الرياضيات مجموعة كهذه <em>زمرة</em>.</p>
+<div class="insight-visual">R ثم U ليست U ثم R. الترتيب مهم.</div>
+<h3>العكس بترتيب معكوس</h3>
+<p>لعكس «R ثم U»، تعكسون الحركة الأخيرة أولًا: \u2066U′\u2069، ثم \u2066R′\u2069. كما في خلع الحذاء والجوارب، يأتي العكس بالترتيب المعاكس.</p>
+<h3>كل شيء يعود</h3>
+<p>كرّروا أي سلسلة، وسيعود المكعّب في النهاية إلى ما بدأ عليه، لأن عدد أوضاعه محدود. تحتاج \u2066R\u00a0U\u2069 إلى 105 تكرارات. وتحتاج \u2066R\u00a0U\u00a0R′\u00a0U′\u2069 إلى 6 فقط. ولا تحتاج أي سلسلة إلى أكثر من 1260.</p>
+<h3>حركات لا تكاد تحرّك شيئًا</h3>
+<p>السلسلة «نفّذوا A، نفّذوا B، اعكسوا A، اعكسوا B» تسمّى <em>مبدِّلًا</em>. لو كانت A وB لا تؤثر إحداهما في الأخرى أبدًا، لما فعل المبدِّل شيئًا على الإطلاق. ولأنهما لا تتداخلان إلا قليلًا، فهو لا يحرّك إلا قطعًا قليلة: تحرّك \u2066R\u00a0U\u00a0R′\u00a0U′\u2069 سبع قطع من أصل ست وعشرين. ويستخدم من يحلّون المكعّب المبدِّلات لإصلاح بضع قطع دون إفساد البقية.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>كل حركة تبديلة للملصقات الأربعة والخمسين. وتركيب الحركات هو تركيب للتبديلات. وتعود السلسلة إلى البداية بعد عدد من التكرارات يساوي المضاعف المشترك الأصغر لأطوال دورات ملصقاتها. تحرّك \u2066R\u00a0U\u2069 الملصقات في دورات من 3 و7 و15 موضعًا، والمضاعف المشترك الأصغر للأعداد 3 و7 و15 هو 105.</p><p>للمكعّب 43,252,003,274,489,856,000 وضع ممكن، ويمكن حل كل واحد منها في 20 حركة على الأكثر، إذا عددنا كل لفّة وجه حركة. وقد بُرهن ذلك عام 2010 بعد وقت طويل جدًا من الحساب على الحواسيب.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Rubik%27s_Cube_group" target="_blank" rel="noopener">زمرة حركات المكعّب (بالإنجليزية)</a><a class="source-link" href="https://www.cube20.org/" target="_blank" rel="noopener">كل وضع يُحلّ في 20 حركة على الأكثر (بالإنجليزية)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Galois/" target="_blank" rel="noopener">إيفاريست غالوا (بالإنجليزية)</a></div>`,
   },
 });

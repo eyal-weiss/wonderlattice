@@ -1,117 +1,236 @@
+/* A spoonful of a city · visitor-facing words (ar). */
 Wonderlattice.defineText('sample', 'ar', {
-  eyebrow: "SAMPLING",
-  name: "A spoonful of a city",
-  tagline: "A huge poll can be sure and wrong. A small random one is roughly right.",
-  title: "A spoonful of a city.",
-  subtitle: "Orange or blue: what does the whole city prefer? You can only ask some of the people, so try a big poll and a small one.",
-  field: "Statistics · Sampling · Random error and bias",
-  sceneLabel: "Polling a toy city",
-  tip: "Tap a neighbourhood, or press ← →, to ask only there · ↑ ↓ change the survey size",
-  actionLabel: "Ask 50 times",
-  canvasLabel: "A map of a small city whose residents each prefer orange or blue, with the people asked in the latest survey lit up, beside a dot plot with one dot for each survey’s estimate. Tap a neighbourhood, or use the left and right arrow keys, to ask only there. The up and down arrow keys change how many people each survey asks.",
-  panelEyebrow: "Choose how to ask",
-  whyLabel: "Why doesn’t asking more help?",
-  nudge: "Ask 50 times at random. Then ask the neighbours instead. Two tight clouds of dots: which one is right? Show the whole city to find out.",
+  eyebrow: 'أخذ العيّنات',
+  name: 'ملعقة من مدينة',
+  tagline: 'قد يكون استطلاع ضخم واثقًا ومخطئًا. واستطلاع عشوائي صغير مصيب تقريبًا.',
+  title: 'ملعقة من مدينة.',
+  subtitle:
+    'البرتقالي أم الأزرق: ماذا تفضّل المدينة كلها؟ لا يمكنكم أن تسألوا إلا بعض الناس، فجرّبوا استطلاعًا كبيرًا وآخر صغيرًا.',
+  field: 'الإحصاء · أخذ العيّنات · الخطأ العشوائي والانحياز',
+  sceneLabel: 'استطلاع في مدينة مصغّرة',
+  tip: 'انقروا على حي، أو اضغطوا ← و→، لتسألوا هناك فقط · ↑ و↓ تغيّران حجم الاستطلاع',
+  actionLabel: '50 استطلاعًا',
+  canvasLabel:
+    'خريطة مدينة صغيرة يفضّل كل واحد من سكانها البرتقالي أو الأزرق، ويُضاء فيها من سُئلوا في آخر استطلاع، وبجانبها رسم بياني فيه نقطة لتقدير كل استطلاع. انقروا على حي، أو استعملوا مفتاحي السهمين الأيمن والأيسر، لتسألوا هناك فقط. ومفتاحا السهمين الأعلى والأسفل يغيّران عدد من يسألهم كل استطلاع.',
+  panelEyebrow: 'اختاروا طريقة السؤال',
+  whyLabel: 'لماذا لا يفيد سؤال عدد أكبر؟',
+  nudge:
+    'أجروا 50 استطلاعًا عشوائيًا. ثم اسألوا الجيران بدلًا من ذلك. سحابتان متراصّتان من النقاط: أيهما على حق؟ أظهروا المدينة كلها لتعرفوا.',
   connection: {
-    html: "<strong>Chance, from both ends.</strong> Here you guess a whole city from a spoonful of it. With the odd dice, counting tells you exactly what many rolls will do.",
-    label: "Roll the odd dice",
+    html: '<strong>الصدفة، من طرفيها.</strong> هنا تخمّنون مدينة كاملة من ملعقة منها. ومع أحجار النرد الغريبة، يخبركم العدّ بالضبط بما ستفعله رميات كثيرة.',
+    label: 'رمي أحجار النرد الغريبة',
   },
-  methodLabel: "How to ask",
-  methods: [
-    "At random",
-    "Neighbours",
-    "Volunteers",
-  ],
-  sceneNames: [
-    "Ask at random",
-    (hood) => `In ${hood}`,
-    "Whoever answers",
-  ],
-  hoodLabel: "Neighbourhood",
+  methodLabel: 'طريقة السؤال',
+  methods: ['عشوائيًا', 'الجيران', 'المتطوّعون'],
+  // Sentences say «في حي ${hood}», so the neighbourhood names are bare nouns with the article.
+  sceneNames: ['السؤال عشوائيًا', (hood) => `في حي ${hood}`, 'كل من يجيب'],
+  hoodLabel: 'الحي',
   hoods: [
-    "Harbour",
-    "Old Town",
-    "Hilltop",
-    "Mill Row",
-    "Riverside",
-    "Market",
-    "Orchard",
-    "Station",
-    "Gardens",
-    "Kilnside",
-    "Lantern Hill",
-    "Ropewalk",
+    'الميناء',
+    'البلدة القديمة',
+    'رأس التل',
+    'الطواحين',
+    'ضفة النهر',
+    'السوق',
+    'البستان',
+    'المحطة',
+    'الحدائق',
+    'الأفران',
+    'تل الفوانيس',
+    'الحبّالين',
   ],
-  sizeLabel: "People in each survey",
-  reveal: "Show what the whole city prefers",
-  askOnce: "Ask once",
-  newCity: "A new city",
-  cityTitle: (n) => `The city · ${n.toLocaleString(Wonderlattice.lang)} residents`,
-  plotTitle: (n) => `Share who prefer orange · one dot per survey of ${n.toLocaleString(Wonderlattice.lang)}`,
-  plotTitleShort: "Orange share · one dot per survey",
-  blueWins: "blue wins",
-  orangeWins: "orange wins",
-  wholeCity: (pct) => (pct === null ? 'whole city: ?' : `whole city ${pct}%`),
-  before: (name, n) => `○ Before: ${name}, ${n.toLocaleString(Wonderlattice.lang)} each`,
-  startHint: "Press “Ask 50 times”",
-  ready: "Ready to ask",
-  surveys: (n) => (n === 1 ? '1 survey' : `${n.toLocaleString(Wonderlattice.lang)} surveys`),
-  noSurveys: "No surveys yet.",
-  noEstimate: "Each survey will add one dot.",
-  surveyLine: (count, n) =>
-    `<strong>${count.toLocaleString(Wonderlattice.lang)}</strong> ${count === 1 ? 'survey' : 'surveys'} of ${n.toLocaleString(Wonderlattice.lang)} ${n === 1 ? 'person' : 'people'}`,
+  sizeLabel: 'عدد الأشخاص في كل استطلاع',
+  reveal: 'إظهار ما تفضّله المدينة كلها',
+  askOnce: 'استطلاع واحد',
+  newCity: 'مدينة جديدة',
+  cityTitle: (n) => `المدينة · عدد السكان ${n.toLocaleString('en')}`,
+  // After «من», two people take the genitive dual (شخصين).
+  plotTitle: (n) => {
+    const k = n % 100;
+    const shown = n.toLocaleString('en');
+    const people =
+      n === 1
+        ? 'شخص واحد'
+        : n === 2
+          ? 'شخصين'
+          : k >= 3 && k <= 10
+            ? `${shown} أشخاص`
+            : k >= 11
+              ? `${shown} شخصًا`
+              : `${shown} شخص`;
+    return `نسبة من يفضّلون البرتقالي · نقطة لكل استطلاع من ${people}`;
+  },
+  plotTitleShort: 'نسبة البرتقالي · نقطة لكل استطلاع',
+  blueWins: 'الأزرق يفوز',
+  orangeWins: 'البرتقالي يفوز',
+  wholeCity: (pct) => (pct === null ? 'المدينة كلها: ؟' : `المدينة كلها ${pct}%`),
+  before: (name, n) => `○ قبل ذلك: ${name}، ${n.toLocaleString('en')} لكل استطلاع`,
+  startHint: 'انقروا على «50 استطلاعًا»',
+  ready: 'كل شيء جاهز للسؤال',
+  surveys: (n) => {
+    const k = n % 100;
+    const shown = n.toLocaleString('en');
+    return n === 1
+      ? 'استطلاع واحد'
+      : n === 2
+        ? 'استطلاعان'
+        : k >= 3 && k <= 10
+          ? `${shown} استطلاعات`
+          : k >= 11
+            ? `${shown} استطلاعًا`
+            : `${shown} استطلاع`;
+  },
+  noSurveys: 'لا استطلاعات حتى الآن.',
+  noEstimate: 'كل استطلاع سيضيف نقطة واحدة.',
+  // Each survey «يشمل» its people, so they are the object: شخصًا واحدًا، شخصين، 3 أشخاص، 11 شخصًا.
+  surveyLine: (count, n) => {
+    const k = count % 100;
+    const j = n % 100;
+    const shown = count.toLocaleString('en');
+    const size = n.toLocaleString('en');
+    const people =
+      n === 1
+        ? 'شخصًا واحدًا'
+        : n === 2
+          ? 'شخصين'
+          : j >= 3 && j <= 10
+            ? `${size} أشخاص`
+            : j >= 11
+              ? `${size} شخصًا`
+              : `${size} شخص`;
+    return count === 1
+      ? `<strong>استطلاع واحد</strong> يشمل ${people}`
+      : count === 2
+        ? `<strong>استطلاعان</strong>، يشمل كل منهما ${people}`
+        : k >= 3 && k <= 10
+          ? `<strong>${shown}</strong> استطلاعات، يشمل كل منها ${people}`
+          : k >= 11
+            ? `<strong>${shown}</strong> استطلاعًا، يشمل كل منها ${people}`
+            : `<strong>${shown}</strong> استطلاع، يشمل كل منها ${people}`;
+  },
   estimateLine: (mean, spread) =>
     spread === null
-      ? `This one says ${mean}% prefer orange.`
-      : `They say ${mean}% prefer orange, give or take ${spread} points.`,
-  theoryLine: (n, se) => `A random sample of ${n.toLocaleString(Wonderlattice.lang)} wobbles by about ±${se} points.`,
-  truthHidden: "The whole city’s answer is hidden.",
+      ? `يقول هذا الاستطلاع إن ${mean}% يفضّلون البرتقالي.`
+      : `تقول الاستطلاعات إن ${mean}% يفضّلون البرتقالي، زيادةً أو نقصانًا بنحو ${spread} نقطة مئوية.`,
+  theoryLine: (n, se) => {
+    const k = n % 100;
+    const shown = n.toLocaleString('en');
+    const people =
+      n === 1
+        ? 'شخص واحد'
+        : n === 2
+          ? 'شخصين'
+          : k >= 3 && k <= 10
+            ? `${shown} أشخاص`
+            : k >= 11
+              ? `${shown} شخصًا`
+              : `${shown} شخص`;
+    return `عيّنة عشوائية من ${people} تتذبذب بنحو \u2066±${se}\u2069 نقطة مئوية.`;
+  },
+  truthHidden: 'جواب المدينة كلها مخفي.',
   truthLine: (pct, miss) =>
-    miss === null ? `The whole city: ${pct}% orange.` : `The whole city: ${pct}% orange. Typical miss: ${miss} points.`,
-  randomNote: "Anyone in the city might be asked.",
-  hoodNote: (size, name) => `${size.toLocaleString(Wonderlattice.lang)} people live in ${name}.`,
-  hoodAll: (size, name) =>
-    `Only ${size.toLocaleString(Wonderlattice.lang)} people live in ${name}, so each survey asks everyone there.`,
+    miss === null
+      ? `المدينة كلها: ${pct}% برتقالي.`
+      : `المدينة كلها: ${pct}% برتقالي. الخطأ المعتاد: ${miss} نقطة مئوية.`,
+  randomNote: 'قد يُسأل أي شخص في المدينة.',
+  hoodNote: (size, name) => {
+    const k = size % 100;
+    const shown = size.toLocaleString('en');
+    const people =
+      size === 1
+        ? 'شخص واحد'
+        : size === 2
+          ? 'شخصان'
+          : k >= 3 && k <= 10
+            ? `${shown} أشخاص`
+            : k >= 11
+              ? `${shown} شخصًا`
+              : `${shown} شخص`;
+    return `يسكن في حي ${name} ${people}.`;
+  },
+  hoodAll: (size, name) => {
+    const k = size % 100;
+    const shown = size.toLocaleString('en');
+    const people =
+      size === 1
+        ? 'شخص واحد'
+        : size === 2
+          ? 'شخصان'
+          : k >= 3 && k <= 10
+            ? `${shown} أشخاص`
+            : k >= 11
+              ? `${shown} شخصًا`
+              : `${shown} شخص`;
+    return `لا يسكن في حي ${name} إلا ${people}، ولذلك يسأل كل استطلاع كل من هناك.`;
+  },
   volunteerNote: (answer, total) =>
-    `Only those who reply count: ${answer.toLocaleString(Wonderlattice.lang)} of ${total.toLocaleString(Wonderlattice.lang)}. Orange fans are keener to reply.`,
-  volunteerAll: (answer) =>
-    `Only ${answer.toLocaleString(Wonderlattice.lang)} people ever reply, so each survey hears from all of them.`,
+    `لا يُحسب إلا من يجيبون: ${answer.toLocaleString('en')} من ${total.toLocaleString('en')}. محبّو البرتقالي أكثر حماسًا للإجابة.`,
+  volunteerAll: (answer) => {
+    const k = answer % 100;
+    const shown = answer.toLocaleString('en');
+    const people =
+      answer === 1
+        ? 'شخص واحد'
+        : answer === 2
+          ? 'شخصان'
+          : k >= 3 && k <= 10
+            ? `${shown} أشخاص`
+            : k >= 11
+              ? `${shown} شخصًا`
+              : `${shown} شخص`;
+    return `لا يجيب إلا ${people}، ولذلك يسمع كل استطلاع منهم جميعًا.`;
+  },
   presets: [
     {
-      name: "A quick random poll",
-      note: "50 people, anyone in the city.",
+      name: 'استطلاع عشوائي سريع',
+      note: '50 شخصًا، من أي مكان في المدينة.',
     },
     {
-      name: "Ask the neighbours",
-      note: "50 people, all from one neighbourhood.",
+      name: 'سؤال الجيران',
+      note: '50 شخصًا، كلهم من حي واحد.',
     },
     {
-      name: "A huge biased poll",
-      note: "1,000 replies from whoever answers.",
+      name: 'استطلاع ضخم منحاز',
+      note: '1,000 إجابة ممن يجيب.',
     },
   ],
   guests: [
     {
-      name: "Jerzy Neyman",
-      note: "In 1934 he warned that hand-picking “typical” districts is a gamble. Choose at random, he argued, and you can say how far off you might be.",
+      name: 'جيرزي نيمان',
+      note: 'حذّر عام 1934 من أن انتقاء مناطق «نموذجية» باليد مقامرة. اختاروا عشوائيًا، كما قال، وستعرفون إلى أي حد قد تخطئون.',
     },
   ],
-  live: (n, se, hood, hoodOff, answerOff) =>
-    `In your city, a random sample of ${n.toLocaleString(Wonderlattice.lang)} wobbles by about ±${se} points. ` +
-    `Asking only in ${hood} is off by ${hoodOff} points, and counting whoever answers is off by ${answerOff}, however many people you ask.`,
+  live: (n, se, hood, hoodOff, answerOff) => {
+    const k = n % 100;
+    const shown = n.toLocaleString('en');
+    const people =
+      n === 1
+        ? 'شخص واحد'
+        : n === 2
+          ? 'شخصين'
+          : k >= 3 && k <= 10
+            ? `${shown} أشخاص`
+            : k >= 11
+              ? `${shown} شخصًا`
+              : `${shown} شخص`;
+    return (
+      `في مدينتكم، تتذبذب عيّنة عشوائية من ${people} بنحو \u2066±${se}\u2069 نقطة مئوية. ` +
+      `أما السؤال في حي ${hood} وحده فيخطئ بمقدار ${hoodOff} نقطة مئوية، وعدّ من يجيبون فقط يخطئ بمقدار ${answerOff}، مهما كان عدد من تسألونهم.`
+    );
+  },
   insight: {
-    title: "Why doesn’t asking more help?",
-    html: `<p>Every survey here picks people by chance. But chance can only pick from the people a method can reach: the whole city, one neighbourhood, or the residents who bother to reply. Statisticians call that list the <em>sampling frame</em>. A random pick from the frame tells you about the frame, not about the city.</p>
-<h3>Wobble and bias</h3>
-<p><strong>Random error</strong> is the wobble from one survey to the next. It shrinks as the sample grows, like one over the square root of its size: ask four times as many people and the wobble halves. <strong>Bias</strong> is the gap between the frame’s answer and the city’s. Every survey from the same frame shares it, so asking more people doesn’t shrink it. It only makes you surer of the wrong answer.</p>
-<div class="insight-visual">typical error² = wobble² + bias²</div>
+    title: 'لماذا لا يفيد سؤال عدد أكبر؟',
+    html: `<p>كل استطلاع هنا يختار الناس بالصدفة. لكن الصدفة لا تختار إلا من بين من تصل إليهم الطريقة: المدينة كلها، أو حي واحد، أو السكان الذين يكلّفون أنفسهم عناء الرد. يسمّي الإحصائيون هذه القائمة <em>إطار العيّنة</em>. والاختيار العشوائي من الإطار يخبركم عن الإطار، لا عن المدينة.</p>
+<h3>التذبذب والانحياز</h3>
+<p><strong>الخطأ العشوائي</strong> هو التذبذب من استطلاع إلى آخر. يصغر كلما كبرت العيّنة، مثل واحد مقسومًا على الجذر التربيعي لحجمها: اسألوا أربعة أضعاف الناس، فيصغر التذبذب إلى النصف. أما <strong>الانحياز</strong> فهو الفجوة بين جواب الإطار وجواب المدينة. كل الاستطلاعات من الإطار نفسه تشترك فيه، ولذلك لا يصغر حين تسألون عددًا أكبر من الناس. كل ما يفعله ذلك أنه يجعلكم أكثر ثقة بالجواب الخطأ.</p>
+<div class="insight-visual">الخطأ المعتاد² = التذبذب² + الانحياز²</div>
 <p id="sample-live"></p>
-<h3>Millions of answers, the wrong winner</h3>
-<p>In 1936 the American magazine <em>The Literary Digest</em> mailed more than ten million ballots, mostly to names from telephone books and car registrations. Over 2.3 million came back, fewer than one in four. Its final count gave Alf Landon 54% and Franklin Roosevelt 41%. On election day Roosevelt won with 61%. Much smaller polls by George Gallup and others, who chose their samples more carefully, called Roosevelt the winner.</p>
-<p>Half a century later, the political scientist Peverill Squire used a 1937 Gallup survey that asked people whether they had received a Digest ballot and sent it back. He found that both the list and the replies leaned towards Landon, and that together they caused the miss. Had everyone on the list replied, the poll would at least have named the right winner.</p>
-<h3>The wobble, exactly</h3>
-<p>For a random sample of <em>n</em> people from a city of <em>N</em>, where a share <em>p</em> prefer orange, the typical wobble (the standard error) is √(<em>p</em>(1 − <em>p</em>)/<em>n</em>) × √((<em>N</em> − <em>n</em>)/(<em>N</em> − 1)). The second factor, the finite-population correction, is there because nobody is asked twice. It matters here because the city is small, and it reaches zero when you ask everyone. The room uses this corrected formula.</p>
-<details><summary>What this toy city leaves out</summary><p>Two colours, neighbourhoods drawn at random, residents who never change their minds, and a reply rate that depends only on colour. Real polls choose people more cleverly (Jerzy Neyman argued in 1934 for random sampling within groups, called strata), then weight the answers to match what is known about the population and adjust for who didn’t reply. Gallup’s own 1930s polls filled quotas of different kinds of people, a method with flaws of its own. The margin of error printed beside a poll describes the random wobble only; it can’t see bias.</p></details>
-<div class="sources"><a class="source-link" href="https://doi.org/10.1086/269085" target="_blank" rel="noopener">Squire: why the 1936 Literary Digest poll failed (1988)</a><a class="source-link" href="https://doi.org/10.2307/2342192" target="_blank" rel="noopener">Neyman on random versus purposive sampling (1934)</a><a class="source-link" href="https://online.stat.psu.edu/stat506/Lesson02" target="_blank" rel="noopener">The standard error of a sample share (Penn State STAT 506)</a></div>`,
+<h3>ملايين الإجابات، والفائز الخطأ</h3>
+<p>في عام 1936 أرسلت المجلة الأمريكية <em>\u2066The\u00a0Literary\u00a0Digest\u2069</em> بالبريد أكثر من عشرة ملايين ورقة اقتراع، معظمها إلى أسماء من دفاتر الهاتف وسجلات السيارات. عاد منها أكثر من 2.3 مليون، أي أقل من واحدة من كل أربع. وأعطى عدّها النهائي ألف لاندن 54% وفرانكلين روزفلت 41%. وفي يوم الانتخابات فاز روزفلت بنسبة 61%. أما استطلاعات أصغر بكثير أجراها جورج غالوب وآخرون، اختاروا عيّناتهم بعناية أكبر، فتوقّعت فوز روزفلت.</p>
+<p>بعد نصف قرن، استعمل عالم السياسة بيفريل سكواير استطلاعًا أجرته مؤسسة غالوب عام 1937، سأل الناس هل وصلتهم ورقة اقتراع من المجلة وهل أعادوها. فوجد أن القائمة والردود كلتيهما مالت نحو لاندن، وأنهما معًا سبّبتا الخطأ. ولو ردّ كل من في القائمة، لسمّى الاستطلاع على الأقل الفائز الصحيح.</p>
+<h3>التذبذب بدقة</h3>
+<p>لعيّنة عشوائية حجمها <em>n</em> من مدينة عدد سكانها <em>N</em>، تفضّل نسبة <em>p</em> منهم البرتقالي، يكون التذبذب المعتاد (الخطأ المعياري) \u2066√(<em>p</em>(1\u00a0−\u00a0<em>p</em>)/<em>n</em>)\u00a0× √((<em>N</em>\u00a0−\u00a0<em>n</em>)/(<em>N</em>\u00a0−\u00a01))\u2069. العامل الثاني، تصحيح المجتمع المحدود، موجود لأن أحدًا لا يُسأل مرتين. وهو مهم هنا لأن المدينة صغيرة، ويصل إلى الصفر حين تسألون الجميع. تستعمل الغرفة هذه الصيغة المصحّحة.</p>
+<details><summary>ما تُغفله هذه المدينة المصغّرة</summary><p>لونان فقط، وأحياء مرسومة عشوائيًا، وسكان لا يغيّرون رأيهم أبدًا، ونسبة ردّ لا تتوقف إلا على اللون. الاستطلاعات الحقيقية تختار الناس بذكاء أكبر (دعا جيرزي نيمان عام 1934 إلى الاختيار العشوائي داخل مجموعات تُسمّى الطبقات)، ثم تعطي الإجابات أوزانًا لتطابق ما هو معروف عن السكان، وتصحّح لمن لم يردّوا. أما استطلاعات غالوب نفسه في الثلاثينيات فكانت تملأ حصصًا من أنواع مختلفة من الناس، وهي طريقة لها عيوبها الخاصة. وهامش الخطأ المطبوع بجانب أي استطلاع لا يصف إلا التذبذب العشوائي؛ فهو لا يرى الانحياز.</p></details>
+<div class="sources"><a class="source-link" href="https://doi.org/10.1086/269085" target="_blank" rel="noopener">سكواير: لماذا فشل استطلاع \u2066Literary\u00a0Digest\u2069 عام 1936 (1988، بالإنجليزية)</a><a class="source-link" href="https://doi.org/10.2307/2342192" target="_blank" rel="noopener">نيمان عن الاختيار العشوائي للعيّنات مقابل الاختيار المقصود (1934، بالإنجليزية)</a><a class="source-link" href="https://online.stat.psu.edu/stat506/Lesson02" target="_blank" rel="noopener">الخطأ المعياري لنسبة في عيّنة (\u2066Penn\u00a0State\u00a0STAT\u00a0506\u2069، بالإنجليزية)</a></div>`,
   },
 });

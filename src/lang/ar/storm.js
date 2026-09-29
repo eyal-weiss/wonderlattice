@@ -1,98 +1,108 @@
+/* Send a picture through a storm · visitor-facing words (ar). */
 Wonderlattice.defineText('storm', 'ar', {
-  eyebrow: "ERROR CORRECTION",
-  name: "Send a picture through a storm",
-  tagline: "A few clever extra bits let a picture repair itself.",
-  title: "Send a picture through a storm.",
-  subtitle: "Draw a small picture and send it through a storm that flips some of its dots. Add a few check bits and see it arrive in one piece.",
-  field: "Codes · Information · A little redundancy",
-  sceneLabel: "Noisy channel",
-  actionLabel: "Send again",
-  canvasLabel: "Your picture on the left travels as bits through a storm that flips some of them, and arrives on the right. Click or drag on your picture to draw. With the keyboard, move with the arrow keys and press Enter to paint.",
-  panelEyebrow: "Protect it",
-  whyLabel: "How can bits fix themselves?",
-  nudge: "Count the damage with no protection. Then try Hamming’s trick in the same storm. How wild a storm can it take?",
+  eyebrow: 'تصحيح الأخطاء',
+  name: 'إرسال صورة عبر عاصفة',
+  tagline: 'بضع بِتّات إضافية ذكية تتيح لصورة أن تُصلح نفسها.',
+  title: 'إرسال صورة عبر عاصفة.',
+  subtitle: 'ارسموا صورة صغيرة وأرسلوها عبر عاصفة تقلب بعض نقاطها. أضيفوا بضع بِتّات تحقّق، وشاهدوها تصل سليمة.',
+  field: 'شيفرات · معلومات · قليل من الزيادة الاحتياطية',
+  sceneLabel: 'قناة مشوَّشة',
+  actionLabel: 'الإرسال من جديد',
+  canvasLabel:
+    'صورتكم على اليسار تنتقل على شكل بِتّات عبر عاصفة تقلب بعضها، وتصل إلى اليمين. ' +
+    'انقروا على صورتكم أو اسحبوا عليها لترسموا. وبلوحة المفاتيح، تحرّكوا بمفاتيح الأسهم واضغطوا Enter لتلوّنوا.',
+  panelEyebrow: 'احموها',
+  whyLabel: 'كيف يمكن للبِتّات أن تُصلح نفسها؟',
+  nudge: 'عُدّوا الضرر بلا حماية. ثم جرّبوا «حيلة هامنغ» في العاصفة نفسها. ما أعنف عاصفة تتحمّلها؟',
   connection: {
-    html: "<strong>Signals that travel.</strong> Here a message survives a noisy journey. In “Hear the shape”, two tones travel together and draw a shape you can hear.",
-    label: "Visit “Hear the shape”",
+    html: '<strong>إشارات تسافر.</strong> هنا تنجو رسالة من رحلة مشوَّشة. وفي «سماع الشكل»، تسافر نغمتان معًا وترسمان شكلًا يمكنكم سماعه.',
+    label: 'زيارة «سماع الشكل»',
   },
-  yours: "Your picture",
-  storm: "The storm",
-  arrived: "What arrived",
-  codes: [
-    "No protection",
-    "Say it three times",
-    "One parity bit",
-    "Hamming’s trick",
-  ],
-  codeLabel: "How to protect it",
+
+  // Canvas labels.
+  yours: 'صورتكم',
+  storm: 'العاصفة',
+  arrived: 'ما وصل',
+
+  // The four codes, in the order of the select control.
+  codes: ['بلا حماية', 'التكرار ثلاث مرات', 'بِت تكافؤ واحد', 'حيلة هامنغ'],
+  codeLabel: 'طريقة الحماية',
   codeHints: [
-    "Every bit travels alone.",
-    "Three copies of each bit, then a vote.",
-    "One check bit per four spots a flip.",
-    "Three check bits per four fix a flip.",
+    'كل بِت يسافر وحده.',
+    'ثلاث نسخ من كل بِت، ثم تصويت.',
+    'بِت تحقّق واحد لكل أربعة يكشف الانقلاب.',
+    'ثلاثة بِتّات تحقّق لكل أربعة تُصلح الانقلاب.',
   ],
-  stormLabel: "Storm strength",
-  stormHint: "The chance that any one bit flips.",
-  pictureLabel: "Pick a picture, or draw on yours",
-  pictures: {
-    heart: "Heart",
-    smile: "Smile",
-    invader: "Alien",
-    blank: "Clear",
+  stormLabel: 'قوة العاصفة',
+  stormHint: 'احتمال أن ينقلب أي بِت بعينه.',
+  pictureLabel: 'اختاروا صورة، أو ارسموا على صورتكم',
+  pictures: { heart: 'قلب', smile: 'ابتسامة', invader: 'كائن فضائي', blank: 'مسح' },
+
+  // Tips under the canvas: a key to the markings.
+  tip: 'برتقالي: انقلب · ○ أُصلح · ✕ ما زال خاطئًا',
+  tipParity: 'برتقالي: انقلب · متقطّع: معروف أنه تالف · ✕ خاطئ',
+
+  // Readouts.
+  sent: 'البِتّات المرسَلة',
+  sentValue: (bits, extra) => `${bits} (زيادة \u2066+${extra}%\u2069)`,
+  // The presets' badges: how many extra bits each way of protecting costs.
+  badge: (extra) => `\u2066+${extra}%\u2069`,
+  badgeNote: 'بِتّات إضافية',
+  flipped: 'انقلبت في العاصفة',
+  repaired: 'أُصلحت عند الوصول',
+  knownBad: 'كتل معروف أنها تالفة',
+  wrong: 'بكسلات ما زالت خاطئة',
+  status: (wrong, flips) => {
+    const k = wrong % 100;
+    return !flips
+      ? 'سماء هادئة'
+      : !wrong
+        ? 'وصلت كل البكسلات سليمة'
+        : wrong === 1
+          ? 'بكسل واحد خاطئ'
+          : wrong === 2
+            ? 'بكسلان خاطئان'
+            : k >= 3 && k <= 10
+              ? `${wrong} بكسلات خاطئة`
+              : k >= 11
+                ? `${wrong} بكسلًا خاطئًا`
+                : `${wrong} بكسل خاطئ`;
   },
-  tip: "Orange: flipped · ○ repaired · ✕ still wrong",
-  tipParity: "Orange: flipped · dashed: known bad · ✕ wrong",
-  sent: "Bits sent",
-  sentValue: (bits, extra) => `${bits} (+${extra}% extra)`,
-  badge: (extra) => `+${extra}%`,
-  badgeNote: "extra bits",
-  flipped: "Flipped by the storm",
-  repaired: "Repaired on arrival",
-  knownBad: "Blocks known bad",
-  wrong: "Pixels still wrong",
-  status: (wrong, flips) =>
-    !flips ? 'A calm sky' : !wrong ? 'Every pixel arrived' : wrong === 1 ? '1 pixel wrong' : `${wrong} pixels wrong`,
-  curveTitle: "Pixels wrong on average, as the storm grows",
-  about: (wrong) => `≈ ${wrong}`,
-  curveLabel: (code, wrong) =>
-    `${code}: about ${wrong} ${wrong === 1 ? 'pixel' : 'pixels'} wrong on average at this storm strength.`,
-  calm: "calm",
-  wild: "20%",
+  curveTitle: 'متوسط البكسلات الخاطئة، كلما اشتدت العاصفة',
+  about: (wrong) => `\u2066≈ ${wrong}\u2069`,
+  curveLabel: (code, wrong) => `${code}: عند قوة العاصفة هذه، متوسط عدد البكسلات الخاطئة نحو ${wrong}.`,
+  calm: 'هدوء',
+  wild: '20%',
+
   presets: [
-    {
-      name: "No protection",
-      note: "Every flip hurts.",
-    },
-    {
-      name: "Say it three times",
-      note: "Safe, but three times the bits.",
-    },
-    {
-      name: "Hamming’s trick",
-      note: "Almost as safe, far fewer bits.",
-    },
+    { name: 'بلا حماية', note: 'كل انقلاب يؤذي.' },
+    { name: 'التكرار ثلاث مرات', note: 'آمن، لكن بثلاثة أضعاف البِتّات.' },
+    { name: 'حيلة هامنغ', note: 'آمنة تقريبًا بالقدر نفسه، ببِتّات أقل بكثير.' },
   ],
+
   guests: [
     {
-      name: "Richard Hamming",
-      note: "Weekend after weekend, errors halted his computer. If it can spot a mistake, he asked, why not fix it?",
+      name: 'ريتشارد هامنغ',
+      note: 'عطلةً بعد عطلة، كانت الأخطاء توقف حاسوبه. فتساءل: إن كان يستطيع أن يكتشف الخطأ، فلماذا لا يُصلحه؟',
     },
   ],
+
+  // Short formulas keep no-break spaces inside their isolates, so a phone never splits one across two lines.
   insight: {
-    title: "How can a message fix itself?",
-    html: `<p>Your picture is 64 pixels, so 64 bits of ink or no ink. The storm flips each bit with a small chance. With no protection, every flipped bit is a wrong pixel, and the receiver cannot even tell which ones.</p>
-<div class="insight-visual">A few well-chosen extra bits let the receiver find and fix errors it never saw happen.</div>
-<h3>Say it three times</h3>
-<p>Send every bit three times and let the receiver take a vote. One flip in a triple is outvoted two to one. It works, but it triples the message: 8 extra bits for every 4.</p>
-<h3>One parity bit</h3>
-<p>Add one bit to each block of four so that the number of 1s is always even. If a single bit flips, the count turns odd and the receiver knows the block is damaged. It cannot tell which bit to fix, and two flips cancel out and hide.</p>
-<h3>Hamming’s trick</h3>
-<p>Number the seven bits of a block 1 to 7. The bits at 1, 2 and 4 are checks. Each check keeps an even count over the positions whose number, written in binary, contains it: check 1 watches 1, 3, 5, 7; check 2 watches 2, 3, 6, 7; check 4 watches 4, 5, 6, 7. When one bit flips, the checks that fail add up to its position. Checks 1 and 4 failing means position 5, and no failure means the block looks clean. So, as long as at most one bit per block flips, 3 extra bits per 4 repair it.</p>
-<h3>Cost and protection</h3>
-<p>In a 4% storm, an unprotected picture has about 2.6 wrong pixels on average, three copies about 0.3, and Hamming’s trick about 0.8, with fewer than half the extra bits. The little curve in the panel shows this for every storm strength.</p>
-<h3>Where it breaks</h3>
-<p>These codes assume each bit flips on its own. Three copies and Hamming’s trick promise to fix one flip per block; a parity bit only warns, and no protection does neither. Two flips in one Hamming block send the receiver to the wrong position, and its “repair” makes things worse. Near a 20% storm, Hamming’s trick barely helps; a little beyond, it hurts. Real storms come in bursts, so real systems use longer codes and spread each block’s bits apart.</p>
-<details><summary>The mathematics, if you want it</summary><p>For data bits d1 d2 d3 d4 at positions 3, 5, 6, 7, the checks are c1 = d1 ⊕ d2 ⊕ d4, c2 = d1 ⊕ d3 ⊕ d4, c4 = d2 ⊕ d3 ⊕ d4, where ⊕ adds bits without carrying. The receiver XORs together the positions that hold a 1; the result, called the syndrome, is 0 for a clean block and the flipped position when exactly one bit flipped. Three flips can cancel out to 0 and pass unnoticed.</p><p>If each bit flips with probability p, a pixel sent alone is wrong with probability p, and a pixel sent three times with probability 3p² − 2p³. The curves add up every possible pattern of flips exactly.</p></details>
-<div class="sources"><a class="source-link" href="https://archive.org/details/bstj29-2-147" target="_blank" rel="noopener">Hamming’s 1950 paper</a><a class="source-link" href="https://www.inference.org.uk/mackay/itila/" target="_blank" rel="noopener">MacKay, chapter 1: sending pictures through noise</a></div>`,
+    title: 'كيف يمكن لرسالة أن تُصلح نفسها؟',
+    html: `<p>صورتكم 64 بكسلًا، أي 64 بِتًّا: حبر أو لا حبر. تقلب العاصفة كل بِت باحتمال صغير. وبلا حماية، كل بِت انقلب هو بكسل خاطئ، ولا يستطيع المستقبِل حتى أن يعرف أيّها.</p>
+<div class="insight-visual">بضع بِتّات إضافية مختارة بعناية تتيح للمستقبِل أن يجد أخطاء لم يرَها تحدث، وأن يُصلحها.</div>
+<h3>التكرار ثلاث مرات</h3>
+<p>أرسلوا كل بِت ثلاث مرات، ودعوا المستقبِل يُجري تصويتًا. الانقلاب الواحد في الثلاثية يخسر التصويت، اثنين مقابل واحد. الطريقة تنجح، لكنها تجعل الرسالة ثلاثة أضعاف: 8 بِتّات إضافية لكل 4.</p>
+<h3>بِت تكافؤ واحد</h3>
+<p>أضيفوا بِتًّا واحدًا إلى كل كتلة من أربعة، بحيث يبقى عدد البِتّات التي قيمتها 1 زوجيًا دائمًا. فإن انقلب بِت واحد، صار العدد فرديًا وعرف المستقبِل أن الكتلة تالفة. لكنه لا يستطيع أن يعرف أي بِت يُصلح، وإن انقلب بِتّان ألغى أحدهما الآخر فاختفيا.</p>
+<h3>حيلة هامنغ</h3>
+<p>رقّموا البِتّات السبعة في الكتلة من 1 إلى 7. البِتّات في المواضع 1 و2 و4 بِتّات تحقّق. كل بِت تحقّق يُبقي العدّ زوجيًا في المواضع التي يحتويه رقمها حين يُكتب بالنظام الثنائي: بِت التحقّق 1 يراقب 1، 3، 5، 7؛ وبِت التحقّق 2 يراقب 2، 3، 6، 7؛ وبِت التحقّق 4 يراقب 4، 5، 6، 7. حين ينقلب بِت واحد، يكون مجموع أرقام بِتّات التحقّق التي تفشل هو موضعه. فإن فشل بِتّا التحقّق 1 و4، فالموضع هو 5، وإن لم يفشل أي منها، فالكتلة تبدو سليمة. وهكذا، ما دام بِت واحد على الأكثر ينقلب في كل كتلة، فإن 3 بِتّات إضافية لكل 4 تُصلحها.</p>
+<h3>التكلفة والحماية</h3>
+<p>في عاصفة قوتها 4%، يكون في الصورة غير المحمية نحو 2.6 بكسل خاطئ في المتوسط، ومع النسخ الثلاث نحو 0.3، ومع حيلة هامنغ نحو 0.8، بأقل من نصف البِتّات الإضافية. والمنحنى الصغير في لوحة التحكم يُظهر ذلك لكل قوة عاصفة.</p>
+<h3>أين تنهار</h3>
+<p>تفترض هذه الشيفرات أن كل بِت ينقلب مستقلًا عن غيره. النسخ الثلاث وحيلة هامنغ تعد بإصلاح انقلاب واحد في كل كتلة؛ أما بِت التكافؤ فيُنذر فقط، وغياب الحماية لا يفعل هذا ولا ذاك. انقلابان في كتلة هامنغ واحدة يرسلان المستقبِل إلى الموضع الخطأ، و«إصلاحه» يزيد الأمر سوءًا. قرب عاصفة قوتها 20%، بالكاد تساعد حيلة هامنغ؛ وبعد ذلك بقليل، تضرّ. العواصف الحقيقية تأتي في دفعات، لذلك تستعمل الأنظمة الحقيقية شيفرات أطول، وتفرّق بِتّات كل كتلة بعضها عن بعض.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>لبِتّات البيانات \u2066d1 d2 d3 d4\u2069 في المواضع 3، 5، 6، 7، تكون بِتّات التحقّق \u2066c1 = d1 ⊕ d2 ⊕ d4\u2069 و\u2066c2 = d1 ⊕ d3 ⊕ d4\u2069 و\u2066c4 = d2 ⊕ d3 ⊕ d4\u2069، حيث ⊕ تجمع البِتّات بلا حَمْل. يطبّق المستقبِل XOR على أرقام المواضع التي فيها 1؛ والنتيجة، وتُسمّى المتلازمة، تساوي 0 في الكتلة السليمة، وتساوي موضع الانقلاب حين ينقلب بِت واحد بالضبط. وثلاثة انقلابات قد يُلغي بعضها بعضًا فتعطي 0 وتمرّ دون أن يلاحظها أحد.</p><p>إذا انقلب كل بِت باحتمال p، فإن البكسل المرسَل وحده يكون خاطئًا باحتمال p، والبكسل المرسَل ثلاث مرات يكون خاطئًا باحتمال \u20663p² − 2p³\u2069. والمنحنيات تجمع بدقة كل أنماط الانقلاب الممكنة.</p></details>
+<div class="sources"><a class="source-link" href="https://archive.org/details/bstj29-2-147" target="_blank" rel="noopener">بحث هامنغ المنشور عام 1950 (بالإنجليزية)</a><a class="source-link" href="https://www.inference.org.uk/mackay/itila/" target="_blank" rel="noopener">ماكاي، الفصل 1: إرسال الصور عبر التشويش (بالإنجليزية)</a></div>`,
   },
 });

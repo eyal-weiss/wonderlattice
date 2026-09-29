@@ -1,79 +1,76 @@
+/* Where is the other side? · visitor-facing words (ar). */
 Wonderlattice.defineText('ribbon', 'ar', {
-  eyebrow: "TOPOLOGY · 3D",
-  name: "Where is the other side?",
-  tagline: "Give a ribbon half a twist and one of its sides disappears.",
-  title: "Where is the other side?",
-  subtitle: "A paper strip with half a twist. Spin it and follow its edge, and see whether it really has two sides.",
-  field: "Topology · Surfaces · 3D",
-  sceneLabel: "An ordinary strip, a strange journey",
-  sceneName: "The Möbius ribbon",
-  tip: "Drag to rotate · Arrow keys or the turn buttons also turn the view",
-  actionLabel: "Follow the edge",
-  canvasLabel: "A three-dimensional ribbon. Drag or use arrow keys to rotate.",
-  panelEyebrow: "Turn & follow",
-  whyLabel: "Where did the other side go?",
-  nudge: "Watch the golden traveller. With one half-twist, it takes two circuits around the hole to get back to its starting point.",
+  eyebrow: 'الطوبولوجيا · ثلاثي الأبعاد',
+  name: 'أين الوجه الآخر؟',
+  tagline: 'أديروا أحد طرفَي شريط نصف لفّة، فيختفي أحد وجهيه.',
+  title: 'أين الوجه الآخر؟',
+  subtitle: 'شريط من الورق فيه نصف لفّة. أديروه وتتبّعوا حافته، وانظروا هل له وجهان حقًا.',
+  field: 'الطوبولوجيا · السطوح · ثلاثي الأبعاد',
+  sceneLabel: 'شريط عادي، ورحلة غريبة',
+  sceneName: 'شريط موبيوس',
+  tip: 'اسحبوا للتدوير · مفاتيح الأسهم وأزرار التدوير تدير المنظر أيضًا',
+  actionLabel: 'تتبّع الحافة',
+  canvasLabel: 'شريط ثلاثي الأبعاد. اسحبوا أو استخدموا مفاتيح الأسهم لتدويره.',
+  panelEyebrow: 'أديروا وتتبّعوا',
+  whyLabel: 'أين ذهب الوجه الآخر؟',
+  nudge: 'راقبوا المسافر الذهبي. مع نصف لفّة واحدة، يحتاج إلى دورتين حول الفتحة ليعود إلى نقطة انطلاقه.',
   connection: {
-    html: "<strong>Make it real.</strong> Take a strip of paper, give one end a half-twist, and tape the ends together. Trace a line down its middle without lifting your pen.",
-    label: "Follow another kind of loop",
+    html: '<strong>اصنعوه بأيديكم.</strong> خذوا شريطًا من الورق، وأديروا أحد طرفيه نصف لفّة، ثم ألصقوا الطرفين معًا. ارسموا خطًا على طول منتصفه دون أن ترفعوا القلم.',
+    label: 'تتبّع حلقة من نوع آخر',
   },
   presets: [
     {
-      name: "No twist",
-      note: "A familiar band with two edges.",
+      name: 'بلا لفّة',
+      note: 'طوق مألوف له حافتان.',
     },
     {
-      name: "One half-twist",
-      note: "One continuous side. One edge.",
+      name: 'نصف لفّة',
+      note: 'وجه واحد متصل. حافة واحدة.',
     },
     {
-      name: "A full twist",
-      note: "Two edges return.",
+      name: 'لفّة كاملة',
+      note: 'تعود الحافتان.',
     },
   ],
-  twists: "Give the ribbon a twist",
-  twistOptions: [
-    "No twist · a band",
-    "Half a twist · Möbius",
-    "A full twist · a band",
-  ],
-  width: "Ribbon width",
-  zoom: "Look closer",
-  spin: "Let it turn",
-  walk: "Show the traveller",
-  edges: "Highlight the edges",
-  turn: "Turn the view",
-  turnLeft: "Turn the view left",
-  turnRight: "Turn the view right",
-  tiltUp: "Tilt the view up",
-  tiltDown: "Tilt the view down",
-  nameOneSided: "The Möbius ribbon",
-  nameTwoSided: "The twisted band",
-  statusOneSided: "One side · one edge",
-  statusTwoSided: "Two sides · two edges",
-  showEdges: "Follow the edge",
-  hideEdges: "Hide the edges",
+  twists: 'مقدار لفّ الشريط',
+  twistOptions: ['بلا لفّة · طوق', 'نصف لفّة · موبيوس', 'لفّة كاملة · طوق'],
+  width: 'عرض الشريط',
+  zoom: 'نظرة أقرب',
+  spin: 'تركه يدور',
+  walk: 'إظهار المسافر',
+  edges: 'إبراز الحواف',
+  turn: 'تدوير المنظر',
+  turnLeft: 'تدوير المنظر إلى اليسار',
+  turnRight: 'تدوير المنظر إلى اليمين',
+  tiltUp: 'إمالة المنظر إلى الأعلى',
+  tiltDown: 'إمالة المنظر إلى الأسفل',
+  nameOneSided: 'شريط موبيوس',
+  nameTwoSided: 'الطوق الملتوي',
+  statusOneSided: 'وجه واحد · حافة واحدة',
+  statusTwoSided: 'وجهان · حافتان',
+  showEdges: 'تتبّع الحافة',
+  hideEdges: 'إخفاء الحواف',
   guests: [
     {
-      name: "August Möbius",
-      note: "One half twist makes “the other side” a trick question.",
+      name: 'أوغست موبيوس',
+      note: 'نصف لفّة واحدة تجعل «الوجه الآخر» سؤالًا مخادعًا.',
     },
     {
-      name: "Johann Listing",
-      note: "He explored one-sided surfaces, too. History has more than one name.",
+      name: 'يوهان ليستنغ',
+      note: 'درس هو أيضًا السطوح ذات الوجه الواحد. وللتاريخ أكثر من اسم واحد.',
     },
   ],
   insight: {
-    title: "One twist changes the journey.",
-    html: `<p>Join a strip of paper into a ring and you get two sides and two separate edges. Give one end a half-twist before joining it, and something changes: you can reach what looked like the other side without crossing an edge.</p>
-<div class="insight-visual">The Möbius strip has one continuous side and one boundary loop.</div>
-<h3>Follow the golden traveller</h3>
-<p>The traveller starts away from the centreline. On a Möbius ribbon, one circuit around the hole brings it to the opposite width position. A second circuit returns it to the start. It never jumps across the ribbon.</p>
-<h3>Count the edges</h3>
-<p>“Follow the edge” highlights the boundary. With a half-twist, both apparent edges belong to one continuous loop. With no twist or a full twist, they are two separate loops, shown in different colours, one of them dashed.</p>
-<h3>A different way of seeing shape</h3>
-<p>Topology studies properties that survive continuous bending and stretching. Turning this object on screen changes your viewpoint, while its one-sidedness stays the same.</p>
-<details><summary>How is the surface drawn?</summary><p>For angle u and width coordinate v:<br>x = (R + v cos(nu/2)) cos(u)<br>y = (R + v cos(nu/2)) sin(u)<br>z = v sin(nu/2)</p><p>n counts half-twists. Odd n gives a Möbius band; even n gives a two-sided band. This is a parametric surface projected into the canvas, with depth-sorted faces. Translucent shading lets you see the traveller through the surface.</p></details>
-<div class="sources"><a class="source-link" href="https://mathworld.wolfram.com/MoebiusStrip.html" target="_blank" rel="noopener">Explore the Möbius strip</a></div>`,
+    title: 'لفّة واحدة تغيّر الرحلة.',
+    html: `<p>صِلوا طرفَي شريط من الورق لتصنعوا حلقة، فتحصلوا على وجهين وحافتين منفصلتين. أديروا أحد الطرفين نصف لفّة قبل أن تصلوهما، فيتغيّر شيء ما: يمكنكم أن تبلغوا ما بدا أنه الوجه الآخر دون أن تعبروا أي حافة.</p>
+<div class="insight-visual">لشريط موبيوس وجه واحد متصل، وحافته حلقة واحدة.</div>
+<h3>تتبّعوا المسافر الذهبي</h3>
+<p>ينطلق المسافر بعيدًا عن الخط الأوسط. على شريط موبيوس، تنقله دورة واحدة حول الفتحة إلى الموضع المقابل على عرض الشريط. ودورة ثانية تعيده إلى البداية. ولا يقفز أبدًا عبر الشريط.</p>
+<h3>عُدّوا الحواف</h3>
+<p>يُبرز «تتبّع الحافة» حدود الشريط. مع نصف لفّة، تنتمي الحافتان الظاهرتان كلتاهما إلى حلقة واحدة متصلة. وبلا لفّة أو مع لفّة كاملة، تكونان حلقتين منفصلتين، بلونين مختلفين، وإحداهما متقطّعة.</p>
+<h3>طريقة أخرى لرؤية الشكل</h3>
+<p>تدرس الطوبولوجيا الخصائص التي تبقى مهما ثنينا الشكل ومططناه دون أن نمزّقه. تدوير هذا الجسم على الشاشة يغيّر زاوية نظركم، أما كونه ذا وجه واحد فيبقى كما هو.</p>
+<details><summary>كيف يُرسم السطح؟</summary><p>لكل زاوية u وإحداثي عرض v:<br>\u2066x = (R + v cos(nu/2)) cos(u)\u2069<br>\u2066y = (R + v cos(nu/2)) sin(u)\u2069<br>\u2066z = v sin(nu/2)\u2069</p><p>العدد n هو عدد أنصاف اللفّات. العدد n الفردي يعطي شريط موبيوس؛ والزوجي يعطي طوقًا بوجهين. هذا سطح وسيطي (بارامتري) مُسقَط على لوحة الرسم، ورُقَعه الصغيرة مرتّبة حسب العمق. والتظليل شبه الشفاف يتيح لكم رؤية المسافر عبر السطح.</p></details>
+<div class="sources"><a class="source-link" href="https://mathworld.wolfram.com/MoebiusStrip.html" target="_blank" rel="noopener">استكشاف شريط موبيوس (بالإنجليزية)</a></div>`,
   },
 });

@@ -1,119 +1,110 @@
+/* Bend the plane · visitor-facing words (ar). */
 Wonderlattice.defineText('plane', 'ar', {
-  eyebrow: "COMPLEX NUMBERS",
-  name: "Bend the plane",
-  tagline: "Bend a picture without tearing it; a circle becomes a wing.",
-  title: "Bend the plane.",
-  subtitle: "Pick a way to bend the whole flat plane and watch a picture warp. Look closely: tiny corners keep their right angles.",
-  field: "Complex numbers · Conformal maps · Wings",
-  sceneLabel: "The plane, bent",
-  tip: "Drag the compass on the left, or move it with the arrow keys · Its twin on the right shows the stretch and the turn",
-  tipStacked: "Drag the compass in the top picture, or use the arrow keys · Its twin below shows the stretch and the turn",
-  actionLabel: "Bend it",
-  canvasLabel: "Two copies of the plane. In the first, a picture and a small compass of two perpendicular arrows; in the second, their images under the chosen complex function. Drag the compass, or move it with the arrow keys.",
-  panelEyebrow: "Pick a bend",
-  whyLabel: "Why do right angles survive?",
-  nudge: "Square the plane, then drag the compass to the very centre. What happens to its twin there?",
+  eyebrow: 'الأعداد المركّبة',
+  name: 'ثني المستوى',
+  tagline: 'اثنوا صورة دون أن تمزّقوها؛ فتصير الدائرة جناحًا.',
+  title: 'ثني المستوى.',
+  subtitle:
+    'اختاروا طريقة لثني المستوى المسطّح كله، وشاهدوا صورة تتشوّه. انظروا عن قرب: الزوايا الصغيرة جدًا تبقى قائمة.',
+  field: 'الأعداد المركّبة · التحويلات الحافظة للزوايا · الأجنحة',
+  sceneLabel: 'المستوى بعد الثني',
+  tip: 'اسحبوا البوصلة على اليسار، أو حرّكوها بمفاتيح الأسهم · توأمها على اليمين يُظهر المطّ والدوران',
+  tipStacked: 'اسحبوا البوصلة في الصورة العليا، أو استخدموا مفاتيح الأسهم · توأمها في الأسفل يُظهر المطّ والدوران',
+  actionLabel: 'ثني المستوى',
+  canvasLabel:
+    'نسختان من المستوى. في الأولى صورة وبوصلة صغيرة من سهمين متعامدين؛ وفي الثانية صورتاهما بالدالّة المركّبة المختارة. اسحبوا البوصلة، أو حرّكوها بمفاتيح الأسهم.',
+  panelEyebrow: 'اختاروا طريقة للثني',
+  whyLabel: 'لماذا تصمد الزوايا القائمة؟',
+  nudge: 'ربّعوا المستوى، ثم اسحبوا البوصلة إلى المركز تمامًا. ماذا يحدث لتوأمها هناك؟',
   connection: {
-    html: "<strong>Bending without tearing.</strong> Here a function bends the whole plane and keeps its tiny angles. In “The other side”, a strip bends into a surface with only one side.",
-    label: "Visit “The other side”",
+    html: '<strong>ثني دون تمزيق.</strong> هنا تثني دالّةٌ المستوى كله وتحافظ على زواياه الصغيرة. وفي «الوجه الآخر»، ينثني شريط ليصير سطحًا له وجه واحد فقط.',
+    label: 'زيارة «الوجه الآخر»',
   },
-  functions: [
-    "Square · z²",
-    "Inside out · 1/z",
-    "Wrap · eᶻ",
-    "Wave · sin z",
-    "Wing · z + 1/z",
-  ],
+  functions: ['تربيع · z²', 'قلب · \u20661/z\u2069', 'لفّ · eᶻ', 'موجة · sin z', 'جناح · z + 1/z'],
   formulas: [
-    "w = z²",
-    "w = 1/z",
-    "w = eᶻ",
-    "w = sin z",
-    "w = z + 1/z",
+    'w\u00a0=\u00a0z²',
+    'w\u00a0=\u00a01/z',
+    'w\u00a0=\u00a0eᶻ',
+    'w\u00a0=\u00a0sin\u00a0z',
+    'w\u00a0=\u00a0z\u00a0+\u00a01/z',
   ],
-  pictures: [
-    "A square grid",
-    "A fish",
-    "A face",
-    "Circles and rays",
-    "The wing’s circle",
-  ],
-  functionLabel: "Function",
-  pictureLabel: "Picture",
-  bendLabel: "How far bent",
-  thickLabel: "Thickness",
-  camberLabel: "Arch",
-  gridLabel: "Show a faint grid behind",
-  flowLabel: "Show the air flowing past",
-  at: "The compass at",
-  stretch: "How much it stretches here",
-  stretchMath: "(|f′(z)|)",
-  turn: "How much it turns",
-  turnMath: "(arg f′(z))",
-  point: (x, y) => `${x} ${y < 0 ? '−' : '+'} ${Math.abs(y)}i`.replace(/^-/, '−'),
-  times: (x) => `${x}×`,
-  degrees: (d) => `${d < 0 ? '−' : ''}${Math.abs(d)}°`,
-  none: "–",
-  status: (stretch, turn) => `×${stretch} · turn ${turn}`,
-  statusCritical: "Here f′ = 0",
-  statusPole: "A pole: f = ∞",
-  announceCritical: "f′ = 0 here: angles double",
-  announcePole: "A pole: the function is infinite here",
-  keeps: "Its twin’s arrows still meet at a right angle.",
-  critical: "Here f′ = 0. The twin’s arrows shrink away, and angles double.",
-  pole: "Here f is infinite, a pole. The twin has flown off the map.",
-  away: "Its twin is off the edge of the bent picture.",
-  blending: "Part-way bent: a blend of z and f(z), to help the eye.",
-  zLabel: "z",
-  wLabel: "w",
-  bent: (formula, percent) => `${formula} · ${percent}% bent`,
-  criticalMark: "f′ = 0",
-  poleMark: "pole",
+  pictures: ['شبكة مربعات', 'سمكة', 'وجه', 'دوائر وأشعة', 'دائرة الجناح'],
+  functionLabel: 'الدالّة',
+  pictureLabel: 'الصورة',
+  bendLabel: 'مقدار الثني',
+  thickLabel: 'السُّمك',
+  camberLabel: 'التقوّس',
+  gridLabel: 'إظهار شبكة باهتة في الخلفية',
+  flowLabel: 'إظهار الهواء المارّ حوله',
+  at: 'البوصلة عند',
+  stretch: 'مقدار المطّ هنا',
+  stretchMath: '\u2066(|f′\u2060(z)|)\u2069',
+  turn: 'مقدار الدوران',
+  turnMath: '\u2066(arg\u00a0f′\u2060(z))\u2069',
+  point: (x, y) => '\u2066' + `${x}\u00a0${y < 0 ? '−' : '+'}\u00a0${Math.abs(y)}i`.replace(/^-/, '−') + '\u2069',
+  times: (x) => `\u2066${x}×\u2069`,
+  degrees: (d) => `\u2066${d < 0 ? '−' : ''}${Math.abs(d)}°\u2069`,
+  none: '–',
+  status: (stretch, turn) => `\u2066×${stretch}\u2069 · دوران \u2066${turn}\u2069`,
+  statusCritical: 'هنا \u2066f′\u00a0=\u00a00\u2069',
+  statusPole: 'قطب: \u2066f\u00a0=\u00a0∞\u2069',
+  announceCritical: 'هنا \u2066f′\u00a0=\u00a00\u2069: تتضاعف الزوايا',
+  announcePole: 'قطب: قيمة الدالّة لانهائية هنا',
+  keeps: 'سهما التوأم ما زالا يلتقيان بزاوية قائمة.',
+  critical: 'هنا \u2066f′\u00a0=\u00a00\u2069. ينكمش سهما التوأم حتى يختفيا، وتتضاعف الزوايا.',
+  pole: 'هنا f لانهائية: هذا قطب. طار التوأم خارج الخريطة.',
+  away: 'التوأم خارج حدود الصورة المثنيّة.',
+  blending: 'ثني جزئي: مزيج من z و\u2066f(z)\u2069، لمساعدة العين.',
+  zLabel: 'z',
+  wLabel: 'w',
+  bent: (formula, percent) => `\u2066${formula}\u2069 · ثني بنسبة ${percent}%`,
+  criticalMark: 'f′ = 0',
+  poleMark: 'قطب',
   presets: [
     {
-      name: "Square the plane",
-      note: "Angles double at the centre.",
+      name: 'تربيع المستوى',
+      note: 'تتضاعف الزوايا في المركز.',
     },
     {
-      name: "Turn it inside out",
-      note: "Straight lines become circles.",
+      name: 'قلب المستوى',
+      note: 'تصير الخطوط المستقيمة دوائر.',
     },
     {
-      name: "Wrap it around",
-      note: "Lines become rings and rays.",
+      name: 'لفّ المستوى',
+      note: 'تصير الخطوط حلقات وأشعة.',
     },
     {
-      name: "Square a fish",
-      note: "Bent all over, still a fish.",
+      name: 'تربيع سمكة',
+      note: 'مثنيّة في كل مكان، وما زالت سمكة.',
     },
     {
-      name: "Make a wing",
-      note: "A circle, bent into a wing.",
+      name: 'صنع جناح',
+      note: 'دائرة تنثني لتصير جناحًا.',
     },
   ],
   guests: [
     {
-      name: "Bernhard Riemann",
-      note: "His 1851 thesis, for Gauss, studied complex functions through geometry: angle-keeping maps and surfaces.",
+      name: 'برنهارد ريمان',
+      note: 'في أطروحته عام 1851، التي قدّمها إلى غاوس، درس الدوال المركّبة من خلال الهندسة: تحويلات تحفظ الزوايا، وسطوحًا.',
     },
   ],
   insight: {
-    title: "Bending that keeps its angles.",
-    html: `<p>A complex number x + iy is a point in the plane: x across, y up. A complex function f takes every point z to a new point w = f(z), so it moves the whole plane at once. The first picture is the plane before; the second shows where each of its points lands.</p>
-<div class="insight-visual">multiplying by a number of size r at angle θ stretches by r and turns by θ</div>
-<h3>Multiplying turns and stretches</h3>
-<p>Multiplying by i turns the plane a quarter turn. Multiplying by 2 doubles its size. Every complex number does both at once: it stretches by its size and turns by its angle. A stretch and a turn keep every angle, even as sizes change.</p>
-<h3>Up close, a bend is a multiplication</h3>
-<p>Zoom in near a point z and a complex function that has a derivative there looks like multiplying by one number, its derivative f′(z): f(z + h) ≈ f(z) + f′(z)·h for a tiny h. So every tiny arrow at z is stretched by |f′(z)| and turned by the angle of f′(z), the same for every direction, as long as f′(z) isn’t zero. The compass's two arrows turn together, and still meet at a right angle. A map that keeps angles like this is called <em>conformal</em>. The grid's lines cross at right angles after bending, too, even when the squares become curved.</p>
-<h3>Where f′ = 0, angles break</h3>
-<p>If f′(z) = 0 there's nothing to multiply by, and the next term takes over. Near 0, z² sends h to h², which doubles every angle: the right angle between 1 and i opens into a straight line. That's why the compass's twin shrinks away at the centre of “Square the plane”, and why the grid lines through 0 fold there.</p>
-<h3>Inside out</h3>
-<p>1/z swaps near and far: points close to 0 fly far away, and far points come close. Circles through 0 become straight lines, and straight lines that miss 0 become circles through 0. That's why the square grid turns into two families of circles, all passing through 0 and still crossing each other at right angles. (The two axes, which pass through 0 themselves, stay straight lines.)</p>
-<h3>From a circle to a wing</h3>
-<p>Joukowski's map z + 1/z flattens the unit circle into the line segment from −2 to 2. Shift the circle a little, keeping it through z = 1, and its image becomes a wing: round at the front and sharp at the back. The sharp edge sits exactly where f′ = 0, at z = 1, where angles double and the smooth circle folds into a point. The map carries the flow of air around the circle to flow around the wing. That flow is idealised (steady, frictionless, flat), with just enough swirl that the air leaves the sharp edge smoothly. Real wings also depend on viscosity, turbulence, and their shape in three dimensions, which this picture leaves out.</p>
-<h3>About the “How far bent” slider</h3>
-<p>Part-way, the picture shows (1 − t)·z + t·f(z), a straight blend between staying put and the full map. It's there to help the eye follow each point. Each blend is a complex function too, but it has its own trouble spots, and it's not a path the plane really travels. Only the fully bent picture shows f.</p>
-<details><summary>The mathematics, if you want it</summary><p>f′(z) is the limit of (f(z + h) − f(z)) / h as h shrinks to 0. For a complex function the limit must be the same from every direction, and that's exactly what forces the stretch and the turn to be the same for every direction: an analytic function with f′(z) ≠ 0 is conformal at z. At a point where f′ vanishes to first order, angles are multiplied by 2. The wing's flow uses the complex potential F = ζ + r²/ζ + ik·log ζ around a circle of radius r (ζ measured from its centre), with k chosen to make z = 1 a stagnation point, the Kutta condition.</p></details>
-<div class="sources"><a class="source-link" href="https://ocw.mit.edu/courses/18-04-complex-variables-with-applications-spring-2018/pages/lecture-notes/" target="_blank" rel="noopener">MIT 18.04 notes, topic 10: conformal transformations</a><a class="source-link" href="https://webapps.math.uci.edu/~vmm/ConformalMaps/" target="_blank" rel="noopener">Conformal maps to explore (UC Irvine, 3D-XplorMath)</a><a class="source-link" href="https://www.grc.nasa.gov/www/k-12/airplane/map.html" target="_blank" rel="noopener">Joukowski's cylinder-to-airfoil map (NASA Glenn)</a><a class="source-link" href="https://books.google.com/books/about/Visual_Complex_Analysis.html?id=ogz5FjmiqlQC" target="_blank" rel="noopener">Tristan Needham, Visual Complex Analysis</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Riemann/" target="_blank" rel="noopener">Bernhard Riemann (MacTutor)</a></div>`,
+    title: 'ثني يحافظ على زواياه.',
+    html: `<p>العدد المركّب \u2066x\u00a0+\u00a0iy\u2069 نقطة في المستوى: x أفقيًا، وy إلى الأعلى. والدالّة المركّبة f تنقل كل نقطة z إلى نقطة جديدة \u2066w\u00a0=\u00a0f(z)\u2069، فتحرّك المستوى كله دفعة واحدة. الصورة الأولى هي المستوى قبل الثني؛ والثانية تُظهر أين تقع كل نقطة من نقاطه.</p>
+<div class="insight-visual">الضرب في عدد مقداره r وزاويته θ يمطّ بمعامل r ويُدير بزاوية θ</div>
+<h3>الضرب يُدير ويمطّ</h3>
+<p>الضرب في i يُدير المستوى ربع دورة. والضرب في 2 يضاعف حجمه. وكل عدد مركّب يفعل الأمرين معًا: يمطّ بحسب مقداره، ويُدير بحسب زاويته. والمطّ والدوران يحافظان على كل زاوية، حتى حين تتغيّر الأحجام.</p>
+<h3>عن قرب، الثني ضرب</h3>
+<p>اقتربوا كثيرًا من نقطة z، فتبدو الدالّة المركّبة التي لها مشتقة هناك مثل الضرب في عدد واحد، هو مشتقتها \u2066f′\u2060(z)\u2069: \u2066f(z\u00a0+\u00a0h)\u00a0≈\u00a0f(z)\u00a0+\u00a0f′\u2060(z)·h\u2069 لكل h صغير جدًا. لذلك يُمطّ كل سهم صغير عند z بمعامل \u2066|f′\u2060(z)|\u2069، ويدور بمقدار زاوية \u2066f′\u2060(z)\u2069، بالقدر نفسه في كل اتجاه، ما دامت \u2066f′\u2060(z)\u2069 لا تساوي صفرًا. يدور سهما البوصلة معًا، ويظلان يلتقيان بزاوية قائمة. والتحويل الذي يحفظ الزوايا بهذه الطريقة يُسمّى <em>حافظًا للزوايا</em>. وخطوط الشبكة أيضًا تتقاطع بزوايا قائمة بعد الثني، حتى حين تصير المربعات منحنية.</p>
+<h3>حيث \u2066f′\u00a0=\u00a00\u2069، تنكسر الزوايا</h3>
+<p>إذا كانت \u2066f′\u2060(z)\u00a0=\u00a00\u2069 فلا شيء نضرب فيه، ويتولّى الحدّ التالي المهمة. قرب 0، ترسل z² النقطة h إلى h²، وهذا يضاعف كل زاوية: الزاوية القائمة بين 1 وi تنفتح لتصير خطًا مستقيمًا. لهذا ينكمش توأم البوصلة ويختفي في مركز «تربيع المستوى»، ولهذا تنطوي هناك خطوط الشبكة التي تمرّ عبر 0.</p>
+<h3>من الداخل إلى الخارج</h3>
+<p>تجعل \u20661/z\u2069 القريب بعيدًا والبعيد قريبًا: النقاط القريبة من 0 تطير بعيدًا، والنقاط البعيدة تقترب. الدوائر التي تمرّ عبر 0 تصير خطوطًا مستقيمة، والخطوط المستقيمة التي لا تمرّ عبر 0 تصير دوائر تمرّ عبر 0. لهذا تتحوّل شبكة المربعات إلى عائلتين من الدوائر، كلها تمرّ عبر 0 وما زالت تتقاطع بزوايا قائمة. (المحوران، وهما يمرّان عبر 0 أيضًا، يبقيان خطين مستقيمين.)</p>
+<h3>من دائرة إلى جناح</h3>
+<p>تحويل جوكوفسكي \u2066z\u00a0+\u00a01/z\u2069 يسطّح دائرة الوحدة لتصير القطعة المستقيمة من \u2066−2\u2069 إلى 2. أزيحوا الدائرة قليلًا، مع إبقائها مارّة عبر \u2066z\u00a0=\u00a01\u2069، فتصير صورتها جناحًا: مستديرًا من الأمام وحادًّا من الخلف. تقع الحافة الحادة بالضبط حيث \u2066f′\u00a0=\u00a00\u2069، عند \u2066z\u00a0=\u00a01\u2069، حيث تتضاعف الزوايا وتنطوي الدائرة الملساء في نقطة. وينقل التحويل تدفّق الهواء حول الدائرة إلى تدفّق حول الجناح. هذا التدفّق مثالي (ثابت، بلا احتكاك، مسطّح)، وفيه من الالتفاف ما يكفي تمامًا ليغادر الهواء الحافة الحادة بسلاسة. أما الأجنحة الحقيقية فتعتمد أيضًا على اللزوجة والاضطراب وشكلها في الأبعاد الثلاثة، وهذا كله تتركه هذه الصورة جانبًا.</p>
+<h3>عن منزلق «مقدار الثني»</h3>
+<p>في الثني الجزئي، تُظهر الصورة \u2066(1\u00a0−\u00a0t)·z\u00a0+\u00a0t·f(z)\u2069، وهو مزيج خطّي بين البقاء في المكان والتحويل الكامل. وهو موجود لمساعدة العين على تتبّع كل نقطة. كل مزيج كهذا دالّة مركّبة أيضًا، لكن له نقاطه الصعبة الخاصة به، وهو ليس مسارًا يقطعه المستوى حقًا. الصورة المثنيّة تمامًا وحدها تُظهر f.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>\u2066f′\u2060(z)\u2069 هي نهاية \u2066(f(z\u00a0+\u00a0h)\u00a0−\u00a0f(z))\u00a0/\u00a0h\u2069 حين تؤول h إلى 0. في الدالّة المركّبة يجب أن تكون النهاية نفسها من كل اتجاه، وهذا بالضبط ما يُجبر المطّ والدوران على أن يكونا متساويين في كل اتجاه: الدالّة التحليلية التي تحقّق \u2066f′\u2060(z)\u00a0≠\u00a00\u2069 حافظة للزوايا عند z. وعند نقطة تنعدم فيها f′ من الرتبة الأولى، تُضرب الزوايا في 2. ويستخدم تدفّق الجناح الجهد المركّب \u2066F\u00a0=\u00a0ζ\u00a0+\u00a0r²/ζ\u00a0+\u00a0ik·log\u00a0ζ\u2069 حول دائرة نصف قطرها r (حيث تُقاس ζ من مركزها)، مع اختيار k بحيث تكون \u2066z\u00a0=\u00a01\u2069 نقطة ركود، وهذا شرط كوتا.</p></details>
+<div class="sources"><a class="source-link" href="https://ocw.mit.edu/courses/18-04-complex-variables-with-applications-spring-2018/pages/lecture-notes/" target="_blank" rel="noopener">ملاحظات مقرر \u2066MIT\u00a018.04\u2069، الموضوع 10: التحويلات الحافظة للزوايا (بالإنجليزية)</a><a class="source-link" href="https://webapps.math.uci.edu/~vmm/ConformalMaps/" target="_blank" rel="noopener">تحويلات حافظة للزوايا لتستكشفوها (UC Irvine،\u200f 3D-XplorMath، بالإنجليزية)</a><a class="source-link" href="https://www.grc.nasa.gov/www/k-12/airplane/map.html" target="_blank" rel="noopener">تحويل جوكوفسكي من أسطوانة إلى جناح (NASA Glenn، بالإنجليزية)</a><a class="source-link" href="https://books.google.com/books/about/Visual_Complex_Analysis.html?id=ogz5FjmiqlQC" target="_blank" rel="noopener">تريستان نيدهام، \u2066Visual Complex Analysis\u2069 (بالإنجليزية)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Riemann/" target="_blank" rel="noopener">برنهارد ريمان (MacTutor، بالإنجليزية)</a></div>`,
   },
 });

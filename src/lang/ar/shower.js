@@ -1,134 +1,187 @@
+/* The shower that never settles · visitor-facing words (ar). */
 Wonderlattice.defineText('shower', 'ar', {
-  eyebrow: "FEEDBACK",
-  name: "The shower that never settles",
-  tagline: "Too cold, too hot, too cold… and the harder you try, the worse it gets.",
-  title: "The shower that never settles.",
-  subtitle: "The water takes a moment to come up the pipe. The eager bather swings between freezing and scalding; the patient one settles. Change the pipe, or take the tap yourself.",
-  field: "Feedback · Delay · A sharp line at π/2",
-  sceneLabel: "Just right is 38 °C · The tap goes from 10 °C to 55 °C",
-  sceneNames: [
-    "Two bathers, one pipe",
-    "One bather",
-    "Your hand on the tap",
-  ],
-  tip: "The pipe is coloured by the water inside it · ← → on the picture change the pipe · With Your hand, drag across the picture or press ← → to turn the tap",
-  soundOff: "Turn sound on",
-  soundOn: "Sound on · mute",
-  noSound: "Sound is unavailable in this browser. You can still watch the bathers.",
-  canvasLabel: "Two cartoon bathers stand under showers. Each turns a tap on the wall, and the water climbs a long pipe to the shower head, coloured from blue for cold to red for hot, so each bather feels a turn of the tap only a moment later. Below, a chart shows the temperature each bather feels over the last 30 seconds, with a band for just right. At first the eager bather swings between freezing and scalding for ever, while the patient bather settles at 38 °C. Beside them, a map shows which mixes of impatience and pipe length settle.",
-  panelEyebrow: "Who is at the tap?",
-  whyLabel: "Why does patience win?",
-  nudge: "Watch the gold bather: every turn of the tap arrives late, so they keep overdoing it. Shorten the pipe, and the eager one settles first. Then try One bather, and find the impatience where the swinging starts.",
+  eyebrow: 'التغذية الراجعة',
+  name: 'الدُّش الذي لا يستقر أبدًا',
+  tagline: 'بارد جدًا، ساخن جدًا، بارد جدًا… وكلما حاولتم أكثر، ساء الأمر أكثر.',
+  title: 'الدُّش الذي لا يستقر أبدًا.',
+  subtitle:
+    'يحتاج الماء إلى لحظة ليصعد في الأنبوب. المستحمّ المتعجّل يتأرجح بين ماء كالثلج وماء حارق؛ أما الصبور فيستقر. غيّروا الأنبوب، أو أمسكوا الحنفية بأنفسكم.',
+  field: 'التغذية الراجعة · التأخير · خط حادّ عند \u2066π/\u20602\u2069',
+  sceneLabel: 'الحرارة المناسبة \u206638\u00a0°C\u2069 · الحنفية من \u206610\u00a0°C\u2069 إلى \u206655\u00a0°C\u2069',
+  sceneNames: ['مستحمّان وأنبوب واحد', 'مستحمّ واحد', 'يدكم على الحنفية'],
+  tip: 'لون الأنبوب هو لون الماء الذي فيه · السهمان ← و→ على الصورة يغيّران الأنبوب · في وضع «يدكم»، اسحبوا عبر الصورة أو اضغطوا ← و→ لتدوير الحنفية',
+  soundOff: 'تشغيل الصوت',
+  soundOn: 'الصوت يعمل · كتم',
+  noSound: 'الصوت غير متاح في هذا المتصفح. لا يزال بإمكانكم مشاهدة المستحمّين.',
+  canvasLabel:
+    'مستحمّان كرتونيان يقفان تحت دُشّين. كلٌّ منهما يدير حنفية على الحائط، ويصعد الماء في أنبوب طويل إلى رأس الدُّش، ملوّنًا من الأزرق للبارد إلى الأحمر للساخن، فلا يشعر المستحمّ بتدوير الحنفية إلا بعد لحظة. في الأسفل، رسم بياني يُظهر الحرارة التي يشعر بها كل مستحمّ خلال آخر 30 ثانية، مع شريط للحرارة المناسبة. في البداية يتأرجح المستحمّ المتعجّل بلا نهاية بين ماء كالثلج وماء حارق، بينما يستقر الصبور عند \u206638\u00a0°C\u2069. وبجانبهما خريطة تُظهر أيّ مزيج من التعجّل وطول الأنبوب يستقر.',
+  panelEyebrow: 'مَن عند الحنفية؟',
+  whyLabel: 'لماذا يفوز الصبر؟',
+  nudge:
+    'راقبوا المستحمّ الذهبي: كل تدوير للحنفية يصل متأخرًا، فيبالغ مرة بعد مرة. قصّروا الأنبوب، وسيستقر المتعجّل أولًا. ثم جرّبوا «مستحمّ واحد»، وابحثوا عن درجة التعجّل التي يبدأ عندها التأرجح.',
   connection: {
-    html: "<strong>Reacting to what you see.</strong> Here, a bather who reacts to old news swings for ever. In Fireflies that fall into step, each firefly nudges its own clock when it sees a flash, and the whole swarm comes into time.",
-    label: "Watch the fireflies",
+    html: '<strong>الاستجابة لما ترونه.</strong> هنا، المستحمّ الذي يستجيب لأخبار قديمة يتأرجح بلا نهاية. وفي «يراعات تومض معًا»، تعدّل كل يراعة ساعتها قليلًا حين ترى ومضة، فيصير السرب كله على إيقاع واحد.',
+    label: 'مشاهدة اليراعات',
   },
+
   presets: [
-    {
-      name: "No wobble at all",
-      note: "Gentle enough never to overshoot.",
-      badge: "1/e",
-    },
-    {
-      name: "On the knife-edge",
-      note: "The swing never grows or fades.",
-      badge: "π/2",
-    },
-    {
-      name: "A short pipe",
-      note: "Now the eager bather wins.",
-      badge: "½ s",
-    },
+    { name: 'بلا أي تذبذب', note: 'هادئ بما يكفي كي لا يتجاوز الهدف أبدًا.', badge: '1/e' },
+    { name: 'على حدّ السكين', note: 'التأرجح لا يكبر ولا يخفت أبدًا.', badge: 'π/2' },
+    { name: 'أنبوب قصير', note: 'الآن يفوز المتعجّل.', badge: '½ s' },
   ],
-  modeLabel: "Who is at the tap?",
-  modes: [
-    "Two bathers",
-    "One bather",
-    "Your hand",
-  ],
-  bathers: [
-    "Eager",
-    "Patient",
-    "Bather",
-    "You",
-  ],
-  pipe: "Pipe length",
-  pipeHint: "The seconds the water takes from the tap to the shower head.",
-  seconds: " s",
-  impatience: "Impatience",
-  impatienceHint: "How fast the bather turns the tap for each degree the water feels wrong.",
-  hand: "Your tap",
-  handHint: "Aim for 38 °C. The water you feel left the tap a moment ago.",
-  cold: "cold",
-  hot: "hot",
-  handValue: (percent) => `${percent}% of the way to hot`,
+
+  modeLabel: 'مَن عند الحنفية؟',
+  // By mode number: the two bathers side by side, one bather, the visitor.
+  modes: ['مستحمّان', 'مستحمّ واحد', 'يدكم'],
+  // Drawn under each shower: the eager and patient bathers, the one bather, and the visitor.
+  bathers: ['المتعجّل', 'الصبور', 'المستحمّ', 'أنتم'],
+
+  pipe: 'طول الأنبوب',
+  pipeHint: 'عدد الثواني التي يستغرقها الماء من الحنفية إلى رأس الدُّش.',
+  seconds: ' s',
+  impatience: 'التعجّل',
+  impatienceHint: 'سرعة تدوير المستحمّ للحنفية عن كل درجة يبتعد بها الماء عن الحرارة المناسبة.',
+  hand: 'حنفيتكم',
+  handHint: 'حاولوا الوصول إلى \u206638\u00a0°C\u2069. الماء الذي تشعرون به خرج من الحنفية قبل لحظة.',
+  cold: 'بارد',
+  hot: 'ساخن',
+  handValue: (percent) => `${percent}% من الطريق إلى الساخن`,
+
+  // The seconds arrive as written numbers ('2', '7.4'); the noun agrees with whole numbers, and decimals take the
+  // singular (7.4 ثانية).
   readout: {
-    product: "Impatience × pipe",
-    sum: (k, d, kd) => `${k} × ${d}\u00a0s = ${kd}`,
-    verdicts: [
-      "Settles without overshooting",
-      "Wobbles, then settles",
-      "Never settles",
-    ],
-    smooth: "The water creeps up to 38 °C and stays there.",
-    fades: (share, period) => `Each wobble is ${share} the size of the one before, one every ${period}\u00a0s.`,
-    edge: (period) => `Right on the line: the swing keeps its size, one every ${period}\u00a0s, four times the pipe.`,
-    grows: (ratio, period) =>
-      `Each swing is ${ratio} times the last, one every ${period}\u00a0s, until the tap reaches its stops.`,
-    limit: (d, limit) => `With a ${d}\u00a0s pipe, any impatience below ${limit} settles: that’s π/2 ÷ ${d}.`,
-    hands: (d) => `The water you feel left the tap ${d}\u00a0s ago. Try to hold it at 38\u00a0°C.`,
+    product: 'التعجّل × الأنبوب',
+    sum: (k, d, kd) => `\u2066${k}\u00a0×\u00a0${d}\u00a0s\u00a0=\u00a0${kd}\u2069`,
+    verdicts: ['يستقر دون أن يتجاوز الهدف', 'يتذبذب ثم يستقر', 'لا يستقر أبدًا'],
+    smooth: 'يصعد الماء ببطء إلى \u206638\u00a0°C\u2069 ويبقى هناك.',
+    fades: (share, period) => {
+      const n = period * 1;
+      const every =
+        n === 1
+          ? 'كل ثانية'
+          : n === 2
+            ? 'كل ثانيتين'
+            : n === Math.round(n) && n >= 3 && n <= 10
+              ? `كل ${period} ثوانٍ`
+              : `كل ${period} ثانية`;
+      return `كل تذبذب بحجم ${share} من سابقه، وتذبذب واحد ${every}.`;
+    },
+    edge: (period) => {
+      const n = period * 1;
+      const every =
+        n === 1
+          ? 'كل ثانية'
+          : n === 2
+            ? 'كل ثانيتين'
+            : n === Math.round(n) && n >= 3 && n <= 10
+              ? `كل ${period} ثوانٍ`
+              : `كل ${period} ثانية`;
+      return `على الخط تمامًا: يحافظ التأرجح على حجمه، وتأرجح واحد ${every}، أي أربعة أضعاف زمن الأنبوب.`;
+    },
+    grows: (ratio, period) => {
+      const n = period * 1;
+      const every =
+        n === 1
+          ? 'كل ثانية'
+          : n === 2
+            ? 'كل ثانيتين'
+            : n === Math.round(n) && n >= 3 && n <= 10
+              ? `كل ${period} ثوانٍ`
+              : `كل ${period} ثانية`;
+      return `كل تأرجح يساوي سابقه مضروبًا في ${ratio}، وتأرجح واحد ${every}، حتى تصل الحنفية إلى نهاية مداها.`;
+    },
+    limit: (d, limit) => {
+      const n = d * 1;
+      const time =
+        n === 1
+          ? 'ثانية واحدة'
+          : n === 2
+            ? 'ثانيتين'
+            : n === Math.round(n) && n >= 3 && n <= 10
+              ? `${d} ثوانٍ`
+              : `${d} ثانية`;
+      return `حين يستغرق الماء ${time} في الأنبوب، يستقر الدُّش مع أي تعجّل أقل من ${limit}، أي \u2066π/\u20602\u00a0÷\u00a0${d}\u2069.`;
+    },
+    hands: (d) => {
+      const n = d * 1;
+      const time =
+        n === 1
+          ? 'ثانية واحدة'
+          : n === 2
+            ? 'ثانيتين'
+            : n === Math.round(n) && n >= 3 && n <= 10
+              ? `${d} ثوانٍ`
+              : `${d} ثانية`;
+      return `الماء الذي تشعرون به خرج من الحنفية قبل ${time}. حاولوا إبقاءه عند \u206638\u00a0°C\u2069.`;
+    },
   },
-  status: (text, seconds) => `${text} second${seconds === 1 ? '' : 's'} in`,
+
+  status: (text, seconds) => {
+    const k = seconds % 100;
+    return seconds === 0
+      ? 'لم تمرّ ثانية بعد'
+      : seconds === 1
+        ? 'مرّت ثانية واحدة'
+        : seconds === 2
+          ? 'مرّت ثانيتان'
+          : k >= 3 && k <= 10
+            ? `مرّت ${text} ثوانٍ`
+            : `مرّت ${text} ثانية`;
+  },
+  // By mode: the water felt right now, beside the picture.
   now: [
-    (eager, patient) => `Right now the eager bather feels ${eager}, the patient bather ${patient}.`,
-    (water) => `Right now the bather feels ${water}.`,
-    (water) => `Right now you feel ${water}.`,
+    (eager, patient) => `الآن تبلغ الحرارة عند المتعجّل ${eager}، وعند الصبور ${patient}.`,
+    (water) => `الآن تبلغ الحرارة عند المستحمّ ${water}.`,
+    (water) => `الآن تبلغ الحرارة التي تشعرون بها ${water}.`,
   ],
-  degrees: (value) => `${value}\u00a0°C`,
+  // A no-break space, so a temperature never splits across two lines; isolated, so it reads left to right.
+  degrees: (value) => `\u2066${value}\u00a0°C\u2069`,
   announce: {
     race: (eager, patient) =>
-      `After 15 seconds the eager bather feels ${eager} and is still swinging; the patient bather feels ${patient}.`,
-    one: (water, verdict) => `After 15 seconds the water is at ${water}. ${verdict}.`,
+      `بعد 15 ثانية، تبلغ الحرارة عند المتعجّل ${eager} وما زال يتأرجح؛ وعند الصبور ${patient}.`,
+    one: (water, verdict) => `بعد 15 ثانية، صارت حرارة الماء ${water}. ${verdict}.`,
   },
+
+  // Words drawn on the picture. The picture is drawn left to right, so a value comes before its name here: read
+  // from the right, the name still comes first.
   labels: {
-    seconds: "seconds",
-    justRight: "just right",
-    tap: "tap",
-    tag: (name, value) => `${name} ${value}`,
-    mapTitle: "Which bathers settle?",
-    mapX: "pipe, seconds",
-    mapY: "impatience",
-    regions: [
-      "no wobble",
-      "wobbles, then settles",
-      "never settles",
-    ],
-    safe: (limit) => `settles below ${limit}`,
-    drag: "Drag across the picture to turn the tap",
-    onYou: "On you",
-    inPipe: "On its way",
+    seconds: 'الثواني',
+    justRight: 'الحرارة المناسبة',
+    tap: 'الحنفية',
+    // A bather's name and the temperature they feel; languages may reorder them.
+    tag: (name, value) => `${value} ${name}`,
+    mapTitle: 'مَن يستقر؟',
+    mapX: 'الأنبوب بالثواني',
+    mapY: 'التعجّل',
+    regions: ['بلا تذبذب', 'يتذبذب ثم يستقر', 'لا يستقر أبدًا'],
+    safe: (limit) => `يستقر تحت ${limit}`,
+    drag: 'اسحبوا عبر الصورة لتدوير الحنفية',
+    onYou: 'عليكم',
+    inPipe: 'في الطريق',
   },
+
   guests: [
     {
-      name: "James Clerk Maxwell",
-      note: "In 1868 his paper “On Governors” used mathematics to ask when a machine that corrects itself will settle, and when its corrections will swing ever wider.",
+      name: 'جيمس كلارك ماكسويل',
+      note: 'في عام 1868، استعان بالرياضيات في بحثه \u2066“On\u00a0Governors”\u2069 ليسأل: متى تستقر آلة تصحّح نفسها، ومتى تتأرجح تصحيحاتها أوسع فأوسع؟',
     },
     {
-      name: "Nicolas Minorsky",
-      note: "He watched helmsmen steer by the error, by how long it had lasted and by how fast it was changing, and in 1922 turned that into a rule for steering ships automatically.",
+      name: 'نيكولاس مينورسكي',
+      note: 'راقب قادة الدفّة وهم يوجّهون السفن بحسب الخطأ، وبحسب مدة استمراره، وبحسب سرعة تغيّره، وفي عام 1922 حوّل ذلك إلى قاعدة لتوجيه السفن آليًا.',
     },
   ],
+
   insight: {
-    title: "Why does patience win?",
-    html: `<p>The bather reacts to the water they feel, but that water left the tap a moment ago. Turn the tap hotter and nothing changes yet, so they turn it more. By the time the hot water arrives, the tap is far too hot, and the same happens on the way back down. The eager bather is always correcting a mistake that is already on its way to being fixed.</p>
-<div class="insight-visual">Impatience × pipe below 1/e ≈ 0.37: no wobble · below π/2 ≈ 1.57: wobbles that fade · above π/2: a swing that never ends</div>
-<h3>Only the product matters</h3>
-<p>Say the bather turns the tap <em>k</em> degrees a second for every degree the water feels wrong, and the water takes <em>d</em> seconds to arrive. Whether the shower settles depends only on <em>k</em> × <em>d</em>. So a longer pipe needs a gentler hand: the most impatience that still settles is π/2 ÷ <em>d</em>. With a two-second pipe, the patient bather’s 0.3 × 2 = 0.6 settles and the eager bather’s 0.9 × 2 = 1.8 never does. Shorten the pipe to half a second, and the eager bather settles first, in under two seconds.</p>
-<h3>Right on the line</h3>
-<p>At exactly <em>k</em> × <em>d</em> = π/2 the swing neither grows nor fades, and one whole swing takes four times as long as the water takes to arrive. The same limit turns up wherever someone acts on old news, such as a thermostat whose radiator is slow to warm, or a helmsman steering a big ship. A classic fix is to predict: the Smith predictor (O. J. M. Smith, 1957) uses a model of the delay to work out what is already on its way. You can try it here. With Your hand, watch the colour in the pipe rather than the water on the bather.</p>
-<h3>What this leaves out</h3>
-<p>Real people don’t react this evenly, and real mixing valves don’t change the temperature evenly as they turn. Here the water travels up the pipe as a plug, without mixing or cooling. Beyond π/2 the equation’s swings grow without limit; the tap’s stops, at 10 °C and 55 °C, turn that growth into a steady swing between them, so the size of the swing you see comes from the stops, not from the equation. Many home heating systems simply switch on and off, which this room doesn’t show.</p>
-<details><summary>The mathematics, if you want it</summary><p>Let <em>e</em>(<em>t</em>) be how far the tap is from just right. The water felt at time <em>t</em> left the tap at <em>t</em> − <em>d</em>, so the bather turns the tap at the rate <em>e</em>′(<em>t</em>) = −<em>k</em>·<em>e</em>(<em>t</em> − <em>d</em>): a delay differential equation, which Chris Budd calls the shower equation. Trying <em>e</em> = e<sup><em>λt</em></sup> gives <em>λ</em> = −<em>k</em>·e<sup>−<em>λd</em></sup>, so <em>λd</em> = W(−<em>kd</em>), where W is the Lambert W function. The root that matters most comes from W’s principal branch. It is real for <em>kd</em> ≤ 1/e, so there is no overshoot. Beyond that it is complex, which means wobbles, and its real part turns positive at <em>kd</em> = π/2, where W(−π/2) = <em>i</em>π/2: a swing with a period of 4<em>d</em>. The room steps the equation 60 times a second, with the tap’s stops; the numbers in the panel come from W.</p></details>
-<div class="sources"><a class="source-link" href="https://plus.maths.org/content/shower-equation" target="_blank" rel="noopener">C. Budd, “The shower equation”, Plus Magazine</a><a class="source-link" href="https://en.wikipedia.org/wiki/Delay_differential_equation" target="_blank" rel="noopener">Delay differential equation</a><a class="source-link" href="https://en.wikipedia.org/wiki/Lambert_W_function" target="_blank" rel="noopener">Lambert W function</a><a class="source-link" href="https://en.wikipedia.org/wiki/Smith_predictor" target="_blank" rel="noopener">Smith predictor</a><a class="source-link" href="https://en.wikipedia.org/wiki/PID_controller#History" target="_blank" rel="noopener">PID controller: history (Maxwell, Minorsky)</a></div>`,
+    title: 'لماذا يفوز الصبر؟',
+    html: `<p>يستجيب المستحمّ للماء الذي يشعر به، لكن هذا الماء خرج من الحنفية قبل لحظة. يدير الحنفية نحو الساخن ولا يتغيّر شيء بعد، فيديرها أكثر. وحين يصل الماء الساخن، تكون الحنفية قد صارت ساخنة أكثر مما ينبغي بكثير، ويتكرر الأمر نفسه في طريق العودة. المستحمّ المتعجّل يصحّح دائمًا خطأً كان إصلاحه في الطريق أصلًا.</p>
+<div class="insight-visual">التعجّل × الأنبوب: أقل من \u20661/\u2060e\u00a0≈\u00a00.37\u2069، بلا تذبذب · أقل من \u2066π/\u20602\u00a0≈\u00a01.57\u2069، تذبذبات تخفت · أكثر من \u2066π/\u20602\u2069، تأرجح لا ينتهي</div>
+<h3>المهم هو حاصل الضرب وحده</h3>
+<p>لنفترض أن المستحمّ يدير الحنفية بمعدّل <em>k</em> درجة في الثانية عن كل درجة يبتعد بها الماء عن الحرارة المناسبة، وأن الماء يحتاج إلى <em>d</em> ثانية ليصل. عندها يتوقف استقرار الدُّش على \u2066<em>k</em>\u00a0×\u00a0<em>d</em>\u2069 وحده. لذلك يحتاج الأنبوب الأطول إلى يد أهدأ: أكبر تعجّل يبقى معه الدُّش مستقرًا هو \u2066π/\u20602\u00a0÷\u00a0<em>d</em>\u2069. في أنبوب يستغرق ثانيتين، يستقر الصبور لأن \u20660.3\u00a0×\u00a02\u00a0=\u00a00.6\u2069، ولا يستقر المتعجّل أبدًا لأن \u20660.9\u00a0×\u00a02\u00a0=\u00a01.8\u2069. قصّروا الأنبوب إلى نصف ثانية، وسيستقر المتعجّل أولًا، في أقل من ثانيتين.</p>
+<h3>على الخط تمامًا</h3>
+<p>عند \u2066<em>k</em>\u00a0×\u00a0<em>d</em>\u00a0=\u00a0π/\u20602\u2069 بالضبط، لا يكبر التأرجح ولا يخفت، ويستغرق التأرجح الكامل أربعة أضعاف الوقت الذي يحتاجه الماء ليصل. ويظهر الحدّ نفسه حيثما يتصرّف أحدٌ بحسب أخبار قديمة، كمنظّم حرارة مدفأته بطيئة في التسخين، أو قائد دفّة يوجّه سفينة كبيرة. ومن الحلول الكلاسيكية التنبّؤ: متنبّئ سميث (أوتو سميث، 1957) يستخدم نموذجًا للتأخير ليحسب ما هو في الطريق أصلًا. يمكنكم تجربة ذلك هنا: في وضع «يدكم»، راقبوا اللون في الأنبوب بدلًا من الماء الذي على المستحمّ.</p>
+<h3>ما يُغفله هذا النموذج</h3>
+<p>الناس في الواقع لا يستجيبون بهذا الانتظام، وصمامات الخلط الحقيقية لا تغيّر الحرارة بانتظام وهي تدور. هنا يصعد الماء في الأنبوب ككتلة واحدة، دون أن يختلط أو يبرد. بعد \u2066π/\u20602\u2069 تكبر تأرجحات المعادلة بلا حدود؛ لكن حدَّي الحنفية، عند \u206610\u00a0°C\u2069 وعند \u206655\u00a0°C\u2069، يحوّلان هذا النمو إلى تأرجح ثابت بينهما، فحجم التأرجح الذي ترونه يأتي من حدَّي الحنفية، لا من المعادلة. وكثير من أنظمة التدفئة المنزلية تعمل وتتوقف فحسب، وهذا ما لا تُظهره هذه الغرفة.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>لتكن \u2066<em>e</em>(<em>t</em>)\u2069 مقدار بُعد الحنفية عن الوضع المناسب. الماء الذي نشعر به في اللحظة <em>t</em> خرج من الحنفية في اللحظة \u2066<em>t</em>\u00a0−\u00a0<em>d</em>\u2069، لذلك يدير المستحمّ الحنفية بالمعدّل \u2066<em>e</em>′(<em>t</em>)\u00a0=\u00a0−<em>k</em>·<em>e</em>(<em>t</em>\u00a0−\u00a0<em>d</em>)\u2069: معادلة تفاضلية ذات تأخير، يسمّيها كريس باد «معادلة الدُّش». بتجربة \u2066<em>e</em>\u00a0=\u00a0e<sup><em>λt</em></sup>\u2069 نحصل على \u2066<em>λ</em>\u00a0=\u00a0−<em>k</em>·e<sup>−<em>λd</em></sup>\u2069، إذن \u2066<em>λd</em>\u00a0=\u00a0W(−<em>kd</em>)\u2069، حيث W هي دالّة لامبرت W. الجذر الأهم يأتي من الفرع الرئيسي للدالّة W. وهو حقيقي عندما \u2066<em>kd</em>\u00a0≤\u00a01/\u2060e\u2069، فلا يتجاوز الماء الهدف. بعد ذلك يصير مركّبًا، أي تظهر تذبذبات، ويصير جزؤه الحقيقي موجبًا عند \u2066<em>kd</em>\u00a0=\u00a0π/\u20602\u2069، حيث \u2066W(−π/\u20602)\u00a0=\u00a0<em>i</em>π/\u20602\u2069: تأرجح دَوره \u20664<em>d</em>\u2069. تحسب الغرفة المعادلة خطوةً خطوة، 60 مرة في الثانية، مع حدَّي الحنفية؛ أما الأعداد المعروضة في اللوحة فتأتي من W.</p></details>
+<div class="sources"><a class="source-link" href="https://plus.maths.org/content/shower-equation" target="_blank" rel="noopener">كريس باد، \u2066“The shower equation”, Plus Magazine\u2069 (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Delay_differential_equation" target="_blank" rel="noopener">معادلة تفاضلية ذات تأخير (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Lambert_W_function" target="_blank" rel="noopener">دالّة لامبرت W (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Smith_predictor" target="_blank" rel="noopener">متنبّئ سميث (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/PID_controller#History" target="_blank" rel="noopener">متحكّم PID: تاريخه، مع ماكسويل ومينورسكي (بالإنجليزية)</a></div>`,
   },
 });

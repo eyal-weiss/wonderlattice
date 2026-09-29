@@ -1,79 +1,85 @@
+/* Hear the shape · visitor-facing words (ar). */
 Wonderlattice.defineText('waves', 'ar', {
-  eyebrow: "WAVES · SOUND",
-  name: "Hear the shape",
-  tagline: "Two tones combine into beats, silence, and a looping portrait.",
-  title: "Hear the shape.",
-  subtitle: "Two tones, drawn as waves. Pull one slightly away from the other and watch, or listen to, their sum start to pulse.",
-  field: "Waves · Ratios · Interference",
-  sceneLabel: "A conversation in waves",
-  sceneName: "Two tones, together",
-  tip: "Slow-motion wave model · Sound plays at real pitch",
-  actionLabel: "Turn sound on",
-  canvasLabel: "Two sine waves and their combined signal. Choose Circle portrait for a second representation.",
-  panelEyebrow: "Listen & look",
-  whyLabel: "Why does this happen?",
-  nudge: "Try “Almost in tune”. Hear the volume swell and fade as two close pitches drift in and out of step.",
+  eyebrow: 'موجات · صوت',
+  name: 'سماع الشكل',
+  tagline: 'نغمتان تجتمعان في ضربات، وفي صمت، وفي رسم يلتفّ على نفسه.',
+  title: 'سماع الشكل.',
+  subtitle:
+    'نغمتان مرسومتان على شكل موجتين. أبعِدوا إحداهما قليلًا عن الأخرى، وشاهدوا، أو استمعوا، كيف يبدأ مجموعهما بالنبض.',
+  field: 'موجات · نِسَب · تداخل',
+  sceneLabel: 'حوار بالموجات',
+  sceneName: 'نغمتان معًا',
+  tip: 'نموذج موجات بالحركة البطيئة · الصوت يُعزف بطبقته الحقيقية',
+  actionLabel: 'تشغيل الصوت',
+  canvasLabel: 'موجتان جيبيّتان وإشارتهما المجمّعة. اختاروا «صورة دائرية» لرؤية تمثيل ثانٍ.',
+  panelEyebrow: 'استمعوا وانظروا',
+  whyLabel: 'لماذا يحدث هذا؟',
+  nudge:
+    'جرّبوا «على وشك التناغم». استمعوا إلى الصوت يعلو ويخفت، بينما تتوافق نغمتان متقاربتان ثم تفترقان، مرة بعد مرة.',
   connection: {
-    html: "<strong>Circles become waves.</strong> The height of a point going around a circle follows a sine wave. Combine circular motions, and you’re back in Paint with motion.",
-    label: "Paint with these ideas",
+    html: '<strong>الدوائر تصير موجات.</strong> ارتفاع نقطة تدور حول دائرة يتبع موجة جيبيّة. اجمعوا حركات دائرية، وستعودون إلى «الرسم بالحركة».',
+    label: 'الرسم بهذه الأفكار',
   },
   presets: [
     {
-      name: "A perfect fifth",
-      note: "A simple 3:2 relationship.",
+      name: 'الخامسة التامة',
+      note: 'علاقة بسيطة بنسبة 3:2.',
     },
     {
-      name: "Almost in tune",
-      note: "Two nearby tones make a pulse.",
+      name: 'على وشك التناغم',
+      note: 'نغمتان متقاربتان تصنعان نبضًا.',
     },
     {
-      name: "The sound of silence",
-      note: "Matching waves, half a turn apart.",
+      name: 'صوت الصمت',
+      note: 'موجتان متطابقتان، بينهما نصف دورة.',
     },
   ],
-  soundOff: "Turn sound on",
-  soundOn: "Sound on · mute",
-  noSound: "Sound is unavailable in this browser. You can still explore the waves.",
-  firstTone: "First tone",
-  secondTone: "Second tone",
-  secondToneHint: "Relative to the first tone.",
-  phase: "Starting phase",
-  volume: "Volume",
-  hz: " Hz",
-  view: "Another way to see it",
-  viewGroup: "Wave view",
-  viewWaves: "Adding waves",
-  viewPortrait: "Circle portrait",
-  beatDetail: (f, g, d) => `Your tones: ${f} Hz and ${g} Hz. Their frequency difference is ${d} Hz.`,
-  status: (f, g) => `${f} Hz + ${g} Hz`,
+  soundOff: 'تشغيل الصوت',
+  soundOn: 'الصوت يعمل · كتم',
+  noSound: 'الصوت غير متاح في هذا المتصفح. ما زال بإمكانكم استكشاف الموجات.',
+  firstTone: 'النغمة الأولى',
+  secondTone: 'النغمة الثانية',
+  secondToneHint: 'نسبةً إلى النغمة الأولى.',
+  phase: 'الطور الابتدائي',
+  volume: 'مستوى الصوت',
+  hz: ' Hz',
+  view: 'طريقة أخرى للرؤية',
+  viewGroup: 'عرض الموجة',
+  viewWaves: 'جمع الموجات',
+  viewPortrait: 'صورة دائرية',
+  // Short formulas keep no-break spaces inside their isolates, so a phone never splits one across two lines.
+  beatDetail: (f, g, d) =>
+    `نغمتاكم: \u2066${f} Hz\u2069 و\u2066${g} Hz\u2069. الفرق بين ترددَيهما \u2066${d} Hz\u2069.`,
+  status: (f, g) => `\u2066${f} Hz + ${g} Hz\u2069`,
   labels: {
     a: (f) => `A · ${f} Hz`,
     b: (f) => `B · ${f} Hz`,
-    sum: "A + B · COMBINED",
-    firstTone: "FIRST TONE →",
-    secondTone: "SECOND TONE ↑",
+    sum: 'A + B · معًا',
+    firstTone: 'النغمة الأولى →',
+    secondTone: 'النغمة الثانية ↑',
   },
   guests: [
     {
-      name: "Jules Lissajous",
-      note: "Two simple vibrations can draw a surprisingly elaborate loop.",
+      name: 'جول ليساجو',
+      note: 'اهتزازان بسيطان يمكن أن يرسما حلقة معقّدة على نحو مدهش.',
     },
     {
-      name: "Joseph Fourier",
-      note: "Many simple waves can hide inside one complicated sound.",
+      name: 'جوزيف فورييه',
+      note: 'موجات بسيطة كثيرة يمكن أن تختبئ داخل صوت واحد معقّد.',
     },
   ],
+  // Short formulas keep no-break spaces inside their isolates, so a phone never splits one across two lines.
   insight: {
-    title: "When waves meet.",
-    html: `<p>One tone is a smooth, repeating wave. Two tones add together: at each moment, their displacements reinforce or oppose each other. The bright bottom line is their sum.</p>
-<h3>A rhythm inside two tones</h3>
-<p>When two frequencies are close, their sum grows and shrinks in strength. Those pulses are called <em>beats</em>. Their rate is the difference between the frequencies.</p>
+    title: 'حين تلتقي الموجات.',
+    html: `<p>النغمة الواحدة موجة ناعمة تتكرر. والنغمتان تُجمعان: في كل لحظة، تقوّي إزاحتاهما إحداهما الأخرى أو تعاكسها. الخط الساطع في الأسفل هو مجموعهما.</p>
+<h3>إيقاع داخل نغمتين</h3>
+<p>حين يتقارب تردّدان، تقوى شدّة مجموعهما ثم تضعف. هذه النبضات تُسمّى <em>ضربات</em>. ومعدّلها يساوي الفرق بين الترددين.</p>
 <div class="insight-visual" id="beat-detail"></div>
-<h3>Two sounds can make silence</h3>
-<p>Choose “The sound of silence”. Equal waves half a cycle apart cancel in this electronic mix. Real-world cancellation depends on where you listen and how the waves reach you.</p>
-<h3>Look sideways</h3>
-<p>Try “Circle portrait”. We use the first wave for the horizontal position and the second for the vertical position. The resulting Lissajous figure turns a relationship between rhythms into a shape.</p>
-<details><summary>The mathematics, if you want it</summary><p>A(t) = sin(2πft)<br>B(t) = sin(2πfrt + φ)<br>The combined signal is A(t) + B(t).</p><p>The slow-motion model preserves the frequency ratio and starting phase. Audible tones run at the pitches shown. Simple ratios repeat quickly; nearby unequal pitches produce beats.</p></details>
-<div class="sources"><a class="source-link" href="https://www.physicsclassroom.com/class/sound/Lesson-3/Interference-and-Beats" target="_blank" rel="noopener">Explore interference and beats</a></div>`,
+<h3>صوتان قد يصنعان صمتًا</h3>
+<p>اختاروا «صوت الصمت». موجتان متساويتان بينهما نصف دورة تُلغي إحداهما الأخرى في هذا المزج الإلكتروني. أما في العالم الحقيقي، فالإلغاء يتوقف على مكان استماعكم وعلى الطريقة التي تصلكم بها الموجات.</p>
+<h3>نظرة من الجانب</h3>
+<p>جرّبوا «صورة دائرية». نستعمل الموجة الأولى للموضع الأفقي، والثانية للموضع العمودي. والشكل الناتج، شكل ليساجو، يحوّل العلاقة بين إيقاعين إلى شكل.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>\u2066A(t) = sin(2πft)\u2069<br>\u2066B(t) = sin(2πfrt + φ)\u2069<br>الإشارة المجمّعة هي \u2066A(t) + B(t)\u2069.</p><p>نموذج الحركة البطيئة يحافظ على نسبة الترددين وعلى الطور الابتدائي. والنغمات المسموعة تُعزف بالطبقات المعروضة. النِّسَب البسيطة تتكرر بسرعة؛ والطبقات المتقاربة غير المتساوية تولّد ضربات.</p></details>
+<div class="sources"><a class="source-link" href="https://www.physicsclassroom.com/class/sound/Lesson-3/Interference-and-Beats" target="_blank" rel="noopener">التداخل والضربات (بالإنجليزية)</a></div>`,
   },
 });

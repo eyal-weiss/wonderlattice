@@ -1,141 +1,126 @@
+/* Two losing games that win · visitor-facing words (ar). */
 Wonderlattice.defineText('parrondo', 'ar', {
-  eyebrow: "CHANCE",
-  name: "Two losing games that win",
-  tagline: "Each coin game slowly drains your money. Mix them, and the money climbs.",
-  title: "Two losing games that win.",
-  subtitle: "Game A loses. Game B loses. Watch a thousand players try each one, and a thousand more mix them.",
-  field: "Probability · Markov chains · A paradox",
-  sceneLabel: "1,000 players per game · 1,000 rounds",
-  sceneNames: [
-    "Only A",
-    "Only B",
-    "A or B at random",
-  ],
-  raceName: "A, B and the mix, side by side",
-  patternName: (pattern) => `The pattern ${pattern}`,
-  tip: "Thick lines are the average player, dashed lines the exact expectation · Alone, a game also shows a band holding the middle half of its players · Pick a game in the panel",
-  actionLabel: "New players",
-  canvasLabel: "A chart of winnings over 1,000 rounds. At first three crowds of 1,000 players play A, B, and A or B at random side by side: thick lines are their average winnings, dashed lines the exact expected winnings. A game played alone also shows a shaded band holding the middle half of its players, and lines from games already tried stay on faintly. With the buckets shown, three bars give the share of players whose coins are a multiple of 3, one more, or two more.",
-  panelEyebrow: "Pick a game",
-  whyLabel: "How can two losers win?",
-  nudge: "Watch the three lines: A and B sink while the mix climbs. Then play each game alone, and tap out patterns of your own: many win, but some, like A B, still lose.",
+  eyebrow: 'الصدفة',
+  name: 'لعبتان خاسرتان تربحان',
+  tagline: 'كل لعبة من لعبتي القطع النقدية تستنزف مالكم ببطء. امزجوا بينهما، فيصعد المال.',
+  title: 'لعبتان خاسرتان تربحان.',
+  subtitle: 'اللعبة A خاسرة. واللعبة B خاسرة. شاهدوا ألف لاعب يجرّبون كلًّا منهما، وألفًا آخرين يمزجون بينهما.',
+  field: 'الاحتمالات · سلاسل ماركوف · مفارقة',
+  sceneLabel: '1,000 لاعب لكل لعبة · 1,000 جولة',
+  sceneNames: ['A فقط', 'B فقط', 'A أو B عشوائيًا'],
+  raceName: 'A وB والمزيج، جنبًا إلى جنب',
+  patternName: (pattern) => `النمط \u2066${pattern}\u2069`,
+  tip: 'الخطوط السميكة متوسط اللاعبين، والمتقطعة القيمة المتوقعة بالضبط · اللعبة وحدها تُظهر أيضًا شريطًا يضم النصف الأوسط من لاعبيها · اختاروا لعبة من لوحة التحكم',
+  actionLabel: 'لاعبون جدد',
+  canvasLabel:
+    'رسم بياني للأرباح على مدى 1,000 جولة. في البداية تلعب ثلاثة حشود، في كل منها 1,000 لاعب، جنبًا إلى جنب: الأول A، والثاني B، والثالث A أو B عشوائيًا. الخطوط السميكة متوسط أرباحها، والخطوط المتقطعة الأرباح المتوقعة بالضبط. اللعبة التي تُلعب وحدها تُظهر أيضًا شريطًا مظلّلًا يضم النصف الأوسط من لاعبيها، وتبقى خطوط الألعاب التي جُرّبت من قبل باهتة. وحين تظهر السلال، تبيّن ثلاثة أعمدة نسبة اللاعبين الذين عدد قطعهم النقدية من مضاعفات 3، أو يزيد عليها بواحدة، أو باثنتين.',
+  panelEyebrow: 'اختاروا لعبة',
+  whyLabel: 'كيف يمكن للعبتين خاسرتين أن تربحا؟',
+  nudge:
+    'راقبوا الخطوط الثلاثة: A وB تهبطان بينما يصعد المزيج. ثم العبوا كل لعبة وحدها، وانقروا لتركّبوا أنماطًا من عندكم: كثير منها يربح، لكن بعضها، مثل \u2066A\u00a0B\u2069، ما زال يخسر.',
   connection: {
-    html: "<strong>Fair-looking, and full of surprises.</strong> Here, two losing games win together. In The dice that beat each other, every die has another that beats it.",
-    label: "Roll the odd dice",
+    html: '<strong>تبدو عادلة، وهي مليئة بالمفاجآت.</strong> هنا، لعبتان خاسرتان تربحان معًا. وفي «أحجار نرد يغلب بعضها بعضًا»، لكل نرد نرد آخر يغلبه.',
+    label: 'رمي أحجار النرد الغريبة',
   },
   presets: [
     {
-      name: "Only B",
-      note: "A bad coin on every multiple of 3.",
-      badge: "B",
+      name: 'B فقط',
+      note: 'قطعة نقدية سيئة عند كل مضاعف من مضاعفات 3.',
+      badge: 'B',
     },
     {
-      name: "A or B at random",
-      note: "Two losers make a winner.",
-      badge: "A|B",
+      name: 'A أو B عشوائيًا',
+      note: 'من خاسرتين تولد رابحة.',
+      badge: 'A|B',
     },
     {
-      name: "A A B B",
-      note: "A steady rhythm wins too.",
-      badge: "AABB",
+      name: '\u2066A A B B\u2069',
+      note: 'الإيقاع الثابت يربح أيضًا.',
+      badge: 'AABB',
     },
   ],
   rules: {
-    title: "The two games",
-    aHtml: "<strong>A</strong> · a coin that wins 49.5% of the time.",
-    bHtml: "<strong>B</strong> · if your coins are a multiple of 3, a bad coin that wins 9.5%; otherwise a good one that wins 74.5%.",
-    stakes: "Every win is one coin more, every loss one coin less. Everyone starts at 0.",
+    title: 'اللعبتان',
+    aHtml: '<strong>A</strong> · قطعة نقدية تربح في 49.5% من المرات.',
+    bHtml:
+      '<strong>B</strong> · إذا كان عدد قطعكم النقدية من مضاعفات 3، فقطعة سيئة تربح في 9.5% من المرات؛ وإلا فقطعة جيدة تربح في 74.5% منها.',
+    stakes: 'كل فوز يضيف قطعة نقدية، وكل خسارة تنقص قطعة. يبدأ الجميع من 0.',
   },
-  letters: [
-    "A",
-    "B",
-  ],
-  modeLabel: "Which game do they play?",
-  modes: [
-    "Only A",
-    "Only B",
-    "Mix at random",
-    "My pattern",
-    "All three at once",
-  ],
-  patternLabel: "Tap out your own pattern",
-  patternHint: "It repeats, round after round, for every player. Up to 12 letters.",
-  add: (game) => `Add ${game}`,
-  undo: "Undo",
-  undoLabel: "Remove the last letter",
-  buckets: "Why? Show the three buckets",
+  // The games' names, as letters (the model always calls them A and B).
+  letters: ['A', 'B'],
+  modeLabel: 'أي لعبة يلعبون؟',
+  // By mode number; the race (4) is shown first.
+  modes: ['A فقط', 'B فقط', 'مزيج عشوائي', 'نمطي', 'الثلاثة معًا'],
+  patternLabel: 'ركّبوا نمطكم بالنقر',
+  patternHint: 'يتكرر جولةً بعد جولة، لكل لاعب. حتى 12 حرفًا.',
+  add: (game) => `إضافة ${game}`,
+  undo: 'تراجع',
+  undoLabel: 'إزالة الحرف الأخير',
+  buckets: 'لماذا؟ إظهار السلال الثلاث',
+  // rounds and players arrive formatted ("1,000") and are always 1,000, which takes the singular.
+  // A game (لعبة) is feminine: تربح B، تخسر A. The words «، و» between A and B keep them in reading order.
   readout: {
-    expected: (rounds) => `Expected after ${rounds} rounds`,
-    perRound: (value) => `${value} a round, in the long run`,
-    average: (players, value) => `Average of ${players} players so far: ${value}`,
-    games: [
-      "Only A",
-      "Only B",
-      "A or B at random",
-    ],
-    averages: (players, a, b, mix) => `Averages of ${players} players each so far: A ${a} · B ${b} · mix ${mix}`,
-    perRounds: (a, b, mix) => `In the long run, a round: A ${a} · B ${b} · mix ${mix}`,
+    expected: (rounds) => `المتوقع بعد ${rounds} جولة`,
+    perRound: (value) => `\u2066${value}\u2069 في الجولة، على المدى الطويل`,
+    average: (players, value) => `متوسط ${players} لاعب حتى الآن: \u2066${value}\u2069`,
+    games: ['A فقط', 'B فقط', 'A أو B عشوائيًا'],
+    averages: (players, a, b, mix) =>
+      `متوسطات ${players} لاعب في كل لعبة حتى الآن: A \u2066${a}\u2069، وB \u2066${b}\u2069، والمزيج \u2066${mix}\u2069`,
+    perRounds: (a, b, mix) =>
+      `على المدى الطويل، في الجولة: A \u2066${a}\u2069، وB \u2066${b}\u2069، والمزيج \u2066${mix}\u2069`,
     badShareRace: (live, alone, mixed, line) =>
-      `B’s rounds played on a multiple of 3: ${alone} when B plays alone, ${mixed} in the mix (${live} so far). B pays only below ${line}.`,
+      `نسبة جولات B التي تُلعب على مضاعف من مضاعفات 3: ${alone} حين تُلعب B وحدها، و${mixed} في المزيج (${live} حتى الآن). لا تربح B إلا حين تقل النسبة عن ${line}.`,
     badShare: (live, exact, line) =>
-      `B’s rounds played on a multiple of 3: ${live} so far, ${exact} in the long run. B pays only below ${line}.`,
-    noB: "Only A never plays B, so the buckets just even out at a third each.",
+      `نسبة جولات B التي تُلعب على مضاعف من مضاعفات 3: ${live} حتى الآن، و${exact} على المدى الطويل. لا تربح B إلا حين تقل النسبة عن ${line}.`,
+    noB: 'في «A فقط» لا يلعب أحد B، ولذلك تتوازن السلال ببساطة عند الثلث لكل منها.',
   },
   status: {
-    round: (t, rounds) => `Round ${t} of ${rounds}`,
-    done: (rounds) => `${rounds} rounds played`,
+    round: (t, rounds) => `الجولة ${t} من ${rounds}`,
+    done: (rounds) => `تم لعب ${rounds} جولة`,
   },
   announce: {
-    done: (game, average, expected) => `${game}: the average player ends with ${average} coins; expected ${expected}.`,
+    done: (game, average, expected) =>
+      `${game}: ينتهي متوسط اللاعبين عند \u2066${average}\u2069 قطعة نقدية؛ والمتوقع \u2066${expected}\u2069.`,
     race: (a, b, mix) =>
-      `After 1,000 rounds the average player has ${a} coins with A, ${b} with B, and ${mix} with the mix.`,
+      `بعد 1,000 جولة، يصل متوسط اللاعبين إلى \u2066${a}\u2069 قطعة نقدية مع A، و\u2066${b}\u2069 مع B، و\u2066${mix}\u2069 مع المزيج.`,
   },
+  // Words drawn on the picture. The chart is drawn left to right (as in Hebrew), so a number comes before its
+  // word: read from the right, the word still comes first. A label that ends in a Latin letter sits inside a
+  // right-to-left isolate (U+2067 … U+2069), so B is read after the Arabic words around it.
   labels: {
-    rounds: "rounds",
-    start: "start",
-    expected: (value) => `expected ${value}`,
-    tag: (name, value) => `${name} ${value}`,
-    average: (value) => `average ${value}`,
-    short: [
-      "A",
-      "B",
-      "mix",
-    ],
-    buckets: "Players by the coins left over when shared into threes",
-    bucketsMix: "Players in the mix, by the coins left over when shared into threes",
-    bucket: [
-      "multiple of 3",
-      "one more",
-      "two more",
-    ],
-    coin: [
-      "B’s bad coin",
-      "B’s good coin",
-      "B’s good coin",
-    ],
-    breakEven: "B breaks even",
+    rounds: 'الجولات',
+    start: 'البداية',
+    expected: (value) => `${value} المتوقع`,
+    tag: (name, value) => `${value} ${name}`,
+    average: (value) => `${value} المتوسط`,
+    short: ['A', 'B', 'المزيج'],
+    buckets: 'اللاعبون بحسب باقي قسمة قطعهم النقدية على 3',
+    bucketsMix: 'لاعبو المزيج بحسب باقي قسمة قطعهم النقدية على 3',
+    bucket: ['من مضاعفات 3', 'زائد 1', 'زائد 2'],
+    coin: ['\u2067قطعة B السيئة\u2069', '\u2067قطعة B الجيدة\u2069', '\u2067قطعة B الجيدة\u2069'],
+    breakEven: '\u2067حدّ تعادل B\u2069',
   },
   guests: [
     {
-      name: "Juan Parrondo",
-      note: "He devised these games in 1996, as a coin-tossing version of a ratchet that makes jiggling particles drift one way.",
+      name: 'خوان باروندو',
+      note: 'ابتكر هاتين اللعبتين عام 1996، نسخةً برمي القطع النقدية من سقّاطة تجعل الجسيمات المرتجّة تنجرف في اتجاه واحد.',
     },
     {
-      name: "Richard Feynman",
-      note: "In my lectures, a tiny ratchet in a warm gas can’t turn one way for free: its pawl jiggles as much as its wheel.",
+      name: 'ريتشارد فاينمان',
+      note: 'في محاضراتي، لا تستطيع سقّاطة صغيرة في غاز دافئ أن تدور في اتجاه واحد مجانًا: فلسانها يرتجّ بقدر ما ترتجّ عجلتها.',
     },
   ],
   insight: {
-    title: "How can two losers win?",
-    html: `<p>Game A is almost a fair coin: it loses about one coin every 100 rounds. Game B is stranger, because it looks at your coins. When they are a multiple of 3 (…, −3, 0, 3, 6, …) it uses a bad coin; otherwise a good one. On a multiple of 3 you usually lose a coin, and from there the good coin usually lifts you straight back to the multiple of 3. So B keeps sending players back to its bad coin: about 38.4% of its rounds are played there, just past the 37.7% at which B would break even. B loses, slowly.</p>
-<div class="insight-visual">B alone: 38.4% of its rounds on the bad coin → it loses · Mixed with A: 34.5% → B wins more than A loses</div>
-<h3>Mixing shakes players loose</h3>
-<p>A doesn’t care what you have, so a round of A jostles your coins up or down at random and breaks B’s rhythm. Mixed in, it sends B’s rounds to a multiple of 3 only about 34.5% of the time. Now B’s good coin gets used more than B on its own allows, and B wins by more than A loses. In the long run, per round: A loses 0.010 of a coin, B loses 0.0087, and picking A or B at random wins 0.0157. Turn on the buckets to watch the share of players on a multiple of 3 sink below B’s break-even line.</p>
-<h3>Not every mix wins</h3>
-<p>A A B B wins and A B B wins handsomely, but A B, taken strictly in turn, still loses. Try some patterns and watch the number for the long run.</p>
-<h3>What this doesn’t mean</h3>
-<p>B isn’t an ordinary losing game: its odds depend on your capital, and that dependence is the whole trick. Casino games don’t look at your bankroll, so mixing them can’t turn losing into winning; this is no way to beat a casino. People have suggested Parrondo-like effects in biology and finance, but those ideas are debated, and this room leaves them out. The players here are a simulation, so their average wobbles, by about a coin after 1,000 rounds; the dashed line is the exact expectation, worked out rather than simulated.</p>
-<details><summary>The mathematics, if you want it</summary><p>Only your coins modulo 3 matter, so each game is a Markov chain on three states. Game A wins with chance ½ − ε and B with chance 1/10 − ε in state 0 and ¾ − ε in states 1 and 2, with ε = 0.005. B’s stationary distribution is about (0.3836, 0.1543, 0.4621); with ε = 0 it is exactly (5/13, 2/13, 6/13), and B is exactly fair. The expected gain per round is Σ πᵢ (2pᵢ − 1). Picking A or B at random is one chain with the two games’ chances averaged; a repeating pattern such as A A B B is the product of its rounds’ matrices. Juan Parrondo devised the games in 1996, as a discrete version of a “flashing Brownian ratchet”, a relative of the ratchet and pawl in chapter 46 of Volume I of The Feynman Lectures on Physics. G. P. Harmer and D. Abbott, “Losing strategies can win by Parrondo’s paradox”, Nature 402, 864 (1999). P. Amengual, P. Meurs, B. Cleuren and R. Toral, “Reversals of chance in paradoxical games”, Physica A (2006).</p></details>
-<div class="sources"><a class="source-link" href="https://www.nature.com/articles/47220" target="_blank" rel="noopener">Harmer and Abbott, Nature (1999)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Parrondo%27s_paradox" target="_blank" rel="noopener">Parrondo’s paradox</a><a class="source-link" href="https://arxiv.org/abs/math/0601404" target="_blank" rel="noopener">Reversals of chance in paradoxical games</a></div>`,
+    title: 'كيف يمكن للعبتين خاسرتين أن تربحا؟',
+    html: `<p>اللعبة A تكاد تكون قطعة نقدية عادلة: تخسر نحو قطعة واحدة كل 100 جولة. أما اللعبة B فأغرب، لأنها تنظر إلى قطعكم النقدية. حين يكون عددها من مضاعفات 3 \u2066(…,\u00a0−3,\u00a00,\u00a03,\u00a06,\u00a0…)\u2069 تستعمل قطعة سيئة؛ وإلا فقطعة جيدة. عند مضاعف 3 تخسرون عادةً قطعة، ومن هناك ترفعكم القطعة الجيدة عادةً مباشرةً إلى مضاعف 3 من جديد. وهكذا تعيد B اللاعبين مرة بعد مرة إلى قطعتها السيئة: نحو 38.4% من جولاتها تُلعب هناك، أي أكثر بقليل من 37.7%، وهي النسبة التي تتعادل عندها B. فتخسر B، ببطء.</p>
+<div class="insight-visual">B وحدها: 38.4% من جولاتها على القطعة السيئة ← تخسر · ممزوجة مع A: \u200f34.5% ← تربح B أكثر مما تخسر A</div>
+<h3>المزج يزحزح اللاعبين</h3>
+<p>لا تبالي A بما تملكون، ولذلك تدفع جولةٌ من A قطعكم إلى أعلى أو إلى أسفل عشوائيًا وتكسر إيقاع B. وحين تُمزج معها، لا تقع جولات B على مضاعف 3 إلا في نحو 34.5% من المرات. الآن تُستعمل القطعة الجيدة في B أكثر مما تسمح به B وحدها، فتربح B أكثر مما تخسر A. على المدى الطويل، في كل جولة: تخسر A \u200f0.010 من القطعة، وتخسر B \u200f0.0087، ويربح اختيار A أو B عشوائيًا 0.0157. شغّلوا السلال لتروا نسبة اللاعبين على مضاعف 3 تهبط تحت حدّ التعادل في B.</p>
+<h3>ليس كل مزيج يربح</h3>
+<p>النمط \u2066A\u00a0A\u00a0B\u00a0B\u2069 يربح، والنمط \u2066A\u00a0B\u00a0B\u2069 يربح بسخاء، أما \u2066A\u00a0B\u2069، بالتناوب الصارم، فما زال يخسر. جرّبوا بعض الأنماط وراقبوا القيمة على المدى الطويل.</p>
+<h3>ما لا يعنيه هذا</h3>
+<p>B ليست لعبة خاسرة عادية: احتمالاتها تتوقف على رأس مالكم، وهذا الاعتماد هو السرّ كله. ألعاب الكازينو لا تنظر إلى ما في جيوبكم، ولذلك لا يمكن لمزجها أن يحوّل الخسارة إلى ربح؛ فهذه ليست طريقة لهزيمة الكازينو. اقترح بعضهم ظواهر شبيهة بمفارقة باروندو في علم الأحياء وفي المال، لكن هذه الأفكار موضع جدل، وتتركها هذه الغرفة جانبًا. اللاعبون هنا محاكاة، ولذلك يتذبذب متوسطهم، بنحو قطعة نقدية بعد 1,000 جولة؛ أما الخط المتقطع فهو القيمة المتوقعة بالضبط، محسوبةً لا محاكاةً.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>لا يهمّ إلا باقي قسمة عدد قطعكم على 3، ولذلك فكل لعبة سلسلة ماركوف على ثلاث حالات. تربح A باحتمال \u2066½\u00a0−\u00a0ε\u2069، وتربح B باحتمال \u20661/10\u00a0−\u00a0ε\u2069 في الحالة 0، وباحتمال \u2066¾\u00a0−\u00a0ε\u2069 في الحالتين 1 و2، حيث \u2066ε\u00a0=\u00a00.005\u2069. التوزيع المستقر للعبة B هو تقريبًا \u2066(0.3836,\u00a00.1543,\u00a00.4621)\u2069؛ ومع \u2066ε\u00a0=\u00a00\u2069 يصبح بالضبط \u2066(5/13,\u00a02/13,\u00a06/13)\u2069، وتصبح B عادلة تمامًا. الربح المتوقع في الجولة هو \u2066Σ\u00a0πᵢ\u00a0(2pᵢ\u00a0−\u00a01)\u2069. اختيار A أو B عشوائيًا سلسلة واحدة احتمالاتها متوسط احتمالات اللعبتين؛ والنمط المتكرر مثل \u2066A\u00a0A\u00a0B\u00a0B\u2069 هو حاصل ضرب مصفوفات جولاته. ابتكر خوان باروندو اللعبتين عام 1996 نسخةً منفصلة من «السقّاطة البراونية الوامضة»، وهي قريبة للسقّاطة واللسان في الفصل 46 من المجلد الأول من \u2066The Feynman Lectures on Physics.\u2069 \u2066G. P. Harmer and D. Abbott, “Losing strategies can win by Parrondo’s paradox”, Nature 402, 864 (1999).\u2069 \u2066P. Amengual, P. Meurs, B. Cleuren and R. Toral, “Reversals of chance in paradoxical games”, Physica A (2006).\u2069</p></details>
+<div class="sources"><a class="source-link" href="https://www.nature.com/articles/47220" target="_blank" rel="noopener">هارمر وأبوت، Nature \u200f(1999) (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Parrondo%27s_paradox" target="_blank" rel="noopener">مفارقة باروندو (بالإنجليزية)</a><a class="source-link" href="https://arxiv.org/abs/math/0601404" target="_blank" rel="noopener">\u2066Reversals of chance in paradoxical games\u2069 (بالإنجليزية)</a></div>`,
   },
 });

@@ -1,68 +1,83 @@
+/* A mind of many · visitor-facing words (ar). */
 Wonderlattice.defineText('flock', 'ar', {
-  eyebrow: "EMERGENCE",
-  name: "A mind of many",
-  tagline: "No leader, just neighbours: guide a flock into motion.",
-  title: "A mind of many.",
-  subtitle: "Each bird only watches its nearest neighbours, and nobody leads. Change how closely they follow each other and watch a flock form.",
-  field: "Dynamical systems · Emergence",
-  sceneLabel: "A world of local decisions",
-  sceneName: "The moving collective",
-  tip: "Touch or drag to guide the flock · Arrow keys move your touch, Escape releases it · Edges wrap around",
-  actionLabel: "Scatter the flock",
-  canvasLabel: "A flock of moving marks. Touch, drag, or use arrow keys to guide. Press Escape to release.",
-  panelEyebrow: "Local rules",
-  whyLabel: "Who is in charge?",
-  nudge: "Turn “Match direction” down to zero. Can a crowd stay together without agreeing where to go?",
+  eyebrow: 'الانبثاق',
+  name: 'عقل الجماعة',
+  tagline: 'لا قائد، بل جيران فقط: حرّكوا سربًا ووجّهوه.',
+  title: 'عقل الجماعة.',
+  subtitle:
+    'كل طائر لا يراقب إلا أقرب جيرانه، ولا أحد يقود. غيّروا مدى اتّباع الطيور بعضها بعضًا، وشاهدوا سربًا يتشكّل.',
+  field: 'الأنظمة الديناميكية · الانبثاق',
+  sceneLabel: 'عالم من القرارات المحلية',
+  sceneName: 'الجماعة المتحرّكة',
+  tip: 'انقروا أو اسحبوا لتوجيه السرب · مفاتيح الأسهم تحرّك لمستكم، وEscape يُفلتها · كل حافة تتّصل بالحافة المقابلة',
+  actionLabel: 'تفريق السرب',
+  canvasLabel: 'سرب من العلامات المتحرّكة. انقروا أو اسحبوا أو استخدموا مفاتيح الأسهم للتوجيه. اضغطوا Escape للإفلات.',
+  panelEyebrow: 'قواعد محلية',
+  whyLabel: 'من المسؤول هنا؟',
+  nudge: 'أنزلوا «مجاراة الاتجاه» إلى الصفر. هل يمكن لحشد أن يبقى متماسكًا دون أن يتّفق على وجهته؟',
   connection: {
-    html: "<strong>A pattern without a planner.</strong> Here, a whole flock emerges from little interactions. In Hear the shape, a new waveform emerges from adding two simpler ones.",
-    label: "See waves combine",
+    html: '<strong>نمط بلا مخطِّط.</strong> هنا ينبثق سرب كامل من تفاعلات صغيرة. وفي «سماع الشكل» ينبثق شكل موجة جديد من جمع موجتين أبسط.',
+    label: 'مشاهدة موجات تجتمع',
   },
   presets: [
     {
-      name: "In company",
-      note: "Find a shared direction.",
+      name: 'في جماعة',
+      note: 'تجد الطيور اتجاهًا مشتركًا.',
     },
     {
-      name: "Everyone for themselves",
-      note: "Let individual paths take over.",
+      name: 'كلٌّ لنفسه',
+      note: 'تطغى المسارات الفردية.',
     },
     {
-      name: "Stay close",
-      note: "Togetherness without much agreement.",
+      name: 'التقارب',
+      note: 'معًا، دون اتفاق كبير.',
     },
   ],
-  align: "Match direction",
-  cohesion: "Stay together",
-  separate: "Keep some space",
-  influence: "Your touch",
-  attract: "Attract",
-  repel: "Repel",
-  trails: "Leave light trails",
-  neighbors: "Show one neighbourhood",
-  agreement: "Direction agreement",
-  status: (n) => `${n} individual decisions`,
+  align: 'مجاراة الاتجاه',
+  cohesion: 'البقاء معًا',
+  separate: 'الحفاظ على مسافة',
+  influence: 'لمستكم',
+  attract: 'جذب',
+  repel: 'إبعاد',
+  trails: 'ترك آثار من الضوء',
+  neighbors: 'إظهار جوار طائر واحد',
+  agreement: 'الاتفاق على الاتجاه',
+  // One decision per bird (30–250 of them): 3–10 take the plural, 11–99 the singular with ـًا.
+  status: (n) => {
+    const k = n % 100;
+    const shown = n.toLocaleString('en');
+    return n === 1
+      ? 'قرار فردي واحد'
+      : n === 2
+        ? 'قراران فرديان'
+        : k >= 3 && k <= 10
+          ? `${shown} قرارات فردية`
+          : k >= 11
+            ? `${shown} قرارًا فرديًا`
+            : `${shown} قرار فردي`;
+  },
   guests: [
     {
-      name: "John Conway",
-      credit: "Thane Plambeck (cropped)",
-      note: "His Game of Life also makes surprises from tiny local rules.",
+      name: 'جون كونواي',
+      credit: 'Thane Plambeck (مقتطَعة)',
+      note: 'ابتكر «لعبة الحياة»، وهي أيضًا تصنع مفاجآت من قواعد محلية صغيرة جدًا.',
     },
     {
-      name: "Alan Turing",
-      note: "His pattern model showed how local changes can make spots and stripes.",
+      name: 'آلان تورينغ',
+      note: 'بيّن نموذجه للأنماط كيف يمكن لتغيّرات محلية أن تصنع بقعًا وخطوطًا.',
     },
   ],
   insight: {
-    title: "Who is in charge?",
-    html: `<p>Nobody. Each moving mark looks only at nearby neighbours and follows three tendencies: avoid crowding, match their direction, and stay close.</p>
-<div class="insight-visual">Individual interactions → collective motion</div>
-<h3>The pattern lives between the individuals</h3>
-<p>No mark knows the whole shape of the flock. Coherent movement can emerge because each one responds to a small part of the group. Your cursor adds an outside attraction or repulsion.</p>
-<h3>A model, not a whole animal</h3>
-<p>This is a simplified version of Craig Reynolds’s Boids model. It captures some visual qualities of flocks and schools, but it does not explain every decision made by real birds or fish.</p>
-<h3>Look through one pair of eyes</h3>
-<p>Turn on “Show one neighbourhood”. The circle marks one individual’s sensing distance; lines point to the neighbours influencing it. Opposite edges connect, so a neighbour can be close across an edge.</p>
-<details><summary>What does “agreement” measure?</summary><p>We average all the unit direction vectors and take the length of the result. Close to 100% means everyone points roughly the same way. Close to zero means directions mostly cancel. It is a description of the current flock, not a score.</p><p>Each step combines separation, alignment, and cohesion steering, then limits speed. All individuals update from the same previous state.</p></details>
-<div class="sources"><a class="source-link" href="https://www.red3d.com/cwr/boids/index.html" target="_blank" rel="noopener">Craig Reynolds on Boids</a></div>`,
+    title: 'من المسؤول هنا؟',
+    html: `<p>لا أحد. كل علامة متحرّكة لا تنظر إلا إلى جيرانها القريبين، وتتبع ثلاث نزعات: تجنّب الازدحام، ومجاراة اتجاه جيرانها، والبقاء قريبة منهم.</p>
+<div class="insight-visual">تفاعلات بين أفراد ← حركة جماعية</div>
+<h3>النمط يعيش بين الأفراد</h3>
+<p>لا تعرف أي علامة شكل السرب كله. قد تنبثق حركة متناسقة لأن كل واحدة تستجيب لجزء صغير من المجموعة. ويضيف مؤشّركم جذبًا أو إبعادًا من الخارج.</p>
+<h3>نموذج، لا حيوان كامل</h3>
+<p>هذه نسخة مبسّطة من نموذج Boids الذي وضعه كريغ رينولدز. تلتقط بعض الصفات المرئية لأسراب الطيور وجماعات الأسماك، لكنها لا تفسّر كل قرار تتخذه الطيور أو الأسماك الحقيقية.</p>
+<h3>بعينَي فرد واحد</h3>
+<p>شغّلوا «إظهار جوار طائر واحد». تحدّد الدائرة المسافة التي يستشعر فيها فرد واحد ما حوله، وتشير الخطوط إلى الجيران الذين يؤثّرون فيه. الحواف المتقابلة متّصلة، لذا قد يكون الجار قريبًا عبر الحافة.</p>
+<details><summary>ماذا يقيس «الاتفاق»؟</summary><p>نحسب متوسط كل متجهات الاتجاه (متجهات الوحدة)، ثم نأخذ طول الناتج. القيمة القريبة من 100% تعني أن الجميع يتّجهون تقريبًا في الاتجاه نفسه. والقريبة من الصفر تعني أن الاتجاهات يُلغي بعضها بعضًا في الغالب. إنها وصف للسرب في هذه اللحظة، وليست تقييمًا.</p><p>في كل خطوة، يجمع كل فرد ثلاث نزعات توجيه: التباعد، والمحاذاة، والتماسك، ثم تُحَدّ سرعته. ويُحدَّث جميع الأفراد انطلاقًا من الحالة السابقة نفسها.</p></details>
+<div class="sources"><a class="source-link" href="https://www.red3d.com/cwr/boids/index.html" target="_blank" rel="noopener">كريغ رينولدز عن Boids (بالإنجليزية)</a></div>`,
   },
 });

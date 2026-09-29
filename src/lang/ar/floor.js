@@ -1,96 +1,158 @@
+/* The impossible floor · visitor-facing words (ar). */
 Wonderlattice.defineText('floor', 'ar', {
-  eyebrow: "INVARIANTS",
-  name: "The impossible floor",
-  tagline: "Two missing corners, and no way to tile the floor. One glance at the colours proves it.",
-  title: "The impossible floor.",
-  subtitle: "Cover the floor with dominoes, two squares each. Then find out why some floors can never be finished.",
-  field: "Puzzles · Invariants · Proof by colouring",
-  sceneLabel: "Eight by eight · Dominoes · A hidden pattern",
-  tip: "Tap two neighbouring squares to lay a domino, or drag across them · Arrow keys move, Enter taps",
-  actionLabel: "Look at the colours",
-  canvasLabel: "A floor of eight by eight squares with some removed, to be covered with dominoes that each cover two neighbouring squares.",
-  panelEyebrow: "Try to finish the floor",
-  whyLabel: "Why can’t it be done?",
-  nudge: "Try to cover the floor with the two corners gone. When you get stuck, press “Look at the colours” and count.",
+  eyebrow: 'لامتغيّرات',
+  name: 'الأرضية المستحيلة',
+  tagline: 'زاويتان مفقودتان، ولا سبيل إلى تبليط الأرضية. نظرة واحدة إلى الألوان تبرهن ذلك.',
+  title: 'الأرضية المستحيلة.',
+  subtitle: 'غطّوا الأرضية بأحجار الدومينو، كل حجر يغطي مربعين. ثم اكتشفوا لماذا لا يمكن أبدًا إكمال بعض الأرضيات.',
+  field: 'ألغاز · لامتغيّرات · البرهان بالتلوين',
+  sceneLabel: 'ثمانية في ثمانية · دومينو · نمط خفي',
+  tip: 'انقروا على مربعين متجاورين لوضع حجر دومينو، أو اسحبوا عبرهما · مفاتيح الأسهم للتنقّل، وEnter للنقر',
+  actionLabel: 'النظر إلى الألوان',
+  canvasLabel: 'أرضية من ثمانية مربعات في ثمانية، أُزيل بعضها، لتُغطّى بأحجار دومينو يغطي كل منها مربعين متجاورين.',
+  panelEyebrow: 'حاولوا إكمال الأرضية',
+  whyLabel: 'لماذا لا يمكن ذلك؟',
+  nudge: 'حاولوا تغطية الأرضية بعد إزالة الزاويتين. وحين تصلون إلى طريق مسدود، انقروا على «النظر إلى الألوان» وعدّوا.',
   connection: {
-    html: "<strong>One simple rule decides everything.</strong> Here every domino covers one light and one dark square; in Sudoku every row holds each symbol once.",
-    label: "See Sudoku as a network",
+    html: '<strong>قاعدة بسيطة واحدة تحسم كل شيء.</strong> هنا يغطي كل حجر دومينو مربعًا فاتحًا ومربعًا داكنًا؛ وفي السودوكو يضم كل صف كل رمز مرة واحدة.',
+    label: 'رؤية السودوكو كشبكة',
   },
+
   presets: [
-    {
-      name: "Two corners gone",
-      note: "Opposite corners of a chessboard.",
-    },
-    {
-      name: "One of each colour",
-      note: "Always possible. Why?",
-    },
-    {
-      name: "Balanced but stuck",
-      note: "The count is fine, yet…",
-    },
-    {
-      name: "A whole floor",
-      note: "Remove any squares you like.",
-    },
+    { name: 'زاويتان مفقودتان', note: 'زاويتان متقابلتان من رقعة شطرنج.' },
+    { name: 'مربع من كل لون', note: 'ممكن دائمًا. لماذا؟' },
+    { name: 'متوازنة لكنها عالقة', note: 'العدد سليم، ومع ذلك…' },
+    { name: 'أرضية كاملة', note: 'أزيلوا أي مربعات تشاؤون.' },
   ],
-  modeLabel: "What a tap does",
-  modes: [
-    "Lay dominoes",
-    "Remove squares",
-  ],
-  colours: "Show the colours",
-  solve: "Show a tiling",
-  clearDominoes: "Lift every domino",
-  yourFloor: "Your own floor",
-  byColour: "Left, by colour",
-  squaresLeft: "Squares left",
-  dominoes: "Dominoes laid",
-  light: "light",
-  dark: "dark",
-  countLine: (light, dark) => `${light} light · ${dark} dark`,
-  status: (laid, left) => (left ? `${laid} laid · ${left} squares left` : `Covered with ${laid} dominoes`),
+
+  modeLabel: 'ما تفعله النقرة',
+  modes: ['وضع الدومينو', 'إزالة مربعات'],
+  colours: 'إظهار الألوان',
+  solve: 'إظهار تبليط',
+  clearDominoes: 'رفع كل الأحجار',
+  yourFloor: 'أرضيتكم',
+  byColour: 'المتبقي، حسب اللون',
+  squaresLeft: 'المربعات المتبقية',
+  dominoes: 'الأحجار الموضوعة',
+  // Drawn after a number on the picture («30 فاتحة»), so they read as short labels for the squares.
+  light: 'فاتحة',
+  dark: 'داكنة',
+  countLine: (light, dark) => `${light} فاتحة · ${dark} داكنة`,
+  // Short enough for one line above the picture, even on a phone.
+  status: (laid, left) => {
+    const a = laid % 100;
+    const b = left % 100;
+    const pieces =
+      laid === 1
+        ? 'حجر واحد'
+        : laid === 2
+          ? 'حجران'
+          : a >= 3 && a <= 10
+            ? `${laid} أحجار`
+            : a >= 11
+              ? `${laid} حجرًا`
+              : `${laid} حجر`;
+    const squares =
+      left === 1
+        ? 'مربع واحد'
+        : left === 2
+          ? 'مربعان'
+          : b >= 3 && b <= 10
+            ? `${left} مربعات`
+            : b >= 11
+              ? `${left} مربعًا`
+              : `${left} مربع`;
+    return left ? `${pieces} · بقي ${squares}` : `اكتملت التغطية: ${pieces}`;
+  },
+
   verdict: {
-    start: "Lay dominoes on the floor, or press “Show a tiling”.",
-    covered: (n) => `Covered: ${n} dominoes, every square used.`,
-    tiled: (n) => `Here is one way: ${n} dominoes cover the whole floor.`,
-    fresh: "Your dominoes were in the way, so here is a covering from the start.",
-    colours: (light, dark) =>
-      `Impossible: ${light} light squares and ${dark} dark ones are left, and every domino covers one of each.`,
-    stuck: (n) =>
-      n === 1
-        ? 'Impossible, though the colours balance: one square has no free neighbour to share a domino with.'
+    start: 'ضعوا أحجار دومينو على الأرضية، أو انقروا على «إظهار تبليط».',
+    covered: (n) => {
+      const k = n % 100;
+      const pieces =
+        n === 1
+          ? 'حجر دومينو واحد'
+          : n === 2
+            ? 'حجرا دومينو'
+            : k >= 3 && k <= 10
+              ? `${n} أحجار دومينو`
+              : `${n} حجر دومينو`;
+      return `اكتملت التغطية: ${pieces}، ولم يبقَ مربع فارغ.`;
+    },
+    tiled: (n) => {
+      const k = n % 100;
+      const pieces =
+        n === 1
+          ? 'حجر دومينو واحد يغطي'
+          : n === 2
+            ? 'حجرا دومينو يغطيان'
+            : k >= 3 && k <= 10
+              ? `${n} أحجار دومينو تغطي`
+              : `${n} حجر دومينو تغطي`;
+      return `هذه إحدى الطرق: ${pieces} الأرضية كلها.`;
+    },
+    fresh: 'كانت الأحجار التي وضعتموها تعترض الطريق، فإليكم تغطية من البداية.',
+    colours: (light, dark) => {
+      const a = light % 100;
+      const b = dark % 100;
+      const lights =
+        light === 1
+          ? 'مربع فاتح واحد'
+          : light === 2
+            ? 'مربعان فاتحان'
+            : a >= 3 && a <= 10
+              ? `${light} مربعات فاتحة`
+              : a >= 11
+                ? `${light} مربعًا فاتحًا`
+                : `${light} مربع فاتح`;
+      const darks =
+        dark === 1
+          ? 'مربع داكن واحد'
+          : dark === 2
+            ? 'مربعان داكنان'
+            : b >= 3 && b <= 10
+              ? `${dark} مربعات داكنة`
+              : b >= 11
+                ? `${dark} مربعًا داكنًا`
+                : `${dark} مربع داكن`;
+      return `مستحيل: بقي ${lights} و${darks}، وكل حجر دومينو يغطي مربعًا من كل لون.`;
+    },
+    stuck: (n) => {
+      const k = n % 100;
+      const squares = n === 2 ? 'مربعين' : k >= 3 && k <= 10 ? `${n} مربعات` : k >= 11 ? `${n} مربعًا` : `${n} مربع`;
+      return n === 1
+        ? 'مستحيل، رغم توازن اللونين: هناك مربع ليس له جار فارغ يتقاسم معه حجر دومينو.'
         : n
-          ? `Impossible, though the colours balance: a patch of ${n} squares is cut off, and its colours don’t balance.`
-          : 'Impossible, though the colours balance: the squares can’t all be paired with a neighbour.',
-    oddSquares: "An odd number of squares can never be covered by dominoes.",
+          ? `مستحيل، رغم توازن اللونين: هناك منطقة من ${squares} معزولة، وألوانها غير متوازنة.`
+          : 'مستحيل، رغم توازن اللونين: لا يمكن جمع المربعات كلها في أزواج متجاورة.';
+    },
+    oddSquares: 'لا يمكن أبدًا تغطية عدد فردي من المربعات بأحجار الدومينو.',
   },
-  squareLabel: (row, col, what) => `Row ${row}, column ${col}: ${what}`,
-  what: {
-    free: "empty",
-    hole: "removed",
-    domino: "covered by a domino",
-  },
+
+  squareLabel: (row, col, what) => `الصف ${row}، العمود ${col}: ${what}`,
+  what: { free: 'فارغ', hole: 'مُزال', domino: 'مغطّى بحجر دومينو' },
+
   guests: [
     {
-      name: "Martin Gardner",
-      note: "He brought this puzzle to millions of readers, and the colours were the twist nobody saw coming.",
+      name: 'مارتن غاردنر',
+      note: 'أوصل هذا اللغز إلى ملايين القرّاء، وكانت الألوان المفاجأة التي لم يتوقعها أحد.',
     },
     {
-      name: "Ralph Gomory",
-      note: "He showed that removing one light and one dark square always leaves a floor that can be tiled.",
+      name: 'رالف غوموري',
+      note: 'بيّن أن إزالة مربع فاتح واحد ومربع داكن واحد تترك دائمًا أرضية يمكن تبليطها.',
     },
   ],
+
   insight: {
-    title: "Why can’t the floor be tiled?",
-    html: `<p>Colour the floor like a chessboard. Every domino, wherever you put it, covers two neighbouring squares, and neighbouring squares always have different colours. So each domino covers exactly one light square and one dark one, and a finished floor must have as many light squares as dark ones.</p>
-<div class="insight-visual">one domino = one light + one dark</div>
-<p>Opposite corners of a chessboard have the same colour. Remove them and 30 light squares are left with 32 dark ones: no arrangement of dominoes can ever work, and we know it without trying a single one. A property that never changes, like “light minus dark” for the squares a set of dominoes covers, is called an <em>invariant</em>. Invariants are one of mathematics’ favourite ways to prove that something is impossible.</p>
-<h3>One of each colour: always possible</h3>
-<p>Ralph Gomory showed that if you remove one light square and one dark square from a full chessboard, the rest can always be tiled. Draw a closed path that visits every square once, like a snake folded over the board. Removing two squares of different colours cuts the path into pieces of even length, and each piece can be laid with dominoes along the path.</p>
-<h3>Balanced isn’t enough</h3>
-<p>Equal numbers of light and dark squares are <em>necessary</em>, but not <em>sufficient</em>. Cut off a corner square by removing its two neighbours, and it can never be covered, even if the count still balances. Deciding whether any floor can be tiled means pairing each light square with a dark neighbour, which is a matching problem. “Show a tiling” solves it by trying pairings and repairing them when they clash.</p>
-<details><summary>The mathematics, if you want it</summary><p>Think of the free squares as a network where neighbours are linked. Every link joins a light square to a dark one, so the network is <em>bipartite</em>, and a tiling is a <em>perfect matching</em>: a set of links that uses every square exactly once. The room finds one with augmenting paths (Kuhn’s algorithm), and when there is none, it looks for a connected patch whose colours don’t balance. The puzzle was posed by Max Black in 1946 and made famous by Martin Gardner in <em>Scientific American</em>; Gomory’s theorem is the classic answer to the version with one square of each colour removed.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Mutilated_chessboard_problem" target="_blank" rel="noopener">The mutilated chessboard problem (with Gomory’s theorem)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Domino_tiling" target="_blank" rel="noopener">Domino tiling</a></div>`,
+    title: 'لماذا لا يمكن تبليط الأرضية؟',
+    html: `<p>لوّنوا الأرضية مثل رقعة الشطرنج. كل حجر دومينو، أينما وضعتموه، يغطي مربعين متجاورين، والمربعات المتجاورة لونها مختلف دائمًا. لذلك يغطي كل حجر مربعًا فاتحًا واحدًا ومربعًا داكنًا واحدًا بالضبط، ويجب أن يكون في الأرضية المكتملة عدد المربعات الفاتحة مساويًا لعدد الداكنة.</p>
+<div class="insight-visual">حجر واحد = مربع فاتح + مربع داكن</div>
+<p>الزاويتان المتقابلتان في رقعة الشطرنج لهما اللون نفسه. أزيلوهما، فيبقى 30 مربعًا فاتحًا مقابل 32 مربعًا داكنًا: لا يمكن لأي ترتيب لأحجار الدومينو أن ينجح أبدًا، ونعرف ذلك دون أن نجرّب ترتيبًا واحدًا. الخاصية التي لا تتغيّر أبدًا، مثل «الفاتحة ناقص الداكنة» في المربعات التي تغطيها مجموعة من الأحجار، تسمّى <em>لامتغيّرًا</em>. واللامتغيّرات من أحب الطرق إلى الرياضيات لبرهنة أن شيئًا ما مستحيل.</p>
+<h3>مربع من كل لون: ممكن دائمًا</h3>
+<p>بيّن رالف غوموري أنكم إذا أزلتم مربعًا فاتحًا ومربعًا داكنًا من رقعة شطرنج كاملة، فيمكن دائمًا تبليط ما تبقى. ارسموا مسارًا مغلقًا يمر بكل مربع مرة واحدة، مثل أفعى ملتفّة على الرقعة. إزالة مربعين من لونين مختلفين تقطع المسار إلى أجزاء طولها زوجي، ويمكن تغطية كل جزء بأحجار الدومينو على طول المسار.</p>
+<h3>التوازن لا يكفي</h3>
+<p>تساوي عدد المربعات الفاتحة والداكنة شرط <em>ضروري</em>، لكنه ليس <em>كافيًا</em>. اعزلوا مربعًا في زاوية بإزالة جاريه، فلن يمكن تغطيته أبدًا، حتى لو بقي العدد متوازنًا. ومعرفة ما إذا كان يمكن تبليط أرضية ما تعني إقران كل مربع فاتح بجار داكن، وهذه مسألة مطابقة. ويحلّها «إظهار تبليط» بتجربة أزواج وإصلاحها حين تتعارض.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>تخيّلوا المربعات الفارغة شبكة يرتبط فيها كل جارين. كل رابط يصل مربعًا فاتحًا بمربع داكن، ولذلك فالشبكة <em>ثنائية التجزئة</em>، والتبليط <em>مطابقة تامة</em>: مجموعة من الروابط تستخدم كل مربع مرة واحدة بالضبط. تجد الغرفة مطابقة كهذه بالمسارات المتزايدة (خوارزمية كون)، وحين لا توجد، تبحث عن منطقة متصلة ألوانها غير متوازنة. طرح ماكس بلاك هذا اللغز عام 1946، وجعله مارتن غاردنر مشهورًا في مجلة <em>Scientific American</em>؛ ومبرهنة غوموري هي الجواب الكلاسيكي عن النسخة التي يُزال فيها مربع من كل لون.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Mutilated_chessboard_problem" target="_blank" rel="noopener">مسألة رقعة الشطرنج المبتورة، مع مبرهنة غوموري (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Domino_tiling" target="_blank" rel="noopener">التبليط بأحجار الدومينو (بالإنجليزية)</a></div>`,
   },
 });

@@ -1,88 +1,93 @@
+/* A seed for an infinite landscape · visitor-facing words (ar). */
 Wonderlattice.defineText('julia', 'ar', {
-  eyebrow: "FRACTALS",
-  name: "A seed for an infinite landscape",
-  tagline: "One rule, repeated, draws endless coastlines. Move the seed and watch them change.",
-  title: "A seed for an infinite landscape.",
-  subtitle: "One tiny rule, repeated: square a number and add a seed. Drag the seed and an endless landscape changes shape.",
-  field: "Complex numbers · Repetition · Fractals",
-  sceneLabel: "One rule · z → z² + c",
-  tip: "Drag the seed on the small map, or use the arrow keys · Tap the big picture to follow one point’s journey",
-  actionLabel: "Walk the edge",
-  canvasLabel: "A large Julia set for the rule z → z² + c, and a small map of seeds, the Mandelbrot set, with the chosen seed marked.",
-  panelEyebrow: "Choose a seed",
-  whyLabel: "How can one rule draw all this?",
-  nudge: "Drag the seed out of the dark shape on the small map. The landscape shatters into dust. Bring it back inside, and it is one piece again.",
+  eyebrow: 'الفراكتالات',
+  name: 'بذرة لمنظر بلا نهاية',
+  tagline: 'قاعدة واحدة، تتكرر، ترسم سواحل لا نهاية لها. حرّكوا البذرة وشاهدوها تتغيّر.',
+  title: 'بذرة لمنظر بلا نهاية.',
+  subtitle: 'قاعدة صغيرة واحدة تتكرر: نربّع عددًا ونضيف إليه البذرة. اسحبوا البذرة، فيتغيّر شكل منظر لا نهاية له.',
+  field: 'الأعداد المركّبة · التكرار · الفراكتالات',
+  sceneLabel: 'قاعدة واحدة · \u2066z\u00a0→\u00a0z²\u00a0+\u00a0c\u2069',
+  tip: 'اسحبوا البذرة على الخريطة الصغيرة، أو استخدموا مفاتيح الأسهم · انقروا على الصورة الكبيرة لتتبّعوا رحلة نقطة واحدة',
+  actionLabel: 'السير على الحافة',
+  canvasLabel:
+    'مجموعة جوليا كبيرة للقاعدة \u2066z\u00a0→\u00a0z²\u00a0+\u00a0c\u2069، وخريطة صغيرة للبذور، هي مجموعة ماندلبرو، وعليها البذرة المختارة.',
+  panelEyebrow: 'اختاروا بذرة',
+  whyLabel: 'كيف يمكن لقاعدة واحدة أن ترسم كل هذا؟',
+  nudge:
+    'اسحبوا البذرة إلى خارج الشكل الداكن على الخريطة الصغيرة. سيتحطّم المنظر إلى غبار. أعيدوها إلى الداخل، فيعود قطعة واحدة.',
   connection: {
-    html: "<strong>Complex numbers can move a whole plane.</strong> Here one small rule is repeated again and again; in the next room, a single function bends the plane in one go.",
-    label: "Bend the plane",
+    html: '<strong>الأعداد المركّبة قادرة على تحريك مستوى كامل.</strong> هنا تتكرر قاعدة صغيرة واحدة مرة بعد مرة؛ وفي الغرفة التالية، تثني دالّة واحدة المستوى دفعة واحدة.',
+    label: 'ثني المستوى',
   },
   presets: [
-    {
-      name: "Rabbit",
-      note: "Three ears, turning round and round.",
-    },
-    {
-      name: "Dendrite",
-      note: "Branches with no room inside.",
-    },
-    {
-      name: "San Marco",
-      note: "A basilica and its reflection.",
-    },
-    {
-      name: "Siegel disc",
-      note: "Points circle a hidden centre forever.",
-    },
-    {
-      name: "Dust",
-      note: "Outside the map: a cloud of specks.",
-    },
+    { name: 'الأرنب', note: 'ثلاث آذان تدور وتدور.' },
+    { name: 'شُجيرة', note: 'أغصان بلا أي مساحة في داخلها.' },
+    { name: 'سان ماركو', note: 'بازيليكا وانعكاسها.' },
+    { name: 'قرص سيغل', note: 'نقاط تدور حول مركز خفي إلى الأبد.' },
+    { name: 'غبار', note: 'خارج الخريطة: سحابة من الحبيبات.' },
   ],
-  yourOwn: "Your own landscape",
+  yourOwn: 'منظركم الخاص',
   labels: {
-    julia: "The landscape of this seed",
-    map: "The map of seeds",
+    julia: 'منظر هذه البذرة',
+    map: 'خريطة البذور',
   },
-  seed: (z) => `c = ${z}`,
-  onePiece: "One piece",
-  dust: "Dust",
-  status: (inside) => (inside ? 'Seed inside the map: one piece' : 'Seed outside the map: dust'),
-  re: "Seed, across",
-  im: "Seed, up",
-  reHint: "The real part of c.",
-  imHint: "The imaginary part of c.",
-  journey: "Show one point’s journey",
+  seed: (z) => `\u2066c\u00a0=\u00a0${z}\u2069`.replace(/ /g, '\u00a0'),
+  onePiece: 'قطعة واحدة',
+  dust: 'غبار',
+  status: (inside) => (inside ? 'البذرة داخل الخريطة: قطعة واحدة' : 'البذرة خارج الخريطة: غبار'),
+  re: 'البذرة، أفقيًا',
+  im: 'البذرة، عموديًا',
+  reHint: 'الجزء الحقيقي من c.',
+  imHint: 'الجزء التخيّلي من c.',
+  journey: 'إظهار رحلة نقطة واحدة',
   readout: {
-    seed: "The seed",
-    landscape: "The landscape",
-    journey: "One point’s journey",
+    seed: 'البذرة',
+    landscape: 'المنظر',
+    journey: 'رحلة نقطة واحدة',
   },
   landscape: (inside) =>
     inside
-      ? 'One connected piece: the seed is inside the dark shape on the map.'
-      : 'Dust: the seed is outside the dark shape, so the landscape falls apart into specks.',
-  orbitHint: "Tap the big picture to follow one point.",
-  escapes: (n) => `It flies away after ${n} ${n === 1 ? 'step' : 'steps'}.`,
-  stays: (n) => `It stays trapped: still near the centre after ${n} steps.`,
+      ? 'قطعة واحدة متصلة: البذرة داخل الشكل الداكن على الخريطة.'
+      : 'غبار: البذرة خارج الشكل الداكن، لذلك يتفتّت المنظر إلى حبيبات.',
+  orbitHint: 'انقروا على الصورة الكبيرة لتتبّعوا نقطة واحدة.',
+  // After «بعد»: خطوة واحدة، خطوتين، 3 خطوات، 11 خطوة.
+  escapes: (n) => {
+    const k = n % 100;
+    const shown = n.toLocaleString('en');
+    return n === 1
+      ? 'تطير بعيدًا بعد خطوة واحدة.'
+      : n === 2
+        ? 'تطير بعيدًا بعد خطوتين.'
+        : k >= 3 && k <= 10
+          ? `تطير بعيدًا بعد ${shown} خطوات.`
+          : `تطير بعيدًا بعد ${shown} خطوة.`;
+  },
+  stays: (n) => {
+    const k = n % 100;
+    const shown = n.toLocaleString('en');
+    return k >= 3 && k <= 10
+      ? `تبقى محبوسة: ما زالت قرب المركز بعد ${shown} خطوات.`
+      : `تبقى محبوسة: ما زالت قرب المركز بعد ${shown} خطوة.`;
+  },
   guests: [
     {
-      name: "Gaston Julia",
-      note: "In 1918, with no computer at all, he studied what repeating a rule does to every point of the plane.",
+      name: 'غاستون جوليا',
+      note: 'في عام 1918، ومن دون أي حاسوب، درس ما يفعله تكرار قاعدة ما بكل نقطة في المستوى.',
     },
     {
-      name: "Benoit Mandelbrot",
-      note: "In 1980 his computer pictures made the map of seeds famous. He also coined the word “fractal”.",
+      name: 'بنوا ماندلبرو',
+      note: 'في عام 1980، جعلت صوره الحاسوبية خريطة البذور مشهورة. وهو أيضًا من صاغ كلمة «فراكتال».',
     },
   ],
   insight: {
-    title: "How can one rule draw all this?",
-    html: `<p>Pick a seed c. Start from a point z, square it and add c, then do the same again and again. Some starting points run off to infinity; others stay trapped near the centre forever. The glowing coastline in the big picture is the border between the two: the <em>Julia set</em> of c. The colours show how long each point hesitates near the coast before it flies away.</p>
-<div class="insight-visual">z → z² + c → (z² + c)² + c → …</div>
-<h3>The map of seeds</h3>
-<p>Every point of the small map is a seed. It is dark when the journey that starts at 0 stays trapped. That dark shape is the <em>Mandelbrot set</em>, and it works as a catalogue: for every seed inside it, the landscape is one connected piece, and for every seed outside it, the landscape falls apart into dust.</p>
-<h3>Infinitely detailed, drawn approximately</h3>
-<p>Look closely at any coastline and there is more coastline: the rabbit’s ears have ears. So these pictures can only be approximations. Here each point is followed for at most 200 steps (fewer while the seed moves), which means a point that would escape later is drawn as trapped, and the finest threads can be missing or blurred.</p>
-<details><summary>The mathematics, if you want it</summary><p>Write f(z) = z² + c. Once |z| &gt; 2 and |z| ≥ |c|, the journey is certain to grow without bound, so the computer can stop there. The points that never escape form the filled Julia set, and its boundary is the Julia set. The colours use a smooth escape count, n + 1 − log₂(ln |z|), which removes stripes. Gaston Julia and Pierre Fatou showed in 1918–1919 that the Julia set is connected exactly when the journey of 0 stays bounded, and is dust otherwise. So the Mandelbrot set, first drawn by Robert Brooks and Peter Matelski in 1978 and made famous by Benoit Mandelbrot’s pictures in 1980, is the set of seeds with a connected landscape. Heinz-Otto Peitgen and Peter Richter’s book <em>The Beauty of Fractals</em> (1986) brought these pictures to a wide audience.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Julia_set" target="_blank" rel="noopener">Julia set (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Mandelbrot_set" target="_blank" rel="noopener">Mandelbrot set (Wikipedia)</a><a class="source-link" href="https://doi.org/10.1007/978-3-642-61717-1" target="_blank" rel="noopener">Peitgen and Richter, The Beauty of Fractals (1986)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Julia/" target="_blank" rel="noopener">Gaston Julia (MacTutor)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Mandelbrot/" target="_blank" rel="noopener">Benoit Mandelbrot (MacTutor)</a></div>`,
+    title: 'كيف يمكن لقاعدة واحدة أن ترسم كل هذا؟',
+    html: `<p>اختاروا بذرة c. ابدؤوا من نقطة z، ربّعوها وأضيفوا إليها c، ثم كرّروا ذلك مرة بعد مرة. بعض نقاط البداية تنطلق إلى ما لا نهاية؛ وبعضها يبقى محبوسًا قرب المركز إلى الأبد. الساحل المتوهّج في الصورة الكبيرة هو الحدّ بين النوعين: <em>مجموعة جوليا</em> للبذرة c. وتُظهر الألوان كم تتردّد كل نقطة قرب الساحل قبل أن تطير بعيدًا.</p>
+<div class="insight-visual">\u2066z → z² + c → (z² + c)² + c → …\u2069</div>
+<h3>خريطة البذور</h3>
+<p>كل نقطة في الخريطة الصغيرة بذرة. وتكون داكنة حين تبقى الرحلة التي تبدأ من 0 محبوسة. هذا الشكل الداكن هو <em>مجموعة ماندلبرو</em>، وهو يعمل مثل فهرس: لكل بذرة داخله، يكون المنظر قطعة واحدة متصلة، ولكل بذرة خارجه، يتفتّت المنظر إلى غبار.</p>
+<h3>تفاصيل بلا نهاية، ورسم بالتقريب</h3>
+<p>انظروا عن قرب إلى أي ساحل، تجدوا مزيدًا من الساحل: لآذان الأرنب آذان. لذلك لا يمكن لهذه الصور إلا أن تكون تقريبية. هنا تُتبَّع كل نقطة 200 خطوة على الأكثر (وأقل من ذلك حين تتحرك البذرة)، أي إن النقطة التي كانت ستهرب لاحقًا تُرسم كأنها محبوسة، وقد تختفي أرفع الخيوط أو تبدو ضبابية.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>لنكتب \u2066f(z)\u00a0=\u00a0z²\u00a0+\u00a0c\u2069. ما إن يتحقّق \u2066|z|\u00a0&gt;\u00a02\u2069 و\u2066|z|\u00a0≥\u00a0|c|\u2069 حتى يصبح مؤكّدًا أن الرحلة ستكبر بلا حدود، فيستطيع الحاسوب التوقف عندها. النقاط التي لا تهرب أبدًا تشكّل مجموعة جوليا الممتلئة، وحدودها هي مجموعة جوليا. تستخدم الألوان عدًّا سلسًا للهروب، \u2066n\u00a0+\u00a01\u00a0−\u00a0log₂(ln\u00a0|z|)\u2069، يُزيل الشرائط اللونية. بيّن غاستون جوليا وبيير فاتو في \u20661918–1919\u2069 أن مجموعة جوليا متصلة بالضبط حين تبقى رحلة 0 محدودة، وأنها غبار في غير ذلك. لذلك فإن مجموعة ماندلبرو، التي رسمها لأول مرة روبرت بروكس وبيتر ماتيلسكي عام 1978، واشتهرت بفضل صور بنوا ماندلبرو عام 1980، هي مجموعة البذور التي يكون منظرها متصلًا. وقد أوصل كتاب هاينز أوتو بايتغن وبيتر ريختر <em>\u2066The Beauty of Fractals\u2069</em> (1986) هذه الصور إلى جمهور واسع.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Julia_set" target="_blank" rel="noopener">مجموعة جوليا (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Mandelbrot_set" target="_blank" rel="noopener">مجموعة ماندلبرو (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://doi.org/10.1007/978-3-642-61717-1" target="_blank" rel="noopener">بايتغن وريختر، \u2066The Beauty of Fractals (1986)\u2069 (بالإنجليزية)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Julia/" target="_blank" rel="noopener">غاستون جوليا (MacTutor، بالإنجليزية)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Mandelbrot/" target="_blank" rel="noopener">بنوا ماندلبرو (MacTutor، بالإنجليزية)</a></div>`,
   },
 });

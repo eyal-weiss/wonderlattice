@@ -1,130 +1,120 @@
+/* Sudoku, made transparent · visitor-facing words (ar). */
 Wonderlattice.defineText('sudoku', 'ar', {
-  eyebrow: "LOGIC · GRAPHS",
-  name: "Sudoku, made transparent",
-  tagline: "A number puzzle where the numbers never mattered.",
-  title: "Sudoku, made transparent.",
-  subtitle: "A Sudoku with colours instead of numbers. Place one and watch the choices it rules out disappear from its row, column and box.",
-  field: "Logic · Graph colouring · Latin squares",
-  sceneLabel: "Sixteen squares",
-  tip: "Tab to the board · arrows move · keys 1–4 place · Backspace clears · Ctrl+Z undoes",
-  actionLabel: "Take one logical step",
-  canvasLabel: "A four by four Sudoku board. Each empty square shows the symbols that can still go there. The board of squares over this picture can be played with the keyboard.",
-  boardLabel: "Sudoku board, four by four",
-  panelEyebrow: "Place, undo, look again",
-  whyLabel: "Why is this about colouring?",
-  nudge: "Place one colour and watch its little marks fade along its row, column, and box. Then take a logical step. Do you agree with its reason?",
+  eyebrow: 'منطق · مخطّطات',
+  name: 'سودوكو على المكشوف',
+  tagline: 'لغز أرقام، والأرقام فيه لم تكن مهمة يومًا.',
+  title: 'سودوكو على المكشوف.',
+  subtitle:
+    'سودوكو بالألوان بدل الأرقام. ضعوا لونًا واحدًا، ولاحظوا كيف تختفي من صفه وعموده وصندوقه الخيارات التي يستبعدها.',
+  field: 'المنطق · تلوين المخطّطات · المربعات اللاتينية',
+  sceneLabel: 'ست عشرة خلية',
+  tip: 'Tab للانتقال إلى اللوحة · الأسهم للتنقّل · المفاتيح من 1\u00a0إلى\u00a04 لوضع رمز · Backspace للمسح · Ctrl+Z للتراجع',
+  actionLabel: 'خطوة منطقية واحدة',
+  canvasLabel:
+    'لوحة سودوكو من أربعة صفوف وأربعة أعمدة. تُظهر كل خلية فارغة الرموز التي ما زال يمكن وضعها فيها. ويمكن اللعب بلوحة الخلايا الموضوعة فوق هذه الصورة باستخدام لوحة المفاتيح.',
+  boardLabel: 'لوحة سودوكو، أربعة صفوف وأربعة أعمدة',
+  panelEyebrow: 'ضعوا، تراجعوا، انظروا مجددًا',
+  whyLabel: 'ما علاقة هذا بالتلوين؟',
+  nudge:
+    'ضعوا لونًا واحدًا، ولاحظوا علاماته الصغيرة تخفت في صفه وعموده وصندوقه. ثم جرّبوا «خطوة منطقية واحدة». هل يقنعكم السبب الذي تعطيه؟',
   connection: {
-    html: "<strong>Another network of neighbours.</strong> Here each square limits the squares it is linked to. In the city crossing, each driver’s choice changes everyone’s journey.",
-    label: "Visit the tempting shortcut",
+    html: '<strong>شبكة أخرى من الجيران.</strong> هنا تقيّد كل خلية الخلايا المرتبطة بها. وفي «الاختصار المُغري»، يغيّر اختيار كل سائق رحلة الجميع.',
+    label: 'زيارة «الاختصار المُغري»',
   },
+
   presets: [
-    {
-      name: "A gentle start",
-      note: "Eight clues. One step leads to the next.",
-    },
-    {
-      name: "Only one way",
-      note: "Just four clues, yet a single answer.",
-    },
-    {
-      name: "Two answers",
-      note: "Six clues, and room for two finishes.",
-    },
+    { name: 'بداية هادئة', note: 'ثماني خلايا معطاة. كل خطوة تقود إلى التي تليها.' },
+    { name: 'طريق واحد فقط', note: 'أربع خلايا معطاة فقط، ومع ذلك حلّ واحد.' },
+    { name: 'حلّان', note: 'ست خلايا معطاة، ومجال لحلّين.' },
   ],
-  styles: [
-    "Colours",
-    "Shapes",
-    "Digits",
-  ],
-  styleHint: "Same puzzle, new labels. Only the rules matter.",
-  styleLabel: "Symbols",
-  symbolWord: [
-    "colour",
-    "shape",
-    "digit",
-  ],
+
+  // Symbol styles. The names go inside the sentences below, so each colour, shape and digit carries its article,
+  // and the sentences never make a verb or pronoun agree with a name («الدائرة» is feminine, the others masculine).
+  styles: ['ألوان', 'أشكال', 'أرقام'],
+  styleHint: 'اللغز نفسه، بتسميات جديدة. القواعد وحدها هي المهمة.',
+  styleLabel: 'الرموز',
+  symbolWord: ['لون', 'شكل', 'رقم'],
   symbolNames: [
-    [
-      "blue",
-      "orange",
-      "pink",
-      "green",
-    ],
-    [
-      "the circle",
-      "the square",
-      "the triangle",
-      "the diamond",
-    ],
-    [
-      "1",
-      "2",
-      "3",
-      "4",
-    ],
+    ['الأزرق', 'البرتقالي', 'الوردي', 'الأخضر'],
+    ['الدائرة', 'المربع', 'المثلث', 'المعيّن'],
+    ['الرقم 1', 'الرقم 2', 'الرقم 3', 'الرقم 4'],
   ],
-  unitNames: {
-    row: "row",
-    col: "column",
-    box: "box",
+  // The box is «صندوق», so that «مربع» stays free for the square shape.
+  unitNames: { row: 'الصف', col: 'العمود', box: 'الصندوق' },
+
+  // Controls and readouts.
+  placeLabel: 'وضع رمز في الخلية المختارة',
+  placeButton: (name) => `وضع ${name}`,
+  faded: (word) => `كل علامة باهتة تدل على ${word} لا يمكن وضعه هنا.`,
+  clash: 'يتعارض هنا',
+  undo: 'تراجع',
+  clear: 'مسح الخلية',
+  network: 'إظهار الشبكة',
+  filled: 'المملوءة',
+  candidatesLeft: 'الخيارات',
+  waysToFinish: 'الحلول',
+  none: 'صفر',
+  twoFinishes: 'وجد البرنامج الحلّين، ولا يختلفان إلا في الخلايا المؤطّرة.',
+  answerLabel: (n) => `الحل ${n}`,
+  status: (filled) => `${filled} من 16 خلية مملوءة`,
+  networkCaption: '16 خلية · 56 رابطًا · الخلايا المترابطة لا تتشابه أبدًا',
+
+  // One short line under the board after each move.
+  start: (word) => `انقروا على خلية فارغة، ثم اختاروا ${word}ها.`,
+  // A placement rules its symbol out of at most seven other squares.
+  placed: (name, n) => {
+    const k = n % 100;
+    const where =
+      n === 1
+        ? 'خلية واحدة قريبة'
+        : n === 2
+          ? 'خليتين قريبتين'
+          : k >= 3 && k <= 10
+            ? `${n} خلايا قريبة`
+            : `${n} خلية قريبة`;
+    return n === 0 ? `تم وضع ${name}. لم يلزم تغيير أي شيء قريب.` : `تم وضع ${name}، واختفى هذا الخيار من ${where}.`;
   },
-  placeLabel: "Place in the chosen square",
-  placeButton: (name) => `Place ${name}`,
-  faded: (word) => `Faded ${word}s can’t go here.`,
-  clash: "clashes here",
-  undo: "Undo",
-  clear: "Clear square",
-  network: "Show the network",
-  filled: "Filled",
-  candidatesLeft: "Candidates",
-  waysToFinish: "Answers",
-  none: "none",
-  twoFinishes: "The solver found both finishes. They differ only in the outlined squares.",
-  answerLabel: (n) => `Finish ${n}`,
-  status: (filled) => `${filled} of 16 filled`,
-  networkCaption: "16 squares · 56 links · linked squares never match",
-  start: (word) => `Tap an empty square, then pick a ${word}.`,
-  placed: (name, n) =>
-      n === 0
-        ? `${name.charAt(0).toUpperCase() + name.slice(1)} placed. Nothing nearby needed to change.`
-        : `${name.charAt(0).toUpperCase() + name.slice(1)} placed. It can no longer go in ${n} ${n === 1 ? 'square' : 'squares'} nearby.`,
-  clashed: (name) => `Two neighbours now both hold ${name}. Undo, or try another.`,
-  given: "This one came with the puzzle. Try an empty square.",
-  cleared: "Cleared. Its possibilities come back.",
-  undone: "Stepped back.",
-  naked: (name) => `Only ${name} fits here: its row, column, and box hold the other three.`,
-  hidden: (name, unit) => `In this ${unit}, ${name} has only one place left.`,
-  stuckTwo: "Nothing is forced now. The outlined squares can swap, and both finishes work.",
-  stuckOne: "No single step is forced here. Try a guess, and undo if it goes astray.",
-  stuckNone: "This board can’t be finished any more. Undo a step or two.",
-  clashFirst: "Two neighbours share a symbol. Undo or clear one of the glowing squares first.",
-  solved: (word) => `Complete. Every row, column, and box holds each ${word} once.`,
-  fresh: "A fresh board.",
-  describe: (row, col, content) => `Row ${row}, column ${col}, ${content}`,
-  holds: (name, given) => (given ? `${name}, a clue` : name),
-  emptyWith: (names) => `empty, could be ${names.join(' or ')}`,
-  emptyNone: "empty, nothing fits",
+  clashed: (name) => `صارت خليتان متجاورتان تحملان ${name}. تراجعوا، أو جرّبوا رمزًا آخر.`,
+  given: 'هذه الخلية معطاة مع اللغز. جرّبوا خلية فارغة.',
+  cleared: 'تم المسح، وعادت خيارات الخلية.',
+  undone: 'تم التراجع خطوة.',
+  naked: (name) => `لا يصلح هنا إلا ${name}: في صف هذه الخلية وعمودها وصندوقها الرموز الثلاثة الأخرى.`,
+  hidden: (name, unit) => `في هذا ${unit} لم يبقَ إلا مكان واحد يمكن وضع ${name} فيه.`,
+  stuckTwo: 'لا توجد خطوة مفروضة الآن. يمكن للخلايا المؤطّرة أن تتبادل رموزها، والحلّان كلاهما صحيح.',
+  stuckOne: 'لا توجد هنا خطوة واحدة مفروضة. جرّبوا تخمينًا، وتراجعوا إن لم ينجح.',
+  stuckNone: 'لم يعد ممكنًا إكمال هذه اللوحة. تراجعوا خطوة أو خطوتين.',
+  clashFirst: 'في خليتين متجاورتين الرمز نفسه. تراجعوا أو امسحوا إحدى الخلايا المضيئة أولًا.',
+  solved: (word) => `اكتمل الحل. في كل صف وكل عمود وكل صندوق يظهر كل ${word} مرة واحدة.`,
+  fresh: 'لوحة جديدة.',
+
+  /** What a screen reader hears about the chosen square. */
+  describe: (row, col, content) => `الصف ${row}، العمود ${col}، ${content}`,
+  holds: (name, given) => (given ? `${name}، من معطيات اللغز` : name),
+  emptyWith: (names) => `فارغة، ويمكن فيها وضع ${names.join(' أو ')}`,
+  emptyNone: 'فارغة، ولا يصلح فيها شيء',
+
   guest: {
-    name: "Leonhard Euler",
-    note: "A finished Sudoku is a Latin square plus a rule for boxes. My 36 officers needed two Latin squares laid over each other so that every pair appears once, which proved impossible.",
+    name: 'ليونهارد أويلر',
+    note: 'السودوكو المكتمل مربع لاتيني وقاعدة إضافية للصناديق. أما مسألتي عن 36 ضابطًا فكانت تحتاج إلى مربعين لاتينيين يوضع أحدهما فوق الآخر، بحيث تظهر كل تركيبة من رتبة وفوج مرة واحدة، وتبيّن أن ذلك مستحيل.',
   },
+
   insight: {
-    title: "Why is Sudoku about colouring?",
-    html: `<p>Nothing in Sudoku needs numbers. The only rule is that two squares in the same row, column, or box must differ. Colours, shapes, or digits all work the same way, which is why switching the symbols never changes the puzzle.</p>
-<div class="insight-visual">A Sudoku is a map to colour. Every square has seven neighbours on this board, and it must differ from all of them.</div>
-<h3>Constraints</h3>
-<p>Each square belongs to one row, one column, and one box. Those groups overlap, so a single placement reaches far: it removes one possibility from up to seven other squares at once. The fading marks show exactly which ones.</p>
-<h3>Candidates and singles</h3>
-<p>The little marks in an empty square are its candidates: the symbols none of its neighbours hold yet. When only one mark is left, that square is forced (a “naked single”). When a symbol has only one possible square left in some row, column, or box, it must go there (a “hidden single”). “Take one logical step” uses just these two ideas, and it always shows you why.</p>
-<h3>A graph to colour</h3>
-<p>Turn on the network. Each square becomes a dot, and a line joins two dots whenever their squares share a row, column, or box: 16 dots and 56 lines. Filling the board is the same as giving each dot one of four colours so that no line joins two dots of the same colour, much like colouring a map so that neighbouring countries differ. Mathematicians call that a proper colouring of a graph.</p>
-<h3>Why a good puzzle has exactly one answer</h3>
-<p>Clues are a colouring that has already begun. A well-made puzzle has just enough clues that only one way to finish remains, so every step can be reasoned rather than guessed. On a 4×4 board, four clues are the fewest that can do it. With fewer, some choice is always left open. “Two answers” has six clues, but four squares form a rectangle whose two colours can swap, and the solver finds both finishes.</p>
-<h3>The full-size puzzle</h3>
-<p>A newspaper Sudoku is the same idea at a larger scale: 81 squares, each with 20 neighbours, 810 lines, and nine colours. There are 288 finished 4×4 grids, but about 6.7 × 10<sup>21</sup> finished 9×9 grids. The fewest clues that can give a 9×9 puzzle a single answer is 17, a fact settled by a large computer search.</p>
-<h3>Latin squares</h3>
-<p>A grid where every symbol appears once in each row and each column is called a Latin square. Leonhard Euler studied them, including his puzzle of 36 officers: six ranks and six regiments, arranged so that each row and each column holds every rank and every regiment once. Every finished Sudoku is a Latin square with one extra rule for its boxes.</p>
-<details><summary>What this room does, and what it leaves out</summary><p>The candidates here use only direct elimination: a symbol is ruled out when a neighbour already holds it. The logical step knows two kinds of deduction, naked and hidden singles; harder puzzles need more. The count of ways to finish comes from a small backtracking search. It tries each possibility in the most constrained empty square and stops once it has found two finishes. Herzberg and Murty count the ways to extend a partial colouring with a chromatic polynomial: a puzzle has a unique solution exactly when that count is 1. This room only needs to tell none, one, and two apart.</p></details>
-<div class="sources"><a class="source-link" href="https://people.math.sc.edu/girardi/sudoku/ChromaticPoly.pdf" target="_blank" rel="noopener">Sudoku Squares and Chromatic Polynomials (Herzberg &amp; Murty)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Mathematics_of_Sudoku" target="_blank" rel="noopener">Mathematics of Sudoku</a><a class="source-link" href="https://en.wikipedia.org/wiki/Thirty-six_officers_problem" target="_blank" rel="noopener">Euler’s 36 officers</a></div>`,
+    title: 'ما علاقة السودوكو بالتلوين؟',
+    html: `<p>لا شيء في السودوكو يحتاج إلى أرقام. القاعدة الوحيدة هي أن تختلف كل خليتين في الصف نفسه أو العمود نفسه أو الصندوق نفسه. الألوان والأشكال والأرقام كلها تعمل بالطريقة نفسها، ولهذا لا يتغيّر اللغز أبدًا حين تبدّلون الرموز.</p>
+<div class="insight-visual">السودوكو خريطة للتلوين. لكل خلية في هذه اللوحة سبع جارات، ويجب أن تختلف عنها كلها.</div>
+<h3>القيود</h3>
+<p>تنتمي كل خلية إلى صف واحد وعمود واحد وصندوق واحد. وهذه المجموعات متداخلة، ولذلك يصل أثر الوضع الواحد بعيدًا: فهو يزيل خيارًا واحدًا من سبع خلايا أخرى على الأكثر، دفعة واحدة. والعلامات التي تخفت تُظهر بالضبط أي خلايا هي.</p>
+<h3>الخيارات الممكنة والخيار الوحيد</h3>
+<p>العلامات الصغيرة في خلية فارغة هي خياراتها الممكنة: الرموز التي لا تحملها أي خلية من جاراتها بعد. وحين تبقى علامة واحدة فقط، يُحسم أمر تلك الخلية («وحيد ظاهر»). وحين لا يبقى لرمز ما إلا خلية واحدة ممكنة في صف أو عمود أو صندوق، يجب أن يذهب إليها («وحيد مخفي»). لا تستخدم «خطوة منطقية واحدة» إلا هاتين الفكرتين، وهي تُريكم السبب دائمًا.</p>
+<h3>مخطّط للتلوين</h3>
+<p>أظهِروا الشبكة. تصير كل خلية نقطة، ويصل خط بين نقطتين كلما اشتركت خليتاهما في صف أو عمود أو صندوق: 16 نقطة و56 خطًا. ملء اللوحة هو بالضبط إعطاء كل نقطة لونًا من أربعة ألوان بحيث لا يصل أي خط بين نقطتين من اللون نفسه، تمامًا كما نلوّن خريطة بحيث تختلف ألوان الدول المتجاورة. ويسمّي علماء الرياضيات ذلك تلوينًا صحيحًا للمخطّط.</p>
+<h3>لماذا يكون للّغز الجيد حل واحد بالضبط</h3>
+<p>الخلايا المعطاة تلوين بدأ بالفعل. وفي اللغز المتقن من الخلايا المعطاة ما يكفي بالضبط ليبقى طريق واحد فقط لإكماله، فيمكن استنتاج كل خطوة بدل تخمينها. على لوحة 4×4، أربع خلايا معطاة هي أقل عدد يحقق ذلك. ومع أقل منها، يبقى هناك دائمًا خيار مفتوح. في «حلّان» ست خلايا معطاة، لكن أربعًا منها تشكّل مستطيلًا يمكن أن يتبادل لوناه، فيجد البرنامج الحلّين كليهما.</p>
+<h3>اللغز بحجمه الكامل</h3>
+<p>سودوكو الصحف هو الفكرة نفسها على نطاق أكبر: 81 خلية، لكل منها 20 جارة، و810 خطوط، وتسعة ألوان. هناك 288 لوحة 4×4 مكتملة، لكن هناك نحو \u20666.7\u00a0×\u00a010<sup>21</sup>\u2069 لوحة 9×9 مكتملة. وأقل عدد من الخلايا المعطاة يمكن أن يعطي لغز 9×9 حلًا واحدًا هو 17، وهي حقيقة حسمها بحث حاسوبي ضخم.</p>
+<h3>المربعات اللاتينية</h3>
+<p>الجدول الذي يظهر فيه كل رمز مرة واحدة في كل صف وكل عمود يسمّى مربعًا لاتينيًا. درسها ليونهارد أويلر، ومنها مسألته عن 36 ضابطًا: ست رتب وستة أفواج، مرتّبة بحيث يضم كل صف وكل عمود كل رتبة وكل فوج مرة واحدة. وكل سودوكو مكتمل هو مربع لاتيني مع قاعدة إضافية واحدة لصناديقه.</p>
+<details><summary>ما تفعله هذه الغرفة، وما تتركه جانبًا</summary><p>لا تعتمد الخيارات هنا إلا على الاستبعاد المباشر: يُستبعد رمز حين تحمله خلية جارة. وتعرف الخطوة المنطقية نوعين من الاستنتاج، الوحيد الظاهر والوحيد المخفي؛ أما الألغاز الأصعب فتحتاج إلى أكثر من ذلك. ويأتي عدد طرق الإكمال من بحث صغير بالتراجع: يجرّب كل احتمال في الخلية الفارغة الأكثر تقييدًا، ويتوقف حين يجد حلّين. ويعدّ هيرزبرغ ومورتي طرق إكمال تلوين جزئي بكثيرة حدود لونية: يكون للّغز حل وحيد بالضبط حين يساوي هذا العدد 1. أما هذه الغرفة فتحتاج فقط إلى التمييز بين لا حل وحل واحد وحلّين.</p></details>
+<div class="sources"><a class="source-link" href="https://people.math.sc.edu/girardi/sudoku/ChromaticPoly.pdf" target="_blank" rel="noopener">\u2066Herzberg &amp; Murty, “Sudoku Squares and Chromatic Polynomials”\u2069 (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Mathematics_of_Sudoku" target="_blank" rel="noopener">رياضيات السودوكو (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Thirty-six_officers_problem" target="_blank" rel="noopener">مسألة الضباط الستة والثلاثين لأويلر (بالإنجليزية)</a></div>`,
   },
 });
