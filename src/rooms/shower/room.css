@@ -52,3 +52,7 @@
   font-size: 12px;
   color: var(--muted);
 }
+#shower-hand {
+  /* Cold on the left and hot on the right in every language, like the tap drawn in the picture. */
+  direction: ltr;
+}

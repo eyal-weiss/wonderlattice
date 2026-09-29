@@ -6,7 +6,7 @@
 
 ![Wonderlattice: cards for a flower drawn by turning arms, a woven pattern, two dice, and three fingerprints](assets/social.jpg)
 
-Wonderlattice is a free collection of twenty-six rooms, each built around one surprise:
+Wonderlattice is a free collection of twenty-seven rooms, each built around one surprise:
 
 - **Shape & space:** draw flowers with two turning arms, walk along a ribbon that has only one side, bend the plane
   until a circle becomes a wing, and drag one seed to grow infinite fractal coastlines.
@@ -17,8 +17,9 @@ Wonderlattice is a free collection of twenty-six rooms, each built around one su
   come home, and a floor that one glance at the colours proves no dominoes can cover.
 - **Making:** a loom that weaves twill, stripes and houndstooth from a tiny grid of choices, and an Escher-style tile
   whose edges you bend while it still covers the plane.
-- **Engineering:** a stack of blocks that leans as far past the table's edge as you like, and a thousand samples in
-  which ten pooled tests, run at once, find the one glowing tube.
+- **Engineering:** a shower whose eager bather is scalded, then frozen, by a two-second pipe, a stack of blocks that
+  leans as far past the table's edge as you like, and a thousand samples in which ten pooled tests, run at once, find
+  the one glowing tube.
 - **Living patterns:** a flock with no leader, fireflies that fall into step, fingerprints that grow by themselves,
   and waves that curl into spirals, as in a heartbeat.
 - **Signals & networks:** waves you can hear, a picture sent through a storm of flipped bits, a new road that slows

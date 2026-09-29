@@ -119,3 +119,18 @@ test('shower room: time runs, pauses, and the sound is opt-in', async ({ page })
   await openRoom(page, 'blocks');
   expect((await tool(page, 'read_exploration')).soundOn).toBe(false);
 });
+
+test('shower room: in Hebrew the tap slider still runs cold to hot, left to right, like the drawn tap', async ({
+  page,
+}) => {
+  await page.goto('/?lang=he#room=shower&mode=2');
+  await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
+  const hand = page.locator('#shower-hand');
+  await expect(hand).toBeVisible();
+  expect(await hand.evaluate((el) => getComputedStyle(el).direction)).toBe('ltr');
+  // Clicking near the right end turns the tap hot.
+  await hand.scrollIntoViewIfNeeded();
+  const box = await hand.boundingBox();
+  await page.mouse.click(box.x + box.width * 0.95, box.y + box.height / 2);
+  expect(Number(await hand.inputValue())).toBeGreaterThan(80);
+});
