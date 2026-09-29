@@ -623,9 +623,6 @@
     ctx.lineTo(plot.x + plot.w, yOf(M.TARGET));
     ctx.stroke();
     ctx.setLineDash([]);
-    ctx.fillStyle = 'rgba(126, 224, 161, 0.8)';
-    ctx.textAlign = 'left';
-    ctx.fillText(t.labels.justRight, plot.x + 4, yOf(M.TARGET + 2) - 3);
     // Seconds along the bottom.
     ctx.fillStyle = COLOURS.muted;
     ctx.textAlign = 'center';
@@ -667,6 +664,15 @@
       line(b, b.water, 3, []);
     }
     ctx.restore();
+    // Just right's name goes over the lines, on a dark backing, since the water crosses it.
+    const justRight = t.labels.justRight,
+      jy = yOf(M.TARGET + 2) - 3;
+    const jw = ctx.measureText(justRight).width;
+    ctx.fillStyle = 'rgba(10, 14, 21, 0.75)';
+    ctx.fillRect(plot.x + 1, jy - small + 2, jw + 6, small + 1);
+    ctx.fillStyle = 'rgba(126, 224, 161, 0.8)';
+    ctx.textAlign = 'left';
+    ctx.fillText(justRight, plot.x + 4, jy);
     ctx.font = `600 ${small - 1}px system-ui`;
     const used = [];
     const x = xOf(now(r));
@@ -726,7 +732,12 @@
     ctx.font = `${small - 1}px system-ui`;
     ctx.fillStyle = 'rgba(160, 215, 255, 0.95)';
     ctx.textAlign = 'left';
-    ctx.fillText(t.labels.regions[0], plot.x + 4, bottom - 4, plot.w * 0.4);
+    // The lowest region's name keeps clear of this pipe's dashed line: before it if it fits, otherwise after it.
+    const lowName = t.labels.regions[0];
+    const lowWidth = Math.min(ctx.measureText(lowName).width, plot.w * 0.4);
+    const before = xOf(s.pipe) - 6 - (plot.x + 4);
+    if (before >= lowWidth * 0.8) ctx.fillText(lowName, plot.x + 4, bottom - 4, Math.min(lowWidth, before));
+    else ctx.fillText(lowName, xOf(s.pipe) + 6, bottom - 4, Math.min(lowWidth, plot.x + plot.w - xOf(s.pipe) - 10));
     ctx.fillStyle = 'rgba(160, 235, 185, 0.95)';
     ctx.textAlign = 'right';
     // Low in its region, unless a bather's dot sits there: then just below the dot.
