@@ -43,10 +43,10 @@
   ];
 
   const number = (x, digits = 1) =>
-    x.toLocaleString(W.lang, { minimumFractionDigits: digits, maximumFractionDigits: digits });
-  const plain = (x, digits = 2) => x.toLocaleString(W.lang, { maximumFractionDigits: digits });
+    x.toLocaleString(W.numberLocale, { minimumFractionDigits: digits, maximumFractionDigits: digits });
+  const plain = (x, digits = 2) => x.toLocaleString(W.numberLocale, { maximumFractionDigits: digits });
   const degrees = (x) => t.degrees(number(x, 0));
-  const percent = (x) => `${(x * 100).toLocaleString(W.lang, { maximumFractionDigits: x < 0.1 ? 1 : 0 })}%`;
+  const percent = (x) => `${(x * 100).toLocaleString(W.numberLocale, { maximumFractionDigits: x < 0.1 ? 1 : 0 })}%`;
 
   /** The colour of water at this temperature, as [r, g, b]. */
   function heatRGB(temp) {

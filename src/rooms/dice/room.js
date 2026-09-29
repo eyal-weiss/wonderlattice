@@ -588,7 +588,7 @@
     const seen = tally.rolls ? Math.round((favouriteWins(c) / tally.rolls) * 100) : null;
     $('scene-status').textContent = tally.rolls ? t.rolls(tally.rolls) : t.ready;
     if (!$('dice-rolls')) return;
-    $('dice-rolls').textContent = tally.rolls.toLocaleString(W.lang);
+    $('dice-rolls').textContent = tally.rolls.toLocaleString(W.numberLocale);
     $('dice-wins').textContent = t.winsLine(nameOf(c, c.you), nameOf(c, c.me), tally.you, tally.me);
     $('dice-seen').textContent =
       c.you === c.me ? t.sameDie : t.seenLine(fav, seen, c.fraction, Math.round(c.chance * 100));

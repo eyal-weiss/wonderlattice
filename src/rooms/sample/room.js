@@ -581,7 +581,7 @@
     const step = nearestStep(s.size);
     $('sample-size').value = String(step);
     $('sample-size').setAttribute('aria-valuetext', String(s.size));
-    $('sample-size-value').textContent = s.size.toLocaleString(W.lang);
+    $('sample-size-value').textContent = s.size.toLocaleString(W.numberLocale);
     const reveal = document.querySelector('#scene-controls [data-check="reveal"]');
     if (reveal) reveal.checked = s.reveal;
   }

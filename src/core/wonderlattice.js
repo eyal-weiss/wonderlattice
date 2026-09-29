@@ -265,6 +265,11 @@
     },
     language: () => languages[Wonderlattice.lang] ?? languages.en ?? { dir: 'ltr', speech: 'en-US' },
 
+    /** The page language for writing numbers, always with the digits 0–9 (some browsers write Arabic with ٠–٩). */
+    get numberLocale() {
+      return `${Wonderlattice.lang}-u-nu-latn`;
+    },
+
     /** Register visitor-facing words for a scope (usually a room id) in one language. */
     defineText(scope, lang, strings) {
       // English is the trusted source; a language file can't replace it (or another language).

@@ -30,9 +30,9 @@
   };
 
   const fmt = (x, digits = 1) =>
-    `${x > 0 ? '+' : x < 0 ? '−' : ''}${Math.abs(x).toLocaleString(W.lang, { minimumFractionDigits: digits, maximumFractionDigits: digits })}`;
-  const percent = (x) => `${(x * 100).toLocaleString(W.lang, { maximumFractionDigits: 1 })}%`;
-  const count = (n) => n.toLocaleString(W.lang);
+    `${x > 0 ? '+' : x < 0 ? '−' : ''}${Math.abs(x).toLocaleString(W.numberLocale, { minimumFractionDigits: digits, maximumFractionDigits: digits })}`;
+  const percent = (x) => `${(x * 100).toLocaleString(W.numberLocale, { maximumFractionDigits: 1 })}%`;
+  const count = (n) => n.toLocaleString(W.numberLocale);
 
   /** The games a mode plays, as the model spells them: 'A', 'B', 'R' (A or B at random) or the visitor's pattern. */
   const gameOf = (mode, s) => ['A', 'B', 'R'][mode] ?? (M.decodePattern(s.pattern) || 'AABB');

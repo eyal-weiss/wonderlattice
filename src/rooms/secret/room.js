@@ -41,7 +41,7 @@
     const p = CLOCKS[s.clock] ?? CLOCKS[1];
     return { p, g: rootOf(p), a: S.fitSecret(s.a, p), b: S.fitSecret(s.b, p) };
   }
-  const fmt = (n) => n.toLocaleString(W.lang);
+  const fmt = (n) => n.toLocaleString(W.numberLocale);
   const rgb = (c) => `rgb(${c.map((v) => Math.round(v * 255)).join(',')})`;
   const ease = (x) => 1 - (1 - x) ** 3;
 
