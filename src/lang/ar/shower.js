@@ -53,7 +53,7 @@ Wonderlattice.defineText('shower', 'ar', {
     product: 'التعجّل × الأنبوب',
     sum: (k, d, kd) => `\u2066${k}\u00a0×\u00a0${d}\u00a0s\u00a0=\u00a0${kd}\u2069`,
     verdicts: ['يستقر دون أن يتجاوز الهدف', 'يتذبذب ثم يستقر', 'لا يستقر أبدًا'],
-    smooth: 'يصعد الماء ببطء إلى \u206638\u00a0°C\u2069 ويبقى هناك.',
+    smooth: 'ترتفع حرارة الماء ببطء إلى \u206638\u00a0°C\u2069 وتبقى عندها.',
     fades: (share, period) => {
       const n = period * 1;
       const every =

@@ -62,7 +62,7 @@ Wonderlattice.defineText('treasure', 'ar', {
               : k >= 11
                 ? `${beeps} إنذارًا`
                 : `${beeps} إنذار`;
-      return beeps === 0 ? 'لم يُصفّر الكاشف هذه المرة' : `${alarms} · انقروا على أحدها لتحفروا`;
+      return beeps === 0 ? 'لم يُصفّر الكاشف هذه المرة' : `${alarms} · انقروا على مربع يُصفّر لتحفروا`;
     },
     // Digging is under way, so there are at least two beeps and one is dug.
     digging: (dug, beeps, found) => {
