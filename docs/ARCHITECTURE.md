@@ -132,7 +132,8 @@ dictionaries. The step-by-step guide for translators is docs/TRANSLATING.md.
 
 1. Copy `src/rooms/traffic/` to `src/rooms/<id>/` and rename. Put the mathematics in `model.js` and attach it to
    `Wonderlattice.models.<id>`, and every visitor-facing word (including canvas labels and aria-labels) in `text.en.js`.
-   Pick a `theme` and write a `tagline`. The published site loads each room on its own (see Growing), so the top of
+   Pick a `theme`, write a `tagline`, and set `added` to the day it goes live (`'2026-10-02'`): the home map names it
+   on its "New" line for 30 days. The published site loads each room on its own (see Growing), so the top of
    `room.js` uses only the core, the stage and the room's own model and words; page work goes in its functions.
 2. Run `npm run rooms`: it adds the room's `<script>` tags (and `room.css`, if any) to `index.html`, before
    `src/core/app.js`. Move them to change the room's place in the navigation. CI checks every room folder is linked.

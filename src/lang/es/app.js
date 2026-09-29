@@ -34,6 +34,7 @@ Wonderlattice.defineText('app', 'es', {
     next: (name) => `Experimento siguiente: ${name}`,
   },
   language: 'Idioma',
+  whatsNew: 'Novedades',
   pageTitle: (room) => `${room} · Wonderlattice`,
   stage: {
     makeItYours: 'Hazlo tuyo',

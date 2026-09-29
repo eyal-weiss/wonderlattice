@@ -64,6 +64,8 @@ reviews:
 - **Security:** `innerHTML` only ever receives the site's own text and numbers, never values from a link or the
   visitor. Shared-link values are clamped by `ranges`.
 - **Theme:** the room's `theme` follows the issue's theme label (`theme: engineering` → `'engineering'`).
+- **Date:** set the room's `added` to the day you open the pull request (`'YYYY-MM-DD'`), so the home map lists it as
+  new; the owner updates it if the room goes live later.
 - **Text:** every visitor-facing word goes in `text.en.js`, in British spelling. New rooms ship in English; translation
   is a separate step, after the room merges.
 

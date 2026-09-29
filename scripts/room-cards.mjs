@@ -56,7 +56,7 @@ function runPage(root, html, lang, languageFiles) {
 }
 
 /**
- * Every room's card: { cards: [{ id, theme, symbol, accent, layout, panel }], words: { lang: { id: { eyebrow, name,
+ * Every room's card: { cards: [{ id, theme, symbol, accent, layout, panel, added }], words: { lang: { id: { eyebrow, name,
  * tagline } } } }. A language lists only the words it changes; the rest fall back to English, as on the page.
  */
 export function readCards(root, html, languageFiles) {
@@ -81,6 +81,7 @@ export function readCards(root, html, languageFiles) {
       ...(room.accent?.border ? { accent: { border: room.accent.border } } : {}),
       ...(room.layout ? { layout: room.layout } : {}),
       ...(room.panel ? { panel: room.panel } : {}),
+      ...(room.added ? { added: room.added } : {}),
     });
   }
   for (const lang of Object.keys(languageFiles)) {

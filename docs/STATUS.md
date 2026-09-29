@@ -1,5 +1,12 @@
 # Project state — 2026-09-29
 
+## A “New” line on the home map — 2026-09-29
+
+- Under the home map's title, one line names the newest rooms: up to three from the last 30 days, newest first, each
+  a button into its room (in five languages; on a phone it takes at most two lines). With nothing new it disappears.
+  It reads each room's new `added` date, so the loop keeps it current just by building rooms (the rulebook and the
+  add-a-room checklist say to set it). The fourteen rooms since launch have their dates from `main`'s history.
+
 ## Rooms load when they're needed — 2026-09-29
 
 - **The published site now loads each room only when it's needed:** when it's opened, or when its card comes into

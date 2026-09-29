@@ -947,6 +947,7 @@
     eyebrow: t.eyebrow,
     name: t.name,
     theme: 'engineering',
+    added: '2026-09-29',
     tagline: t.tagline,
     accent: { background: '#1e1a12', border: '#f7c948', color: '#fbe3a1' },
 

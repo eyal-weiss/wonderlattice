@@ -11,6 +11,29 @@ a.brand:focus-visible {
 .home-intro {
   padding-bottom: 8px;
 }
+/* One line naming the newest rooms (src/core/app.js). */
+.intro .whats-new {
+  margin-top: 12px;
+  font-size: 14px;
+}
+.whats-new .eyebrow {
+  margin-inline-end: 6px;
+  color: var(--lime);
+}
+.whats-new-room {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgb(221 246 163 / 0.5);
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.whats-new-room:hover {
+  text-decoration-color: var(--lime);
+}
 .theme {
   margin-top: 30px;
 }

@@ -315,6 +315,7 @@
     id: 'tiles',
     symbol: '⬡',
     theme: 'making',
+    added: '2026-09-27',
     eyebrow: t.eyebrow,
     name: t.name,
     tagline: t.tagline,
