@@ -10,7 +10,7 @@ const style = (page, selector, property) =>
 test('letter shortcuts work on keyboards that type another alphabet', async ({ page }) => {
   await page.goto('/');
   const results = await page.evaluate(() => {
-    const is = (key, code, letter) => Wonderlattice.isLetter({ key, code }, letter);
+    const is = (key, code, letter) => globalThis.Wonderlattice.isLetter({ key, code }, letter);
     return [
       is('b', 'KeyB', 'b'), // English
       is('B', 'KeyB', 'b'), // with Shift
