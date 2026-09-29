@@ -3,7 +3,8 @@ Wonderlattice.defineText('loom', 'pt', {
   name: 'O tear matemático',
   tagline: 'Troque um quadradinho numa grade de sim e não, e o tecido inteiro muda.',
   title: 'O tear matemático.',
-  subtitle: 'Escolha quais fios sobem. Veja o tecido crescer a partir de uma grade de sim e não.',
+  subtitle:
+    'Toque nos quadradinhos para escolher quais fios sobem e veja um tecido crescer a partir de simples escolhas de sim ou não.',
   field: 'Tecelagem · Padrões binários · Repetição',
   sceneLabel: 'Um tear de quatro quadros',
   sceneName: 'Tecido a partir de um esquema',

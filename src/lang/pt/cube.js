@@ -4,7 +4,8 @@ Wonderlattice.defineText('cube', 'pt', {
   tagline:
     'Dois giros em outra ordem, um movimento que precisa de 105 repetições para voltar para casa e peças que mal saem do lugar.',
   title: 'Por dentro do cubo mágico.',
-  subtitle: 'Esqueça a solução. Brinque com os próprios movimentos e veja como eles se combinam.',
+  subtitle:
+    'Esqueça a solução. Repita dois giros sem parar e conte quanto tempo o cubo leva para voltar a ficar como no começo.',
   field: 'Grupos · Ordem · Desfazer',
   sceneLabel: 'Um cubo de movimentos',
   tip: 'Arraste, ou use as setas, para girar a vista',

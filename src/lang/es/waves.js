@@ -3,7 +3,8 @@ Wonderlattice.defineText('waves', 'es', {
   name: 'Escucha la forma',
   tagline: 'Dos tonos se combinan en pulsaciones, silencio y un retrato que da vueltas.',
   title: 'Escucha la forma.',
-  subtitle: 'Dos tonos. Un poco de distancia entre ellos. Escucha lo que cambia.',
+  subtitle:
+    'Dos tonos, dibujados como ondas. Separa uno un poco del otro y mira, o escucha, cómo su suma empieza a latir.',
   field: 'Ondas · Razones · Interferencia',
   sceneLabel: 'Una conversación en ondas',
   sceneName: 'Dos tonos, juntos',

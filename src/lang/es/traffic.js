@@ -3,7 +3,7 @@ Wonderlattice.defineText('traffic', 'es', {
   name: 'El atajo tentador',
   tagline: 'Una carretera nueva que hace más lento a cada conductor.',
   title: 'El atajo tentador.',
-  subtitle: 'Una carretera nueva parece un regalo. Ábrela y mira qué pasa.',
+  subtitle: 'Cada conductor toma la ruta más rápida. Abre un atajo nuevo y mira si todos llegan antes a casa.',
   field: 'Redes · Teoría de juegos · Una pequeña sorpresa',
   sceneLabel: 'Una ciudad · Muchas decisiones privadas',
   sceneName: 'El cruce de la ciudad',

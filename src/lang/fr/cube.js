@@ -4,7 +4,8 @@ Wonderlattice.defineText('cube', 'fr', {
   tagline:
     'Deux rotations dans un autre ordre, un mouvement à répéter 105 fois pour revenir au départ, et des pièces qui bougent à peine.',
   title: 'Au cœur du cube casse-tête.',
-  subtitle: 'Oubliez la résolution. Jouez avec les mouvements eux-mêmes et voyez comment ils se combinent.',
+  subtitle:
+    'Oubliez la résolution. Répétez deux mouvements encore et encore, et comptez combien de temps il faut au cube pour revenir à son point de départ.',
   field: 'Groupes · Ordre · Annulation',
   sceneLabel: 'Un cube de mouvements',
   tip: 'Faites glisser, ou utilisez les flèches, pour tourner la vue',

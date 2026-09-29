@@ -3,7 +3,8 @@ Wonderlattice.defineText('storm', 'es', {
   name: 'Un dibujo en medio de la tormenta',
   tagline: 'Unos pocos bits extra, bien pensados, permiten que un dibujo se repare solo.',
   title: 'Un dibujo en medio de la tormenta.',
-  subtitle: 'Haz un dibujito. Envíalo a través de la tormenta. Ayúdalo a llegar entero.',
+  subtitle:
+    'Haz un dibujito y envíalo a través de una tormenta que cambia algunos de sus puntos. Añade unos pocos bits de control y míralo llegar entero.',
   field: 'Códigos · Información · Un poco de redundancia',
   sceneLabel: 'Canal con ruido',
   actionLabel: 'Enviar de nuevo',

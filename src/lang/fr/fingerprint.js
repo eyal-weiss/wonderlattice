@@ -4,7 +4,7 @@ Wonderlattice.defineText('fingerprint', 'fr', {
   tagline: 'Personne ne la dessine : les crêtes poussent d’elles-mêmes en verticilles, boucles et arcs.',
   title: 'Faire pousser une empreinte.',
   subtitle:
-    'Personne ne dessine une empreinte digitale. Deux signaux se propagent et réagissent, et les crêtes apparaissent d’elles-mêmes.',
+    'Personne ne dessine ces lignes. Deux substances se répandent et réagissent, et des crêtes comme celles d’une empreinte apparaissent d’elles-mêmes.',
   field: 'Réaction-diffusion · Motifs de Turing · Développement',
   sceneLabel: 'Un bout de doigt qui fait pousser ses crêtes',
   tip: 'Touchez le bout du doigt pour y lancer des crêtes · Les flèches visent, Entrée plante',

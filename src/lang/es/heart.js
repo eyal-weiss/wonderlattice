@@ -3,7 +3,8 @@ Wonderlattice.defineText('heart', 'es', {
   name: 'Un latido que viaja',
   tagline: 'Toca una lámina de células y sale una onda. Rómpela y se enrosca en una espiral.',
   title: 'Un latido que viaja.',
-  subtitle: 'Cada célula se activa y luego descansa. Inicia una onda y luego mira qué hace una onda rota.',
+  subtitle:
+    'Cada célula se activa y luego descansa, como las células de un corazón. Inicia una onda, luego rómpela y mira cómo se enrosca en una espiral.',
   field: 'Medios excitables · Ondas en espiral · Ondas en el cuerpo',
   sceneLabel: 'Una lámina · Miles de células',
   sceneName: 'El latido viajero',

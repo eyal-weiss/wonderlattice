@@ -4,7 +4,7 @@ Wonderlattice.defineText('plane', 'fr', {
   tagline: 'Courbez une image sans la déchirer ; un cercle devient une aile.',
   title: 'Courber le plan.',
   subtitle:
-    'Faites passer une image par une fonction complexe. Tout le plan se courbe, mais les minuscules angles droits restent droits.',
+    'Choisissez une façon de courber tout le plan et regardez une image se déformer. Regardez de près : les petits coins gardent leurs angles droits.',
   field: 'Nombres complexes · Transformations conformes · Ailes',
   sceneLabel: 'Le plan, courbé',
   tip: 'Faites glisser la boussole de gauche, ou déplacez-la avec les flèches · Sa jumelle, à droite, montre l’étirement et la rotation',

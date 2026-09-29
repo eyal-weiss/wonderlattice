@@ -3,7 +3,8 @@ Wonderlattice.defineText('dice', 'es', {
   name: 'Los dados que se ganan entre sí',
   tagline: 'Elige cualquier dado. Siempre hay uno que le gana.',
   title: 'Los dados que se ganan entre sí.',
-  subtitle: 'Elige cualquier dado. Yo elegiré después de ti.',
+  subtitle:
+    'Elige cualquiera de estos dados raros; luego elijo yo el mío y tiramos. Elijas el que elijas, otro suele ganarle.',
   field: 'Probabilidad · Contar · Una pequeña sorpresa',
   sceneLabel: 'Dados raros · Un círculo',
   tip: 'Toca un dado del círculo, o usa ← y →, para elegir el tuyo · Cada flecha va del ganador al perdedor',

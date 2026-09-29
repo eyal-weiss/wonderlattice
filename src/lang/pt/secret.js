@@ -3,7 +3,8 @@ Wonderlattice.defineText('secret', 'pt', {
   name: 'Um segredo gritado pela sala',
   tagline: 'Duas pessoas combinam um segredo enquanto todos escutam, e quem escuta continua sem descobrir.',
   title: 'Um segredo gritado pela sala.',
-  subtitle: 'Alice e Bob só podem conversar em público. Mesmo assim, conseguem ficar com um segredo em comum?',
+  subtitle:
+    'Alice e Bob só podem conversar onde todo mundo escuta. Misture cores com eles e veja como, mesmo assim, eles acabam com um segredo em comum.',
   field: 'Teoria dos números · Criptografia · Uma pequena surpresa',
   sceneLabel: 'Dois amigos · Uma bisbilhoteira · Tudo dito em voz alta',
   sceneName: 'Combinar uma chave em público',

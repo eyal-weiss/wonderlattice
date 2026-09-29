@@ -4,7 +4,8 @@ Wonderlattice.defineText('fingerprint', 'en', {
   name: 'Grow a fingerprint',
   tagline: 'Nobody draws it: ridges grow by themselves into whorls, loops, and arches.',
   title: 'Grow a fingerprint.',
-  subtitle: 'Nobody draws a fingerprint. Two signals spread and react, and ridges appear by themselves.',
+  subtitle:
+    'Nobody draws these lines. Two chemicals spread and react, and ridges like a fingerprint appear by themselves.',
   field: 'Reaction–diffusion · Turing patterns · Development',
   sceneLabel: 'A fingertip, growing its ridges',
   tip: 'Tap the fingertip to start ridges there · Arrow keys aim, Enter plants',

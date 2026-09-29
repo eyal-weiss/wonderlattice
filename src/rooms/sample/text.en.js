@@ -4,7 +4,8 @@ Wonderlattice.defineText('sample', 'en', {
   name: 'A spoonful of a city',
   tagline: 'A huge poll can be sure and wrong. A small random one is roughly right.',
   title: 'A spoonful of a city.',
-  subtitle: 'Orange or blue: what does the whole city prefer? You can only ask some of them.',
+  subtitle:
+    'Orange or blue: what does the whole city prefer? You can only ask some of the people, so try a big poll and a small one.',
   field: 'Statistics · Sampling · Random error and bias',
   sceneLabel: 'Polling a toy city',
   tip: 'Tap a neighbourhood, or press ← →, to ask only there · ↑ ↓ change the survey size',

@@ -4,7 +4,8 @@ Wonderlattice.defineText('shots', 'en', {
   name: 'Two players, three leaderboards',
   tagline: 'A shooter can win close range and win far range, yet lose overall.',
   title: 'Two players, three leaderboards.',
-  subtitle: 'Drag how many easy and hard shots each player takes. Watch the overall leaderboard flip.',
+  subtitle:
+    'Two players shoot from close and far. Change how many easy and hard shots each one takes, and watch the overall leaderboard flip.',
   field: 'Statistics · Weighted averages · A little surprise',
   sceneLabel: 'One court · Two players · Three leaderboards',
   sceneName: 'The shot mix',

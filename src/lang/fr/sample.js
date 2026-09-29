@@ -3,7 +3,8 @@ Wonderlattice.defineText('sample', 'fr', {
   name: 'Une cuillerée de ville',
   tagline: 'Un énorme sondage peut être sûr de lui et se tromper. Un petit sondage au hasard tombe à peu près juste.',
   title: 'Une cuillerée de ville.',
-  subtitle: 'Orange ou bleu : que préfère la ville entière ? Vous ne pouvez interroger qu’une partie des habitants.',
+  subtitle:
+    'Orange ou bleu : que préfère la ville entière ? Vous ne pouvez interroger qu’une partie des habitants, alors essayez un grand sondage et un petit.',
   field: 'Statistiques · Échantillonnage · Erreur aléatoire et biais',
   sceneLabel: 'Sonder une ville miniature',
   tip: 'Touchez un quartier, ou appuyez sur ← →, pour n’interroger que là · ↑ ↓ changent la taille du sondage',

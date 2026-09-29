@@ -4,7 +4,8 @@ Wonderlattice.defineText('flock', 'en', {
   name: 'A mind of many',
   tagline: 'No leader, just neighbours: guide a flock into motion.',
   title: 'A mind of many.',
-  subtitle: 'No leader. Just neighbours. Guide a little world into motion.',
+  subtitle:
+    'Each bird only watches its nearest neighbours, and nobody leads. Change how closely they follow each other and watch a flock form.',
   field: 'Dynamical systems · Emergence',
   sceneLabel: 'A world of local decisions',
   sceneName: 'The moving collective',

@@ -29,7 +29,8 @@ Wonderlattice.defineText('page', 'fr', {
   },
   motion: {
     title: 'Peindre avec le mouvement.',
-    subtitle: 'Deux bras qui tournent. Un stylo. Voyez ce qui se dessine.',
+    subtitle:
+      'Deux bras tournent à des vitesses différentes, et un stylo au bout dessine. Changez un seul nombre et une nouvelle fleur apparaît.',
     field: 'Des cercles dans des cercles',
     onCanvas: 'Sur la toile',
     finish: 'Tout tracer',

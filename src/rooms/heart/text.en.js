@@ -4,7 +4,8 @@ Wonderlattice.defineText('heart', 'en', {
   name: 'A heartbeat travels',
   tagline: 'Tap a sheet of cells and a wave rolls out. Break it, and it curls into a spiral.',
   title: 'A heartbeat travels.',
-  subtitle: 'Each cell fires, then rests. Start a wave, then see what a broken one does.',
+  subtitle:
+    'Each cell fires and then rests, like the cells of a heart. Start a wave, then break it and watch it curl into a spiral.',
   field: 'Excitable media · Spiral waves · Waves in the body',
   sceneLabel: 'One sheet · Thousands of cells',
   sceneName: 'The travelling beat',

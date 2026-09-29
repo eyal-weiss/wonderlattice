@@ -3,7 +3,8 @@ Wonderlattice.defineText('heart', 'fr', {
   name: 'Un battement qui voyage',
   tagline: 'Touchez une nappe de cellules et une onde s’élance. Brisez-la, et elle s’enroule en spirale.',
   title: 'Un battement qui voyage.',
-  subtitle: 'Chaque cellule s’active, puis se repose. Lancez une onde, puis voyez ce que fait une onde brisée.',
+  subtitle:
+    'Chaque cellule s’active puis se repose, comme les cellules d’un cœur. Lancez une onde, puis brisez-la et regardez-la s’enrouler en spirale.',
   field: 'Milieux excitables · Ondes spirales · Ondes dans le corps',
   sceneLabel: 'Une nappe · Des milliers de cellules',
   sceneName: 'Le battement voyageur',

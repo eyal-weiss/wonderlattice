@@ -4,7 +4,7 @@ Wonderlattice.defineText('loom', 'en', {
   name: 'The mathematical loom',
   tagline: 'Flip one square in a tiny grid of yes and no, and the whole cloth changes.',
   title: 'The mathematical loom.',
-  subtitle: 'Choose which threads rise. Watch cloth grow from a grid of yes and no.',
+  subtitle: 'Tap squares to choose which threads rise, and watch a woven cloth grow from simple yes-or-no choices.',
   field: 'Weaving · Binary patterns · Repetition',
   sceneLabel: 'A four-shaft loom',
   sceneName: 'Cloth from a draft',

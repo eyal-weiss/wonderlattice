@@ -3,7 +3,8 @@ Wonderlattice.defineText('ribbon', 'fr', {
   name: 'Où est l’autre face ?',
   tagline: 'Donnez une demi-torsion à un ruban, et l’une de ses faces disparaît.',
   title: 'Où est l’autre face ?',
-  subtitle: 'Faites tourner un ruban dans l’espace. Suivez son bord. Laissez une torsion vous surprendre.',
+  subtitle:
+    'Une bande de papier avec une demi-torsion. Faites-la tourner, suivez son bord, et voyez si elle a vraiment deux faces.',
   field: 'Topologie · Surfaces · 3D',
   sceneLabel: 'Une bande ordinaire, un étrange voyage',
   sceneName: 'Le ruban de Möbius',

@@ -3,7 +3,8 @@ Wonderlattice.defineText('fingerprint', 'pt', {
   name: 'Faça crescer uma impressão digital',
   tagline: 'Ninguém a desenha: as cristas crescem sozinhas em verticilos, presilhas e arcos.',
   title: 'Faça crescer uma impressão digital.',
-  subtitle: 'Ninguém desenha uma impressão digital. Dois sinais se espalham e reagem, e as cristas aparecem sozinhas.',
+  subtitle:
+    'Ninguém desenha estas linhas. Duas substâncias químicas se espalham e reagem, e cristas como as de uma impressão digital aparecem sozinhas.',
   field: 'Reação–difusão · Padrões de Turing · Desenvolvimento',
   sceneLabel: 'A ponta de um dedo, criando suas cristas',
   tip: 'Toque na ponta do dedo para começar cristas ali · As setas miram, Enter planta',

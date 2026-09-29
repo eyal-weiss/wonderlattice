@@ -3,7 +3,8 @@ Wonderlattice.defineText('sudoku', 'fr', {
   name: 'Le sudoku en transparence',
   tagline: 'Un casse-tête de chiffres où les chiffres n’ont jamais compté.',
   title: 'Le sudoku en transparence.',
-  subtitle: 'Placez une couleur et regardez les possibilités autour d’elle s’effacer en silence.',
+  subtitle:
+    'Un sudoku avec des couleurs au lieu des chiffres. Placez-en une et regardez les choix qu’elle exclut disparaître de sa ligne, de sa colonne et de son bloc.',
   field: 'Logique · Coloration de graphes · Carrés latins',
   sceneLabel: 'Seize cases',
   tip: 'Tab pour aller à la grille · les flèches déplacent · les touches 1–4 placent · Retour arrière efface · Ctrl+Z annule',

@@ -4,7 +4,8 @@ Wonderlattice.defineText('waves', 'en', {
   name: 'Hear the shape',
   tagline: 'Two tones combine into beats, silence, and a looping portrait.',
   title: 'Hear the shape.',
-  subtitle: 'Two tones. A little space between them. Listen to what changes.',
+  subtitle:
+    'Two tones, drawn as waves. Pull one slightly away from the other and watch, or listen to, their sum start to pulse.',
   field: 'Waves · Ratios · Interference',
   sceneLabel: 'A conversation in waves',
   sceneName: 'Two tones, together',

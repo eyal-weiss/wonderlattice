@@ -3,7 +3,8 @@ Wonderlattice.defineText('loom', 'fr', {
   name: 'Le métier à tisser mathématique',
   tagline: 'Changez une case d’une minuscule grille de oui et de non, et tout le tissu change.',
   title: 'Le métier à tisser mathématique.',
-  subtitle: 'Choisissez quels fils se lèvent. Regardez le tissu naître d’une grille de oui et de non.',
+  subtitle:
+    'Touchez des cases pour choisir quels fils se lèvent, et regardez un tissu naître de simples choix entre oui et non.',
   field: 'Tissage · Motifs binaires · Répétition',
   sceneLabel: 'Un métier à quatre cadres',
   sceneName: 'Du schéma au tissu',

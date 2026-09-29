@@ -3,7 +3,8 @@ Wonderlattice.defineText('loom', 'es', {
   name: 'El telar matemático',
   tagline: 'Cambia una casilla en una cuadrícula diminuta de síes y noes, y toda la tela cambia.',
   title: 'El telar matemático.',
-  subtitle: 'Elige qué hilos se levantan. Mira crecer una tela a partir de una cuadrícula de síes y noes.',
+  subtitle:
+    'Toca los cuadros para elegir qué hilos se levantan y mira crecer una tela tejida a partir de simples síes y noes.',
   field: 'Tejido · Patrones binarios · Repetición',
   sceneLabel: 'Un telar de cuatro lizos',
   sceneName: 'Tela a partir de un diseño',

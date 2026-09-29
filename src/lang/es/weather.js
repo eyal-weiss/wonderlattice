@@ -4,7 +4,7 @@ Wonderlattice.defineText('weather', 'es', {
   tagline: 'Dos tiempos empiezan casi idénticos. Unas semanas después no tienen nada en común.',
   title: 'Gemelos del tiempo.',
   subtitle:
-    'Suelta dos puntos de partida casi idénticos en las mismas reglas exactas. Mira cuánto tiempo siguen juntos.',
+    'Dos cielos empiezan casi exactamente iguales y siguen exactamente las mismas reglas. Mira cuánto tiempo siguen pareciéndose.',
   field: 'Caos · Ecuaciones diferenciales · Predicción',
   sceneLabel: 'Tres ecuaciones · Dos comienzos · Nada de azar',
   sceneName: 'La mariposa de Lorenz',

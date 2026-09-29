@@ -4,7 +4,7 @@ Wonderlattice.defineText('plane', 'pt', {
   tagline: 'Deforme uma imagem sem rasgar; um círculo vira uma asa.',
   title: 'Entorte o plano.',
   subtitle:
-    'Passe uma imagem por uma função complexa. O plano inteiro se deforma, mas os ângulos retos minúsculos continuam retos.',
+    'Escolha um jeito de entortar o plano inteiro e veja uma imagem se deformar. Olhe de perto: os cantinhos continuam em ângulo reto.',
   field: 'Números complexos · Transformações conformes · Asas',
   sceneLabel: 'O plano, deformado',
   tip: 'Arraste a bússola à esquerda, ou mova-a com as setas · Sua gêmea à direita mostra o quanto estica e gira',

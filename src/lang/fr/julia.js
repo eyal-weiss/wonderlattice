@@ -4,7 +4,7 @@ Wonderlattice.defineText('julia', 'fr', {
   tagline: 'Une règle, répétée, dessine des côtes sans fin. Déplacez la graine et regardez-les changer.',
   title: 'Une graine pour un paysage infini.',
   subtitle:
-    'Élevez un nombre au carré, ajoutez une graine, et recommencez. Faites glisser la graine et regardez tout un paysage changer.',
+    'Une toute petite règle, répétée : élever un nombre au carré et ajouter une graine. Faites glisser la graine et un paysage sans fin change de forme.',
   field: 'Nombres complexes · Répétition · Fractales',
   sceneLabel: 'Une règle · z → z² + c',
   tip: 'Faites glisser la graine sur la petite carte, ou utilisez les flèches · Touchez la grande image pour suivre le voyage d’un point',

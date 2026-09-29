@@ -3,7 +3,8 @@ Wonderlattice.defineText('dice', 'pt', {
   name: 'Os dados que vencem uns aos outros',
   tagline: 'Escolha qualquer dado. Sempre existe um que o vence.',
   title: 'Os dados que vencem uns aos outros.',
-  subtitle: 'Escolha qualquer dado. Eu escolho depois de você.',
+  subtitle:
+    'Escolha qualquer um destes dados estranhos, depois eu escolho o meu e jogamos. Seja qual for sua escolha, outro dado tende a vencê-lo.',
   field: 'Probabilidade · Contagem · Uma pequena surpresa',
   sceneLabel: 'Dados estranhos · Um círculo',
   tip: 'Toque num dado do círculo, ou pressione ← e →, para escolher o seu · Cada seta aponta do vencedor para o perdedor',
