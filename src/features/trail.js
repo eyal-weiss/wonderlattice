@@ -9,7 +9,7 @@
   const W = Wonderlattice;
   const { $ } = W;
   const KEY = 'wonderlattice.trail.v1',
-    MAX = 24;
+    MAX = 32;
   // Before 2026-09-24 the site was called Wonderloom; its saved trails and exports still open.
   const OLD_KEY = 'wonderloom.trail.v1',
     FORMATS = ['wonderlattice-trail', 'wonderloom-trail'];
@@ -67,8 +67,8 @@
       settings.every(
         ([k, v]) =>
           /^[a-zA-Z]{1,30}$/.test(k) &&
-          ['number', 'boolean'].includes(typeof v) &&
-          (typeof v !== 'number' || Number.isFinite(v)),
+          ((['number', 'boolean'].includes(typeof v) && (typeof v !== 'number' || Number.isFinite(v))) ||
+            (Array.isArray(v) && v.length <= 100 && v.every((x) => typeof x === 'number' && Number.isFinite(x)))),
       )
     );
   }
