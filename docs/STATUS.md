@@ -1,5 +1,21 @@
 # Project state — 2026-09-28
 
+## A second contributor, an Engineering section, clearer phones, and the loop switched on — 2026-09-28 (evening)
+
+- **Twenty-five rooms.** _The leaning tower of blocks_ (`blocks`, #101, closes #79) was built by a new contributor,
+  ThatKJ, after two rounds of review. It is the first room in the new **Engineering** section (#102) and is translated
+  into all five languages (#105). _Two losing games that win_ was translated too (#98).
+- **From visitor feedback** (a phone felt cluttered; a short plain explanation should come first): on phones the
+  picture now starts 90–130 px higher and the first control 300–400 px higher, and the room's own controls come
+  before the extras (#103). Every room's subtitle is now a plain line saying what you see and what to try, in five
+  languages (#104).
+- **All ideas reviewed.** The owner approved all forty overnight ideas (#82 was redesigned as a game first) and four
+  of the five older ones, now brought up to the new format (#6, #11, #13, #49). #8 was closed as not a good fit.
+  Forty-two rooms are labelled `ready to build`; four are marked `next`.
+- **The background loop is on** (docs/agents/BUILD_LOOP.md, #100): it builds approved rooms one at a time on the
+  owner's machine, with at most three pull requests waiting for review, and never merges. A weekly feedback triage
+  starts on Monday; the pinned issue #99 collects feedback from other places.
+
 ## Forty new ideas, and the first room from them: twenty-four — 2026-09-28
 
 - **Two losing games that win** (`parrondo`, Chance & evidence, #96, closes #81): Parrondo's paradox in Harmer and
