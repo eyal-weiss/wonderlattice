@@ -146,6 +146,9 @@ test('the published page fingerprints every script and stylesheet with its conte
       ...[...document.querySelectorAll('script[src]')].map((s) => s.getAttribute('src')),
       ...[...document.querySelectorAll('link[rel="stylesheet"]')].map((l) => l.getAttribute('href')),
     ];
+    // Every room's files too, from the list of rooms that load on demand, not only the rooms already here.
+    const cards = await (await fetch(document.querySelector('script[src*="src/rooms/cards.js"]').src)).text();
+    urls.push(...[...cards.matchAll(/"(\.\/src\/rooms\/[^"]+)"/g)].map((m) => m[1]));
     const hex = (buffer) => [...new Uint8Array(buffer)].map((b) => b.toString(16).padStart(2, '0')).join('');
     return Promise.all(
       urls.map(async (url) => {
@@ -155,7 +158,7 @@ test('the published page fingerprints every script and stylesheet with its conte
       }),
     );
   });
-  expect(files.length).toBeGreaterThan(40);
+  expect(files.length).toBeGreaterThan(90);
   for (const f of files) {
     expect(f.ok, f.url).toBe(true);
     expect(f.digest.startsWith(f.version ?? 'missing'), f.url).toBe(true);

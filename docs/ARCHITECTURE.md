@@ -35,6 +35,8 @@ portraits/                 bundled portrait images (rights in docs/PORTRAITS.md)
 assets/                    link-preview image (social.jpg, 1200×630) and the home-screen icon
 scripts/serve.mjs          zero-dependency local server  (npm start)
 scripts/build.mjs          builds dist/ and dist/wonderlattice-standalone.html  (npm run build)
+scripts/room-cards.mjs     reads every room's card for the built site, which loads rooms on demand (see Growing)
+scripts/budget.mjs         what the built site downloads, against a budget  (npm run budget)
 scripts/i18n.mjs           translation tools  (npm run i18n:check, npm run i18n:new)
 scripts/lang-guard.mjs     the allowlist a language file must pass before it runs
 tests/unit/                model tests (node --test)
@@ -130,7 +132,8 @@ dictionaries. The step-by-step guide for translators is docs/TRANSLATING.md.
 
 1. Copy `src/rooms/traffic/` to `src/rooms/<id>/` and rename. Put the mathematics in `model.js` and attach it to
    `Wonderlattice.models.<id>`, and every visitor-facing word (including canvas labels and aria-labels) in `text.en.js`.
-   Pick a `theme` and write a `tagline`.
+   Pick a `theme` and write a `tagline`. The published site loads each room on its own (see Growing), so the top of
+   `room.js` uses only the core, the stage and the room's own model and words; page work goes in its functions.
 2. Run `npm run rooms`: it adds the room's `<script>` tags (and `room.css`, if any) to `index.html`, before
    `src/core/app.js`. Move them to change the room's place in the navigation. CI checks every room folder is linked.
 3. Add unit tests for the model in `tests/unit/`. The unit tests and the browser tests find every room by themselves.
@@ -146,10 +149,25 @@ dictionaries. The step-by-step guide for translators is docs/TRANSLATING.md.
 
 ## Growing
 
-Every room's code loads with the page, which keeps rooms simple and makes them work from disk. `npm run budget` (part
-of `npm run check`) measures what a first visit downloads and fails past 400 KB compressed for English, or 100 KB for a
-language's words: roughly 30 rooms. When it fails, it's time to load each room's code (and its words) only when the
-room opens. Home cards already draw their pictures only as they come into view.
+Opened from disk, and in the standalone file, every room loads with the page. The published site loads each room only
+when it's needed, so the page stays small however many rooms there are:
+
+- The build writes `dist/src/rooms/cards.js`: every room in order, with its card for the home map (theme, symbol,
+  colour, and its eyebrow, name and tagline; each language's words go in `dist/src/lang/<code>/cards.js`) and its
+  files. `scripts/room-cards.mjs` reads the cards from the rooms themselves, by running the page's scripts in Node
+  against a browser that does nothing, so there's nothing extra to keep up to date. The published `index.html` loads
+  the cards in place of the rooms' `<script>` and `<link>` tags.
+- `Wonderlattice.loadRoom(id)` brings a room's files once, in order: its model, its words (English, then the page
+  language), then its code, and its stylesheet. The app calls it when a room is opened (from a card, the room bar, a
+  shared link or the trail) and waits for it; a room that finishes loading after the visitor has moved on stays shut,
+  and one that can't load says so. A card's picture is drawn once the card comes near the screen, so that's when its
+  room loads. A room with its own layout (the drawing room) stays in the page.
+- If the build can't read a room's card, it stops and names the room. The browser tests run on the built site in CI;
+  to run them there yourself: `npm run build`, then `SERVE_DIR=dist npm run test:browser`.
+
+`npm run budget` (part of `npm run check`) measures what the published site downloads, in compressed kilobytes: the
+page on a first visit (the core and the cards: at most 150 KB), each room when it loads (40 KB), and each language's
+words (50 KB on a first visit, and 10 KB for each room).
 
 ## Shared links and saved moments are public contracts
 
@@ -181,7 +199,8 @@ Captions are original writing, never quotations.
 
 `npm run build` copies the site to `dist/` and writes `dist/wonderlattice-standalone.html`, a single file with every
 stylesheet, script, and portrait inlined. The build reads the `<link>` and `<script>` tags from `index.html`, so
-there's no separate list to keep up to date.
+there's no separate list to keep up to date. In `dist/`, rooms load on demand (see Growing), and every file's address
+carries a fingerprint of its contents.
 
 ## Checks
 

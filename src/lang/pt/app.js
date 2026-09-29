@@ -45,6 +45,7 @@ Wonderlattice.defineText('app', 'pt', {
     play: 'Continuar',
     saved: 'Sua cena está pronta para salvar.',
     saveFailed: 'Não foi possível salvar esta imagem.',
+    loadFailed: 'Não foi possível carregar este experimento. Verifique sua conexão e tente de novo.',
     shareText: (title) => `Wonderlattice · ${title}`,
     linkCopied: 'Link da exploração copiado.',
     settingsCopied: 'Configurações da exploração copiadas.',

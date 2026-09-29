@@ -21,6 +21,8 @@ export const ROOMS = Object.fromEntries(roomIds.map((id) => [id, titleOf(id)]));
 export const test = base.extend({
   page: async ({ page }, use) => {
     const errors = [];
+    const expected = []; // errors a test causes on purpose (page.expectErrors(/…/)), such as a blocked file
+    page.expectErrors = (pattern) => expected.push(pattern);
     page.on('pageerror', (error) => errors.push(error.message));
     page.on('console', (message) => {
       if (message.type() === 'error') errors.push(message.text());
@@ -39,7 +41,10 @@ export const test = base.extend({
       };
     });
     await use(page);
-    expect(errors, 'page errors').toEqual([]);
+    expect(
+      errors.filter((e) => !expected.some((pattern) => pattern.test(e))),
+      'page errors',
+    ).toEqual([]);
   },
 });
 

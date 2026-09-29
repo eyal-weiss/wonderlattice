@@ -1,5 +1,22 @@
 # Project state — 2026-09-29
 
+## Rooms load when they're needed — 2026-09-29
+
+- **The published site now loads each room only when it's needed:** when it's opened, or when its card comes into
+  view on the home map (docs/ARCHITECTURE.md, "Growing"). The build reads every room's card (theme, symbol, colour,
+  and its name, eyebrow and tagline in each language) from the rooms themselves, so rooms, translators and
+  `npm run rooms` work as before. Opened from disk, and in the standalone file, every room still loads with the page.
+- **An English first visit is now 59 KB compressed, down from 370 KB.** Each language adds about 10 KB, and each room
+  up to 23 KB when it opens. The budget is now per piece: the page 150 KB, each room 40 KB, each language 50 KB on a
+  first visit and 10 KB per room, so it no longer runs out as rooms are added.
+- **Measured on a throttled phone-like connection** (1.6 Mbps, 150 ms), gzipped, median of three: the home map's
+  first room card appears after 1.1 s instead of 3.8 s (Hebrew: 1.2 s instead of 4.7 s), downloading 129 KB instead
+  of 393 KB; a shared link opens its room after 1.1 s instead of 3.8 s, downloading 82 KB. The Hebrew home page looks
+  pixel for pixel the same.
+- A room that can't load (offline, say) says so and leaves the page usable; one that finishes loading after the
+  visitor has moved on doesn't open. New tests cover these on the built site; the background loop's rulebook now runs
+  the browser tests there too (`SERVE_DIR=dist npm run test:browser`), as CI does.
+
 ## Two rooms from the background loop, in five languages: twenty-seven — 2026-09-29
 
 - **The loop's first two rooms**, built overnight one at a time and merged by the owner, both in Engineering:

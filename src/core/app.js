@@ -13,6 +13,7 @@
   let current = null; // the room being shown, or null on the home map
   let expectedHash = null; // a hash we set ourselves, so its hashchange is not routed again
   const ready = new Set(); // rooms whose init() has run
+  let navigation = 0; // counts navigations, so a room that finishes loading after the visitor moved on stays shut
 
   const panelOf = (room) => room.panel ?? 'new-room';
   /** Rooms in map order: by theme, then in registration order. */
@@ -22,7 +23,31 @@
   function prepare(room) {
     if (ready.has(room.id)) return;
     ready.add(room.id);
+    stage.adopt(room);
     room.init?.();
+  }
+
+  /**
+   * Do something with a room once its code is here: at once when it is (always, opened from disk), otherwise
+   * after the published site has loaded it, unless the visitor has gone somewhere else in the meantime.
+   */
+  function withRoom(id, then) {
+    const run = ++navigation;
+    document.body.classList.toggle('loading-room', !W.isLoaded(id)); // a busy pointer until it's here
+    if (W.isLoaded(id)) return Promise.resolve(then(W.room(id)));
+    const done = () => run === navigation && document.body.classList.remove('loading-room');
+    return W.loadRoom(id).then(
+      (room) => {
+        done();
+        if (run === navigation) then(room);
+      },
+      () => {
+        done();
+        if (run !== navigation) return;
+        W.toast(W.text('app').stage.loadFailed);
+        if (!current) showHome();
+      },
+    );
   }
 
   function buildHome() {
@@ -44,8 +69,13 @@
       .join('');
     const cards = [...$('home-themes').querySelectorAll('.room-card')];
     for (const button of cards) button.addEventListener('click', () => open(button.dataset.room));
-    // Each card's picture is drawn when it first comes near the screen, so a long map starts quickly.
-    const draw = (button) => drawPreview(W.room(button.dataset.room), button.querySelector('canvas'));
+    // Each card's picture is drawn when it first comes near the screen, so a long map starts quickly
+    // (on the published site, that's also when the room's code loads).
+    const draw = (button) =>
+      W.loadRoom(button.dataset.room).then(
+        (room) => drawPreview(room, button.querySelector('canvas')),
+        () => {}, // the card keeps a plain background; opening the room tries again
+      );
     if (!('IntersectionObserver' in window)) return cards.forEach(draw);
     const watcher = new IntersectionObserver(
       (entries) => {
@@ -91,6 +121,8 @@
   const homeTitle = document.title;
 
   function showHome() {
+    navigation++; // a room still loading won't open over the map
+    document.body.classList.remove('loading-room');
     leaveRoom();
     current = null;
     document.title = homeTitle;
@@ -146,11 +178,13 @@
 
   /** Visitor navigation: open a room, remember it in history, and start at its top. */
   function open(id) {
-    if (!W.room(id)) return;
-    choose(id);
-    setHash('room=' + id);
-    window.scrollTo(0, 0);
-    document.querySelector(`#${panelOf(current)} h1`)?.focus({ preventScroll: true });
+    if (!W.room(id)) return Promise.resolve();
+    return withRoom(id, () => {
+      choose(id);
+      setHash('room=' + id);
+      window.scrollTo(0, 0);
+      document.querySelector(`#${panelOf(current)} h1`)?.focus({ preventScroll: true });
+    });
   }
 
   function goHome() {
@@ -182,8 +216,12 @@
       return;
     }
     if (current?.id === id && [...q.keys()].every((k) => k === 'room')) return;
-    applyParams(q);
-    if (navigating) document.querySelector(`#${panelOf(current)} h1`)?.focus({ preventScroll: true });
+    // A shared link to a room that isn't loaded yet: keep the map (and its cards' rooms) out of the way meanwhile.
+    if (!current && !W.isLoaded(id)) $('home').hidden = true;
+    withRoom(id, () => {
+      applyParams(q);
+      if (navigating) document.querySelector(`#${panelOf(current)} h1`)?.focus({ preventScroll: true });
+    });
   }
 
   /**
@@ -226,13 +264,16 @@
 
   /** Reopen a saved moment, accepting only in-range values. */
   function restore(item) {
-    const room = W.room(item.room);
-    if (!room) return;
+    if (W.room(item.room)) return withRoom(item.room, (room) => restoreLoaded(item, room));
+  }
+
+  function restoreLoaded(item, room) {
     if (room.layout === 'custom') {
       open(room.id);
       room.restore(item.settings, item.title);
       return;
     }
+    stage.adopt(room); // its settings, if this is the first time the room is here
     const s = stage.settingsFor(room.id),
       saved = item.settings;
     for (const [key, [min, max, kind]] of Object.entries(room.ranges ?? {})) {
@@ -314,11 +355,11 @@
         additionalProperties: false,
       },
       annotations: { readOnlyHint: false },
-      execute(input) {
+      async execute(input) {
         if (!input || !ids.includes(input.room) || Object.keys(input).some((k) => k !== 'room'))
           throw Error('Unknown exploration');
-        open(input.room);
-        return { room: current.id, soundOn: W.soundOn() };
+        await open(input.room);
+        return { room: current?.id ?? null, soundOn: W.soundOn() };
       },
     });
     register({

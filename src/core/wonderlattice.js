@@ -11,6 +11,9 @@
 
   const rooms = [];
   const byId = Object.create(null);
+  const waiting = new Set(); // rooms known so far only by their card (the published site loads each when needed)
+  const loading = Object.create(null); // room id → the promise of that room, loaded
+  const arrived = new Set(); // files already loaded, so a retry after a failure fetches only the rest
   const texts = Object.create(null); // scope → language → strings
   const languages = Object.create(null); // code → { name, dir, speech }
   let chosenLang = null; // set once, on first use, from the address or a saved choice
@@ -133,15 +136,99 @@
      */
     defineRoom(room) {
       if (!room || !/^[a-z]+$/.test(room.id)) throw new Error(`Room ids must be lowercase letters: ${room?.id}`);
-      if (byId[room.id]) throw new Error(`Room "${room.id}" is defined twice`);
+      const card = byId[room.id];
+      if (card && !waiting.has(card)) throw new Error(`Room "${room.id}" is defined twice`);
       if (!Wonderlattice.themes.some((t) => t.id === room.theme))
         throw new Error(`Room "${room.id}" needs a known theme`);
-      rooms.push(room);
+      // A room that arrives after its card takes the card's place, so the order stays the same.
+      if (card) {
+        rooms[rooms.indexOf(card)] = room;
+        waiting.delete(card);
+      } else rooms.push(room);
       byId[room.id] = room;
       return room;
     },
 
     room: (id) => byId[id],
+
+    /**
+     * The published site's list of rooms, in order, written by the build (scripts/build.mjs): each room's card for
+     * the home map and the files that make the room. A room's code and words load only when it's first needed
+     * (loadRoom), so the page stays small however many rooms there are. A card without files keeps the place of a
+     * room whose scripts follow in the page. Opened from disk, every room loads with the page.
+     */
+    defineCards(cards) {
+      for (const card of cards) {
+        const words = () => Wonderlattice.text('cards')[card.id] ?? {};
+        const room = {
+          ...card,
+          get eyebrow() {
+            return words().eyebrow;
+          },
+          get name() {
+            return words().name;
+          },
+          get tagline() {
+            return words().tagline;
+          },
+        };
+        rooms.push(room);
+        byId[room.id] = room;
+        waiting.add(room);
+      }
+    },
+
+    /** False only for a room the published site hasn't loaded yet. */
+    isLoaded: (id) => !!byId[id] && !waiting.has(byId[id]),
+
+    /** True for a room the published site loads when it's needed, words and all. */
+    loadsLater: (id) => !!byId[id]?.scripts && waiting.has(byId[id]),
+
+    /**
+     * A room, with its code and words: at once if it's here, otherwise loaded once. Its words in the page language
+     * arrive before its code, which reads them as it starts; its stylesheet arrives before it's shown.
+     */
+    loadRoom(id) {
+      const card = byId[id];
+      if (!card) return Promise.reject(new Error(`No room "${id}"`));
+      if (!waiting.has(card)) return Promise.resolve(card);
+      if (!card.scripts) return Promise.reject(new Error(`The ${id} room hasn't loaded`));
+      return (loading[id] ??= new Promise((resolve, reject) => {
+        const lang = Wonderlattice.lang;
+        const version = Wonderlattice.languageVersions?.[lang]?.[id];
+        const words = Wonderlattice.languageFiles?.[lang]?.includes(id)
+          ? [`./src/lang/${lang}/${id}.js${version ? `?v=${version}` : ''}`]
+          : [];
+        const scripts = [...card.scripts.slice(0, -1), ...words, card.scripts.at(-1)];
+        const elements = [
+          ...card.styles
+            .filter((href) => !arrived.has(href))
+            .map((href) => Object.assign(document.createElement('link'), { rel: 'stylesheet', href })),
+          ...scripts
+            .filter((src) => !arrived.has(src))
+            .map((src) => Object.assign(document.createElement('script'), { src, async: false })),
+        ];
+        let left = elements.length;
+        // A file that didn't arrive, or a room whose code arrived but didn't define it: a later try starts again.
+        const fail = () => {
+          delete loading[id];
+          left = -1; // report once
+          reject(new Error(`Could not load the ${id} room`));
+        };
+        if (!left) return fail();
+        for (const element of elements) {
+          const address = element.getAttribute(element.localName === 'link' ? 'href' : 'src');
+          element.onerror = () => left >= 0 && fail();
+          element.onload = () => {
+            arrived.add(address);
+            if (--left !== 0) return;
+            if (waiting.has(byId[id])) fail();
+            else resolve(byId[id]);
+          };
+          document.head.append(element);
+        }
+      }));
+    },
 
     /**
      * Declare a language: its name in that language, text direction, and a

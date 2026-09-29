@@ -45,6 +45,7 @@ Wonderlattice.defineText('app', 'he', {
     play: 'הפעלה',
     saved: 'התמונה שלכם מוכנה לשמירה.',
     saveFailed: 'לא הצלחנו לשמור את התמונה.',
+    loadFailed: 'לא הצלחנו לטעון את הניסוי. בדקו את החיבור ונסו שוב.',
     shareText: (title) => `Wonderlattice · ${title}`,
     linkCopied: 'הקישור לניסוי הועתק.',
     settingsCopied: 'הגדרות הניסוי הועתקו.',
