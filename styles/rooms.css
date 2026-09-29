@@ -206,6 +206,30 @@
     max-width: 130px;
     font-size: 12px;
   }
+  /* Above the picture only the scene's name and status: the small caps label is kept for screen readers. */
+  .scene #scene-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+  .scene #scene-name {
+    font-size: 18px;
+    margin-top: 0;
+  }
+  .scene.drawing {
+    padding: 14px 16px 14px;
+  }
+  /* The panel on a phone: its heading and the nudge, then the room's own controls and the explanation, then
+     keeping a moment and the visitor, which are extras. */
+  #scene-controls .trail-keep {
+    order: 1;
+  }
+  #scene-controls .math-guest {
+    order: 2;
+  }
   #scene-controls .panel-head,
   #scene-controls .hint,
   #scene-controls .why,

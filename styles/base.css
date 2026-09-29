@@ -724,15 +724,21 @@ dialog .button {
     display: none;
   }
   .intro {
-    padding: 22px 0 18px;
     align-items: start;
   }
   h1 {
-    font-size: 35px;
+    font-size: 31px;
+  }
+  /* The subtitle is each room's plain-words line: what you're looking at and what to try. On a phone it is the
+     only text before the picture, so it gets the full width and reads clearly. */
+  .intro {
+    padding: 16px 0 14px;
   }
   .intro p {
-    font-size: 14px;
-    max-width: 280px;
+    margin-top: 6px;
+    font-size: 15px;
+    line-height: 1.45;
+    color: #ccd3dc;
   }
   .pill {
     display: none;
