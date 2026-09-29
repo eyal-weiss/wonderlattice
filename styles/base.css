@@ -12,6 +12,9 @@
 * {
   box-sizing: border-box;
 }
+body.loading-room {
+  cursor: progress; /* the published site is bringing a room (src/core/app.js) */
+}
 body {
   margin: 0;
   background: var(--bg);

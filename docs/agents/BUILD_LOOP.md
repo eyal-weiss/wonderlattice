@@ -73,7 +73,8 @@ The owner uses the machine while the loop runs. The runner sets `PW_WORKERS=2`, 
 workers, plus its own `PW_PORT` and `PW_CHANNEL=chrome`.
 
 - While building, run only what's relevant: the room's unit tests and its own browser spec.
-- Before opening or updating a pull request, run the full `npm run check` once.
+- Before opening or updating a pull request, run the full `npm run check` once, then the browser tests on the built
+  site, where rooms load on demand: `SERVE_DIR=dist npm run test:browser` (CI runs both).
 - CI runs the whole suite on GitHub for every push and is the final gate. Wait for it (`gh pr checks <n> --watch`)
   and fix failures before stopping.
 

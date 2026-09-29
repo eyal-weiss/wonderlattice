@@ -191,9 +191,10 @@
     go.type = 'button';
     remove.type = 'button';
     go.addEventListener('click', () => {
-      adapter.restore(item);
+      const opened = adapter.restore(item);
       $('trail-dialog').close();
-      showReturn(item);
+      // On the published site the room may have to load first; the way back appears once it's open.
+      Promise.resolve(opened).then(() => showReturn(item));
     });
     remove.addEventListener('click', () => {
       if (persist(entries.filter((e) => e.id !== item.id))) {

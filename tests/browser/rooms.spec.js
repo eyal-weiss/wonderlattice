@@ -72,8 +72,11 @@ test('the room bar, Back button, and logo move between the map and rooms', async
   await page.locator('#card-motion').click();
   const seen = new Set();
   for (let i = 0; i < Object.keys(ROOMS).length; i++) {
-    seen.add(await page.evaluate(() => document.body.dataset.room));
+    const here = await page.evaluate(() => document.body.dataset.room);
+    seen.add(here);
     await page.locator('#room-next').click();
+    // On the published site the next room may still be loading.
+    await expect(page.locator('body')).not.toHaveAttribute('data-room', here);
   }
   expect([...seen].sort()).toEqual(Object.keys(ROOMS).sort());
   await expectRoom(page, 'motion');

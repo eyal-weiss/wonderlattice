@@ -22,8 +22,12 @@ test('an English visit downloads no language files', async ({ page }) => {
 
 test('a Hebrew visit downloads only Hebrew, and shows it', async ({ page }) => {
   const files = await languageFiles(page, '/?lang=he#room=dice');
-  expect(files.length).toBeGreaterThan(10);
   expect(files.every((f) => f.startsWith('he/'))).toBe(true);
+  // Opened from disk, every room's words come with the page. The published site brings only the words it needs:
+  // the shared ones, the cards, and the rooms that are open (the drawing room is always in the page).
+  const rooms = files.filter((f) => !/^he\/(app|page|language|cards)$/.test(f)).map((f) => f.slice(3));
+  if (process.env.SERVE_DIR === 'dist') expect(rooms.sort()).toEqual(['dice', 'motion']);
+  else expect(rooms.length).toBeGreaterThan(10);
   await expect(page.locator('html')).toHaveAttribute('lang', 'he');
   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
   await expect(page.locator('#room-title')).toHaveText('הקוביות שמנצחות זו את זו.');

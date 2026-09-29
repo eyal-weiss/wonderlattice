@@ -32,6 +32,7 @@ Wonderlattice.defineText('app', 'en', {
     play: 'Play',
     saved: 'Your scene is ready to save.',
     saveFailed: 'Could not save this image.',
+    loadFailed: 'This experiment couldn’t load. Check your connection and try again.',
     shareText: (title) => `Wonderlattice · ${title}`,
     linkCopied: 'Exploration link copied.',
     settingsCopied: 'Exploration settings copied.',

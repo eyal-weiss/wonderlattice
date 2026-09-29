@@ -74,6 +74,7 @@
     },
 
     init,
+    adopt,
     enter,
     leave: () => (room = null),
     openInsight,
@@ -85,14 +86,17 @@
 
   const isStageRoom = (r) => r && r.layout !== 'custom';
 
+  /** A room's starting settings, once its code is here (on the published site, when it's first opened). */
+  function adopt(r) {
+    if (!isStageRoom(r) || !W.isLoaded(r.id) || settings[r.id]) return;
+    settings[r.id] = { ...r.defaults };
+    chosen[r.id] = r.defaultPreset ?? 0;
+  }
+
   function init() {
     canvas = $('scene-canvas');
     ctx = canvas.getContext('2d');
-    for (const r of W.rooms) {
-      if (!isStageRoom(r)) continue;
-      settings[r.id] = { ...r.defaults };
-      chosen[r.id] = r.defaultPreset ?? 0;
-    }
+    W.rooms.forEach(adopt);
     bindTransport();
     bindInput();
     new ResizeObserver(size).observe(canvas.parentElement);
