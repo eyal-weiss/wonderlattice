@@ -4,7 +4,7 @@ Wonderlattice.defineText('traffic', 'en', {
   name: 'The tempting shortcut',
   tagline: 'A new road that makes every driver slower.',
   title: 'The tempting shortcut.',
-  subtitle: 'A new road looks like a gift. Open it and see what happens.',
+  subtitle: 'Every driver takes the quickest route. Open a new shortcut and see whether everyone gets home sooner.',
   field: 'Networks · Game theory · A little surprise',
   sceneLabel: 'One city · Many private choices',
   sceneName: 'The city crossing',

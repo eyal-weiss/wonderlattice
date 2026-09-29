@@ -7,7 +7,8 @@
     name: 'Sudoku, made transparent',
     tagline: 'A number puzzle where the numbers never mattered.',
     title: 'Sudoku, made transparent.',
-    subtitle: 'Place a colour and watch the possibilities around it quietly disappear.',
+    subtitle:
+      'A Sudoku with colours instead of numbers. Place one and watch the choices it rules out disappear from its row, column and box.',
     field: 'Logic · Graph colouring · Latin squares',
     sceneLabel: 'Sixteen squares',
     tip: 'Tab to the board · arrows move · keys 1–4 place · Backspace clears · Ctrl+Z undoes',

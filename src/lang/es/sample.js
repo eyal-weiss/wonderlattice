@@ -3,7 +3,8 @@ Wonderlattice.defineText('sample', 'es', {
   name: 'Una cucharada de ciudad',
   tagline: 'Una encuesta enorme puede estar segura y equivocarse. Una pequeña al azar acierta más o menos.',
   title: 'Una cucharada de ciudad.',
-  subtitle: 'Naranja o azul: ¿qué prefiere la ciudad entera? Solo puedes preguntarles a algunos.',
+  subtitle:
+    'Naranja o azul: ¿qué prefiere la ciudad entera? Solo puedes preguntarle a una parte de la gente, así que prueba una encuesta grande y una pequeña.',
   field: 'Estadística · Muestreo · Error aleatorio y sesgo',
   sceneLabel: 'Encuestar a una ciudad de juguete',
   tip: 'Toca un barrio, o usa ← →, para preguntar solo allí · ↑ ↓ cambian el tamaño de la encuesta',

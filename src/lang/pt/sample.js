@@ -3,7 +3,8 @@ Wonderlattice.defineText('sample', 'pt', {
   name: 'Uma colherada de cidade',
   tagline: 'Uma pesquisa enorme pode ter certeza e estar errada. Uma pequena e aleatória acerta mais ou menos.',
   title: 'Uma colherada de cidade.',
-  subtitle: 'Laranja ou azul: o que a cidade inteira prefere? Você só pode perguntar a algumas pessoas.',
+  subtitle:
+    'Laranja ou azul: o que a cidade inteira prefere? Você só pode perguntar a algumas pessoas, então teste uma pesquisa grande e uma pequena.',
   field: 'Estatística · Amostragem · Erro aleatório e viés',
   sceneLabel: 'Pesquisando uma cidade de brinquedo',
   tip: 'Toque num bairro, ou pressione ← →, para perguntar só ali · ↑ ↓ mudam o tamanho da pesquisa',

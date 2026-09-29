@@ -4,7 +4,8 @@ Wonderlattice.defineText('secret', 'en', {
   name: 'A secret shouted across the room',
   tagline: 'Two people agree on a secret while everyone listens, and the listeners still can’t work it out.',
   title: 'A secret shouted across the room.',
-  subtitle: 'Alice and Bob can only talk in public. Can they still end up sharing a secret?',
+  subtitle:
+    'Alice and Bob can only talk where everyone can hear. Mix colours with them and see how they still end up sharing a secret.',
   field: 'Number theory · Cryptography · A little surprise',
   sceneLabel: 'Two friends · One eavesdropper · Everything said out loud',
   sceneName: 'Sharing a key in public',

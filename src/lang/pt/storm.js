@@ -3,7 +3,8 @@ Wonderlattice.defineText('storm', 'pt', {
   name: 'Uma imagem no meio da tempestade',
   tagline: 'Alguns bits extras bem pensados deixam uma imagem se consertar sozinha.',
   title: 'Uma imagem no meio da tempestade.',
-  subtitle: 'Desenhe uma imagenzinha. Mande-a pela tempestade. Ajude-a a chegar inteira.',
+  subtitle:
+    'Desenhe uma imagenzinha e mande-a por uma tempestade que inverte alguns dos pontos dela. Acrescente alguns bits de verificação e veja-a chegar inteira.',
   field: 'Códigos · Informação · Um pouco de redundância',
   sceneLabel: 'Canal com ruído',
   actionLabel: 'Enviar de novo',

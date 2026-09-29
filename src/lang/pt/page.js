@@ -29,7 +29,8 @@ Wonderlattice.defineText('page', 'pt', {
   },
   motion: {
     title: 'Pintar com movimento.',
-    subtitle: 'Dois braços que giram. Uma caneta. Veja o que surge.',
+    subtitle:
+      'Dois braços giram em velocidades diferentes, e uma caneta na ponta desenha. Mude um número e uma nova flor aparece.',
     field: 'Círculos dentro de círculos',
     onCanvas: 'Na tela',
     finish: 'Traçar tudo',

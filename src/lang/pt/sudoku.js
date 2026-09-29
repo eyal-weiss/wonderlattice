@@ -3,7 +3,8 @@ Wonderlattice.defineText('sudoku', 'pt', {
   name: 'Sudoku às claras',
   tagline: 'Um quebra-cabeça de números em que os números nunca importaram.',
   title: 'Sudoku às claras.',
-  subtitle: 'Coloque uma cor e veja as possibilidades ao redor sumirem, discretamente.',
+  subtitle:
+    'Um Sudoku com cores no lugar dos números. Coloque uma e veja as escolhas que ela elimina sumirem da linha, da coluna e da região.',
   field: 'Lógica · Coloração de grafos · Quadrados latinos',
   sceneLabel: 'Dezesseis casas',
   tip: 'Tab leva ao tabuleiro · setas movem · teclas 1–4 colocam · Backspace apaga · Ctrl+Z desfaz',

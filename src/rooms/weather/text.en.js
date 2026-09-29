@@ -4,7 +4,8 @@ Wonderlattice.defineText('weather', 'en', {
   name: 'Weather twins',
   tagline: 'Two weathers start almost identical. A few weeks later they have nothing in common.',
   title: 'Weather twins.',
-  subtitle: 'Release two nearly identical starts into the same exact rules. Watch how long they stay together.',
+  subtitle:
+    'Two weathers start almost exactly alike and follow exactly the same rules. Watch how long they stay alike.',
   field: 'Chaos · Differential equations · Prediction',
   sceneLabel: 'Three equations · Two starts · No randomness',
   sceneName: 'Lorenz’s butterfly',

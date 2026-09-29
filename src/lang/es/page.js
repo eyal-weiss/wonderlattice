@@ -29,7 +29,8 @@ Wonderlattice.defineText('page', 'es', {
   },
   motion: {
     title: 'Pinta con movimiento.',
-    subtitle: 'Dos brazos que giran. Un lápiz. Mira lo que aparece.',
+    subtitle:
+      'Dos brazos giran a distinta velocidad y un lápiz en la punta dibuja. Cambia un número y aparece una flor nueva.',
     field: 'Círculos dentro de círculos',
     onCanvas: 'En el lienzo',
     finish: 'Dibujarlo todo',

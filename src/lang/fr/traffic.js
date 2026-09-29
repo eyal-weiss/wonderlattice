@@ -3,7 +3,8 @@ Wonderlattice.defineText('traffic', 'fr', {
   name: 'Le raccourci tentant',
   tagline: 'Une nouvelle route qui ralentit tous les conducteurs.',
   title: 'Le raccourci tentant.',
-  subtitle: 'Une nouvelle route ressemble à un cadeau. Ouvrez-la et voyez ce qui se passe.',
+  subtitle:
+    'Chaque conducteur prend le chemin le plus rapide. Ouvrez un nouveau raccourci et voyez si tout le monde rentre plus tôt.',
   field: 'Réseaux · Théorie des jeux · Une petite surprise',
   sceneLabel: 'Une ville · Beaucoup de choix personnels',
   sceneName: 'La traversée de la ville',

@@ -4,7 +4,8 @@ Wonderlattice.defineText('shots', 'pt', {
   name: 'Dois jogadores, três placares',
   tagline: 'Um arremessador pode vencer de perto e vencer de longe, e mesmo assim perder no total.',
   title: 'Dois jogadores, três placares.',
-  subtitle: 'Arraste quantos arremessos fáceis e difíceis cada jogador faz. Veja o placar total virar.',
+  subtitle:
+    'Dois jogadores arremessam de perto e de longe. Mude quantos arremessos fáceis e difíceis cada um faz e veja o placar total virar.',
   field: 'Estatística · Médias ponderadas · Uma pequena surpresa',
   sceneLabel: 'Uma quadra · Dois jogadores · Três placares',
   sceneName: 'A mistura de arremessos',

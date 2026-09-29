@@ -4,7 +4,8 @@ Wonderlattice.defineText('dice', 'en', {
   name: 'The dice that beat each other',
   tagline: 'Pick any die. There is always one that beats it.',
   title: 'The dice that beat each other.',
-  subtitle: 'Pick any die. I’ll choose after you.',
+  subtitle:
+    'Pick any of these odd dice, then I pick mine and we roll. Whichever you choose, another one tends to beat it.',
   field: 'Probability · Counting · A little surprise',
   sceneLabel: 'Odd dice · One circle',
   tip: 'Tap a die in the circle, or press ← and →, to pick yours · Each arrow points from winner to loser',

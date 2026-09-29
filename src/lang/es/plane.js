@@ -4,7 +4,7 @@ Wonderlattice.defineText('plane', 'es', {
   tagline: 'Deforma una imagen sin romperla; un círculo se convierte en un ala.',
   title: 'Deforma el plano.',
   subtitle:
-    'Pasa una imagen por una función compleja. Todo el plano se deforma, pero los ángulos rectos diminutos siguen siendo rectos.',
+    'Elige una forma de doblar todo el plano y mira cómo se deforma una imagen. Fíjate bien: las esquinas diminutas conservan sus ángulos rectos.',
   field: 'Números complejos · Transformaciones conformes · Alas',
   sceneLabel: 'El plano, deformado',
   tip: 'Arrastra la brújula de la izquierda, o muévela con las flechas · Su gemela de la derecha muestra el estiramiento y el giro',

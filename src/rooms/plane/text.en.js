@@ -4,7 +4,8 @@ Wonderlattice.defineText('plane', 'en', {
   name: 'Bend the plane',
   tagline: 'Bend a picture without tearing it; a circle becomes a wing.',
   title: 'Bend the plane.',
-  subtitle: 'Send a picture through a complex function. The whole plane bends, yet tiny right angles stay right.',
+  subtitle:
+    'Pick a way to bend the whole flat plane and watch a picture warp. Look closely: tiny corners keep their right angles.',
   field: 'Complex numbers · Conformal maps · Wings',
   sceneLabel: 'The plane, bent',
   tip: 'Drag the compass on the left, or move it with the arrow keys · Its twin on the right shows the stretch and the turn',

@@ -3,7 +3,8 @@ Wonderlattice.defineText('dice', 'fr', {
   name: 'Les dés qui se battent entre eux',
   tagline: 'Choisissez n’importe quel dé. Il y en a toujours un qui le bat.',
   title: 'Les dés qui se battent entre eux.',
-  subtitle: 'Choisissez un dé. Je choisirai après vous.',
+  subtitle:
+    'Choisissez un de ces dés étranges, puis je choisis le mien et on lance. Quel que soit votre choix, un autre a tendance à le battre.',
   field: 'Probabilités · Dénombrement · Une petite surprise',
   sceneLabel: 'Des dés bizarres · Un cercle',
   tip: 'Touchez un dé dans le cercle, ou appuyez sur ← et →, pour choisir le vôtre · Chaque flèche va du gagnant au perdant',

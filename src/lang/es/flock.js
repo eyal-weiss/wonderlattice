@@ -3,7 +3,8 @@ Wonderlattice.defineText('flock', 'es', {
   name: 'Una mente de muchos',
   tagline: 'Sin líder, solo vecinos: guía una bandada y ponla en movimiento.',
   title: 'Una mente de muchos.',
-  subtitle: 'Sin líder. Solo vecinos. Pon en movimiento un pequeño mundo.',
+  subtitle:
+    'Cada pájaro solo mira a sus vecinos más cercanos, y nadie manda. Cambia cuánto se siguen unos a otros y mira cómo se forma una bandada.',
   field: 'Sistemas dinámicos · Emergencia',
   sceneLabel: 'Un mundo de decisiones locales',
   sceneName: 'El colectivo en movimiento',

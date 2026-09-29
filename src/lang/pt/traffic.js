@@ -3,7 +3,8 @@ Wonderlattice.defineText('traffic', 'pt', {
   name: 'O atalho tentador',
   tagline: 'Uma rua nova que deixa todo motorista mais lento.',
   title: 'O atalho tentador.',
-  subtitle: 'Uma rua nova parece um presente. Abra e veja o que acontece.',
+  subtitle:
+    'Todo motorista pega o caminho mais rápido. Abra um atalho novo e veja se todo mundo chega mais cedo em casa.',
   field: 'Redes · Teoria dos jogos · Uma pequena surpresa',
   sceneLabel: 'Uma cidade · Muitas escolhas individuais',
   sceneName: 'A travessia da cidade',

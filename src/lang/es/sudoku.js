@@ -3,7 +3,8 @@ Wonderlattice.defineText('sudoku', 'es', {
   name: 'El sudoku, sin secretos',
   tagline: 'Un rompecabezas de números donde los números nunca importaron.',
   title: 'El sudoku, sin secretos.',
-  subtitle: 'Coloca un color y mira cómo desaparecen en silencio las posibilidades a su alrededor.',
+  subtitle:
+    'Un sudoku con colores en lugar de números. Coloca uno y mira cómo desaparecen de su fila, su columna y su bloque las opciones que descarta.',
   field: 'Lógica · Coloración de grafos · Cuadrados latinos',
   sceneLabel: 'Dieciséis casillas',
   tip: 'Tab para ir al tablero · las flechas mueven · las teclas 1–4 colocan · Retroceso borra · Ctrl+Z deshace',

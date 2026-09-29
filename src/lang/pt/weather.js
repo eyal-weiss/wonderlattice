@@ -4,7 +4,7 @@ Wonderlattice.defineText('weather', 'pt', {
   tagline: 'Dois climas começam quase idênticos. Algumas semanas depois, não têm nada em comum.',
   title: 'Gêmeos do tempo.',
   subtitle:
-    'Solte dois pontos de partida quase idênticos nas mesmas regras exatas. Veja quanto tempo eles ficam juntos.',
+    'Dois céus começam quase exatamente iguais e seguem exatamente as mesmas regras. Veja por quanto tempo continuam parecidos.',
   field: 'Caos · Equações diferenciais · Previsão',
   sceneLabel: 'Três equações · Dois começos · Nenhum acaso',
   sceneName: 'A borboleta de Lorenz',

@@ -4,7 +4,8 @@ Wonderlattice.defineText('cube', 'en', {
   name: 'Inside the puzzle cube',
   tagline: 'Two turns in a different order, a move that needs 105 repeats to come home, and pieces that barely budge.',
   title: 'Inside the puzzle cube.',
-  subtitle: 'Forget solving it. Play with the moves themselves and see how they combine.',
+  subtitle:
+    'Forget solving it. Repeat two turns over and over, and count how long the cube takes to come back to where it started.',
   field: 'Groups · Order · Undoing',
   sceneLabel: 'A cube of moves',
   tip: 'Drag, or use the arrow keys, to turn the view',

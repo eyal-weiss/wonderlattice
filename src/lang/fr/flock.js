@@ -3,7 +3,8 @@ Wonderlattice.defineText('flock', 'fr', {
   name: 'Un esprit collectif',
   tagline: 'Pas de chef, juste des voisins : mettez une nuée en mouvement.',
   title: 'Un esprit collectif.',
-  subtitle: 'Pas de chef. Juste des voisins. Mettez un petit monde en mouvement.',
+  subtitle:
+    'Chaque oiseau ne regarde que ses voisins les plus proches, et personne ne mène. Changez à quel point ils se suivent et regardez une nuée se former.',
   field: 'Systèmes dynamiques · Émergence',
   sceneLabel: 'Un monde de décisions locales',
   sceneName: 'Le collectif en mouvement',

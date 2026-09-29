@@ -4,7 +4,7 @@ Wonderlattice.defineText('weather', 'fr', {
   tagline: 'Deux météos partent presque identiques. Quelques semaines plus tard, elles n’ont plus rien en commun.',
   title: 'Les jumeaux de la météo.',
   subtitle:
-    'Lâchez deux départs presque identiques dans les mêmes règles exactes. Regardez combien de temps ils restent ensemble.',
+    'Deux météos démarrent presque à l’identique et suivent exactement les mêmes règles. Regardez combien de temps elles restent semblables.',
   field: 'Chaos · Équations différentielles · Prévision',
   sceneLabel: 'Trois équations · Deux départs · Aucun hasard',
   sceneName: 'Le papillon de Lorenz',

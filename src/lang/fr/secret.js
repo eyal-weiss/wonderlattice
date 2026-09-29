@@ -4,7 +4,8 @@ Wonderlattice.defineText('secret', 'fr', {
   tagline:
     'Deux personnes conviennent d’un secret pendant que tout le monde écoute, et ceux qui écoutent ne le trouvent toujours pas.',
   title: 'Un secret crié à travers la pièce.',
-  subtitle: 'Alice et Bob ne peuvent parler qu’en public. Peuvent-ils quand même partager un secret ?',
+  subtitle:
+    'Alice et Bob ne peuvent parler que devant tout le monde. Mélangez les couleurs avec eux et voyez comment ils finissent quand même par partager un secret.',
   field: 'Théorie des nombres · Cryptographie · Une petite surprise',
   sceneLabel: 'Deux amis · Une espionne · Tout se dit à voix haute',
   sceneName: 'Partager une clé en public',

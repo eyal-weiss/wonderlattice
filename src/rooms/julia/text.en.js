@@ -4,7 +4,8 @@ Wonderlattice.defineText('julia', 'en', {
   name: 'A seed for an infinite landscape',
   tagline: 'One rule, repeated, draws endless coastlines. Move the seed and watch them change.',
   title: 'A seed for an infinite landscape.',
-  subtitle: 'Square a number, add a seed, and repeat. Drag the seed and watch a whole landscape change.',
+  subtitle:
+    'One tiny rule, repeated: square a number and add a seed. Drag the seed and an endless landscape changes shape.',
   field: 'Complex numbers · Repetition · Fractals',
   sceneLabel: 'One rule · z → z² + c',
   tip: 'Drag the seed on the small map, or use the arrow keys · Tap the big picture to follow one point’s journey',

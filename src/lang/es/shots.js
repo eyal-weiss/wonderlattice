@@ -5,7 +5,7 @@ Wonderlattice.defineText('shots', 'es', {
   tagline: 'Un tirador puede ganar de cerca y ganar de lejos, y aun así perder en total.',
   title: 'Dos jugadores, tres clasificaciones.',
   subtitle:
-    'Arrastra cuántos tiros fáciles y difíciles hace cada jugador. Mira cómo se da la vuelta la clasificación total.',
+    'Dos jugadores tiran de cerca y de lejos. Cambia cuántos tiros fáciles y difíciles hace cada uno y mira cómo se da la vuelta la clasificación total.',
   field: 'Estadística · Medias ponderadas · Una pequeña sorpresa',
   sceneLabel: 'Una cancha · Dos jugadores · Tres clasificaciones',
   sceneName: 'La mezcla de tiros',

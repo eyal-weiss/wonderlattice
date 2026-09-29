@@ -3,7 +3,8 @@ Wonderlattice.defineText('fingerprint', 'es', {
   name: 'Haz crecer una huella dactilar',
   tagline: 'Nadie la dibuja: las crestas crecen solas y forman verticilos, presillas y arcos.',
   title: 'Haz crecer una huella dactilar.',
-  subtitle: 'Nadie dibuja una huella dactilar. Dos señales se extienden y reaccionan, y las crestas aparecen solas.',
+  subtitle:
+    'Nadie dibuja estas líneas. Dos sustancias químicas se extienden y reaccionan, y aparecen solas unas crestas como las de una huella dactilar.',
   field: 'Reacción-difusión · Patrones de Turing · Desarrollo',
   sceneLabel: 'La yema de un dedo, haciendo crecer sus crestas',
   tip: 'Toca la yema del dedo para que empiecen crestas ahí · Las flechas apuntan, Enter planta',

@@ -4,7 +4,7 @@ Wonderlattice.defineText('ribbon', 'en', {
   name: 'Where is the other side?',
   tagline: 'Give a ribbon half a twist and one of its sides disappears.',
   title: 'Where is the other side?',
-  subtitle: 'Turn a ribbon in space. Follow its edge. Let one twist surprise you.',
+  subtitle: 'A paper strip with half a twist. Spin it and follow its edge, and see whether it really has two sides.',
   field: 'Topology · Surfaces · 3D',
   sceneLabel: 'An ordinary strip, a strange journey',
   sceneName: 'The Möbius ribbon',

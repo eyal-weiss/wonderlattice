@@ -3,7 +3,7 @@ Wonderlattice.defineText('ribbon', 'es', {
   name: '¿Dónde está el otro lado?',
   tagline: 'Dale media vuelta a una cinta y uno de sus lados desaparece.',
   title: '¿Dónde está el otro lado?',
-  subtitle: 'Gira una cinta en el espacio. Sigue su borde. Deja que una torsión te sorprenda.',
+  subtitle: 'Una tira de papel con media vuelta. Gírala, sigue su borde y descubre si de verdad tiene dos lados.',
   field: 'Topología · Superficies · 3D',
   sceneLabel: 'Una tira corriente, un viaje extraño',
   sceneName: 'La cinta de Möbius',

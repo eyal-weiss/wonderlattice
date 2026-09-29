@@ -3,7 +3,7 @@ Wonderlattice.defineText('ribbon', 'pt', {
   name: 'Cadê o outro lado?',
   tagline: 'Dê meia torção numa fita e um dos lados desaparece.',
   title: 'Cadê o outro lado?',
-  subtitle: 'Gire uma fita no espaço. Siga a borda. Deixe uma torção surpreender você.',
+  subtitle: 'Uma tira de papel com meia torção. Gire-a e siga a borda, e veja se ela tem mesmo dois lados.',
   field: 'Topologia · Superfícies · 3D',
   sceneLabel: 'Uma tira comum, uma viagem estranha',
   sceneName: 'A faixa de Möbius',

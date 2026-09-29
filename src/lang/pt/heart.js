@@ -3,7 +3,8 @@ Wonderlattice.defineText('heart', 'pt', {
   name: 'Um batimento que viaja',
   tagline: 'Toque numa folha de células e uma onda se espalha. Quebre-a, e ela se enrola numa espiral.',
   title: 'Um batimento que viaja.',
-  subtitle: 'Cada célula dispara e depois descansa. Comece uma onda e depois veja o que uma onda quebrada faz.',
+  subtitle:
+    'Cada célula dispara e depois descansa, como as células de um coração. Comece uma onda, depois quebre-a e veja-a se enrolar numa espiral.',
   field: 'Meios excitáveis · Ondas espirais · Ondas no corpo',
   sceneLabel: 'Uma folha · Milhares de células',
   sceneName: 'O batimento viajante',

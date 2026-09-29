@@ -5,7 +5,8 @@ Wonderlattice.defineText('storm', 'en', {
   tagline: 'A few clever extra bits let a picture repair itself.',
 
   title: 'Send a picture through a storm.',
-  subtitle: 'Draw a little picture. Send it through the storm. Help it arrive in one piece.',
+  subtitle:
+    'Draw a small picture and send it through a storm that flips some of its dots. Add a few check bits and see it arrive in one piece.',
   field: 'Codes · Information · A little redundancy',
   sceneLabel: 'Noisy channel',
   actionLabel: 'Send again',

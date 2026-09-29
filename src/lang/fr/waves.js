@@ -3,7 +3,8 @@ Wonderlattice.defineText('waves', 'fr', {
   name: 'Entendre la forme',
   tagline: 'Deux sons se combinent en battements, en silence et en un portrait qui boucle.',
   title: 'Entendre la forme.',
-  subtitle: 'Deux sons. Un petit écart entre eux. Écoutez ce qui change.',
+  subtitle:
+    'Deux sons, dessinés comme des ondes. Écartez-en un légèrement de l’autre et regardez, ou écoutez, leur somme se mettre à battre.',
   field: 'Ondes · Rapports · Interférences',
   sceneLabel: 'Une conversation en ondes',
   sceneName: 'Deux sons, ensemble',

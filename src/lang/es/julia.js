@@ -4,7 +4,7 @@ Wonderlattice.defineText('julia', 'es', {
   tagline: 'Una regla, repetida, dibuja costas sin fin. Mueve la semilla y mira cómo cambian.',
   title: 'Una semilla para un paisaje infinito.',
   subtitle:
-    'Eleva un número al cuadrado, suma una semilla y repite. Arrastra la semilla y mira cómo cambia todo un paisaje.',
+    'Una regla diminuta, repetida: eleva un número al cuadrado y súmale una semilla. Arrastra la semilla y un paisaje sin fin cambia de forma.',
   field: 'Números complejos · Repetición · Fractales',
   sceneLabel: 'Una regla · z → z² + c',
   tip: 'Arrastra la semilla en el mapa pequeño, o usa las flechas · Toca la imagen grande para seguir el viaje de un punto',

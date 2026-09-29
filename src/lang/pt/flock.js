@@ -3,7 +3,8 @@ Wonderlattice.defineText('flock', 'pt', {
   name: 'Uma mente de muitos',
   tagline: 'Sem líder, só vizinhos: coloque um bando em movimento.',
   title: 'Uma mente de muitos.',
-  subtitle: 'Sem líder. Só vizinhos. Coloque um pequeno mundo em movimento.',
+  subtitle:
+    'Cada pássaro só observa os vizinhos mais próximos, e ninguém lidera. Mude o quanto eles seguem uns aos outros e veja um bando se formar.',
   field: 'Sistemas dinâmicos · Emergência',
   sceneLabel: 'Um mundo de decisões locais',
   sceneName: 'O coletivo em movimento',
