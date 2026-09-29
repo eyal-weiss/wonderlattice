@@ -32,7 +32,7 @@ test('a Hebrew visit downloads only Hebrew, and shows it', async ({ page }) => {
   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
   await expect(page.locator('#room-title')).toHaveText('הקוביות שמנצחות זו את זו.');
   // Every language is still offered in the menu, though only one was loaded.
-  await expect(page.locator('#language option')).toHaveCount(5);
+  await expect(page.locator('#language option')).toHaveCount(6);
 });
 
 test('a language works when the page is opened from disk', async ({ page }) => {
