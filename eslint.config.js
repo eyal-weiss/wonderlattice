@@ -2,7 +2,7 @@ import js from '@eslint/js';
 import globals from 'globals';
 
 export default [
-  { ignores: ['dist/', 'node_modules/', 'test-results/', 'playwright-report/', '.claude/'] },
+  { ignores: ['dist/', 'node_modules/', 'test-results/', 'playwright-report/', '.claude/', 'src/vendor/'] },
   js.configs.recommended,
   {
     // App code: classic browser scripts sharing the Wonderlattice namespace.

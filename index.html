@@ -194,6 +194,18 @@
               >
                 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2v11m-4-4 4 4 4-4M3 13v4h14v-4" /></svg>
               </button>
+              <button
+                class="button icon-button send-button"
+                id="send"
+                aria-label="Send to phones"
+                title="Send to phones"
+                data-t-attr="aria-label:stage.send; title:stage.send"
+                hidden
+              >
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <path d="M3 3h5v5H3zM12 3h5v5h-5zM3 12h5v5H3zM12 12h2v2h-2zM15 15h2v2h-2zM12 17h1M17 12v1" />
+                </svg>
+              </button>
             </div>
           </section>
           <aside class="controls" aria-label="Drawing controls" data-t-attr="aria-label:motion.controlsLabel">
@@ -364,6 +376,26 @@
               >
                 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2v11m-4-4 4 4 4-4M3 13v4h14v-4" /></svg>
               </button>
+              <button
+                class="button icon-button"
+                id="scene-focus"
+                aria-label="Show on a big screen"
+                title="Show on a big screen"
+              >
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7V3h4m6 0h4v4M3 13v4h4m6 0h4v-4" /></svg>
+              </button>
+              <button
+                class="button icon-button send-button"
+                id="scene-send"
+                aria-label="Send to phones"
+                title="Send to phones"
+                data-t-attr="aria-label:stage.send; title:stage.send"
+                hidden
+              >
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <path d="M3 3h5v5H3zM12 3h5v5h-5zM3 12h5v5H3zM12 12h2v2h-2zM15 15h2v2h-2zM12 17h1M17 12v1" />
+                </svg>
+              </button>
             </div>
           </section>
           <aside
@@ -508,6 +540,18 @@
         <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener noreferrer">CC BY 2.0</a>).
         The drawn visitors are playful sketches, not likenesses.
       </p>
+    </dialog>
+
+    <dialog id="send-dialog" aria-labelledby="send-title">
+      <div class="dialog-head">
+        <h2 id="send-title" data-t="send.title">Open it on a phone</h2>
+        <button class="button icon-button close" aria-label="Close the QR code" data-t-attr="aria-label:send.close">
+          ✕
+        </button>
+      </div>
+      <p data-t="send.hint">Point a phone’s camera at the code. It opens this experiment, with these settings.</p>
+      <div class="send-code" id="send-code"></div>
+      <p class="send-link" id="send-link"></p>
     </dialog>
 
     <dialog id="copy-dialog" aria-labelledby="copy-title">
