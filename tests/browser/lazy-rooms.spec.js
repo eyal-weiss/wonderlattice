@@ -73,8 +73,10 @@ test('a room still loading doesn’t open once the visitor has gone elsewhere', 
   await page.goto('/');
   await page.locator('#card-cube').click();
   await page.locator('#card-dice').click();
-  await expectRoom(page, 'dice');
+  // Room scripts run in the order they were asked for, so unless the dice room loaded earlier (its card was on
+  // screen), it waits for the cube's code. Either way the cube arrives after the visitor chose the dice.
   release();
+  await expectRoom(page, 'dice');
   await page.waitForTimeout(500);
   await expectRoom(page, 'dice');
 });
