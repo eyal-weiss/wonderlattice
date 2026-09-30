@@ -1,7 +1,7 @@
 # The background build loop
 
-A scheduled agent on the owner's machine builds approved rooms one at a time, and once a week gathers visitor
-feedback. This file is its rulebook. Each run reads it fresh from `origin/main`, so a change here takes effect once
+A scheduled agent on the owner's machine builds approved rooms one at a time, in a random order, and once a week
+gathers visitor feedback and suggests where to send promotion. This file is its rulebook. Each run reads it fresh from `origin/main`, so a change here takes effect once
 it's merged. The runner script and its timers live outside the repository on the owner's machine. They only start a
 run and check the limits below; every decision about the work is made here.
 
@@ -42,7 +42,8 @@ Do the first of these that has something to do.
    language's conventions in its `language.js`. Look at the room in each language at phone width, and right to left
    in Hebrew.
 4. **Build the next approved issue.** Choose from open `ready to build` issues that aren't `in progress`, in this
-   order: anything labelled `feedback` or `bug` first, then anything labelled `next`, then the lowest issue number.
+   order: anything labelled `feedback` or `bug` first, then anything labelled `next`, then the issue the runner drew
+   at random. The owner chose a random order (2026-09-30); if the runner drew none, draw one yourself (`shuf -n 1`).
 
 If there is nothing to do, write one line saying so and stop.
 
@@ -112,3 +113,22 @@ request merges or closes.
 
 4. If the project moved on during the week, update `docs/STATUS.md` in a small pull request (the one place the loop
    edits it). It counts toward the limit of three.
+
+## The weekly promotion suggestions (Monday)
+
+The runner passes the owner's list of places to send promotion to, the outreach log (what the owner has sent, and
+when) and the promotion calendar. The owner sends everything personally: never email, post, submit a form or open
+an issue anywhere to promote the site.
+
+1. See what's new since last week: rooms and features merged into `main` (`git log --since`), and the "New" line.
+2. Choose two to four destinations from the list worth contacting this week: not in the outreach log yet, or due a
+   follow-up (no reply after ten days; one follow-up at most). Prefer high-potential ones that match what's new or a
+   date coming up (a maths week, a festival, a newsletter's deadline), and vary languages and kinds over the weeks.
+3. For each: who, and why now; the route (address or form, as the list gives it); what to lead with; and a draft in
+   plain words for the owner to edit and send: short and personal, no hype, one or two room links (with `?lang=` for
+   other languages), and that the site is free, noncommercial and has no tracking. For places that ban AI-written
+   text (Hacker News, many subreddits), give talking points instead of a draft.
+4. Write all of it only in your final summary, between a line `=== PROMOTION ===` and a line `=== END PROMOTION ===`;
+   the runner saves it on the owner's laptop. Never put destinations, addresses or drafts in a pull request, issue or
+   commit: this repository is public.
+5. If the list is missing, or nothing fits this week, say so in one line between the markers.
