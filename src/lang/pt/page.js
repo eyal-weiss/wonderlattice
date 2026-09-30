@@ -83,6 +83,12 @@ Wonderlattice.defineText('page', 'pt', {
     sceneLabel: 'Exploração interativa',
     saveLabel: 'Salvar esta cena como imagem',
     controlsLabel: 'Controles da exploração',
+    send: 'Enviar para celulares',
+  },
+  send: {
+    title: 'Abra no celular',
+    hint: 'Aponte a câmera de um celular para o código: ele abre este experimento com estas configurações.',
+    close: 'Fechar o código QR',
   },
   footer: {
     note: 'Siga uma forma. Encontre um pouco de encanto.',

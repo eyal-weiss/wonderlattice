@@ -266,12 +266,13 @@
     });
   }
 
+  /** The link "Copy this pattern" copies, and "Send to phones" shows. */
+  const link = () =>
+    W.shareLink(new URLSearchParams({ room: 'motion', k: state.k, r: state.r, p: state.p, ink: state.palette }));
+
   function share() {
-    const params = new URLSearchParams({ room: 'motion', k: state.k, r: state.r, p: state.p, ink: state.palette });
     const web = W.isWeb();
-    const text = web
-      ? W.shareLink(params)
-      : words.shareText(state.k, state.r, state.p, words.paletteNames[state.palette]);
+    const text = web ? link() : words.shareText(state.k, state.r, state.p, words.paletteNames[state.palette]);
     W.copyText(text, {
       copied: web ? words.linkCopied : words.settingsCopied,
       description: web ? words.linkDescription : words.settingsDescription,
@@ -335,12 +336,15 @@
       updatePlay();
       updateStatus();
     });
-    $('focus').addEventListener('click', () => {
-      const focused = document.body.classList.toggle('focus-mode');
-      $('focus').setAttribute('aria-label', focused ? words.focus.leave : words.focus.enter);
-      $('focus').title = focused ? words.focus.leave : words.focus.title;
+    // The focus view is the site's big screen (Wonderlattice.bigScreen): full screen, for showing to a class.
+    $('focus').addEventListener('click', () => W.bigScreen.set(!W.bigScreen.on));
+    document.addEventListener('wonderlattice:bigscreen', (e) => {
+      $('focus').setAttribute('aria-label', e.detail ? words.focus.leave : words.focus.enter);
+      $('focus').title = e.detail ? words.focus.leave : words.focus.title;
       resize();
     });
+    $('send').hidden = !W.isWeb(); // opened from disk, the link would point at a file on this computer
+    $('send').addEventListener('click', () => W.showQR(link()));
     $('surprise').addEventListener('click', () => {
       const ks = [-7, -5.2, -4.5, -3.25, -2.4, -1.2, 1.05, 1.5, 2.2, 3.5, 4.2, 6.5];
       Object.assign(state, {
@@ -373,7 +377,6 @@
     $('save').addEventListener('click', saveImage);
     $('share').addEventListener('click', share);
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && document.body.classList.contains('focus-mode')) $('focus').click();
       if (
         document.body.dataset.room === 'motion' &&
         e.code === 'Space' &&

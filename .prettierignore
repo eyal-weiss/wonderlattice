@@ -5,3 +5,4 @@ playwright-report/
 package-lock.json
 portraits/
 .claude/
+src/vendor/

@@ -83,6 +83,12 @@ Wonderlattice.defineText('page', 'fr', {
     sceneLabel: 'Exploration interactive',
     saveLabel: 'Enregistrer cette scène en image',
     controlsLabel: 'Commandes de l’exploration',
+    send: 'Envoyer aux téléphones',
+  },
+  send: {
+    title: 'Ouvrir sur un téléphone',
+    hint: 'Visez le code avec l’appareil photo d’un téléphone : il ouvre cette expérience avec ces réglages.',
+    close: 'Fermer le code QR',
   },
   footer: {
     note: 'Suivez une forme. Trouvez un petit émerveillement.',

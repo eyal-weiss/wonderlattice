@@ -95,6 +95,7 @@ const version = (path) =>
 // room still loads with the page.
 const { cards, words } = readCards(root, html, globalThis.Wonderlattice.languageFiles ?? {});
 const lazy = cards.filter((card) => card.layout !== 'custom');
+const ONDEMAND = ['src/vendor/qrcodegen.js']; // loaded by the page itself when first needed
 const lazyIds = new Set(lazy.map((card) => card.id));
 const roomScripts = (id) => scripts.filter((path) => path.startsWith(`src/rooms/${id}/`));
 const roomStyles = (id) => styles.filter((path) => path.startsWith(`src/rooms/${id}/`));
@@ -126,7 +127,9 @@ writeFileSync(
       null,
       2,
     )});\n` +
-    `Wonderlattice.defineText('cards', 'en', ${JSON.stringify(only(words.en), null, 2)});\n`,
+    `Wonderlattice.defineText('cards', 'en', ${JSON.stringify(only(words.en), null, 2)});\n` +
+    // Scripts loaded only when first needed (Wonderlattice.loadScript), with their fingerprints.
+    `Wonderlattice.fileVersions = ${JSON.stringify(Object.fromEntries(ONDEMAND.map((path) => [path, version(path)])))};\n`,
 );
 
 // load.js writes the language files' addresses itself, so their fingerprints go into the published languages.js.

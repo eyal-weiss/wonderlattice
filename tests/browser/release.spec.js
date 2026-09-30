@@ -149,6 +149,9 @@ test('the published page fingerprints every script and stylesheet with its conte
     // Every room's files too, from the list of rooms that load on demand, not only the rooms already here.
     const cards = await (await fetch(document.querySelector('script[src*="src/rooms/cards.js"]').src)).text();
     urls.push(...[...cards.matchAll(/"(\.\/src\/rooms\/[^"]+)"/g)].map((m) => m[1]));
+    // …and the scripts loaded when first needed, such as the QR encoder.
+    const versions = globalThis.Wonderlattice.fileVersions ?? {};
+    urls.push(...Object.entries(versions).map(([path, v]) => `./${path}?v=${v}`));
     const hex = (buffer) => [...new Uint8Array(buffer)].map((b) => b.toString(16).padStart(2, '0')).join('');
     return Promise.all(
       urls.map(async (url) => {
