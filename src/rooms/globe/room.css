@@ -1,0 +1,53 @@
+/* The triangle with three right angles: the readout, and the cursor over corners and the ball. */
+body[data-room='globe'] #scene-canvas.globe-corner {
+  cursor: grab;
+}
+body[data-room='globe'] #scene-canvas.globe-ball {
+  cursor: move;
+}
+.globe-readout {
+  border: 1px solid #3a4a60;
+  background: #111a27;
+  padding: 12px 14px;
+  border-radius: 9px;
+}
+.globe-sum span {
+  display: block;
+  font-size: 0.8125rem;
+  color: #b5c0ce;
+}
+.globe-sum strong {
+  display: block;
+  margin: 2px 0 10px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #f5f1e6;
+  font-variant-numeric: tabular-nums;
+}
+.globe-rows {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px 12px;
+  align-items: baseline;
+  font-size: 0.8125rem;
+  color: #b5c0ce;
+}
+.globe-rows strong {
+  color: #f5f1e6;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}
+.globe-rule {
+  margin: 10px 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+:root[data-contrast='more'] .globe-readout {
+  border-color: #8093ad;
+}
+:root[data-contrast='more'] .globe-rows,
+:root[data-contrast='more'] .globe-sum span {
+  color: #e2e8f0;
+}
