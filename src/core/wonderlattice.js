@@ -14,6 +14,7 @@
   const waiting = new Set(); // rooms known so far only by their card (the published site loads each when needed)
   const loading = Object.create(null); // room id → the promise of that room, loaded
   const arrived = new Set(); // files already loaded, so a retry after a failure fetches only the rest
+  const extras = Object.create(null); // path → the promise of a script loaded when first needed (loadScript)
   const texts = Object.create(null); // scope → language → strings
   const languages = Object.create(null); // code → { name, dir, speech }
   let chosenLang = null; // set once, on first use, from the address or a saved choice
@@ -334,6 +335,74 @@
           if (attribute && typeof value === 'string') el.setAttribute(attribute, value);
         }
       });
+    },
+
+    /**
+     * A script the page loads only when it's first needed, such as the QR encoder. On the published site the build
+     * gives it a fingerprint (Wonderlattice.fileVersions), so a browser never keeps an old copy.
+     */
+    loadScript(path) {
+      return (extras[path] ??= new Promise((resolve, reject) => {
+        const version = Wonderlattice.fileVersions?.[path];
+        const script = Object.assign(document.createElement('script'), {
+          src: `./${path}${version ? `?v=${version}` : ''}`,
+        });
+        script.onload = resolve;
+        script.onerror = () => {
+          delete extras[path];
+          script.remove();
+          reject(new Error(`Could not load ${path}`));
+        };
+        document.head.append(script);
+      }));
+    },
+
+    /**
+     * The big screen, for showing a room to a class: the picture fills the screen (full screen where the browser
+     * allows it) and everything else steps aside (the class `focus-mode`, which the drawing room calls its focus
+     * view). The stage and the rooms hear of every change through the `wonderlattice:bigscreen` event.
+     */
+    bigScreen: {
+      get on() {
+        return document.body.classList.contains('focus-mode');
+      },
+      set(on) {
+        if (on === Wonderlattice.bigScreen.on) return;
+        document.body.classList.toggle('focus-mode', on);
+        try {
+          if (on) document.documentElement.requestFullscreen?.()?.catch(() => {});
+          else if (document.fullscreenElement) document.exitFullscreen?.()?.catch(() => {});
+        } catch {
+          /* no full screen here: the layout still fills the window */
+        }
+        document.dispatchEvent(new CustomEvent('wonderlattice:bigscreen', { detail: on }));
+      },
+    },
+
+    /**
+     * "Send to phones": a dialog with a QR code for `link`, written out underneath too, so a class can scan a room
+     * with its settings. The code is made in the page (src/vendor/qrcodegen.js, MIT); nothing leaves the browser.
+     */
+    async showQR(link) {
+      $('send-link').textContent = link;
+      $('send-code').replaceChildren();
+      $('send-dialog').showModal();
+      try {
+        await Wonderlattice.loadScript('src/vendor/qrcodegen.js');
+      } catch {
+        return Wonderlattice.toast(Wonderlattice.text('app').stage.loadFailed);
+      }
+      const { QrCode } = globalThis.qrcodegen;
+      const qr = QrCode.encodeText(link, QrCode.Ecc.MEDIUM);
+      const quiet = 4; // the blank margin a camera needs around the code, in modules
+      const n = qr.size + 2 * quiet;
+      let dark = '';
+      for (let y = 0; y < qr.size; y++)
+        for (let x = 0; x < qr.size; x++) if (qr.getModule(x, y)) dark += `M${x + quiet},${y + quiet}h1v1h-1z`;
+      // Only numbers and the site's own words go into this markup.
+      $('send-code').innerHTML =
+        `<svg viewBox="0 0 ${n} ${n}" role="img" aria-label="${Wonderlattice.text('app').stage.sendCode}" ` +
+        `shape-rendering="crispEdges"><rect width="${n}" height="${n}" fill="#fff"/><path d="${dark}" fill="#000"/></svg>`;
     },
 
     /** Stop every room's audio (rooms opt in with a `silence` hook). */

@@ -173,7 +173,7 @@
     $('trail-return').hidden = true;
     W.silence();
     W.narration.stop();
-    document.body.classList.remove('focus-mode');
+    W.bigScreen.set(false);
   }
 
   const homeTitle = document.title;
@@ -490,6 +490,13 @@
     bindDialogs();
     route();
     window.addEventListener('hashchange', route);
+    // The big screen ends with Escape, or when the browser leaves full screen (Escape does that too).
+    document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement) W.bigScreen.set(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && W.bigScreen.on && !document.querySelector('dialog[open]')) W.bigScreen.set(false);
+    });
     // The title's height changes with the room, the language and the width.
     const pins = new ResizeObserver(measurePins);
     document.querySelectorAll('.workspace > .drawing').forEach((d) => pins.observe(d));

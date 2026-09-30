@@ -21,6 +21,7 @@
     width = 800,
     height = 450,
     drag = null,
+    zoom = 1, // on a big screen, how much the picture is magnified (see size)
     canvas,
     ctx;
 
@@ -166,12 +167,15 @@
   function size() {
     if (!room) return;
     const r = canvas.getBoundingClientRect();
-    width = Math.max(1, r.width);
-    height = Math.max(1, r.height);
+    // On a big screen the whole picture is magnified, labels too, so a class can read it from the back: the room
+    // lays out as it would on a laptop, about 1,200 pixels wide.
+    zoom = W.bigScreen.on ? Math.max(1, r.width / 1200) : 1;
+    width = Math.max(1, r.width / zoom);
+    height = Math.max(1, r.height / zoom);
     const dpr = Math.min(devicePixelRatio || 1, 2);
-    canvas.width = Math.round(width * dpr);
-    canvas.height = Math.round(height * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    canvas.width = Math.round(r.width * dpr);
+    canvas.height = Math.round(r.height * dpr);
+    ctx.setTransform(dpr * zoom, 0, 0, dpr * zoom, 0, 0);
     draw();
   }
 
@@ -196,6 +200,7 @@
     ])
       $(id).textContent = value;
     canvas.setAttribute('aria-label', room.canvasLabel);
+    labelBigScreen();
     // A canvas that takes keys is an interactive widget, not a picture: screen readers then pass keys
     // through to it. The visible tip describes how to use it.
     const interactive = !!(room.pointer && (room.pointer.arrow || room.pointer.key || room.pointer.down));
@@ -240,7 +245,22 @@
     $('insight-dialog').showModal();
   }
 
+  /** The big-screen button names what it will do next. */
+  function labelBigScreen() {
+    const label = W.bigScreen.on ? words().leaveBigScreen : words().bigScreen;
+    $('scene-focus').setAttribute('aria-label', label);
+    $('scene-focus').title = label;
+  }
+
+  /** The link "Copy this exploration" copies, and "Send to phones" shows. */
+  const link = () => W.shareLink(new URLSearchParams({ room: room.id, ...settings[room.id] }));
+
   function bindTransport() {
+    $('scene-focus').addEventListener('click', () => W.bigScreen.set(!W.bigScreen.on));
+    document.addEventListener('wonderlattice:bigscreen', labelBigScreen);
+    // Only on the web: opened from disk, the link would point at a file on this computer.
+    $('scene-send').hidden = !W.isWeb();
+    $('scene-send').addEventListener('click', () => W.showQR(link()));
     $('scene-play').addEventListener('click', () => {
       playing = !playing;
       if (!playing) W.silence();
@@ -270,9 +290,7 @@
     $('scene-share').addEventListener('click', () => {
       const web = W.isWeb();
       const s = settings[room.id];
-      const text = web
-        ? W.shareLink(new URLSearchParams({ room: room.id, ...s }))
-        : words().shareText(room.title) + '\n' + JSON.stringify(s, null, 2);
+      const text = web ? link() : words().shareText(room.title) + '\n' + JSON.stringify(s, null, 2);
       W.copyText(text, {
         copied: web ? words().linkCopied : words().settingsCopied,
         description: web ? words().linkDescription : words().settingsDescription,
@@ -310,7 +328,7 @@
     });
     canvas.addEventListener('pointermove', (e) => {
       if (!room?.pointer?.move) return;
-      const moved = drag ? { dx: e.clientX - drag.x, dy: e.clientY - drag.y } : { dx: 0, dy: 0 };
+      const moved = drag ? { dx: (e.clientX - drag.x) / zoom, dy: (e.clientY - drag.y) / zoom } : { dx: 0, dy: 0 };
       const dragging = !!drag;
       if (drag) drag = { x: e.clientX, y: e.clientY };
       room.pointer.move(pointer(e), { ...moved, dragging, mouse: e.pointerType === 'mouse' }, settings[room.id], stage);

@@ -15,6 +15,18 @@
 - **For Arabic:** digits are always 0–9 (`W.numberLocale`); canvas captions and the footer note are upright
   (`W.slant`), since Arabic has no italic; no letter-spacing on Arabic labels or headings.
 
+## A classroom kit: the big screen, and a QR code to send a room to phones — 2026-09-29
+
+- **Big screen (#115):** a button in every room (the drawing room's focus view is now the same thing) fills a
+  projector with the picture, full screen where the browser allows it. The site's header, the panel and the extras
+  step aside; the scene's name and status grow. The picture is magnified as a whole, labels too, so the room lays
+  out as on a laptop (about 1,200 pixels wide) and reads from the back of a class. Escape, leaving full screen, or
+  leaving the room ends it.
+- **Send to phones (#115):** a QR code for the room's link, with its settings, in a dialog, and the link written out.
+  The code is made in the page by Project Nayuki's QR Code generator (MIT, vendored unchanged in `src/vendor/`), which
+  loads only when the dialog first opens, so a first visit stays at 63 KB. Only on the web, and not on phones.
+- Tests decode the page's own QR picture back to the link (jsQR, a test-only dependency).
+
 ## Visited marks and “Surprise me” — 2026-09-29
 
 - **The owner approved five features, and they now come before new rooms** (label `next`): visited marks (#113),
