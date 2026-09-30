@@ -46,6 +46,7 @@
   border-radius: 99px;
 }
 .shower-scale {
+  direction: ltr; /* cold on the left, like the slider above it */
   display: flex;
   justify-content: space-between;
   margin-top: 4px;

@@ -38,6 +38,10 @@
   letter-spacing: 0.08em;
   color: var(--muted);
 }
+/* Spaced letters read badly in Hebrew and break Arabic's joined letters apart (as in styles/base.css). */
+:is(:lang(he), :lang(ar)) .fingerprint-key-title {
+  letter-spacing: normal;
+}
 .fingerprint-key ul {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

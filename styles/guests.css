@@ -172,6 +172,7 @@
 }
 .math-guest-eyebrow {
   display: block;
+  padding-inline-end: 12px; /* clear of the ↻ button, which reaches 36 px in from the card's edge */
   font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;

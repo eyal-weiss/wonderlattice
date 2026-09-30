@@ -15,6 +15,12 @@
   align-items: baseline;
   gap: 12px;
 }
+/* Signed amounts read left to right in every language: −10.0, never 10.0−. */
+.parrondo-big strong,
+.parrondo-race-row strong {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
 .parrondo-big strong {
   font:
     600 32px Georgia,

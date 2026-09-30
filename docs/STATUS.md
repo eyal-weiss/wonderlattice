@@ -1,5 +1,20 @@
 # Project state — 2026-09-29
 
+## Arabic, the sixth language — 2026-09-29
+
+- **Every room, the menus and the About page in Arabic** (Modern Standard Arabic, right to left), chosen over
+  Russian, German, Mandarin and Hindi mainly for Israel's Arab community. One agent fixed the house style and the terms
+  (`docs/lang/ar-glossary.md`), six translated the rooms, one made them consistent, and GPT reviewed it as a native
+  editor and mathematician (18 findings: 12 fixed, 6 rejected with reasons). A script compared every number in 1,431
+  strings and 189 generated texts with the English: none changed. It's a reviewed machine translation; **a native
+  speaker's read is still needed**.
+- **Found on the way, fixed for every right-to-left page (Hebrew too):** sources that aren't links now stay in one piece
+  and in order; the cube's move menus show U′, not ′U; the loom's tie-up and the shower's cold/hot scale read left to
+  right like their pictures; Parrondo's amounts read −10.0, not 10.0−; letter shortcuts (blocks B, sudoku Ctrl+Z)
+  work on Hebrew and Arabic keyboards; the Julia label keeps z → z² + c lowercase; visitor labels clear the ↻ button.
+- **For Arabic:** digits are always 0–9 (`W.numberLocale`); canvas captions and the footer note are upright
+  (`W.slant`), since Arabic has no italic; no letter-spacing on Arabic labels or headings.
+
 ## A classroom kit: the big screen, and a QR code to send a room to phones — 2026-09-29
 
 - **Big screen (#115):** a button in every room (the drawing room's focus view is now the same thing) fills a

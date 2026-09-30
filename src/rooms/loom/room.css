@@ -3,6 +3,8 @@
   font-size: 14px;
 }
 .loom-tieup {
+  /* Pedal 1 on the left in every language, as in the tie-up drawn in the picture. */
+  direction: ltr;
   display: grid;
   grid-template-columns: auto repeat(4, 42px);
   gap: 6px;

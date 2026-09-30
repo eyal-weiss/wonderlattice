@@ -690,7 +690,7 @@
         stage.sync();
         stage.draw();
         cells[selected].focus();
-      } else if ((e.ctrlKey || e.metaKey) && !e.shiftKey && e.key.toLowerCase() === 'z') {
+      } else if ((e.ctrlKey || e.metaKey) && !e.shiftKey && W.isLetter(e, 'z')) {
         // Undo selects the square it restored; focus follows, so typing goes where the label says.
         act(s, stage, undo);
         cells[selected].focus();

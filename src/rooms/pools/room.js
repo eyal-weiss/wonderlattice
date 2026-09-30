@@ -33,9 +33,9 @@
     chart: '#9fe6f2',
   };
 
-  const count = (n) => n.toLocaleString(W.lang);
-  const percent = (x) => `${x.toLocaleString(W.lang, { maximumFractionDigits: 1 })}%`;
-  const decimal = (x) => x.toLocaleString(W.lang, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  const count = (n) => n.toLocaleString(W.numberLocale);
+  const percent = (x) => `${x.toLocaleString(W.numberLocale, { maximumFractionDigits: 1 })}%`;
+  const decimal = (x) => x.toLocaleString(W.numberLocale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
   /** A small repeatable number in [0, 1) for each tube and test, so droplets set off at scattered times. */
   const scatter = (a, b) => {
     const x = Math.sin(a * 12.9898 + b * 78.233) * 43758.5453;

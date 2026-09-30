@@ -64,6 +64,6 @@ Wonderlattice.defineText('blocks', 'he', {
 <h3>מה המודל מניח</h3>
 <p>לבנים אידאליות: קשיחות, אחידות לגמרי, בלי חיכוך. ספרים אמיתיים מחליקים ומתכופפים. הסידור של לבנה אחת בכל שכבה שמוצג כאן אינו היעיל ביותר כשיש הרבה לבנים: פטרסון וצוויק (2009) מצאו סידורים עם כמה לבנים בכל שכבה, שהבליטה שלהם גדלה כמו ⁦<em>n</em><sup>1/3</sup>⁩ ולא כמו ⁦log <em>n</em>⁩.</p>
 <details><summary>המתמטיקה, למי שרוצה</summary><p>נסמן ב־⁦<em>c<sub>k</sub></em>⁩ את מרכז הלבנה ה־<em>k</em> מלמעלה (לבנה 1 היא העליונה). את הלבנה העליונה לבדה אפשר להזיז עד שמרכז הכובד שלה נמצא בדיוק מעל הקצה הימני של לבנה 2, וזה נותן בליטה של ½. אחר כך מרכז הכובד המשותף של לבנים 1 ו־2 צריך להיות מעל הקצה הימני של לבנה 3, וזה מוסיף ¼. באינדוקציה, ההזזה הטובה ביותר של לבנה <em>k</em> ביחס ללבנה ⁦<em>k</em>+1⁩ היא ⁦1/(2<em>k</em>)⁩, והבליטה הכוללת היא ⁦½ · H(<em>n</em>)⁩, כאשר ⁦H(<em>n</em>)⁩ הוא המספר ההרמוני ה־<em>n</em>.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Block-stacking_problem" target="_blank" rel="noopener">בעיית ערימת הלבנים (ויקיפדיה, באנגלית)</a> · <a class="source-link" href="https://arxiv.org/abs/0710.2357" target="_blank" rel="noopener">פטרסון וצוויק, ⁦“Overhang”⁩ ‏(2009) (באנגלית)</a></div>`,
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Block-stacking_problem" target="_blank" rel="noopener">בעיית ערימת הלבנים (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://arxiv.org/abs/0710.2357" target="_blank" rel="noopener">פטרסון וצוויק, ⁦“Overhang”⁩ ‏(2009) (באנגלית)</a></div>`,
   },
 });

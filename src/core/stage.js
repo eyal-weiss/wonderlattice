@@ -144,7 +144,9 @@
 
   /** A slider's value as the page's language writes it (0.5, or 0,5 in French), with its unit. */
   function readout(value, unit) {
-    const number = new Intl.NumberFormat(W.lang, { maximumFractionDigits: 3, useGrouping: false }).format(value || 0);
+    const number = new Intl.NumberFormat(W.numberLocale, { maximumFractionDigits: 3, useGrouping: false }).format(
+      value || 0,
+    );
     return unit === '%' ? words().percent(number) : number + unit;
   }
 

@@ -120,7 +120,7 @@
     const words = text.toUpperCase();
     ctx.fillStyle = MUTED;
     ctx.textAlign = 'left';
-    ctx.letterSpacing = '1.4px';
+    ctx.letterSpacing = W.spacedCapitals ? '1.4px' : '0px';
     fit(ctx, words, maxWidth, Math.max(10, 11 * u), 600);
     const fits = ctx.measureText(words).width <= maxWidth;
     if (fits) ctx.fillText(words, x, y);
@@ -199,7 +199,7 @@
     const line = c.auto ? t.iTake(nameOf(c, c.you), nameOf(c, c.me)) : t.against(nameOf(c, c.you), nameOf(c, c.me));
     ctx.fillStyle = '#eef0e6';
     ctx.textAlign = 'left';
-    fit(ctx, line, box.w - indent - pad, Math.max(13, 19 * u), 'italic 400', 'Georgia, serif');
+    fit(ctx, line, box.w - indent - pad, Math.max(13, 19 * u), `${W.slant} 400`, 'Georgia, serif');
     ctx.fillText(line, box.x + indent, box.y + 22 * u + 6);
 
     // Size the dice to the space, then centre the whole group vertically.
@@ -239,7 +239,7 @@
         label = `${side.who} · ${nameOf(c, side.die)}`.toUpperCase();
       ctx.fillStyle = color;
       ctx.textAlign = 'center';
-      ctx.letterSpacing = '1px';
+      ctx.letterSpacing = W.spacedCapitals ? '1px' : '0px';
       fit(ctx, label, cardWidth, Math.max(10, 12 * u), 600);
       ctx.fillText(label, cx, top);
       ctx.letterSpacing = '0px';
@@ -268,7 +268,7 @@
     });
     ctx.fillStyle = MUTED;
     ctx.textAlign = 'center';
-    font(ctx, Math.max(12, 16 * u), 'italic 400', 'Georgia, serif');
+    font(ctx, Math.max(12, 16 * u), `${W.slant} 400`, 'Georgia, serif');
     ctx.fillText(t.vs, box.x + pad + cardWidth + vsWidth / 2, dy + size / 2 + 5);
 
     if (!showStrip) return;
@@ -524,7 +524,7 @@
     } else {
       ctx.textAlign = 'center';
       ctx.fillStyle = '#c8d0da';
-      font(ctx, Math.max(11, 14 * u), 'italic 400', 'Georgia, serif');
+      font(ctx, Math.max(11, 14 * u), `${W.slant} 400`, 'Georgia, serif');
       ctx.fillText(t.startHint, (left + right) / 2, Y(0.78));
     }
     // A key for the dashed line in the lower right, where the running share rarely goes.
@@ -588,7 +588,7 @@
     const seen = tally.rolls ? Math.round((favouriteWins(c) / tally.rolls) * 100) : null;
     $('scene-status').textContent = tally.rolls ? t.rolls(tally.rolls) : t.ready;
     if (!$('dice-rolls')) return;
-    $('dice-rolls').textContent = tally.rolls.toLocaleString(W.lang);
+    $('dice-rolls').textContent = tally.rolls.toLocaleString(W.numberLocale);
     $('dice-wins').textContent = t.winsLine(nameOf(c, c.you), nameOf(c, c.me), tally.you, tally.me);
     $('dice-seen').textContent =
       c.you === c.me ? t.sameDie : t.seenLine(fav, seen, c.fraction, Math.round(c.chance * 100));
@@ -738,7 +738,7 @@
     u = 0.5;
     ctx.fillStyle = '#eef0e6';
     ctx.textAlign = 'left';
-    font(ctx, 14, 'italic 400', 'Georgia, serif');
+    font(ctx, 14, `${W.slant} 400`, 'Georgia, serif');
     ctx.fillText(t.iTake(nameOf(c, 0), nameOf(c, 2)), 14, 26);
     const size = Math.min(58, width * 0.18),
       y = height * 0.5 - size * 0.35;
@@ -748,14 +748,14 @@
     ].forEach(([i, value, x], k) => {
       ctx.fillStyle = colorOf(c, i);
       ctx.textAlign = 'center';
-      ctx.letterSpacing = '1px';
+      ctx.letterSpacing = W.spacedCapitals ? '1px' : '0px';
       font(ctx, 10, 600);
       ctx.fillText(`${k ? t.me : t.you} · ${nameOf(c, i)}`.toUpperCase(), x + size / 2, y - 12);
       ctx.letterSpacing = '0px';
       die(ctx, x, y, size, colorOf(c, i), value, { dim: !k, ring: !!k, tilt: k ? -0.1 : 0.14 });
     });
     ctx.fillStyle = MUTED;
-    font(ctx, 13, 'italic 400', 'Georgia, serif');
+    font(ctx, 13, `${W.slant} 400`, 'Georgia, serif');
     ctx.fillText(t.vs, (width * 0.4 + size) / 2, y + size / 2 + 4);
     drawCircle(ctx, { x: width * 0.56, y: 10, w: width * 0.44, h: height - 10 }, c);
   }

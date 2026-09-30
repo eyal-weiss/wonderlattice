@@ -596,7 +596,7 @@
 
       /** B = Best Stack; +/- add/remove blocks. */
       key(e, s, stage) {
-        if (e.key === 'b' || e.key === 'B') {
+        if (W.isLetter(e, 'b')) {
           const n = s.centres.length;
           if (n > 0) {
             applyBestStack(s.centres);

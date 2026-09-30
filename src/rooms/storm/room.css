@@ -39,3 +39,6 @@ body[data-room='storm'] .scene-presets .number small {
   font-size: 11px;
   letter-spacing: 0.02em;
 }
+:lang(ar) body[data-room='storm'] .scene-presets .number small {
+  letter-spacing: normal;
+}

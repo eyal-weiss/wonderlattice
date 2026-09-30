@@ -371,10 +371,11 @@
   // The accessible name starts with the button's visible text: "R′: turn the right face anticlockwise".
   const moveLabel = (m) => t.moveLabel(C.MOVES[m].name, moveName(m));
 
+  // A menu can't take the buttons' `direction: ltr`, so each move's notation is isolated: U′, never ′U.
   const select = (key, label, value) =>
     `<div class="control"><label for="cube-${key}">${label}</label><select id="cube-${key}" data-pick="${key}">` +
     C.MOVES.map(
-      (m, i) => `<option value="${i}"${i === value ? ' selected' : ''}>${m.name} · ${moveName(i)}</option>`,
+      (m, i) => `<option value="${i}"${i === value ? ' selected' : ''}>\u2066${m.name}\u2069 · ${moveName(i)}</option>`,
     ).join('') +
     '</select></div>';
 

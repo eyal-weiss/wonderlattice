@@ -61,6 +61,6 @@ Wonderlattice.defineText('fireflies', 'he', {
 <h3>מה המודל הזה משמיט</h3>
 <p>גחליליות אמיתיות לא רואות את כל האחרות, ההבהובים שלהן הם פולסים ולא קצב חלק, ושעוני הגוף כוללים גנים, הורמונים ושעון ראשי במוח. זה המודל הקלאסי והפשוט שתופס את נקודת המפנה, לא הדמיה של חרקים או תאים אמיתיים.</p>
 <details><summary>המתמטיקה, למי שרוצה</summary><p>זה מודל קורמוטו. כל מופע θ מקיים ⁦dθ/dt = ω + K·R·sin(ψ − θ)⁩, כאשר ω הוא התדירות הטבעית שלו ו־⁦R·e<sup>iψ</sup>⁩ הוא הממוצע של כל ה־⁦e<sup>iθ</sup>⁩: R קרוב ל־1 פירושו בקצב אחד, ו־R קרוב ל־0 פירושו מפוזר. כשהתדירויות הטבעיות מתפזרות כמו עקומת פעמון, קצב משותף מופיע מעבר ל־⁦K = 2 / (π g(0))⁩, כאשר ⁦g(0)⁩ מתאר עד כמה התדירות הממוצעת נפוצה. המחוון נמדד ביחידות של ה־K הקריטי הזה. מחזור היום והלילה מוסיף איבר ⁦F·sin(φ − θ)⁩, קצב שמושך את כולן.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Kuramoto_model" target="_blank" rel="noopener">מודל קורמוטו, ויקיפדיה (באנגלית)</a> · <a class="source-link" href="https://www.nigms.nih.gov/image-gallery/2569" target="_blank" rel="noopener">NIGMS: מקצב צירקדי (באנגלית)</a> · S. H. Strogatz, <em>Sync</em> (2003)</div>`,
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Kuramoto_model" target="_blank" rel="noopener">מודל קורמוטו, ויקיפדיה (באנגלית)</a><a class="source-link" href="https://www.nigms.nih.gov/image-gallery/2569" target="_blank" rel="noopener">NIGMS: מקצב צירקדי (באנגלית)</a>S. H. Strogatz, <em>Sync</em> (2003)</div>`,
   },
 });
