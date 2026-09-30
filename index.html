@@ -53,6 +53,8 @@
     <link rel="stylesheet" href="./src/rooms/loom/room.css" />
     <link rel="stylesheet" href="./src/rooms/parrondo/room.css" />
     <link rel="stylesheet" href="./src/rooms/shower/room.css" />
+    <!-- Display settings (larger text, high contrast) apply before the page is drawn. -->
+    <script src="./src/core/display.js"></script>
   </head>
   <body data-room="home">
     <a class="skip-link" href="#" id="skip-link" data-t="skip">Skip to the main content</a>
@@ -70,6 +72,18 @@
         <button class="quiet" id="about-button" data-t="header.about">About this place</button>
         <button class="quiet trail-header" id="trail-open">
           <span data-t="header.trail">My trail</span> <span aria-hidden="true">✧</span>
+        </button>
+        <button
+          class="quiet display-open"
+          id="display-open"
+          aria-haspopup="dialog"
+          title="Display: text size and contrast"
+          data-t-attr="title:header.displayTitle"
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M2.5 19.5 8 5l5.5 14.5M4.6 14h6.8M14 19.5l3.6-9 3.6 9M15.3 16.3h4.6" />
+          </svg>
+          <span data-t="header.display">Display</span>
         </button>
       </header>
 
@@ -266,7 +280,7 @@
               <p data-t="motion.angleHint">Turn the inner arm’s starting position.</p>
             </div>
             <div class="control">
-              <span style="font-size: 14px" data-t="motion.ink">Ink</span>
+              <span style="font-size: 0.875rem" data-t="motion.ink">Ink</span>
               <div class="palettes" role="group" aria-label="Ink palette" data-t-attr="aria-label:motion.inkLabel">
                 <button
                   class="swatch"
@@ -513,10 +527,10 @@
       <h3 data-t="about.privacyTitle">Your privacy</h3>
       <p data-t="about.privacy">
         Wonderlattice collects nothing. The site is hosted by Cloudflare, which keeps standard access logs (IP address,
-        time, page) under its own privacy policy. My trail, your language choice and the experiments you’ve opened (so
-        their cards show a small mark) are kept in this browser only; clearing site data removes them. Narration uses
-        your browser’s voices: some online voices send the text being read (these explanations, never your notes) to the
-        browser maker’s speech service.
+        time, page) under its own privacy policy. My trail, your language and display choices, and the experiments
+        you’ve opened (so their cards show a small mark) are kept in this browser only; clearing site data removes them.
+        Narration uses your browser’s voices: some online voices send the text being read (these explanations, never
+        your notes) to the browser maker’s speech service.
       </p>
       <p>
         <button class="button quiet" id="forget-visited" data-t="about.forgetVisited">
@@ -539,6 +553,45 @@
         the public domain, except the photo of John Conway by Thane Plambeck (cropped,
         <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener noreferrer">CC BY 2.0</a>).
         The drawn visitors are playful sketches, not likenesses.
+      </p>
+    </dialog>
+
+    <dialog id="display-dialog" class="display-dialog" aria-labelledby="display-title">
+      <div class="dialog-head">
+        <h2 id="display-title" data-t="display.title">Display</h2>
+        <button
+          class="button icon-button close"
+          aria-label="Close display settings"
+          data-t-attr="aria-label:display.close"
+        >
+          ✕
+        </button>
+      </div>
+      <fieldset class="display-sizes">
+        <legend data-t="display.size">Text size</legend>
+        <label class="display-size">
+          <input type="radio" name="text-size" value="normal" />
+          <span data-t="display.normal">Normal</span>
+        </label>
+        <label class="display-size">
+          <input type="radio" name="text-size" value="large" />
+          <span data-t="display.large">Large</span>
+        </label>
+        <label class="display-size">
+          <input type="radio" name="text-size" value="larger" />
+          <span data-t="display.larger">Larger</span>
+        </label>
+      </fieldset>
+      <label class="toggle display-contrast">
+        <input type="checkbox" id="high-contrast" />
+        <span data-t="display.contrast">High contrast</span>
+      </label>
+      <p class="display-note" data-t="display.contrastNote">
+        Brighter text, stronger outlines. It comes on by itself when your device asks for more contrast.
+      </p>
+      <p class="display-note" data-t="display.note">
+        Your choice is kept in this browser. Words drawn inside the pictures keep their size; to enlarge everything,
+        pictures included, use your browser’s zoom.
       </p>
     </dialog>
 

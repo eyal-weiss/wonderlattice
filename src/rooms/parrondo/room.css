@@ -2,7 +2,7 @@
 .parrondo-rules p,
 .parrondo-readout p {
   margin: 6px 0 0;
-  font-size: 13px;
+  font-size: 0.8125rem;
   line-height: 1.5;
   color: var(--muted);
 }
@@ -23,7 +23,7 @@
 }
 .parrondo-big strong {
   font:
-    600 32px Georgia,
+    600 2rem Georgia,
     serif;
 }
 .parrondo-letters {
@@ -43,7 +43,7 @@
   background: #13263a;
   color: #9fd8ff;
   font:
-    600 16px Georgia,
+    600 1rem Georgia,
     serif;
 }
 .parrondo-letter.is-b {
@@ -63,11 +63,11 @@
   justify-content: space-between;
   align-items: baseline;
   gap: 12px;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #e6ecf2;
 }
 .parrondo-race-row strong {
   font:
-    600 22px Georgia,
+    600 1.375rem Georgia,
     serif;
 }

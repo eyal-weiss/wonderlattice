@@ -14,6 +14,7 @@ export default [
         Wonderlattice: 'readonly',
         WonderlatticeGuests: 'readonly',
         WonderlatticeTrail: 'readonly',
+        WonderlatticeDisplay: 'readonly',
       },
     },
     rules: { 'no-unused-vars': ['error', { args: 'none' }] },

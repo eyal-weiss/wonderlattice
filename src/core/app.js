@@ -473,6 +473,22 @@
     });
   }
 
+  /** The Display dialog: text size and high contrast (src/core/display.js keeps and applies them). */
+  function bindDisplay() {
+    const display = WonderlatticeDisplay;
+    const sizes = document.querySelectorAll('input[name="text-size"]');
+    const show = () => {
+      for (const input of sizes) input.checked = input.value === display.textSize;
+      $('high-contrast').checked = display.highContrast;
+    };
+    for (const input of sizes) input.addEventListener('change', () => display.setTextSize(input.value));
+    $('high-contrast').addEventListener('change', (e) => display.setHighContrast(e.target.checked));
+    // The device's contrast setting can change while the page is open.
+    display.onChange(show);
+    show();
+    $('display-open').addEventListener('click', () => $('display-dialog').showModal());
+  }
+
   /** Phones pin the picture (see base.css): how far its title scrolls before the picture sticks. */
   function measurePins() {
     for (const drawing of document.querySelectorAll('.workspace > .drawing')) {
@@ -484,6 +500,7 @@
   function start() {
     W.applyPageText();
     buildLanguagePicker();
+    bindDisplay();
     stage.init();
     buildHome();
     buildWhatsNew();

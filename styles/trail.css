@@ -11,7 +11,7 @@
   border-color: #78946c;
   color: #e6f7c9;
   background: #283528;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 .trail-keep:hover {
   background: #344332;
@@ -33,13 +33,13 @@
 .trail-return p {
   margin: 5px 0 10px;
   font:
-    18px/1.35 Georgia,
+    1.125rem/1.35 Georgia,
     serif;
   color: #f1f8e9;
 }
 .trail-return label,
 #trail-capture-dialog label {
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #d6dfd3;
   display: block;
   margin-bottom: 7px;
@@ -58,7 +58,7 @@
   border-radius: 8px;
   padding: 10px;
   color: var(--ink);
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.5;
   font-family: inherit;
 }
@@ -84,18 +84,18 @@
 }
 .trail-capture-name {
   font:
-    20px Georgia,
+    1.25rem Georgia,
     serif;
   margin: 14px 0 !important;
 }
 .trail-private {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #aeb8b6 !important;
   line-height: 1.45 !important;
 }
 .trail-status {
   color: #e7d3a6 !important;
-  font-size: 13px;
+  font-size: 0.8125rem;
 }
 #trail-dialog {
   max-width: 760px;
@@ -126,17 +126,17 @@
   margin: 3px 0 4px;
   color: var(--ink);
   font:
-    20px Georgia,
+    1.25rem Georgia,
     serif;
 }
 .trail-card-copy p {
   margin: 5px 0 8px;
   line-height: 1.35;
-  font-size: 14px;
+  font-size: 0.875rem;
   overflow-wrap: anywhere;
 }
 .trail-reflection-label {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--lime);
 }
 .trail-card-actions {
@@ -161,12 +161,12 @@
   padding: 14px;
 }
 .trail-bridge p {
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.4;
   margin: 6px 0;
 }
 .trail-bridge .button {
-  font-size: 13px;
+  font-size: 0.8125rem;
   padding: 6px 10px;
   min-height: 34px;
 }
@@ -190,7 +190,7 @@
   top: 50%;
 }
 .trail-import-label:focus-within {
-  outline: 2px solid var(--lime);
+  outline: var(--focus-width) solid var(--lime);
   outline-offset: 4px;
 }
 .trail-empty {
@@ -199,7 +199,7 @@
   border-radius: 10px;
 }
 textarea:focus-visible {
-  outline: 2px solid var(--lime);
+  outline: var(--focus-width) solid var(--lime);
   outline-offset: 3px;
 }
 @media (max-width: 760px) {
@@ -212,7 +212,7 @@ textarea:focus-visible {
   .trail-header,
   #about-button,
   .language-pick select {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
   .trail-return {
     flex-direction: column;
@@ -230,10 +230,10 @@ textarea:focus-visible {
     height: 90px;
   }
   .trail-card-copy h3 {
-    font-size: 17px;
+    font-size: 1.0625rem;
   }
   .trail-card-copy .eyebrow {
-    font-size: 10px;
+    font-size: 0.625rem;
   }
 }
 @media (max-width: 420px) {
@@ -243,7 +243,7 @@ textarea:focus-visible {
     padding: 9px 0;
     row-gap: 2px;
   }
-  /* Two rows: the brand and the language menu, then About and My trail. */
+  /* Two rows: the brand and the language menu, then About, My trail and Display. */
   .brand {
     flex: 1;
   }
@@ -259,7 +259,8 @@ textarea:focus-visible {
     flex-basis: 100%;
   }
   #about-button,
-  .trail-header {
+  .trail-header,
+  .display-open {
     order: 3;
   }
 }
@@ -268,7 +269,7 @@ textarea:focus-visible {
     column-gap: 8px;
   }
   .brand {
-    font-size: 18px;
+    font-size: 18px; /* the wordmark keeps its size */
   }
   .trail-card {
     grid-template-columns: 1fr;
@@ -277,4 +278,19 @@ textarea:focus-visible {
     width: 100%;
     height: 125px;
   }
+}
+
+/* High contrast (see base.css). */
+:root[data-contrast='more'] .trail-private {
+  color: var(--muted) !important;
+}
+:root[data-contrast='more'] :is(.trail-return label, #trail-capture-dialog label) {
+  color: var(--ink);
+}
+:root[data-contrast='more']
+  :is(.trail-return textarea, #trail-note, .trail-preview, .trail-card, .trail-bridge, .trail-empty) {
+  border-color: var(--line);
+}
+:root[data-contrast='more'] :is(.trail-keep, .trail-return) {
+  border-color: #b4d69a;
 }

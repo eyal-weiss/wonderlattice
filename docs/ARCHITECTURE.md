@@ -23,6 +23,7 @@ styles/
   guests.css               mathematician puppets
   trail.css                My trail
 src/
+  core/display.js          display settings (larger text, high contrast); runs in the page's head, before drawing
   core/wonderlattice.js       namespace, helpers (toast, copy, download, narration), room registry, themes, text
   core/stage.js            the shared stage used by canvas rooms (#new-room)
   core/app.js              home map, room switching, history and shared links, dialogs, trail and agent wiring; runs last
@@ -128,6 +129,29 @@ Every visitor-facing word lives in a dictionary, so the site can be translated w
 scripts), and translated markup is cleaned at runtime by `Wonderlattice.safeMarkup`. A pseudo-language browser test fails if any visible text bypasses the
 dictionaries. The step-by-step guide for translators is docs/TRANSLATING.md.
 
+## Display settings
+
+The Display button in the header opens a dialog with a text size (normal, large, larger) and high contrast. The
+choices stay in this browser (`wonderlattice.textSize`, `wonderlattice.contrast`); high contrast also comes on by
+itself when the device asks for more contrast (`prefers-contrast: more`), until the visitor chooses. `src/core/display.js`
+runs in the page's head, so a returning visitor never sees the page jump, and marks the page:
+`<html data-text-size="large" data-contrast="more">`. The stylesheets do the rest:
+
+- **Text sizes are in rem** (1rem = 16px at the normal size: 0.875rem = 14px, 0.8125rem = 13px, 0.75rem = 12px), and
+  base.css sets the root to 125% or 150%. A size that must not grow, such as the wordmark or a glyph that is part of a
+  drawing, is in px with the words "keeps its size" on its line; `tests/unit/styles.test.mjs` checks this. Layouts
+  adapt with `:root[data-text-size]` rules: a wider panel beside the picture, one column of controls and cards on a
+  phone, and words that break rather than stick out.
+- **High contrast** raises `--ink`, `--muted`, `--line` and `--focus-width` in base.css, and each stylesheet ends with
+  `:root[data-contrast='more']` rules for its own secondary text and borders. Page text reaches at least 7:1. The rooms'
+  own colours keep their meaning (a coloured figure is lightened, never replaced).
+- **The pictures are unchanged**: text drawn on a canvas keeps its size and colours. The dialog says so, and suggests
+  the browser's zoom to enlarge everything.
+
+A room's own stylesheet sizes text in rem, uses `var(--muted)` for secondary text, and adds a high-contrast rule for
+any other grey it picks. `tests/browser/display.spec.js` opens every room at the largest size and in high contrast on
+a phone: nothing may stick out, every control must be reachable, and all page text must reach 7:1.
+
 ## Add a room: checklist
 
 1. Copy `src/rooms/traffic/` to `src/rooms/<id>/` and rename. Put the mathematics in `model.js` and attach it to
@@ -142,7 +166,8 @@ dictionaries. The step-by-step guide for translators is docs/TRANSLATING.md.
    its source and rights in `docs/PORTRAITS.md`.
 5. Add a browser test for its surprise. Mention it in the page `description` and the README if it deserves it.
 6. Optional: add trail `bridges` in `src/features/trail.js`, and room-specific CSS in `src/rooms/<id>/room.css`
-   (`npm run rooms` links it; the build inlines it).
+   (`npm run rooms` links it; the build inlines it). Size its text in rem and give it high-contrast rules (see
+   Display settings).
 7. Run `npm run previews -- <id>` to make the room's link-preview picture (`assets/rooms/<id>.jpg`) and commit it.
    Without one, its share page falls back to the site's picture.
 8. Run `npm run check`. When several checkouts run browser tests at once, give each its own port:

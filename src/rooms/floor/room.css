@@ -1,7 +1,7 @@
 /* The impossible floor: the mode buttons, the two actions, and the readout. */
 .floor-label {
   display: block;
-  font-size: 14px;
+  font-size: 0.875rem;
   margin-bottom: 8px;
 }
 .floor-buttons {
@@ -22,12 +22,12 @@
 }
 .floor-stats span {
   display: block;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #a7b4c6;
 }
 .floor-stats strong {
   display: block;
-  font-size: 22px;
+  font-size: 1.375rem;
   font-weight: 600;
   color: #f0f5ea;
   font-variant-numeric: tabular-nums;
@@ -35,7 +35,12 @@
 }
 .floor-verdict {
   margin: 10px 0 0;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #d7dfe8;
   line-height: 1.45;
+}
+
+/* High contrast (see base.css). */
+:root[data-contrast='more'] .floor-stats span {
+  color: var(--muted);
 }

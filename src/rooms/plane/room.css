@@ -5,10 +5,10 @@
   gap: 14px 12px;
 }
 .plane-pair label {
-  font-size: 13px;
+  font-size: 0.8125rem;
 }
 .plane-pair select {
-  font-size: 13px;
+  font-size: 0.8125rem;
   padding: 7px;
   margin-top: 6px;
 }
@@ -25,7 +25,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 6px 12px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #b5c0ce;
   font-variant-numeric: tabular-nums;
 }
@@ -36,7 +36,7 @@
 }
 .plane-readout p {
   margin: 10px 0 0;
-  font-size: 13px;
+  font-size: 0.8125rem;
   line-height: 1.45;
   color: #cfe0ff;
 }
@@ -61,5 +61,10 @@ body[data-room='plane'] #scene-canvas.plane-grab {
 /* The notation after the plain words stays on one line. */
 .plane-math {
   white-space: nowrap;
+  color: var(--muted);
+}
+
+/* High contrast (see base.css). */
+:root[data-contrast='more'] .plane-rows {
   color: var(--muted);
 }

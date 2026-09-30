@@ -1,7 +1,7 @@
 /* The shower that never settles: the bathers' sums and verdicts, and the visitor's tap. */
 .shower-readout p {
   margin: 6px 0 0;
-  font-size: 13px;
+  font-size: 0.8125rem;
   line-height: 1.5;
   color: var(--muted);
 }
@@ -21,12 +21,12 @@
 }
 .shower-row strong {
   font:
-    600 17px Georgia,
+    600 1.0625rem Georgia,
     serif;
 }
 .shower-big strong {
   font:
-    600 32px Georgia,
+    600 2rem Georgia,
     serif;
 }
 .shower-readout .shower-verdict {
@@ -50,7 +50,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 4px;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--muted);
 }
 #shower-hand {
