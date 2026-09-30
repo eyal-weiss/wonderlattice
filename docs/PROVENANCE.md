@@ -7,6 +7,7 @@ earlier git history, downloaded dependencies, and build output.
 
 Since then, the git history is the record. Pull requests 1, 2 and 4 of the original, private repository added the traffic room,
 mathematician visitors, and My trail. The v0.3.0 maintainability refactor split the app into readable files without
-changing visitor behaviour (see docs/STATUS.md for how that was verified).
+changing visitor behaviour: browser tests written against the original code passed unchanged, and screenshots of 27
+states matched it pixel for pixel.
 
 The portraits come from Wikimedia Commons under the terms listed in docs/PORTRAITS.md.

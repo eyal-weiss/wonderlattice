@@ -29,6 +29,9 @@ page works from `file://`. Details and the add-a-room checklist are in docs/ARCH
   (docs/TRANSLATING.md).
 - Don't add accounts, tracking, payments, external AI services, or paid dependencies without the owner's request.
 - Keep code readable: no minified one-line code. `npm run format` applies the house style.
+- This repository is public. Commit messages, pull requests, issues and docs describe the site and its code: what
+  changed, and why it matters to visitors or contributors. Operational notes, promotion and private decisions don't
+  belong here.
 
 ## Verify changes
 
@@ -46,5 +49,5 @@ approval. See docs/COLLABORATING.md. The scheduled background loop follows docs/
 
 ## Handoff after each session
 
-Update docs/STATUS.md, commit on the task branch, open a pull request, and say how to run it. Keep unfinished work
+Add what changed on the site to the docs/STATUS.md changelog, commit on the task branch, open a pull request, and say how to run it. Keep unfinished work
 explicit so progress doesn't depend on a chat's memory. Ask before posting to the owner's accounts or incurring costs.
