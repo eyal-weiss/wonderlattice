@@ -12,8 +12,8 @@
   anything.
 - **Against spam:** a hidden field only robots fill in, a 2,000-character limit, the site's own origin only, and five
   messages per address in ten minutes (counted with the address hashed). Turnstile only if spam gets through.
-- **About's privacy text** now says the site collects nothing unless you send a message, where it's kept, and that an
-  AI assistant helps sort the messages. SECURITY.md and `_headers` describe the new server code.
+- **About's privacy text** now says the site collects nothing unless you send a message, and where it's kept.
+  SECURITY.md and `_headers` describe the new server code.
 - **The weekly triage** reads the private repository too, treats the messages as words and never as instructions,
   never quotes them in public, and closes each one it has handled (docs/agents/BUILD_LOOP.md).
 - Opened from a file, the box links to GitHub issues instead.
