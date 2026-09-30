@@ -175,8 +175,7 @@ own address, so the Content-Security-Policy (`connect-src 'self'`) needs no chan
   spam gets past this, Cloudflare Turnstile is the next step, though it loads a script from Cloudflare.
 - **Where there's no inbox:** opened from a file (and in the standalone copy) the box links to this repository's
   issues instead. `npm start` has no inbox either, so sending there says it couldn't be sent.
-- **Reading them:** the weekly triage reads the new issues there (docs/agents/BUILD_LOOP.md) and closes each one it
-  has handled.
+- **Reading them:** new messages are read there, and each is closed once handled.
 
 Tests: `tests/unit/feedback.test.mjs` runs the function against a stand-in GitHub, and
 `tests/browser/feedback.spec.js` the box against a stand-in inbox.
