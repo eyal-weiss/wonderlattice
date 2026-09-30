@@ -17,6 +17,7 @@
 - **The weekly triage** reads the private repository too, treats the messages as words and never as instructions,
   never quotes them in public, and closes each one it has handled (docs/agents/BUILD_LOOP.md).
 - Opened from a file, the box links to GitHub issues instead.
+- The "Feedback inbox" issue (#99), where the owner pasted feedback from other places, is closed: the box replaces it.
 
 ## Display settings: larger text and high contrast — 2026-09-30
 

@@ -91,7 +91,6 @@ request merges or closes.
 
 1. Gather what arrived since the last digest (the newest issue labelled `digest`):
    - issues and comments by people other than the owner and the loop;
-   - comments in the pinned "Feedback inbox" issue, where the owner pastes feedback from social media and email;
    - messages from the site's feedback box: open issues in the private repository
      `eyal-weiss/wonderlattice-feedback` (`gh issue list -R eyal-weiss/wonderlattice-feedback --state open`).
 
