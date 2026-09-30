@@ -126,8 +126,10 @@ an issue anywhere to promote the site.
    date coming up (a maths week, a festival, a newsletter's deadline), and vary languages and kinds over the weeks.
 3. For each: who, and why now; the route (address or form, as the list gives it); what to lead with; and a draft in
    plain words for the owner to edit and send: short and personal, no hype, one or two room links (with `?lang=` for
-   other languages), and that the site is free, noncommercial and has no tracking. For places that ban AI-written
-   text (Hacker News, many subreddits), give talking points instead of a draft. In every draft:
+   other languages), and that the site is free, noncommercial and has no tracking. For places that ask for text not
+   written by AI (Hacker News, many subreddits, some curators), still write a draft the owner can change quickly:
+   head it "REWRITE IN YOUR OWN WORDS BEFORE SENDING" and quote the place's rule. Where the rule bans any help from
+   a language model (Hacker News, MetaFilter, r/webdev), say so once. In every draft:
    - never claim the owner loves, enjoys, follows or already knows the destination; say he learned that it is
      popular, or a good resource, which explains why he's writing;
    - where it fits, say the site was made to support a vision of maths as a widespread hobby;
