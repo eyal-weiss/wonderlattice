@@ -1,8 +1,9 @@
 # Security
 
-Wonderlattice is a static website: no server code, no accounts, no database, and nothing sent from your browser to
-the site. The main risks are in what the page itself does with data it reads: shared links, imported trail files, and
-contributed translations.
+Wonderlattice is a static website with one small piece of server code: the feedback box's inbox
+(`functions/api/feedback.js`), which files a message a visitor chooses to send in a private repository. There are no
+accounts and no database, and nothing else is sent from your browser to the site. The main risks are in what the page
+itself does with data it reads (shared links, imported trail files, contributed translations) and in that inbox.
 
 ## Reporting a problem
 
@@ -21,6 +22,8 @@ credited in the fix unless you prefer not to be.
 - Running script, or injecting markup, through a shared link, an imported trail file, or a translation file.
 - A way around the language-file allowlist (`scripts/lang-guard.mjs`) or the runtime cleaning of translated text.
 - Weaknesses in the site's security headers ([`_headers`](_headers)).
+- The feedback inbox: sending as someone else's site, getting past its limits, injecting anything into the issue it
+  files, or reaching its GitHub token.
 - Anything that sends a visitor's data somewhere without them asking.
 
 ## Out of scope

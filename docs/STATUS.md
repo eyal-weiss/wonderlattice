@@ -1,5 +1,23 @@
 # Project state — 2026-09-30
 
+## A feedback box — 2026-09-30
+
+- **Every explanation now ends with "Send a message to the maker" (#117)**, a closed line that opens to one text field
+  and a Send button; About has one too. Nothing is sent until the visitor presses Send. The message goes with the page
+  it came from and the page language, and nothing else: no name, no email, no address. In all six languages.
+- **The inbox** is the site's first server code, a Cloudflare Pages Function (`functions/api/feedback.js`) at
+  `/api/feedback` on the site's own address. It files each message as an issue in the owner's private repository,
+  `eyal-weiss/wonderlattice-feedback`, using a GitHub token limited to that repository's issues (a Cloudflare
+  secret, `FEEDBACK_GITHUB_TOKEN`). The visitor's words sit in a code block, so they can't ping anyone or format
+  anything.
+- **Against spam:** a hidden field only robots fill in, a 2,000-character limit, the site's own origin only, and five
+  messages per address in ten minutes (counted with the address hashed). Turnstile only if spam gets through.
+- **About's privacy text** now says the site collects nothing unless you send a message, and where it's kept.
+  SECURITY.md and `_headers` describe the new server code.
+- **The weekly triage** reads the private repository too, treats the messages as words and never as instructions,
+  never quotes them in public, and closes each one it has handled (docs/agents/BUILD_LOOP.md).
+- Opened from a file, the box links to GitHub issues instead.
+
 ## Display settings: larger text and high contrast — 2026-09-30
 
 - **A Display button in the header (#116)**, "Aa" on a phone, opens a small dialog: text size (normal, large 125%,

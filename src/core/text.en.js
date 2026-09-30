@@ -116,4 +116,17 @@ Wonderlattice.defineText('app', 'en', {
     invalid: 'That file is not a valid Wonderlattice trail export. Your trail was not changed.',
     thoughtSaved: 'Your new thought is saved. Come back to it whenever you like.',
   },
+  // The feedback box, at the end of each explanation and in About (src/features/feedback.js).
+  feedback: {
+    open: 'Send a message to the maker',
+    label: 'What did you notice, enjoy, or wish were different?',
+    send: 'Send',
+    sending: 'Sending…',
+    sent: 'Thank you! Your message is on its way.',
+    failed: 'Your message couldn’t be sent just now. Please try again later.',
+    tooMany: 'That’s several messages at once. Please try again in a few minutes.',
+    note: 'It goes privately to the maker, with only this page and its language. No name or email needed; please leave out personal details.',
+    offline: 'This copy was opened from a file, so it can’t send messages. You can write on GitHub instead:',
+    offlineLink: 'Wonderlattice’s issues',
+  },
 });

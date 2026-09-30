@@ -665,6 +665,54 @@ summary {
 dialog .button {
   margin-top: 8px;
 }
+/* The feedback box (src/features/feedback.js): a closed line at the end of an explanation, and in About. */
+.feedback-form label {
+  display: block;
+  margin: 14px 0 6px;
+  font-size: 0.875rem;
+}
+.feedback-form .text-area {
+  display: block;
+  resize: vertical;
+  min-height: 5.5em;
+  font: inherit;
+  font-size: 0.9375rem;
+}
+.feedback-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin-top: 10px;
+}
+dialog .feedback-row .button {
+  margin-top: 0;
+}
+.feedback-status {
+  margin: 0 !important;
+  font-size: 0.875rem;
+}
+.feedback-status[data-result='sent'] {
+  color: var(--lime) !important;
+}
+p.feedback-note {
+  margin: 10px 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+/* Out of sight and out of reach: only a robot fills this in. */
+.feedback-trap {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  opacity: 0;
+  pointer-events: none;
+}
 .text-area {
   width: 100%;
   background: #10151e;

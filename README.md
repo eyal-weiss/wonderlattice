@@ -28,7 +28,7 @@ Wonderlattice is a free collection of twenty-seven rooms, each built around one 
 
 Each room has an optional explanation with sources, and a visiting mathematician. There are no scores, accounts, ads
 or tracking. You can keep favourite moments in "My trail", which stays in your own browser. The Display button makes
-the text larger or raises the contrast.
+the text larger or raises the contrast, and every explanation ends with a box for sending a message to the maker.
 
 ## Run it yourself
 

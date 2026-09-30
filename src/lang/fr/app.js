@@ -128,4 +128,17 @@ Wonderlattice.defineText('app', 'fr', {
     invalid: 'Ce fichier n’est pas un export de parcours Wonderlattice valide. Votre parcours n’a pas changé.',
     thoughtSaved: 'Votre nouvelle pensée est enregistrée. Revenez-y quand vous voulez.',
   },
+  feedback: {
+    open: 'Envoyer un message à Wonderlattice',
+    label: 'Qu’avez-vous remarqué, aimé, ou aimeriez-vous voir autrement ?',
+    send: 'Envoyer',
+    sending: 'Envoi…',
+    sent: 'Merci ! Votre message est en route.',
+    failed: 'Votre message n’a pas pu être envoyé pour l’instant. Réessayez plus tard.',
+    tooMany: 'Cela fait plusieurs messages d’un coup. Réessayez dans quelques minutes.',
+    note: 'Il est envoyé en privé, avec seulement cette page et sa langue. Pas besoin de nom ni d’e-mail ; évitez d’y mettre des informations personnelles.',
+    offline:
+      'Cette copie a été ouverte depuis un fichier : elle ne peut pas envoyer de messages. Vous pouvez écrire sur GitHub :',
+    offlineLink: 'les tickets (issues) de Wonderlattice',
+  },
 });

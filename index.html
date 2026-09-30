@@ -497,6 +497,7 @@
           >The Spirograph</a
         >
       </div>
+      <div class="feedback" data-feedback="why"></div>
     </dialog>
 
     <dialog id="about-dialog" aria-labelledby="about-title">
@@ -526,11 +527,13 @@
       </p>
       <h3 data-t="about.privacyTitle">Your privacy</h3>
       <p data-t="about.privacy">
-        Wonderlattice collects nothing. The site is hosted by Cloudflare, which keeps standard access logs (IP address,
-        time, page) under its own privacy policy. My trail, your language and display choices, and the experiments
-        you’ve opened (so their cards show a small mark) are kept in this browser only; clearing site data removes them.
-        Narration uses your browser’s voices: some online voices send the text being read (these explanations, never
-        your notes) to the browser maker’s speech service.
+        Wonderlattice collects nothing unless you send a message. The site is hosted by Cloudflare, which keeps standard
+        access logs (IP address, time, page) under its own privacy policy. A message you send from a feedback box is
+        kept, with only the page it came from and its language, in a private GitHub repository, closed to the public. My
+        trail, your language and display choices, and the experiments you’ve opened (so their cards show a small mark)
+        are kept in this browser only; clearing site data removes them. Narration uses your browser’s voices: some
+        online voices send the text being read (these explanations, never your notes) to the browser maker’s speech
+        service.
       </p>
       <p>
         <button class="button quiet" id="forget-visited" data-t="about.forgetVisited">
@@ -543,6 +546,7 @@
         <a href="mailto:eyal8488@gmail.com">eyal8488@gmail.com</a> or on
         <a href="https://github.com/eyal-weiss" target="_blank" rel="noopener noreferrer">GitHub</a>.
       </p>
+      <div class="feedback" data-feedback="about"></div>
       <p class="about-small" data-t="about.legal">
         The models here are simplified for play and explanation; they are not predictions, measurements, or advice.
         Provided as is, without warranty. Links lead to independent sites; no affiliation or endorsement is implied.
@@ -640,6 +644,8 @@
       </div>
       <button class="button narrate" id="narrate" data-t="narration.listen">Listen to this idea</button>
       <div id="insight-body"></div>
+      <!-- A message to the maker (src/features/feedback.js). -->
+      <div class="feedback" data-feedback="insight"></div>
     </dialog>
 
     <dialog id="trail-capture-dialog" aria-labelledby="trail-capture-title">
@@ -720,6 +726,7 @@
     <script src="./src/core/stage.js"></script>
     <script src="./src/features/guests.js"></script>
     <script src="./src/features/trail.js"></script>
+    <script src="./src/features/feedback.js"></script>
     <script src="./src/rooms/motion/model.js"></script>
     <script src="./src/rooms/motion/text.en.js"></script>
     <script src="./src/rooms/motion/room.js"></script>
