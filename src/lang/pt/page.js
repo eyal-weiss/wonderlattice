@@ -140,7 +140,7 @@ Wonderlattice.defineText('page', 'pt', {
     p3: 'Tudo aqui roda no seu navegador, até offline. Não há contas, nem rastreamento, nem cookies, nem chat com IA. O som fica desligado até você ligá-lo.',
     privacyTitle: 'Sua privacidade',
     privacy:
-      'O Wonderlattice não coleta nada. O site é hospedado pela Cloudflare, que mantém registros de acesso padrão (endereço IP, horário, página) sob sua própria política de privacidade. Minha trilha, suas escolhas de idioma e de exibição e os experimentos que você já abriu (para marcar os cartões deles) ficam guardados só neste navegador; apagar os dados do site os remove. A narração usa as vozes do seu navegador: algumas vozes online enviam o texto lido (estas explicações, nunca suas anotações) para o serviço de voz de quem fez o navegador.',
+      'O Wonderlattice não coleta nada, a não ser as mensagens que você decidir enviar. O site é hospedado pela Cloudflare, que mantém registros de acesso padrão (endereço IP, horário, página) sob sua própria política de privacidade. Uma mensagem enviada por uma caixa de mensagens fica guardada, só com a página de onde saiu e o idioma dela, em um repositório privado do GitHub, fechado ao público; um assistente de IA (Claude) ajuda a organizar as mensagens. Minha trilha, suas escolhas de idioma e de exibição e os experimentos que você já abriu (para marcar os cartões deles) ficam guardados só neste navegador; apagar os dados do site os remove. A narração usa as vozes do seu navegador: algumas vozes online enviam o texto lido (estas explicações, nunca suas anotações) para o serviço de voz de quem fez o navegador.',
     forgetVisited: 'Esquecer quais experimentos já abri',
     whoTitle: 'Quem faz isto',
     whoHtml:

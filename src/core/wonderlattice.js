@@ -494,7 +494,7 @@
         const blocks = [
           ...element.querySelectorAll('h2, h3, p, li, summary, .insight-visual, .idea-card:not(.formula)'),
         ]
-          .filter((el) => !el.closest('button, a, .formula, .sources, [aria-hidden="true"]'))
+          .filter((el) => !el.closest('button, a, .formula, .sources, .feedback, [aria-hidden="true"]'))
           .filter((el) => !el.querySelector('p, li, h2, h3')) // take the innermost block only
           .filter((el) => el.getClientRects().length); // what the reader can see (closed details stay closed)
         const say = (text) => {

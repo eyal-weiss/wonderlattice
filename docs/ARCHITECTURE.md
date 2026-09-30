@@ -29,9 +29,11 @@ src/
   core/app.js              home map, room switching, history and shared links, dialogs, trail and agent wiring; runs last
   features/guests.js       renders a room's mathematician visitors
   features/trail.js        My trail (localStorage, export/import)
+  features/feedback.js     the feedback box: a message to the maker, at the end of each explanation and in About
   rooms/<id>/model.js      the room's mathematics: pure functions, no DOM, unit-tested in Node
   rooms/<id>/room.js       the room itself: words, settings, controls, drawing, visitors, explanation
   rooms/<id>/room.css      optional styles for that room only (class names prefixed with the room id)
+functions/api/feedback.js  the feedback box's inbox: a Cloudflare Pages Function at /api/feedback (the only server code)
 portraits/                 bundled portrait images (rights in docs/PORTRAITS.md)
 assets/                    link-preview image (social.jpg, 1200×630) and the home-screen icon
 scripts/serve.mjs          zero-dependency local server  (npm start)
@@ -151,6 +153,33 @@ runs in the page's head, so a returning visitor never sees the page jump, and ma
 A room's own stylesheet sizes text in rem, uses `var(--muted)` for secondary text, and adds a high-contrast rule for
 any other grey it picks. `tests/browser/display.spec.js` opens every room at the largest size and in high contrast on
 a phone: nothing may stick out, every control must be reachable, and all page text must reach 7:1.
+
+## The feedback box
+
+Each room's explanation ends with a closed line, "Send a message to the maker", and About has one too
+(`src/features/feedback.js`). Nothing is sent until the visitor presses Send. Then the words, the page they came from
+(`place`: an explanation or About, and the room) and the page language go, as JSON, to `/api/feedback` on the site's
+own address, so the Content-Security-Policy (`connect-src 'self'`) needs no change.
+
+- **The inbox** is `functions/api/feedback.js`, a Cloudflare Pages Function: Pages deploys everything in `functions/`
+  alongside the built site. It files each message as an issue in the private repository
+  `eyal-weiss/wonderlattice-feedback`. The visitor's words go in a code block, so they can't mention anyone, link or
+  format anything, and the title holds no visitor text. Nothing else is filed: no name, no address.
+- **The token** is a fine-grained GitHub token limited to that repository, with Issues: read and write only, stored as
+  the secret `FEEDBACK_GITHUB_TOKEN` in the Pages project (Settings → Variables and Secrets, for Production and
+  Preview). Only the owner can see or change it. To replace it, make a new token, paste it over the secret and
+  redeploy; the function logs "GitHub answered 401" when the old one no longer works.
+- **Spam:** a hidden field only robots fill in (they're told all went well, and nothing is filed), a 2,000-character
+  limit, JSON only, the site's own origin only, and at most five messages per address in ten minutes. That count uses
+  Cloudflare's cache, per data centre, with the address hashed, and lets a message through if the count fails. If
+  spam gets past this, Cloudflare Turnstile is the next step, though it loads a script from Cloudflare.
+- **Where there's no inbox:** opened from a file (and in the standalone copy) the box links to this repository's
+  issues instead. `npm start` has no inbox either, so sending there says it couldn't be sent.
+- **Reading them:** the weekly triage reads the new issues there (docs/agents/BUILD_LOOP.md) and closes each one it
+  has handled.
+
+Tests: `tests/unit/feedback.test.mjs` runs the function against a stand-in GitHub, and
+`tests/browser/feedback.spec.js` the box against a stand-in inbox.
 
 ## Add a room: checklist
 

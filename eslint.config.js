@@ -25,7 +25,12 @@ export default [
     rules: { 'no-irregular-whitespace': ['error', { skipStrings: true, skipTemplates: true }] },
   },
   {
-    files: ['tests/**/*.js', 'scripts/**/*.mjs', '*.config.js'],
+    // The feedback box's inbox: a Cloudflare Pages Function, a module in Cloudflare's worker runtime.
+    files: ['functions/**/*.js'],
+    languageOptions: { sourceType: 'module', globals: { ...globals.serviceworker } },
+  },
+  {
+    files: ['tests/**/*.js', 'tests/**/*.mjs', 'scripts/**/*.mjs', '*.config.js'],
     languageOptions: { sourceType: 'module', globals: { ...globals.node, ...globals.browser } },
   },
 ];

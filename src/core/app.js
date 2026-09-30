@@ -528,6 +528,8 @@
       W.narration.stop();
     });
     WonderlatticeTrail.init({ capture, restore, open });
+    // A message says where it was written: the room's explanation, or About (and the room it was opened in).
+    W.feedback.init((box) => ({ place: box === 'about' ? 'about' : 'explanation', room: current?.id ?? null }));
     registerAgentTools();
   }
 

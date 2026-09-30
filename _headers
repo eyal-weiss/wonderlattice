@@ -1,6 +1,7 @@
 # Response headers for the published site (Cloudflare reads this file from the build output; scripts/serve.mjs
 # applies it too, so the browser tests run under the same rules). The page loads only its own scripts and styles,
-# talks to no server, and can't be framed by other sites.
+# talks only to its own address (the feedback box's /api/feedback, and only when a visitor presses Send), and can't be
+# framed by other sites.
 /*
   Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests
   X-Content-Type-Options: nosniff
