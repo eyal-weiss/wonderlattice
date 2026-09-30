@@ -497,7 +497,7 @@
     const j = journey(s),
       code = s.code,
       row = (label, value, color) =>
-        `<span>${label}</span><strong class="storm-value" style="color:${color ?? 'var(--ink)'}">${value}</strong>`;
+        `<span>${label}</span><strong class="storm-value"${color ? ` style="--value:${color}"` : ''}>${value}</strong>`;
     $('scene-name').textContent = t.codes[code];
     $('scene-status').textContent = t.status(j.wrongCount, j.flips);
     $('scene-tip').textContent = code === 2 ? t.tipParity : t.tip;

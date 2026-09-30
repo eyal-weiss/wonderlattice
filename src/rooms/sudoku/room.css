@@ -1,10 +1,10 @@
 /* Sudoku, made transparent: the symbol buttons, readouts, and both answers. */
 body[data-room='sudoku'] .scene-tip {
   color: #d3dccb;
-  font-size: 13px;
+  font-size: 0.8125rem;
 }
 .sudoku-label {
-  font-size: 14px;
+  font-size: 0.875rem;
   display: block;
 }
 .sudoku-symbols {
@@ -36,7 +36,7 @@ body[data-room='sudoku'] .scene-tip {
 }
 .sudoku-faded {
   margin: 8px 0 0;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #a7b4c6;
 }
 .sudoku-edit {
@@ -56,27 +56,31 @@ body[data-room='sudoku'] .scene-tip {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
 }
+/* Larger text: the three counts wrap rather than run into each other. */
+:root[data-text-size] .sudoku-stats {
+  grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
+}
 .sudoku-stats span {
   display: block;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #a7b4c6;
 }
 .sudoku-stats strong {
   display: block;
-  font-size: 26px;
+  font-size: 1.625rem;
   font-weight: 600;
   color: #f0f5ea;
   font-variant-numeric: tabular-nums;
   line-height: 1.2;
 }
 .sudoku-stats small {
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 400;
   color: #a7b4c6;
 }
 .sudoku-answers p {
   margin: 12px 0 8px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #d7dfe8;
   line-height: 1.45;
 }
@@ -121,6 +125,14 @@ body:not([data-room='sudoku']) .sudoku-board {
   outline: none;
 }
 .sudoku-cell:focus-visible {
-  outline: 2px dashed #f4f5e9;
+  outline: var(--focus-width) dashed #f4f5e9;
   outline-offset: -7px;
+}
+
+/* High contrast (see base.css). */
+:root[data-contrast='more'] :is(.sudoku-faded, .sudoku-stats span, .sudoku-stats small) {
+  color: var(--muted);
+}
+:root[data-contrast='more'] :is(.sudoku-readout, .sudoku-symbol) {
+  border-color: var(--line);
 }

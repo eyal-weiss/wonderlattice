@@ -10,6 +10,8 @@ Wonderlattice.defineText('page', 'pt', {
     about: 'Sobre este lugar',
     trail: 'Minha trilha',
     home: 'Início do Wonderlattice',
+    display: 'Exibição',
+    displayTitle: 'Exibição: tamanho do texto e contraste',
   },
   roomBar: {
     home: '← Todos os experimentos',
@@ -85,6 +87,18 @@ Wonderlattice.defineText('page', 'pt', {
     controlsLabel: 'Controles da exploração',
     send: 'Enviar para celulares',
   },
+  display: {
+    title: 'Exibição',
+    close: 'Fechar as configurações de exibição',
+    size: 'Tamanho do texto',
+    normal: 'Normal',
+    large: 'Grande',
+    larger: 'Maior',
+    contrast: 'Alto contraste',
+    contrastNote:
+      'Texto mais claro, contornos mais fortes. Ele liga sozinho quando seu dispositivo pede mais contraste.',
+    note: 'Sua escolha fica guardada neste navegador. As palavras desenhadas dentro das imagens mantêm o tamanho; para aumentar tudo, imagens incluídas, use o zoom do navegador.',
+  },
   send: {
     title: 'Abra no celular',
     hint: 'Aponte a câmera de um celular para o código: ele abre este experimento com estas configurações.',
@@ -126,7 +140,7 @@ Wonderlattice.defineText('page', 'pt', {
     p3: 'Tudo aqui roda no seu navegador, até offline. Não há contas, nem rastreamento, nem cookies, nem chat com IA. O som fica desligado até você ligá-lo.',
     privacyTitle: 'Sua privacidade',
     privacy:
-      'O Wonderlattice não coleta nada. O site é hospedado pela Cloudflare, que mantém registros de acesso padrão (endereço IP, horário, página) sob sua própria política de privacidade. Minha trilha, sua escolha de idioma e os experimentos que você já abriu (para marcar os cartões deles) ficam guardados só neste navegador; apagar os dados do site os remove. A narração usa as vozes do seu navegador: algumas vozes online enviam o texto lido (estas explicações, nunca suas anotações) para o serviço de voz de quem fez o navegador.',
+      'O Wonderlattice não coleta nada. O site é hospedado pela Cloudflare, que mantém registros de acesso padrão (endereço IP, horário, página) sob sua própria política de privacidade. Minha trilha, suas escolhas de idioma e de exibição e os experimentos que você já abriu (para marcar os cartões deles) ficam guardados só neste navegador; apagar os dados do site os remove. A narração usa as vozes do seu navegador: algumas vozes online enviam o texto lido (estas explicações, nunca suas anotações) para o serviço de voz de quem fez o navegador.',
     forgetVisited: 'Esquecer quais experimentos já abri',
     whoTitle: 'Quem faz isto',
     whoHtml:

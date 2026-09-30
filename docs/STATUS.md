@@ -1,4 +1,26 @@
-# Project state — 2026-09-29
+# Project state — 2026-09-30
+
+## Display settings: larger text and high contrast — 2026-09-30
+
+- **A Display button in the header (#116)**, "Aa" on a phone, opens a small dialog: text size (normal, large 125%,
+  larger 150%) and high contrast. Choices stay in this browser and apply before the page is drawn; high contrast also
+  comes on by itself when the device asks for more contrast, until the visitor chooses. In all six languages; About's
+  privacy line now mentions display choices.
+- **Larger text:** every text size in the stylesheets moved from px to rem (163 of them, plus six inline styles), so one
+  root size scales them all; a test keeps it that way. Only the wordmark and the visitors' drawn puppets keep their
+  size. With larger text the panel beside the picture is wider, a phone shows one column of controls and of home
+  cards, and a word too long for its box breaks rather than sticking out. Since sizes are now relative, a browser set
+  to a larger default text size is honoured too.
+- **High contrast:** brighter text and secondary text, brighter borders, a thicker focus ring. All page text reaches
+  at least 7.3:1 (the lowest are the rooms' own purple and blue figures, which match their pictures); at the normal
+  setting the lowest is 5.9:1. The storm room's coloured counts are lightened, keeping their hue.
+- **Not in this version: text drawn inside the pictures** (82 canvas labels across 23 rooms, each placed by hand)
+  keeps its size and colours. The dialog says so and suggests the browser's zoom, which enlarges everything.
+- Checked every page (home and 27 rooms) in six languages at both larger sizes, on a phone (390 px) and a laptop
+  (1,280 px): no sideways scrolling and no words sticking out of their boxes. `tests/browser/display.spec.js` checks
+  every room at the largest size in high contrast on a phone (nothing sticks out, every control can be reached, all
+  page text 7:1), plus the dialog, reloading, blocked storage and the device setting.
+- Known: in French at the largest size on a phone, the header's "Aa" takes a third row.
 
 ## Arabic, the sixth language — 2026-09-29
 

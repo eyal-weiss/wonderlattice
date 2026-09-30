@@ -46,7 +46,8 @@ function runPage(root, html, lang, languageFiles) {
   const run = (path) =>
     vm.runInContext(readFileSync(join(root, path), 'utf8'), sandbox, { filename: path, timeout: 5000 });
   for (const path of [...html.matchAll(/<script src="\.\/([^"]+)"><\/script>/g)].map((m) => m[1])) {
-    if (path === 'src/core/app.js') continue; // the app starts the page; the cards need only the rooms
+    // The app starts the page, and the display settings mark it; the cards need only the rooms.
+    if (path === 'src/core/app.js' || path === 'src/core/display.js') continue;
     // Instead of writing its tags into the page, the language's files run here, in the same place.
     if (path === 'src/lang/load.js')
       (languageFiles[lang] ?? []).forEach((scope) => run(`src/lang/${lang}/${scope}.js`));

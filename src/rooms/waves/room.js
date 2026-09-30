@@ -230,7 +230,7 @@
       stage.slider('ratio', t.secondTone, 0.5, 2, 0.005, s.ratio, '×', t.secondToneHint) +
       stage.slider('phase', t.phase, 0, 360, 1, s.phase, '°') +
       stage.slider('volume', t.volume, 0, 50, 1, s.volume, '%') +
-      `<div class="control wide"><span style="font-size:14px">${t.view}</span><div class="segment" role="group" aria-label="${t.viewGroup}">` +
+      `<div class="control wide"><span style="font-size:0.875rem">${t.view}</span><div class="segment" role="group" aria-label="${t.viewGroup}">` +
       `<button id="view-waves" aria-pressed="${!s.portrait}">${t.viewWaves}</button><button id="view-portrait" aria-pressed="${s.portrait}">${t.viewPortrait}</button></div></div>`,
 
     bindControls(panel, s, stage) {

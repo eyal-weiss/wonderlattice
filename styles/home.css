@@ -4,7 +4,7 @@ a.brand {
   text-decoration: none;
 }
 a.brand:focus-visible {
-  outline: 2px solid var(--lime);
+  outline: var(--focus-width) solid var(--lime);
   outline-offset: 5px;
 }
 
@@ -21,10 +21,10 @@ a.brand:focus-visible {
 }
 .intro .whats-new {
   margin: 0;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 #home-surprise span[aria-hidden] {
-  font-size: 18px;
+  font-size: 1.125rem;
   line-height: 1;
 }
 .whats-new .eyebrow {
@@ -37,6 +37,7 @@ a.brand:focus-visible {
   background: none;
   color: var(--ink);
   font: inherit;
+  text-align: start; /* a long name wraps like the words around it */
   text-decoration: underline;
   text-decoration-color: rgb(221 246 163 / 0.5);
   text-underline-offset: 3px;
@@ -57,7 +58,7 @@ a.brand:focus-visible {
 }
 .theme-head h2 {
   font:
-    400 26px/1.2 Georgia,
+    400 1.625rem/1.2 Georgia,
     'Times New Roman',
     serif;
   margin: 0;
@@ -65,7 +66,7 @@ a.brand:focus-visible {
 .theme-head p {
   margin: 0;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 .room-cards {
   display: grid;
@@ -124,13 +125,16 @@ a.brand:focus-visible {
 }
 .room-card strong {
   font:
-    400 21px/1.25 Georgia,
+    400 1.3125rem/1.25 Georgia,
     serif;
 }
 .room-card-tagline {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--muted);
   line-height: 1.45;
+}
+.room-card :is(.eyebrow, strong, .room-card-tagline) {
+  overflow-wrap: break-word; /* a long word on a narrow card wraps rather than widening the page */
 }
 
 .room-bar {
@@ -141,7 +145,7 @@ a.brand:focus-visible {
 }
 .room-bar-theme {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.13em;
   text-transform: uppercase;
@@ -152,7 +156,7 @@ a.brand:focus-visible {
   gap: 8px;
 }
 .room-bar-steps .button {
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 1;
 }
 .focus-mode .room-bar {
@@ -166,11 +170,15 @@ a.brand:focus-visible {
 
 @media (max-width: 760px) {
   .theme-head h2 {
-    font-size: 23px;
+    font-size: 1.4375rem;
   }
   .room-cards {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
+  }
+  /* With the largest text, one card per row, so names and taglines keep whole words. */
+  :root[data-text-size='larger'] .room-cards {
+    grid-template-columns: minmax(0, 1fr);
   }
   .room-card {
     padding: 7px 7px 12px;
@@ -181,13 +189,13 @@ a.brand:focus-visible {
     padding: 0 3px;
   }
   .room-card .eyebrow {
-    font-size: 10px;
+    font-size: 0.625rem;
   }
   .room-card strong {
-    font-size: 17px;
+    font-size: 1.0625rem;
   }
   .room-card-tagline {
-    font-size: 12.5px;
+    font-size: 0.78125rem;
   }
   .room-bar {
     padding-top: 12px;
@@ -196,8 +204,13 @@ a.brand:focus-visible {
   .room-home {
     white-space: nowrap;
   }
+  /* Larger text: "All experiments" may take two lines, so the arrows stay on the screen. */
+  :root[data-text-size] .room-home {
+    white-space: normal;
+    text-align: start;
+  }
   .room-bar-theme {
-    font-size: 10px;
+    font-size: 0.625rem;
     letter-spacing: 0.1em;
   }
 }
@@ -216,4 +229,9 @@ a.brand:focus-visible {
   .room-bar-theme {
     display: none;
   }
+}
+
+/* High contrast (see base.css): the cards' edges show, and the newest rooms' names stay underlined clearly. */
+:root[data-contrast='more'] .whats-new-room {
+  text-decoration-color: var(--lime);
 }

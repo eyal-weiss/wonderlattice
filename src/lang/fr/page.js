@@ -10,6 +10,8 @@ Wonderlattice.defineText('page', 'fr', {
     about: 'À propos de ce lieu',
     trail: 'Mon parcours',
     home: 'Accueil de Wonderlattice',
+    display: 'Affichage',
+    displayTitle: 'Affichage : taille du texte et contraste',
   },
   roomBar: {
     home: '← Toutes les expériences',
@@ -85,6 +87,18 @@ Wonderlattice.defineText('page', 'fr', {
     controlsLabel: 'Commandes de l’exploration',
     send: 'Envoyer aux téléphones',
   },
+  display: {
+    title: 'Affichage',
+    close: 'Fermer les réglages d’affichage',
+    size: 'Taille du texte',
+    normal: 'Normale',
+    large: 'Grande',
+    larger: 'Plus grande',
+    contrast: 'Contraste élevé',
+    contrastNote:
+      'Un texte plus lumineux, des contours plus nets. Il s’active tout seul quand votre appareil demande plus de contraste.',
+    note: 'Votre choix est conservé dans ce navigateur. Les mots dessinés dans les images gardent leur taille ; pour tout agrandir, images comprises, utilisez le zoom du navigateur.',
+  },
   send: {
     title: 'Ouvrir sur un téléphone',
     hint: 'Visez le code avec l’appareil photo d’un téléphone : il ouvre cette expérience avec ces réglages.',
@@ -126,7 +140,7 @@ Wonderlattice.defineText('page', 'fr', {
     p3: 'Tout ici fonctionne dans votre navigateur, même hors ligne. Pas de compte, pas de pistage, pas de cookies, et pas de discussion avec une IA. Le son reste coupé tant que vous ne l’activez pas.',
     privacyTitle: 'Votre vie privée',
     privacy:
-      'Wonderlattice ne collecte rien. Le site est hébergé par Cloudflare, qui conserve des journaux d’accès standard (adresse IP, heure, page) selon sa propre politique de confidentialité. Mon parcours, votre choix de langue et les expériences que vous avez déjà ouvertes (pour marquer leurs cartes) ne sont conservés que dans ce navigateur ; effacer les données du site les supprime. La narration utilise les voix de votre navigateur : certaines voix en ligne envoient le texte lu (ces explications, jamais vos notes) au service vocal de l’éditeur du navigateur.',
+      'Wonderlattice ne collecte rien. Le site est hébergé par Cloudflare, qui conserve des journaux d’accès standard (adresse IP, heure, page) selon sa propre politique de confidentialité. Mon parcours, vos choix de langue et d’affichage, et les expériences que vous avez déjà ouvertes (pour marquer leurs cartes) ne sont conservés que dans ce navigateur ; effacer les données du site les supprime. La narration utilise les voix de votre navigateur : certaines voix en ligne envoient le texte lu (ces explications, jamais vos notes) au service vocal de l’éditeur du navigateur.',
     forgetVisited: 'Oublier les expériences que j’ai ouvertes',
     whoTitle: 'Qui fait ce site',
     whoHtml:

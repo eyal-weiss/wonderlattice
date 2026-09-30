@@ -14,7 +14,7 @@
   gap: 12px;
 }
 .compress-readout span {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #8795a8;
 }
 .compress-readout strong {
@@ -22,4 +22,9 @@
   color: #e6ebe6;
   font-variant-numeric: tabular-nums;
   text-align: end;
+}
+
+/* High contrast (see base.css). */
+:root[data-contrast='more'] .compress-readout span {
+  color: var(--muted);
 }

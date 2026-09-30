@@ -7,13 +7,13 @@
 }
 .treasure-big strong {
   font:
-    600 34px Georgia,
+    600 2.125rem Georgia,
     serif;
   color: #f7c948;
 }
 .treasure-readout p {
   margin: 8px 0 0;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.5;
   color: var(--muted);
 }

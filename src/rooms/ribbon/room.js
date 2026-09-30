@@ -160,11 +160,11 @@
       stage.check('walk', t.walk, s.walk) +
       stage.check('edges', t.edges, s.edges) +
       // Buttons that turn the view, for anyone who can't drag (WCAG 2.5.7).
-      `<div class="control wide"><span id="ribbon-turn-label" style="font-size:14px">${t.turn}</span>` +
+      `<div class="control wide"><span id="ribbon-turn-label" style="font-size:0.875rem">${t.turn}</span>` +
       '<div class="segment ribbon-turn" role="group" aria-labelledby="ribbon-turn-label">' +
       TURNS.map(
         ([id, symbol, label]) =>
-          `<button type="button" id="ribbon-${id}" aria-label="${t[label]}" title="${t[label]}" style="font-size:17px;min-width:42px">${symbol}</button>`,
+          `<button type="button" id="ribbon-${id}" aria-label="${t[label]}" title="${t[label]}" style="font-size:1.0625rem;min-width:42px">${symbol}</button>`,
       ).join('') +
       '</div></div>',
 

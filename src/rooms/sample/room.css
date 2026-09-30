@@ -7,10 +7,10 @@
   gap: 12px;
 }
 .sample-pair label {
-  font-size: 13px;
+  font-size: 0.8125rem;
 }
 .sample-pair select {
-  font-size: 13px;
+  font-size: 0.8125rem;
   padding: 7px;
   margin-top: 6px;
   min-width: 0;
@@ -24,7 +24,7 @@
 .sample-buttons .button {
   min-height: 38px;
   padding: 8px 10px;
-  font-size: 13px;
+  font-size: 0.8125rem;
 }
 
 .sample-readout {
@@ -41,5 +41,10 @@
 }
 .sample-note {
   color: #93a1b3;
-  font-size: 12px;
+  font-size: 0.75rem;
+}
+
+/* High contrast (see base.css). */
+:root[data-contrast='more'] .sample-note {
+  color: var(--muted);
 }

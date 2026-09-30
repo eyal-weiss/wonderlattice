@@ -10,6 +10,8 @@ Wonderlattice.defineText('page', 'es', {
     about: 'Sobre este lugar',
     trail: 'Mi recorrido',
     home: 'Inicio de Wonderlattice',
+    display: 'Visualización',
+    displayTitle: 'Visualización: tamaño del texto y contraste',
   },
   roomBar: {
     home: '← Todos los experimentos',
@@ -85,6 +87,18 @@ Wonderlattice.defineText('page', 'es', {
     controlsLabel: 'Controles de la exploración',
     send: 'Enviar a los teléfonos',
   },
+  display: {
+    title: 'Visualización',
+    close: 'Cerrar los ajustes de visualización',
+    size: 'Tamaño del texto',
+    normal: 'Normal',
+    large: 'Grande',
+    larger: 'Más grande',
+    contrast: 'Alto contraste',
+    contrastNote:
+      'Texto más brillante, contornos más marcados. Se activa solo cuando tu dispositivo pide más contraste.',
+    note: 'Tu elección se guarda en este navegador. Las palabras dibujadas dentro de las imágenes conservan su tamaño; para agrandarlo todo, imágenes incluidas, usa el zoom del navegador.',
+  },
   send: {
     title: 'Ábrelo en un teléfono',
     hint: 'Apunta la cámara de un teléfono al código: abre este experimento con estos ajustes.',
@@ -126,7 +140,7 @@ Wonderlattice.defineText('page', 'es', {
     p3: 'Todo aquí funciona en tu navegador, incluso sin conexión. No hay cuentas, ni rastreo, ni cookies, ni chat con IA. El sonido está apagado hasta que lo actives.',
     privacyTitle: 'Tu privacidad',
     privacy:
-      'Wonderlattice no recopila nada. El sitio está alojado en Cloudflare, que guarda los registros de acceso habituales (dirección IP, hora, página) según su propia política de privacidad. Mi recorrido, tu elección de idioma y los experimentos que has abierto (para marcar sus tarjetas) se guardan solo en este navegador; al borrar los datos del sitio desaparecen. La narración usa las voces de tu navegador: algunas voces en línea envían el texto que se lee (estas explicaciones, nunca tus notas) al servicio de voz del fabricante del navegador.',
+      'Wonderlattice no recopila nada. El sitio está alojado en Cloudflare, que guarda los registros de acceso habituales (dirección IP, hora, página) según su propia política de privacidad. Mi recorrido, tus elecciones de idioma y de visualización, y los experimentos que has abierto (para marcar sus tarjetas) se guardan solo en este navegador; al borrar los datos del sitio desaparecen. La narración usa las voces de tu navegador: algunas voces en línea envían el texto que se lee (estas explicaciones, nunca tus notas) al servicio de voz del fabricante del navegador.',
     forgetVisited: 'Olvidar qué experimentos he abierto',
     whoTitle: 'Quién hace esto',
     whoHtml:

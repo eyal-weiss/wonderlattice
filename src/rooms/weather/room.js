@@ -316,11 +316,11 @@
       stage.slider('speed', t.speed, 0.25, 2, 0.05, s.speed, '×') +
       stage.check('ghost', t.ghost, s.ghost) +
       stage.check('spin', t.spin, s.spin) +
-      `<div class="control wide"><span id="weather-turn-label" style="font-size:14px">${t.turn}</span>` +
+      `<div class="control wide"><span id="weather-turn-label" style="font-size:0.875rem">${t.turn}</span>` +
       '<div class="segment" role="group" aria-labelledby="weather-turn-label">' +
       TURNS.map(
         ([id, symbol, label]) =>
-          `<button type="button" id="weather-${id}" aria-label="${t[label]}" title="${t[label]}" style="font-size:17px;min-width:42px">${symbol}</button>`,
+          `<button type="button" id="weather-${id}" aria-label="${t[label]}" title="${t[label]}" style="font-size:1.0625rem;min-width:42px">${symbol}</button>`,
       ).join('') +
       '</div></div>' +
       '<div class="wide readout" id="weather-readout">' +
