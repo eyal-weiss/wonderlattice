@@ -1,0 +1,87 @@
+/* Square wheels, smooth ride: the kind of wheel, the shapes to start from, the readout, and the cursor over dots. */
+body[data-room='wheels'] #scene-canvas.wheels-dot {
+  cursor: grab;
+}
+body[data-room='wheels'] #scene-canvas.wheels-pick {
+  cursor: pointer;
+}
+.wheels-kind {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.wheels-kind .button,
+.wheels-shapes .button {
+  justify-content: center;
+  white-space: normal;
+}
+.wheels-kind .button[aria-pressed='true'],
+.wheels-shapes .button[aria-pressed='true'] {
+  border-color: #f2a65a;
+  background: #3a2a1a;
+  color: #ffe3c4;
+}
+.wheels-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+}
+.wheels-shapes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.wheels-shapes .button {
+  flex: 1 1 auto;
+  padding-inline: 10px;
+}
+.wheels-readout {
+  border: 1px solid #4a3d30;
+  background: #1a1510;
+  padding: 12px 14px;
+  border-radius: 9px;
+}
+.wheels-big {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #f5f1e6;
+}
+.wheels-rows {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px 12px;
+  align-items: baseline;
+  font-size: 0.8125rem;
+  color: #c4b8aa;
+}
+.wheels-rows strong {
+  color: #f5f1e6;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}
+.wheels-readout .wheels-warn {
+  color: #ff8a95;
+}
+.wheels-rule {
+  margin: 10px 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+:root[data-contrast='more'] .wheels-readout {
+  border-color: #a08a72;
+}
+:root[data-contrast='more'] .wheels-rows {
+  color: #ece4da;
+}
+:root[data-contrast='more'] .wheels-readout .wheels-warn {
+  color: #ffb3ba;
+}
+:root[data-contrast='more'] .wheels-kind .button[aria-pressed='true'],
+:root[data-contrast='more'] .wheels-shapes .button[aria-pressed='true'] {
+  border-color: #ffc58a;
+  color: #fff4e6;
+}
