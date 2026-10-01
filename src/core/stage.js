@@ -324,7 +324,7 @@
       canvas.focus({ preventScroll: true });
       canvas.setPointerCapture(e.pointerId);
       drag = { x: e.clientX, y: e.clientY };
-      room?.pointer?.down?.(pointer(e), settings[room.id], stage);
+      room?.pointer?.down?.(pointer(e), settings[room.id], stage, e);
     });
     canvas.addEventListener('pointermove', (e) => {
       if (!room?.pointer?.move) return;
@@ -333,9 +333,10 @@
       if (drag) drag = { x: e.clientX, y: e.clientY };
       room.pointer.move(pointer(e), { ...moved, dragging, mouse: e.pointerType === 'mouse' }, settings[room.id], stage);
     });
-    const release = () => {
+    // up receives the pointerup or pointercancel event, so a room can tell a release from a cancelled gesture.
+    const release = (e) => {
       drag = null;
-      room?.pointer?.up?.();
+      room?.pointer?.up?.(e);
     };
     canvas.addEventListener('pointerup', release);
     canvas.addEventListener('pointercancel', release);

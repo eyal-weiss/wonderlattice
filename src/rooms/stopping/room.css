@@ -1,0 +1,42 @@
+/* Stop at 37%: the game's rules and buttons, and the rule's chances. */
+.stopping-rules p,
+.stopping-readout p {
+  margin: 6px 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.stopping-rules strong,
+.stopping-more strong {
+  color: #e6ecf2;
+}
+.stopping-buttons {
+  margin-top: 10px;
+}
+.stopping-buttons button[aria-disabled='true'] {
+  opacity: 0.45;
+  cursor: default;
+}
+.stopping-rules .stopping-result {
+  color: #e6ecf2;
+}
+.stopping-big {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 0.875rem;
+  color: #e6ecf2;
+}
+/* A percentage reads the same way in every language. */
+.stopping-big strong {
+  direction: ltr;
+  unicode-bidi: isolate;
+  color: #7ee0a1;
+  font:
+    600 2rem Georgia,
+    serif;
+}
+.stopping-more span {
+  display: block;
+}
