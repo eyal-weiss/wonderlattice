@@ -266,6 +266,7 @@ and `title` use the same words.
 
 | id          | English                              | Arabic                                               |
 | ----------- | ------------------------------------ | ---------------------------------------------------- |
+| billiards   | The table that forgets               | الطاولة التي تنسى                                    |
 | blocks      | The leaning tower of blocks          | برج المكعبات المائل                                  |
 | compress    | How much picture can you throw away? | كم من الصورة يمكنكم أن ترموا؟                        |
 | cube        | Inside the puzzle cube               | داخل مكعّب الألغاز                                   |
@@ -274,6 +275,7 @@ and `title` use the same words.
 | fireflies   | Fireflies that fall into step        | يراعات تومض معًا                                     |
 | flock       | A mind of many                       | عقل الجماعة                                          |
 | floor       | The impossible floor                 | الأرضية المستحيلة                                    |
+| globe       | The triangle with three right angles | المثلث ذو الزوايا القائمة الثلاث                     |
 | heart       | A heartbeat travels                  | نبضة قلب تسري                                        |
 | julia       | A seed for an infinite landscape     | بذرة لمنظر بلا نهاية                                 |
 | loom        | The mathematical loom                | النَّول الرياضي                                      |
@@ -286,6 +288,7 @@ and `title` use the same words.
 | secret      | A secret shouted across the room     | سرّ على الملأ                                        |
 | shots       | Two players, three leaderboards      | لاعبان وثلاث لوحات صدارة                             |
 | shower      | The shower that never settles        | الدُّش الذي لا يستقر أبدًا                           |
+| stopping    | Stop at 37%                          | التوقف عند 37% (title: «متى نتوقف عن البحث.»)        |
 | storm       | Send a picture through a storm       | إرسال صورة عبر عاصفة                                 |
 | sudoku      | Sudoku, made transparent             | سودوكو على المكشوف ("Visit Sudoku" → «زيارة سودوكو») |
 | tiles       | A tile that fills the world          | بلاطة تملأ العالم                                    |
@@ -432,6 +435,42 @@ the loom's weaving draft), شريط (a ribbon; a shaded band on a chart).
 | percentage point        | نقطة مئوية                                                                                                      |
 | Markov chain            | سلسلة ماركوف                                                                                                    |
 | stationary distribution | التوزيع المستقر                                                                                                 |
+
+**Chaos, curved space and stopping** (billiards, globe, stopping)
+
+| English                                         | Arabic                                                                             |
+| ----------------------------------------------- | ---------------------------------------------------------------------------------- |
+| billiards / billiard table / rail               | البلياردو / طاولة بلياردو / الحافة                                                 |
+| shot / pocket                                   | ضربة / جيب                                                                         |
+| bounce                                          | ارتداد (masculine), pl. ارتدادات                                                   |
+| a ball and its twin; both twins                 | كرة وتوأمها؛ التوأمان (dual, with dual verbs: «افترقا»)                            |
+| ellipse / focus, foci / hyperbola               | القطع الناقص / بؤرة، البؤرتان / القطع الزائد                                       |
+| conic sections                                  | القطوع المخروطية                                                                   |
+| stadium (the shape)                             | الملعب                                                                             |
+| caustic                                         | المنحنى الكاوي                                                                     |
+| integrable / ergodic                            | قابل للتكامل / إرغودي                                                              |
+| long exposure                                   | تعريض طويل                                                                         |
+| sensitive dependence on initial conditions      | الاعتماد الحسّاس على الشروط الابتدائية (as in weather)                             |
+| ball (sphere) / great circle                    | كرة / دائرة عظمى، pl. دوائر عظمى                                                   |
+| meridians and parallels                         | خطوط الطول ودوائر العرض                                                            |
+| corner (of a triangle)                          | رأس، pl. رؤوس («زاوية» stays for the angle)                                        |
+| curvature / curved                              | الانحناء / منحنٍ                                                                   |
+| flat (a triangle, paper) / flat geometry        | مسطّح / الهندسة المستوية                                                           |
+| parallel transport / holonomy                   | النقل المتوازي / الهولونومي                                                        |
+| spherical excess                                | الزيادة الكروية                                                                    |
+| the walker (who carries the arrow)              | السائر                                                                             |
+| card / deck                                     | بطاقة (feminine) / الرزمة                                                          |
+| deal (one game) / Deal again                    | جولة / إعادة التوزيع                                                               |
+| optimal stopping / the secretary problem        | التوقف الأمثل / مسألة السكرتيرة                                                    |
+| cutoff                                          | نقطة القطع                                                                         |
+| look, then leap                                 | النظر ثم القفز; as an instruction «انظروا، ثم اقفزوا»                              |
+| the top 10 / a top-10 card                      | أكبر 10 / بطاقة من أكبر 10                                                         |
+| the biggest / the 3rd biggest (a card's place)  | الأكبر / الـ3 حجمًا                                                                |
+| new best! (on a card)                           | رقم قياسي!                                                                         |
+| month names                                     | the forms common across the Arab world: فبراير                                     |
+| Birkhoff / Poncelet / Bunimovich / Bellos       | جورج ديفيد بيركهوف / جان فيكتور بونسليه / ليونيد بونيموفيتش / أليكس بيلوس          |
+| Girard / Gauss / Levi-Civita / Harriot / Cartan | ألبير جيرار / كارل فريدريش غاوس / تولليو ليفي-تشيفيتا / توماس هاريوت / إيلي كارتان |
+| Kepler / Ferguson / Cayley / Flood              | يوهانس كيبلر / توماس فيرغسون / آرثر كايلي / ميريل فلود                             |
 
 ### Recurring phrases (identical in every room)
 
