@@ -7,9 +7,9 @@ test('the home map names the newest rooms, newest first, and each opens its room
   const line = page.locator('#whats-new');
   await expect(line).toBeVisible();
   await expect(line.locator('button')).toHaveText([
+    'The table that forgets',
     'A thousand samples, ten tests',
     'The shower that never settles',
-    'The leaning tower of blocks',
   ]);
   await line.getByRole('button', { name: 'The shower that never settles' }).click();
   await expectRoom(page, 'shower');
@@ -26,5 +26,6 @@ test('the line speaks the page language', async ({ page }) => {
   await page.clock.setFixedTime(new Date('2026-09-30T12:00:00Z'));
   await page.goto('/?lang=he');
   await expect(page.locator('#whats-new .eyebrow')).toHaveText('חדש');
-  await expect(page.locator('#whats-new button').first()).toHaveText('אלף דגימות, עשר בדיקות');
+  // A room that is newer than its translations is still named in English, so look for one that has them.
+  await expect(page.locator('#whats-new button', { hasText: 'אלף דגימות, עשר בדיקות' })).toHaveCount(1);
 });

@@ -62,3 +62,12 @@ test('the storm keeps touches on the picture it paints, and lets others scroll',
   expect(kept.some(Boolean)).toBe(true); // on the picture
   expect(kept.some((k) => !k)).toBe(true); // around it
 });
+
+test('the billiard tables keep touches for aiming, and the chart below them lets the page scroll', async ({ page }) => {
+  await page.goto('/#room=billiards');
+  await expect(page.locator('body')).toHaveAttribute('data-room', 'billiards');
+  await page.waitForTimeout(300); // one frame, so the room knows where its tables are
+  expect(await touchKeeps(page, 0.25, 0.12)).toBe(true); // on the ellipse
+  expect(await touchKeeps(page, 0.75, 0.12)).toBe(true); // on the stadium
+  expect(await touchKeeps(page, 0.5, 0.8)).toBe(false); // on the chart
+});
