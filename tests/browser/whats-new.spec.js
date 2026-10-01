@@ -7,12 +7,12 @@ test('the home map names the newest rooms, newest first, and each opens its room
   const line = page.locator('#whats-new');
   await expect(line).toBeVisible();
   await expect(line.locator('button')).toHaveText([
+    'Stop at 37%',
     'The triangle with three right angles',
     'The table that forgets',
-    'A thousand samples, ten tests',
   ]);
-  await line.getByRole('button', { name: 'A thousand samples, ten tests' }).click();
-  await expectRoom(page, 'pools');
+  await line.getByRole('button', { name: 'The table that forgets' }).click();
+  await expectRoom(page, 'billiards');
 });
 
 test('with nothing new for 30 days, there is no line', async ({ page }) => {
@@ -26,6 +26,11 @@ test('the line speaks the page language', async ({ page }) => {
   await page.clock.setFixedTime(new Date('2026-09-30T12:00:00Z'));
   await page.goto('/?lang=he');
   await expect(page.locator('#whats-new .eyebrow')).toHaveText('חדש');
-  // A room that is newer than its translations is still named in English, so look for one that has them.
-  await expect(page.locator('#whats-new button', { hasText: 'אלף דגימות, עשר בדיקות' })).toHaveCount(1);
+  // Each room is named as its card on the map names it: in Hebrew once the room is translated, in English until then.
+  const buttons = page.locator('#whats-new button');
+  await expect(buttons).toHaveCount(3);
+  for (const button of await buttons.all()) {
+    const card = page.locator(`#card-${await button.getAttribute('data-go')} strong`);
+    await expect(button).toHaveText((await card.textContent()) ?? '');
+  }
 });
