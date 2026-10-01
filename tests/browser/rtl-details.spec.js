@@ -51,3 +51,63 @@ test('the Julia room’s label keeps its formula’s letters as they are', async
   expect(await style(page, '#scene-label', 'textTransform')).toBe('none');
   await expect(page.locator('#scene-label')).toHaveText('One rule · z → z² + c');
 });
+
+// The globe and stopping rooms draw their pictures left to right on every page, so a Hebrew or Arabic label there
+// needs marks to keep its punctuation and numbers in place. Each label drawn must look as it would in the page.
+test('on left-to-right pictures, Hebrew and Arabic labels read as they do in the page', async ({ page }) => {
+  await page.addInitScript(() => {
+    window.__drawn = new Set();
+    const fill = CanvasRenderingContext2D.prototype.fillText;
+    CanvasRenderingContext2D.prototype.fillText = function (text, ...rest) {
+      if (this.direction === 'ltr' && /[\u0590-\u06ff]/.test(text)) window.__drawn.add(String(text));
+      return fill.call(this, text, ...rest);
+    };
+  });
+  // The labels drawn so far whose characters, laid out left to right, sit in another order than right to left.
+  const misordered = () =>
+    page.evaluate(() => {
+      const order = (text, dir) => {
+        const div = document.createElement('div');
+        div.dir = dir;
+        div.style.cssText = 'position:absolute;white-space:pre';
+        div.textContent = text;
+        document.body.append(div);
+        const range = document.createRange();
+        const chars = [];
+        for (let i = 0; i < text.length; i++) {
+          range.setStart(div.firstChild, i);
+          range.setEnd(div.firstChild, i + 1);
+          const box = range.getBoundingClientRect();
+          if (box.width) chars.push([box.left, text[i]]);
+        }
+        div.remove();
+        return chars
+          .sort((a, b) => a[0] - b[0])
+          .map((c) => c[1])
+          .join('');
+      };
+      return [...window.__drawn].filter((text) => order(text, 'ltr') !== order(text, 'rtl'));
+    });
+  const drawn = () => page.evaluate(() => window.__drawn.size);
+  for (const lang of ['he', 'ar']) {
+    // The walk under way, then (with reduced motion) home again, and the ant's triangle seen up close.
+    await page.emulateMedia({ reducedMotion: 'no-preference' });
+    await page.goto(`/?lang=${lang}#room=globe`);
+    await expect.poll(drawn).toBeGreaterThan(1);
+    expect(await misordered(), `${lang} globe, walking`).toEqual([]);
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('about:blank');
+    await page.goto(`/?lang=${lang}#room=globe`);
+    await page.locator('.scene-preset').nth(2).click();
+    await page.locator('.scene-preset').nth(0).click();
+    await expect.poll(drawn).toBeGreaterThan(1);
+    expect(await misordered(), `${lang} globe, home`).toEqual([]);
+    // A few cards turned, one taken, and the game's end marked on the strip.
+    await page.goto(`/?lang=${lang}#room=stopping`);
+    await page.locator('#scene-canvas').focus();
+    for (let i = 0; i < 4; i++) await page.keyboard.press('ArrowRight');
+    await page.keyboard.press('Enter');
+    await expect.poll(drawn).toBeGreaterThan(10);
+    expect(await misordered(), `${lang} stopping`).toEqual([]);
+  }
+});
