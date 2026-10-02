@@ -11,7 +11,8 @@ export default defineConfig({
   testDir: 'tests/browser',
   fullyParallel: true,
   // PW_WORKERS lets a background run use fewer cores (the build loop sets 2; see docs/agents/BUILD_LOOP.md).
-  workers: Number(process.env.PW_WORKERS) || (process.env.CI ? 2 : 6),
+  // GitHub's runners for public repositories have 4 cores, so CI uses all of them.
+  workers: Number(process.env.PW_WORKERS) || (process.env.CI ? 4 : 6),
   reporter: process.env.CI ? 'github' : 'list',
   use: {
     baseURL: `http://localhost:${port}`,

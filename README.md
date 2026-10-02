@@ -6,12 +6,13 @@
 
 ![Wonderlattice: cards for a flower drawn by turning arms, a woven pattern, two dice, and three fingerprints](assets/social.jpg)
 
-Wonderlattice is a free collection of thirty-one rooms, each built around one surprise:
+Wonderlattice is a free collection of thirty-two rooms, each built around one surprise:
 
 - **Shape & space:** draw flowers with two turning arms, walk along a ribbon that has only one side, bend the plane
   until a circle becomes a wing, drag one seed to grow infinite fractal coastlines, play one shot twice on two billiard
-  tables, an ellipse that remembers it and a stadium that forgets it within seconds, and draw a triangle on a ball
-  with three right angles, round which a carried arrow comes home turned.
+  tables, an ellipse that remembers it and a stadium that forgets it within seconds, draw a triangle on a ball
+  with three right angles, round which a carried arrow comes home turned, and ride a cart with square wheels
+  perfectly level over a road of upside-down hanging chains, or draw any wheel and get its own road.
 - **Chance & evidence:** three dice that beat each other in a circle, a toy city where a huge poll is confidently
   wrong, a basketball court where the better shooter loses overall (built by a contributor), and a treasure detector
   that's usually right, yet whose beeps are usually wrong.
