@@ -7,12 +7,12 @@ test('the home map names the newest rooms, newest first, and each opens its room
   const line = page.locator('#whats-new');
   await expect(line).toBeVisible();
   await expect(line.locator('button')).toHaveText([
+    'Hang it, flip it, build it',
     'Stop at 37%',
     'The triangle with three right angles',
-    'The table that forgets',
   ]);
-  await line.getByRole('button', { name: 'The table that forgets' }).click();
-  await expectRoom(page, 'billiards');
+  await line.getByRole('button', { name: 'The triangle with three right angles' }).click();
+  await expectRoom(page, 'globe');
 });
 
 test('with nothing new for 30 days, there is no line', async ({ page }) => {
