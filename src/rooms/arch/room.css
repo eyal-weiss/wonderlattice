@@ -1,0 +1,58 @@
+/* Hang it, flip it, build it: the arch beside the chain, the readout, and the cursor over pegs, stones and dots. */
+body[data-room='arch'] #scene-canvas.arch-grab {
+  cursor: grab;
+}
+body[data-room='arch'] #scene-canvas.arch-pick {
+  cursor: pointer;
+}
+body[data-room='arch'] #scene-canvas.arch-draw {
+  cursor: crosshair;
+}
+.arch-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+}
+.arch-shapes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+.arch-shapes .button {
+  justify-content: center;
+  white-space: normal;
+}
+.arch-shapes .button[aria-pressed='true'] {
+  border-color: #d6a65a;
+  background: #3a2c18;
+  color: #f8e6c4;
+}
+.arch-readout {
+  border: 1px solid #4a3d30;
+  background: #1a1510;
+  padding: 12px 14px;
+  border-radius: 9px;
+}
+.arch-readout p {
+  margin: 0 0 8px;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+.arch-readout p:last-child {
+  margin-bottom: 0;
+}
+.arch-readout .arch-big {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #f5f1e6;
+}
+.arch-readout .arch-warn {
+  color: #ff8f99;
+}
+:root[data-contrast='more'] .arch-readout {
+  border-color: #9a8770;
+}
+:root[data-contrast='more'] .arch-readout .arch-warn {
+  color: #ffc2c7;
+}
