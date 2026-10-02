@@ -11,7 +11,8 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # A run takes about 8 minutes; the rest is room for a slow package mirror, which once took 11 minutes alone.
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
