@@ -82,7 +82,7 @@ Wonderlattice.defineText('wheels', 'fr', {
     flatOne: 'La même roue sur une route plate',
     crash: 'Le coin mord dans la bosse suivante',
     crashDrawn: 'La roue et sa route se heurtent',
-    closer: (n) => `${n}× plus près`,
+    closer: (n) => `Loupe ×${n}`,
     gallery: 'À chaque roue régulière sa route · Touchez-en une pour l’essayer',
     galleryDrawn: 'Formes de départ · Touchez-en une pour l’essayer',
     chain: 'Une chaîne suspendue à deux clous',
