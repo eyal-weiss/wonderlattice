@@ -1,7 +1,7 @@
 Wonderlattice.defineText('treasure', 'fr', {
   eyebrow: 'PROBABILITÉS',
   name: 'Le détecteur de trésor imparfait',
-  tagline: 'Un détecteur qui a raison 95 % du temps bipe. Y a-t-il un trésor ? Presque jamais.',
+  tagline: 'Un détecteur qui a raison 95 % du temps bipe. Y a-t-il un trésor ? En général, non.',
   title: 'Le détecteur de trésor imparfait.',
   subtitle: 'Balayez l’île, puis creusez là où il bipe. Combien de fois le trésor est-il vraiment là ?',
   field: 'Probabilités · Règle de Bayes · Une petite surprise',
