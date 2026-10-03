@@ -1,139 +1,139 @@
-/* Hang it, flip it, build it · visitor-facing words (pt). */
+/* Pendure, vire, construa · palavras para o visitante (pt). */
 Wonderlattice.defineText('arch', 'pt', {
-  eyebrow: 'CHAINS AND ARCHES',
-  name: 'Hang it, flip it, build it',
+  eyebrow: 'CORRENTES E ARCOS',
+  name: 'Pendure, vire, construa',
   tagline:
-    'A hanging chain, turned upside down, is an arch of loose stones that stands. A semicircle of the same stones falls.',
-  title: 'Hang it, flip it, build it.',
+    'Uma corrente pendurada, virada de cabeça para baixo, é um arco de pedras soltas que fica em pé. Um semicírculo com as mesmas pedras desaba.',
+  title: 'Pendure, vire, construa.',
   subtitle:
-    'A chain hangs between two pegs. Turned upside down, the same shape stands as an arch of loose stones; beside it, a semicircle of the same stones falls. Hang towers on the chain, or draw your own arch.',
-  field: 'Engineering · The catenary · Lines of force',
-  sceneLabel: 'A chain and an arch · Loose stones, no mortar',
-  sceneName: 'Your own experiment',
-  tip: 'Drag a peg · Tap the chain or a stone to add a tower · Drag an arch’s dots, or draw a new arch · Keys: ← → choose, ↑ ↓ change, F flips',
-  actionLabel: 'Flip',
+    'Uma corrente pende entre dois pinos. Virada de cabeça para baixo, a mesma forma fica em pé como um arco de pedras soltas; ao lado, um semicírculo com as mesmas pedras desaba. Pendure torres na corrente, ou desenhe o seu próprio arco.',
+  field: 'Engenharia · A catenária · Linhas de força',
+  sceneLabel: 'Uma corrente e um arco · Pedras soltas, sem argamassa',
+  sceneName: 'O seu próprio experimento',
+  tip: 'Arraste um pino · Toque na corrente ou numa pedra para pôr uma torre · Arraste os pontos de um arco, ou desenhe um arco novo · Teclas: ← → escolhem, ↑ ↓ mudam, F vira',
+  actionLabel: 'Virar',
   canvasLabel:
-    'Two pictures side by side, on the same scale. On the left, a chain hangs between two pegs and swings to rest; then it turns over into an arch of stones with no mortar, and stands. A gold line, the line of force, runs inside every stone. Towers hung on the chain stand on the arch once it is turned over. On the right, an arch of the same stones in another shape, a semicircle at first, is built on a wooden frame. When the frame drops, its line of force leaves the stones, four joints open, and it folds and falls. An arch of your own has nine dots to drag in or out.',
-  panelEyebrow: 'Shape the chain',
-  whyLabel: 'Why does it stand?',
+    'Duas imagens lado a lado, na mesma escala. À esquerda, uma corrente pende entre dois pinos e balança até parar; depois ela vira um arco de pedras sem argamassa, e fica em pé. Uma linha dourada, a linha de força, passa por dentro de cada pedra. Torres penduradas na corrente ficam em pé sobre o arco depois que ele é virado. À direita, um arco das mesmas pedras com outra forma, de início um semicírculo, é construído sobre uma armação de madeira. Quando a armação cai, a linha de força dele sai das pedras, quatro juntas se abrem, e ele se dobra e desaba. O seu próprio arco tem nove pontos para arrastar para dentro ou para fora.',
+  panelEyebrow: 'Molde a corrente',
+  whyLabel: 'Por que fica em pé?',
   nudge:
-    'Tap a stone partway up one side of the standing arch, three times, to give it a tower three storeys tall: it falls. Flip it back, and the chain bends to carry the tower. Flip again.',
+    'Toque três vezes numa pedra a meia altura de um lado do arco em pé, para dar a ela uma torre de três andares: ele desaba. Vire de volta, e a corrente se curva para carregar a torre. Vire de novo.',
   connection: {
-    html: '<strong>Stones without glue.</strong> Here every stone is held in place by the push of its neighbours. In The leaning tower of blocks, each block balances on the one below.',
-    label: 'See the leaning tower',
+    html: '<strong>Pedras sem cola.</strong> Aqui, cada pedra fica no lugar pelo empurrão das vizinhas. Em “A torre inclinada de blocos”, cada bloco se equilibra sobre o de baixo.',
+    label: 'Ver a torre inclinada',
   },
 
   presets: [
-    { name: 'Hang it, flip it', note: 'The chain’s shape stands; a semicircle falls.' },
-    { name: 'A tower on the side', note: 'The chain bends under it, so the arch can carry it.' },
-    { name: 'A road to carry', note: 'Under a heavy road the chain becomes a parabola.' },
+    { name: 'Pendure, vire', note: 'A forma da corrente fica em pé; um semicírculo desaba.' },
+    { name: 'Uma torre na lateral', note: 'A corrente se curva sob ela, e assim o arco consegue carregá-la.' },
+    { name: 'Uma estrada para carregar', note: 'Sob uma estrada pesada, a corrente vira uma parábola.' },
   ],
 
   // Lengths: the pegs start 1 m apart.
   cm: ' cm',
-  length: 'Length of the chain',
-  lengthHint: 'A longer chain hangs deeper, and turns over into a taller arch.',
-  thick: 'Thickness of the stones',
-  thickHint: 'For both arches. Thick enough, even a semicircle stands.',
-  road: 'Hang a road from the chain',
-  beside: 'The arch beside it',
-  shapes: { semicircle: 'Semicircle', pointed: 'Pointed', flat: 'Flat', own: 'Your own' },
-  ownHint: 'Drag its dots in or out, or draw a new arch from one foot to the other.',
+  length: 'Comprimento da corrente',
+  lengthHint: 'Uma corrente mais longa pende mais fundo, e vira um arco mais alto.',
+  thick: 'Espessura das pedras',
+  thickHint: 'Para os dois arcos. Com pedras grossas o bastante, até um semicírculo fica em pé.',
+  road: 'Pendurar uma estrada na corrente',
+  beside: 'O arco ao lado',
+  shapes: { semicircle: 'Semicírculo', pointed: 'Ogival', flat: 'Baixo', own: 'O seu' },
+  ownHint: 'Arraste os pontos dele para dentro ou para fora, ou desenhe um arco novo de um pé ao outro.',
 
   // Numbers arrive already written in the page's language.
   percent: (x) => `${x}%`,
   length_cm: (x) => `${x} cm`,
   readout: {
-    hanging: 'Hanging, the chain is pulled tight all along: pure tension.',
-    stands: 'Turned over, the same shape stands: pure push.',
-    falls: 'Turned over, with these loads, it falls.',
-    inside: (share) => `Its line of force stays ${share} of the stones’ thickness inside.`,
-    outside: (share) => `No line of force fits: the best one leaves the stones by ${share} of their thickness.`,
-    beside: (name, stands) => `${name} of the same stones ${stands ? 'stands' : 'falls'}.`,
-    thinnest: (cm) => `It stands with stones down to ${cm} thick.`,
-    thickest: (cm) => `It would stand with stones at least ${cm} thick.`,
-    never: (cm) => `Not even stones ${cm} thick would hold it.`,
-    any: 'It stands with stones of any thickness.',
-    working: 'Working out how thick its stones must be…',
+    hanging: 'Pendurada, a corrente fica esticada de ponta a ponta: pura tração.',
+    stands: 'Virada, a mesma forma fica em pé: pura compressão.',
+    falls: 'Virada, com estas cargas, ela desaba.',
+    inside: (share) => `A linha de força fica dentro das pedras, com uma folga de ${share} da espessura delas.`,
+    outside: (share) => `Nenhuma linha de força cabe: a melhor passa ${share} da espessura delas para fora das pedras.`,
+    beside: (name, stands) => `${name}, feito com as mesmas pedras, ${stands ? 'fica em pé' : 'desaba'}.`,
+    thinnest: (cm) => `Fica em pé com pedras a partir de ${cm} de espessura.`,
+    thickest: (cm) => `Ficaria em pé com pedras de pelo menos ${cm} de espessura.`,
+    never: (cm) => `Nem pedras de ${cm} de espessura o sustentariam.`,
+    any: 'Fica em pé com pedras de qualquer espessura.',
+    working: 'Calculando a espessura que as pedras precisam ter…',
   },
   status: {
-    hanging: 'The chain hangs',
-    stands: 'Turned over, it stands',
-    falls: 'Turned over, it falls',
-    beside: (name, stands) => `${name}: ${stands ? 'stands' : 'falls'}`,
+    hanging: 'A corrente está pendurada',
+    stands: 'Virada, fica em pé',
+    falls: 'Virada, desaba',
+    beside: (name, stands) => `${name}: ${stands ? 'fica em pé' : 'desaba'}`,
   },
 
   // Words drawn on the canvas.
   labels: {
-    chain: 'A hanging chain',
-    arch: 'The chain, turned over',
-    stands: 'It stands',
-    falls: 'It falls',
-    building: 'On its wooden frame',
-    semicircle: 'A semicircle',
-    pointed: 'A pointed arch',
-    flat: 'A flat arch',
-    own: 'Your own arch',
-    force: 'Line of force',
-    parabola: 'Parabola',
-    catenary: 'Catenary',
-    drawing: 'Draw from one foot to the other',
-    gallery: 'The same stones in other shapes · Tap one to test it',
-    thinnest: (cm) => `Thinnest stones: ${cm}`,
-    never: (cm) => `Not even ${cm} stones`,
-    any: 'Stones of any thickness',
-    chartTitle: 'How thin can the stones be?',
-    chainShape: 'The chain’s shape',
-    yours: (cm) => `Your stones: ${cm}`,
+    chain: 'Corrente pendurada',
+    arch: 'A corrente, virada',
+    stands: 'Fica em pé',
+    falls: 'Desaba',
+    building: 'Na armação',
+    semicircle: 'Um semicírculo',
+    pointed: 'Um arco ogival',
+    flat: 'Um arco baixo',
+    own: 'O seu arco',
+    force: 'Linha de força',
+    parabola: 'Parábola',
+    catenary: 'Catenária',
+    drawing: 'Desenhe de um pé ao outro',
+    gallery: 'As mesmas pedras em outras formas · Toque numa para testar',
+    thinnest: (cm) => `Pedras mais finas: ${cm}`,
+    never: (cm) => `Nem pedras de ${cm}`,
+    any: 'Qualquer espessura serve',
+    chartTitle: 'Quão finas podem ser as pedras?',
+    chainShape: 'A forma da corrente',
+    yours: (cm) => `Suas pedras: ${cm}`,
   },
 
   announce: {
-    stands: 'The chain, turned over, stands as an arch.',
-    falls: 'With these loads, the arch falls.',
-    hanging: 'The chain hangs from its pegs.',
-    beside: (name, stands) => `${name} of the same stones ${stands ? 'stands' : 'falls'}.`,
+    stands: 'A corrente, virada, fica em pé como um arco.',
+    falls: 'Com estas cargas, o arco desaba.',
+    hanging: 'A corrente está pendurada nos pinos.',
+    beside: (name, stands) => `${name}, feito com as mesmas pedras, ${stands ? 'fica em pé' : 'desaba'}.`,
     towers: (stone, storeys) =>
       storeys === 0
-        ? `Stone ${stone}: no tower.`
-        : `Stone ${stone}: a tower ${storeys} storey${storeys === 1 ? '' : 's'} tall.`,
+        ? `Pedra ${stone}: sem torre.`
+        : `Pedra ${stone}: uma torre de ${storeys} ${storeys === 1 ? 'andar' : 'andares'}.`,
     peg: (side) =>
       side === 0
-        ? 'The left peg: the up and down arrows move it, A and D move it sideways.'
-        : 'The right peg: the up and down arrows move it, A and D move it sideways.',
-    dot: (n) => `Dot ${n} of 9 of the arch beside it: the up and down arrows move it out and in.`,
+        ? 'O pino da esquerda: as setas para cima e para baixo o movem, A e D o movem para os lados.'
+        : 'O pino da direita: as setas para cima e para baixo o movem, A e D o movem para os lados.',
+    dot: (n) => `Ponto ${n} de 9 do arco ao lado: as setas para cima e para baixo o movem para fora e para dentro.`,
   },
 
   guests: [
     {
       name: 'Robert Hooke',
-      note: 'In 1675 he hid his rule for arches in a scramble of Latin letters. Unscrambled after his death, it says that a hanging chain, turned over, gives the shape of an arch that stands.',
+      note: 'Em 1675, ele escondeu a sua regra para arcos em letras latinas embaralhadas. Desembaralhada depois da morte dele, ela diz que uma corrente pendurada, virada, dá a forma de um arco que fica em pé.',
     },
     {
-      name: 'Galileo Galilei',
-      note: 'In 1638 he wrote that a hanging chain is close to a parabola, and closer the less it sags. It is close, but it is a different curve.',
+      name: 'Galileu Galilei',
+      note: 'Em 1638, ele escreveu que uma corrente pendurada fica perto de uma parábola, e mais perto quanto menos ela pende. Fica perto mesmo, mas é outra curva.',
     },
     {
       name: 'Antoni Gaudí',
-      note: 'For the crypt of a church at Colònia Güell, he hung ropes weighted with little sacks of lead shot, photographed them, and turned the photographs upside down to draw the vaults.',
+      note: 'Para a cripta de uma igreja na Colònia Güell, ele pendurou cordas com saquinhos de chumbinho, fotografou-as e virou as fotos de cabeça para baixo para desenhar as abóbadas.',
     },
   ],
 
   insight: {
-    title: 'Why does the chain’s shape stand?',
-    html: `<p>A hanging chain can only pull: each link tugs on the next, along the chain. Its shape is the one where those pulls balance the weight of every link. Turn the picture upside down and every force turns round with it: the pulls become pushes, along the same line, and they balance the same weights. That is an arch whose stones only press on each other, with nothing trying to bend them apart.</p>
-<p>Robert Hooke saw this in the 1670s, and in 1675 published it as a puzzle, a scramble of Latin letters. After his death it was read as <em>ut pendet continuum flexile, sic stabit contiguum rigidum inversum</em>: as hangs the flexible line, so, turned over, stand the touching pieces of an arch.</p>
-<div class="insight-visual">hanging chain: pure tension · the same shape upside down: pure compression</div>
-<h3>The line of force</h3>
-<p>Every arch has to pass its weight, stone by stone, down to its feet. The push from one stone to the next can be drawn as a line, the line of force (engineers call it the line of thrust). It has the shape a chain would hang in under the same weights, turned over. If such a line can be drawn inside the stones at every joint, the arch can stand: this is Jacques Heyman’s safe theorem (1966), for stones that can’t pull, can’t be crushed and don’t slide. Where the line touches the edge of a joint, the joint can open like a hinge; with enough hinges, the arch moves, and falls. The gold line is the one that keeps furthest inside.</p>
-<p>For the chain’s own shape, the line runs down the middle of every stone, which is why it stands however thin the stones are. A semicircle bulges out further on each side than the hanging shape, so its line of force, which follows a hanging shape, runs along the top of the stones at the crown and cuts through their inner edge partway down each side. With thin stones there is no room for it. Then four joints open like hinges, and the three pieces between them fold and fall. A semicircle stands only if its stones are at least about a tenth of its radius thick; Milutin Milankovitch worked out the exact figure in 1907, 10.75% for a smooth arch. The room’s arch of 21 stones needs 10.67%: stones 5.3 cm thick, for an arch 1 m wide.</p>
-<h3>Change the loads, change the shape</h3>
-<p>A tower on one side bends the hanging chain, and the turned-over chain carries the tower. But put the same tower on an arch made without it, and the line of force moves: a tall enough tower brings that arch down. Wind, crowds and traffic change the loads too, which is one reason real arches are thicker than their own weight alone needs.</p>
-<p>A heavy road hung from a light chain pulls it down evenly along the level, not along the chain, and the chain becomes a parabola: the shape of a suspension bridge’s cable. Turned over, it is a bridge whose arch holds up its road. For a shallow chain the parabola and the catenary are hard to tell apart; tick the road to see both. The Gateway Arch in St. Louis is a weighted catenary: its legs are thicker at the base, so the curve is the hanging shape of a chain with heavier links at its ends.</p>
-<details><summary>The mathematics, if you want it</summary><p>A chain of the same weight all along hangs as a catenary, y = a cosh(x / a), where a is the horizontal pull divided by the weight per unit length. Jacob Bernoulli set the problem as a challenge, and in June 1691 the answers of Gottfried Leibniz, Christiaan Huygens and Johann Bernoulli were printed together in the Acta Eruditorum. Earlier, in 1638, Galileo had written that a hanging chain is close to a parabola; Joachim Jungius proved it isn’t one, published in 1669. A load spread evenly along the level instead gives y = kx², a parabola.</p>
-<p>The room’s chain is 41 beads on 42 links. Its resting shape is solved exactly, by Newton’s method on the pulls at one peg, and the moving chain (Verlet steps, each link pulled back to its length) settles onto it. Each stone of the turned-over arch is two links long, with its own weight at its centre of mass. A line of force is set by three numbers, the horizontal push and where and how steeply it leaves the first joint; the room searches for the one that stays furthest inside the stones. When none fits, it tries every choice of four joints and corners as hinges, keeps those where every hinge opens and the weights go down, and lets the fastest fall play out as a linkage of three pieces, until a stone reaches the ground.</p>
-<p>The room’s tests check, against a separate computation, that the resting chain is within 0.02% of the span of a catenary, that the chain’s arch stands with stones 1 cm thick, and that the semicircle needs 5.3 cm and the pointed arch 3.5 cm. They also check that the room’s two ways of asking, whether a line of force fits and whether four hinges can fall, always agree.</p></details>
-<h3>What the room leaves out</h3>
-<p>The stones are perfectly rigid and never slide, the ground and the pegs never move, and the arch has no fill above it. Real stones are held by friction, real mortar can pull a little, and real feet can spread, which brings down arches that would otherwise stand. The fall is a cartoon of a real collapse: it follows the first motion of the stones, and stops when one touches the ground.</p>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Catenary" target="_blank" rel="noopener">Catenary (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Catenary_arch" target="_blank" rel="noopener">Catenary arch (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Line_of_thrust" target="_blank" rel="noopener">Line of thrust (Wikipedia)</a><a class="source-link" href="https://www.gf.uns.ac.rs/~zbornik/doc/NS2016.018.pdf" target="_blank" rel="noopener">Nikolić, Milankovitch’s theory of the thrust line (2016)</a><a class="source-link" href="https://talks.cam.ac.uk/talk/index/47582/" target="_blank" rel="noopener">Makris, the minimum thickness of semicircular arches (2013)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Col%C3%B2nia_G%C3%BCell" target="_blank" rel="noopener">Colònia Güell (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Gateway_Arch" target="_blank" rel="noopener">Gateway Arch (Wikipedia)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Hooke/" target="_blank" rel="noopener">Robert Hooke (MacTutor)</a></div>`,
+    title: 'Por que a forma da corrente fica em pé?',
+    html: `<p>Uma corrente pendurada só consegue puxar: cada elo puxa o seguinte, ao longo da corrente. A forma dela é aquela em que esses puxões equilibram o peso de cada elo. Vire a imagem de cabeça para baixo e cada força se inverte junto: os puxões viram empurrões, ao longo da mesma linha, e equilibram os mesmos pesos. Isso é um arco cujas pedras só fazem pressão umas nas outras, sem nada tentando dobrá-las e separá-las.</p>
+<p>Robert Hooke percebeu isso nos anos 1670 e, em 1675, publicou a ideia como um enigma, em letras latinas embaralhadas. Depois da morte dele, ela foi lida como <em>ut pendet continuum flexile, sic stabit contiguum rigidum inversum</em>: como pende a linha flexível, assim, viradas, ficam em pé as peças de um arco que se tocam.</p>
+<div class="insight-visual">corrente pendurada: pura tração · a mesma forma de cabeça para baixo: pura compressão</div>
+<h3>A linha de força</h3>
+<p>Todo arco precisa passar o próprio peso, pedra a pedra, até os pés. O empurrão de uma pedra na seguinte pode ser desenhado como uma linha, a linha de força (os engenheiros a chamam de linha de pressões). Ela tem a forma em que uma corrente penderia sob os mesmos pesos, virada. Se dá para desenhar uma linha assim dentro das pedras em cada junta, o arco consegue ficar em pé: é o teorema da segurança de Jacques Heyman (1966), para pedras que não conseguem puxar, não podem ser esmagadas e não escorregam. Onde a linha toca a borda de uma junta, a junta pode se abrir como uma dobradiça; com dobradiças suficientes, o arco se mexe e desaba. A linha dourada é a que fica mais longe das bordas.</p>
+<p>Na forma da própria corrente, a linha passa pelo meio de cada pedra, e é por isso que esse arco fica em pé por mais finas que sejam as pedras. Um semicírculo se projeta mais para fora, de cada lado, do que a forma pendurada; então a linha de força dele, que segue uma forma pendurada, corre rente ao topo das pedras no alto do arco e atravessa a borda interna delas a meia altura de cada lado. Com pedras finas, não há espaço para ela. Então quatro juntas se abrem como dobradiças, e as três partes entre elas se dobram e caem. Um semicírculo só fica em pé se as pedras tiverem pelo menos cerca de um décimo do raio de espessura; Milutin Milankovitch calculou o número exato em 1907: 10,75% para um arco contínuo. O arco da sala, de 21 pedras, precisa de 10,67%: pedras de 5,3 cm de espessura, para um arco de 1 m de largura.</p>
+<h3>Mude as cargas, mude a forma</h3>
+<p>Uma torre num dos lados curva a corrente pendurada, e a corrente virada carrega a torre. Mas ponha a mesma torre num arco feito sem ela, e a linha de força se desloca: uma torre alta o bastante derruba esse arco. Vento, multidões e trânsito também mudam as cargas, e esse é um dos motivos de os arcos de verdade serem mais grossos do que o próprio peso, sozinho, exigiria.</p>
+<p>Uma estrada pesada pendurada numa corrente leve puxa a corrente para baixo por igual ao longo da horizontal, não ao longo da corrente, e a corrente vira uma parábola: a forma do cabo de uma ponte pênsil. Virada, ela é uma ponte cujo arco sustenta a estrada. Numa corrente que pende pouco, a parábola e a catenária são difíceis de distinguir; marque a estrada para ver as duas. O Gateway Arch, em St. Louis, é uma catenária de peso variável: as pernas dele são mais grossas na base, então a curva é a forma pendurada de uma corrente com elos mais pesados nas pontas.</p>
+<details><summary>A matemática, se você quiser</summary><p>Uma corrente com o mesmo peso em todo o comprimento pende como uma catenária, y = a cosh(x / a), onde a é a tração horizontal dividida pelo peso por unidade de comprimento. Jacob Bernoulli propôs o problema como desafio, e em junho de 1691 as respostas de Gottfried Leibniz, Christiaan Huygens e Johann Bernoulli foram impressas juntas na Acta Eruditorum. Antes, em 1638, Galileu tinha escrito que uma corrente pendurada fica perto de uma parábola; Joachim Jungius provou que ela não é uma parábola, em trabalho publicado em 1669. Já uma carga espalhada por igual ao longo da horizontal dá y = kx², uma parábola.</p>
+<p>A corrente da sala tem 41 contas em 42 elos. A forma de repouso dela é calculada exatamente, pelo método de Newton aplicado aos puxões num dos pinos, e a corrente em movimento (passos de Verlet, cada elo puxado de volta ao seu comprimento) se acomoda nessa forma. Cada pedra do arco virado tem dois elos de comprimento, com o próprio peso no seu centro de massa. Uma linha de força é definida por três números: o empurrão horizontal, e onde e com que inclinação ela sai da primeira junta; a sala procura a que fica mais longe das bordas das pedras. Quando nenhuma cabe, ela testa cada escolha de quatro juntas e cantos como dobradiças, fica com aquelas em que todas as dobradiças se abrem e os pesos descem, e deixa a queda mais rápida acontecer como um mecanismo articulado de três peças, até uma pedra tocar o chão.</p>
+<p>Os testes da sala conferem, contra um cálculo separado, que a corrente em repouso difere de uma catenária em menos de 0,02% do vão, que o arco da corrente fica em pé com pedras de 1 cm de espessura, e que o semicírculo precisa de 5,3 cm e o arco ogival de 3,5 cm. Eles também conferem que as duas maneiras que a sala tem de perguntar, se uma linha de força cabe e se quatro dobradiças podem cair, sempre concordam.</p></details>
+<h3>O que a sala deixa de fora</h3>
+<p>As pedras são perfeitamente rígidas e nunca escorregam, o chão e os pinos nunca se mexem, e o arco não tem enchimento por cima. Pedras de verdade são seguras pelo atrito, argamassa de verdade consegue puxar um pouco, e pés de verdade podem se abrir, o que derruba arcos que, de outro modo, ficariam em pé. A queda é uma caricatura de um desabamento real: ela segue o primeiro movimento das pedras e para quando uma delas toca o chão.</p>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Catenary" target="_blank" rel="noopener">Catenária (Wikipedia, em inglês)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Catenary_arch" target="_blank" rel="noopener">Arco catenário (Wikipedia, em inglês)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Line_of_thrust" target="_blank" rel="noopener">Linha de pressões (Wikipedia, em inglês)</a><a class="source-link" href="https://www.gf.uns.ac.rs/~zbornik/doc/NS2016.018.pdf" target="_blank" rel="noopener">Nikolić, a teoria da linha de pressões de Milankovitch (2016, em inglês)</a><a class="source-link" href="https://talks.cam.ac.uk/talk/index/47582/" target="_blank" rel="noopener">Makris, a espessura mínima dos arcos semicirculares (2013, em inglês)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Col%C3%B2nia_G%C3%BCell" target="_blank" rel="noopener">Colònia Güell (Wikipedia, em inglês)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Gateway_Arch" target="_blank" rel="noopener">Gateway Arch (Wikipedia, em inglês)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Hooke/" target="_blank" rel="noopener">Robert Hooke (MacTutor, em inglês)</a></div>`,
   },
 });

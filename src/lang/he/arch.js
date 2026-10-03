@@ -1,139 +1,139 @@
 /* Hang it, flip it, build it · visitor-facing words (he). */
 Wonderlattice.defineText('arch', 'he', {
-  eyebrow: 'CHAINS AND ARCHES',
-  name: 'Hang it, flip it, build it',
-  tagline:
-    'A hanging chain, turned upside down, is an arch of loose stones that stands. A semicircle of the same stones falls.',
-  title: 'Hang it, flip it, build it.',
+  eyebrow: 'שרשראות וקשתות',
+  name: 'לתלות, להפוך, לבנות',
+  tagline: 'שרשרת תלויה, כשהופכים אותה, נותנת קשת אבנים שעומדת בלי שום מלט. קשת חצי־עגולה מאותן אבנים נופלת.',
+  title: 'לתלות, להפוך, לבנות.',
   subtitle:
-    'A chain hangs between two pegs. Turned upside down, the same shape stands as an arch of loose stones; beside it, a semicircle of the same stones falls. Hang towers on the chain, or draw your own arch.',
-  field: 'Engineering · The catenary · Lines of force',
-  sceneLabel: 'A chain and an arch · Loose stones, no mortar',
-  sceneName: 'Your own experiment',
-  tip: 'Drag a peg · Tap the chain or a stone to add a tower · Drag an arch’s dots, or draw a new arch · Keys: ← → choose, ↑ ↓ change, F flips',
-  actionLabel: 'Flip',
+    'שרשרת תלויה בין שתי יתדות. כשהופכים אותה, אותה צורה עומדת כקשת של אבנים בלי מלט; לצדה, קשת חצי־עגולה מאותן אבנים נופלת. תלו מגדלים על השרשרת, או ציירו קשת משלכם.',
+  field: 'הנדסה · קו השרשרת · קווי כוח',
+  sceneLabel: 'שרשרת וקשת · אבנים בלי מלט',
+  sceneName: 'הניסוי שלכם',
+  tip: 'גררו יתד · הקישו על השרשרת או על אבן כדי להוסיף מגדל · גררו את הנקודות של קשת, או ציירו קשת חדשה · מקשים: ← → בוחרים, ↑ ↓ משנים, F הופך',
+  actionLabel: 'להפוך',
   canvasLabel:
-    'Two pictures side by side, on the same scale. On the left, a chain hangs between two pegs and swings to rest; then it turns over into an arch of stones with no mortar, and stands. A gold line, the line of force, runs inside every stone. Towers hung on the chain stand on the arch once it is turned over. On the right, an arch of the same stones in another shape, a semicircle at first, is built on a wooden frame. When the frame drops, its line of force leaves the stones, four joints open, and it folds and falls. An arch of your own has nine dots to drag in or out.',
-  panelEyebrow: 'Shape the chain',
-  whyLabel: 'Why does it stand?',
+    'שתי תמונות זו לצד זו, באותו קנה מידה. משמאל, שרשרת תלויה בין שתי יתדות ומתנדנדת עד שהיא נחה; אחר כך היא מתהפכת לקשת של אבנים בלי מלט, ועומדת. קו זהוב, קו הכוח, עובר בתוך כל אבן. מגדלים שתלויים על השרשרת עומדים על הקשת אחרי שהיא מתהפכת. מימין, קשת מאותן אבנים בצורה אחרת, בהתחלה חצי עיגול, נבנית על תבנית עץ. כשהתבנית יורדת, קו הכוח שלה יוצא מהאבנים, ארבעה מפרקים נפתחים, והיא מתקפלת ונופלת. לקשת משלכם יש תשע נקודות לגרור פנימה או החוצה.',
+  panelEyebrow: 'לעצב את השרשרת',
+  whyLabel: 'למה היא עומדת?',
   nudge:
-    'Tap a stone partway up one side of the standing arch, three times, to give it a tower three storeys tall: it falls. Flip it back, and the chain bends to carry the tower. Flip again.',
+    'הקישו שלוש פעמים על אבן בצד של הקשת העומדת, בין הבסיס לפסגה, כדי לתת לה מגדל בן שלוש קומות: הקשת נופלת. הפכו אותה בחזרה, והשרשרת מתכופפת כדי לשאת את המגדל. הפכו שוב.',
   connection: {
-    html: '<strong>Stones without glue.</strong> Here every stone is held in place by the push of its neighbours. In The leaning tower of blocks, each block balances on the one below.',
-    label: 'See the leaning tower',
+    html: '<strong>אבנים בלי דבק.</strong> כאן כל אבן מוחזקת במקומה בדחיפה של השכנות שלה. ב”מגדל הלבנים הנטוי”, כל לבנה מתאזנת על זו שמתחתיה.',
+    label: 'לראות את המגדל הנטוי',
   },
 
   presets: [
-    { name: 'Hang it, flip it', note: 'The chain’s shape stands; a semicircle falls.' },
-    { name: 'A tower on the side', note: 'The chain bends under it, so the arch can carry it.' },
-    { name: 'A road to carry', note: 'Under a heavy road the chain becomes a parabola.' },
+    { name: 'לתלות, להפוך', note: 'הצורה של השרשרת עומדת; קשת חצי־עגולה נופלת.' },
+    { name: 'מגדל בצד', note: 'השרשרת מתכופפת מתחתיו, ולכן הקשת יכולה לשאת אותו.' },
+    { name: 'לשאת כביש', note: 'מתחת לכביש כבד, השרשרת נעשית פרבולה.' },
   ],
 
   // Lengths: the pegs start 1 m apart.
   cm: ' cm',
-  length: 'Length of the chain',
-  lengthHint: 'A longer chain hangs deeper, and turns over into a taller arch.',
-  thick: 'Thickness of the stones',
-  thickHint: 'For both arches. Thick enough, even a semicircle stands.',
-  road: 'Hang a road from the chain',
-  beside: 'The arch beside it',
-  shapes: { semicircle: 'Semicircle', pointed: 'Pointed', flat: 'Flat', own: 'Your own' },
-  ownHint: 'Drag its dots in or out, or draw a new arch from one foot to the other.',
+  length: 'אורך השרשרת',
+  lengthHint: 'שרשרת ארוכה יותר תלויה עמוק יותר, וכשהופכים אותה היא נעשית קשת גבוהה יותר.',
+  thick: 'עובי האבנים',
+  thickHint: 'לשתי הקשתות. עם אבנים עבות מספיק, אפילו קשת חצי־עגולה עומדת.',
+  road: 'לתלות כביש מהשרשרת',
+  beside: 'הקשת שלצדה',
+  shapes: { semicircle: 'חצי־עגולה', pointed: 'מחודדת', flat: 'שטוחה', own: 'משלכם' },
+  ownHint: 'גררו את הנקודות שלה פנימה או החוצה, או ציירו קשת חדשה מבסיס אחד לשני.',
 
-  // Numbers arrive already written in the page's language.
+  // Numbers arrive already written in the page's language. Isolated, so each length reads number first, then unit.
   percent: (x) => `${x}%`,
-  length_cm: (x) => `${x} cm`,
+  length_cm: (x) => `\u2066${x} cm\u2069`,
+  // Every arch's name (labels.semicircle, pointed, flat, own) is a feminine ”קשת …”, so one verb form fits them all.
   readout: {
-    hanging: 'Hanging, the chain is pulled tight all along: pure tension.',
-    stands: 'Turned over, the same shape stands: pure push.',
-    falls: 'Turned over, with these loads, it falls.',
-    inside: (share) => `Its line of force stays ${share} of the stones’ thickness inside.`,
-    outside: (share) => `No line of force fits: the best one leaves the stones by ${share} of their thickness.`,
-    beside: (name, stands) => `${name} of the same stones ${stands ? 'stands' : 'falls'}.`,
-    thinnest: (cm) => `It stands with stones down to ${cm} thick.`,
-    thickest: (cm) => `It would stand with stones at least ${cm} thick.`,
-    never: (cm) => `Not even stones ${cm} thick would hold it.`,
-    any: 'It stands with stones of any thickness.',
-    working: 'Working out how thick its stones must be…',
+    hanging: 'כשהשרשרת תלויה, היא מתוחה לכל אורכה: מתיחה טהורה.',
+    stands: 'כשהופכים אותה, אותה צורה עומדת: דחיפה טהורה.',
+    falls: 'כשהופכים אותה, עם העומסים האלה, היא נופלת.',
+    inside: (share) => `קו הכוח שלה נשאר בתוך האבנים, עם מרווח של ${share} מהעובי שלהן.`,
+    outside: (share) => `אין קו כוח שנכנס בתוך האבנים: הטוב ביותר יוצא מהן ב־${share} מהעובי שלהן.`,
+    beside: (name, stands) => `${name} מאותן אבנים ${stands ? 'עומדת' : 'נופלת'}.`,
+    thinnest: (cm) => `היא עומדת גם כשעובי האבנים יורד עד ${cm}.`,
+    thickest: (cm) => `היא הייתה עומדת עם אבנים בעובי ${cm} לפחות.`,
+    never: (cm) => `אפילו אבנים בעובי ${cm} לא היו מחזיקות אותה.`,
+    any: 'היא עומדת עם אבנים בכל עובי.',
+    working: 'מחשבים כמה עבות צריכות להיות האבנים שלה…',
   },
   status: {
-    hanging: 'The chain hangs',
-    stands: 'Turned over, it stands',
-    falls: 'Turned over, it falls',
-    beside: (name, stands) => `${name}: ${stands ? 'stands' : 'falls'}`,
+    hanging: 'השרשרת תלויה',
+    stands: 'הפוכה, היא עומדת',
+    falls: 'הפוכה, היא נופלת',
+    beside: (name, stands) => `${name}: ${stands ? 'עומדת' : 'נופלת'}`,
   },
 
-  // Words drawn on the canvas.
+  // Words drawn on the canvas, which is laid out right to left like the page.
   labels: {
-    chain: 'A hanging chain',
-    arch: 'The chain, turned over',
-    stands: 'It stands',
-    falls: 'It falls',
-    building: 'On its wooden frame',
-    semicircle: 'A semicircle',
-    pointed: 'A pointed arch',
-    flat: 'A flat arch',
-    own: 'Your own arch',
-    force: 'Line of force',
-    parabola: 'Parabola',
-    catenary: 'Catenary',
-    drawing: 'Draw from one foot to the other',
-    gallery: 'The same stones in other shapes · Tap one to test it',
-    thinnest: (cm) => `Thinnest stones: ${cm}`,
-    never: (cm) => `Not even ${cm} stones`,
-    any: 'Stones of any thickness',
-    chartTitle: 'How thin can the stones be?',
-    chainShape: 'The chain’s shape',
-    yours: (cm) => `Your stones: ${cm}`,
+    chain: 'שרשרת תלויה',
+    arch: 'השרשרת, הפוכה',
+    stands: 'היא עומדת',
+    falls: 'היא נופלת',
+    building: 'על תבנית העץ שלה',
+    semicircle: 'קשת חצי־עגולה',
+    pointed: 'קשת מחודדת',
+    flat: 'קשת שטוחה',
+    own: 'הקשת שלכם',
+    force: 'קו הכוח',
+    parabola: 'פרבולה',
+    catenary: 'קו השרשרת',
+    drawing: 'ציירו מבסיס לבסיס',
+    gallery: 'אותן אבנים בצורות אחרות · הקישו על אחת כדי לבדוק אותה',
+    thinnest: (cm) => `האבנים הכי דקות: ${cm}`,
+    never: (cm) => `גם לא בעובי ${cm}`,
+    any: 'אבנים בכל עובי',
+    chartTitle: 'כמה דקות יכולות להיות האבנים?',
+    chainShape: 'צורת השרשרת',
+    yours: (cm) => `האבנים שלכם: ${cm}`,
   },
 
   announce: {
-    stands: 'The chain, turned over, stands as an arch.',
-    falls: 'With these loads, the arch falls.',
-    hanging: 'The chain hangs from its pegs.',
-    beside: (name, stands) => `${name} of the same stones ${stands ? 'stands' : 'falls'}.`,
+    stands: 'השרשרת, הפוכה, עומדת כקשת.',
+    falls: 'עם העומסים האלה, הקשת נופלת.',
+    hanging: 'השרשרת תלויה על היתדות שלה.',
+    beside: (name, stands) => `${name} מאותן אבנים ${stands ? 'עומדת' : 'נופלת'}.`,
     towers: (stone, storeys) =>
       storeys === 0
-        ? `Stone ${stone}: no tower.`
-        : `Stone ${stone}: a tower ${storeys} storey${storeys === 1 ? '' : 's'} tall.`,
+        ? `אבן ${stone}: בלי מגדל.`
+        : `אבן ${stone}: מגדל ${storeys === 1 ? 'בן קומה אחת' : `בן ${storeys} קומות`}.`,
     peg: (side) =>
       side === 0
-        ? 'The left peg: the up and down arrows move it, A and D move it sideways.'
-        : 'The right peg: the up and down arrows move it, A and D move it sideways.',
-    dot: (n) => `Dot ${n} of 9 of the arch beside it: the up and down arrows move it out and in.`,
+        ? 'היתד השמאלית: החיצים למעלה ולמטה מזיזים אותה, A ו־D מזיזים אותה לצדדים.'
+        : 'היתד הימנית: החיצים למעלה ולמטה מזיזים אותה, A ו־D מזיזים אותה לצדדים.',
+    dot: (n) => `נקודה ${n} מתוך 9 בקשת שלצד השרשרת: החיצים למעלה ולמטה מזיזים אותה החוצה ופנימה.`,
   },
 
   guests: [
     {
-      name: 'Robert Hooke',
-      note: 'In 1675 he hid his rule for arches in a scramble of Latin letters. Unscrambled after his death, it says that a hanging chain, turned over, gives the shape of an arch that stands.',
+      name: 'רוברט הוק',
+      note: 'ב־1675 הוא הסתיר את הכלל שלו לקשתות בתוך ערבוביה של אותיות לטיניות. כשפוענחה אחרי מותו, התברר שהיא אומרת ששרשרת תלויה, הפוכה, נותנת את הצורה של קשת שעומדת.',
     },
     {
-      name: 'Galileo Galilei',
-      note: 'In 1638 he wrote that a hanging chain is close to a parabola, and closer the less it sags. It is close, but it is a different curve.',
+      name: 'גלילאו גליליי',
+      note: 'ב־1638 הוא כתב ששרשרת תלויה קרובה לפרבולה, וקרובה יותר ככל שהיא צונחת פחות. היא אכן קרובה, אבל זו עקומה אחרת.',
     },
     {
-      name: 'Antoni Gaudí',
-      note: 'For the crypt of a church at Colònia Güell, he hung ropes weighted with little sacks of lead shot, photographed them, and turned the photographs upside down to draw the vaults.',
+      name: 'אנטוני גאודי',
+      note: 'בשביל הקריפטה של כנסייה בקולוניה גואל, הוא תלה חבלים ועליהם שקיקים קטנים של כדוריות עופרת, צילם אותם, והפך את התצלומים כדי לשרטט את הקמרונות.',
     },
   ],
 
   insight: {
-    title: 'Why does the chain’s shape stand?',
-    html: `<p>A hanging chain can only pull: each link tugs on the next, along the chain. Its shape is the one where those pulls balance the weight of every link. Turn the picture upside down and every force turns round with it: the pulls become pushes, along the same line, and they balance the same weights. That is an arch whose stones only press on each other, with nothing trying to bend them apart.</p>
-<p>Robert Hooke saw this in the 1670s, and in 1675 published it as a puzzle, a scramble of Latin letters. After his death it was read as <em>ut pendet continuum flexile, sic stabit contiguum rigidum inversum</em>: as hangs the flexible line, so, turned over, stand the touching pieces of an arch.</p>
-<div class="insight-visual">hanging chain: pure tension · the same shape upside down: pure compression</div>
-<h3>The line of force</h3>
-<p>Every arch has to pass its weight, stone by stone, down to its feet. The push from one stone to the next can be drawn as a line, the line of force (engineers call it the line of thrust). It has the shape a chain would hang in under the same weights, turned over. If such a line can be drawn inside the stones at every joint, the arch can stand: this is Jacques Heyman’s safe theorem (1966), for stones that can’t pull, can’t be crushed and don’t slide. Where the line touches the edge of a joint, the joint can open like a hinge; with enough hinges, the arch moves, and falls. The gold line is the one that keeps furthest inside.</p>
-<p>For the chain’s own shape, the line runs down the middle of every stone, which is why it stands however thin the stones are. A semicircle bulges out further on each side than the hanging shape, so its line of force, which follows a hanging shape, runs along the top of the stones at the crown and cuts through their inner edge partway down each side. With thin stones there is no room for it. Then four joints open like hinges, and the three pieces between them fold and fall. A semicircle stands only if its stones are at least about a tenth of its radius thick; Milutin Milankovitch worked out the exact figure in 1907, 10.75% for a smooth arch. The room’s arch of 21 stones needs 10.67%: stones 5.3 cm thick, for an arch 1 m wide.</p>
-<h3>Change the loads, change the shape</h3>
-<p>A tower on one side bends the hanging chain, and the turned-over chain carries the tower. But put the same tower on an arch made without it, and the line of force moves: a tall enough tower brings that arch down. Wind, crowds and traffic change the loads too, which is one reason real arches are thicker than their own weight alone needs.</p>
-<p>A heavy road hung from a light chain pulls it down evenly along the level, not along the chain, and the chain becomes a parabola: the shape of a suspension bridge’s cable. Turned over, it is a bridge whose arch holds up its road. For a shallow chain the parabola and the catenary are hard to tell apart; tick the road to see both. The Gateway Arch in St. Louis is a weighted catenary: its legs are thicker at the base, so the curve is the hanging shape of a chain with heavier links at its ends.</p>
-<details><summary>The mathematics, if you want it</summary><p>A chain of the same weight all along hangs as a catenary, y = a cosh(x / a), where a is the horizontal pull divided by the weight per unit length. Jacob Bernoulli set the problem as a challenge, and in June 1691 the answers of Gottfried Leibniz, Christiaan Huygens and Johann Bernoulli were printed together in the Acta Eruditorum. Earlier, in 1638, Galileo had written that a hanging chain is close to a parabola; Joachim Jungius proved it isn’t one, published in 1669. A load spread evenly along the level instead gives y = kx², a parabola.</p>
-<p>The room’s chain is 41 beads on 42 links. Its resting shape is solved exactly, by Newton’s method on the pulls at one peg, and the moving chain (Verlet steps, each link pulled back to its length) settles onto it. Each stone of the turned-over arch is two links long, with its own weight at its centre of mass. A line of force is set by three numbers, the horizontal push and where and how steeply it leaves the first joint; the room searches for the one that stays furthest inside the stones. When none fits, it tries every choice of four joints and corners as hinges, keeps those where every hinge opens and the weights go down, and lets the fastest fall play out as a linkage of three pieces, until a stone reaches the ground.</p>
-<p>The room’s tests check, against a separate computation, that the resting chain is within 0.02% of the span of a catenary, that the chain’s arch stands with stones 1 cm thick, and that the semicircle needs 5.3 cm and the pointed arch 3.5 cm. They also check that the room’s two ways of asking, whether a line of force fits and whether four hinges can fall, always agree.</p></details>
-<h3>What the room leaves out</h3>
-<p>The stones are perfectly rigid and never slide, the ground and the pegs never move, and the arch has no fill above it. Real stones are held by friction, real mortar can pull a little, and real feet can spread, which brings down arches that would otherwise stand. The fall is a cartoon of a real collapse: it follows the first motion of the stones, and stops when one touches the ground.</p>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Catenary" target="_blank" rel="noopener">Catenary (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Catenary_arch" target="_blank" rel="noopener">Catenary arch (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Line_of_thrust" target="_blank" rel="noopener">Line of thrust (Wikipedia)</a><a class="source-link" href="https://www.gf.uns.ac.rs/~zbornik/doc/NS2016.018.pdf" target="_blank" rel="noopener">Nikolić, Milankovitch’s theory of the thrust line (2016)</a><a class="source-link" href="https://talks.cam.ac.uk/talk/index/47582/" target="_blank" rel="noopener">Makris, the minimum thickness of semicircular arches (2013)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Col%C3%B2nia_G%C3%BCell" target="_blank" rel="noopener">Colònia Güell (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Gateway_Arch" target="_blank" rel="noopener">Gateway Arch (Wikipedia)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Hooke/" target="_blank" rel="noopener">Robert Hooke (MacTutor)</a></div>`,
+    title: 'למה הצורה של השרשרת עומדת?',
+    html: `<p>שרשרת תלויה יכולה רק למשוך: כל חוליה מושכת את הבאה, לאורך השרשרת. הצורה שלה היא זו שבה המשיכות האלה מאזנות את המשקל של כל חוליה. הפכו את התמונה, וכל כוח מתהפך איתה: המשיכות נעשות דחיפות, לאורך אותו קו, והן מאזנות את אותם משקלים. זו קשת שהאבנים שלה רק לוחצות זו על זו, ושום דבר לא מנסה לכופף אותן ולפתוח ביניהן.</p>
+<p>רוברט הוק הבין את זה בשנות ה־1670, וב־1675 פרסם את זה כחידה, ערבוביה של אותיות לטיניות. אחרי מותו פוענח המשפט: <em>ut pendet continuum flexile, sic stabit contiguum rigidum inversum</em>, כלומר: כפי שתלוי הקו הגמיש, כך, בהיפוך, עומדים החלקים הנוגעים זה בזה של קשת.</p>
+<div class="insight-visual">שרשרת תלויה: מתיחה טהורה · אותה צורה הפוכה: דחיסה טהורה</div>
+<h3>קו הכוח</h3>
+<p>כל קשת צריכה להעביר את המשקל שלה, אבן אחרי אבן, עד לבסיסים שלה. את הדחיפה מאבן אחת לבאה אפשר לצייר כקו, קו הכוח (מהנדסים קוראים לו קו הדחף). הצורה שלו היא הצורה שבה הייתה נתלית שרשרת תחת אותם משקלים, הפוכה. אם אפשר לצייר קו כזה בתוך האבנים בכל מפרק, הקשת יכולה לעמוד: זה משפט הבטיחות של ז׳אק היימן (1966), לאבנים שלא יכולות למשוך, לא נמעכות ולא מחליקות. במקום שבו הקו נוגע בקצה של מפרק, המפרק יכול להיפתח כמו ציר; עם מספיק צירים, הקשת זזה, ונופלת. הקו הזהוב הוא זה שנשאר הכי רחוק מהשפות של האבנים.</p>
+<p>בצורה של השרשרת עצמה, הקו עובר באמצע של כל אבן, ולכן היא עומדת לא משנה כמה דקות האבנים. קשת חצי־עגולה בולטת החוצה בכל צד יותר מהצורה התלויה, ולכן קו הכוח שלה, שהולך לפי צורה תלויה, עובר לאורך החלק העליון של האבנים בפסגת הקשת, וחוצה את השפה הפנימית שלהן איפשהו במורד כל צד. עם אבנים דקות אין לו מקום. אז ארבעה מפרקים נפתחים כמו צירים, ושלושת החלקים שביניהם מתקפלים ונופלים. קשת חצי־עגולה עומדת רק אם עובי האבנים שלה הוא לפחות בערך עשירית מהרדיוס שלה; מילוטין מילנקוביץ׳ חישב את המספר המדויק ב־1907, 10.75% לקשת חלקה. הקשת של החדר, מ־21 אבנים, צריכה 10.67%: אבנים בעובי \u20665.3 cm\u2069, לקשת ברוחב \u20661 m\u2069.</p>
+<h3>משנים את העומסים, משנים את הצורה</h3>
+<p>מגדל בצד אחד מכופף את השרשרת התלויה, והשרשרת ההפוכה נושאת את המגדל. אבל שימו את אותו מגדל על קשת שנבנתה בלעדיו, וקו הכוח זז: מגדל גבוה מספיק מפיל את הקשת הזאת. גם רוח, קהל ותנועה משנים את העומסים, וזו אחת הסיבות שקשתות אמיתיות עבות יותר ממה שהמשקל שלהן לבדו דורש.</p>
+<p>כביש כבד שתלוי משרשרת קלה מושך אותה למטה באופן אחיד לפי המרחק האופקי, לא לפי האורך של השרשרת, והשרשרת נעשית פרבולה: הצורה של הכבל בגשר תלוי. כשהופכים אותה, זה גשר שהקשת שלו נושאת את הכביש. בשרשרת רדודה קשה להבדיל בין הפרבולה לקו השרשרת; סמנו את הכביש כדי לראות את שתיהן. קשת השער בסנט לואיס היא קו שרשרת משוקלל: הרגליים שלה עבות יותר בבסיס, ולכן העקומה היא הצורה התלויה של שרשרת שהחוליות שלה כבדות יותר בקצוות.</p>
+<details><summary>המתמטיקה, למי שרוצה</summary><p>שרשרת שמשקלה שווה לכל אורכה תלויה בצורת קו שרשרת, \u2066y = a cosh(x / a)\u2069, כאשר a הוא המשיכה האופקית חלקי המשקל ליחידת אורך. יאקוב ברנולי הציב את הבעיה כאתגר, וביוני 1691 נדפסו יחד בכתב העת Acta Eruditorum התשובות של גוטפריד לייבניץ, כריסטיאן הויגנס ויוהאן ברנולי. קודם לכן, ב־1638, כתב גלילאו ששרשרת תלויה קרובה לפרבולה; יואכים יונגיוס הוכיח שהיא לא פרבולה (ההוכחה פורסמה ב־1669). עומס שמפוזר באופן אחיד לפי המרחק האופקי נותן במקום זאת \u2066y = kx²\u2069, פרבולה.</p>
+<p>השרשרת של החדר היא 41 חרוזים שמחוברים ב־42 חוליות. צורת המנוחה שלה נפתרת במדויק, בשיטת ניוטון על המשיכות ביתד אחת, והשרשרת הנעה (צעדי ורלה, שבכל אחד מהם כל חוליה נמשכת בחזרה לאורך שלה) מתייצבת עליה. כל אבן בקשת ההפוכה ארוכה כמו שתי חוליות, והמשקל שלה פועל במרכז המסה שלה. קו כוח נקבע על ידי שלושה מספרים: הדחיפה האופקית, ואיפה ובאיזו תלילות הוא יוצא מהמפרק הראשון; החדר מחפש את הקו שנשאר הכי רחוק מהשפות של האבנים. כשאף קו לא נכנס, החדר מנסה כל בחירה של ארבעה מפרקים ופינות שישמשו כצירים, שומר את הבחירות שבהן כל ציר נפתח והמשקלים יורדים, ומריץ את הנפילה המהירה ביותר כמנגנון של שלושה חלקים, עד שאבן מגיעה לקרקע.</p>
+<p>הבדיקות של החדר מוודאות, מול חישוב נפרד, שהשרשרת במנוחה סוטה מקו שרשרת בלא יותר מ־0.02% מהמפתח, שהקשת של השרשרת עומדת עם אבנים בעובי \u20661 cm\u2069, ושהקשת החצי־עגולה צריכה \u20665.3 cm\u2069 והקשת המחודדת \u20663.5 cm\u2069. הן גם מוודאות ששתי הדרכים של החדר לשאול, האם קו כוח נכנס בתוך האבנים והאם ארבעה צירים יכולים ליפול, תמיד מסכימות.</p></details>
+<h3>מה החדר משאיר בחוץ</h3>
+<p>האבנים קשיחות לגמרי ואף פעם לא מחליקות, הקרקע והיתדות אף פעם לא זזות, ואין מילוי מעל הקשת. אבנים אמיתיות מוחזקות בחיכוך, מלט אמיתי יכול למשוך קצת, ובסיסים אמיתיים יכולים להתרחק זה מזה, וזה מפיל קשתות שהיו עומדות אחרת. הנפילה היא סקיצה של קריסה אמיתית: היא עוקבת אחרי התנועה הראשונה של האבנים, ונעצרת כשאחת מהן נוגעת בקרקע.</p>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Catenary" target="_blank" rel="noopener">קו השרשרת (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Catenary_arch" target="_blank" rel="noopener">קשת בצורת קו שרשרת (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Line_of_thrust" target="_blank" rel="noopener">קו הדחף (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://www.gf.uns.ac.rs/~zbornik/doc/NS2016.018.pdf" target="_blank" rel="noopener">ניקוליץ׳, התאוריה של מילנקוביץ׳ על קו הדחף (2016) (באנגלית)</a><a class="source-link" href="https://talks.cam.ac.uk/talk/index/47582/" target="_blank" rel="noopener">מקריס, העובי המזערי של קשתות חצי־עגולות (2013) (באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Col%C3%B2nia_G%C3%BCell" target="_blank" rel="noopener">קולוניה גואל (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Gateway_Arch" target="_blank" rel="noopener">קשת השער (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Hooke/" target="_blank" rel="noopener">רוברט הוק (MacTutor, באנגלית)</a></div>`,
   },
 });

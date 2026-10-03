@@ -1,136 +1,136 @@
-/* Square wheels, smooth ride · visitor-facing words (fr). */
+/* Roues carrées, trajet en douceur · les mots vus par le visiteur (fr). */
 Wonderlattice.defineText('wheels', 'fr', {
-  eyebrow: 'ROADS AND WHEELS',
-  name: 'Square wheels, smooth ride',
+  eyebrow: 'ROUTES ET ROUES',
+  name: 'Roues carrées, trajet en douceur',
   tagline:
-    'A cart with square wheels rides perfectly level on the right road. Draw any wheel, and it gets its own road.',
-  title: 'Square wheels, smooth ride.',
+    'Un chariot aux roues carrées roule sans le moindre cahot sur la bonne route. Dessinez n’importe quelle roue : elle aura sa propre route.',
+  title: 'Roues carrées, trajet en douceur.',
   subtitle:
-    'Square wheels on a road of bumps: the cup of water stays perfectly still. Below, the same cart on a flat road. Change the wheels, or draw your own.',
-  field: 'Geometry · Roads and wheels · The catenary',
-  sceneLabel: 'The same wheels · two roads',
-  tip: 'Drag the dots of your own wheel in or out · Keys: ← → change the sides, or pick a dot of your own wheel, and ↑ ↓ move it · Enter: another wheel',
-  actionLabel: 'Another wheel',
+    'Des roues carrées sur une route de bosses : le verre d’eau reste parfaitement immobile. En dessous, le même chariot sur une route plate. Changez les roues, ou dessinez les vôtres.',
+  field: 'Géométrie · Routes et roues · La chaînette',
+  sceneLabel: 'Les mêmes roues · deux routes',
+  tip: 'Faites glisser les points de votre roue vers l’intérieur ou l’extérieur · Clavier : ← → changent le nombre de côtés, ou choisissent un point de votre roue, et ↑ ↓ le déplacent · Entrée : une autre roue',
+  actionLabel: 'Une autre roue',
   canvasLabel:
-    'Two lanes. Above, a cart with square wheels rolls over a road of rounded bumps, and the cup of water on it glides along at one height. Below, the same cart rolls on a flat road, thumping up and down and splashing its water. On a large picture, further down: wheels with 3 to 8 sides, each rolling on its own road, the triangle’s corner cutting into the next bump, marked in red; and a hanging chain beside the same curve turned over, one bump of the square’s road. A drawn wheel has twelve dots to drag in or out.',
-  panelEyebrow: 'Pick a wheel',
-  whyLabel: 'Why does it ride level?',
+    'Deux voies. En haut, un chariot aux roues carrées roule sur une route de bosses arrondies, et le verre d’eau posé dessus avance à une hauteur constante. En bas, le même chariot roule sur une route plate : il cahote de haut en bas, et son eau gicle. Sur une grande image, plus bas : des roues de 3 à 8 côtés, chacune roulant sur sa propre route, avec le coin du triangle qui mord dans la bosse suivante, marqué en rouge ; et une chaîne suspendue à côté de la même courbe retournée, une bosse de la route du carré. Une roue dessinée a douze points à faire glisser vers l’intérieur ou l’extérieur.',
+  panelEyebrow: 'Choisissez une roue',
+  whyLabel: 'Pourquoi le chariot roule-t-il sans cahot ?',
   nudge:
-    'Slide the sides up to 12: the bumps flatten towards a flat road, the road a round wheel needs. Then slide down to 3, and watch the triangle’s corner cut into the next bump.',
+    'Montez jusqu’à 12 côtés : les bosses s’aplatissent vers une route plate, celle qu’il faut à une roue ronde. Puis redescendez jusqu’à 3, et regardez le coin du triangle mordre dans la bosse suivante.',
   connection: {
-    html: '<strong>Curves made by turning.</strong> Here a turning wheel decides the shape of its road. In Paint with motion, two turning arms draw flowers.',
-    label: 'Paint with motion',
+    html: '<strong>Des courbes nées d’une rotation.</strong> Ici, une roue qui tourne décide de la forme de sa route. Dans « Peindre avec le mouvement », deux bras qui tournent dessinent des fleurs.',
+    label: 'Peindre avec le mouvement',
   },
 
   presets: [
-    { name: 'Square wheels', note: 'Each bump is an upside-down hanging chain.' },
-    { name: 'A triangle crashes', note: 'Its corner cuts into the next bump.' },
-    { name: 'A heart-shaped wheel', note: 'Draw your own: every wheel gets a road.' },
+    { name: 'Roues carrées', note: 'Chaque bosse est une chaîne suspendue, à l’envers.' },
+    { name: 'Le triangle se cogne', note: 'Son coin mord dans la bosse suivante.' },
+    { name: 'Une roue en forme de cœur', note: 'Dessinez la vôtre : chaque roue a sa route.' },
   ],
-  // The scene's name for a regular wheel that isn't one of the presets, and for a drawn one.
+  // Le nom de la scène pour une roue régulière qui n’est pas l’un des préréglages, et pour une roue dessinée.
   sidesName: (n) =>
     n === 3
-      ? 'Triangle wheels'
+      ? 'Roues triangulaires'
       : n === 4
-        ? 'Square wheels'
+        ? 'Roues carrées'
         : n === 5
-          ? 'Pentagon wheels'
+          ? 'Roues pentagonales'
           : n === 6
-            ? 'Hexagon wheels'
+            ? 'Roues hexagonales'
             : n === 8
-              ? 'Octagon wheels'
-              : `Wheels with ${n} sides`,
-  yourOwn: 'Your own wheel',
+              ? 'Roues octogonales'
+              : `Roues à ${n} côtés`,
+  yourOwn: 'Votre propre roue',
 
-  kind: 'Kind of wheel',
-  regular: 'Regular wheels',
-  drawn: 'Your own wheel',
-  sides: 'Sides of the wheel',
-  sidesHint: 'More sides, smaller bumps. The triangle can’t ride its road.',
-  startFrom: 'Start from',
-  shapes: { heart: 'Heart', flower: 'Flower', egg: 'Egg', star: 'Star', circle: 'Circle' },
+  kind: 'Type de roue',
+  regular: 'Roues régulières',
+  drawn: 'Votre propre roue',
+  sides: 'Nombre de côtés',
+  sidesHint: 'Plus de côtés, des bosses plus petites. Le triangle ne peut pas rouler sur sa route.',
+  startFrom: 'Partir de',
+  shapes: { heart: 'Cœur', flower: 'Fleur', egg: 'Œuf', star: 'Étoile', circle: 'Cercle' },
   drawHint:
-    'Drag the dots on the wheel in or out, and its road changes with it. Pull the heart’s dent in towards the axle, and see what happens.',
+    'Faites glisser les points de la roue vers l’intérieur ou l’extérieur, et sa route change avec elle. Tirez le creux du cœur vers l’essieu, et voyez ce qui se passe.',
 
-  // Numbers arrive already written in the page's language.
-  percent: (x) => `${x}%`,
+  // Les nombres arrivent déjà écrits dans la langue de la page.
+  percent: (x) => `${x} %`,
   readout: {
-    level: 'On its own road, the axle stays perfectly level.',
-    crash: 'On its own road, it would crash.',
-    bumps: 'Each bump on its road is',
-    bumpsValue: (share) => `${share} of the radius high`,
-    bob: 'On a flat road, the axle bobs by',
-    bobValue: (share) => `${share} of the radius`,
-    bobDrawn: (share) => `${share} of the longest radius`,
-    cuts: 'It cuts into its road by',
-    cutsValue: (depth) => `${depth} of the radius`,
-    cutsDrawn: (depth) => `${depth} of the longest radius`,
-    during: 'It is crashing for',
-    duringValue: (share) => `${share} of the way`,
-    clear: 'It cuts into its road',
-    clearValue: 'nowhere',
-    radius: 'The radius runs from the axle to a corner.',
-    rule: 'The bumps are exactly as tall as the bob they cancel.',
-    drawnRule: 'Its road is as long as its rim, and as deep as the rim is far from the axle.',
+    level: 'Sur sa propre route, l’essieu reste parfaitement à la même hauteur.',
+    crash: 'Sur sa propre route, la roue se cognerait.',
+    bumps: 'Chaque bosse de sa route est haute de',
+    bumpsValue: (share) => `${share} du rayon`,
+    bob: 'Sur une route plate, l’essieu monte et descend de',
+    bobValue: (share) => `${share} du rayon`,
+    bobDrawn: (share) => `${share} du plus grand rayon`,
+    cuts: 'La roue s’enfonce dans sa route de',
+    cutsValue: (depth) => `${depth} du rayon`,
+    cutsDrawn: (depth) => `${depth} du plus grand rayon`,
+    during: 'Elle se cogne pendant',
+    duringValue: (share) => `${share} du trajet`,
+    clear: 'La roue ne s’enfonce dans sa route',
+    clearValue: 'nulle part',
+    radius: 'Le rayon va de l’essieu à un coin.',
+    rule: 'Les bosses sont exactement aussi hautes que les cahots qu’elles annulent.',
+    drawnRule: 'Sa route est aussi longue que son bord, et aussi profonde que le bord est éloigné de l’essieu.',
   },
-  status: { level: 'Level ride', crash: 'It would crash' },
+  status: { level: 'Trajet sans cahot', crash: 'La roue se cognerait' },
 
-  // Words drawn on the canvas.
+  // Les mots dessinés sur l’image.
   labels: {
-    own: 'On its own road',
-    flat: 'The same wheels on a flat road',
-    flatOne: 'The same wheel on a flat road',
-    crash: 'The corner cuts into the next bump',
-    crashDrawn: 'The wheel and its road collide',
-    closer: (n) => `${n}× closer`,
-    gallery: 'Every regular wheel has its own road · Tap one to ride it',
-    galleryDrawn: 'Wheels to start from · Tap one to ride it',
-    chain: 'A chain hanging from two nails',
-    turned: 'Turned over: a bump that fits the square',
-    sides: (n) => `${n} sides`,
-    crashes: 'crashes',
+    own: 'Sur sa route',
+    flat: 'Les mêmes roues sur une route plate',
+    flatOne: 'La même roue sur une route plate',
+    crash: 'Le coin mord dans la bosse suivante',
+    crashDrawn: 'La roue et sa route se heurtent',
+    closer: (n) => `${n}× plus près`,
+    gallery: 'À chaque roue régulière sa route · Touchez-en une pour l’essayer',
+    galleryDrawn: 'Formes de départ · Touchez-en une pour l’essayer',
+    chain: 'Une chaîne suspendue à deux clous',
+    turned: 'Retournée : une bosse faite pour le carré',
+    sides: (n) => `${n} côtés`,
+    crashes: 'se cogne',
   },
 
   announce: {
-    level: (name, bump) => `${name}: a level ride, over bumps ${bump} of the radius high.`,
-    levelDrawn: (name) => `${name}: a level ride on its own road.`,
-    crash: (name) => `${name}: on its own road it would crash.`,
-    picked: (n) => `Dot ${n} of 12: the up and down arrows move it out and in.`,
+    level: (name, bump) => `${name} : un trajet sans cahot, sur des bosses hautes de ${bump} du rayon.`,
+    levelDrawn: (name) => `${name} : un trajet sans cahot sur sa propre route.`,
+    crash: (name) => `${name} : sur sa propre route, la roue se cognerait.`,
+    picked: (n) => `Point ${n} sur 12 : les flèches haut et bas le poussent vers l’extérieur ou vers l’intérieur.`,
   },
 
   guests: [
     {
-      name: 'Johann Bernoulli',
-      note: 'In 1691 he found the shape of a chain hanging from two nails, a puzzle set by his brother Jacob: his first big result on his own.',
+      name: 'Jean Bernoulli',
+      note: 'En 1691, il a trouvé la forme d’une chaîne suspendue à deux clous, une énigme posée par son frère Jacques : son premier grand résultat obtenu seul.',
     },
     {
       name: 'Christiaan Huygens',
-      note: 'He was the first to call the hanging chain’s curve a catenary, from the Latin for chain, in a letter to Leibniz in 1690.',
+      note: 'Il a été le premier à donner un nom à la courbe de la chaîne suspendue, catenaria, du latin catena, « chaîne » (notre chaînette), dans une lettre à Leibniz en 1690.',
     },
     {
       name: 'Gottfried Leibniz',
-      note: 'He solved the hanging chain too. His answer, Huygens’s and Johann Bernoulli’s were printed side by side in a journal in June 1691.',
+      note: 'Il a lui aussi résolu le problème de la chaîne suspendue. Sa réponse, celle de Huygens et celle de Jean Bernoulli ont été imprimées côte à côte dans une revue en juin 1691.',
     },
   ],
 
   insight: {
-    title: 'Why does it ride level?',
-    html: `<p>For the axle to glide along at one height, two things must hold at every moment. The point where the wheel touches the road must be straight below the axle, so the road there must be exactly as far below the axle as that point of the rim: close below the middle of a side, and far below a corner. And the wheel mustn’t slip, so each bit of road must be as long as the bit of rim that rolls onto it.</p>
-<div class="insight-visual">depth of the road = distance from axle to rim · length of road = length of rim</div>
-<h3>Upside-down hanging chains</h3>
-<p>For a straight side, those two rules give a famous curve: the shape of a chain hanging between two nails, called a catenary, turned upside down. Each side of the square rolls over one bump, and each corner drops into the dip between two bumps, where they meet at a right angle, just like the corner. With more sides the bumps get shallower and shorter. As the sides grow in number, the wheel becomes round and its road flat.</p>
-<p>The bumps are exactly as tall as the bob they cancel. On a flat road, the axle rises and falls by the difference between its distance to a corner and to the middle of a side; on its own road, the dips are exactly that much deeper than the tops.</p>
-<h3>Why the triangle fails</h3>
-<p>The two rules give a road for a triangle too, but it can’t be ridden. As the triangle rolls over one bump, its leading corner swings down into the next bump before it reaches the dip. The road is right wherever the wheel touches it, and in the way elsewhere. Every regular wheel with four sides or more clears its road.</p>
-<h3>Any wheel, its own road</h3>
-<p>Your own wheel follows the same two rules, so a heart or an egg gets a road too. The room builds it from the wheel’s distance from the axle in every direction, then checks, at hundreds of moments as the wheel rolls, whether any of the road reaches inside it. Some wheels fail, and the places are shown in red: a sharp point digs into the next bump, like the triangle’s corner, or a deep dent makes a tall, sharp peak in the road, which pokes into the rim before the dent comes round to meet it.</p>
-<p>The dots on your wheel move only in and out along their spokes, so every direction from the axle meets the rim exactly once. A rim that folded back, seen from the axle, would need a road that rises straight up.</p>
-<details><summary>The mathematics, if you want it</summary><p>Describe the wheel by its distance from the axle, r(θ), in each direction θ. With the axle kept on the line y = 0 and the touching point straight below it, the road under the wheel’s point θ is at height y = −r(θ), and rolling without slipping makes dx = r dθ. For the side of a regular polygon, at distance a from the axle, r = a / cos θ, so x = a arsinh(tan θ) and y = −a cosh(x / a): an upside-down catenary, exactly as long as the side.</p>
-<p>Leon Hall and Stan Wagon worked out this pairing of wheels and roads in “Roads and Wheels” (1992). The Exploratorium in San Francisco has shown a pair of square wheels on such a road; Stan Wagon built a tricycle with square wheels at Macalester College in 1997, and the National Museum of Mathematics in New York has one that rides on catenaries.</p>
-<p>The catenary itself is older. Galileo thought a hanging chain made a parabola; Joachim Jungius showed that it doesn’t (published in 1669), and in 1691 Gottfried Leibniz, Christiaan Huygens and Johann Bernoulli found its equation, answering a challenge from Jacob Bernoulli.</p>
-<p>The room’s tests check that the square’s road is y = −a cosh(x / a), that road and rim keep equal lengths, that wheels with 4 to 12 sides clear their roads while the triangle’s corner cuts up to 3% of its radius into the next bump, and the depths of other crashes, against a separate computation.</p></details>
-<h3>What the room leaves out</h3>
-<p>The road must match the wheel’s size exactly, and be lined up with it: start a square wheel on the slope of a bump instead of its top, and it rides badly. A real cart also has wheels on both sides, which must keep in step with each other and with the bumps. The cart here rolls at a steady speed, with no springs, no wobble and no friction, and the water’s splashing on the flat road is drawn for fun, not computed.</p>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Square_wheel" target="_blank" rel="noopener">Square wheel (Wikipedia)</a><a class="source-link" href="https://mathworld.wolfram.com/Roulette.html" target="_blank" rel="noopener">Roulette (MathWorld)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Catenary" target="_blank" rel="noopener">Catenary (Wikipedia)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Curves/Catenary/" target="_blank" rel="noopener">Catenary (MacTutor)</a><a class="source-link" href="https://www.sciencenews.org/article/riding-square-wheels" target="_blank" rel="noopener">Riding on square wheels (Science News, 2004)</a><a class="source-link" href="https://math.hmc.edu/funfacts/?p=172" target="_blank" rel="noopener">Bike with square wheels (Math Fun Facts)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Stan_Wagon" target="_blank" rel="noopener">Stan Wagon (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/National_Museum_of_Mathematics" target="_blank" rel="noopener">National Museum of Mathematics (Wikipedia)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Bernoulli_Johann/" target="_blank" rel="noopener">Johann Bernoulli (MacTutor)</a></div>`,
+    title: 'Pourquoi le chariot roule-t-il sans cahot ?',
+    html: `<p>Pour que l’essieu avance à une hauteur constante, deux conditions doivent être remplies à chaque instant. Le point où la roue touche la route doit se trouver juste sous l’essieu, si bien que la route doit y être exactement aussi loin sous l’essieu que ce point du bord : tout près sous le milieu d’un côté, et loin sous un coin. Et la roue ne doit pas déraper, si bien que chaque bout de route doit être aussi long que le bout de bord qui roule dessus.</p>
+<div class="insight-visual">profondeur de la route = distance de l’essieu au bord · longueur de route = longueur de bord</div>
+<h3>Des chaînes suspendues, à l’envers</h3>
+<p>Pour un côté droit, ces deux règles donnent une courbe célèbre : la forme d’une chaîne suspendue entre deux clous, qu’on appelle une chaînette, retournée. Chaque côté du carré roule sur une bosse, et chaque coin tombe dans le creux entre deux bosses, où elles se rejoignent à angle droit, exactement comme le coin. Avec plus de côtés, les bosses deviennent moins hautes et plus courtes. À mesure que le nombre de côtés augmente, la roue devient ronde et sa route plate.</p>
+<p>Les bosses sont exactement aussi hautes que les cahots qu’elles annulent. Sur une route plate, l’essieu monte et descend de la différence entre sa distance à un coin et sa distance au milieu d’un côté ; sur sa propre route, les creux sont plus bas que les sommets d’exactement cette hauteur.</p>
+<h3>Pourquoi le triangle échoue</h3>
+<p>Les deux règles donnent aussi une route pour un triangle, mais on ne peut pas y rouler. Quand le triangle roule sur une bosse, son coin avant plonge dans la bosse suivante avant d’atteindre le creux. La route convient partout où la roue la touche, et barre le passage ailleurs. Toute roue régulière d’au moins quatre côtés passe sans heurter sa route.</p>
+<h3>À chaque roue sa route</h3>
+<p>Votre propre roue suit les deux mêmes règles, si bien qu’un cœur ou un œuf a lui aussi sa route. La salle la construit à partir de la distance entre l’essieu et le bord de la roue dans chaque direction, puis vérifie, à des centaines d’instants pendant que la roue roule, si un bout de la route entre à l’intérieur. Certaines roues échouent, et les endroits sont marqués en rouge : une pointe s’enfonce dans la bosse suivante, comme le coin du triangle, ou un creux profond crée sur la route un pic haut et pointu, qui rentre dans le bord avant que le creux n’arrive, en tournant, à sa rencontre.</p>
+<p>Les points de votre roue ne bougent que vers l’intérieur ou l’extérieur, le long de leur rayon, si bien que chaque direction partant de l’essieu rencontre le bord exactement une fois. Un bord qui se replierait sur lui-même, vu depuis l’essieu, demanderait une route qui monte à la verticale.</p>
+<details><summary>Les mathématiques, si vous voulez</summary><p>Décrivez la roue par sa distance à l’essieu, r(θ), dans chaque direction θ. Avec l’essieu maintenu sur la droite y = 0 et le point de contact juste en dessous, la route sous le point θ de la roue est à la hauteur y = −r(θ), et rouler sans glisser impose dx = r dθ. Pour le côté d’un polygone régulier, à la distance a de l’essieu, r = a / cos θ, donc x = a arsinh(tan θ) et y = −a cosh(x / a) : une chaînette à l’envers, exactement aussi longue que le côté.</p>
+<p>Leon Hall et Stan Wagon ont établi cette correspondance entre roues et routes dans « Roads and Wheels » (1992). L’Exploratorium de San Francisco a présenté une paire de roues carrées sur une telle route ; Stan Wagon a construit un tricycle à roues carrées au Macalester College en 1997, et le National Museum of Mathematics de New York en possède un qui roule sur des chaînettes.</p>
+<p>La chaînette elle-même est plus ancienne. Galilée pensait qu’une chaîne suspendue formait une parabole ; Joachim Jungius a montré que non (résultat publié en 1669), et en 1691 Gottfried Leibniz, Christiaan Huygens et Jean Bernoulli ont trouvé son équation, en réponse à un défi lancé par Jacques Bernoulli.</p>
+<p>Les tests de la salle vérifient, par un calcul indépendant, que la route du carré est y = −a cosh(x / a), que la route et le bord gardent des longueurs égales, que les roues de 4 à 12 côtés passent sans heurter leur route alors que le coin du triangle s’enfonce jusqu’à 3 % de son rayon dans la bosse suivante, ainsi que la profondeur des autres collisions.</p></details>
+<h3>Ce que cette salle laisse de côté</h3>
+<p>La route doit correspondre exactement à la taille de la roue, et être alignée avec elle : faites partir une roue carrée sur la pente d’une bosse au lieu de son sommet, et elle roule mal. Un vrai chariot a aussi des roues des deux côtés, qui doivent rester en phase entre elles et avec les bosses. Ici, le chariot roule à vitesse constante, sans ressorts, sans vacillement et sans frottement, et les éclaboussures de l’eau sur la route plate sont dessinées pour le plaisir, pas calculées.</p>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Square_wheel" target="_blank" rel="noopener">Roue carrée (Wikipédia, en anglais)</a><a class="source-link" href="https://mathworld.wolfram.com/Roulette.html" target="_blank" rel="noopener">Roulette (MathWorld, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Catenary" target="_blank" rel="noopener">Chaînette (Wikipédia, en anglais)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Curves/Catenary/" target="_blank" rel="noopener">Chaînette (MacTutor, en anglais)</a><a class="source-link" href="https://www.sciencenews.org/article/riding-square-wheels" target="_blank" rel="noopener">Rouler sur des roues carrées (Science News, 2004, en anglais)</a><a class="source-link" href="https://math.hmc.edu/funfacts/?p=172" target="_blank" rel="noopener">Un vélo à roues carrées (Math Fun Facts, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Stan_Wagon" target="_blank" rel="noopener">Stan Wagon (Wikipédia, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/National_Museum_of_Mathematics" target="_blank" rel="noopener">National Museum of Mathematics (Wikipédia, en anglais)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Bernoulli_Johann/" target="_blank" rel="noopener">Jean Bernoulli (MacTutor, en anglais)</a></div>`,
   },
 });

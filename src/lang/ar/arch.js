@@ -1,139 +1,155 @@
 /* Hang it, flip it, build it · visitor-facing words (ar). */
+// «قوس» (arch), «حجر» (stone), «وتد» (peg), «شكل» (shape) and «طابق» (storey) are masculine; «سلسلة» (chain) and
+// «وصلة» (joint) feminine. The four arch names are all «قوس …» nouns, so «يصمد» (stands) and «يسقط» (falls) agree
+// with each of them, and with «شكل السلسلة مقلوبًا» above the turned-over chain. The picture follows the page's
+// right-to-left direction; a length in centimetres is isolated so that it reads left to right.
 Wonderlattice.defineText('arch', 'ar', {
-  eyebrow: 'CHAINS AND ARCHES',
-  name: 'Hang it, flip it, build it',
+  eyebrow: 'سلاسل وأقواس',
+  name: 'تعليق، فقلب، فبناء',
   tagline:
-    'A hanging chain, turned upside down, is an arch of loose stones that stands. A semicircle of the same stones falls.',
-  title: 'Hang it, flip it, build it.',
+    'السلسلة المتدلّية، إذا قُلبت رأسًا على عقب، صارت قوسًا من حجارة سائبة يصمد. أما نصف الدائرة من الحجارة نفسها فيسقط.',
+  title: 'تعليق، فقلب، فبناء.',
   subtitle:
-    'A chain hangs between two pegs. Turned upside down, the same shape stands as an arch of loose stones; beside it, a semicircle of the same stones falls. Hang towers on the chain, or draw your own arch.',
-  field: 'Engineering · The catenary · Lines of force',
-  sceneLabel: 'A chain and an arch · Loose stones, no mortar',
-  sceneName: 'Your own experiment',
-  tip: 'Drag a peg · Tap the chain or a stone to add a tower · Drag an arch’s dots, or draw a new arch · Keys: ← → choose, ↑ ↓ change, F flips',
-  actionLabel: 'Flip',
+    'سلسلة تتدلّى بين وتدين. وحين يُقلب الشكل نفسه رأسًا على عقب، يصمد قوسًا من حجارة سائبة؛ وبجانبه يسقط قوس نصف دائري من الحجارة نفسها. علّقوا أبراجًا بالسلسلة، أو ارسموا قوسكم.',
+  field: 'الهندسة التطبيقية · المنحنى السلسلي · خطوط القوة',
+  sceneLabel: 'سلسلة وقوس · حجارة سائبة، بلا ملاط',
+  sceneName: 'تجربتكم الخاصة',
+  tip: 'اسحبوا وتدًا · انقروا على السلسلة أو على حجر لإضافة برج · اسحبوا نقاط القوس، أو ارسموا قوسًا جديدًا · المفاتيح: ← و→ للاختيار، و↑ و↓ للتغيير، وF للقلب',
+  actionLabel: 'قلب',
   canvasLabel:
-    'Two pictures side by side, on the same scale. On the left, a chain hangs between two pegs and swings to rest; then it turns over into an arch of stones with no mortar, and stands. A gold line, the line of force, runs inside every stone. Towers hung on the chain stand on the arch once it is turned over. On the right, an arch of the same stones in another shape, a semicircle at first, is built on a wooden frame. When the frame drops, its line of force leaves the stones, four joints open, and it folds and falls. An arch of your own has nine dots to drag in or out.',
-  panelEyebrow: 'Shape the chain',
-  whyLabel: 'Why does it stand?',
+    'صورتان متجاورتان، بالمقياس نفسه. على اليسار، سلسلة تتدلّى بين وتدين وتتأرجح حتى تسكن؛ ثم تنقلب فتصير قوسًا من حجارة بلا ملاط، يصمد. ويمرّ خط ذهبي، هو خط القوة، داخل كل حجر. والأبراج المعلّقة بالسلسلة تقف على القوس بعد قلبه. وعلى اليمين، قوس من الحجارة نفسها بشكل آخر، نصف دائري في البداية، يُبنى على قالب خشبي. وحين يُزال القالب، يخرج خط قوّته من الحجارة، وتنفتح أربع وصلات، فينطوي ويسقط. ولقوسكم الخاص تسع نقاط يمكن سحبها إلى الداخل أو الخارج.',
+  panelEyebrow: 'شكّلوا السلسلة',
+  whyLabel: 'لماذا يصمد؟',
   nudge:
-    'Tap a stone partway up one side of the standing arch, three times, to give it a tower three storeys tall: it falls. Flip it back, and the chain bends to carry the tower. Flip again.',
+    'انقروا ثلاث مرات على حجر بين القاعدة والذروة، على أحد جانبي القوس الصامد، لتضعوا عليه برجًا من ثلاثة طوابق: يسقط القوس. أعيدوا قلبه، فتنثني السلسلة لتحمل البرج. ثم اقلبوها من جديد.',
   connection: {
-    html: '<strong>Stones without glue.</strong> Here every stone is held in place by the push of its neighbours. In The leaning tower of blocks, each block balances on the one below.',
-    label: 'See the leaning tower',
+    html: '<strong>حجارة بلا غِراء.</strong> هنا يبقى كل حجر في مكانه بدفع جيرانه. وفي «برج المكعبات المائل»، يتوازن كل مكعب على الذي تحته.',
+    label: 'مشاهدة البرج المائل',
   },
 
   presets: [
-    { name: 'Hang it, flip it', note: 'The chain’s shape stands; a semicircle falls.' },
-    { name: 'A tower on the side', note: 'The chain bends under it, so the arch can carry it.' },
-    { name: 'A road to carry', note: 'Under a heavy road the chain becomes a parabola.' },
+    { name: 'تعليق، فقلب', note: 'شكل السلسلة يصمد؛ ونصف الدائرة يسقط.' },
+    { name: 'برج على الجانب', note: 'تنثني السلسلة تحته، فيستطيع القوس أن يحمله.' },
+    { name: 'حمل طريق', note: 'تحت طريق ثقيل تصير السلسلة قطعًا مكافئًا.' },
   ],
 
-  // Lengths: the pegs start 1 m apart.
+  // Lengths: the pegs start 1 m apart. The sliders' unit, and the chart's axis, keep the Latin «cm».
   cm: ' cm',
-  length: 'Length of the chain',
-  lengthHint: 'A longer chain hangs deeper, and turns over into a taller arch.',
-  thick: 'Thickness of the stones',
-  thickHint: 'For both arches. Thick enough, even a semicircle stands.',
-  road: 'Hang a road from the chain',
-  beside: 'The arch beside it',
-  shapes: { semicircle: 'Semicircle', pointed: 'Pointed', flat: 'Flat', own: 'Your own' },
-  ownHint: 'Drag its dots in or out, or draw a new arch from one foot to the other.',
+  length: 'طول السلسلة',
+  lengthHint: 'السلسلة الأطول تتدلّى أعمق، وتنقلب قوسًا أعلى.',
+  thick: 'سماكة الحجارة',
+  thickHint: 'للقوسين كليهما. وإذا كانت الحجارة سميكة بما يكفي، يصمد حتى نصف الدائرة.',
+  road: 'تعليق طريق بالسلسلة',
+  beside: 'القوس المجاور',
+  shapes: { semicircle: 'نصف دائري', pointed: 'مدبّب', flat: 'منخفض', own: 'قوسكم' },
+  ownHint: 'اسحبوا نقاطه إلى الداخل أو الخارج، أو ارسموا قوسًا جديدًا من إحدى قدميه إلى الأخرى.',
 
   // Numbers arrive already written in the page's language.
   percent: (x) => `${x}%`,
-  length_cm: (x) => `${x} cm`,
+  length_cm: (x) => `\u2066${x}\u00a0cm\u2069`,
   readout: {
-    hanging: 'Hanging, the chain is pulled tight all along: pure tension.',
-    stands: 'Turned over, the same shape stands: pure push.',
-    falls: 'Turned over, with these loads, it falls.',
-    inside: (share) => `Its line of force stays ${share} of the stones’ thickness inside.`,
-    outside: (share) => `No line of force fits: the best one leaves the stones by ${share} of their thickness.`,
-    beside: (name, stands) => `${name} of the same stones ${stands ? 'stands' : 'falls'}.`,
-    thinnest: (cm) => `It stands with stones down to ${cm} thick.`,
-    thickest: (cm) => `It would stand with stones at least ${cm} thick.`,
-    never: (cm) => `Not even stones ${cm} thick would hold it.`,
-    any: 'It stands with stones of any thickness.',
-    working: 'Working out how thick its stones must be…',
+    hanging: 'وهي متدلّية، تكون السلسلة مشدودة على طولها كله: شدّ خالص.',
+    stands: 'بعد قلبه، يصمد الشكل نفسه: دفع خالص.',
+    falls: 'بعد القلب، ومع هذه الأحمال، يسقط القوس.',
+    inside: (share) => `يبقى خط قوّته داخل الحجارة، بهامش ${share} من سماكتها.`,
+    outside: (share) => `لا يتّسع أي خط قوة داخل الحجارة: أفضلها يخرج منها بمقدار ${share} من سماكتها.`,
+    // name is one of the four arch names in labels, all «قوس …».
+    beside: (name, stands) => `${name}، من الحجارة نفسها، ${stands ? 'يصمد' : 'يسقط'}.`,
+    thinnest: (cm) => `يصمد بحجارة لا تقلّ سماكتها عن ${cm}.`,
+    thickest: (cm) => `كان سيصمد بحجارة لا تقلّ سماكتها عن ${cm}.`,
+    never: (cm) => `حتى الحجارة التي سماكتها ${cm} لا تكفي لإبقائه قائمًا.`,
+    any: 'يصمد بحجارة من أي سماكة.',
+    working: 'جارٍ حساب السماكة اللازمة لحجارته…',
   },
   status: {
-    hanging: 'The chain hangs',
-    stands: 'Turned over, it stands',
-    falls: 'Turned over, it falls',
-    beside: (name, stands) => `${name}: ${stands ? 'stands' : 'falls'}`,
+    hanging: 'السلسلة متدلّية',
+    stands: 'بعد قلبها، تصمد',
+    falls: 'بعد قلبها، تسقط',
+    beside: (name, stands) => `${name}: ${stands ? 'يصمد' : 'يسقط'}`,
   },
 
   // Words drawn on the canvas.
   labels: {
-    chain: 'A hanging chain',
-    arch: 'The chain, turned over',
-    stands: 'It stands',
-    falls: 'It falls',
-    building: 'On its wooden frame',
-    semicircle: 'A semicircle',
-    pointed: 'A pointed arch',
-    flat: 'A flat arch',
-    own: 'Your own arch',
-    force: 'Line of force',
-    parabola: 'Parabola',
-    catenary: 'Catenary',
-    drawing: 'Draw from one foot to the other',
-    gallery: 'The same stones in other shapes · Tap one to test it',
-    thinnest: (cm) => `Thinnest stones: ${cm}`,
-    never: (cm) => `Not even ${cm} stones`,
-    any: 'Stones of any thickness',
-    chartTitle: 'How thin can the stones be?',
-    chainShape: 'The chain’s shape',
-    yours: (cm) => `Your stones: ${cm}`,
+    chain: 'سلسلة متدلّية',
+    arch: 'شكل السلسلة مقلوبًا',
+    stands: 'يصمد',
+    falls: 'يسقط',
+    building: 'على قالبه الخشبي',
+    semicircle: 'قوس نصف دائري',
+    pointed: 'قوس مدبّب',
+    flat: 'قوس منخفض',
+    own: 'قوسكم',
+    force: 'خط القوة',
+    parabola: 'قطع مكافئ',
+    catenary: 'منحنى سلسلي',
+    drawing: 'ارسموا من قدم إلى أخرى',
+    gallery: 'الحجارة نفسها بأشكال أخرى · انقروا على أحدها لاختباره',
+    thinnest: (cm) => `أقل سماكة: ${cm}`,
+    never: (cm) => `لا يكفي حتى ${cm}`,
+    any: 'حجارة بأي سماكة',
+    chartTitle: 'كم يمكن أن تكون الحجارة رقيقة؟',
+    chainShape: 'شكل السلسلة',
+    yours: (cm) => `حجارتكم: ${cm}`,
   },
 
   announce: {
-    stands: 'The chain, turned over, stands as an arch.',
-    falls: 'With these loads, the arch falls.',
-    hanging: 'The chain hangs from its pegs.',
-    beside: (name, stands) => `${name} of the same stones ${stands ? 'stands' : 'falls'}.`,
-    towers: (stone, storeys) =>
-      storeys === 0
-        ? `Stone ${stone}: no tower.`
-        : `Stone ${stone}: a tower ${storeys} storey${storeys === 1 ? '' : 's'} tall.`,
+    stands: 'السلسلة، بعد قلبها، تصمد على هيئة قوس.',
+    falls: 'مع هذه الأحمال، يسقط القوس.',
+    hanging: 'السلسلة تتدلّى من وتديها.',
+    beside: (name, stands) => `${name}، من الحجارة نفسها، ${stands ? 'يصمد' : 'يسقط'}.`,
+    // storeys is 0 to 10.
+    towers: (stone, storeys) => {
+      const k = storeys % 100;
+      return storeys === 0
+        ? `الحجر ${stone}: بلا برج.`
+        : storeys === 1
+          ? `الحجر ${stone}: برج من طابق واحد.`
+          : storeys === 2
+            ? `الحجر ${stone}: برج من طابقين.`
+            : k >= 3 && k <= 10
+              ? `الحجر ${stone}: برج من ${storeys} طوابق.`
+              : k >= 11
+                ? `الحجر ${stone}: برج من ${storeys} طابقًا.`
+                : `الحجر ${stone}: برج من ${storeys} طابق.`;
+    },
     peg: (side) =>
       side === 0
-        ? 'The left peg: the up and down arrows move it, A and D move it sideways.'
-        : 'The right peg: the up and down arrows move it, A and D move it sideways.',
-    dot: (n) => `Dot ${n} of 9 of the arch beside it: the up and down arrows move it out and in.`,
+        ? 'الوتد الأيسر: مفتاحا السهمين الأعلى والأسفل يحرّكانه، وA وD يحرّكانه جانبًا.'
+        : 'الوتد الأيمن: مفتاحا السهمين الأعلى والأسفل يحرّكانه، وA وD يحرّكانه جانبًا.',
+    dot: (n) => `النقطة ${n} من 9 في القوس المجاور: مفتاحا السهمين الأعلى والأسفل يحرّكانها إلى الخارج والداخل.`,
   },
 
   guests: [
     {
-      name: 'Robert Hooke',
-      note: 'In 1675 he hid his rule for arches in a scramble of Latin letters. Unscrambled after his death, it says that a hanging chain, turned over, gives the shape of an arch that stands.',
+      name: 'روبرت هوك',
+      note: 'عام 1675 أخفى قاعدته للأقواس في خليط من الحروف اللاتينية المبعثرة. وبعد وفاته أُعيد ترتيب الحروف، فإذا هي تقول إن السلسلة المتدلّية، إذا قُلبت، تعطي شكل قوس يصمد.',
     },
     {
-      name: 'Galileo Galilei',
-      note: 'In 1638 he wrote that a hanging chain is close to a parabola, and closer the less it sags. It is close, but it is a different curve.',
+      name: 'غاليليو غاليلي',
+      note: 'كتب عام 1638 أن السلسلة المتدلّية قريبة من القطع المكافئ، وتزداد قربًا منه كلما قلّ ارتخاؤها. وهي قريبة فعلًا، لكنها منحنى مختلف.',
     },
     {
-      name: 'Antoni Gaudí',
-      note: 'For the crypt of a church at Colònia Güell, he hung ropes weighted with little sacks of lead shot, photographed them, and turned the photographs upside down to draw the vaults.',
+      name: 'أنطوني غاودي',
+      note: 'من أجل سرداب كنيسة في كولونيا غويل، علّق حبالًا أثقلها بأكياس صغيرة من كريات الرصاص، وصوّرها، ثم قلب الصور رأسًا على عقب ليرسم الأقبية.',
     },
   ],
 
   insight: {
-    title: 'Why does the chain’s shape stand?',
-    html: `<p>A hanging chain can only pull: each link tugs on the next, along the chain. Its shape is the one where those pulls balance the weight of every link. Turn the picture upside down and every force turns round with it: the pulls become pushes, along the same line, and they balance the same weights. That is an arch whose stones only press on each other, with nothing trying to bend them apart.</p>
-<p>Robert Hooke saw this in the 1670s, and in 1675 published it as a puzzle, a scramble of Latin letters. After his death it was read as <em>ut pendet continuum flexile, sic stabit contiguum rigidum inversum</em>: as hangs the flexible line, so, turned over, stand the touching pieces of an arch.</p>
-<div class="insight-visual">hanging chain: pure tension · the same shape upside down: pure compression</div>
-<h3>The line of force</h3>
-<p>Every arch has to pass its weight, stone by stone, down to its feet. The push from one stone to the next can be drawn as a line, the line of force (engineers call it the line of thrust). It has the shape a chain would hang in under the same weights, turned over. If such a line can be drawn inside the stones at every joint, the arch can stand: this is Jacques Heyman’s safe theorem (1966), for stones that can’t pull, can’t be crushed and don’t slide. Where the line touches the edge of a joint, the joint can open like a hinge; with enough hinges, the arch moves, and falls. The gold line is the one that keeps furthest inside.</p>
-<p>For the chain’s own shape, the line runs down the middle of every stone, which is why it stands however thin the stones are. A semicircle bulges out further on each side than the hanging shape, so its line of force, which follows a hanging shape, runs along the top of the stones at the crown and cuts through their inner edge partway down each side. With thin stones there is no room for it. Then four joints open like hinges, and the three pieces between them fold and fall. A semicircle stands only if its stones are at least about a tenth of its radius thick; Milutin Milankovitch worked out the exact figure in 1907, 10.75% for a smooth arch. The room’s arch of 21 stones needs 10.67%: stones 5.3 cm thick, for an arch 1 m wide.</p>
-<h3>Change the loads, change the shape</h3>
-<p>A tower on one side bends the hanging chain, and the turned-over chain carries the tower. But put the same tower on an arch made without it, and the line of force moves: a tall enough tower brings that arch down. Wind, crowds and traffic change the loads too, which is one reason real arches are thicker than their own weight alone needs.</p>
-<p>A heavy road hung from a light chain pulls it down evenly along the level, not along the chain, and the chain becomes a parabola: the shape of a suspension bridge’s cable. Turned over, it is a bridge whose arch holds up its road. For a shallow chain the parabola and the catenary are hard to tell apart; tick the road to see both. The Gateway Arch in St. Louis is a weighted catenary: its legs are thicker at the base, so the curve is the hanging shape of a chain with heavier links at its ends.</p>
-<details><summary>The mathematics, if you want it</summary><p>A chain of the same weight all along hangs as a catenary, y = a cosh(x / a), where a is the horizontal pull divided by the weight per unit length. Jacob Bernoulli set the problem as a challenge, and in June 1691 the answers of Gottfried Leibniz, Christiaan Huygens and Johann Bernoulli were printed together in the Acta Eruditorum. Earlier, in 1638, Galileo had written that a hanging chain is close to a parabola; Joachim Jungius proved it isn’t one, published in 1669. A load spread evenly along the level instead gives y = kx², a parabola.</p>
-<p>The room’s chain is 41 beads on 42 links. Its resting shape is solved exactly, by Newton’s method on the pulls at one peg, and the moving chain (Verlet steps, each link pulled back to its length) settles onto it. Each stone of the turned-over arch is two links long, with its own weight at its centre of mass. A line of force is set by three numbers, the horizontal push and where and how steeply it leaves the first joint; the room searches for the one that stays furthest inside the stones. When none fits, it tries every choice of four joints and corners as hinges, keeps those where every hinge opens and the weights go down, and lets the fastest fall play out as a linkage of three pieces, until a stone reaches the ground.</p>
-<p>The room’s tests check, against a separate computation, that the resting chain is within 0.02% of the span of a catenary, that the chain’s arch stands with stones 1 cm thick, and that the semicircle needs 5.3 cm and the pointed arch 3.5 cm. They also check that the room’s two ways of asking, whether a line of force fits and whether four hinges can fall, always agree.</p></details>
-<h3>What the room leaves out</h3>
-<p>The stones are perfectly rigid and never slide, the ground and the pegs never move, and the arch has no fill above it. Real stones are held by friction, real mortar can pull a little, and real feet can spread, which brings down arches that would otherwise stand. The fall is a cartoon of a real collapse: it follows the first motion of the stones, and stops when one touches the ground.</p>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Catenary" target="_blank" rel="noopener">Catenary (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Catenary_arch" target="_blank" rel="noopener">Catenary arch (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Line_of_thrust" target="_blank" rel="noopener">Line of thrust (Wikipedia)</a><a class="source-link" href="https://www.gf.uns.ac.rs/~zbornik/doc/NS2016.018.pdf" target="_blank" rel="noopener">Nikolić, Milankovitch’s theory of the thrust line (2016)</a><a class="source-link" href="https://talks.cam.ac.uk/talk/index/47582/" target="_blank" rel="noopener">Makris, the minimum thickness of semicircular arches (2013)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Col%C3%B2nia_G%C3%BCell" target="_blank" rel="noopener">Colònia Güell (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Gateway_Arch" target="_blank" rel="noopener">Gateway Arch (Wikipedia)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Hooke/" target="_blank" rel="noopener">Robert Hooke (MacTutor)</a></div>`,
+    title: 'لماذا يصمد شكل السلسلة؟',
+    html: `<p>السلسلة المتدلّية لا تستطيع إلا أن تشدّ: كل حلقة تجذب التي تليها، على امتداد السلسلة. وشكلها هو الشكل الذي تتوازن فيه تلك الشدّات مع وزن كل حلقة. اقلبوا الصورة رأسًا على عقب، فتنقلب معها كل قوة: تصير الشدّات دفعات، على الخط نفسه، وتوازن الأوزان نفسها. هذا قوس لا تفعل حجارته سوى أن يضغط بعضها على بعض، ولا شيء يحاول ثنيها وتفريقها.</p>
+<p>أدرك روبرت هوك ذلك في سبعينيات القرن السابع عشر، ونشره عام 1675 على هيئة لغز: حروف لاتينية مبعثرة. وبعد وفاته قُرئ هكذا: <em>\u2066ut pendet continuum flexile, sic stabit contiguum rigidum inversum\u2069</em>، أي: كما يتدلّى الخط المرن، كذلك تقف، مقلوبةً، قطع القوس المتلامسة.</p>
+<div class="insight-visual">سلسلة متدلّية: شدّ خالص · الشكل نفسه مقلوبًا: ضغط خالص</div>
+<h3>خط القوة</h3>
+<p>على كل قوس أن ينقل وزنه، حجرًا بعد حجر، نزولًا إلى قدميه. ويمكن رسم الدفع من كل حجر إلى الذي يليه خطًّا، هو خط القوة (ويسمّيه المهندسون خط الدفع). وشكله هو الشكل الذي كانت ستتدلّى به سلسلة تحت الأوزان نفسها، مقلوبًا. إذا أمكن رسم خط كهذا داخل الحجارة عند كل وصلة، أمكن للقوس أن يصمد: هذه هي مبرهنة الأمان لجاك هيمان (1966)، لحجارة لا تستطيع أن تشدّ، ولا تنسحق، ولا تنزلق. وحيث يلمس الخط حافة وصلة، يمكن للوصلة أن تنفتح كالمفصّلة؛ ومع عدد كافٍ من المفصّلات، يتحرّك القوس ويسقط. والخط الذهبي هو الخط الذي يبقى أبعد ما يمكن في الداخل.</p>
+<p>في شكل السلسلة نفسه، يمرّ الخط في منتصف كل حجر، ولهذا يصمد مهما كانت الحجارة رقيقة. أما نصف الدائرة فينتفخ على كل جانب أكثر من الشكل المتدلّي، لذا فخط قوّته، الذي يتبع شكلًا متدلّيًا، يمرّ على امتداد أعلى الحجارة عند الذروة، ويخترق حافتها الداخلية في موضع أدنى من كل جانب. ومع حجارة رقيقة لا يتّسع له مكان. عندئذ تنفتح أربع وصلات كالمفصّلات، وتنطوي القطع الثلاث بينها وتسقط. لا يصمد القوس نصف الدائري إلا إذا كانت سماكة حجارته نحو عُشر نصف قطره على الأقل؛ وقد حسب ميلوتين ميلانكوفيتش الرقم الدقيق عام 1907: 10.75% لقوس متصل. أما قوس الغرفة المؤلَّف من 21 حجرًا فيحتاج إلى 10.67%: حجارة سماكتها \u20665.3\u00a0cm\u2069، لقوس عرضه \u20661\u00a0m\u2069.</p>
+<h3>غيّروا الأحمال، يتغيّر الشكل</h3>
+<p>برج على أحد الجانبين يثني السلسلة المتدلّية، والسلسلة المقلوبة تحمل البرج. لكن ضعوا البرج نفسه على قوس بُني من دونه، فيتحرّك خط القوة: برج عالٍ بما يكفي يُسقط ذلك القوس. والرياح والحشود وحركة المرور تغيّر الأحمال أيضًا، وهذا أحد أسباب كون الأقواس الحقيقية أسمك مما يحتاجه وزنها وحده.</p>
+<p>طريق ثقيل معلّق بسلسلة خفيفة يشدّها إلى الأسفل بالتساوي على امتداد المسافة الأفقية، لا على امتداد السلسلة، فتصير السلسلة قطعًا مكافئًا: شكل كبل الجسر المعلّق. ومقلوبةً، تصير جسرًا يحمل قوسُه طريقَه. ومع سلسلة قليلة الارتخاء يصعب التمييز بين القطع المكافئ والمنحنى السلسلي؛ فعّلوا خيار الطريق لتروا الاثنين. وقوس البوابة في سانت لويس منحنى سلسلي مُثقَّل: ساقاه أسمك عند القاعدة، فالمنحنى هو شكل سلسلة متدلّية حلقاتها أثقل عند طرفيها.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>السلسلة المتجانسة الوزن على طولها كله تتدلّى على شكل منحنى سلسلي، \u2066y\u00a0=\u00a0a\u00a0cosh(x\u00a0/\u2060\u00a0a)\u2069، حيث a هو الشدّ الأفقي مقسومًا على الوزن لكل وحدة طول. طرح ياكوب برنولي المسألة تحدّيًا، وفي يونيو 1691 نُشرت حلول غوتفريد لايبنتس وكريستيان هويغنز ويوهان برنولي معًا في مجلة \u2066Acta Eruditorum\u2069. وقبل ذلك، عام 1638، كتب غاليليو أن السلسلة المتدلّية قريبة من القطع المكافئ؛ وبرهن يواخيم يونغيوس أنها ليست قطعًا مكافئًا، ونُشر ذلك عام 1669. أما الحمل الموزّع بالتساوي على امتداد المسافة الأفقية فيعطي \u2066y\u00a0=\u00a0kx²\u2069، أي قطعًا مكافئًا.</p>
+<p>سلسلة الغرفة 41 خرزة على 42 حلقة. يُحسب شكلها في السكون بدقة، بطريقة نيوتن مطبَّقةً على الشدّ عند أحد الوتدين، والسلسلة المتحركة (بخطوات فيرليه، تُعاد فيها كل حلقة إلى طولها) تستقر عليه. كل حجر من القوس المقلوب بطول حلقتين، ووزنه في مركز كتلته. ويتحدّد خط القوة بثلاثة أعداد: الدفع الأفقي، وموضع خروجه من الوصلة الأولى، ومدى انحداره عندها؛ وتبحث الغرفة عن الخط الذي يبقى أبعد ما يمكن داخل الحجارة. وحين لا يتّسع أي خط، تجرّب كل اختيار لأربع وصلات وأركانها لتكون مفصّلات، وتُبقي الاختيارات التي تنفتح فيها كل مفصّلة وتنزل فيها الأوزان، وتترك السقوط الأسرع يجري كآلية من ثلاث قطع مترابطة، حتى يبلغ حجرٌ الأرض.</p>
+<p>تتحقّق اختبارات الغرفة، بمقارنتها بحساب مستقل، من أن السلسلة الساكنة تطابق منحنى سلسليًا ضمن 0.02% من المسافة بين الوتدين، وأن قوس السلسلة يصمد بحجارة سماكتها \u20661\u00a0cm\u2069، وأن نصف الدائرة يحتاج إلى \u20665.3\u00a0cm\u2069 والقوس المدبّب إلى \u20663.5\u00a0cm\u2069. وتتحقّق أيضًا من أن طريقتَي الغرفة في السؤال، هل يتّسع خط قوة، وهل يمكن لأربع مفصّلات أن تسقط، تتفقان دائمًا.</p></details>
+<h3>ما تُغفله هذه الغرفة</h3>
+<p>الحجارة صلبة تمامًا ولا تنزلق أبدًا، ولا تتحرّك الأرض ولا الوتدان أبدًا، وليس فوق القوس أي حشو. الحجارة الحقيقية يمسكها الاحتكاك، والملاط الحقيقي يستطيع أن يشدّ قليلًا، والأقدام الحقيقية قد تتباعد، فتُسقط أقواسًا كانت ستصمد لولا ذلك. والسقوط هنا رسم تبسيطي لانهيار حقيقي: يتبع الحركة الأولى للحجارة، ويتوقف حين يلمس أحدها الأرض.</p>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Catenary" target="_blank" rel="noopener">المنحنى السلسلي (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Catenary_arch" target="_blank" rel="noopener">القوس السلسلي (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Line_of_thrust" target="_blank" rel="noopener">خط الدفع (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://www.gf.uns.ac.rs/~zbornik/doc/NS2016.018.pdf" target="_blank" rel="noopener">نيكوليتش، نظرية ميلانكوفيتش في خط الدفع (2016، بالإنجليزية)</a><a class="source-link" href="https://talks.cam.ac.uk/talk/index/47582/" target="_blank" rel="noopener">ماكريس، أدنى سماكة للأقواس نصف الدائرية (2013، بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Col%C3%B2nia_G%C3%BCell" target="_blank" rel="noopener">كولونيا غويل (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Gateway_Arch" target="_blank" rel="noopener">قوس البوابة (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Hooke/" target="_blank" rel="noopener">روبرت هوك (MacTutor، بالإنجليزية)</a></div>`,
   },
 });

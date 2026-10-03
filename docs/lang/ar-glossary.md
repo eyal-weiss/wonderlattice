@@ -266,6 +266,7 @@ and `title` use the same words.
 
 | id          | English                              | Arabic                                               |
 | ----------- | ------------------------------------ | ---------------------------------------------------- |
+| arch        | Hang it, flip it, build it           | تعليق، فقلب، فبناء                                   |
 | billiards   | The table that forgets               | الطاولة التي تنسى                                    |
 | blocks      | The leaning tower of blocks          | برج المكعبات المائل                                  |
 | compress    | How much picture can you throw away? | كم من الصورة يمكنكم أن ترموا؟                        |
@@ -296,6 +297,7 @@ and `title` use the same words.
 | treasure    | The imperfect treasure detector      | كاشف الكنز غير المثالي                               |
 | waves       | Hear the shape                       | سماع الشكل                                           |
 | weather     | Weather twins                        | توأما الطقس                                          |
+| wheels      | Square wheels, smooth ride           | عجلات مربعة، ورحلة سلسة                              |
 
 Themes (already in app.js): الشكل والفضاء · الصدفة والأدلة · ألعاب وألغاز · إبداع · الهندسة التطبيقية · أنماط حيّة ·
 إشارات وشبكات.
@@ -471,6 +473,35 @@ the loom's weaving draft), شريط (a ribbon; a shaded band on a chart).
 | Birkhoff / Poncelet / Bunimovich / Bellos       | جورج ديفيد بيركهوف / جان فيكتور بونسليه / ليونيد بونيموفيتش / أليكس بيلوس          |
 | Girard / Gauss / Levi-Civita / Harriot / Cartan | ألبير جيرار / كارل فريدريش غاوس / تولليو ليفي-تشيفيتا / توماس هاريوت / إيلي كارتان |
 | Kepler / Ferguson / Cayley / Flood              | يوهانس كيبلر / توماس فيرغسون / آرثر كايلي / ميريل فلود                             |
+
+**Roads, wheels and arches** (wheels, arch)
+
+| English                                         | Arabic                                                                                             |
+| ----------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| catenary / catenary arch                        | المنحنى السلسلي، pl. منحنيات سلسلية («منحنى سلسلي» on a picture) / القوس السلسلي                   |
+| parabola                                        | قطع مكافئ                                                                                          |
+| wheel / axle / rim / spoke                      | عجلة (feminine) / المحور / حافة العجلة / شعاع من المحور                                            |
+| square / triangle wheels                        | عجلات مربعة / مثلثة; 5, 6, 8 sides: خماسية / سداسية / مثمّنة; otherwise «عجلات ذات 7 أضلاع»        |
+| side / corner (of a wheel)                      | ضلع (masculine), pl. أضلاع («11 ضلعًا») / رأس, as for a triangle                                   |
+| bump / dip (of the road)                        | حدبة (feminine), pl. حدبات / المنخفض بين حدبتين                                                    |
+| level ride / the axle bobs                      | سير مستوٍ («تسير مستويةً») / يصعد المحور ويهبط                                                     |
+| cuts into (the road) / crash                    | تنغرز في / اصطدام («سيقع اصطدام» avoids the gender of a wheel's name)                              |
+| dent (of a drawn wheel)                         | تقعّر                                                                                              |
+| cart / nail / chain / link / bead               | عربة / مسمار / سلسلة / حلقة / خرزة                                                                 |
+| arch / stone / mortar                           | قوس (masculine, as in «قوس مدبّب»), pl. أقواس / حجر, pl. حجارة («حجارة سائبة» loose stones) / ملاط |
+| semicircle / pointed / flat (segmental) arch    | قوس نصف دائري / قوس مدبّب / قوس منخفض; your own arch: قوسكم. «نصف الدائرة» takes a masculine verb  |
+| stands / falls (an arch)                        | يصمد / يسقط                                                                                        |
+| line of force / line of thrust                  | خط القوة / خط الدفع                                                                                |
+| pure tension / pure compression (push)          | شدّ خالص / ضغط خالص (دفع خالص)                                                                     |
+| joint (between stones) / hinge                  | وصلة (feminine), pl. وصلات / مفصّلة, pl. مفصّلات                                                   |
+| peg                                             | وتد (masculine), dual وتدان / وتدين                                                                |
+| storey (of a tower hung on the chain)           | طابق, as in §10 above («برج من 3 طوابق»، «برج من 11 طابقًا»)                                       |
+| wooden frame (centering) / crown / foot         | قالب خشبي / الذروة / قدم (feminine), dual قدمان                                                    |
+| thickness (of the stones)                       | سماكة                                                                                              |
+| Hang it, flip it / Flip (button)                | تعليق، فقلب / قلب                                                                                  |
+| Hooke / Galileo / Gaudí / Colònia Güell         | روبرت هوك / غاليليو غاليلي / أنطوني غاودي / كولونيا غويل                                           |
+| Johann / Jacob Bernoulli / Leibniz / Jungius    | يوهان برنولي / ياكوب برنولي / غوتفريد لايبنتس / يواخيم يونغيوس                                     |
+| Heyman / Milankovitch / Verlet / Hall and Wagon | جاك هيمان / ميلوتين ميلانكوفيتش / فيرليه / ليون هول وستان واغن                                     |
 
 ### Recurring phrases (identical in every room)
 
