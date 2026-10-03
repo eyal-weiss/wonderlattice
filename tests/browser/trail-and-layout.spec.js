@@ -101,23 +101,29 @@ async function openRoomFromDialog(page, room) {
 
 test('every room can keep a moment in the trail and reopen it', async ({ page }) => {
   test.setTimeout(10000 * Object.keys(ROOMS).length); // visits every room twice
-  await page.goto('/');
-  for (const room of Object.keys(ROOMS)) {
-    await openRoom(page, room);
-    await page.locator(room === 'motion' ? '#trail-keep-motion' : '#trail-keep-scene').click();
-    await page.locator('#trail-save').click();
-    await expect(page.locator('#trail-status'), `${room} saves`).toHaveText('');
-    await expect(page.locator('#trail-dialog')).toBeVisible();
-    await page.locator('#trail-dialog .trail-close').click();
-  }
-  await page.reload();
-  await page.locator('#trail-open').click();
-  await expect(page.locator('.trail-card')).toHaveCount(Object.keys(ROOMS).length);
-  const names = Object.keys(ROOMS);
-  for (let i = 0; i < names.length; i++) {
-    // Newest first, so the last room saved is the first card.
-    await page.locator('.trail-card').nth(i).getByRole('button', { name: 'Revisit' }).click();
-    await expectRoom(page, names[names.length - 1 - i]);
+  // A trail holds at most 32 moments, so the rooms take turns in batches, each batch on a fresh trail.
+  const rooms = Object.keys(ROOMS);
+  for (let first = 0; first < rooms.length; first += 24) {
+    const names = rooms.slice(first, first + 24);
+    await page.goto('/');
+    await page.evaluate(() => localStorage.removeItem('wonderlattice.trail.v1'));
+    await page.reload();
+    for (const room of names) {
+      await openRoom(page, room);
+      await page.locator(room === 'motion' ? '#trail-keep-motion' : '#trail-keep-scene').click();
+      await page.locator('#trail-save').click();
+      await expect(page.locator('#trail-status'), `${room} saves`).toHaveText('');
+      await expect(page.locator('#trail-dialog')).toBeVisible();
+      await page.locator('#trail-dialog .trail-close').click();
+    }
+    await page.reload();
     await page.locator('#trail-open').click();
+    await expect(page.locator('.trail-card')).toHaveCount(names.length);
+    for (let i = 0; i < names.length; i++) {
+      // Newest first, so the last room saved is the first card.
+      await page.locator('.trail-card').nth(i).getByRole('button', { name: 'Revisit' }).click();
+      await expectRoom(page, names[names.length - 1 - i]);
+      await page.locator('#trail-open').click();
+    }
   }
 });

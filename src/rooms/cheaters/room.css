@@ -1,0 +1,37 @@
+/* Kaleidoscope of cheaters · room-specific layout. */
+
+/* The colour key, in the panel when the canvas has no room for its own (phones). */
+.cheaters-key[hidden],
+.cheaters-key li[hidden] {
+  display: none;
+}
+.cheaters-key-title {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+/* Spaced letters read badly in Hebrew and break Arabic's joined letters apart (as in styles/base.css). */
+:is(:lang(he), :lang(ar)) .cheaters-key-title {
+  letter-spacing: normal;
+}
+.cheaters-key ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 14px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8125rem;
+}
+.cheaters-key li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.cheaters-key svg {
+  flex: none;
+  width: 14px;
+  height: 14px;
+}
