@@ -106,8 +106,10 @@ test('the room bar, Back button, and logo move between the map and rooms', async
   await expect(page.locator('#room-theme')).toContainText('Shape & space');
   await expect(page).toHaveURL(/#room=ribbon$/);
   await page.locator('#room-next').click();
-  const next = await page.evaluate(() => document.body.dataset.room);
-  expect(next).not.toBe('ribbon');
+  // On the published site the next room loads first, so wait for it to open.
+  const shown = () => page.evaluate(() => document.body.dataset.room);
+  await expect.poll(shown).not.toBe('ribbon');
+  const next = await shown();
   await page.locator('#room-prev').click();
   await expectRoom(page, 'ribbon');
   await page.goBack();

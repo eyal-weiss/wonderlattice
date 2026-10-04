@@ -6,7 +6,7 @@
 
 ![Wonderlattice: the start of the route on the home map, with a flower drawn by turning arms, a road diagram and a flock](assets/social.jpg)
 
-Wonderlattice is a free collection of thirty-three rooms, each built around one surprise:
+Wonderlattice is a free collection of thirty-four rooms, each built around one surprise:
 
 - **Shape & space:** draw flowers with two turning arms, walk along a ribbon that has only one side, bend the plane
   until a circle becomes a wing, drag one seed to grow infinite fractal coastlines, play one shot twice on two billiard
@@ -23,8 +23,9 @@ Wonderlattice is a free collection of thirty-three rooms, each built around one 
   whose edges you bend while it still covers the plane.
 - **Engineering:** a shower whose eager bather is scalded, then frozen, by a two-second pipe, a stack of blocks that
   leans as far past the table's edge as you like, a thousand samples in which ten pooled tests, run at once, find
-  the one glowing tube, and a hanging chain that, turned upside down, stands as an arch of loose stones, while a
-  semicircle of the same stones falls.
+  the one glowing tube, a hanging chain that, turned upside down, stands as an arch of loose stones, while a
+  semicircle of the same stones falls, and a bridge of squares that folds under a toy truck until the right
+  diagonals lock it, when every bar shows whether it's squeezed, stretched or carrying nothing at all.
 - **Living patterns:** a flock with no leader, fireflies that fall into step, fingerprints that grow by themselves,
   waves that curl into spirals, as in a heartbeat, and one cheater among cooperators who grows into an ever-changing
   kaleidoscope where cooperation never dies out.
