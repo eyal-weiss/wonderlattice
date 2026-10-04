@@ -17,6 +17,9 @@ This file is a changelog of the site, newest first. How the code fits together i
 
 ## 2026-10-04
 
+- **Kaleidoscope of cheaters in every language.** The room (No. 22 on the route) had shipped in English only, so it
+  showed in English in Hebrew, Spanish, French, Brazilian Portuguese and Arabic. All of its words are now translated:
+  the page, the colour key, chart and inspector drawn in the picture, the visitors and the explanation.
 - **Faster checks on pull requests.** CI runs its static checks, the browser tests on the source and the browser
   tests on the built site as three jobs at once, and a job named `check` reports all three. A browser test that fails
   once on CI runs again, and one that then passes is reported as flaky instead of blocking the pull request.
