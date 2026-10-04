@@ -1,0 +1,36 @@
+/* Light a town 100 km away: the share lost as heat, and the dial's slider. */
+.voltage-readout p {
+  margin: 6px 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.voltage-big {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  color: var(--ink);
+}
+.voltage-big strong {
+  font:
+    600 2rem Georgia,
+    serif;
+}
+.voltage-big strong.is-0 {
+  color: color-mix(in srgb, #22a35a 60%, var(--ink));
+}
+.voltage-big strong.is-1 {
+  color: color-mix(in srgb, #e8742a 60%, var(--ink));
+}
+.voltage-big strong.is-2 {
+  color: color-mix(in srgb, #ff5a3a 60%, var(--ink));
+}
+.voltage-readout .voltage-stopped {
+  color: var(--ink);
+  font-weight: 600;
+}
+#voltage-kv {
+  /* Low on the left and high on the right in every language, like the dial drawn under the picture. */
+  direction: ltr;
+}
