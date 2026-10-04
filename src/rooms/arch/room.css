@@ -24,12 +24,12 @@ body[data-room='arch'] #scene-canvas.arch-draw {
 }
 .arch-shapes .button[aria-pressed='true'] {
   border-color: #d6a65a;
-  background: #3a2c18;
-  color: #f8e6c4;
+  background: color-mix(in srgb, #d6a65a 26%, var(--panel));
+  color: var(--ink);
 }
 .arch-readout {
-  border: 1px solid #4a3d30;
-  background: #1a1510;
+  border: 1px solid var(--line-strong);
+  background: var(--panel-2);
   padding: 12px 14px;
   border-radius: 9px;
 }
@@ -45,14 +45,14 @@ body[data-room='arch'] #scene-canvas.arch-draw {
 .arch-readout .arch-big {
   font-size: 0.9375rem;
   font-weight: 600;
-  color: #f5f1e6;
+  color: var(--ink);
 }
 .arch-readout .arch-warn {
-  color: #ff8f99;
+  color: color-mix(in srgb, #ff5a6a 55%, var(--ink));
 }
 :root[data-contrast='more'] .arch-readout {
-  border-color: #9a8770;
+  border-color: var(--edge);
 }
 :root[data-contrast='more'] .arch-readout .arch-warn {
-  color: #ffc2c7;
+  color: color-mix(in srgb, #ff5a6a 35%, var(--ink));
 }

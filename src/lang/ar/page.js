@@ -26,6 +26,10 @@ Wonderlattice.defineText('page', 'ar', {
     label: 'اكتشاف عدتم إليه',
     placeholder: 'تكفي خاطرة صغيرة.',
   },
+  map: {
+    label: 'خريطة التجارب',
+    listTitle: 'كل التجارب',
+  },
   home: {
     title: 'اتبعوا فضولكم.',
     intro:
@@ -38,7 +42,7 @@ Wonderlattice.defineText('page', 'ar', {
     field: 'دوائر داخل دوائر',
     onCanvas: 'على لوحة الرسم',
     finish: 'إكمال الرسم',
-    surprise: '✧ مفاجأة',
+    surprise: 'مفاجأة',
     rotation: 'الدوران الداخلي',
     opposite: 'اتجاه معاكس',
     same: 'الاتجاه نفسه',
@@ -73,7 +77,7 @@ Wonderlattice.defineText('page', 'ar', {
   },
   stage: {
     makeItYours: 'أضيفوا لمستكم',
-    keep: '✧ حفظ هذه اللحظة',
+    keep: 'حفظ هذه اللحظة',
     nudge: 'اقتراح صغير',
     reset: 'إعادة البدء',
     presetsTitle: 'جرّبوا إمكانية أخرى',

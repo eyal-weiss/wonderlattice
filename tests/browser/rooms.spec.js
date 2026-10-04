@@ -4,24 +4,79 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/#room=motion');
 });
 
-test('the home map shows every room once, grouped by theme, with a picture', async ({ page }) => {
+test('the home map shows every room once, numbered along the route, with a picture', async ({ page }) => {
   await page.goto('/');
   await expect(page).toHaveTitle(/Wonderlattice/);
   await expectRoom(page, 'home');
   await expect(page.locator('#room-bar')).toBeHidden();
-  await expect(page.locator('.room-card')).toHaveCount(Object.keys(ROOMS).length);
-  for (const room of Object.keys(ROOMS)) {
-    await expect(page.locator(`#card-${room}`)).toHaveCount(1);
-    await expect.poll(() => inkedPixels(page, `#card-${room} canvas`)).toBeGreaterThan(20);
-  }
-  // Themes appear in their declared order, and only when they have rooms.
+  const order = await page.evaluate(() => globalThis.Wonderlattice.rooms.map((r) => r.id));
+  await expect(page.locator('.map-room')).toHaveCount(Object.keys(ROOMS).length);
+  // The map's rooms, numbered 1, 2, 3… in the order of the room list (the route).
+  expect(await page.locator('.map-room').evaluateAll((rooms) => rooms.map((r) => r.dataset.room))).toEqual(order);
+  expect(await page.locator('.map-num').allTextContents()).toEqual(order.map((_, i) => String(i + 1)));
+  // Every picture loads (they are ready-made images: the map needs no room's code).
+  await page.locator('.map-room').last().scrollIntoViewIfNeeded();
+  for (const room of Object.keys(ROOMS))
+    await expect
+      .poll(() => page.locator(`#card-${room} img`).evaluate((img) => img.complete && img.naturalWidth))
+      .toBeGreaterThan(0);
+  // The list under the map names every room by theme, in the themes' declared order.
   const expected = await page.evaluate(() =>
     globalThis.Wonderlattice.themes
       .filter((t) => globalThis.Wonderlattice.rooms.some((r) => r.theme === t.id))
       .map((t) => t.name),
   );
-  expect(await page.locator('.theme h2').allTextContents()).toEqual(expected);
-  expect(expected.length).toBeGreaterThan(1);
+  expect(await page.locator('.room-list-theme h3').allTextContents()).toEqual(expected);
+  await expect(page.locator('.room-list-room')).toHaveCount(order.length);
+});
+
+test('the route: each room on the map sits next to the one before it, joined by the line', async ({ page }) => {
+  for (const width of [1280, 768, 390, 320]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/');
+    const centres = await page.locator('.map-disc').evaluateAll((discs) =>
+      discs.map((d) => {
+        const r = d.getBoundingClientRect();
+        return [r.left + r.width / 2, r.top + r.height / 2];
+      }),
+    );
+    const gaps = centres.slice(1).map(([x, y], i) => Math.hypot(x - centres[i][0], y - centres[i][1]));
+    // Neighbours on the lattice: every step is about one cell, never a jump across the map.
+    const cell = Math.min(...gaps);
+    expect(Math.max(...gaps) / cell, `at ${width}px`).toBeLessThan(1.25);
+    // One line with a point per room, from the first room to the last.
+    expect(await page.locator('.map-lines .map-line').getAttribute('points')).toMatch(
+      new RegExp(`^(\\S+ ){${centres.length - 1}}\\S+$`),
+    );
+  }
+});
+
+test('every room’s own preview still draws (it makes the map’s pictures: npm run previews)', async ({ page }) => {
+  await page.goto('/');
+  // On the built site rooms load on demand: bring them all first.
+  await page.evaluate(() =>
+    Promise.all(globalThis.Wonderlattice.rooms.map((r) => globalThis.Wonderlattice.loadRoom(r.id))),
+  );
+  const blank = await page.evaluate(() =>
+    globalThis.Wonderlattice.rooms
+      .filter((room) => {
+        const canvas = document.createElement('canvas');
+        canvas.width = 320;
+        canvas.height = 180;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#0a0e15';
+        ctx.fillRect(0, 0, 320, 180);
+        room = globalThis.Wonderlattice.room(room.id);
+        if (room.preview) room.preview(ctx, 320, 180);
+        else room.draw(ctx, { ...room.defaults, ...room.previewSettings }, { width: 320, height: 180, clock: 0 });
+        const data = ctx.getImageData(0, 0, 320, 180).data;
+        let inked = 0;
+        for (let i = 0; i < data.length; i += 4) if (data[i] + data[i + 1] + data[i + 2] > 120) inked++;
+        return inked < 20;
+      })
+      .map((room) => room.id),
+  );
+  expect(blank).toEqual([]);
 });
 
 test('opens each room with a live picture and an explanation', async ({ page }) => {

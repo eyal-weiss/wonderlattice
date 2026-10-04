@@ -21,13 +21,21 @@ Wonderlattice.defineText('app', 'en', {
   },
   language: 'Language',
   whatsNew: 'New', // before the names of the newest rooms, under the home map's title
+  // The home map's route (src/core/app.js).
+  map: {
+    key: (count) => `Follow the line from 1 to ${count}. Each room is unlike the one before.`,
+    next: 'Next', // before the next room's number and name, on a room's card on the map
+    last: 'The last room on the route.',
+    newBadge: 'New', // on the picture of a room on the "New" line
+  },
+  nightColours: 'Night colours', // the sun and moon button in the header; it is pressed at night
   visited: '(opened before)', // read by screen readers after the name of a room already opened
   visitedForgotten: 'Done: no experiment is marked as opened now.',
   pageTitle: (room) => `${room} · Wonderlattice`,
 
   stage: {
     makeItYours: 'Make it yours',
-    keep: '✧ Keep this moment',
+    keep: 'Keep this moment',
     nudge: 'A little nudge',
     guestLabel: 'A visiting mathematician',
     canvasRole: 'interactive picture',

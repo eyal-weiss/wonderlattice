@@ -51,7 +51,7 @@ test('the skip link jumps to the first experiment, or into the room', async ({ p
   await page.keyboard.press('Tab');
   await expect(page.locator('#skip-link')).toBeFocused();
   await page.keyboard.press('Enter');
-  await expect(page.locator('.room-card').first()).toBeFocused();
+  await expect(page.locator('.map-room').first()).toBeFocused();
   await page.goto('/#room=loom');
   await page.locator('#skip-link').focus();
   await page.keyboard.press('Enter');
@@ -169,19 +169,29 @@ test('the published page fingerprints every script and stylesheet with its conte
   }
 });
 
-test('home cards draw their pictures as they come into view', async ({ page }) => {
-  await page.setViewportSize({ width: 1280, height: 700 });
+test('a room’s whole picture is fetched only when someone points at it on the map, and shows its next room', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  const wide = [];
+  page.on('request', (r) => r.url().includes('-wide.webp') && wide.push(r.url()));
   await page.goto('/');
-  const lastCard = page.locator('.room-card canvas').last();
-  // An undrawn canvas is fully transparent; a drawn card is painted edge to edge.
-  const painted = () =>
-    lastCard.evaluate((c) => {
-      const { data } = c.getContext('2d').getImageData(0, 0, c.width, c.height);
-      let n = 0;
-      for (let i = 3; i < data.length; i += 64) if (data[i] > 0) n++;
-      return n;
-    });
-  expect(await painted()).toBe(0);
-  await lastCard.scrollIntoViewIfNeeded();
-  await expect.poll(painted).toBeGreaterThan(0);
+  await expect(page.locator('#map-tip')).toBeHidden();
+  expect(wide).toEqual([]);
+  await page.locator('#card-traffic .map-disc').hover();
+  await expect(page.locator('#map-tip')).toBeVisible();
+  await expect(page.locator('#map-tip')).toContainText('The tempting shortcut');
+  const next = await page.evaluate(() => {
+    const ids = globalThis.Wonderlattice.rooms.map((r) => r.id);
+    return `${ids.indexOf('traffic') + 2}. ${globalThis.Wonderlattice.room(ids[ids.indexOf('traffic') + 1]).name}`;
+  });
+  await expect(page.locator('#map-tip')).toContainText(next);
+  expect(wide).toHaveLength(1);
+  // Keyboard users get the same card; a tap or click opens the room straight away.
+  await page.mouse.move(5, 5);
+  await expect(page.locator('#map-tip')).toBeHidden();
+  await page.locator('#card-flock').focus();
+  await page.keyboard.press('Shift+Tab');
+  await page.keyboard.press('Tab');
+  await expect(page.locator('#map-tip')).toBeVisible();
 });

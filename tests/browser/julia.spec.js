@@ -56,19 +56,18 @@ test('julia room: with reduced motion the seed stays put and the picture is stil
   await expect(page.locator('#c-cx')).toHaveValue('-0.123');
 });
 
-test('the home card fills its picture on a sharp (2×) screen', async ({ browser }) => {
+test('the map’s pictures stay sharp on a sharp (2×) screen', async ({ browser }) => {
   const context = await browser.newContext({ deviceScaleFactor: 2 });
   const page = await context.newPage();
   await page.goto('/');
-  // The rabbit is centred: its bottom-right quarter must have pixels that aren't the dark background.
-  await page.locator('#card-julia canvas').scrollIntoViewIfNeeded(); // cards draw once they come into view
-  await page.waitForTimeout(100);
-  const drawn = await page.locator('#card-julia canvas').evaluate((c) => {
-    const { data } = c.getContext('2d').getImageData(c.width * 0.5, c.height * 0.5, c.width * 0.25, c.height * 0.25);
-    let bright = 0;
-    for (let i = 0; i < data.length; i += 4) if (data[i] + data[i + 1] + data[i + 2] > 60) bright++;
-    return bright;
-  });
-  expect(drawn).toBeGreaterThan(50);
+  // Each picture holds at least two pixels for every point it is shown at, and the julia room's is drawn.
+  const img = page.locator('#card-julia img');
+  await img.scrollIntoViewIfNeeded();
+  await expect.poll(() => img.evaluate((i) => i.complete && i.naturalWidth)).toBeGreaterThan(0);
+  const { natural, shown } = await img.evaluate((i) => ({
+    natural: i.naturalWidth,
+    shown: i.getBoundingClientRect().width,
+  }));
+  expect(natural).toBeGreaterThanOrEqual(shown * 2);
   await context.close();
 });

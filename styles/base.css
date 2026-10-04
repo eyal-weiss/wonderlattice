@@ -1,14 +1,117 @@
 /* Shared layout: colours, header, workspace, controls, buttons, dialogs, and the drawing room. */
+
+/*
+ * Colours and type come from these tokens, in two looks that the visitor switches with the sun and moon button
+ * (src/core/display.js marks the page <html data-theme="night">):
+ *   day (the default): a science-museum floor map. Light paper, ink, a yellow accent, Rubik.
+ *   night: a star atlas. Deep blue, ivory lines, gold, engraved-style headings.
+ * The rooms' pictures are always dark (--stage). Their frame, .drawing, is a dark screen in both looks and has its
+ * own tokens below. Each theme has a colour (--t-<theme>) for the map, the room list and the room bar.
+ */
 :root {
-  color-scheme: dark;
-  --bg: #101217;
-  --panel: #191c23;
-  --line: #30343c;
-  --ink: #f1f2ed;
-  --muted: #a6abb5;
-  --lime: #ddf6a3;
-  --stage: #0a0e15;
+  color-scheme: light;
+  --bg: #f4f5f0;
+  --panel: #ffffff;
+  --panel-2: #f6f6f1; /* inside a panel: inputs, cards, readout boxes */
+  --panel-hover: #ecede5;
+  --edge: #16172b; /* the ink outline of the main objects: buttons, the workspace, the map */
+  --line: #d2d4cb; /* quiet dividers */
+  --line-strong: #8a8d99;
+  --ink: #16172b;
+  --soft: #34384a; /* longer text that is still secondary: explanations, hints */
+  --muted: #4f5367;
+  --em: #1f46c0; /* emphasised words and numbers: slider values, headings in explanations, links */
+  --accent: #ffc629; /* filled buttons, the toast, the skip link */
+  --accent-hover: #ffd65c;
+  --accent-ink: #16172b;
+  --focus: #1f46c0;
   --focus-width: 2px;
+  --pop: 3px 3px 0 var(--edge); /* a poster's hard shadow, by day only */
+  --shadow: rgb(22 23 43 / 0.18);
+  --backdrop: rgb(22 23 43 / 0.55);
+  --stage: #0a0e15;
+  --lime: var(--em); /* the earlier name, still used by a few rules */
+  --t-shape: #2453d6;
+  --t-chance: #f2b300;
+  --t-games: #ea3a2a;
+  --t-making: #8a4fd6;
+  --t-engineering: #ff7a1a;
+  --t-life: #1ea35a;
+  --t-signals: #df4699;
+  --font-body: 'Rubik', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Rubik', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --display-weight: 800;
+  --display-tracking: -0.03em;
+}
+:root[data-theme='night'] {
+  color-scheme: dark;
+  --bg: #0c1230;
+  --panel: #111a3d;
+  --panel-2: #0f1736;
+  --panel-hover: #18234f;
+  --edge: rgb(239 232 212 / 0.55);
+  --line: rgb(239 232 212 / 0.16);
+  --line-strong: rgb(239 232 212 / 0.45);
+  --ink: #efe8d4;
+  --soft: #d6d2c4;
+  --muted: #b4b3c8;
+  --em: #e9c46a;
+  --accent: #e9c46a;
+  --accent-hover: #f1d58f;
+  --accent-ink: #0c1230;
+  --focus: #e9c46a;
+  --pop: none;
+  --shadow: rgb(0 0 0 / 0.45);
+  --backdrop: rgb(5 8 22 / 0.72);
+  --t-shape: #93b2ff;
+  --t-chance: #f1d27c;
+  --t-games: #ff9f8c;
+  --t-making: #c6a6ff;
+  --t-engineering: #ffb47e;
+  --t-life: #8fdca8;
+  --t-signals: #ff9dcd;
+  --font-body: 'Frank Ruhl Libre', Georgia, 'Times New Roman', serif;
+  --font-display: 'IM Fell English', 'Frank Ruhl Libre', Georgia, serif;
+  --display-weight: 400;
+  --display-tracking: -0.01em;
+}
+/* At night, Hebrew headings use Frank Ruhl Libre and Arabic uses Amiri (IM Fell has only Latin letters). */
+:root[data-theme='night']:lang(he) {
+  --font-display: 'Frank Ruhl Libre', Georgia, serif;
+}
+:root[data-theme='night']:lang(ar) {
+  --font-body: 'Amiri', 'Frank Ruhl Libre', Georgia, serif;
+  --font-display: 'Amiri', 'Frank Ruhl Libre', Georgia, serif;
+}
+/* Opened from disk, the page can't load its typefaces (src/core/display.js): the device's own, in the same spirit. */
+:root[data-fonts='device'] {
+  --font-body: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+:root[data-fonts='device'][data-theme='night'] {
+  --font-body: Georgia, 'Times New Roman', serif;
+  --font-display: Georgia, 'Times New Roman', serif;
+}
+/* The picture's frame is a dark screen in both looks, with light words and buttons. */
+.drawing,
+.dark-surface,
+.math-guest {
+  --panel-2: #20242c;
+  --panel-hover: #2a303b;
+  --edge: #4a515e;
+  --line: #30343c;
+  --line-strong: #616872;
+  --ink: #f1f2ed;
+  --soft: #c9ced7;
+  --muted: #a6abb5;
+  --em: #ffd65c;
+  --focus: #ffd65c;
+  --pop: none;
+  color: var(--ink);
+}
+:root[data-theme='night'] :is(.drawing, .dark-surface, .math-guest) {
+  --em: #e9c46a;
+  --focus: #e9c46a;
 }
 /* Text sizes are in rem, so the Display setting (src/core/display.js) scales them all at once. 1rem is the browser's
    own text size, 16px unless the visitor changed it: 0.75rem is 12px, 0.8125rem 13px, 0.875rem 14px. */
@@ -32,12 +135,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
-  font:
-    1rem/1.5 system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    sans-serif;
+  font: 1rem/1.5 var(--font-body);
 }
 button,
 input,
@@ -54,7 +152,7 @@ select:focus-visible,
 canvas:focus-visible,
 summary:focus-visible,
 a:focus-visible {
-  outline: var(--focus-width) solid var(--lime);
+  outline: var(--focus-width) solid var(--focus);
   outline-offset: 5px;
 }
 button {
@@ -75,12 +173,14 @@ button svg {
   flex-shrink: 0;
 }
 header {
-  height: 88px;
+  min-height: 88px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--line);
-  gap: 20px;
+  padding-block: 12px;
+  border-bottom: 2px solid var(--line);
+  gap: 10px 22px;
 }
 .shell {
   width: min(1440px, calc(100% - 80px));
@@ -90,34 +190,78 @@ header {
   display: flex;
   gap: 12px;
   align-items: center;
-  font-size: 23px; /* the wordmark keeps its size */
-  letter-spacing: -1px;
-  font-weight: 600;
+  margin-inline-end: auto;
 }
+/* The mark: seven points of a hexagonal lattice, one per theme by day; a small constellation at night. */
 .brand svg {
-  width: 30px;
-  height: 30px;
-  fill: none;
-  stroke: var(--lime);
-  stroke-width: 1;
+  width: 38px;
+  height: 38px;
+  flex: none;
+}
+.brand .mark-night,
+:root[data-theme='night'] .brand .mark-day {
+  display: none;
+}
+:root[data-theme='night'] .brand .mark-night {
+  display: inline;
+}
+.mark-night line {
+  stroke: var(--edge);
+  stroke-width: 0.8;
+}
+.brand-word {
+  display: grid;
+  line-height: 1.05;
+}
+.brand-word b {
+  font-family: var(--font-display);
+  font-size: 27px; /* the wordmark keeps its size */
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
 }
 .edition {
   color: var(--muted);
-  font-size: 0.875rem;
-  letter-spacing: 0.08em;
+  font-size: 0.8125rem;
+  font-weight: 400;
+}
+:root[data-theme='night'] .edition {
+  font-style: italic;
 }
 .quiet {
   background: none;
   border: none;
   padding: 9px 0;
-  color: var(--muted);
-  font-size: 0.875rem;
+  color: var(--soft);
+  font-size: 0.9375rem;
+  font-weight: 500;
 }
 .quiet:hover {
   color: var(--ink);
 }
 #about-button {
   white-space: nowrap;
+}
+/* Day and night: a round button with the sun or the moon (src/core/app.js), the look it switches to. */
+.theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 2px solid var(--edge);
+  border-radius: 50%;
+  background: var(--panel);
+  color: var(--ink);
+}
+.theme-toggle:hover {
+  background: var(--panel-hover);
+}
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+:root[data-theme='night'] .theme-toggle {
+  border-width: 1px;
 }
 /* Display settings: a small "Aa" in the header, with its word where there is room. */
 .display-open {
@@ -152,20 +296,20 @@ header {
   padding: 6px 14px;
   border: 1px solid var(--line);
   border-radius: 9px;
-  background: #20242c;
+  background: var(--panel-2);
   cursor: pointer;
   line-height: 1.2;
 }
 .display-size:has(input:checked) {
-  border-color: var(--lime);
-  background: #1e2520;
+  border: 2px solid var(--edge);
+  background: color-mix(in srgb, var(--accent) 22%, var(--panel));
 }
 .display-size:has(input:focus-visible) {
-  outline: var(--focus-width) solid var(--lime);
+  outline: var(--focus-width) solid var(--focus);
   outline-offset: 3px;
 }
 .display-size input {
-  accent-color: var(--lime);
+  accent-color: var(--em);
   margin: 0;
 }
 .display-size input:focus-visible {
@@ -187,12 +331,7 @@ header {
 dialog.display-dialog {
   max-width: 460px;
 }
-/* The tagline gives way first when the header gets crowded, or the text is larger. */
-@media (max-width: 1024px) {
-  .edition {
-    display: none;
-  }
-}
+/* The tagline under the wordmark gives way when the text is larger (and on phones, below). */
 :root[data-text-size] .edition {
   display: none;
 }
@@ -210,15 +349,22 @@ dialog.display-dialog {
   stroke: currentColor;
   stroke-width: 1.5;
 }
+/* Each language's name is in its own script: the device's font shows them, so an English page doesn't download the
+   Hebrew and Arabic letters of the site's typeface just for this menu. */
 .language-pick select {
   max-width: 9.5em;
-  padding: 5px 6px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: transparent;
+  padding: 6px 8px;
+  border: 2px solid var(--edge);
+  border-radius: 8px;
+  background: var(--panel);
   color: var(--ink);
-  font: inherit;
-  font-size: 0.875rem;
+  font:
+    500 0.875rem system-ui,
+    sans-serif;
+}
+:root[data-theme='night'] .language-pick select {
+  border-width: 1px;
+  border-radius: 3px;
 }
 .language-pick select:hover {
   border-color: var(--muted);
@@ -226,6 +372,7 @@ dialog.display-dialog {
 .language-pick option {
   background: var(--panel);
   color: var(--ink);
+  font-family: system-ui, sans-serif;
 }
 .intro {
   display: flex;
@@ -239,21 +386,23 @@ h1[tabindex='-1']:focus {
   outline: none;
 }
 h1 {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--font-display);
   font-size: 2.75rem;
-  font-weight: 400;
-  line-height: 1.12;
-  letter-spacing: -1.4px;
+  font-weight: var(--display-weight);
+  line-height: 1.08;
+  letter-spacing: var(--display-tracking);
   margin: 0 0 8px;
+  text-wrap: balance;
 }
 .intro p {
   margin: 0;
-  color: var(--muted);
+  color: var(--soft);
+  font-size: 1.0625rem;
 }
 .pill {
-  border: 1px solid var(--line);
+  border: 1.5px solid var(--line-strong);
   border-radius: 100px;
-  padding: 8px 13px;
+  padding: 7px 13px;
   font-size: 0.8125rem;
   color: var(--muted);
   white-space: nowrap;
@@ -261,10 +410,16 @@ h1 {
 .workspace {
   display: grid;
   grid-template-columns: minmax(0, 1fr) var(--panel-width, 324px);
-  border: 1px solid var(--line);
+  border: 3px solid var(--edge);
   border-radius: 20px;
   overflow: hidden;
   background: var(--panel);
+}
+:root[data-theme='night'] .workspace {
+  border-width: 1px;
+  border-radius: 4px;
+  outline: 1px solid var(--edge);
+  outline-offset: 4px;
 }
 .drawing {
   /* A column: title and readout, the picture (taking the rest), then the buttons. Nothing overlaps when text wraps. */
@@ -286,11 +441,10 @@ h1 {
   gap: 12px;
   pointer-events: none;
 }
+/* A small label above a heading: plain words, not spaced-out capitals. */
 .eyebrow {
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 600;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
   color: var(--muted);
 }
 /* Spaced capitals don't carry over to scripts without capitals: spaced-out Hebrew reads badly, and spacing breaks
@@ -303,13 +457,14 @@ h1 {
   letter-spacing: normal;
 }
 #pattern-name {
-  font-family: Georgia, serif;
+  font-family: var(--font-display);
+  font-weight: calc(var(--display-weight) - 100);
   font-size: 1.375rem;
   margin-top: 2px;
 }
 #cycle-status {
   font-size: 0.75rem;
-  color: #8795a8;
+  color: var(--muted);
   text-align: end;
   max-width: 12em;
   padding-top: 4px;
@@ -341,29 +496,33 @@ h1 {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border: 1px solid var(--line);
-  background: #20242c;
-  border-radius: 9px;
-  padding: 10px 13px;
+  border: 2px solid var(--edge);
+  background: var(--panel-2);
+  border-radius: 10px;
+  padding: 9px 13px;
   font-size: 0.875rem;
+  font-weight: 500;
   min-height: 43px;
   transition:
     background 0.15s,
     border-color 0.15s;
 }
 .button:hover {
-  background: #2a303b;
-  border-color: #616872;
+  background: var(--panel-hover);
 }
 .primary {
-  background: var(--lime);
-  color: #192014;
-  border-color: var(--lime);
-  font-weight: 600;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+  font-weight: 700;
 }
 .primary:hover {
-  background: #ecffc6;
-  border-color: #ecffc6;
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+:root[data-theme='night'] .button {
+  border-width: 1px;
+  border-radius: 3px;
 }
 .icon-button {
   padding: 10px;
@@ -403,15 +562,15 @@ h1 {
   display: flex;
   align-items: center;
   gap: 3px;
-  color: var(--lime);
+  color: var(--em);
   font-size: 0.875rem;
 }
 .number-wrap input {
   width: 70px;
   min-width: 0;
-  color: var(--lime);
-  background: #11161d;
-  border: 1px solid #424b59;
+  color: var(--em);
+  background: var(--panel-2);
+  border: 1px solid var(--line-strong);
   border-radius: 5px;
   padding: 3px 5px;
   font-size: 0.875rem;
@@ -419,8 +578,9 @@ h1 {
 }
 .control output {
   font-variant-numeric: tabular-nums;
-  color: var(--lime);
+  color: var(--em);
   font-size: 0.875rem;
+  font-weight: 600;
 }
 /* On right-to-left pages, numbers still read left to right: −5 and 1.5×, not 5- and ×1.5. */
 [dir='rtl'] .number-wrap,
@@ -440,7 +600,7 @@ h1 {
 }
 .control input[type='range'] {
   width: 100%;
-  accent-color: var(--lime);
+  accent-color: var(--em);
   margin: 15px 0 4px;
   height: 6px;
   cursor: pointer;
@@ -450,7 +610,7 @@ h1 {
   display: flex;
   justify-content: space-between;
   font-size: 0.75rem;
-  color: #969da9;
+  color: var(--muted);
   margin-top: 9px;
 }
 .palettes {
@@ -462,7 +622,7 @@ h1 {
   width: 38px;
   height: 38px;
   border: 3px solid var(--panel);
-  outline: 1px solid #444b57;
+  outline: 1px solid var(--line-strong);
   border-radius: 50%;
   position: relative;
 }
@@ -471,7 +631,7 @@ h1 {
 }
 .swatch[aria-pressed='true']::after {
   content: '✓';
-  color: #0c1320;
+  color: #0c1320; /* on the swatch's own colour, in both looks */
   font-size: 1.125rem;
   position: absolute;
   inset: 1px;
@@ -488,7 +648,7 @@ h1 {
 .toggle input {
   width: 18px;
   height: 18px;
-  accent-color: var(--lime);
+  accent-color: var(--em);
   margin: 0;
 }
 .separator {
@@ -499,17 +659,16 @@ h1 {
 .hint {
   margin-top: auto;
   font-size: 0.875rem;
-  color: #c4c9d1;
-  border-inline-start: 2px solid #677d4b;
+  color: var(--soft);
+  border-inline-start: 4px solid var(--accent);
   padding-inline-start: 12px;
 }
 .hint strong {
-  color: var(--lime);
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  color: var(--ink);
+  font-size: 0.8125rem;
+  font-weight: 700;
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 .why {
   width: 100%;
@@ -525,8 +684,9 @@ h1 {
   margin: 26px 0 13px;
 }
 .presets-header h2 {
-  font-size: 0.9375rem;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: calc(var(--display-weight) - 100);
   margin: 0;
 }
 .preset-grid {
@@ -535,7 +695,7 @@ h1 {
   gap: 12px;
 }
 .preset {
-  background: #16191f;
+  background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 13px;
   padding: 10px 12px 12px;
@@ -546,18 +706,21 @@ h1 {
   min-width: 0;
 }
 .preset:hover {
-  background: #20242c;
-  border-color: #737c89;
+  background: var(--panel-hover);
+  border-color: var(--line-strong);
 }
 .preset[aria-pressed='true'] {
-  border-color: var(--lime);
-  background: #1e2520;
+  border: 2px solid var(--edge);
+  background: color-mix(in srgb, var(--accent) 18%, var(--panel));
 }
+/* Each preset's small drawing is a dark window, like the big picture. */
 .preset canvas {
   width: 100%;
   height: 80px;
   display: block;
   margin-bottom: 7px;
+  border-radius: 8px;
+  background: var(--stage);
 }
 .preset-name {
   display: block;
@@ -588,10 +751,13 @@ footer p {
   text-underline-offset: 3px;
 }
 .footer-note {
-  font-family: Georgia, serif;
+  font-family: var(--font-display);
+  font-weight: calc(var(--display-weight) - 100);
+  font-size: 1.0625rem;
+  color: var(--ink);
+}
+:root[data-theme='night'] .footer-note {
   font-style: italic;
-  font-size: 1rem;
-  color: #c6cbbd;
 }
 /* Arabic has no italic letters; a slant only distorts them. */
 :lang(ar) .footer-note {
@@ -599,17 +765,21 @@ footer p {
 }
 dialog {
   color: var(--ink);
-  background: #191d26;
-  border: 1px solid #434b59;
+  background: var(--panel);
+  border: 3px solid var(--edge);
   border-radius: 18px;
   max-width: 600px;
   width: calc(100% - 32px);
   max-height: 88dvh;
   padding: 28px;
-  box-shadow: 0 30px 100px #0009;
+  box-shadow: 0 30px 100px var(--shadow);
+}
+:root[data-theme='night'] dialog {
+  border-width: 1px;
+  border-radius: 4px;
 }
 dialog::backdrop {
-  background: #050a12ba;
+  background: var(--backdrop);
   backdrop-filter: blur(8px);
 }
 .dialog-head {
@@ -620,26 +790,29 @@ dialog::backdrop {
   margin-bottom: 20px;
 }
 dialog h2 {
-  font:
-    400 1.875rem/1.2 Georgia,
-    serif;
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-size: 1.875rem;
+  line-height: 1.15;
+  letter-spacing: var(--display-tracking);
   margin: 0;
+  text-wrap: balance;
 }
 dialog p {
-  color: #c9ced7;
+  color: var(--soft);
   line-height: 1.65;
 }
 dialog h3 {
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--lime);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--em);
   margin: 25px 0 7px;
 }
 .idea-card {
   padding: 17px 20px;
-  background: #111720;
+  background: var(--panel-2);
   border-radius: 10px;
-  border: 1px solid #313b4b;
+  border: 1px solid var(--line);
   margin: 18px 0;
 }
 .idea-card p {
@@ -650,10 +823,10 @@ dialog h3 {
   font-size: 0.875rem;
   overflow-wrap: anywhere;
   margin-top: 12px;
-  color: var(--lime);
+  color: var(--em);
 }
 details {
-  border-top: 1px solid #39414e;
+  border-top: 1px solid var(--line);
   padding-top: 16px;
   margin-top: 24px;
 }
@@ -693,7 +866,7 @@ dialog .feedback-row .button {
   font-size: 0.875rem;
 }
 .feedback-status[data-result='sent'] {
-  color: var(--lime) !important;
+  color: var(--em) !important;
 }
 p.feedback-note {
   margin: 10px 0 0;
@@ -715,7 +888,7 @@ p.feedback-note {
 }
 .text-area {
   width: 100%;
-  background: #10151e;
+  background: var(--panel-2);
   color: var(--ink);
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -729,11 +902,13 @@ p.feedback-note {
   bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--lime);
-  color: #172011;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border: 2px solid var(--edge);
+  font-weight: 500;
   padding: 12px 20px;
   border-radius: 10px;
-  box-shadow: 0 8px 30px #0006;
+  box-shadow: 0 8px 30px var(--shadow);
   z-index: 8;
   max-width: calc(100% - 32px);
   font-size: 0.875rem;
@@ -758,8 +933,8 @@ p.feedback-note {
   font-size: 0.75rem;
 }
 .speed-row button[aria-pressed='true'] {
-  color: var(--lime);
-  border-color: #70834e;
+  color: var(--em);
+  border-color: var(--em);
 }
 .visually-hidden {
   position: absolute;
@@ -887,14 +1062,46 @@ p.feedback-note {
   .shell {
     width: calc(100% - 28px);
   }
+  /* Two rows: the wordmark and the sun or moon, then About, My trail, the language and Display. */
   header {
-    height: 69px;
+    flex-wrap: wrap;
+    min-height: 0;
+    padding-block: 12px 10px;
+    gap: 8px 18px;
   }
   .brand {
-    font-size: 21px; /* the wordmark keeps its size */
+    flex: 1 1 calc(100% - 64px);
+  }
+  .brand-word b {
+    font-size: 23px; /* the wordmark keeps its size */
+  }
+  .theme-toggle {
+    order: -1;
+    margin-inline-start: auto;
+  }
+  .brand {
+    order: -2;
   }
   .edition {
     display: none;
+  }
+  /* The second row: About, My trail, the language and Display, sharing the width. */
+  header > .quiet,
+  header > .language-pick {
+    font-size: 0.875rem;
+  }
+  header {
+    column-gap: 12px;
+  }
+  .language-pick svg {
+    display: none;
+  }
+  .language-pick select {
+    max-width: 8em;
+    padding: 4px 6px;
+  }
+  #display-open {
+    margin-inline-start: auto;
   }
   /* On a phone the display button is just its "Aa"; the word stays for screen readers. */
   .display-open span {
@@ -920,7 +1127,7 @@ p.feedback-note {
     margin-top: 6px;
     font-size: 0.9375rem;
     line-height: 1.45;
-    color: #ccd3dc;
+    color: var(--soft);
   }
   .pill {
     display: none;
@@ -995,8 +1202,8 @@ p.feedback-note {
     z-index: 3;
     margin: -22px -22px 16px;
     padding: 16px 22px 12px;
-    background: #191d26;
-    border-bottom: 1px solid #2b313c;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
   }
   .focus-mode .drawing {
     height: calc(100svh - 24px);
@@ -1041,7 +1248,7 @@ p.feedback-note {
   color: var(--muted) !important;
 }
 dialog a {
-  color: #b9d797;
+  color: var(--em);
 }
 
 /* Skip link: hidden above the page (however tall its words make it) until focused. */
@@ -1052,8 +1259,8 @@ dialog a {
   z-index: 20;
   padding: 10px 14px;
   border-radius: 8px;
-  background: var(--lime);
-  color: #172011;
+  background: var(--accent);
+  color: var(--accent-ink);
   font-weight: 600;
 }
 .skip-link:focus {
@@ -1110,10 +1317,30 @@ dialog a {
  * pictures are drawn as usual. Each stylesheet ends with its own part of this.
  */
 :root[data-contrast='more'] {
+  --ink: #000000;
+  --soft: #14151f;
+  --muted: #262836;
+  --line: #5e616e;
+  --line-strong: #2c2e3a;
+  --em: #0f2f9a;
+  --focus: #0f2f9a;
+  --focus-width: 3px;
+}
+:root[data-theme='night'][data-contrast='more'] {
   --ink: #ffffff;
+  --soft: #ffffff;
+  --muted: #e9e7f4;
+  --line: rgb(255 255 255 / 0.55);
+  --line-strong: rgb(255 255 255 / 0.8);
+  --edge: rgb(255 255 255 / 0.85);
+  --em: #ffd877;
+  --focus: #ffd877;
+}
+:root[data-contrast='more'] :is(.drawing, .dark-surface, .math-guest) {
+  --ink: #ffffff;
+  --soft: #ffffff;
   --muted: #d4d8df;
   --line: #8b929e;
-  --focus-width: 3px;
 }
 :root[data-contrast='more'] :is(#cycle-status, .split-labels) {
   color: var(--muted);
@@ -1122,7 +1349,7 @@ dialog a {
   color: var(--ink);
 }
 :root[data-contrast='more'] dialog a {
-  color: var(--lime);
+  color: var(--em);
   text-decoration: underline;
 }
 :root[data-contrast='more'] .quiet:not(.trail-header) {
@@ -1134,12 +1361,12 @@ dialog a {
 :root[data-contrast='more'] .swatch {
   outline-color: var(--line);
 }
-:root[data-contrast='more'] :is(.hint, .speed-row button[aria-pressed='true']) {
-  border-color: var(--lime);
+:root[data-contrast='more'] .speed-row button[aria-pressed='true'] {
+  border-color: var(--em);
 }
 :root[data-contrast='more'] button:disabled {
   opacity: 0.6;
 }
 :root[data-contrast='more'] dialog::backdrop {
-  background: #000000e6;
+  background: rgb(0 0 0 / 0.85);
 }

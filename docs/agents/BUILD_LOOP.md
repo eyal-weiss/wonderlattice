@@ -63,6 +63,15 @@ reviews:
 - **Security:** `innerHTML` only ever receives the site's own text and numbers, never values from a link or the
   visitor. Shared-link values are clamped by `ranges`.
 - **Theme:** the room's `theme` follows the issue's theme label (`theme: engineering` → `'engineering'`).
+- **Its place on the route:** `npm run rooms` makes a new room the last stop on the home map's route. Move its tags in
+  `index.html` to where it adds the most variety (docs/ARCHITECTURE.md, "The route"): neither neighbour shares its
+  theme or its kind of experience, rooms with a similar idea stay at least four apart, and a quick, wordless room
+  can come early while one that needs reading comes late. Say where you put it, and why, in the pull request.
+- **Pictures:** run `npm run previews -- <id>` and commit the map's pictures and the link preview it makes; without
+  them the room is a plain dark disc on the map.
+- **Day and night:** the room's panel takes its colours from the tokens (`var(--ink)`, `--soft`, `--muted`, `--line`,
+  `--panel-2`, `--em`), never colours made for a dark page; look at the room by day and at night (the sun and moon
+  button) before opening the pull request.
 - **Date:** set the room's `added` to the day you open the pull request (`'YYYY-MM-DD'`), so the home map lists it as
   new; the owner updates it if the room goes live later.
 - **Text:** every visitor-facing word goes in `text.en.js`, in British spelling. New rooms ship in English; translation

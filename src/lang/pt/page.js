@@ -6,7 +6,7 @@ Wonderlattice.defineText('page', 'pt', {
   },
   skip: 'Pular para o conteúdo principal',
   header: {
-    edition: 'UM PEQUENO LUGAR PARA UMA GRANDE CURIOSIDADE',
+    edition: 'Um pequeno lugar para uma grande curiosidade',
     about: 'Sobre este lugar',
     trail: 'Minha trilha',
     home: 'Início do Wonderlattice',
@@ -25,6 +25,10 @@ Wonderlattice.defineText('page', 'pt', {
     label: 'Descoberta revisitada',
     placeholder: 'Um pensamento pequeno já basta.',
   },
+  map: {
+    label: 'Mapa dos experimentos',
+    listTitle: 'Todos os experimentos',
+  },
   home: {
     title: 'Siga sua curiosidade.',
     intro:
@@ -38,7 +42,7 @@ Wonderlattice.defineText('page', 'pt', {
     field: 'Círculos dentro de círculos',
     onCanvas: 'Na tela',
     finish: 'Traçar tudo',
-    surprise: '✧ Me surpreenda',
+    surprise: 'Me surpreenda',
     rotation: 'Rotação interna',
     opposite: 'Sentido oposto',
     same: 'Mesmo sentido',
@@ -75,7 +79,7 @@ Wonderlattice.defineText('page', 'pt', {
   },
   stage: {
     makeItYours: 'Faça do seu jeito',
-    keep: '✧ Guardar este momento',
+    keep: 'Guardar este momento',
     nudge: 'Uma dica',
     reset: 'Recomeçar',
     presetsTitle: 'Siga outra possibilidade',

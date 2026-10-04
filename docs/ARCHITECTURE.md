@@ -17,9 +17,10 @@ Every file in `src/` is a **classic script**, not an ES module. Browsers block m
 ```
 index.html                 page structure only: header, home map, room bar, the two room layouts, dialogs, script tags
 styles/
-  base.css                 colours, header, workspace, controls, buttons, dialogs, drawing-room layout
+  fonts.css                the typefaces (files in fonts/, each with its licence)
+  base.css                 colours (day and night), header, workspace, controls, buttons, dialogs, drawing-room layout
   rooms.css                the shared stage, presets, readouts, traffic result
-  home.css                 the home map (themed room cards) and the room bar
+  home.css                 the home map (the route through every room, its key and list) and the room bar
   guests.css               mathematician puppets
   trail.css                My trail
 src/
@@ -35,11 +36,13 @@ src/
   rooms/<id>/room.css      optional styles for that room only (class names prefixed with the room id)
 functions/api/feedback.js  the feedback box's inbox: a Cloudflare Pages Function at /api/feedback (the only server code)
 portraits/                 bundled portrait images (rights in docs/PORTRAITS.md)
-assets/                    link-preview image (social.jpg, 1200×630) and the home-screen icon
+fonts/                     Rubik (day), IM Fell English, Frank Ruhl Libre and Amiri (night): SIL Open Font License
+assets/                    link previews (social.jpg; rooms/<id>.jpg), the map's pictures (rooms/thumbs/), the icon
 scripts/serve.mjs          zero-dependency local server  (npm start)
 scripts/build.mjs          builds dist/ and dist/wonderlattice-standalone.html  (npm run build)
 scripts/room-cards.mjs     reads every room's card for the built site, which loads rooms on demand (see Growing)
 scripts/budget.mjs         what the built site downloads, against a budget  (npm run budget)
+scripts/previews.mjs       draws the map's pictures and the link previews from the rooms' previews  (npm run previews)
 scripts/i18n.mjs           translation tools  (npm run i18n:check, npm run i18n:new)
 scripts/lang-guard.mjs     the allowlist a language file must pass before it runs
 tests/unit/                model tests (node --test)
@@ -50,8 +53,27 @@ tests/browser/             behaviour tests in a real browser (Playwright)
 
 A room is one call to `Wonderlattice.defineRoom({...})` in `src/rooms/<id>/room.js`. The registry is the single list of
 rooms. The home map, the room bar's previous/next, shared links, trail validation, and agent tools all read from it.
-On the map, rooms are grouped by `theme` (the list is `Wonderlattice.themes`); within a theme they follow script order.
-A theme with no rooms is not shown.
+
+### The route
+
+The rooms' order in the registry, which is the order of their `<script>` tags in `index.html`, is the **route**: the
+numbers on the home map (1, 2, 3…) and the room bar's ‹ ›. Many visitors simply follow the numbers, so the order is
+designed as a tour in which each room is unlike the one before, and a visit of five minutes or an hour brings
+several different kinds of experience and idea:
+
+- neighbouring rooms never share a theme, or a kind of experience (making something beautiful, intuition fooled,
+  something alive, a physical surprise, a trick with information, space that bends, a puzzle, chaos, sound);
+- the first rooms pay off within a minute and need no reading; every theme appears within the first nine;
+- rooms with a similar idea sit at least four apart; rooms that need more reading, or suit older visitors, come late.
+
+The home map draws the route: each room sits next to the one before it on a triangular lattice, and one line joins
+them in order (`placeMap` in `src/core/app.js`). On wide screens the line winds down one column and up the next, four
+rooms to a column (more when the pictures would get small); on phones it zigzags down the page, three and two to a
+row; right-to-left pages mirror it. Each room's cell takes its theme's colour, and a key names the themes. Under the
+map, a list names every room by theme. A new room joins the route where it adds the most variety: move its tags.
+`tests/unit/route.test.mjs` checks that neighbours never share a theme, that every theme appears among the first ten
+rooms, and that every room has its pictures (each at most 20 KB); `tests/browser/rooms.spec.js` checks that each
+room sits next to the one before it at four screen widths.
 
 The address always says where you are: `#room=<id>` in a room and no hash on the map, so Back and Forward work and
 any room can be linked. A room's `init()` runs the first time it is opened, not at page load.
@@ -66,30 +88,30 @@ There are two kinds of room:
 
 ### Stage room fields
 
-| Field                                                             | Purpose                                                                                                     |
-| ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `id`                                                              | Lowercase letters; used in URLs (`#room=id`), trail entries, tab ids. Never rename a published id.          |
-| `symbol`, `eyebrow`, `name`                                       | The room bar and home card. `name` also labels trail entries.                                               |
-| `theme`, `tagline`                                                | Which home-map group the card sits in, and its one-line description.                                        |
-| `accent`                                                          | Optional `{ background, border, color }`; `border` tints the home card on hover.                            |
-| `title`, `subtitle`, `field`, `sceneLabel`, `sceneName`, `tip`    | Visitor-facing words on the stage.                                                                          |
-| `actionLabel`, `canvasLabel`, `panelEyebrow`, `whyLabel`, `nudge` | Button label, canvas accessibility label, panel words.                                                      |
-| `connection`                                                      | `{ html, go, label }`: the "follow a thread" link to another room id.                                       |
-| `defaults`                                                        | Initial settings. Numbers and booleans only. Every boolean is shareable automatically.                      |
-| `ranges`                                                          | `{ key: [min, max] }` or `[min, max, 'integer']`: numeric settings accepted from links and the trail.       |
-| `presets`, `defaultPreset`                                        | Three `{ name, note, badge, settings }`, and the one highlighted at first.                                  |
-| `guests`                                                          | Mathematician visitors (see below).                                                                         |
-| `insight`                                                         | `{ title, html, onOpen?(settings) }`: the "Why does this happen?" dialog.                                   |
-| `controls(s, stage)`                                              | Returns the room's control markup. Use `stage.slider(...)` and `stage.check(...)`; they bind automatically. |
-| `draw(ctx, s, stage)`                                             | Draw one frame. `stage.width`, `stage.height`, `stage.clock` (seconds), `stage.playing`.                    |
+| Field                                                             | Purpose                                                                                                       |
+| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `id`                                                              | Lowercase letters; used in URLs (`#room=id`), trail entries, tab ids. Never rename a published id.            |
+| `symbol`, `eyebrow`, `name`                                       | The room bar (symbol) and the map (name; `name` also labels trail entries). `eyebrow` is a short topic label. |
+| `theme`, `tagline`                                                | Its theme (the colour of its cell on the map, and its group in the list), and its one-line description.       |
+| `accent`                                                          | Optional `{ background, border, color }`, the room's own colours.                                             |
+| `title`, `subtitle`, `field`, `sceneLabel`, `sceneName`, `tip`    | Visitor-facing words on the stage.                                                                            |
+| `actionLabel`, `canvasLabel`, `panelEyebrow`, `whyLabel`, `nudge` | Button label, canvas accessibility label, panel words.                                                        |
+| `connection`                                                      | `{ html, go, label }`: the "follow a thread" link to another room id.                                         |
+| `defaults`                                                        | Initial settings. Numbers and booleans only. Every boolean is shareable automatically.                        |
+| `ranges`                                                          | `{ key: [min, max] }` or `[min, max, 'integer']`: numeric settings accepted from links and the trail.         |
+| `presets`, `defaultPreset`                                        | Three `{ name, note, badge, settings }`, and the one highlighted at first.                                    |
+| `guests`                                                          | Mathematician visitors (see below).                                                                           |
+| `insight`                                                         | `{ title, html, onOpen?(settings) }`: the "Why does this happen?" dialog.                                     |
+| `controls(s, stage)`                                              | Returns the room's control markup. Use `stage.slider(...)` and `stage.check(...)`; they bind automatically.   |
+| `draw(ctx, s, stage)`                                             | Draw one frame. `stage.width`, `stage.height`, `stage.clock` (seconds), `stage.playing`.                      |
 
 Optional hooks, all given `(settings, stage)` unless noted: `bindControls(panel, s, stage)` for custom controls,
 `readouts(s)` to update status text, `step(dt, s, stage)` per animation frame, `action` for the third transport
 button, `reset` for "Start again", `onPreset`, `onInput`, `enter` when the room opens, `pointer: { down, move, up, leave, escape, arrow, key }` (`key(event, s, stage)` receives
 other keys pressed on the canvas and returns true when it handled one; `down` also receives the pointer event, and
 `up(event)` the pointerup or pointercancel event, so a room can ignore other buttons and cancelled gestures), `extraSettings()` / `restore(saved, s, stage)` for trail state that isn't in `settings`, and
-`silence()` / `soundOn()` for rooms that make sound, and `preview(ctx, width, height)` to draw the home-card picture
-(by default the card shows `draw()` with `defaults` plus optional `previewSettings`, at clock 0; a room whose `draw`
+`silence()` / `soundOn()` for rooms that make sound, and `preview(ctx, width, height)` to draw the room's picture for
+the map and link previews, made by `npm run previews` (by default the picture shows `draw()` with `defaults` plus optional `previewSettings`, at clock 0; a room whose `draw`
 touches the page or needs set-up must supply `preview`).
 
 Stage extras:
@@ -131,6 +153,27 @@ Every visitor-facing word lives in a dictionary, so the site can be translated w
 `npm run i18n:check` validates language files (first against the allowlist in `scripts/lang-guard.mjs`, since they are
 scripts), and translated markup is cleaned at runtime by `Wonderlattice.safeMarkup`. A pseudo-language browser test fails if any visible text bypasses the
 dictionaries. The step-by-step guide for translators is docs/TRANSLATING.md.
+
+## Day and night
+
+The site has two looks, which share every layout: **day** (the default, for every visitor), a science-museum floor
+map in ink on light paper with a yellow accent and Rubik; and **night**, a star atlas in ivory and gold on deep blue,
+with engraved-style headings (IM Fell English, with Frank Ruhl Libre for text and Hebrew, Amiri for Arabic). The sun
+and moon button in the header switches them; the choice stays in this browser (`wonderlattice.theme`), and
+`src/core/display.js` marks the page `<html data-theme="night">` before anything is drawn.
+
+- **Colours are tokens** (base.css): `--bg`, `--panel`, `--panel-2`, `--ink`, `--soft`, `--muted`, `--line`,
+  `--line-strong`, `--edge`, `--em` (emphasised words and numbers), `--accent` and `--accent-ink`, `--focus`, and a
+  colour per theme, `--t-<theme>`. Night and high contrast redefine them. A room's stylesheet uses the tokens, never
+  colours made for one look; words in a figure's own colour go through `.ink-tint` (with `--c` set to the colour).
+- **The pictures are dark in both looks.** The room's picture and its frame (`.drawing`), and the visitor card, are
+  dark windows with their own tokens, so a canvas drawn for a dark ground looks the same by day and at night.
+- **Typefaces** are served with the site (`fonts/`, declared in styles/fonts.css): a page downloads only the scripts it
+  uses, and the day typeface is preloaded. Once the page has loaded, the night typefaces are fetched quietly, so the
+  first switch is instant. Browsers won't load font files into a page opened from disk, so there the page uses the
+  device's fonts (`data-fonts="device"`); the standalone file carries its fonts inside it.
+- **Checked on every page:** all words reach 4.5:1 by day and at night, and 7:1 in high contrast (by day on a
+  phone, at night on a desktop): `tests/browser/display.spec.js`.
 
 ## Display settings
 
@@ -186,10 +229,11 @@ Tests: `tests/unit/feedback.test.mjs` runs the function against a stand-in GitHu
 1. Copy `src/rooms/traffic/` to `src/rooms/<id>/` and rename. Put the mathematics in `model.js` and attach it to
    `Wonderlattice.models.<id>`, and every visitor-facing word (including canvas labels and aria-labels) in `text.en.js`.
    Pick a `theme`, write a `tagline`, and set `added` to the day it goes live (`'2026-10-02'`): the home map names it
-   on its "New" line for 30 days. The published site loads each room on its own (see Growing), so the top of
+   on its "New" line for 30 days. Its panel's colours come from the tokens (see Day and night). The published site loads each room on its own (see Growing), so the top of
    `room.js` uses only the core, the stage and the room's own model and words; page work goes in its functions.
 2. Run `npm run rooms`: it adds the room's `<script>` tags (and `room.css`, if any) to `index.html`, before
-   `src/core/app.js`. Move them to change the room's place in the navigation. CI checks every room folder is linked.
+   `src/core/app.js`, which makes it the last stop on the route. Move its tags to where it adds the most variety
+   (see The route). CI checks every room folder is linked.
 3. Add unit tests for the model in `tests/unit/`. The unit tests and the browser tests find every room by themselves.
 4. Optionally add a visitor: a drawn `sketch` (below) needs no image rights. A photograph goes in `portraits/`, with
    its source and rights in `docs/PORTRAITS.md`.
@@ -197,8 +241,10 @@ Tests: `tests/unit/feedback.test.mjs` runs the function against a stand-in GitHu
 6. Optional: add trail `bridges` in `src/features/trail.js`, and room-specific CSS in `src/rooms/<id>/room.css`
    (`npm run rooms` links it; the build inlines it). Size its text in rem and give it high-contrast rules (see
    Display settings).
-7. Run `npm run previews -- <id>` to make the room's link-preview picture (`assets/rooms/<id>.jpg`) and commit it.
-   Without one, its share page falls back to the site's picture.
+7. Run `npm run previews -- <id>` and commit what it makes: the room's picture on the home map
+   (`assets/rooms/thumbs/<id>.webp`, and `<id>-wide.webp` for its card when someone points at it) and its share page's
+   link preview (`assets/rooms/<id>.jpg`). Without them the map shows a plain dark disc, and the share page falls
+   back to the site's picture. Look at the room by day and at night.
 8. Run `npm run check`. When several checkouts run browser tests at once, give each its own port:
    `PW_PORT=4711 PW_CHANNEL=chrome npm run check`.
 
@@ -213,16 +259,18 @@ when it's needed, so the page stays small however many rooms there are:
   against a browser that does nothing, so there's nothing extra to keep up to date. The published `index.html` loads
   the cards in place of the rooms' `<script>` and `<link>` tags.
 - `Wonderlattice.loadRoom(id)` brings a room's files once, in order: its model, its words (English, then the page
-  language), then its code, and its stylesheet. The app calls it when a room is opened (from a card, the room bar, a
+  language), then its code, and its stylesheet. The app calls it when a room is opened (from the map, the room bar, a
   shared link or the trail) and waits for it; a room that finishes loading after the visitor has moved on stays shut,
-  and one that can't load says so. A card's picture is drawn once the card comes near the screen, so that's when its
-  room loads. A room with its own layout (the drawing room) stays in the page.
+  and one that can't load says so. The home map needs no room's code: its pictures are small ready-made images
+  (`assets/rooms/thumbs/`), loaded as they come into view. A room with its own layout (the drawing room) stays in the
+  page.
 - If the build can't read a room's card, it stops and names the room. The browser tests run on the built site in CI;
   to run them there yourself: `npm run build`, then `SERVE_DIR=dist npm run test:browser`.
 
 `npm run budget` (part of `npm run check`) measures what the published site downloads, in compressed kilobytes: the
-page on a first visit (the core and the cards: at most 150 KB), each room when it loads (40 KB), and each language's
-words (50 KB on a first visit, and 10 KB for each room).
+page on a first visit (the core, the cards and the day typeface: at most 150 KB), each room when it loads (40 KB), and
+each language's words (50 KB on a first visit, and 10 KB for each room). It also reports the map's pictures, which
+load as they come into view.
 
 ## Shared links and saved moments are public contracts
 
@@ -253,7 +301,7 @@ Captions are original writing, never quotations.
 ## Builds
 
 `npm run build` copies the site to `dist/` and writes `dist/wonderlattice-standalone.html`, a single file with every
-stylesheet, script, and portrait inlined. The build reads the `<link>` and `<script>` tags from `index.html`, so
+stylesheet, script, typeface, portrait and map picture inlined. The build reads the `<link>` and `<script>` tags from `index.html`, so
 there's no separate list to keep up to date. In `dist/`, rooms load on demand (see Growing), and every file's address
 carries a fingerprint of its contents.
 

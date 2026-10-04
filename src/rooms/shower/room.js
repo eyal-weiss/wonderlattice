@@ -887,7 +887,7 @@
           r.bathers
             .map((b) => {
               const v = verdictOf(b.k, s.pipe);
-              return `<div class="shower-row"><span style="color:${b.colour}">${b.name}</span><strong>${t.readout.sum(plain(b.k), d, plain(b.k * s.pipe))}</strong></div><p class="shower-verdict is-${v.regime}">${v.verdict}</p>`;
+              return `<div class="shower-row"><span class="ink-tint" style="--c:${b.colour}">${b.name}</span><strong>${t.readout.sum(plain(b.k), d, plain(b.k * s.pipe))}</strong></div><p class="shower-verdict is-${v.regime}">${v.verdict}</p>`;
             })
             .join('') + `<p>${limit}</p><p id="shower-now"></p>`;
       else if (s.mode === ONE) {

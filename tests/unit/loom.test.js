@@ -90,13 +90,32 @@ function contrast(a, b) {
 const loomCss = readFileSync(new URL('../../src/rooms/loom/room.css', import.meta.url), 'utf8');
 const baseCss = readFileSync(new URL('../../styles/base.css', import.meta.url), 'utf8');
 
-test('an unpressed tie-up square has a border at least 3:1 against the panel and its own fill', () => {
+/**
+ * The page's colour tokens in one look ('day' or 'night'), from base.css. A colour with transparency, such as
+ * rgb(239 232 212 / 0.45), is laid over the given background to give the colour you see.
+ */
+function tokens(look) {
+  const block = (selector) => baseCss.slice(baseCss.indexOf(`${selector} {`)).split('}')[0];
+  const read = (text) => Object.fromEntries([...text.matchAll(/(--[a-z0-9-]+): ([^;]+);/g)].map((m) => [m[1], m[2]]));
+  return { ...read(block(':root')), ...(look === 'night' ? read(block(":root[data-theme='night']")) : {}) };
+}
+function solid(colour, behind) {
+  const rgba = colour.match(/rgb\((\d+) (\d+) (\d+) \/ ([\d.]+)\)/);
+  if (!rgba) return colour;
+  const under = [1, 3, 5].map((i) => parseInt(behind.slice(i, i + 2), 16));
+  const alpha = Number(rgba[4]);
+  return [1, 2, 3].map((i, k) => Math.round(Number(rgba[i]) * alpha + under[k] * (1 - alpha)));
+}
+
+test('an unpressed tie-up square has a border at least 3:1 against the panel and its own fill, by day and night', () => {
   const rule = loomCss.match(/\.loom-cell \{([^}]*)\}/)[1];
-  const border = rule.match(/border: 1px solid (#[0-9a-f]{6})/)[1],
-    fill = rule.match(/background: (#[0-9a-f]{6})/)[1],
-    panel = baseCss.match(/--panel: (#[0-9a-f]{6})/)[1];
-  for (const behind of [panel, fill]) {
-    const ratio = contrast(border, behind);
-    assert.ok(ratio >= 3, `border ${border} on ${behind}: ${ratio.toFixed(2)}:1`);
+  const borderToken = rule.match(/border: 1px solid var\((--[a-z0-9-]+)\)/)[1],
+    fillToken = rule.match(/background: var\((--[a-z0-9-]+)\)/)[1];
+  for (const look of ['day', 'night']) {
+    const t = tokens(look);
+    for (const behind of [t['--panel'], t[fillToken]]) {
+      const ratio = contrast(solid(t[borderToken], behind), behind);
+      assert.ok(ratio >= 3, `${look}: border ${t[borderToken]} on ${behind}: ${ratio.toFixed(2)}:1`);
+    }
   }
 });

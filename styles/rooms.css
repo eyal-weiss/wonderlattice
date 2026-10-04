@@ -3,13 +3,24 @@
   display: none !important;
 }
 .scene-status {
-  color: #a7b4c6;
+  color: var(--muted);
   font-size: 0.8125rem;
   text-align: end;
   max-width: 12.3em;
 }
+/* The picture keeps its size while the status beside its title changes: the status has a fixed width (so the title
+   never rewraps) and the row room for three lines of it. */
+@media (min-width: 761px) {
+  .scene .scene-status {
+    flex: 0 0 12.3em;
+  }
+  .scene .stage-head {
+    min-height: 3.9rem;
+  }
+}
 .scene #scene-name {
-  font-family: Georgia, serif;
+  font-family: var(--font-display);
+  font-weight: calc(var(--display-weight) - 100);
   font-size: 1.375rem;
   margin-top: 2px;
 }
@@ -19,7 +30,7 @@
 .scene-tip {
   text-align: center;
   font-size: 0.75rem;
-  color: #a1b0c4;
+  color: var(--muted);
   pointer-events: none;
 }
 .scene canvas {
@@ -40,35 +51,39 @@
 }
 .scene-preset {
   padding: 18px 20px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: #161c25;
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel);
   text-align: start;
 }
 .scene-preset:hover {
-  border-color: #72838b;
-  background: #1c2631;
+  border-color: var(--edge);
+  background: var(--panel-hover);
 }
 .scene-preset[aria-pressed='true'] {
-  border-color: #bbdba1;
-  background: #202a25;
+  border-color: var(--edge);
+  background: color-mix(in srgb, var(--accent) 18%, var(--panel));
+}
+:root[data-theme='night'] .scene-preset {
+  border-width: 1px;
+  border-radius: 3px;
 }
 .scene-preset strong {
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   display: block;
 }
 .scene-preset span {
   display: block;
-  color: #aeb8c7;
+  color: var(--muted);
   font-size: 0.8125rem;
   margin-top: 5px;
 }
 .control select {
   width: 100%;
   margin-top: 12px;
-  background: #111923;
-  border: 1px solid #485161;
+  background: var(--panel-2);
+  border: 1px solid var(--line-strong);
   border-radius: 7px;
   color: var(--ink);
   padding: 9px;
@@ -84,7 +99,7 @@
   overflow-wrap: anywhere; /* the words beside the box may break, rather than push past the panel */
 }
 .toggle-row input {
-  accent-color: var(--lime);
+  accent-color: var(--em);
   width: 18px;
   height: 18px;
 }
@@ -95,17 +110,19 @@
   margin-top: 11px;
 }
 .segment button {
-  border: 1px solid #414b5b;
-  border-radius: 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
   padding: 7px 11px;
-  background: #121b26;
-  color: #bac6d7;
+  background: var(--panel-2);
+  color: var(--soft);
   font-size: 0.8125rem;
 }
 .segment button[aria-pressed='true'] {
-  color: #ddf6a3;
-  border-color: #a4bc88;
-  background: #273122;
+  color: var(--ink);
+  font-weight: 600;
+  border: 2px solid var(--edge);
+  padding: 6px 10px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--panel));
 }
 .connection {
   display: flex;
@@ -113,41 +130,48 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
-  border-top: 1px solid #303947;
+  border-top: 2px solid var(--line);
   padding: 20px 0 2px;
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
 }
 .connection p {
   margin: 0;
-  color: #b5c0ce;
+  color: var(--soft);
   max-width: 750px;
 }
 .connection .button {
   white-space: nowrap;
 }
 .connection strong {
-  color: #e1e5da;
-  font-weight: 500;
+  color: var(--ink);
+  font-weight: 600;
 }
 .meter {
-  height: 4px;
+  height: 6px;
   border-radius: 8px;
-  background: #303b46;
+  background: var(--line);
   overflow: hidden;
   margin-top: 10px;
 }
 .meter span {
   display: block;
   height: 100%;
-  background: #a4dfc4;
+  background: var(--em);
   transition: width 0.3s;
 }
 .readout {
   font-size: 0.8125rem;
-  color: #b2c0cd;
+  color: var(--soft);
+}
+/* Words in a figure's own colour (--c), deepened by day and lightened at night so they stay readable. */
+.ink-tint {
+  color: color-mix(in srgb, var(--c) 45%, var(--ink));
+}
+:root[data-contrast='more'] .ink-tint {
+  color: color-mix(in srgb, var(--c) 30%, var(--ink));
 }
 .source-link {
-  color: #b9d797;
+  color: var(--em);
   text-decoration: underline;
   text-underline-offset: 3px;
   font-size: 0.875rem;
@@ -163,10 +187,10 @@
 }
 .insight-visual {
   padding: 18px;
-  background: #101923;
-  border: 1px solid #364255;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
   border-radius: 10px;
-  color: #b6e8d3;
+  color: var(--ink);
 }
 .narrate {
   margin: 0 0 4px !important;
@@ -181,9 +205,10 @@
 .scene-presets .number {
   float: right;
   float: inline-end;
-  font-family: Georgia, serif;
+  font-family: var(--font-display);
+  font-weight: calc(var(--display-weight) - 100);
   font-size: 1.375rem;
-  color: #a3c8bb;
+  color: var(--em);
 }
 [dir='rtl'] .scene-presets .number {
   direction: ltr;
@@ -256,11 +281,11 @@
   }
 }
 .traffic-result {
-  border: 1px solid #507a72;
-  background: #162923;
+  border: 1px solid var(--line-strong);
+  background: var(--panel-2);
   padding: 14px 16px;
   border-radius: 9px;
-  color: #e4f7ed;
+  color: var(--ink);
   line-height: 1.55;
 }
 .traffic-result {
@@ -273,20 +298,21 @@
   gap: 7px;
 }
 .traffic-time {
-  border: 1px solid #48665e;
+  border: 1px solid var(--line-strong);
   border-radius: 8px;
   padding: 11px 8px;
-  background: #152420;
+  background: var(--panel);
   min-width: 0;
 }
 .traffic-time.active {
-  border-color: #c1e9c9;
-  background: #203b33;
+  border: 2px solid var(--edge);
+  padding: 10px 7px;
+  background: color-mix(in srgb, var(--accent) 18%, var(--panel));
 }
 .traffic-time span {
   display: block;
   font-size: 0.75rem;
-  color: #b8d1c7;
+  color: var(--muted);
   white-space: nowrap;
 }
 :root[data-text-size] .traffic-time span {
@@ -296,8 +322,8 @@
   display: block;
   font-size: 1.875rem;
   line-height: 1.15;
-  color: #f0fff2;
-  font-weight: 650;
+  color: var(--ink);
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
 .traffic-time small {
@@ -306,7 +332,7 @@
 }
 .traffic-arrow {
   font-size: 1.25rem;
-  color: #d3e9cf;
+  color: var(--soft);
 }
 [dir='rtl'] .traffic-arrow {
   display: inline-block;
@@ -316,7 +342,7 @@
   margin: 12px 0 0;
   font-size: 0.875rem;
   line-height: 1.45;
-  color: #dbf4df;
+  color: var(--soft);
 }
 @media (max-width: 380px) {
   .traffic-time strong {
@@ -332,7 +358,7 @@
   color: var(--ink);
 }
 :root[data-contrast='more'] .scene-presets .number {
-  color: #d3f2e6;
+  color: var(--em);
 }
 :root[data-contrast='more'] .segment button:not([aria-pressed='true']) {
   color: var(--muted);
@@ -342,11 +368,11 @@
   border-color: var(--line);
 }
 :root[data-contrast='more'] .scene-preset[aria-pressed='true'] {
-  border-color: var(--lime);
+  border-color: var(--edge);
 }
 :root[data-contrast='more'] .source-link {
-  color: var(--lime);
+  color: var(--em);
 }
 :root[data-contrast='more'] .traffic-time span {
-  color: #e2f0ea;
+  color: var(--ink);
 }

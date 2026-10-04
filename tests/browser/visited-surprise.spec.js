@@ -1,9 +1,9 @@
 import { test, expect, openRoom, expectRoom } from './helpers.js';
 
 const visited = (page) =>
-  page.evaluate(() => [...document.querySelectorAll('.room-card.visited')].map((card) => card.dataset.room).sort());
+  page.evaluate(() => [...document.querySelectorAll('.map-room.visited')].map((card) => card.dataset.room).sort());
 
-test('cards of rooms already opened carry a quiet mark, kept across a reload', async ({ page }) => {
+test('rooms already opened carry a quiet mark on the map, kept across a reload', async ({ page }) => {
   await page.goto('/');
   expect(await visited(page)).toEqual([]);
   await openRoom(page, 'dice');
@@ -48,7 +48,7 @@ test('with storage blocked, nothing breaks and nothing is marked', async ({ page
 test('"Surprise me" opens a room not yet opened, and never the room you are in', async ({ page }) => {
   await page.addInitScript(() => (Math.random = () => 0)); // always the first candidate
   await page.goto('/');
-  const order = await page.evaluate(() => [...document.querySelectorAll('.room-card')].map((c) => c.dataset.room));
+  const order = await page.evaluate(() => [...document.querySelectorAll('.map-room')].map((c) => c.dataset.room));
   await page.locator('#home-surprise').click();
   await expectRoom(page, order[0]);
   // From inside that room, the room bar's surprise skips it and every room already opened.
@@ -61,7 +61,7 @@ test('"Surprise me" opens a room not yet opened, and never the room you are in',
 test('once every room has been opened, a surprise is still another room', async ({ page }) => {
   await page.addInitScript(() => (Math.random = () => 0.999));
   await page.goto('/');
-  const order = await page.evaluate(() => [...document.querySelectorAll('.room-card')].map((c) => c.dataset.room));
+  const order = await page.evaluate(() => [...document.querySelectorAll('.map-room')].map((c) => c.dataset.room));
   await page.evaluate((ids) => localStorage.setItem('wonderlattice.visited.v1', JSON.stringify(ids)), order);
   await page.goto('/#room=' + order.at(-1));
   await expectRoom(page, order.at(-1));

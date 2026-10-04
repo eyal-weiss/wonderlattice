@@ -471,12 +471,12 @@
           r.crowds
             .map(
               (c, i) =>
-                `<div class="parrondo-race-row"><span>${t.readout.games[i]}</span><strong style="color:${c.colour}">${fmt(c.exact.mean[ROUNDS])}</strong></div>`,
+                `<div class="parrondo-race-row"><span>${t.readout.games[i]}</span><strong class="ink-tint" style="--c:${c.colour}">${fmt(c.exact.mean[ROUNDS])}</strong></div>`,
             )
             .join('') +
           `<p>${t.readout.perRounds(...r.crowds.map((c) => fmt(c.long.gain, 4)))}</p>` +
           '<p id="parrondo-average"></p><p id="parrondo-bad"></p>'
-        : `<div class="parrondo-big"><span>${t.readout.expected(count(ROUNDS))}</span><strong style="color:${r.crowds[0].colour}">${fmt(r.crowds[0].exact.mean[ROUNDS])}</strong></div>` +
+        : `<div class="parrondo-big"><span>${t.readout.expected(count(ROUNDS))}</span><strong class="ink-tint" style="--c:${r.crowds[0].colour}">${fmt(r.crowds[0].exact.mean[ROUNDS])}</strong></div>` +
           `<p>${t.readout.perRound(fmt(r.crowds[0].long.gain, 4))}</p>` +
           '<p id="parrondo-average"></p><p id="parrondo-bad"></p>';
     const letters = $('parrondo-letters');

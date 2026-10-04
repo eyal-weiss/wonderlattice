@@ -1,7 +1,7 @@
 /* Send a picture through a storm: the panel's figures and the small damage curve. */
 .storm-readout {
-  border: 1px solid #3a4658;
-  background: #121a25;
+  border: 1px solid var(--line-strong);
+  background: var(--panel-2);
   padding: 14px 16px;
   border-radius: 9px;
 }
@@ -14,18 +14,21 @@
 .storm-value {
   font-weight: 600;
   text-align: end;
-  color: var(--value, var(--ink)); /* the colour of the marks it counts in the picture */
+  /* The colour of the marks it counts in the picture, deepened by day and lightened at night to stay readable. */
+  color: color-mix(in srgb, var(--value, var(--ink)) 55%, var(--ink));
 }
 .storm-curve-box {
   margin-top: 14px;
   padding-top: 12px;
-  border-top: 1px solid #2a3544;
+  border-top: 1px solid var(--line);
 }
 .storm-curve {
   display: block;
   width: 100%;
   height: 70px;
   margin-top: 6px;
+  border-radius: 6px;
+  background: var(--stage); /* a dark window, as the curve is drawn for one */
 }
 
 /* The presets' badges say what the percentage counts: "+75%", and under it, "extra bits". */
@@ -44,9 +47,9 @@ body[data-room='storm'] .scene-presets .number small {
   letter-spacing: normal;
 }
 
-/* High contrast (see base.css): the counts keep their colours, lightened. */
+/* High contrast (see base.css): the counts keep a hint of their colours. */
 :root[data-contrast='more'] .storm-value {
-  color: color-mix(in srgb, var(--value, var(--ink)) 72%, #fff);
+  color: color-mix(in srgb, var(--value, var(--ink)) 35%, var(--ink));
 }
 :root[data-contrast='more'] .storm-figures span {
   color: var(--muted);

@@ -1,6 +1,7 @@
 // Builds dist/ with no dependencies:
 //   dist/                             the site, ready for any static host
-//   dist/wonderlattice-standalone.html   one self-contained file (styles, scripts, portraits inlined)
+//   dist/wonderlattice-standalone.html   one self-contained file (styles, scripts, fonts, portraits and the map's
+//                                        pictures inlined)
 // Usage: node scripts/build.mjs
 import { createHash } from 'node:crypto';
 import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
@@ -15,7 +16,7 @@ const read = (path) => readFileSync(join(root, path), 'utf8');
 
 rmSync(dist, { recursive: true, force: true });
 mkdirSync(dist);
-for (const item of ['index.html', '_headers', 'styles', 'src', 'portraits', 'assets', 'LICENSE']) {
+for (const item of ['index.html', '_headers', 'styles', 'src', 'portraits', 'assets', 'fonts', 'LICENSE']) {
   cpSync(join(root, item), join(dist, item), { recursive: true });
 }
 // The image credits travel with the site, next to the licence that excludes them.
@@ -43,6 +44,22 @@ const portraits = Object.fromEntries(
   ]),
 );
 
+// The map's pictures (assets/rooms/thumbs/<id>.webp), so the standalone file's map shows them too.
+const thumbs = Object.fromEntries(
+  readdirSync(join(root, 'assets/rooms/thumbs'))
+    .filter((file) => file.endsWith('.webp') && !file.endsWith('-wide.webp'))
+    .map((file) => [
+      file.replace('.webp', ''),
+      `data:image/webp;base64,${readFileSync(join(root, 'assets/rooms/thumbs', file)).toString('base64')}`,
+    ]),
+);
+// The typefaces travel inside the file's stylesheet (a page opened from disk can't load font files).
+const withFontsInside = (css) =>
+  css.replace(
+    /url\('\.\.\/fonts\/([^']+\.woff2)'\)/g,
+    (_, file) => `url('data:font/woff2;base64,${readFileSync(join(root, 'fonts', file)).toString('base64')}')`,
+  );
+
 const inlineScript = (code, name) => {
   if (/<\/script/i.test(code)) throw new Error(`${name} contains "</script" and cannot be inlined`);
   return `<script>\n${code}</script>`;
@@ -56,23 +73,30 @@ let standalone = html
   )
   .replace(/ *<!-- Link previews[^]*?<meta name="twitter:card"[^>]*>\n/, '');
 for (const path of styles) {
-  standalone = standalone.replace(`<link rel="stylesheet" href="./${path}" />`, () => `<style>\n${read(path)}</style>`);
+  const css = path === 'styles/fonts.css' ? withFontsInside(read(path)) : read(path);
+  standalone = standalone.replace(`<link rel="stylesheet" href="./${path}" />`, () => `<style>\n${css}</style>`);
 }
 // Every language's words, for the standalone file (it can't load files, and offers the language menu offline).
 const allLanguages = () => languageFiles.map(({ path }) => inlineScript(read(path), path)).join('\n');
 for (const path of scripts) {
   let block = path === 'src/lang/load.js' ? allLanguages() : inlineScript(read(path), path);
-  // Portrait images travel inside the file, right after the core namespace exists.
+  // Portrait images and the map's pictures travel inside the file, right after the core namespace exists.
   if (path === 'src/core/wonderlattice.js') {
     block += '\n' + inlineScript(`Wonderlattice.portraitSources = ${JSON.stringify(portraits)};\n`, 'portraits');
+    block += '\n' + inlineScript(`Wonderlattice.thumbSources = ${JSON.stringify(thumbs)};\n`, 'thumbs');
   }
+  // The display settings learn that this file carries its fonts (so it uses them even from disk).
+  if (path === 'src/core/display.js')
+    block = inlineScript('window.wonderlatticeFontsInside = true;\n', 'fonts') + '\n' + block;
   standalone = standalone.replace(`<script src="./${path}"></script>`, () => block);
 }
 if (/(?:src|href)="\.\//.test(standalone)) throw new Error('Standalone file still references local files');
 const notice =
   '<!--\n  Wonderlattice: code and text under the MIT licence (see LICENSE in the source).\n' +
   "  Portrait images are third-party works: public domain, except John Conway's photo by Thane Plambeck,\n" +
-  '  CC BY 2.0 (cropped). Credits: CREDITS.md / docs/PORTRAITS.md.\n-->\n';
+  '  CC BY 2.0 (cropped). Credits: CREDITS.md / docs/PORTRAITS.md.\n' +
+  '  Typefaces: Rubik, IM Fell English, Frank Ruhl Libre and Amiri, under the SIL Open Font License (fonts/ in the\n' +
+  '  source, with each licence).\n-->\n';
 writeFileSync(
   join(dist, 'wonderlattice-standalone.html'),
   standalone.replace('<!doctype html>\n', (d) => d + notice),

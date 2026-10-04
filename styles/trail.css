@@ -1,6 +1,6 @@
 /* My trail: saved moments, reflections, and export/import. */
 .trail-header {
-  color: var(--lime);
+  color: var(--em);
   white-space: nowrap;
 }
 .trail-header span[aria-hidden='true'] {
@@ -8,20 +8,21 @@
 }
 .trail-keep {
   width: 100%;
-  border-color: #78946c;
-  color: #e6f7c9;
-  background: #283528;
+  border-color: var(--edge);
+  color: var(--ink);
+  background: color-mix(in srgb, var(--accent) 32%, var(--panel));
   font-size: 0.875rem;
+  font-weight: 600;
 }
 .trail-keep:hover {
-  background: #344332;
+  background: color-mix(in srgb, var(--accent) 48%, var(--panel));
 }
 .trail-return {
   margin-top: 18px;
   padding: 16px 20px;
-  border: 1px solid #7b956d;
+  border: 2px solid var(--edge);
   border-radius: 13px;
-  background: #1e2b24;
+  background: color-mix(in srgb, var(--accent) 14%, var(--panel));
   display: flex;
   align-items: end;
   justify-content: space-between;
@@ -32,15 +33,15 @@
 }
 .trail-return p {
   margin: 5px 0 10px;
-  font:
-    1.125rem/1.35 Georgia,
-    serif;
-  color: #f1f8e9;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  line-height: 1.35;
+  color: var(--ink);
 }
 .trail-return label,
 #trail-capture-dialog label {
   font-size: 0.8125rem;
-  color: #d6dfd3;
+  color: var(--soft);
   display: block;
   margin-bottom: 7px;
 }
@@ -53,8 +54,8 @@
   width: 100%;
   resize: vertical;
   min-height: 60px;
-  background: #101821;
-  border: 1px solid #526354;
+  background: var(--panel-2);
+  border: 1px solid var(--line-strong);
   border-radius: 8px;
   padding: 10px;
   color: var(--ink);
@@ -70,9 +71,9 @@
 }
 .trail-preview {
   height: 180px;
-  border: 1px solid #3b4e4c;
+  border: 1px solid var(--line);
   border-radius: 10px;
-  background: #0a0e15;
+  background: var(--stage);
   overflow: hidden;
   display: grid;
   place-items: center;
@@ -90,11 +91,11 @@
 }
 .trail-private {
   font-size: 0.75rem;
-  color: #aeb8b6 !important;
+  color: var(--muted) !important;
   line-height: 1.45 !important;
 }
 .trail-status {
-  color: #e7d3a6 !important;
+  color: var(--em) !important;
   font-size: 0.8125rem;
 }
 #trail-dialog {
@@ -109,8 +110,8 @@
   display: grid;
   grid-template-columns: 150px 1fr;
   gap: 16px;
-  border: 1px solid #38463f;
-  background: #131d21;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
   border-radius: 11px;
   padding: 10px;
   min-height: 120px;
@@ -120,7 +121,7 @@
   height: 105px;
   object-fit: contain;
   border-radius: 6px;
-  background: #0a0e15;
+  background: var(--stage);
 }
 .trail-card-copy h3 {
   margin: 3px 0 4px;
@@ -137,7 +138,7 @@
 }
 .trail-reflection-label {
   font-size: 0.75rem;
-  color: var(--lime);
+  color: var(--em);
 }
 .trail-card-actions {
   display: flex;
@@ -155,8 +156,8 @@
   gap: 10px;
 }
 .trail-bridge {
-  background: #202925;
-  border: 1px solid #455b48;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
   border-radius: 10px;
   padding: 14px;
 }
@@ -190,16 +191,16 @@
   top: 50%;
 }
 .trail-import-label:focus-within {
-  outline: var(--focus-width) solid var(--lime);
+  outline: var(--focus-width) solid var(--focus);
   outline-offset: 4px;
 }
 .trail-empty {
   padding: 24px;
-  border: 1px dashed #536350;
+  border: 1px dashed var(--line-strong);
   border-radius: 10px;
 }
 textarea:focus-visible {
-  outline: var(--focus-width) solid var(--lime);
+  outline: var(--focus-width) solid var(--focus);
   outline-offset: 3px;
 }
 @media (max-width: 760px) {
@@ -236,40 +237,13 @@ textarea:focus-visible {
     font-size: 0.625rem;
   }
 }
-@media (max-width: 420px) {
-  header {
-    flex-wrap: wrap;
-    height: auto;
-    padding: 9px 0;
-    row-gap: 2px;
-  }
-  /* Two rows: the brand and the language menu, then About, My trail and Display. */
-  .brand {
-    flex: 1;
-  }
-  .language-pick {
-    order: 1;
-  }
-  .language-pick svg {
-    display: none;
-  }
-  header::after {
-    content: '';
-    order: 2;
-    flex-basis: 100%;
-  }
-  #about-button,
-  .trail-header,
-  .display-open {
-    order: 3;
-  }
-}
+/* (The header's two rows on phones are in base.css.) */
 @media (max-width: 360px) {
   header {
     column-gap: 8px;
   }
-  .brand {
-    font-size: 18px; /* the wordmark keeps its size */
+  .brand-word b {
+    font-size: 20px; /* the wordmark keeps its size */
   }
   .trail-card {
     grid-template-columns: 1fr;
@@ -291,6 +265,14 @@ textarea:focus-visible {
   :is(.trail-return textarea, #trail-note, .trail-preview, .trail-card, .trail-bridge, .trail-empty) {
   border-color: var(--line);
 }
+:root[data-theme='night'] .trail-keep {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: transparent;
+}
+:root[data-theme='night'] .trail-keep:hover {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
 :root[data-contrast='more'] :is(.trail-keep, .trail-return) {
-  border-color: #b4d69a;
+  border-color: var(--edge);
 }

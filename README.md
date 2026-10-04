@@ -4,7 +4,7 @@
 
 **Play it at [wonderlattice.com](https://wonderlattice.com).**
 
-![Wonderlattice: cards for a flower drawn by turning arms, a woven pattern, two dice, and three fingerprints](assets/social.jpg)
+![Wonderlattice: the start of the route on the home map, with a flower drawn by turning arms, a road diagram and a flock](assets/social.jpg)
 
 Wonderlattice is a free collection of thirty-three rooms, each built around one surprise:
 
@@ -32,14 +32,17 @@ Wonderlattice is a free collection of thirty-three rooms, each built around one 
   every driver down, a secret agreed out loud, a picture that survives losing most of its numbers, and weather twins
   that drift apart.
 
-Each room has an optional explanation with sources, and a visiting mathematician. There are no scores, accounts, ads
-or tracking. You can keep favourite moments in "My trail", which stays in your own browser. The Display button makes
-the text larger or raises the contrast, and every explanation ends with a box for sending a message to the maker.
+The home page is a map: one route through every room, numbered so each stop is unlike the one before, whether you
+stay five minutes or an hour. Each room has an optional explanation with sources, and a visiting mathematician. There
+are no scores, accounts, ads or tracking. You can keep favourite moments in "My trail", which stays in your own
+browser. The sun and moon button switches between day and night colours, the Display button makes the text larger or
+raises the contrast, and every explanation ends with a box for sending a message to the maker.
 
 ## Run it yourself
 
 Download or clone this repository and double-click **index.html**. It works offline, in any modern browser, with no
-installation or build step.
+installation or build step. (Opened this way, browsers don't load the site's own typefaces, so it uses your
+device's; the single file below has them inside.)
 
 For a single file you can email or keep, download
 [wonderlattice-standalone.html](https://wonderlattice.com/wonderlattice-standalone.html) and open it from your
