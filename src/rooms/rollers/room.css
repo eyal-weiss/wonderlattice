@@ -1,0 +1,71 @@
+/* Rollers that aren't round: the choices of view and shape, the readout, and the cursor for rolling by hand. */
+body[data-room='rollers'] #scene-canvas {
+  cursor: grab;
+}
+body[data-room='rollers'] #scene-canvas:active {
+  cursor: grabbing;
+}
+.rollers-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+}
+.rollers-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.rollers-choices .button {
+  flex: 1 1 auto;
+  justify-content: center;
+  padding-inline: 10px;
+  white-space: normal;
+}
+.rollers-choices .button[aria-pressed='true'] {
+  border-color: #d6b37a;
+  background: color-mix(in srgb, #d6b37a 26%, var(--panel));
+  color: var(--ink);
+}
+.rollers-readout {
+  border: 1px solid var(--line-strong);
+  background: var(--panel-2);
+  padding: 12px 14px;
+  border-radius: 9px;
+}
+.rollers-big {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink);
+}
+.rollers-rows {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px 12px;
+  align-items: baseline;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.rollers-rows strong {
+  color: var(--ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}
+.rollers-rule {
+  margin: 10px 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+:root[data-contrast='more'] .rollers-readout {
+  border-color: var(--edge);
+}
+:root[data-contrast='more'] .rollers-rows {
+  color: var(--ink);
+}
+:root[data-contrast='more'] .rollers-choices .button[aria-pressed='true'] {
+  border-color: #f3dcb0;
+  color: var(--ink);
+}
