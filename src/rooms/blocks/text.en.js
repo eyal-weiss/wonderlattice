@@ -9,8 +9,8 @@ Wonderlattice.defineText('blocks', 'en', {
   field: 'Centre of mass · Harmonic series · A slow surprise',
   sceneLabel: 'A table edge · Blocks to stack',
   sceneName: (n) => (n === 0 ? 'Empty table' : 'Stacked blocks'),
-  tip: 'Drag a block onto the stack, or use arrow keys to nudge the top block. Press B for Best Stack.',
-  actionLabel: 'Best Stack',
+  tip: 'Drag a block sideways · Tap empty space to add a block · Arrow keys nudge the top block, B builds the best stack',
+  actionLabel: 'Best stack',
   lengthsLabel: (oh) => `${oh.toFixed(2)} lengths`,
   canvasLabel:
     'A table with blocks stacked at its edge. Drag blocks to adjust their positions. The stack tips if the centre of mass goes past the support.',
@@ -27,7 +27,7 @@ Wonderlattice.defineText('blocks', 'en', {
   presets: [
     { name: '4 blocks', note: 'The top block can clear the table edge.' },
     { name: '31 blocks', note: 'Two block-lengths of overhang.' },
-    { name: 'Best Stack', note: 'Every block at its ideal position.' },
+    { name: 'Best stack', note: 'Every block at its ideal position.' },
   ],
 
   blocks: 'Blocks',
@@ -42,7 +42,7 @@ Wonderlattice.defineText('blocks', 'en', {
     m3: 'Three block-lengths',
   },
 
-  bestLabel: 'Best Stack',
+  bestLabel: 'Best stack',
   resetLabel: 'Start again',
 
   guests: [

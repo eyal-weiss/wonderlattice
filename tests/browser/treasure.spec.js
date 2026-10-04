@@ -4,7 +4,8 @@ test('treasure room: with rare treasure, most beeps are false alarms', async ({ 
   await page.emulateMedia({ reducedMotion: 'reduce' }); // the sweep lands at once
   await page.goto('/');
   await openRoom(page, 'treasure');
-  await expect(page.locator('#treasure-readout strong')).toHaveText('28%');
+  // The answer waits until the visitor digs: the question stays open.
+  await expect(page.locator('#treasure-readout strong')).toHaveText('?');
   await expect(page.locator('#scene-status')).toHaveText('Sweep the island to start');
   await page.locator('#scene-action').click(); // sweep
   await expect(page.locator('#scene-status')).toContainText('tap one to dig');
@@ -13,6 +14,7 @@ test('treasure room: with rare treasure, most beeps are false alarms', async ({ 
   const [, beeps, found, alarms] = status.match(/(\d+) beeps? dug: (\d+) treasures?, (\d+) false alarms?/).map(Number);
   expect(found + alarms).toBe(beeps);
   expect(alarms).toBeGreaterThan(found); // the surprise: a 95% detector, yet most beeps are wrong
+  await expect(page.locator('#treasure-readout strong')).toHaveText('28%');
   await expect(page.locator('#scene-action')).toHaveText('A new island');
 });
 
@@ -36,8 +38,11 @@ test('treasure room: the keyboard sweeps and digs', async ({ page }) => {
 });
 
 test('treasure room: a shared link restores the odds', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' }); // the sweep lands at once
   await page.goto('/#room=treasure&treasure=30&accuracy=90');
   await expect(page.locator('#v-treasure')).toHaveText('30% · 1 in 3');
+  await page.locator('#scene-action').click(); // sweep
+  await page.locator('#scene-action').click(); // dig every beep: now the answer shows
   const percent = Number((await page.locator('#treasure-readout strong').textContent()).replace('%', ''));
   expect(percent).toBeGreaterThan(70);
 });

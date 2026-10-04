@@ -327,7 +327,7 @@
       bClose: [0, 1000, 'integer'],
       bFar: [0, 1000, 'integer'],
     },
-    defaultPreset: 1,
+    defaultPreset: 2, // the opening mix is the extreme one
     presets: [
       { settings: { aClose: 500, aFar: 500, bClose: 500, bFar: 500 } },
       { settings: { aClose: 100, aFar: 500, bClose: 500, bFar: 100 } },

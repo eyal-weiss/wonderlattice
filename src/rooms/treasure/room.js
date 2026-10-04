@@ -31,7 +31,8 @@
     swept = 0, // 0 not yet, 0–1 while the detector passes, 1 done
     dug = new Set(),
     cursor = null,
-    layout = null; // the last frame's geometry, for the pointer
+    layout = null, // the last frame's geometry, for the pointer
+    revealed = false; // the answer shows after the first dig, or once the visitor changes the odds
 
   const detectors = (s) => (s.second ? 2 : 1);
 
@@ -163,7 +164,7 @@
   }
 
   /** 1,000 squares as dots, sorted: treasure the detector finds, treasure it misses, false alarms, quiet sand. */
-  function drawDots(ctx, n, box, small) {
+  function drawDots(ctx, n, box, small, hidden = false) {
     const kinds = [
       [n.found, 'found'],
       [n.missed, 'missed'],
@@ -185,6 +186,21 @@
     ctx.font = `600 ${small}px system-ui`;
     ctx.textAlign = 'left';
     ctx.fillText(t.labels.thousand, box.x, box.y + small);
+    if (hidden) {
+      // Before the first dig: plain dots and a promise, so the picture doesn't answer the question for you.
+      for (let k = 0; k < cols * rows; k++) {
+        ctx.beginPath();
+        ctx.arc(ox + (k % cols) * step + step / 2, oy + Math.floor(k / cols) * step + step / 2, r, 0, Math.PI * 2);
+        ctx.fillStyle = COLOURS.dim;
+        ctx.fill();
+      }
+      ctx.fillStyle = COLOURS.ink;
+      ctx.font = `600 ${small}px system-ui`;
+      ctx.textAlign = 'center';
+      ctx.fillText(t.labels.hidden, box.x + box.w / 2, oy + rows * step + small * 1.4);
+      ctx.textAlign = 'left';
+      return;
+    }
     let k = 0;
     for (const [count, kind] of kinds)
       for (let i = 0; i < count; i++, k++) {
@@ -230,7 +246,13 @@
     ctx.direction = 'ltr'; // the picture's labels keep their places on right-to-left pages too
     layout = place(width, height);
     drawIsland(ctx, b, layout, clock, { swept, dug, cursor });
-    drawDots(ctx, M.perThousand(s.treasure / 100, s.accuracy / 100, detectors(s)), layout.dotsBox, layout.small);
+    drawDots(
+      ctx,
+      M.perThousand(s.treasure / 100, s.accuracy / 100, detectors(s)),
+      layout.dotsBox,
+      layout.small,
+      !revealed,
+    );
   }
 
   /** The home card and link preview: an island already swept and dug, so the surprise shows at a glance. */
@@ -282,8 +304,16 @@
     const box = $('treasure-readout');
     if (box)
       box.innerHTML =
-        `<div class="treasure-big"><span>${t.readout.title}</span><strong>${t.readout.percent(n.found / Math.max(1, n.found + n.falseAlarms))}</strong></div>` +
-        `<p>${t.readout.story(n.total, n.treasure, n.found, n.falseAlarms, s.second)}</p>`;
+        `<div class="treasure-big"><span>${t.readout.title}</span><strong>${revealed ? t.readout.percent(n.found / Math.max(1, n.found + n.falseAlarms)) : t.readout.unknown}</strong></div>` +
+        `<p>${revealed ? t.readout.story(n.total, n.treasure, n.found, n.falseAlarms, s.second) : t.readout.hidden}</p>`;
+  }
+
+  /** From now on the answer shows: the visitor has dug, or is changing the odds themselves. */
+  function reveal(stage) {
+    if (revealed) return;
+    revealed = true;
+    stage.sync();
+    stage.draw();
   }
 
   function sweep(s, stage) {
@@ -299,6 +329,7 @@
     if (swept < 1) return;
     if (dug.has(i)) return;
     dug.add(i);
+    revealed = true;
     const b = current(s);
     W.announce(allDug(s) ? status(s) : b.treasure.has(i) ? t.dug.treasure : b.beeps.has(i) ? t.dug.nothing : t.quiet);
     stage.sync();
@@ -373,6 +404,7 @@
     bindControls(panel, s, stage) {
       // The checkbox changes the odds too: refresh the readout, and say the new chance once.
       panel.querySelector('[data-check="second"]')?.addEventListener('change', () => {
+        revealed = true;
         stage.sync();
         const n = M.perThousand(s.treasure / 100, s.accuracy / 100, detectors(s));
         W.announce(`${t.readout.title}: ${t.readout.percent(n.found / Math.max(1, n.found + n.falseAlarms))}`);
@@ -383,11 +415,13 @@
           W.announce(`${t.readout.title}: ${t.readout.percent(n.found / Math.max(1, n.found + n.falseAlarms))}`);
         });
     },
-    onInput(s) {
+    onInput(s, stage) {
       current(s); // a new island for new odds; if it was swept, its beeps show at once
+      reveal(stage);
     },
-    onPreset() {
+    onPreset(s, stage) {
       fresh();
+      reveal(stage);
     },
     readouts,
     draw,
@@ -413,6 +447,7 @@
         return;
       }
       for (const i of b.beeps) dug.add(i);
+      revealed = true;
       W.announce(status(s));
       stage.sync();
       stage.draw();

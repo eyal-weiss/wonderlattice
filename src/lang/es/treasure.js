@@ -50,11 +50,14 @@ Wonderlattice.defineText('treasure', 'es', {
     story: (total, treasure, found, falseAlarms, both) =>
       `De cada ${total.toLocaleString('es')} casillas, ${treasure} esconden tesoro. ${both ? 'Los dos detectores pitan' : 'El detector pita'} sobre ${found} de ellas, y sobre ${falseAlarms} ${falseAlarms === 1 ? 'vacía' : 'vacías'}. Así que ${found} de ${found + falseAlarms} pitidos son tesoro.`,
     percent: (p) => `${Math.round(p * 100)}%`,
+    unknown: '?',
+    hidden: 'Recorre la isla y cava donde pite: ¿cuántas veces está el tesoro de verdad? La respuesta aparece aquí.',
   },
 
   labels: {
     island: 'La isla',
     thousand: 'Cada 1000 casillas',
+    hidden: 'Cava donde pite para ver qué significa un pitido',
     found: 'tesoro, pita',
     missed: 'tesoro, calla',
     falseAlarm: 'arena, pita',

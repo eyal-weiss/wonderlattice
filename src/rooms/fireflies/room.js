@@ -204,8 +204,6 @@
     const meter = $('fireflies-meter'),
       width = Math.round(r * 100) + '%';
     if (meter && meter.style.width !== width) meter.style.width = width;
-    const fly = $('fireflies-fly');
-    if (fly && fly.disabled === s.sun) fly.disabled = !s.sun;
   }
 
   /** Whole days since the last flight, counting the day of the flight as day 1. */
@@ -268,7 +266,12 @@
 
     bindControls(panel, s) {
       $('fireflies-fly').addEventListener('click', () => {
-        if (!s.sun) return;
+        // Jet lag needs a day and a night: switch the cycle on first if it's off.
+        const sun = panel.querySelector('[data-check="sun"]');
+        if (!s.sun && sun) {
+          sun.checked = true;
+          sun.dispatchEvent(new Event('change'));
+        }
         shift += M.FLIGHT;
         flight = { start: time, done: 0 };
         readouts(s);

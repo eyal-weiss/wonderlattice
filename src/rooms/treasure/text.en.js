@@ -50,11 +50,15 @@ Wonderlattice.defineText('treasure', 'en', {
     story: (total, treasure, found, falseAlarms, both) =>
       `Of every ${total.toLocaleString('en')} squares, ${treasure} hold treasure. ${both ? 'Both detectors beep' : 'The detector beeps'} over ${found} of them, and over ${falseAlarms} empty ${falseAlarms === 1 ? 'one' : 'ones'}. So ${found} of ${found + falseAlarms} beeps are treasure.`,
     percent: (p) => `${Math.round(p * 100)}%`,
+    // Before the first dig, the answer waits.
+    unknown: '?',
+    hidden: 'Sweep the island and dig where it beeps: how often is the treasure there? The answer appears here.',
   },
 
   labels: {
     island: 'The island',
     thousand: 'Every 1,000 squares',
+    hidden: 'Dig a beep to see what a beep means',
     found: 'treasure, beep',
     missed: 'treasure, quiet',
     falseAlarm: 'sand, beep',

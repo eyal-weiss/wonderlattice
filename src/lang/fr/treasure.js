@@ -49,11 +49,15 @@ Wonderlattice.defineText('treasure', 'fr', {
     story: (total, treasure, found, falseAlarms, both) =>
       `Sur ${total.toLocaleString('fr')} cases, ${treasure} cachent un trésor. ${both ? 'Les deux détecteurs bipent' : 'Le détecteur bipe'} au-dessus de ${found} d’entre elles, et au-dessus de ${falseAlarms} ${falseAlarms === 1 ? 'case vide' : 'cases vides'}. Donc ${found} bips sur ${found + falseAlarms} sont un trésor.`,
     percent: (p) => `${Math.round(p * 100)} %`,
+    unknown: '?',
+    hidden:
+      'Balayez l’île et creusez là où il bipe : combien de fois le trésor est-il vraiment là ? La réponse s’affiche ici.',
   },
 
   labels: {
     island: 'L’île',
     thousand: 'Sur 1 000 cases',
+    hidden: 'Creusez sur un bip pour voir ce que veut dire un bip',
     found: 'trésor, bip',
     missed: 'trésor, muet',
     falseAlarm: 'sable, bip',

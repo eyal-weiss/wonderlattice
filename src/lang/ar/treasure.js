@@ -156,11 +156,14 @@ Wonderlattice.defineText('treasure', 'ar', {
       return `من كل ${total.toLocaleString('en')} مربع، في ${treasure} منها كنز. ${both ? 'يُصفّر الكاشفان كلاهما' : 'يُصفّر الكاشف'} فوق ${found} منها، وفوق ${falseAlarms} من المربعات الفارغة. إذن ${found} من ${alarms} تدلّ على كنز فعلًا.`;
     },
     percent: (p) => `${Math.round(p * 100)}%`,
+    unknown: '؟',
+    hidden: 'امسحوا الجزيرة واحفروا حيث يُصفّر الكاشف: كم مرة يكون الكنز هناك فعلًا؟ سيظهر الجواب هنا.',
   },
   // The canvas draws these left to right after a count: «19 كنز، صفير».
   labels: {
     island: 'الجزيرة',
     thousand: 'من كل 1,000 مربع',
+    hidden: 'احفروا حيث يُصفّر الكاشف لتعرفوا ماذا يعني الصفير',
     found: 'كنز، صفير',
     missed: 'كنز، صمت',
     falseAlarm: 'رمل، صفير',

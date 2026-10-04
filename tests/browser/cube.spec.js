@@ -7,7 +7,9 @@ test('the cube builds a sequence, counts repeats, and undoes', async ({ page }) 
   await page.goto('/');
   await openRoom(page, 'cube');
   await expect(page.locator('#cube-readout')).toContainText('R U');
-  await expect(page.locator('#cube-readout')).toContainText('Comes home after 105 repeats');
+  // How many repeats R U needs is for the visitor to guess, then discover.
+  await expect(page.locator('#cube-readout')).toContainText('How many repeats to come home?');
+  await expect(page.locator('#cube-readout')).not.toContainText('105');
   await page.locator('#cube-clear').click();
   await expect(page.locator('#scene-status')).toHaveText('Solved');
   await page.getByRole('button', { name: 'R: turn the right face clockwise', exact: true }).click();
@@ -15,13 +17,14 @@ test('the cube builds a sequence, counts repeats, and undoes', async ({ page }) 
   await page.getByRole('button', { name: 'R′: turn the right face anticlockwise', exact: true }).click();
   await page.getByRole('button', { name: 'U′: turn the top face anticlockwise', exact: true }).click();
   await expect(page.locator('#cube-readout')).toContainText('R U R′ U′');
-  await expect(page.locator('#cube-readout')).toContainText('Comes home after 6 repeats');
+  await expect(page.locator('#cube-readout')).toContainText('How many repeats to come home?');
   await expect(page.locator('#scene-status')).toHaveText('7 pieces moved');
   await page.locator('#scene-action').click();
   await expect(page.locator('#cube-readout')).toContainText('done 2 times');
   await page.locator('#cube-home').click();
   await expect(page.locator('#scene-status')).toHaveText('Solved');
   await expect(page.locator('#cube-readout')).toContainText('done 6 times');
+  await expect(page.locator('#cube-readout')).toContainText('Comes home after 6 repeats');
   await page.locator('#cube-undo').click();
   await expect(page.locator('#cube-readout')).toContainText('done 5 times');
   expect(await settings(page)).toMatchObject({ repeats: 5 });
@@ -35,6 +38,7 @@ test('R U really needs 105 repeats to come home, and the counter doesn’t give 
   await expect(page.locator('#scene-status')).not.toHaveText('Solved');
   await expect(page.locator('#scene-status')).toHaveText('Solved', { timeout: 30000 });
   await expect(page.locator('#cube-readout')).toContainText('done 105 times');
+  await expect(page.locator('#cube-readout')).toContainText('Comes home after 105 repeats');
 });
 
 test('comparing two orders shows when moves commute', async ({ page }) => {
@@ -194,7 +198,7 @@ test('the readout says when a new sequence starts, and a finished run is announc
   await page.goto('/#room=cube');
   await expect(page.locator('#cube-readout')).not.toHaveAttribute('role', 'status');
   await page.locator('#scene-action').click(); // R U, done twice
-  await expect(page.locator('#announcer')).toHaveText('Done 2 times. 13 pieces moved. Comes home after 105 repeats.');
+  await expect(page.locator('#announcer')).toHaveText('Done 2 times. 13 pieces moved.');
   await page.locator('#cube-home').click();
   await expect(page.locator('#announcer')).toHaveText('Solved. Comes home after 105 repeats.');
   await page.getByRole('button', { name: 'F: turn the front face clockwise', exact: true }).click();
