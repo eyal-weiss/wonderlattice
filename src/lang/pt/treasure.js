@@ -1,7 +1,7 @@
 Wonderlattice.defineText('treasure', 'pt', {
   eyebrow: 'PROBABILIDADE',
   name: 'O detector de tesouros imperfeito',
-  tagline: 'Um detector que acerta 95% das vezes apita. Tem tesouro? Quase nunca.',
+  tagline: 'Um detector que acerta 95% das vezes apita. Tem tesouro? Geralmente não.',
   title: 'O detector de tesouros imperfeito.',
   subtitle: 'Varra a ilha e cave onde ele apitar. Quantas vezes o tesouro está mesmo lá?',
   field: 'Probabilidade · Regra de Bayes · Uma pequena surpresa',
