@@ -99,6 +99,7 @@ test('opens each room with a live picture and an explanation', async ({ page }) 
 });
 
 test('the room bar, Back button, and logo move between the map and rooms', async ({ page }) => {
+  test.slow(); // walks through every room, so it grows with each new one
   await page.goto('/');
   await page.locator('#card-ribbon').click();
   await expectRoom(page, 'ribbon');

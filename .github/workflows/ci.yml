@@ -8,11 +8,14 @@ on:
 permissions:
   contents: read
 
+# Three jobs run side by side: the quick checks (lint, translations, model tests, the build and its budget), the
+# browser tests on the source, and the browser tests on the built site. The last job, `check`, passes only when all
+# three did: it's the one the main branch requires.
 jobs:
-  check:
+  static:
+    name: Lint, translations, model tests, build and budget
     runs-on: ubuntu-latest
-    # A run takes about 8 minutes; the rest is room for a slow package mirror, which once took 11 minutes alone.
-    timeout-minutes: 30
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -32,22 +35,72 @@ jobs:
         run: npm run build
       - name: Download budget
         run: npm run budget
-      - name: Install browser
-        run: npx playwright install --with-deps chromium
-      - name: Browser tests (source)
-        run: npm run test:browser
-      - name: Browser tests (built site)
-        run: npm run test:browser
-        env:
-          SERVE_DIR: dist
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: playwright-results
-          path: test-results/
-          retention-days: 7
       - uses: actions/upload-artifact@v4
         with:
           name: wonderlattice-site
           path: dist/
           retention-days: 30
+
+  browser-source:
+    name: Browser tests (source)
+    runs-on: ubuntu-latest
+    # A run takes about 4 minutes; the rest is room for a slow package mirror, which once took 11 minutes alone.
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Install browser
+        run: npx playwright install --with-deps chromium
+      - name: Browser tests (source)
+        run: npm run test:browser
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-results-source
+          path: test-results/
+          retention-days: 7
+
+  browser-built:
+    name: Browser tests (built site)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Install browser
+        run: npx playwright install --with-deps chromium
+      # The built site loads rooms on demand and fingerprints its files, so its behaviour is tested again. The sweeps
+      # over every room's styles and words (largest text and high contrast on a phone; contrast in both looks) run
+      # on the source only: the built site has the same styles and words.
+      - name: Browser tests (built site)
+        run: npm run test:browser -- --grep-invert "largest text and high contrast on a phone"
+        env:
+          SERVE_DIR: dist
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-results-built
+          path: test-results/
+          retention-days: 7
+
+  check:
+    name: check
+    needs: [static, browser-source, browser-built]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Every job passed
+        run: |
+          test "${{ needs.static.result }}" = success
+          test "${{ needs.browser-source.result }}" = success
+          test "${{ needs.browser-built.result }}" = success

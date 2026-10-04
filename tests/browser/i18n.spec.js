@@ -52,6 +52,7 @@ function untranslated(page) {
 }
 
 test('every visible word goes through a dictionary, in every room and dialog', async ({ page }) => {
+  test.slow(); // walks through every room, so it grows with each new one
   test.setTimeout(15000 * Object.keys(ROOMS).length);
   await openPseudo(page);
   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');

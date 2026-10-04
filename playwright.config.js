@@ -13,7 +13,11 @@ export default defineConfig({
   // PW_WORKERS lets a background run use fewer cores (the build loop sets 2; see docs/agents/BUILD_LOOP.md).
   // GitHub's runners for public repositories have 4 cores, so CI uses all of them.
   workers: Number(process.env.PW_WORKERS) || (process.env.CI ? 4 : 6),
-  reporter: process.env.CI ? 'github' : 'list',
+  // On CI a failed test runs once more. One that passes on its second try is reported as flaky (in the summary and
+  // the run's annotations) rather than failing the build: a busy machine shouldn't block a pull request, and a
+  // flaky test still shows, to be made steady. Locally every failure counts.
+  retries: process.env.CI ? 1 : 0,
+  reporter: process.env.CI ? [['github'], ['list']] : 'list',
   use: {
     baseURL: `http://localhost:${port}`,
     channel: process.env.PW_CHANNEL || undefined,

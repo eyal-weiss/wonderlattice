@@ -82,6 +82,7 @@ test('reduced motion shows finished drawings and still guests', async ({ page })
 
 for (const width of [375, 320]) {
   test(`every room fits a ${width}px phone screen`, async ({ page }) => {
+    test.slow(); // walks through every room, so it grows with each new one
     await page.setViewportSize({ width, height: 740 });
     await page.goto('/');
     for (const room of Object.keys(ROOMS)) {
@@ -100,6 +101,7 @@ async function openRoomFromDialog(page, room) {
 }
 
 test('every room can keep a moment in the trail and reopen it', async ({ page }) => {
+  test.slow(); // walks through every room, so it grows with each new one
   test.setTimeout(10000 * Object.keys(ROOMS).length); // visits every room twice
   // A trail holds at most 32 moments, so the rooms take turns in batches, each batch on a fresh trail.
   const rooms = Object.keys(ROOMS);
