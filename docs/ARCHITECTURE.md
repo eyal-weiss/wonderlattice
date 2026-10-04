@@ -264,6 +264,12 @@ carries a fingerprint of its contents.
   PNG export, the trail, reduced motion, phone widths, `file://`, and the standalone file. Locally you can use your
   installed Chrome: `PW_CHANNEL=chrome npm run test:browser`.
 - `npm run lint`, `npm run format:check` (`npm run format` fixes formatting).
-- `npm run check` runs all of the above. CI (`.github/workflows/ci.yml`) runs it on every pull request.
+- `npm run check` runs all of the above. CI (`.github/workflows/ci.yml`) runs it on every pull request, in three jobs
+  side by side: the quick checks and the build, the browser tests on the source, and the browser tests on the built
+  site (without the sweeps over every room's styles and words, which are the same there). The job named `check`
+  passes when all three do; it's the one the main branch requires.
+- On CI a failed browser test runs once more; one that passes then is reported as flaky (in the run's summary and
+  annotations) instead of failing the build. Locally every failure counts. A test that walks through every room calls
+  `test.slow()`, since it grows with each new room.
 
 Automated tests don't hear audio or judge beauty. For visual or audio changes, also look and listen in a real browser.

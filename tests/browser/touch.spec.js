@@ -7,6 +7,7 @@ const DRAGS_EVERYWHERE = ['flock', 'ribbon', 'cube', 'heart', 'weather'];
 test.use({ hasTouch: true });
 
 test('a finger on the canvas scrolls the page, except in rooms that drag', async ({ page }) => {
+  test.slow(); // walks through every room, so it grows with each new one
   await page.goto('/');
   for (const room of Object.keys(ROOMS).filter((r) => r !== 'motion')) {
     await openRoom(page, room);

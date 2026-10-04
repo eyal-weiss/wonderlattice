@@ -77,7 +77,8 @@ workers, plus its own `PW_PORT` and `PW_CHANNEL=chrome`.
 - Before opening or updating a pull request, run the full `npm run check` once, then the browser tests on the built
   site, where rooms load on demand: `SERVE_DIR=dist npm run test:browser` (CI runs both).
 - CI runs the whole suite on GitHub for every push and is the final gate. Wait for it (`gh pr checks <n> --watch`)
-  and fix failures before stopping.
+  and fix failures before stopping. A test reported as flaky there (it failed, then passed on its retry) doesn't
+  block the pull request; mention it in the pull request rather than hiding it.
 
 ## The pull request
 

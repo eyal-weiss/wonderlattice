@@ -3,6 +3,7 @@ import { test, expect, ROOMS } from './helpers.js';
 
 for (const width of [320, 390, 768, 1024]) {
   test(`every room fits a ${width}px window without overlaps`, async ({ page }) => {
+    test.slow(); // walks through every room, so it grows with each new one
     await page.setViewportSize({ width, height: 800 });
     await page.goto('/');
     const problems = [];
