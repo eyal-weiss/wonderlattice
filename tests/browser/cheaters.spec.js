@@ -44,22 +44,28 @@ const cellColours = (page, list) =>
     });
   }, list);
 
-/** Every cell in the top-left quarter, against its images in the square's mirrors: how many differ, and cheaters. */
+/**
+ * Every cell in one eighth of the square, against its images under the square's seven other symmetries (so together
+ * they reach every cell): how many differ, and cheaters.
+ */
 async function symmetry(page) {
   const cells = [];
   for (let y = 0; y < 50; y++) for (let x = 0; x <= y; x++) cells.push([x, y]);
   const images = (x, y) => [
     [98 - x, y],
     [x, 98 - y],
+    [98 - x, 98 - y],
     [y, x],
+    [98 - y, x],
+    [y, 98 - x],
     [98 - y, 98 - x],
   ];
   const all = cells.flatMap(([x, y]) => [[x, y], ...images(x, y)]);
   const colours = await cellColours(page, all);
   let differ = 0,
     cheaters = 0;
-  for (let k = 0; k < colours.length; k += 5) {
-    if (colours.slice(k + 1, k + 5).some((c) => c !== colours[k])) differ++;
+  for (let k = 0; k < colours.length; k += 8) {
+    if (colours.slice(k + 1, k + 8).some((c) => c !== colours[k])) differ++;
     if (colours[k] === 'cheater') cheaters++;
   }
   return { differ, cheaters, other: colours.filter((c) => c === 'other').length };
