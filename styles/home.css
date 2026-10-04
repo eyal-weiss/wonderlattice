@@ -1,35 +1,80 @@
-/* The home map (themed room cards) and the room bar shown inside a room. */
+/* The home map (every room on one numbered route) and the room bar shown inside a room. */
 a.brand {
   color: inherit;
   text-decoration: none;
 }
 a.brand:focus-visible {
-  outline: var(--focus-width) solid var(--lime);
+  outline: var(--focus-width) solid var(--focus);
   outline-offset: 5px;
 }
 
 .home-intro {
-  padding-bottom: 8px;
+  padding-bottom: 14px;
+}
+:root {
+  --sticker: #c92a1c; /* the "New" sticker: a deep red, so its white word reads at 5:1 */
+}
+.home-intro h1 {
+  font-size: 4.25rem;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+@media (max-width: 1050px) {
+  .home-intro h1 {
+    font-size: 3.25rem;
+  }
+}
+.home-intro p {
+  max-width: 62ch;
+  font-size: 1.125rem;
 }
 /* "Surprise me" and the line naming the newest rooms (src/core/app.js), under the map's title. */
 .home-extras {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px 18px;
-  margin-top: 14px;
+  gap: 12px 22px;
+  margin-top: 18px;
 }
-.intro .whats-new {
-  margin: 0;
-  font-size: 0.875rem;
+#home-surprise {
+  min-height: 50px;
+  padding: 10px 20px;
+  border: 3px solid var(--edge);
+  border-radius: 14px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  box-shadow: var(--pop);
+}
+#home-surprise:hover {
+  background: var(--accent-hover);
 }
 #home-surprise span[aria-hidden] {
-  font-size: 1.125rem;
+  font-size: 1.375rem;
   line-height: 1;
 }
+.intro .whats-new {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  margin: 0;
+  font-size: 0.9375rem;
+}
+/* "New" in a red sticker by day, in gold italics at night. */
 .whats-new .eyebrow {
-  margin-inline-end: 6px;
-  color: var(--lime);
+  display: inline-grid;
+  place-items: center;
+  min-width: 50px;
+  min-height: 50px;
+  padding: 4px;
+  border-radius: 50%;
+  background: var(--sticker);
+  color: #ffffff; /* on the red sticker in both looks */
+  font-size: 0.875rem;
+  font-weight: 800;
+  transform: rotate(-10deg);
 }
 .whats-new-room {
   padding: 0;
@@ -37,106 +82,504 @@ a.brand:focus-visible {
   background: none;
   color: var(--ink);
   font: inherit;
+  font-weight: 500;
   text-align: start; /* a long name wraps like the words around it */
-  text-decoration: underline;
-  text-decoration-color: rgb(221 246 163 / 0.5);
-  text-underline-offset: 3px;
+  text-decoration: underline 2px;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 4px;
   cursor: pointer;
 }
 .whats-new-room:hover {
-  text-decoration-color: var(--lime);
-}
-.theme {
-  margin-top: 30px;
-}
-.theme-head {
-  display: flex;
-  align-items: baseline;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-bottom: 14px;
-}
-.theme-head h2 {
-  font:
-    400 1.625rem/1.2 Georgia,
-    'Times New Roman',
-    serif;
-  margin: 0;
-}
-.theme-head p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.875rem;
-}
-.room-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 14px;
-}
-.room-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  text-align: start;
-  padding: 10px 10px 16px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--panel);
-  transition:
-    border-color 0.15s,
-    transform 0.15s;
-}
-.room-card:hover {
-  border-color: var(--card-accent);
-  transform: translateY(-2px);
-}
-/* A room already opened: a small dot in its colour on the picture's corner (and words for screen readers). */
-.room-card.visited::after {
-  content: '';
-  position: absolute;
-  inset-block-start: 20px;
-  inset-inline-end: 20px;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--card-accent);
-  box-shadow: 0 0 0 3px rgb(10 14 21 / 0.75);
-}
-.room-card:not(.visited) .room-card-visited {
-  display: none;
-}
-.room-card:focus-visible {
-  outline-offset: 3px;
-}
-.room-card canvas {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  height: auto;
-  display: block;
-  border-radius: 9px;
-  background: var(--stage);
-  margin-bottom: 8px;
-}
-.room-card .eyebrow,
-.room-card strong,
-.room-card-tagline {
-  padding: 0 6px;
-}
-.room-card strong {
-  font:
-    400 1.3125rem/1.25 Georgia,
-    serif;
-}
-.room-card-tagline {
-  font-size: 0.875rem;
-  color: var(--muted);
-  line-height: 1.45;
-}
-.room-card :is(.eyebrow, strong, .room-card-tagline) {
-  overflow-wrap: break-word; /* a long word on a narrow card wraps rather than widening the page */
+  text-decoration-color: var(--ink);
 }
 
+/* ---------- The map ---------- */
+.lattice-map {
+  position: relative;
+  margin-top: 14px;
+  border: 3px solid var(--edge);
+  border-radius: 22px;
+  background: var(--panel);
+  overflow: hidden;
+}
+.map-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.map-cell {
+  fill: color-mix(in srgb, var(--c) 30%, var(--panel));
+  stroke: var(--panel);
+  stroke-width: 5;
+  stroke-linejoin: round;
+}
+.map-line,
+.map-line-casing {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.map-line-casing {
+  stroke: var(--panel);
+  stroke-width: 15;
+}
+.map-line {
+  stroke: var(--edge);
+  stroke-width: 6;
+}
+.map-arrow {
+  fill: none;
+  stroke: var(--panel);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* A room: its picture in a ring of its theme's colour, its number, and its name. */
+.map-room {
+  position: absolute;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  width: var(--cell);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  transform: translate(-50%, calc(var(--disc) / -2));
+}
+.map-room:focus-visible {
+  outline: none;
+}
+.map-disc {
+  position: relative;
+  display: block;
+  width: var(--disc);
+  height: var(--disc);
+  border: 5px solid var(--c);
+  border-radius: 50%;
+  background: var(--stage);
+  box-shadow: 0 0 0 3px var(--panel);
+  transition: transform 0.15s;
+}
+.map-disc :is(img, canvas) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.map-room:hover .map-disc,
+.map-room:focus-visible .map-disc {
+  transform: scale(1.07);
+}
+.map-room:focus-visible .map-disc {
+  outline: var(--focus-width) solid var(--focus);
+  outline-offset: 6px;
+}
+/* Room 1, where the route starts: a larger disc in the accent colour. */
+.map-start .map-disc {
+  width: calc(var(--disc) * 1.16);
+  height: calc(var(--disc) * 1.16);
+  margin-top: calc(var(--disc) * -0.08);
+  border: 7px solid var(--accent);
+  box-shadow:
+    0 0 0 3px var(--edge),
+    0 0 0 6px var(--panel);
+}
+.map-num {
+  position: absolute;
+  z-index: 2;
+  inset-block-start: -6px;
+  inset-inline-start: calc(50% - var(--disc) / 2 - 8px);
+  display: grid;
+  place-items: center;
+  min-width: 26px;
+  height: 26px;
+  padding-inline: 4px;
+  border-radius: 13px;
+  background: var(--ink);
+  color: var(--panel);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.map-new {
+  position: absolute;
+  z-index: 2;
+  inset-block-start: -10px;
+  inset-inline-end: calc(50% - var(--disc) / 2 - 14px);
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--sticker);
+  color: #ffffff; /* on the red sticker in both looks */
+  font-size: 0.6875rem;
+  font-weight: 800;
+  transform: rotate(12deg);
+}
+.map-name {
+  max-width: calc(var(--cell) - 8px);
+  padding: 1px 6px 2px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--panel) 88%, transparent);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.15;
+  text-align: center;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+/* A room already opened: a small mark on its picture's edge (and words for screen readers). */
+.map-room.visited .map-disc::after {
+  content: '';
+  position: absolute;
+  inset-block-end: -2px;
+  inset-inline-end: -2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 0 0 0 3px var(--panel);
+}
+.map-room:not(.visited) .room-card-visited {
+  display: none;
+}
+/* The card shown when pointing at a room, or reaching it with the keyboard. */
+.map-tip {
+  position: absolute;
+  z-index: 5;
+  display: grid;
+  gap: 3px;
+  width: 260px;
+  padding: 10px;
+  border: 3px solid var(--edge);
+  border-radius: 14px;
+  background: var(--panel);
+  box-shadow: 5px 5px 0 var(--edge);
+  pointer-events: none;
+}
+.map-tip img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  background: var(--stage);
+}
+.map-tip-theme {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+.map-tip-theme i,
+.map-legend i,
+.room-list-theme h3 i {
+  flex: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--c) 30%, var(--panel));
+  box-shadow: inset 0 0 0 2px var(--c);
+}
+.map-tip strong {
+  font-size: 1.0625rem;
+  line-height: 1.2;
+}
+.map-tip-tagline {
+  color: var(--soft);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.map-tip-next {
+  margin-top: 3px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+/* Under the map: how to read it, and each theme's colour. */
+.map-key {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 26px;
+  margin-top: 12px;
+  color: var(--soft);
+  font-size: 0.9375rem;
+}
+.map-key p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+.map-key svg {
+  flex: none;
+  width: 34px;
+  height: 16px;
+}
+.map-key .map-line {
+  stroke-width: 6;
+}
+.map-key .map-arrow {
+  stroke-width: 1.8;
+}
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--ink);
+}
+.map-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ---------- Every room in words, by theme ---------- */
+.room-list {
+  margin-top: 44px;
+}
+.room-list > h2 {
+  margin: 0 0 18px;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
+  line-height: 1.1;
+}
+.room-list-themes {
+  columns: 3 280px;
+  column-gap: 38px;
+}
+.room-list-theme {
+  break-inside: avoid;
+  margin-bottom: 26px;
+}
+.room-list-theme h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.room-list-theme h3 i {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+}
+.room-list-theme > p {
+  margin: 4px 0 10px;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+.room-list-theme ul {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.room-list-room {
+  display: grid;
+  grid-template-columns: 2em minmax(0, 1fr);
+  gap: 1px 8px;
+  width: 100%;
+  padding: 4px 6px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  text-align: start;
+}
+.room-list-room:hover {
+  background: var(--panel-hover);
+}
+.room-list-room b {
+  grid-row: span 2;
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
+}
+.room-list-room span {
+  font-weight: 600;
+  line-height: 1.25;
+}
+.room-list-room small {
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.35;
+}
+
+/* ---------- Night: a star atlas ---------- */
+:root[data-theme='night'] #home-surprise {
+  border: 1px solid var(--accent);
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+  margin: 4px;
+  background: transparent;
+  color: var(--accent);
+  font-weight: 500;
+}
+:root[data-theme='night'] #home-surprise:hover {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+:root[data-theme='night'] #home-surprise:focus-visible {
+  outline: var(--focus-width) solid var(--focus);
+}
+:root[data-theme='night'] .whats-new .eyebrow {
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--accent);
+  font-size: 1.0625rem;
+  font-style: italic;
+  font-weight: 400;
+  transform: none;
+}
+:root[data-theme='night'] .lattice-map {
+  margin-inline: 6px;
+  border-width: 1px;
+  border-radius: 3px;
+  outline: 1px solid var(--edge);
+  outline-offset: 5px;
+  background: radial-gradient(120% 90% at 30% 40%, #18245a 0%, var(--panel) 60%);
+}
+:root[data-theme='night'] .lattice-map::before {
+  /* A field of faint stars. */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 12% 18%, rgb(239 232 212 / 0.5), transparent),
+    radial-gradient(1px 1px at 33% 72%, rgb(239 232 212 / 0.35), transparent),
+    radial-gradient(1.4px 1.4px at 58% 26%, rgb(239 232 212 / 0.55), transparent),
+    radial-gradient(1px 1px at 81% 64%, rgb(239 232 212 / 0.4), transparent),
+    radial-gradient(1.2px 1.2px at 91% 12%, rgb(239 232 212 / 0.45), transparent),
+    radial-gradient(1px 1px at 47% 91%, rgb(239 232 212 / 0.3), transparent);
+  background-size: 410px 330px;
+}
+:root[data-theme='night'] .map-cell {
+  fill: color-mix(in srgb, var(--c) 8%, transparent);
+  stroke: color-mix(in srgb, var(--c) 32%, transparent);
+  stroke-width: 1;
+  stroke-dasharray: 2 5;
+}
+:root[data-theme='night'] .map-line-casing {
+  stroke: none;
+}
+:root[data-theme='night'] .map-line {
+  stroke: var(--edge);
+  stroke-width: 1.6;
+}
+:root[data-theme='night'] .map-arrow {
+  stroke: var(--accent);
+  stroke-width: 1.4;
+}
+:root[data-theme='night'] .map-disc {
+  border: 1.5px solid var(--ink);
+  box-shadow:
+    0 0 0 4px var(--panel),
+    0 0 0 5px rgb(239 232 212 / 0.4),
+    0 0 22px 6px color-mix(in srgb, var(--c) 35%, transparent);
+}
+:root[data-theme='night'] .map-start .map-disc {
+  border: 2px solid var(--accent);
+  box-shadow:
+    0 0 0 5px var(--panel),
+    0 0 0 6px var(--accent),
+    0 0 34px 10px rgb(233 196 106 / 0.35);
+}
+:root[data-theme='night'] .map-num {
+  inset-block-start: -8px;
+  min-width: 0;
+  padding: 0;
+  background: none;
+  color: var(--c);
+  font-weight: 500;
+}
+:root[data-theme='night'] .map-new {
+  background: none;
+  color: var(--accent);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 0.8125rem;
+  transform: none;
+}
+:root[data-theme='night'] .map-name {
+  background: none;
+  font-weight: 400;
+  text-shadow:
+    0 0 4px var(--panel),
+    0 0 8px var(--panel),
+    0 0 2px var(--panel);
+}
+:root[data-theme='night'] .map-room.visited .map-disc::after {
+  background: var(--accent);
+}
+:root[data-theme='night'] .map-tip {
+  border: 1px solid var(--edge);
+  outline: 1px solid var(--edge);
+  outline-offset: -6px;
+  border-radius: 3px;
+  padding: 14px;
+  box-shadow: 0 10px 40px var(--shadow);
+}
+:root[data-theme='night'] .map-tip strong {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.25rem;
+}
+:root[data-theme='night'] .map-key .map-line {
+  stroke-width: 1.6;
+}
+:root[data-theme='night'] .map-key .map-arrow {
+  stroke: var(--accent);
+}
+:root[data-theme='night'] :is(.map-tip-theme i, .map-legend i, .room-list-theme h3 i) {
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow: 0 0 8px var(--c);
+}
+:root[data-theme='night'] .map-legend li,
+:root[data-theme='night'] .room-list-theme h3 {
+  color: var(--c);
+  font-style: italic;
+  font-weight: 400;
+}
+:root[data-theme='night'] .room-list-theme h3 {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+}
+:root[data-theme='night'] .room-list-room b {
+  color: var(--em);
+  font-weight: 500;
+}
+:root[data-theme='night'] .room-list-room span {
+  font-weight: 500;
+}
+/* Hebrew and Arabic have no italics here: a slant only distorts their letters. */
+:root:is(:lang(he), :lang(ar)) :is(.whats-new .eyebrow, .map-new, .map-legend li, .room-list-theme h3, .edition) {
+  font-style: normal !important;
+}
+
+/* ---------- Inside a room: back to the map, and the route's neighbours ---------- */
 .room-bar {
   display: flex;
   align-items: center;
@@ -144,11 +587,24 @@ a.brand:focus-visible {
   padding-top: 18px;
 }
 .room-bar-theme {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   color: var(--muted);
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
+}
+.room-bar-theme::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--c, var(--muted)) 30%, var(--panel));
+  box-shadow: inset 0 0 0 2px var(--c, var(--muted));
+}
+:root[data-theme='night'] .room-bar-theme::before {
+  border-radius: 50%;
+  background: var(--c, var(--muted));
 }
 .room-bar-steps {
   margin-inline-start: auto;
@@ -168,34 +624,31 @@ a.brand:focus-visible {
   display: block;
 }
 
+/* ---------- Phones ---------- */
 @media (max-width: 760px) {
-  .theme-head h2 {
-    font-size: 1.4375rem;
+  .home-intro h1 {
+    font-size: 2.375rem;
   }
-  .room-cards {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
+  .home-intro p {
+    font-size: 1rem;
   }
-  /* With the largest text, one card per row, so names and taglines keep whole words. */
-  :root[data-text-size='larger'] .room-cards {
-    grid-template-columns: minmax(0, 1fr);
+  #home-surprise {
+    min-height: 44px;
+    padding: 8px 16px;
+    font-size: 1rem;
   }
-  .room-card {
-    padding: 7px 7px 12px;
+  .whats-new .eyebrow {
+    min-width: 44px;
+    min-height: 44px;
+    font-size: 0.8125rem;
   }
-  .room-card .eyebrow,
-  .room-card strong,
-  .room-card-tagline {
-    padding: 0 3px;
+  .map-name {
+    font-size: 0.75rem;
   }
-  .room-card .eyebrow {
-    font-size: 0.625rem;
-  }
-  .room-card strong {
-    font-size: 1.0625rem;
-  }
-  .room-card-tagline {
-    font-size: 0.78125rem;
+  .map-num {
+    min-width: 22px;
+    height: 22px;
+    font-size: 0.75rem;
   }
   .room-bar {
     padding-top: 12px;
@@ -210,18 +663,7 @@ a.brand:focus-visible {
     text-align: start;
   }
   .room-bar-theme {
-    font-size: 0.625rem;
-    letter-spacing: 0.1em;
-  }
-}
-@media (max-width: 340px) {
-  .room-cards {
-    grid-template-columns: 1fr;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .room-card:hover {
-    transform: none;
+    font-size: 0.75rem;
   }
 }
 @media (max-width: 400px) {
@@ -230,8 +672,26 @@ a.brand:focus-visible {
     display: none;
   }
 }
+@media (prefers-reduced-motion: reduce) {
+  .map-disc {
+    transition: none;
+  }
+  .map-room:hover .map-disc,
+  .map-room:focus-visible .map-disc {
+    transform: none;
+  }
+}
 
-/* High contrast (see base.css): the cards' edges show, and the newest rooms' names stay underlined clearly. */
+/* High contrast (see base.css): names on solid ground, stronger lines. */
+:root[data-contrast='more'] .map-name {
+  background: var(--panel);
+}
 :root[data-contrast='more'] .whats-new-room {
-  text-decoration-color: var(--lime);
+  text-decoration-color: var(--ink);
+}
+:root[data-contrast='more'] {
+  --sticker: #9a1d12;
+}
+:root[data-contrast='more'] .map-cell {
+  fill: color-mix(in srgb, var(--c) 18%, var(--panel));
 }

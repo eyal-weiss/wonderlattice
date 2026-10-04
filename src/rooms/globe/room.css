@@ -6,22 +6,22 @@ body[data-room='globe'] #scene-canvas.globe-ball {
   cursor: move;
 }
 .globe-readout {
-  border: 1px solid #3a4a60;
-  background: #111a27;
+  border: 1px solid var(--line-strong);
+  background: var(--panel-2);
   padding: 12px 14px;
   border-radius: 9px;
 }
 .globe-sum span {
   display: block;
   font-size: 0.8125rem;
-  color: #b5c0ce;
+  color: var(--muted);
 }
 .globe-sum strong {
   display: block;
   margin: 2px 0 10px;
   font-size: 1.125rem;
   font-weight: 600;
-  color: #f5f1e6;
+  color: var(--ink);
   font-variant-numeric: tabular-nums;
 }
 .globe-rows {
@@ -30,10 +30,10 @@ body[data-room='globe'] #scene-canvas.globe-ball {
   gap: 6px 12px;
   align-items: baseline;
   font-size: 0.8125rem;
-  color: #b5c0ce;
+  color: var(--muted);
 }
 .globe-rows strong {
-  color: #f5f1e6;
+  color: var(--ink);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   text-align: end;
@@ -45,9 +45,9 @@ body[data-room='globe'] #scene-canvas.globe-ball {
   color: var(--muted);
 }
 :root[data-contrast='more'] .globe-readout {
-  border-color: #8093ad;
+  border-color: var(--edge);
 }
 :root[data-contrast='more'] .globe-rows,
 :root[data-contrast='more'] .globe-sum span {
-  color: #e2e8f0;
+  color: var(--ink);
 }

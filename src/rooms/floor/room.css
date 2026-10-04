@@ -10,8 +10,8 @@
   gap: 8px;
 }
 .floor-readout {
-  border: 1px solid #3d4a5c;
-  background: #111923;
+  border: 1px solid var(--line-strong);
+  background: var(--panel-2);
   padding: 14px;
   border-radius: 9px;
 }
@@ -23,20 +23,20 @@
 .floor-stats span {
   display: block;
   font-size: 0.75rem;
-  color: #a7b4c6;
+  color: var(--muted);
 }
 .floor-stats strong {
   display: block;
   font-size: 1.375rem;
   font-weight: 600;
-  color: #f0f5ea;
+  color: var(--ink);
   font-variant-numeric: tabular-nums;
   line-height: 1.25;
 }
 .floor-verdict {
   margin: 10px 0 0;
   font-size: 0.8125rem;
-  color: #d7dfe8;
+  color: var(--soft);
   line-height: 1.45;
 }
 

@@ -24,27 +24,33 @@ test('a shared link to a room loads that room alone, and opens it with its setti
   await expect(page.locator('#home')).toBeHidden();
 });
 
-test('the home map loads only the rooms whose cards come into view', async ({ page }) => {
+test('the home map loads no room’s code: its pictures are images, and a room loads when it’s opened', async ({
+  page,
+}) => {
   await page.setViewportSize({ width: 1280, height: 800 });
   const rooms = watchRooms(page);
   await page.goto('/');
-  await expect.poll(() => inkedPixels(page, '#card-ribbon canvas')).toBeGreaterThan(100);
-  const first = rooms.size;
-  const all = await page.locator('.room-card').count();
-  expect(first).toBeLessThan(all / 2);
-  // Scrolling down brings the rest, and their cards are drawn.
-  const last = await page.locator('.room-card').last().getAttribute('data-room');
+  const last = await page.locator('.map-room').last().getAttribute('data-room');
   await page.locator(`#card-${last}`).scrollIntoViewIfNeeded();
-  await expect.poll(() => inkedPixels(page, `#card-${last} canvas`)).toBeGreaterThan(100);
-  expect(rooms.size).toBeGreaterThan(first);
+  await expect
+    .poll(() => page.locator(`#card-${last} img`).evaluate((i) => i.complete && i.naturalWidth))
+    .toBeGreaterThan(0);
+  // Only the drawing room's code, which stays in the page (it has its own layout).
+  const others = () => [...rooms].filter((id) => id !== 'motion');
+  expect(others()).toEqual([]);
+  await openRoom(page, 'ribbon');
+  await expect.poll(() => inkedPixels(page, '#scene-canvas')).toBeGreaterThan(100);
+  expect(others()).toEqual(['ribbon']);
 });
 
 test('the cards speak the page language before their rooms load', async ({ page }) => {
   const rooms = watchRooms(page);
   await page.goto('/?lang=he');
-  await expect(page.locator('#card-pools strong')).toHaveText('אלף דגימות, עשר בדיקות');
-  await expect(page.locator('#card-pools .eyebrow')).not.toHaveText('GROUP TESTING');
-  expect(rooms.has('pools')).toBe(false); // its card is far down the map
+  await expect(page.locator('#card-pools .map-name')).toContainText('אלף דגימות, עשר בדיקות');
+  await expect(page.locator('.room-list-room[data-go="pools"] small')).toHaveText(
+    'מבחנה אחת מתוך אלף זוהרת. עשר בדיקות, כולן בבת אחת, אומרות איזו.',
+  );
+  expect(rooms.has('pools')).toBe(false); // the map needs no room's code
   await openRoom(page, 'pools');
   await expect(page.locator('#room-title')).toHaveText('אלף דגימות, עשר בדיקות.');
 });
@@ -73,8 +79,8 @@ test('a room still loading doesn’t open once the visitor has gone elsewhere', 
   await page.goto('/');
   await page.locator('#card-cube').click();
   await page.locator('#card-dice').click();
-  // Room scripts run in the order they were asked for, so unless the dice room loaded earlier (its card was on
-  // screen), it waits for the cube's code. Either way the cube arrives after the visitor chose the dice.
+  // Room scripts run in the order they were asked for, so the dice room waits for the cube's code: the cube
+  // arrives after the visitor chose the dice.
   release();
   await expectRoom(page, 'dice');
   await page.waitForTimeout(500);

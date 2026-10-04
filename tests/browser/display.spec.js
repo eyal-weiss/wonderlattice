@@ -79,7 +79,7 @@ test('the Display dialog makes text larger and turns on high contrast, and both 
 }) => {
   await page.goto('/');
   const normal = await rootSize(page);
-  const tagline = page.locator('.room-card-tagline').first();
+  const tagline = page.locator('.room-list-room small').first();
   const taglineSize = async () => parseFloat(await tagline.evaluate((e) => getComputedStyle(e).fontSize));
   const before = await taglineSize();
   await page.locator('#display-open').click();
@@ -173,7 +173,9 @@ test('with storage blocked, the settings still work for the visit', async ({ pag
   await expect(html(page)).toHaveAttribute('data-contrast', 'more');
 });
 
-test('in high contrast, body and secondary text reach 7:1, brighter than before', async ({ page }) => {
+test('in high contrast, body and secondary text reach 7:1, brighter than before, by day and at night', async ({
+  page,
+}) => {
   const ratios = () =>
     page.evaluate(() => {
       const rgb = (c) =>
@@ -189,18 +191,23 @@ test('in high contrast, body and secondary text reach 7:1, brighter than before'
         const [a, b] = [luminance(getComputedStyle(document.querySelector(selector)).color), luminance(under)];
         return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
       };
-      const card = getComputedStyle(document.querySelector('.room-card')).backgroundColor;
       const page = getComputedStyle(document.body).backgroundColor;
-      return { body: ratio('.intro p', page), muted: ratio('.room-card-tagline', card) };
+      return { body: ratio('.intro p', page), muted: ratio('.room-list-room small', page) };
     });
   await page.goto('/');
-  const normal = await ratios();
-  await page.evaluate(() => window.WonderlatticeDisplay.setHighContrast(true));
-  const high = await ratios();
-  expect(high.body).toBeGreaterThanOrEqual(7);
-  expect(high.muted).toBeGreaterThanOrEqual(7);
-  expect(high.body).toBeGreaterThan(normal.body);
-  expect(high.muted).toBeGreaterThan(normal.muted);
+  for (const theme of ['day', 'night']) {
+    await page.evaluate((t) => {
+      window.WonderlatticeDisplay.setTheme(t);
+      window.WonderlatticeDisplay.setHighContrast(false);
+    }, theme);
+    const normal = await ratios();
+    await page.evaluate(() => window.WonderlatticeDisplay.setHighContrast(true));
+    const high = await ratios();
+    expect(high.body, theme).toBeGreaterThanOrEqual(7);
+    expect(high.muted, theme).toBeGreaterThanOrEqual(7);
+    expect(high.body, theme).toBeGreaterThan(normal.body);
+    expect(high.muted, theme).toBeGreaterThan(normal.muted);
+  }
 });
 
 // The largest text on a phone, in high contrast, in every room: nothing sticks out sideways, every control can be
@@ -244,5 +251,32 @@ for (const room of ['home', ...Object.keys(ROOMS)]) {
     expect(problems).toEqual([]);
     expect(checked, 'controls checked').toBeGreaterThan(5);
     expect(await lowContrast(page, 7)).toEqual([]);
+  });
+}
+
+// Every word on every page is readable in both looks: at least 4.5:1 by day and at night, and 7:1 at night in high
+// contrast (by day, the phone test above checks it). A room's panel takes its colours from the tokens (base.css).
+// The looks switch in place, as the sun and moon button does; the built site has the same styles and words, so this
+// sweep runs on the source only.
+for (const room of ['home', ...Object.keys(ROOMS)]) {
+  test(`${room}: every word readable by day and at night`, async ({ page }) => {
+    test.skip(process.env.SERVE_DIR === 'dist', 'the same styles as the source');
+    await page.emulateMedia({ reducedMotion: 'reduce' }); // no colour transitions: read the colours as they settle
+    await page.goto(room === 'home' ? '/' : `/#room=${room}`);
+    await expect(page.locator('body')).toHaveAttribute('data-room', room);
+    for (const [theme, high, min] of [
+      ['day', false, 4.5],
+      ['night', false, 4.5],
+      ['night', true, 7],
+    ]) {
+      await page.evaluate(
+        ([t, h]) => {
+          window.WonderlatticeDisplay.setTheme(t);
+          window.WonderlatticeDisplay.setHighContrast(h);
+        },
+        [theme, high],
+      );
+      expect(await lowContrast(page, min), `${theme}${high ? ', high contrast' : ''}`).toEqual([]);
+    }
   });
 }

@@ -17,6 +17,18 @@ This file is a changelog of the site, newest first. How the code fits together i
 
 ## 2026-10-03
 
+- **A new look, and a route through the rooms.** The home page is now a map: every room sits on one numbered route,
+  next to the room before it, with one line joining them, so visitors who simply follow the numbers get a varied
+  tour (each room unlike the one before, the quickest and most wordless ones first). The room bar's ‹ › follow the
+  same route. Each room's cell takes its theme's colour; a key and a list by theme are under the map. The map's
+  pictures are small ready-made images (`npm run previews`), so the home page loads no room's code.
+- **Day and night colours.** Day, the default, is a science-museum map: paper, ink, a yellow accent. Night is a star
+  atlas in ivory and gold. The sun and moon button in the header switches them, and the choice is remembered. Every
+  room's page follows, while the pictures stay dark in both. High contrast works in both.
+- **The site's own typefaces,** served with it under the SIL Open Font License: Rubik by day, IM Fell English and
+  Frank Ruhl Libre (and Amiri for Arabic) at night. The night ones are fetched quietly after the page loads.
+- New header and mark (seven lattice points, one per theme), no ✧ sparkles or spaced capitals, and new link previews
+  and home-screen icon. The words new to the map are in all six languages.
 - **First visits keep their questions open** in four rooms. The treasure detector hides its answer (what a beep
   means, and the chart of 1,000 squares) until the visitor digs, digs every beep or changes the odds. The cube says
   how many repeats a sequence needs only once the visitor has seen it come home, and its preset card no longer shows 105. The leaning tower opens with four blocks stacked straight at the edge, so "can 4 blocks clear it?" is still a

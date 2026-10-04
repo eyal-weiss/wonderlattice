@@ -15,9 +15,9 @@
   /* Move notation reads left to right in every language: U′, never ′U in right-to-left pages. */
   direction: ltr;
   min-height: 42px;
-  border: 1px solid #4a5563;
+  border: 1px solid var(--line-strong);
   border-radius: 8px;
-  background: #18212b;
+  background: var(--panel-2);
   color: var(--ink);
   font:
     600 0.9375rem ui-monospace,
@@ -61,7 +61,7 @@
   margin: 6px 0 0;
   font-size: 0.75rem;
   line-height: 1.45;
-  color: #a9b6c3;
+  color: var(--muted);
 }
 
 /* High contrast (see base.css). */

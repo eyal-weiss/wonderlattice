@@ -4,7 +4,6 @@ const pressed = (page, selector) => expect(page.locator(selector)).toHaveAttribu
 
 test('dice room: I choose after you, roll, and the readouts follow', async ({ page }) => {
   await page.goto('/');
-  await expect.poll(() => inkedPixels(page, '#card-dice canvas')).toBeGreaterThan(20);
   await openRoom(page, 'dice');
   await expect(page.locator('#room-title')).toHaveText(ROOMS.dice);
   await expect(page.locator('#scene-name')).toHaveText('Pick first');

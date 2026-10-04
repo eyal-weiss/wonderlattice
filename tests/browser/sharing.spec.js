@@ -48,7 +48,9 @@ test('images can be saved as PNG files', async ({ page }) => {
 
 test('the app runs from a file:// URL without a server', async ({ page }) => {
   await page.goto(pathToFileURL(resolve(process.env.SERVE_DIR || '.', 'index.html')).href);
-  await expect(page.locator('.room-card')).toHaveCount(Object.keys(ROOMS).length);
+  await expect(page.locator('.map-room')).toHaveCount(Object.keys(ROOMS).length);
+  // Browsers won't load font files into a page opened from disk: it uses the device's fonts, with no errors.
+  await expect(page.locator('html')).toHaveAttribute('data-fonts', 'device');
   for (const room of ['waves', 'flock', 'ribbon', 'traffic', 'motion']) {
     await openRoom(page, room);
     await expect(page.locator(room === 'motion' ? '#motion-room h1' : '#room-title')).toHaveText(ROOMS[room]);

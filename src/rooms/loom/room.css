@@ -24,9 +24,9 @@
   width: 34px;
   height: 34px;
   /* At least 3:1 against both the panel and the cell, so an unpressed square is still visible. */
-  border: 1px solid #7b8698;
+  border: 1px solid var(--line-strong);
   border-radius: 7px;
-  background: #18212b;
+  background: var(--panel-2);
 }
 .loom-cell[aria-pressed='true'] {
   background: #f3d28c;

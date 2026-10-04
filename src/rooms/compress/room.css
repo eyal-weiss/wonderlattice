@@ -3,9 +3,9 @@
   display: grid;
   gap: 6px;
   padding: 12px 14px;
-  border: 1px solid #253244;
+  border: 1px solid var(--line-strong);
   border-radius: 10px;
-  background: #0f1620;
+  background: var(--panel-2);
 }
 .compress-readout div {
   display: flex;
@@ -15,11 +15,11 @@
 }
 .compress-readout span {
   font-size: 0.75rem;
-  color: #8795a8;
+  color: var(--muted);
 }
 .compress-readout strong {
   font-weight: 500;
-  color: #e6ebe6;
+  color: var(--ink);
   font-variant-numeric: tabular-nums;
   text-align: end;
 }

@@ -48,7 +48,6 @@ async function pause(page) {
 
 test('plane room: opens from its card, bends the plane, and switches functions', async ({ page }) => {
   await page.goto('/');
-  await expect.poll(() => inkedPixels(page, '#card-plane canvas')).toBeGreaterThan(20);
   await openRoom(page, 'plane');
   await expect(page.locator('#room-title')).toHaveText(ROOMS.plane);
   await expect.poll(() => inkedPixels(page, '#scene-canvas')).toBeGreaterThan(200);

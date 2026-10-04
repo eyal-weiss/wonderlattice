@@ -11,7 +11,6 @@ const cityShare = (page, seed) =>
 
 test('sample room: open from the map, ask, repeat, and reveal the truth', async ({ page }) => {
   await page.goto('/');
-  await expect.poll(() => inkedPixels(page, '#card-sample canvas')).toBeGreaterThan(20);
   await openRoom(page, 'sample');
   await expect(page.locator('#room-title')).toHaveText(ROOMS.sample);
   await expect(page.locator('#scene-name')).toHaveText('Ask at random');
