@@ -9,7 +9,7 @@ Wonderlattice.defineText('blocks', 'es', {
   field: 'Centro de masas · Serie armónica · Una sorpresa lenta',
   sceneLabel: 'El borde de una mesa · Bloques para apilar',
   sceneName: (n) => (n === 0 ? 'Mesa vacía' : 'Bloques apilados'),
-  tip: 'Arrastra un bloque sobre la pila, o usa las flechas para empujar el de arriba. Pulsa B para «La mejor pila».',
+  tip: 'Arrastra un bloque hacia un lado · Toca un espacio vacío para añadir un bloque · Las flechas empujan el de arriba; B arma «La mejor pila»',
   actionLabel: 'La mejor pila',
   lengthsLabel: (oh) => `${oh.toFixed(2).replace('.', ',')} largos`,
   canvasLabel:

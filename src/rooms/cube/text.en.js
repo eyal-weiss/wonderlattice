@@ -40,12 +40,15 @@ Wonderlattice.defineText('cube', 'en', {
   sequence: (text) => (text ? text : 'No moves yet: press a face'),
   times: (n) => (n === 1 ? 'done once' : n === 0 ? 'not done yet' : `done ${n} times`),
   order: (n) => (n === 1 ? 'Nothing to undo: it stays home.' : `Comes home after ${n} repeats.`),
+  // Until the visitor has seen this sequence come home.
+  orderUnknown: 'How many repeats to come home? Guess, then press “Repeat until home”.',
   moved: (n) => (n === 0 ? 'Every piece is home.' : n === 1 ? '1 piece out of place.' : `${n} pieces out of place.`),
   status: (n) => (n === 0 ? 'Solved' : `${n} pieces moved`),
   // Said once when a run of repeats has finished.
+  // order 0: not known yet (the visitor hasn't seen this sequence come home).
   landed: (moved, done, order) =>
     (moved === 0 ? 'Solved. ' : `Done ${done === 1 ? 'once' : `${done} times`}. ${moved} pieces moved. `) +
-    (order === 1 ? 'It stays home.' : `Comes home after ${order} repeats.`),
+    (order === 0 ? '' : order === 1 ? 'It stays home.' : `Comes home after ${order} repeats.`),
   full: 'That’s twelve moves: repeat it, undo, or clear.',
   restarted: 'A new sequence starts from here.',
   compareLabels: (a, b) => [`${a} then ${b}`, `${b} then ${a}`],

@@ -20,9 +20,12 @@ test('fireflies: after a flight they catch up with the new day over a few days, 
   await expect(page.locator('#scene-status')).toHaveText(/^Caught up with the new day after [2-9] days\.$/, {
     timeout: 20000,
   });
-  // Without a day–night cycle there is nothing to fly away from.
+  // Without a day–night cycle there is nothing to fly away from, so the flight switches the cycle back on.
   await page.locator('[data-check="sun"]').click();
-  await expect(page.locator('#fireflies-fly')).toBeDisabled();
+  await expect(page.locator('[data-check="sun"]')).not.toBeChecked();
+  await page.locator('#fireflies-fly').click();
+  await expect(page.locator('[data-check="sun"]')).toBeChecked();
+  await expect(page.locator('#scene-status')).toHaveText(/^After the flight · day \d+$/);
 });
 
 /**

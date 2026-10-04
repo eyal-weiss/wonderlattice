@@ -241,11 +241,18 @@
     cube.inFlight += repeats;
   }
 
+  // Sequences the visitor has seen come home: only then does the readout say how many repeats it takes, so the
+  // nudge's question ("how many do you guess?") stays open until the cube answers it.
+  const homeSeen = new Set();
+  const orderKnown = (s) => C.order(sequenceOf(s)) === 1 || homeSeen.has(s.seq);
+
   /** Say how a run of repeats ended, once it has visibly finished. */
   function landed(s) {
     const seq = sequenceOf(s);
     if (s.mode !== 0 || !seq.length) return;
-    W.announce(t.landed(C.movedPieces(cubes[0].state).size, s.repeats, C.order(seq)));
+    const moved = C.movedPieces(cubes[0].state).size;
+    if (moved === 0) homeSeen.add(s.seq);
+    W.announce(t.landed(moved, s.repeats, orderKnown(s) ? C.order(seq) : 0).trim());
   }
 
   function step(dt, s) {
@@ -341,9 +348,9 @@
     repeat(s, left === 0 ? order : left);
     s.repeats %= order; // back home: count afresh
     s.repeats ||= order;
+    if (reduced) landed(s); // before the readout refreshes, so it can say how many repeats it took
     stage.sync();
     stage.draw();
-    if (reduced) landed(s);
   }
 
   function compare(s, stage) {
@@ -469,7 +476,7 @@
     if (box)
       box.innerHTML =
         `<strong class="cube-notation">${t.sequence(C.notation(seq))}</strong>` +
-        `<span>${seq.length ? t.times(done) + ' · ' + t.order(C.order(seq)) : ''}</span>` +
+        `<span>${seq.length ? t.times(done) + ' · ' + (orderKnown(s) ? t.order(C.order(seq)) : t.orderUnknown) : ''}</span>` +
         `<span>${t.moved(moved)}</span>` +
         (seq.length >= C.MAX_LENGTH ? `<span>${t.full}</span>` : note ? `<span>${note}</span>` : '');
   }
@@ -485,7 +492,7 @@
     { mode: 0, seq: C.encode([R, U, R + 6, U + 6]), repeats: 1, highlight: true },
     { mode: 0, seq: C.encode([R, U, F, F + 6, U + 6, R + 6]), repeats: 1, highlight: false },
   ];
-  const badges = ['≠', '105', '7', '↺'];
+  const badges = ['≠', '?', '7', '↺']; // 105 is for the visitor to discover
 
   W.defineRoom({
     id: 'cube',
@@ -554,9 +561,9 @@
     action(s, stage) {
       if (s.mode === 1) return compare(s, stage);
       if (!repeat(s)) return;
+      if (reduced) landed(s); // first, so a repeat that lands home shows the count at once
       stage.sync();
       stage.draw();
-      if (reduced) landed(s);
     },
     reset(s, stage) {
       if (s.mode === 1) return settle(s);

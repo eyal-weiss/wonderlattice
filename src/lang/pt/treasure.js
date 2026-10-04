@@ -50,11 +50,14 @@ Wonderlattice.defineText('treasure', 'pt', {
     story: (total, treasure, found, falseAlarms, both) =>
       `De cada ${total.toLocaleString('pt-BR')} quadrados, ${treasure} escondem tesouro. ${both ? 'Os dois detectores apitam' : 'O detector apita'} sobre ${found} deles, e sobre ${falseAlarms} ${falseAlarms === 1 ? 'vazio' : 'vazios'}. Então ${found} de ${found + falseAlarms} apitos são tesouro.`,
     percent: (p) => `${Math.round(p * 100)}%`,
+    unknown: '?',
+    hidden: 'Varra a ilha e cave onde ele apitar: quantas vezes o tesouro está mesmo lá? A resposta aparece aqui.',
   },
 
   labels: {
     island: 'A ilha',
     thousand: 'Cada 1.000 quadrados',
+    hidden: 'Cave onde apitar para ver o que um apito significa',
     found: 'tesouro, apita',
     missed: 'tesouro, quieto',
     falseAlarm: 'areia, apita',

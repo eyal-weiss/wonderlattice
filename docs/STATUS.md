@@ -1,6 +1,6 @@
 # Project state
 
-Wonderlattice has 27 rooms in seven themes, in six languages (English, Hebrew, Spanish, Brazilian Portuguese,
+Wonderlattice has 33 rooms in seven themes, in six languages (English, Hebrew, Spanish, Brazilian Portuguese,
 French and Arabic). Visitors can keep moments in My trail, share any room with its settings, show a room on a big
 screen or send it to phones with a QR code, make the text larger or raise the contrast, and send a message from the
 end of any explanation. It runs in the browser with no accounts or tracking, even offline, and as a single file.
@@ -14,6 +14,15 @@ This file is a changelog of the site, newest first. How the code fits together i
   dice didn't work on iPhone Safari could not be reproduced in emulation.
 - **Room ideas:** issues labelled `room idea`, indexed in #19; the ones labelled `ready to build` are approved.
 - Text drawn inside the pictures doesn't grow with the Display setting; the browser's zoom enlarges everything.
+
+## 2026-10-03
+
+- **First visits keep their questions open** in four rooms. The treasure detector hides its answer (what a beep
+  means, and the chart of 1,000 squares) until the visitor digs, digs every beep or changes the odds. The cube says
+  how many repeats a sequence needs only once the visitor has seen it come home, and its preset card no longer shows 105. The leaning tower opens with four blocks stacked straight at the edge, so "can 4 blocks clear it?" is still a
+  question; its tip now describes what really works (tapping empty space adds a block). In the fireflies room,
+  "Fly eight time zones" switches the day–night cycle on instead of sitting greyed out. The basketball room's
+  highlighted preset matches the mix it opens with. Words in all six languages.
 
 ## 2026-09-30
 

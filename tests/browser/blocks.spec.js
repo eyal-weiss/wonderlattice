@@ -3,11 +3,13 @@ import { test, expect, openRoom, inkedPixels } from './helpers.js';
 test('blocks room: the surprise — 4 blocks reach 1 block-length, 31 reach 2', async ({ page }) => {
   await page.goto('/');
   await openRoom(page, 'blocks');
-  // Default: 4 blocks in best position — status shows overhang > 1
-  await expect(page.locator('#scene-status')).toContainText('4 blocks');
+  // A first visit starts with 4 blocks stacked straight at the edge: the question is still open.
+  await expect(page.locator('#scene-status')).toHaveText('4 blocks · 0.00 block-lengths out');
+  // The 4-block preset shows the answer: the top block clears the table edge.
+  await page.getByRole('button', { name: /4 blocks/ }).click();
   const status4 = await page.locator('#scene-status').textContent();
   const oh4 = parseFloat(status4.match(/([\d.]+) block-lengths/)[1]);
-  expect(oh4).toBeGreaterThan(1.0); // 4 blocks clear the table edge
+  expect(oh4).toBeGreaterThan(1.0);
 
   // Switch to 31-block preset
   await page.getByRole('button', { name: /31 blocks/ }).click();
@@ -17,13 +19,11 @@ test('blocks room: the surprise — 4 blocks reach 1 block-length, 31 reach 2', 
   expect(oh31).toBeGreaterThanOrEqual(2.0); // 31 blocks reach 2 block-lengths
 });
 
-test('blocks room: Best Stack button snaps blocks to optimal positions', async ({ page }) => {
+test('blocks room: the best stack button snaps the straight opening stack to its best', async ({ page }) => {
   await page.goto('/');
   await openRoom(page, 'blocks');
-  // Use 4-block preset, then click Best Stack
-  await page.getByRole('button', { name: /4 blocks/ }).click();
-  await page.locator('#scene-action').click(); // Best Stack
-  await expect(page.locator('#announcer')).toHaveText('Best Stack');
+  await page.locator('#scene-action').click(); // Best stack
+  await expect(page.locator('#announcer')).toHaveText('Best stack');
   const status = await page.locator('#scene-status').textContent();
   const oh = parseFloat(status.match(/([\d.]+) block-lengths/)[1]);
   expect(oh).toBeGreaterThan(1.0);

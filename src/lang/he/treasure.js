@@ -49,11 +49,14 @@ Wonderlattice.defineText('treasure', 'he', {
     story: (total, treasure, found, falseAlarms, both) =>
       `מכל ${total.toLocaleString('he')} משבצות, ב־${treasure} יש אוצר. ${both ? 'שני הגלאים מצפצפים' : 'הגלאי מצפצף'} מעל ${found} מהן, ומעל ${falseAlarms} ריקות. כך ש־${found} מתוך ${found + falseAlarms} צפצופים הם אוצר.`,
     percent: (p) => `${Math.round(p * 100)}%`,
+    unknown: '?',
+    hidden: 'סרקו את האי וחפרו איפה שהגלאי מצפצף: כמה פעמים באמת יש שם אוצר? התשובה תופיע כאן.',
   },
 
   labels: {
     island: 'האי',
     thousand: 'מכל 1,000 משבצות',
+    hidden: 'חפרו איפה שמצפצף כדי לגלות מה אומר צפצוף',
     found: 'אוצר, צפצוף',
     missed: 'אוצר, שקט',
     falseAlarm: 'חול, צפצוף',

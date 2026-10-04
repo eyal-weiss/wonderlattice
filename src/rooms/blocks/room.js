@@ -415,7 +415,7 @@
 
     defaults: { centres: [], blocks: 0 },
     ranges: { blocks: [0, 50, 'integer'] },
-    defaultPreset: 0,
+    defaultPreset: -1, // the straight opening stack isn't one of the presets
 
     presets: [
       {
@@ -470,9 +470,10 @@
     draw,
 
     enter(s, stage) {
-      // Start fresh with 4 blocks on first visit
+      // A first visit starts with 4 blocks stacked straight, flush with the table's edge: the best stack is for the
+      // visitor to find (or to ask for).
       if (!s.centres || s.centres.length === 0) {
-        s.centres = M.optimalStack(4);
+        s.centres = [-0.5, -0.5, -0.5, -0.5];
         s.blocks = 4;
       }
       // renderControls runs before enter; call refresh so readouts show the updated state.

@@ -9,7 +9,7 @@ Wonderlattice.defineText('blocks', 'pt', {
   field: 'Centro de massa · Série harmônica · Uma surpresa lenta',
   sceneLabel: 'A borda de uma mesa · Blocos para empilhar',
   sceneName: (n) => (n === 0 ? 'Mesa vazia' : 'Blocos empilhados'),
-  tip: 'Arraste um bloco na pilha ou use as setas para empurrar o bloco de cima. Aperte B para a Pilha ideal.',
+  tip: 'Arraste um bloco para o lado · Toque em um espaço vazio para adicionar um bloco · As setas empurram o bloco de cima; B monta a Pilha ideal',
   actionLabel: 'Pilha ideal',
   lengthsLabel: (oh) => `${oh.toFixed(2).replace('.', ',')} comprimentos`,
   canvasLabel:

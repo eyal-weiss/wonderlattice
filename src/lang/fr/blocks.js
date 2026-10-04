@@ -9,7 +9,7 @@ Wonderlattice.defineText('blocks', 'fr', {
   field: 'Centre de gravité · Série harmonique · Une surprise très lente',
   sceneLabel: 'Un bord de table · Des blocs à empiler',
   sceneName: (n) => (n === 0 ? 'Table vide' : 'Blocs empilés'),
-  tip: 'Faites glisser un bloc de la pile, ou utilisez les flèches pour déplacer le bloc du haut. Appuyez sur B pour la meilleure pile.',
+  tip: 'Faites glisser un bloc sur le côté · Touchez un espace vide pour ajouter un bloc · Les flèches déplacent le bloc du haut, B construit la meilleure pile',
   actionLabel: 'Meilleure pile',
   lengthsLabel: (oh) => `${oh.toFixed(2).replace('.', ',')} longueurs`,
   canvasLabel:
