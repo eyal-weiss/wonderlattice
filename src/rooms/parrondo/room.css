@@ -1,4 +1,7 @@
 /* Two losing games that win: the rules, the pattern being tapped out, and the expected winnings. */
+:root[data-contrast='more'] .parrondo-letter {
+  color: var(--ink);
+}
 .parrondo-rules p,
 .parrondo-readout p {
   margin: 6px 0 0;
@@ -7,7 +10,7 @@
   color: var(--muted);
 }
 .parrondo-rules strong {
-  color: #e6ecf2;
+  color: var(--ink);
 }
 .parrondo-big {
   display: flex;
@@ -40,16 +43,16 @@
   height: 32px;
   border: 1px solid #3f6fa0;
   border-radius: 6px;
-  background: #13263a;
-  color: #9fd8ff;
+  background: color-mix(in srgb, #3f6fa0 20%, var(--panel));
+  color: color-mix(in srgb, #2f8fe0 55%, var(--ink));
   font:
     600 1rem Georgia,
     serif;
 }
 .parrondo-letter.is-b {
   border-color: #7d5ea8;
-  background: #231a33;
-  color: #dcc2ff;
+  background: color-mix(in srgb, #7d5ea8 20%, var(--panel));
+  color: color-mix(in srgb, #9b6ce8 55%, var(--ink));
 }
 .parrondo-letters + .segment button:disabled {
   opacity: 0.45;
@@ -64,7 +67,7 @@
   align-items: baseline;
   gap: 12px;
   font-size: 0.875rem;
-  color: #e6ecf2;
+  color: var(--ink);
 }
 .parrondo-race-row strong {
   font:

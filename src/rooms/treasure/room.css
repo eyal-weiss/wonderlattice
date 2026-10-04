@@ -9,7 +9,7 @@
   font:
     600 2.125rem Georgia,
     serif;
-  color: #f7c948;
+  color: color-mix(in srgb, #e0a800 50%, var(--ink));
 }
 .treasure-readout p {
   margin: 8px 0 0;

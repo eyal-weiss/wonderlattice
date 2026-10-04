@@ -33,14 +33,14 @@
   line-height: 1.45;
 }
 .sample-readout strong {
-  color: #eef0e6;
+  color: var(--ink);
   font-weight: 600;
 }
 #sample-estimate {
-  color: #dfe6dc;
+  color: var(--soft);
 }
 .sample-note {
-  color: #93a1b3;
+  color: var(--muted);
   font-size: 0.75rem;
 }
 

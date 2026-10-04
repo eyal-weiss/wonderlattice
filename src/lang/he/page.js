@@ -25,6 +25,10 @@ Wonderlattice.defineText('page', 'he', {
     label: 'תגלית שחזרתם אליה',
     placeholder: 'גם מחשבה קטנה מספיקה.',
   },
+  map: {
+    label: 'מפת הניסויים',
+    listTitle: 'כל הניסויים',
+  },
   home: {
     title: 'לכו בעקבות הסקרנות.',
     intro:
@@ -37,7 +41,7 @@ Wonderlattice.defineText('page', 'he', {
     field: 'מעגלים בתוך מעגלים',
     onCanvas: 'על משטח הציור',
     finish: 'לצייר הכול',
-    surprise: '✧ הפתעה',
+    surprise: 'הפתעה',
     rotation: 'סיבוב פנימי',
     opposite: 'כיוון הפוך',
     same: 'אותו כיוון',
@@ -72,7 +76,7 @@ Wonderlattice.defineText('page', 'he', {
   },
   stage: {
     makeItYours: 'תנו לזה מגע משלכם',
-    keep: '✧ לשמור את הרגע',
+    keep: 'לשמור את הרגע',
     nudge: 'הצעה קטנה',
     reset: 'להתחיל מחדש',
     presetsTitle: 'לנסות אפשרות אחרת',

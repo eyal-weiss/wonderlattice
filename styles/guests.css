@@ -1,4 +1,5 @@
-/* Mathematician visitors: paper-puppet bodies around historical portraits. */
+/* Mathematician visitors: paper-puppet bodies around historical portraits. The card is a small dark window in
+   both looks, like the pictures, so its own colours stay as they are. */
 .math-guest {
   display: flex;
   align-items: center;
@@ -9,7 +10,7 @@
   padding: 12px;
   border: 1px solid #475662;
   border-radius: 12px;
-  background: linear-gradient(125deg, #1c2a30, #1a212d);
+  background: linear-gradient(125deg, #1c2a30, #1a212d) #1b2630; /* a solid colour under the gradient, for contrast checks */
   color: #e7f3ed;
   box-shadow: 0 10px 24px #0002;
 }
@@ -173,9 +174,7 @@
 .math-guest-eyebrow {
   display: block;
   padding-inline-end: 12px; /* clear of the ↻ button, which reaches 36 px in from the card's edge */
-  font-size: 0.625rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 0.6875rem;
   color: #b5cfc3;
 }
 .math-guest-copy strong {

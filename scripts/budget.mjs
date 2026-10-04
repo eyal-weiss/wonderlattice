@@ -2,7 +2,7 @@
 // A first visit gets the page: the core and every room's card, plus the visitor's language's shared words. Each
 // room's code and words come only when the room is needed (docs/ARCHITECTURE.md, "Growing"), so the limits are for
 // the page, for one room, and for one room's words in a language, not for all rooms together.
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { gzipSync } from 'node:zlib';
@@ -28,7 +28,17 @@ const kb = (n) => Math.round(n / 1024);
 
 const html = readFileSync(join(dist, 'index.html'), 'utf8');
 const assets = [...html.matchAll(/(?:src|href)="\.\/((?:src|styles)\/[^"]+\.(?:js|css)[^"]*)"/g)].map((m) => m[1]);
+// The day typeface is asked for at once (src/core/display.js), so it counts as part of the page. Font files are
+// already compressed: counted as they are.
+const dayFont = readFileSync(join(dist, 'fonts/rubik-latin.woff2')).length;
 const page = sum(['index.html', ...assets]);
+page.gz += dayFont;
+page.raw += dayFont;
+// The map's pictures load as they come into view; reported, not budgeted.
+const thumbDir = join(dist, 'assets/rooms/thumbs');
+const mapPictures = readdirSync(thumbDir)
+  .filter((f) => !f.endsWith('-wide.webp'))
+  .reduce((total, f) => total + readFileSync(join(thumbDir, f)).length, 0);
 
 await import(pathToFileURL(join(dist, 'src/core/wonderlattice.js')).href);
 await import(pathToFileURL(join(dist, 'src/rooms/cards.js')).href);
@@ -45,7 +55,10 @@ const languages = Object.entries(W.languageFiles ?? {}).map(([code, scopes]) => 
   return { code, shared: sum(scopes.filter((scope) => !W.loadsLater(scope)).map(file)), words };
 });
 
-console.log(`First visit, English: ${kb(page.gz)} KB compressed (${kb(page.raw)} KB), ${assets.length} files`);
+console.log(
+  `First visit, English: ${kb(page.gz)} KB compressed (${kb(page.raw)} KB), ${assets.length} files and the day ` +
+    `typeface (${kb(dayFont)} KB); the map's pictures as they come into view, ${kb(mapPictures)} KB in all`,
+);
 const all = rooms.reduce((t, r) => t + r.gz, 0);
 console.log(
   `Each room, when it's needed: ${later.length} rooms, the largest ${rooms[0]?.id} ${kb(rooms[0]?.gz ?? 0)} KB ` +

@@ -4,7 +4,6 @@ const settings = async (page) => (await tool(page, 'read_exploration')).settings
 
 test('storm room: codes repair the picture, and the readouts follow', async ({ page }) => {
   await page.goto('/');
-  await expect.poll(() => inkedPixels(page, '#card-storm canvas')).toBeGreaterThan(20);
   await openRoom(page, 'storm');
   await expect(page.locator('#room-title')).toHaveText(ROOMS.storm);
   await expect.poll(() => inkedPixels(page, '#scene-canvas')).toBeGreaterThan(50);

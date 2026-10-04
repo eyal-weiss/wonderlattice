@@ -11,7 +11,7 @@
   justify-content: space-between;
   align-items: baseline;
   gap: 12px;
-  color: #e6ecf2;
+  color: var(--ink);
 }
 .shower-row + .shower-verdict {
   margin-top: 2px;
@@ -33,13 +33,13 @@
   font-weight: 600;
 }
 .shower-readout .shower-verdict.is-0 {
-  color: #a0d7ff;
+  color: color-mix(in srgb, #2f8fe0 60%, var(--ink));
 }
 .shower-readout .shower-verdict.is-1 {
-  color: #a0ebb9;
+  color: color-mix(in srgb, #22a35a 60%, var(--ink));
 }
 .shower-readout .shower-verdict.is-2 {
-  color: #ffaa96;
+  color: color-mix(in srgb, #ff5a3a 60%, var(--ink));
 }
 .shower-hand input[type='range'] {
   background: linear-gradient(90deg, #2f6fe0, #ffecba 62%, #ff3d2e);

@@ -15,16 +15,16 @@ body[data-room='sudoku'] .scene-tip {
 }
 .sudoku-symbol {
   min-height: 48px;
-  border: 1px solid #414b5b;
+  border: 1px solid var(--line-strong);
   border-radius: 10px;
-  background: #121b26;
+  background: var(--panel-2);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .sudoku-symbol:hover {
-  border-color: #8a9aa3;
-  background: #1c2631;
+  border-color: var(--edge);
+  background: var(--panel-hover);
 }
 .sudoku-symbol svg {
   width: 28px;
@@ -37,7 +37,7 @@ body[data-room='sudoku'] .scene-tip {
 .sudoku-faded {
   margin: 8px 0 0;
   font-size: 0.75rem;
-  color: #a7b4c6;
+  color: var(--muted);
 }
 .sudoku-edit {
   display: grid;
@@ -46,8 +46,8 @@ body[data-room='sudoku'] .scene-tip {
   margin-top: 8px;
 }
 .sudoku-readout {
-  border: 1px solid #3d4a5c;
-  background: #111923;
+  border: 1px solid var(--line-strong);
+  background: var(--panel-2);
   padding: 14px;
   border-radius: 9px;
 }
@@ -63,25 +63,25 @@ body[data-room='sudoku'] .scene-tip {
 .sudoku-stats span {
   display: block;
   font-size: 0.75rem;
-  color: #a7b4c6;
+  color: var(--muted);
 }
 .sudoku-stats strong {
   display: block;
   font-size: 1.625rem;
   font-weight: 600;
-  color: #f0f5ea;
+  color: var(--ink);
   font-variant-numeric: tabular-nums;
   line-height: 1.2;
 }
 .sudoku-stats small {
   font-size: 0.8125rem;
   font-weight: 400;
-  color: #a7b4c6;
+  color: var(--muted);
 }
 .sudoku-answers p {
   margin: 12px 0 8px;
   font-size: 0.8125rem;
-  color: #d7dfe8;
+  color: var(--soft);
   line-height: 1.45;
 }
 .sudoku-answers div {

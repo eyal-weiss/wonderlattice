@@ -3,9 +3,9 @@
   display: grid;
   gap: 8px;
   padding: 12px 14px;
-  border: 1px solid #253244;
+  border: 1px solid var(--line-strong);
   border-radius: 10px;
-  background: #0f1620;
+  background: var(--panel-2);
 }
 .julia-readout div {
   display: grid;
@@ -13,11 +13,11 @@
 }
 .julia-readout span {
   font-size: 0.75rem;
-  color: #8795a8;
+  color: var(--muted);
 }
 .julia-readout strong {
   font-weight: 500;
-  color: #e6ebe6;
+  color: var(--ink);
 }
 /* The scene label holds a formula, and capitals would change it (z → z² + c, not Z → Z² + C). */
 body[data-room='julia'] #scene-label {
