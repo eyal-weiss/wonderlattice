@@ -8,6 +8,7 @@ Wonderlattice.defineLanguage('pt', { name: 'Português', dir: 'ltr', speech: 'pt
 Wonderlattice.languageFiles = {
   ar: [
     'app',
+    'arch',
     'billiards',
     'blocks',
     'compress',
@@ -39,9 +40,11 @@ Wonderlattice.languageFiles = {
     'treasure',
     'waves',
     'weather',
+    'wheels',
   ],
   es: [
     'app',
+    'arch',
     'billiards',
     'blocks',
     'compress',
@@ -73,9 +76,11 @@ Wonderlattice.languageFiles = {
     'treasure',
     'waves',
     'weather',
+    'wheels',
   ],
   fr: [
     'app',
+    'arch',
     'billiards',
     'blocks',
     'compress',
@@ -107,9 +112,11 @@ Wonderlattice.languageFiles = {
     'treasure',
     'waves',
     'weather',
+    'wheels',
   ],
   he: [
     'app',
+    'arch',
     'billiards',
     'blocks',
     'compress',
@@ -141,9 +148,11 @@ Wonderlattice.languageFiles = {
     'treasure',
     'waves',
     'weather',
+    'wheels',
   ],
   pt: [
     'app',
+    'arch',
     'billiards',
     'blocks',
     'compress',
@@ -175,5 +184,6 @@ Wonderlattice.languageFiles = {
     'treasure',
     'waves',
     'weather',
+    'wheels',
   ],
 };
