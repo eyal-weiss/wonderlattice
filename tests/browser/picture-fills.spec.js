@@ -3,7 +3,8 @@ import { test, expect, ROOMS } from './helpers.js';
 // Every room's picture fills its frame. On wide screens the frame is as tall as the window (and stays in view while a
 // longer panel scrolls past); on phones it's pinned above the controls. Either way a room draws for the canvas it is
 // given: no empty strip across the picture taller than about a sixth of it, at laptop, desktop and phone sizes
-// (docs/ARCHITECTURE.md, "The stage"). Gaps between the parts of a picture are fine; an empty band is not.
+// (docs/ARCHITECTURE.md, "The picture's frame"), in its opening view and in each preset. Gaps between the parts of a
+// picture are fine; an empty band is not.
 
 const SIZES = [
   [1280, 900],
@@ -49,6 +50,20 @@ for (const room of Object.keys(ROOMS).filter((id) => id !== 'motion')) {
       await page.waitForTimeout(500);
       const { strip, height: canvas } = await page.locator('#scene-canvas').evaluate(tallestEmptyStrip);
       if (strip > allowed(canvas)) problems.push(`${width}×${height}: ${strip} px empty in a ${canvas} px picture`);
+    }
+    // Each preset too (they can change what the picture shows), on a laptop and a large screen.
+    for (const [width, height] of [SIZES[0], SIZES[2]]) {
+      await page.setViewportSize({ width, height });
+      await page.reload();
+      await expect(page.locator('body')).toHaveAttribute('data-room', room);
+      const presets = page.locator('#scene-presets .scene-preset');
+      for (let i = 0; i < (await presets.count()); i++) {
+        await presets.nth(i).click();
+        await page.waitForTimeout(500);
+        const { strip, height: canvas } = await page.locator('#scene-canvas').evaluate(tallestEmptyStrip);
+        if (strip > allowed(canvas))
+          problems.push(`${width}×${height}, preset ${i + 1}: ${strip} px empty in a ${canvas} px picture`);
+      }
     }
     expect(problems, `${room} leaves an empty band`).toEqual([]);
   });
