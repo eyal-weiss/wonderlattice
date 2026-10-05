@@ -1,6 +1,6 @@
 # Project state
 
-Wonderlattice has 33 rooms in seven themes (and two more waiting for their translations), in six languages
+Wonderlattice has 33 rooms in seven themes (and three more waiting for their translations), in six languages
 (English, Hebrew, Spanish, Brazilian Portuguese, French and Arabic). Visitors can keep moments in My trail, share any
 room with its settings, show a room on a big screen or send it to phones with a QR code, make the text larger or raise
 the contrast, and send a message from the end of any explanation. It runs in the browser with no accounts or
