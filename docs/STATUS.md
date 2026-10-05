@@ -1,9 +1,10 @@
 # Project state
 
-Wonderlattice has 33 rooms in seven themes, in six languages (English, Hebrew, Spanish, Brazilian Portuguese,
-French and Arabic). Visitors can keep moments in My trail, share any room with its settings, show a room on a big
-screen or send it to phones with a QR code, make the text larger or raise the contrast, and send a message from the
-end of any explanation. It runs in the browser with no accounts or tracking, even offline, and as a single file.
+Wonderlattice has 33 rooms in seven themes (and two more waiting for their translations), in six languages
+(English, Hebrew, Spanish, Brazilian Portuguese, French and Arabic). Visitors can keep moments in My trail, share any
+room with its settings, show a room on a big screen or send it to phones with a QR code, make the text larger or raise
+the contrast, and send a message from the end of any explanation. It runs in the browser with no accounts or
+tracking, even offline, and as a single file.
 
 This file is a changelog of the site, newest first. How the code fits together is in docs/ARCHITECTURE.md.
 
@@ -14,6 +15,12 @@ This file is a changelog of the site, newest first. How the code fits together i
   dice didn't work on iPhone Safari could not be reproduced in emulation.
 - **Room ideas:** issues labelled `room idea`, indexed in #19; the ones labelled `ready to build` are approved.
 - Text drawn inside the pictures doesn't grow with the Display setting; the browser's zoom enlarges everything.
+
+## 2026-10-05
+
+- **New rooms wait for their translations.** A room now joins the map, the route, the "New" line and Surprise only
+  once every language has its words, so visitors reading Hebrew, Arabic, Spanish, French or Portuguese no longer meet
+  a new room in English. Until then a direct link opens it. The rollers and the stubborn triangle wait for theirs.
 
 ## 2026-10-04
 

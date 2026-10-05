@@ -1,18 +1,19 @@
 import { test, expect, expectRoom } from './helpers.js';
 
-// The home map names the newest rooms (their `added` dates), up to three from the last 30 days.
+// The home map names the newest rooms (their `added` dates), up to three from the last 30 days. Rooms still waiting
+// for their translations aren't on the map, so they aren't named either (the rollers and the truss, 4 October).
 test('the home map names the newest rooms, newest first, and each opens its room', async ({ page }) => {
   await page.clock.setFixedTime(new Date('2026-09-30T12:00:00Z'));
   await page.goto('/');
   const line = page.locator('#whats-new');
   await expect(line).toBeVisible();
   await expect(line.locator('button')).toHaveText([
-    'The stubborn triangle',
-    'Rollers that aren’t round',
     'Kaleidoscope of cheaters',
+    'Hang it, flip it, build it',
+    'Square wheels, smooth ride',
   ]);
-  await line.getByRole('button', { name: 'The stubborn triangle' }).click();
-  await expectRoom(page, 'truss');
+  await line.getByRole('button', { name: 'Kaleidoscope of cheaters' }).click();
+  await expectRoom(page, 'cheaters');
 });
 
 test('with nothing new for 30 days, there is no line', async ({ page }) => {

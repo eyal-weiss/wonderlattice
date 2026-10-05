@@ -1,6 +1,6 @@
 import { pathToFileURL } from 'node:url';
 import { resolve } from 'node:path';
-import { test, expect, ROOMS, openRoom, expectRoom, expectedLink } from './helpers.js';
+import { test, expect, ROOMS, PUBLISHED, openRoom, expectRoom, expectedLink } from './helpers.js';
 
 test('copying a pattern produces a link that reopens it', async ({ page }) => {
   await page.goto('/#room=motion');
@@ -48,7 +48,7 @@ test('images can be saved as PNG files', async ({ page }) => {
 
 test('the app runs from a file:// URL without a server', async ({ page }) => {
   await page.goto(pathToFileURL(resolve(process.env.SERVE_DIR || '.', 'index.html')).href);
-  await expect(page.locator('.map-room')).toHaveCount(Object.keys(ROOMS).length);
+  await expect(page.locator('.map-room')).toHaveCount(PUBLISHED.length);
   // Browsers won't load font files into a page opened from disk: it uses the device's fonts, with no errors.
   await expect(page.locator('html')).toHaveAttribute('data-fonts', 'device');
   for (const room of ['waves', 'flock', 'ribbon', 'traffic', 'motion']) {

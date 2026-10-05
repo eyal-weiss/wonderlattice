@@ -75,6 +75,14 @@ map, a list names every room by theme. A new room joins the route where it adds 
 rooms, and that every room has its pictures (each at most 20 KB); `tests/browser/rooms.spec.js` checks that each
 room sits next to the one before it at four screen widths.
 
+**Rooms wait for their translations.** A new room arrives in English and its translations follow, so until every
+language has its words (a file in `src/lang/<code>/`, listed in `src/lang/languages.js` by `npm run i18n:sync`), the
+room is not _published_ (`Wonderlattice.published(id)`): it isn't on the map, the route, the room bar's ‹ ›, the
+"New" line or Surprise, and no room's "Visit…" button leads to it. A direct link (`#room=<id>`) still opens it, for
+review and for translators. The translation that completes it puts it on the map, where its place on the route is
+already set; the published route must also keep neighbours from different themes (`tests/unit/route.test.mjs`), and
+`tests/browser/translations-first.spec.js` checks the rest.
+
 The address always says where you are: `#room=<id>` in a room and no hash on the map, so Back and Forward work and
 any room can be linked. A room's `init()` runs the first time it is opened, not at page load.
 
