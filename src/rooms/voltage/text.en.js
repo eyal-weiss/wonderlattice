@@ -50,25 +50,18 @@ Wonderlattice.defineText('voltage', 'en', {
   kv: (n) => `${n}\u00a0kV`,
   times: (n) => `×${n}`,
   watts: [(n) => `${n}\u00a0W`, (n) => `${n}\u00a0kW`, (n) => `${n}\u00a0MW`, (n) => `${n}\u00a0GW`],
-  amps: (n) => `${n}\u00a0A`,
   cm: (n) => `${n}\u00a0cm`,
   tonnes: (n) => `${n}\u00a0tonnes`,
 
+  // A number and one line: the rest (the current, ten times the voltage) is on the chart and in the explanation.
   readout: {
     lost: 'Lost as heat',
     lostOf: (loss, sent) => `${loss} of the ${sent} sent. The town gets the rest.`,
-    tooMuch: (loss, sent) =>
-      `The sums ask the wire to waste ${loss}, more than the ${sent} sent: nothing reaches the town.`,
-    amps: (amps) => `The wire carries ${amps}, and the heat grows with the square of the current.`,
-    up: (kv, loss) => `At ${kv}, ten times the voltage, it would waste ${loss}: a hundred times less.`,
-    down: (kv, loss) => `At ${kv}, a tenth of the voltage, it would waste ${loss}: a hundred times more.`,
+    tooMuch: (loss, sent) => `${loss}, more than the ${sent} sent: nothing reaches the town.`,
+    // Only once the visitor adds metal.
     wire: (cm, tonnes) => `The wire is ${cm} thick: ${tonnes} of aluminium.`,
-    stopped:
-      'A transformer only works while the current keeps changing: a changing magnetic field in its iron drives the current in its other coil. Steady direct current makes a steady field, so nothing passes on, and the town goes dark.',
-    edison:
-      'In the 1880s, direct current went out at the lamps’ own 110 volts, so a power station could reach only customers less than a mile away.',
-    converters:
-      'Electronics now turn alternating current into direct current at very high voltage, and back again. In this simple model the loss is the same as with AC; many of the longest real lines use DC because it needs fewer wires and avoids losses this room leaves out.',
+    stopped: 'Steady direct current can’t pass a transformer, so nothing reaches the town.',
+    converters: 'Converters step direct current up and down; in this simple model it loses as much as AC.',
   },
 
   status: (kv, lost) => `${kv} · ${lost} lost`,

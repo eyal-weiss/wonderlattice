@@ -215,16 +215,17 @@
   // ── Layout ───────────────────────────────────────────────────────────────────
 
   /**
-   * The landscape at the top, and the chart below, whose horizontal axis is the dial. Beside a long panel the canvas
-   * can be taller than the screen: the landscape keeps its shape at the top, so the first screen shows it whole, and
-   * the chart takes the rest of the height, so the picture fills its frame and the dial sits just above the buttons.
+   * The landscape at the top, and the chart below, whose horizontal axis is the dial. When the canvas is taller than
+   * the landscape's own shape needs, the landscape grows first (up to half the width tall: taller pylons, more sky),
+   * and the chart takes the rest, so the picture fills its frame and the dial sits just above the buttons.
    */
   function place(width, height, fill = false) {
     const narrow = width < 560;
     const H = fill ? height : Math.min(height, width * (narrow ? 0.82 : 0.58));
     const pad = Math.max(8, Math.min(width, H) * 0.025);
     const small = Math.round(clamp(Math.min(width, H) / 30, 10, 13));
-    const sceneH = Math.round(H * (narrow ? 0.56 : 0.6));
+    const natural = Math.round(H * (narrow ? 0.56 : 0.6));
+    const sceneH = Math.max(natural, Math.min(natural + height - H, Math.round(width * (narrow ? 0.62 : 0.5))));
     const chart = { x: pad, y: sceneH + pad * 0.5, w: width - pad * 2, h: height - sceneH - pad };
     // The chart's plot, and the dial's track under it.
     const left = small * 3.3;
@@ -973,19 +974,17 @@
     const box = $('voltage-readout');
     if (!box) return;
     const wire = M.wire(s.metal);
-    const wireLine = `<p>${t.readout.wire(cmText(wire.diameter), t.tonnes(sig(wire.tonnes)))}</p>`;
+    // The wire's size answers the metal slider, so it shows once the visitor has added metal.
+    const wireLine = s.metal === 1 ? '' : `<p>${t.readout.wire(cmText(wire.diameter), t.tonnes(sig(wire.tonnes)))}</p>`;
     if (!flowing(s)) {
-      box.innerHTML = `<p class="voltage-stopped">${t.readout.stopped}</p><p>${t.readout.edison}</p>${wireLine}`;
+      box.innerHTML = `<p class="voltage-stopped">${t.readout.stopped}</p>${wireLine}`;
       return;
     }
     const loss = M.loss(volts(s), s.metal);
     const tone = share >= 1 ? 2 : share > 0.05 ? 1 : 0;
-    const up = s.kv * 10 <= M.MAX_KV;
     box.innerHTML =
       `<div class="voltage-big"><span>${t.readout.lost}</span><strong class="is-${tone}">${lost}</strong></div>` +
       `<p>${share >= 1 ? t.readout.tooMuch(watts(loss), watts(M.SENT)) : t.readout.lostOf(watts(loss), watts(M.SENT))}</p>` +
-      `<p>${t.readout.amps(t.amps(sig(M.current(volts(s)), 3)))}</p>` +
-      `<p>${up ? t.readout.up(kvText(s.kv * 10), watts(loss / 100)) : t.readout.down(kvText(s.kv / 10), watts(loss * 100))}</p>` +
       wireLine +
       (s.current === NEW_DC ? `<p>${t.readout.converters}</p>` : '');
   }
