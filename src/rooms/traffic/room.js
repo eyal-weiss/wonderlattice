@@ -11,10 +11,11 @@
     const { width, height, clock } = stage;
     const { demand, shortcut } = s;
     const flow = equilibrium(demand, shortcut);
-    const start = [width * 0.12, height * 0.52],
-      north = [width * 0.43, height * 0.22],
-      south = [width * 0.43, height * 0.82],
-      end = [width * 0.85, height * 0.52];
+    // The crossing spans the frame's height, from just under its top edge to the labels above the caption.
+    const start = [width * 0.12, height * 0.49],
+      north = [width * 0.43, height * 0.15],
+      south = [width * 0.43, height * 0.83],
+      end = [width * 0.85, height * 0.49];
     ctx.fillStyle = '#0a0e15';
     ctx.fillRect(0, 0, width, height);
     const seg = (a, b, color, thickness, dashed = false) => {
@@ -101,12 +102,12 @@
     ctx.textAlign = 'center';
     ctx.fillStyle = '#a7c7c5';
     ctx.font = '12px system-ui';
-    ctx.fillText(t.labels.congestion, width * 0.2, height * 0.24);
-    ctx.fillText(t.labels.fixed, width * 0.69, height * 0.23);
-    ctx.fillText(t.labels.fixed, width * 0.2, height * 0.88);
-    ctx.fillText(t.labels.congestion, width * 0.7, height * 0.88);
+    ctx.fillText(t.labels.congestion, width * 0.2, height * 0.17);
+    ctx.fillText(t.labels.fixed, width * 0.69, height * 0.16);
+    ctx.fillText(t.labels.fixed, width * 0.2, height * 0.89);
+    ctx.fillText(t.labels.congestion, width * 0.7, height * 0.89);
     ctx.fillStyle = shortcut ? '#e2ccff' : '#9ba8ad';
-    ctx.fillText(shortcut ? t.labels.shortcutOpen : t.labels.shortcutClosed, width * 0.43 + 40, height * 0.54);
+    ctx.fillText(shortcut ? t.labels.shortcutOpen : t.labels.shortcutClosed, width * 0.43 + 40, height * 0.51);
     ctx.fillStyle = '#98aab7';
     ctx.font = '11px system-ui';
     ctx.fillText(t.labels.caption, width * 0.5, height * 0.975);

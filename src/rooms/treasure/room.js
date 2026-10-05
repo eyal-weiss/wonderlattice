@@ -3,7 +3,7 @@
   'use strict';
 
   const W = Wonderlattice;
-  const { $ } = W;
+  const { $, clamp } = W;
   const M = W.models.treasure;
   const t = W.text('treasure');
   const reduced = W.prefersReducedMotion();
@@ -11,6 +11,12 @@
   const COLS = 20,
     ROWS = 13,
     SWEEP_SECONDS = 1.6;
+  const DOT_COLS = 40,
+    DOT_ROWS = 25; // the 1,000 squares, as dots
+  const RATIO = 2.8; // an island square is this many dots wide, so the two parts keep their proportions
+  // The four kinds of square, in the dots' order, and their counts in model.perThousand().
+  const KINDS = ['found', 'missed', 'falseAlarm', 'quiet'];
+  const COUNTS = { found: 'found', missed: 'missed', falseAlarm: 'falseAlarms', quiet: 'quiet' };
   const COLOURS = {
     sea: '#0b1d2b',
     wave: '#16354a',
@@ -54,21 +60,165 @@
     return board;
   }
 
-  /** Where the island and the 1,000 dots go: side by side on wide canvases, stacked on tall ones. */
-  function place(width, height, split = 0.56) {
+  /**
+   * Where the island and the 1,000 dots go. The picture is never taller than the window, so the two share its
+   * height: the island above the dots, with the dots' key beside them (or below them on a narrow picture), or the two
+   * side by side on a very wide picture, whichever lets both be largest while filling it. An island square stays
+   * RATIO dots wide, so neither part grows at the other's expense. Returns the island's square size and corner
+   * (`cell`, `gx`, `gy`), where its title goes, and the dots' layout (see drawDots).
+   */
+  function place(ctx, width, height) {
     const pad = Math.max(10, Math.min(width, height) * 0.04);
-    const wide = width > height * 1.15;
-    const islandBox = wide
-      ? { x: pad, y: pad, w: width * split - pad * 1.5, h: height - pad * 2 }
-      : { x: pad, y: pad, w: width - pad * 2, h: height * 0.56 - pad * 1.5 };
-    const dotsBox = wide
-      ? { x: width * split + pad * 0.5, y: pad, w: width * (1 - split) - pad * 1.5, h: height - pad * 2 }
-      : { x: pad, y: height * 0.56 + pad * 0.5, w: width - pad * 2, h: height * 0.44 - pad * 1.5 };
+    const small = Math.round(Math.min(13, Math.max(10, Math.min(width, height) / 30)));
+    const title = small * 1.6, // a part's title, above it
+      line = small + 3, // one line of the key
+      gap = small * 1.5; // between the dots and a key beside them
+    const innerW = width - 2 * pad,
+      innerH = height - 2 * pad;
+    ctx.font = `${small - 1}px system-ui`;
+    const keyW = Math.max(...KINDS.map((kind) => ctx.measureText(`000 ${t.labels[kind]}`).width)) + 18;
+    const keyH = (perLine) => (KINDS.length / perLine) * line + small * 0.6;
+    const keyRow = (perLine) => perLine * keyW + (perLine - 1) * 8; // the key's width, two to a line or one
+    // The island with its rim of sea, measured in dot spacings.
+    const seaW = (COLS + 0.8) * RATIO,
+      seaH = (ROWS + 0.8) * RATIO;
+
+    // Stacked, with the key beside the dots, or below them two to a line (one on a very narrow picture).
+    const beside = Math.min(
+      (innerH - pad - 2 * title) / (seaH + DOT_ROWS),
+      innerW / seaW,
+      (innerW - gap - keyW) / DOT_COLS,
+    );
+    const below = innerW >= keyRow(2) ? 2 : 1;
+    const under = Math.min(
+      (innerH - pad - 2 * title - keyH(below)) / (seaH + DOT_ROWS),
+      innerW / seaW,
+      innerW / DOT_COLS,
+    );
+    // Side by side, each part centred in the height: only where both would be larger and fill most of it.
+    let side = 0,
+      sideLine = 1;
+    for (const perLine of [2, 1]) {
+      const room = innerW - 2 * pad; // less the space between the parts
+      const s = Math.min(
+        room / (seaW + DOT_COLS),
+        (room - keyRow(perLine)) / seaW,
+        (innerH - title) / seaH,
+        (innerH - title - keyH(perLine)) / DOT_ROWS,
+      );
+      if (s > side) [side, sideLine] = [s, perLine];
+    }
+    const sideFills = Math.max(title + seaH * side, title + DOT_ROWS * side + keyH(sideLine)) >= innerH * 0.75;
+
+    if (sideFills && side > Math.max(beside, under)) {
+      const s = side,
+        cell = s * RATIO;
+      const islandW = seaW * s,
+        columnW = Math.max(DOT_COLS * s, keyRow(sideLine));
+      const x0 = (width - islandW - 2 * pad - columnW) / 2,
+        iy = pad + (innerH - title - seaH * s) / 2,
+        dy = pad + (innerH - title - DOT_ROWS * s - keyH(sideLine)) / 2,
+        bx = x0 + islandW + 2 * pad;
+      const ox = bx + (columnW - DOT_COLS * s) / 2,
+        oy = dy + title;
+      return {
+        cell,
+        small,
+        gx: x0 + cell * 0.4,
+        gy: iy + title + cell * 0.4,
+        islandTitle: { x: x0, y: iy + small },
+        dots: {
+          title: { x: bx, y: dy + small },
+          ox,
+          oy,
+          step: s,
+          key: { x: bx, y: oy + DOT_ROWS * s + small * 1.2, perLine: sideLine, colW: columnW / sideLine },
+          note: { x: bx + columnW / 2, y: oy + DOT_ROWS * s + small * 1.4, width: columnW, align: 'center' },
+        },
+      };
+    }
+
+    const aside = beside >= under;
+    const s = aside ? beside : under,
+      cell = s * RATIO;
+    const islandW = seaW * s,
+      dotsW = DOT_COLS * s;
+    // A key beside the dots takes the width the island leaves, so the two rows line up when they can.
+    const colW = aside ? clamp(islandW - dotsW - gap, keyW, innerW - dotsW - gap) : 0;
+    const blockW = aside ? dotsW + gap + colW : Math.max(dotsW, keyRow(below));
+    const total = 2 * title + pad + seaH * s + DOT_ROWS * s + (aside ? 0 : keyH(below));
+    const top = pad + (innerH - total) / 2; // centred when the width is what limits the parts
+    const sx = (width - islandW) / 2,
+      dy = top + title + seaH * s + pad,
+      bx = (width - blockW) / 2;
+    const ox = aside ? bx : bx + (blockW - dotsW) / 2,
+      oy = dy + title;
+    return {
+      cell,
+      small,
+      gx: sx + cell * 0.4,
+      gy: top + title + cell * 0.4,
+      islandTitle: { x: sx, y: top + small },
+      dots: {
+        title: { x: bx, y: dy + small },
+        ox,
+        oy,
+        step: s,
+        key: aside
+          ? { x: ox + dotsW + gap, y: oy + (DOT_ROWS * s - (KINDS.length - 1) * line) / 2 + small * 0.35, perLine: 1 }
+          : { x: bx, y: oy + DOT_ROWS * s + small * 1.2, perLine: below, colW: blockW / below },
+        note: aside
+          ? { x: ox + dotsW + gap, y: oy + (DOT_ROWS * s) / 2, width: colW, align: 'left', middle: true }
+          : { x: width / 2, y: oy + DOT_ROWS * s + small * 1.4, width: innerW, align: 'center' },
+      },
+    };
+  }
+
+  /**
+   * The home card's layout, made once by `npm run previews`: side by side, the island taking `split` of the width
+   * and the dots' key below them, sized for the counts `n`. Kept as it was, so the card's picture is unchanged.
+   */
+  function cardLayout(ctx, width, height, split, n) {
+    const pad = Math.max(10, Math.min(width, height) * 0.04);
+    const islandBox = { x: pad, y: pad, w: width * split - pad * 1.5, h: height - pad * 2 };
+    const box = { x: width * split + pad * 0.5, y: pad, w: width * (1 - split) - pad * 1.5, h: height - pad * 2 };
     const small = Math.round(Math.min(13, Math.max(10, Math.min(width, height) / 30)));
     const cell = Math.min(islandBox.w / COLS, (islandBox.h - small * 1.6) / ROWS);
-    const gx = islandBox.x + (islandBox.w - cell * COLS) / 2,
-      gy = islandBox.y + small * 1.6 + (islandBox.h - small * 1.6 - cell * ROWS) / 2;
-    return { islandBox, dotsBox, cell, gx, gy, small };
+    ctx.font = `${small - 1}px system-ui`;
+    const widest = Math.max(...KINDS.map((kind) => ctx.measureText(`${n[COUNTS[kind]]} ${t.labels[kind]}`).width)) + 18;
+    const perLine = box.w >= widest * 2 + 8 ? 2 : 1;
+    const legendH = (KINDS.length / perLine) * (small + 3) + small * 0.6;
+    const step = Math.min(box.w / DOT_COLS, (box.h - small * 1.6 - legendH) / DOT_ROWS);
+    const oy = box.y + small * 1.6;
+    return {
+      cell,
+      small,
+      gx: islandBox.x + (islandBox.w - cell * COLS) / 2,
+      gy: islandBox.y + small * 1.6 + (islandBox.h - small * 1.6 - cell * ROWS) / 2,
+      islandTitle: { x: islandBox.x, y: islandBox.y + small },
+      dots: {
+        title: { x: box.x, y: box.y + small },
+        ox: box.x + (box.w - step * DOT_COLS) / 2,
+        oy,
+        step,
+        key: { x: box.x, y: oy + DOT_ROWS * step + small * 1.2, perLine, colW: box.w / 2 },
+        note: { x: box.x + box.w / 2, y: oy + DOT_ROWS * step + small * 1.4, width: box.w, align: 'center' },
+      },
+    };
+  }
+
+  /** Break words into lines no wider than `width`, in the context's current font. */
+  function wrap(ctx, words, width) {
+    const lines = [];
+    let line = '';
+    for (const word of words.split(' ')) {
+      const longer = line ? `${line} ${word}` : word;
+      if (line && ctx.measureText(longer).width > width) {
+        lines.push(line);
+        line = word;
+      } else line = longer;
+    }
+    return line ? [...lines, line] : lines;
   }
 
   /** The island, with its sweep and digs: `state` is { swept, dug, cursor } (the live board, or a preview). */
@@ -78,7 +228,7 @@
     ctx.fillStyle = COLOURS.muted;
     ctx.font = `600 ${small}px system-ui`;
     ctx.textAlign = 'left';
-    ctx.fillText(t.labels.island, L.islandBox.x, L.islandBox.y + small);
+    ctx.fillText(t.labels.island, L.islandTitle.x, L.islandTitle.y);
     // The sea, with small wave marks on some of its squares.
     ctx.fillStyle = COLOURS.sea;
     ctx.beginPath();
@@ -163,32 +313,23 @@
     }
   }
 
-  /** 1,000 squares as dots, sorted: treasure the detector finds, treasure it misses, false alarms, quiet sand. */
-  function drawDots(ctx, n, box, small, hidden = false) {
-    const kinds = [
-      [n.found, 'found'],
-      [n.missed, 'missed'],
-      [n.falseAlarms, 'falseAlarm'],
-      [n.quiet, 'quiet'],
-    ];
-    // The legend: two to a line when there's room, else one per line.
-    ctx.font = `${small - 1}px system-ui`;
-    const widest = Math.max(...kinds.map(([count, kind]) => ctx.measureText(`${count} ${t.labels[kind]}`).width)) + 18;
-    const perLine = box.w >= widest * 2 + 8 ? 2 : 1;
-    const legendH = (kinds.length / perLine) * (small + 3) + small * 0.6;
-    const cols = 40,
-      rows = 25;
-    const step = Math.min(box.w / cols, (box.h - small * 1.6 - legendH) / rows);
+  /**
+   * 1,000 squares as dots, sorted: treasure the detector finds, treasure it misses, false alarms, quiet sand. `D` is
+   * the dots' layout: { title: {x, y}, ox, oy (the grid's corner), step, key: { x, y, perLine, colW }, note }, the
+   * note being where the promise goes before the first dig: { x, y, width, align, middle }.
+   */
+  function drawDots(ctx, n, D, small, hidden = false) {
+    const kinds = KINDS.map((kind) => [n[COUNTS[kind]], kind]);
+    const { ox, oy, step } = D,
+      cols = DOT_COLS;
     const r = Math.max(1, step * 0.36);
-    const ox = box.x + (box.w - step * cols) / 2,
-      oy = box.y + small * 1.6;
     ctx.fillStyle = COLOURS.muted;
     ctx.font = `600 ${small}px system-ui`;
     ctx.textAlign = 'left';
-    ctx.fillText(t.labels.thousand, box.x, box.y + small);
+    ctx.fillText(t.labels.thousand, D.title.x, D.title.y);
     if (hidden) {
       // Before the first dig: plain dots and a promise, so the picture doesn't answer the question for you.
-      for (let k = 0; k < cols * rows; k++) {
+      for (let k = 0; k < cols * DOT_ROWS; k++) {
         ctx.beginPath();
         ctx.arc(ox + (k % cols) * step + step / 2, oy + Math.floor(k / cols) * step + step / 2, r, 0, Math.PI * 2);
         ctx.fillStyle = COLOURS.dim;
@@ -196,8 +337,11 @@
       }
       ctx.fillStyle = COLOURS.ink;
       ctx.font = `600 ${small}px system-ui`;
-      ctx.textAlign = 'center';
-      ctx.fillText(t.labels.hidden, box.x + box.w / 2, oy + rows * step + small * 1.4);
+      ctx.textAlign = D.note.align;
+      const lines = wrap(ctx, t.labels.hidden, D.note.width),
+        lead = Math.round(small * 1.35);
+      const y = D.note.middle ? D.note.y - ((lines.length - 1) * lead) / 2 + small * 0.35 : D.note.y;
+      lines.forEach((words, i) => ctx.fillText(words, D.note.x, y + i * lead));
       ctx.textAlign = 'left';
       return;
     }
@@ -217,11 +361,11 @@
           ctx.stroke();
         }
       }
-    const ly = oy + rows * step + small * 1.2;
+    const { key } = D;
     ctx.font = `${small - 1}px system-ui`;
     kinds.forEach(([count, kind], i) => {
-      const x = box.x + (i % perLine) * (box.w / 2),
-        y = ly + Math.floor(i / perLine) * (small + 3);
+      const x = key.x + (i % key.perLine) * (key.colW ?? 0),
+        y = key.y + Math.floor(i / key.perLine) * (small + 3);
       ctx.beginPath();
       ctx.arc(x + 5, y - small * 0.32, 4, 0, Math.PI * 2);
       if (kind === 'found' || kind === 'quiet') {
@@ -244,12 +388,12 @@
     ctx.fillRect(0, 0, width, height);
     ctx.textBaseline = 'alphabetic';
     ctx.direction = 'ltr'; // the picture's labels keep their places on right-to-left pages too
-    layout = place(width, height);
+    layout = place(ctx, width, height);
     drawIsland(ctx, b, layout, clock, { swept, dug, cursor });
     drawDots(
       ctx,
       M.perThousand(s.treasure / 100, s.accuracy / 100, detectors(s)),
-      layout.dotsBox,
+      layout.dots,
       layout.small,
       !revealed,
     );
@@ -262,9 +406,10 @@
     ctx.fillStyle = '#0a0e15';
     ctx.fillRect(0, 0, width, height);
     ctx.direction = 'ltr';
-    const L = place(width, height, 0.64);
+    const n = M.perThousand(0.02, 0.95);
+    const L = cardLayout(ctx, width, height, 0.64, n);
     drawIsland(ctx, b, L, 0, { swept: 1, dug: new Set(b.beeps), cursor: null });
-    drawDots(ctx, M.perThousand(0.02, 0.95), L.dotsBox, L.small);
+    drawDots(ctx, n, L.dots, L.small);
   }
 
   /** The square under a pointer position, if it is land. */

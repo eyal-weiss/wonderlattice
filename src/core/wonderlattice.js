@@ -241,6 +241,13 @@
       languages[code] = { dir: 'ltr', speech: code, ...info };
     },
     languages: () => ({ ...languages }),
+    /**
+     * Whether a room is published: on the map and the route, on the "New" line and in Surprise. A new room arrives
+     * in English and its translations follow; until every language has its words (each language's files are listed
+     * by `npm run i18n:sync` in src/lang/languages.js), it opens only from a direct link, so visitors who read another
+     * language don't meet it untranslated.
+     */
+    published: (id) => Object.values(Wonderlattice.languageFiles ?? {}).every((files) => files.includes(id)),
 
     /**
      * The page language, fixed for the whole visit: ?lang=he, then a saved

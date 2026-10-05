@@ -68,10 +68,13 @@ test('globe room: keys pick a corner and move it; a drag moves a corner too', as
   await page.locator('.scene-preset').nth(0).click();
   await canvas.evaluate((c) => c.scrollIntoView({ block: 'start' })); // the picture is taller than the window
   const box = await canvas.boundingBox();
-  // Where the room puts the pole on a wide picture: the layout's centre and radius, seen from 30° north.
+  // Where the room puts the pole on a wide picture, with the chart in a column beside the ball: the ball's centre
+  // (halfway down when there's room) and radius, seen from 30° north.
   const seen = Math.min(box.height, Math.max(0.58 * box.width, 300));
-  const base = Math.min(box.width / 2 - 12, (seen - 96) / 1.45);
-  const pole = { x: box.x + box.width / 2, y: box.y + 66 + 0.88 * base + 6 - base * Math.cos(Math.PI / 6) };
+  const column = Math.min(340, Math.max(260, box.width * 0.36));
+  const base = Math.min(box.width / 2 - 12, (seen - 96) / 1.45, (box.width - column) / 2 - 12);
+  const cy = Math.max(66 + 0.88 * base + 6, box.height / 2);
+  const pole = { x: box.x + column + (box.width - column) / 2, y: box.y + cy - base * Math.cos(Math.PI / 6) };
   await page.mouse.move(pole.x, pole.y);
   await page.mouse.down();
   await page.mouse.move(pole.x, pole.y + 40, { steps: 4 });
@@ -111,6 +114,6 @@ test.describe('on a touch screen', () => {
     await expect(page.locator('body')).toHaveAttribute('data-room', 'globe');
     expect(await touchKeeps(page, 0.5, 0.3)).toBe(true); // on the ball
     expect(await touchKeeps(page, 0.02, 0.3)).toBe(false); // beside it
-    expect(await touchKeeps(page, 0.5, 0.9)).toBe(false); // on the chart below
+    expect(await touchKeeps(page, 0.2, 0.6)).toBe(false); // on the chart beside it
   });
 });

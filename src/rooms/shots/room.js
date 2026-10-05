@@ -60,13 +60,23 @@
     return [Math.max(-23.5, Math.min(23.5, Math.sin(angle) * r)), y];
   }
 
-  /** The court with every shot as a dot (filled when made), so the mix of shots is visible at a glance. */
-  function drawCourt(ctx, box, a, b, small) {
+  /**
+   * The court with every shot as a dot (filled when made), so the mix of shots is visible at a glance. Beside the
+   * leaderboards (`middle`), the court and its legend sit halfway down, level with the boards' middle.
+   */
+  function drawCourt(ctx, box, a, b, small, middle = false) {
     const scale = Math.min(box.w / (COURT.width + 2), (box.h - small * 3.8) / (COURT.depth + 1));
     const w = COURT.width * scale,
       d = COURT.depth * scale;
+    // Dots: one per shot, or one per few shots when there are many, so the court stays readable.
+    const most = Math.max(a.closeAttempts + a.farAttempts, b.closeAttempts + b.farAttempts, 1);
+    const perDot = Math.max(1, Math.ceil(most / 40));
+    // What a dot means, wrapped to the court's width.
+    ctx.font = `${small - 1}px system-ui`;
+    const legend = wrap(ctx, `● ${t.legend.made}   ○ ${t.legend.missed}   ·   ${t.legend.perDot(perDot)}`, box.w);
+    const tall = d + small * (1.5 + 1.25 * (legend.length - 1)) + small * 0.4;
     const ox = box.x + (box.w - w) / 2,
-      oy = box.y + 2;
+      oy = box.y + (middle ? Math.max(2, (box.h - tall) / 2) : 2);
     const hx = ox + w / 2,
       hy = oy + COURT.hoop * scale;
     const at = ([x, y]) => [hx + x * scale, hy + y * scale];
@@ -101,9 +111,6 @@
     ctx.arc(hx, hy, 0.75 * scale, 0, Math.PI * 2);
     ctx.stroke();
 
-    // Dots: one per shot, or one per few shots when there are many, so the court stays readable.
-    const most = Math.max(a.closeAttempts + a.farAttempts, b.closeAttempts + b.farAttempts, 1);
-    const perDot = Math.max(1, Math.ceil(most / 40));
     const radius = Math.max(2, Math.min(5, scale * 0.55));
     [
       [a, '#f7c998'],
@@ -140,14 +147,11 @@
     ctx.fillText(t.closeLabel, hx, oy + COURT.keyDepth * scale - small * 0.45);
     ctx.textAlign = 'left';
     ctx.fillText(t.farLabel, ox + small * 0.5, oy + d - small * 0.5);
-    // What a dot means, wrapped to the court's width.
+    // What a dot means, under the court.
     ctx.font = `${small - 1}px system-ui`;
     ctx.fillStyle = '#98aab7';
     ctx.textAlign = 'center';
-    const legend = `● ${t.legend.made}   ○ ${t.legend.missed}   ·   ${t.legend.perDot(perDot)}`;
-    wrap(ctx, legend, box.w).forEach((line, i) =>
-      ctx.fillText(line, box.x + box.w / 2, oy + d + small * (1.5 + 1.25 * i)),
-    );
+    legend.forEach((line, i) => ctx.fillText(line, box.x + box.w / 2, oy + d + small * (1.5 + 1.25 * i)));
   }
 
   function draw(ctx, s, stage) {
@@ -188,7 +192,7 @@
     const pad = Math.max(10, Math.min(width, height) * 0.035);
     if (width > height * 1.15) {
       const courtW = Math.min(width * 0.46, (height - 2 * pad) * 1.45);
-      drawCourt(ctx, { x: pad, y: pad, w: courtW, h: height - 2 * pad }, a, b, small);
+      drawCourt(ctx, { x: pad, y: pad, w: courtW, h: height - 2 * pad }, a, b, small, true);
       drawBoards(ctx, { x: courtW + pad, y: 0, w: width - courtW - pad, h: height }, groups);
     } else {
       const courtH = Math.max(150, height * 0.44);

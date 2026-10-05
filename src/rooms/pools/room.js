@@ -62,7 +62,22 @@
 
   // ---------- floor 1: the rack and the wells ----------
 
-  /** The rack for a canvas: 1,000 tubes and 10 tests, or 63 and 6 where the canvas is narrow. */
+  /** Extra height for a row of gaps, raising the smallest first (like water filling jars) so they end up even. */
+  function share(least, spare) {
+    const total = least.reduce((a, b) => a + b, 0) + spare;
+    let level = total / least.length;
+    for (let k = 0; k < least.length; k++) {
+      const over = least.filter((g) => g > level);
+      level = (total - over.reduce((a, b) => a + b, 0)) / (least.length - over.length);
+    }
+    return least.map((g) => Math.max(0, level - g));
+  }
+
+  /**
+   * The rack for a canvas: 1,000 tubes and 10 tests, or 63 and 6 where the canvas is narrow. The rack spans the
+   * width; the height left over goes to the four gaps (above the rack, the drops' fall to the wells, between the
+   * digits and their sum, below the sum), so the picture fills a tall frame evenly.
+   */
   function rack(width, height) {
     const small = width < 560;
     const n = small ? 63 : 1000,
@@ -70,15 +85,23 @@
       cols = small ? 16 : 64,
       rows = small ? 4 : 16;
     const margin = small ? 16 : 24;
+    const size = small ? 10 : 12; // the labels' size
     const cell = Math.min((width - 2 * margin) / cols, (height * (small ? 0.3 : 0.4)) / rows);
-    const x = (width - cols * cell) / 2,
-      y = small ? 12 : 18;
-    const bottom = y + rows * cell;
     const span = (width - 2 * margin) / tests;
     const wellW = Math.min(58, span * 0.66),
-      wellH = Math.min(70, height * 0.15),
-      wellY = bottom + (small ? 30 : 46);
-    return { small, n, tests, cols, rows, cell, x, y, bottom, margin, span, wellW, wellH, wellY };
+      wellH = Math.min(70, height * 0.15);
+    // Each gap at its least, as it shows on screen (the one below the sum leaves room for a picked well's tag), and
+    // the whole picture's height with those gaps: the rack and its backing, the drops' fall, the wells with their
+    // values and digits, the step from the digits to the sum, and the room below the sum.
+    const least = small ? [6, 24, 22, 30] : [12, 40, 21, 32];
+    const natural = least[0] + rows * cell + 12 + least[1] + wellH + 2 * size + 16 + 2 * (size + 24);
+    const [top, fall, read] = share(least, Math.max(0, height - natural));
+    const x = (width - cols * cell) / 2,
+      y = least[0] + top + 6;
+    const bottom = y + rows * cell;
+    const wellY = bottom + 6 + least[1] + fall;
+    const sumY = Math.min(height - 10, wellY + wellH + 3 * size + 40 + read);
+    return { small, n, tests, cols, rows, cell, x, y, bottom, margin, span, wellW, wellH, wellY, size, sumY };
   }
   /** Tube `tube` sits in slot `tube` of the grid, so the binary digits line up in stripes and bands. */
   const tubeCentre = (R, tube) => ({
@@ -217,7 +240,7 @@
         ctx.restore();
       }
       // The well's value, and once read, its answer as a binary digit.
-      const size = R.small ? 10 : 12;
+      const size = R.size;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'alphabetic';
       ctx.font = `${size}px system-ui, sans-serif`;
@@ -270,9 +293,8 @@
         drawTube(ctx, R, tube, COLOURS.glow, reveal);
         ctx.restore();
       }
-      const size = R.small ? 10 : 12;
+      const { size, sumY } = R;
       const gapY = R.bottom + size + 12; // the gap between the rack and the wells
-      const sumY = Math.min(height - 10, R.wellY + R.wellH + 3 * size + 40);
       if (hot.length > 1)
         for (const tube of hot) {
           const c = tubeCentre(R, tube);
@@ -342,9 +364,7 @@
       }
     }
     if (shownBit >= 0 && P.name === 'read') {
-      const size = R.small ? 10 : 12;
-      const sumY = Math.min(height - 10, R.wellY + R.wellH + 3 * size + 40);
-      tag(ctx, t.labels.well(count(2 ** shownBit)), width / 2, sumY + size + 16, COLOURS.member, size, width);
+      tag(ctx, t.labels.well(count(2 ** shownBit)), width / 2, R.sumY + R.size + 16, COLOURS.member, R.size, width);
     }
   }
 
@@ -352,18 +372,24 @@
 
   function crowdLayout(width, height) {
     const small = width < 560;
-    const side = small ? Math.min(height - 24, width * 0.5) : Math.min(height - 48, width * 0.46);
-    const cell = side / 10;
-    const x = small ? 10 : 28,
-      // Anchored near the top on a wide screen: the panel beside it can make the canvas tall.
-      y = small ? (height - side) / 2 : Math.min((height - side) / 2, 24);
-    const chart = {
-      x: x + side + (small ? 34 : 70),
-      y: y + (small ? 26 : 34),
-      right: width - (small ? 10 : 30),
-      bottom: y + side - (small ? 22 : 30),
-    };
-    return { small, side, cell, x, y, chart };
+    if (small) {
+      const side = Math.min(height - 24, width * 0.5);
+      const x = 10,
+        y = (height - side) / 2;
+      const chart = { x: x + side + 34, y: y + 26, right: width - 10, bottom: y + side - 22 };
+      return { small, side, cell: side / 10, x, y, chart };
+    }
+    // On a wide screen the crowd takes most of the frame's height (every person scaled alike), keeping the chart
+    // beside it at least a fair width; the chart is no taller than it is wide, and both are centred.
+    const beside = Math.max(220, width * 0.28);
+    const side = Math.min(height - 48, Math.max(width * 0.46, Math.min(height * 0.72, width - 112 - beside)));
+    const x = 24,
+      y = (height - side) / 2;
+    const left = x + side + 64,
+      right = width - 24;
+    const tall = Math.min(side - 64, (right - left) * 1.05);
+    const top = y + 34 + (side - 64 - tall) / 2;
+    return { small, side, cell: side / 10, x, y, chart: { x: left, y: top, right, bottom: top + tall } };
   }
 
   /** The second floor's timeline: pools form, each pool is tested in turn, then the retests. */

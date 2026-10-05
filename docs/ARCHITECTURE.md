@@ -75,6 +75,14 @@ map, a list names every room by theme. A new room joins the route where it adds 
 rooms, and that every room has its pictures (each at most 20 KB); `tests/browser/rooms.spec.js` checks that each
 room sits next to the one before it at four screen widths.
 
+**Rooms wait for their translations.** A new room arrives in English and its translations follow, so until every
+language has its words (a file in `src/lang/<code>/`, listed in `src/lang/languages.js` by `npm run i18n:sync`), the
+room is not _published_ (`Wonderlattice.published(id)`): it isn't on the map, the route, the room bar's ‹ ›, the
+"New" line or Surprise, and no room's "Visit…" button leads to it. A direct link (`#room=<id>`) still opens it, for
+review and for translators. The translation that completes it puts it on the map, where its place on the route is
+already set; the published route must also keep neighbours from different themes (`tests/unit/route.test.mjs`), and
+`tests/browser/translations-first.spec.js` checks the rest.
+
 The address always says where you are: `#room=<id>` in a room and no hash on the map, so Back and Forward work and
 any room can be linked. A room's `init()` runs the first time it is opened, not at page load.
 
@@ -85,6 +93,26 @@ There are two kinds of room:
   code; `src/core/stage.js` does the rest.
 - **Custom rooms** (`layout: 'custom'`, currently only motion) bring their own markup (`#motion-room`) and logic. The app
   just shows their `panel` and calls their hooks.
+
+### The picture's frame
+
+On wide screens (two columns, from 961 px) a room's picture sits beside its panel. Its frame is as tall as the panel
+but never taller than the window, and it stays in view (sticky) while a longer panel scrolls past, so a control or a
+readout far down the panel still shows its effect (`styles/base.css`, next to the phones' rule). On phones the picture
+is pinned above the controls, which scroll under it. Either way a room draws for the canvas it is given, which at
+common sizes is about 834 × 678 (1280×900), 1074 × 858 (1920×1080), 662 × 546 (1024×768) and 344 × 287 (a phone):
+
+```
+ opened                          scrolled down the panel
+ ┌──────────────┬───────┐       ┌──────────────┬───────┐
+ │   picture    │ panel │       │   picture    │ lower │
+ │   buttons    │  …    │       │   buttons    │ panel │
+ └──────────────┤       │       └──────────────┤       │
+```
+
+The picture fills it: `tests/browser/picture-fills.spec.js` checks every room at five sizes for an empty strip taller
+than a sixth of the picture. (Before, the frame stretched to the panel's length, up to 1,150 px, and a room that drew
+a fixed-shape picture left an empty band under it.)
 
 ### Stage room fields
 

@@ -133,29 +133,51 @@
   // ---------- layout ----------
 
   /**
-   * Where things go. A tall picture may show only its top at first, so both lanes fit in the part likely on screen,
-   * and the row of wheels goes below them when there is room. On a phone, a drawn wheel gets the top lane to itself,
-   * big enough to drag its dots.
+   * Where things go. On a wide picture the two lanes take the top, a little smaller to leave room below for the row
+   * of wheels: for regular wheels, in two rows of three beside the hanging chain when the picture is tall enough, or
+   * else in one row. On a phone, a drawn wheel gets the top lane to itself, big enough to drag its dots.
    */
   function layout(width, height, s) {
     const narrow = width < 560;
-    const seen = Math.min(height, Math.max(0.58 * width, 300));
     const pad = narrow ? 8 : 12,
       label = narrow ? 18 : 22,
       gap = narrow ? 8 : 14;
     const units = ABOVE + BELOW;
     const single = s.own && narrow;
-    const room = seen - 2 * pad - (single ? label : 2 * label + gap);
     const share = single ? 1 : s.own ? 0.58 : 0.5;
     const cap = s.own ? (narrow ? 84 : 96) : 64;
     const span = s.own ? 2.4 : regularSet(s.sides).spacing + 2.3; // how wide the cart is, in radii
     const wide = s.own ? (narrow ? 0.5 : 0.4) : 0.58; // how much of the width the cart may take
-    const R1 = Math.max(16, Math.min((room * share) / units, cap, (width * wide) / span));
+    const items = s.own ? SHAPES.length : GALLERY.length;
+    const sizes = (room) => {
+      const R1 = Math.max(16, Math.min((room * share) / units, cap, (width * wide) / span));
+      const R2 = s.own // the same cart, at the same size, for regular wheels
+        ? single
+          ? R1 * 0.62
+          : Math.max(16, Math.min((room * (1 - share)) / units, cap, (width * 0.58) / span))
+        : R1;
+      return [R1, R2];
+    };
+    const lanesRoom = (h) => h - 2 * pad - (single ? label : 2 * label + gap);
+    // What goes below the lanes on a wide picture: the first plan that leaves the lanes big enough.
+    const inner = width - 2 * pad;
+    const plans = narrow
+      ? []
+      : [
+          ...(s.own ? [] : [{ cols: 3, rows: 2, chain: true, least: 108, smallest: 46 }]),
+          // A drawn wheel stays big enough to drag its dots.
+          inner / items >= 100
+            ? { cols: items, rows: 1, least: 104, smallest: s.own ? 50 : 38 }
+            : { cols: Math.ceil(items / 2), rows: 2, least: 100, smallest: s.own ? 50 : 38 },
+        ];
+    const TITLE = 50; // from the lanes down to the first cell: a gap and the row's title
+    const plan = plans.find((p) => sizes(lanesRoom(height - TITLE - p.rows * p.least))[0] >= p.smallest) ?? null;
+    // A phone shows the part of the picture likely on screen; a wide picture is never taller than the window.
+    const seen = narrow ? Math.min(height, Math.max(0.58 * width, 300)) : height;
+    const [R1, R2] = sizes(lanesRoom(plan ? seen - TITLE - plan.rows * plan.least : seen));
     const lane = (top, R, kind) => ({ kind, top, label: top + 13, axle: top + label + ABOVE * R, R, cx: width * 0.42 });
     const own = lane(pad, R1, 'own');
     own.bottom = own.axle + BELOW * R1;
-    let R2 = single ? R1 * 0.62 : Math.max(16, Math.min((room * (1 - share)) / units, cap, (width * 0.58) / span));
-    if (!s.own) R2 = R1; // the same cart, at the same size
     const flat = lane(own.bottom + gap, R2, 'flat');
     flat.bottom = flat.axle + BELOW * R2;
     const lanes = [own];
@@ -163,14 +185,31 @@
     // The close-up, at the top right of the first lane.
     const lensR = Math.max(28, Math.min(R1 * 1.05, 74, width * 0.13));
     const close = { x: width - lensR - pad - 2, y: own.top + label + lensR, r: lensR };
-    // Below, when there is room: the row of wheels, then (for regular wheels) the hanging chain.
     const last = lanes[lanes.length - 1].bottom;
-    const below = height - last;
-    const items = s.own ? SHAPES.length : GALLERY.length;
     let gallery = null,
       chain = null;
-    if (below >= 150) {
-      const head = (narrow ? 26 : 40) + 22;
+    if (plan) {
+      // Taller cells with what is left over (up to a point), and any rest shared above and below the row.
+      const spare = Math.max(0, height - pad - last - TITLE - plan.rows * plan.least);
+      const cellH = plan.least + Math.min(spare / plan.rows, (plan.rows > 1 ? 160 : 150) - plan.least);
+      const rest = spare - plan.rows * (cellH - plan.least);
+      const top = last + TITLE - 22 + rest / 2;
+      const chainW = plan.chain ? clamp(inner * 0.5, 320, 480) : 0;
+      const cellW = (inner - (chainW ? chainW + 16 : 0)) / plan.cols;
+      gallery = {
+        top,
+        cells: Array.from({ length: items }, (_, i) => ({
+          x: pad + (i % plan.cols) * cellW,
+          y: top + 22 + Math.floor(i / plan.cols) * cellH,
+          w: cellW,
+          h: cellH,
+        })),
+      };
+      if (plan.chain) chain = { x: width - pad - chainW, y: top + 18, w: chainW, h: plan.rows * cellH };
+    } else if (narrow && height - last >= 150) {
+      // A phone picture that happens to be tall: the row of wheels below the lanes, then the hanging chain.
+      const below = height - last;
+      const head = 26 + 22;
       const chainH = !s.own && below >= head + 150 + 30 + 200 ? Math.min(260, below - head - 150 - 30 - pad) : 0;
       const avail = below - head - (chainH ? chainH + 30 : 0) - pad;
       let cols = width / items >= 116 ? items : Math.ceil(items / 2);
@@ -599,16 +638,27 @@
     label(ctx, s.own ? t.labels.galleryDrawn : t.labels.gallery, g.cells[0].x + 4, g.top + 4, INK);
     const items = s.own ? SHAPES : GALLERY;
     const chosen = s.own ? shapeNamed(s) : s.sides;
+    // Each wheel's name, and whether it crashes: in cells too narrow for that on one line, every name moves up a line
+    // and the crash goes underneath.
+    ctx.font = '600 12px system-ui, sans-serif';
+    const named = items.map((item) => (s.own ? t.shapes[item] : t.labels.sides(item.toLocaleString(W.numberLocale))));
+    const twice = items.some((item, i) => {
+      const set = s.own ? drawnSet(M.shapes[item]) : regularSet(item);
+      return crashes(set) && ctx.measureText(`${named[i]} · ${t.labels.crashes}`).width > g.cells[i].w - 8;
+    });
+    const foot = twice ? 38 : 22; // the words' room at the bottom of a cell
     items.forEach((item, i) => {
       const cell = g.cells[i];
       const set = s.own ? drawnSet(M.shapes[item]) : regularSet(item);
-      const Rm = Math.max(10, Math.min(cell.w * 0.24, (cell.h - 40) / 2.45, cell.h > 160 ? 48 : 36));
+      const name = named[i];
+      const words = !crashes(set) ? [name] : twice ? [name, t.labels.crashes] : [`${name} · ${t.labels.crashes}`];
+      const Rm = Math.max(10, Math.min(cell.w * 0.24, (cell.h - 18 - foot) / 2.45, cell.h > 160 ? 48 : 36));
       const ax = cell.x + cell.w / 2,
         ay = cell.y + 8 + 1.05 * Rm * set.longest;
       const v = view(ax - X * Rm, ay, Rm);
       ctx.save();
       ctx.beginPath();
-      ctx.rect(cell.x + 3, cell.y, cell.w - 6, cell.h - 22);
+      ctx.rect(cell.x + 3, cell.y, cell.w - 6, cell.h - foot);
       ctx.clip();
       const a = X - (cell.w / 2 + 4) / Rm,
         b = X + (cell.w / 2 + 4) / Rm;
@@ -629,13 +679,8 @@
       }
       ctx.textAlign = 'center';
       ctx.font = '600 12px system-ui, sans-serif';
-      const name = s.own ? t.shapes[item] : t.labels.sides(item.toLocaleString(W.numberLocale));
-      label(
-        ctx,
-        crashes(set) ? `${name} · ${t.labels.crashes}` : name,
-        ax,
-        cell.y + cell.h - 9,
-        crashes(set) ? RED : MUTED,
+      words.forEach((text, k) =>
+        label(ctx, text, ax, cell.y + cell.h - foot + 13 + 16 * k, crashes(set) ? RED : MUTED),
       );
     });
   }
@@ -650,15 +695,22 @@
       half = a * Math.asinh(1), // half the bump's width
       lift = a * Math.cosh(half / a), // the curve's height at the nails (1, a corner's distance)
       sag = lift - a; // how far the chain hangs: the bump's height, 1 − a
-    const R = Math.min((box.h - 40) / (2 * a + sag + 0.16), box.w / 6, 96);
-    const centres = [box.x + box.w * 0.3, box.x + box.w * 0.7];
-    const line = box.y + 6 + (2 * a + sag) * R; // the nails, and the bump's feet
+    // The words go under the pictures, on more lines where they would run into each other.
     ctx.font = '600 13px system-ui, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'alphabetic';
-    const under = line + 0.16 * R + 24; // the words go under the pictures
-    label(ctx, t.labels.chain, centres[0], under, MUTED);
-    label(ctx, t.labels.turned, centres[1], under, MUTED);
+    const first = wrap(ctx, t.labels.chain, box.w * 0.4 - 12);
+    const used = Math.max(...first.map((line) => ctx.measureText(line).width)); // the second may take what's left
+    const words = [first, wrap(ctx, t.labels.turned, Math.min(box.w * 0.6 - 12, box.w * 0.8 - 24 - used))];
+    const lines = Math.max(...words.map((w) => w.length));
+    const below = 24 + 16 * (lines - 1) + 6;
+    const R = Math.min((box.h - 6 - below) / (2 * a + sag + 0.16), box.w / 6, 96);
+    // The two pictures and their words, in the middle of the box.
+    const top = box.y + Math.max(0, (box.h - 6 - (2 * a + sag + 0.16) * R - below) / 2);
+    const centres = [box.x + box.w * 0.3, box.x + box.w * 0.7];
+    const line = top + 6 + (2 * a + sag) * R; // the nails, and the bump's feet
+    const under = line + 0.16 * R + 24;
+    words.forEach((list, i) => list.forEach((text, k) => label(ctx, text, centres[i], under + 16 * k, MUTED)));
     ctx.save();
     ctx.setLineDash([3, 5]);
     ctx.strokeStyle = 'rgba(169, 184, 201, 0.35)';
@@ -705,6 +757,21 @@
       ctx.fillStyle = '#8c97a6';
       ctx.fill();
     }
+  }
+
+  /** Words broken into lines no wider than `width` (at the context's font), at spaces. */
+  function wrap(ctx, text, width) {
+    const lines = [];
+    let line = '';
+    for (const word of text.split(' ')) {
+      const longer = line ? line + ' ' + word : word;
+      if (line && ctx.measureText(longer).width > width) {
+        lines.push(line);
+        line = word;
+      } else line = longer;
+    }
+    if (line) lines.push(line);
+    return lines;
   }
 
   function background(ctx, width, height) {

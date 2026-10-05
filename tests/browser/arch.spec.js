@@ -5,20 +5,37 @@ const scene = (page) => page.locator('#scene-name');
 const readout = (page) => page.locator('#arch-readout');
 
 /**
- * Where the room puts things (its layout): two pictures side by side on one scale (pixels per metre), their ground
- * line at `ground`, centred at `left` and `right`; on a tall picture, a row of four shapes below.
+ * Where the room puts things on a wide picture (its layout): two pictures side by side on one scale (pixels per
+ * metre), their ground line at `ground`, centred at `left` and `right`; below them, the first plan that leaves the
+ * pictures big enough: the row of four shapes and the chart under it, the chart beside the shapes two by two, or the
+ * row alone. `cell(i)` is a point in a shape's cell, or null when there is no row.
  */
 function places(box) {
-  const narrow = box.width < 560;
-  const seen = Math.min(box.height, Math.max(0.6 * box.width, 300));
-  const pad = narrow ? 8 : 14,
-    gap = narrow ? 8 : 18,
-    head = narrow ? 36 : 48;
+  const pad = 14,
+    gap = 18;
   const w = (box.width - 2 * pad - gap) / 2;
-  const scale = Math.max(40, Math.min(w / 1.28, (seen - head - pad) / 1.18));
-  const ground = narrow ? Math.max(head + 0.98 * scale, seen - pad - 0.2 * scale) : head + 0.98 * scale;
-  const row = ground + 0.2 * scale + 24 + 26;
-  return { scale, ground, left: pad + w / 2, right: pad + w + gap + w / 2, pad, row };
+  const most = Math.min(w / 1.28, (box.height / 8 + 28) / 0.44);
+  const plans = [
+    { kind: 'stacked', rows: 1, least: 130, below: 24 + 26 + 130 + 202 + pad, keep: 0.84 },
+    { kind: 'side', rows: 2, least: 118, below: 24 + 26 + 236 + 8 + pad, keep: 0.8, fits: w >= 360 },
+    { kind: 'row', rows: 1, least: 120, below: 24 + 26 + 120 + pad, keep: 0.75 },
+  ];
+  const sized = (room) => Math.max(40, Math.min(most, (room - pad) / 1.18));
+  const plan = plans.find((p) => p.fits !== false && sized(box.height - p.below) >= p.keep * most);
+  const scale = sized(plan ? box.height - plan.below : box.height - pad);
+  const ground = pad + 0.98 * scale;
+  let cell = null;
+  if (plan) {
+    const spare = Math.max(0, box.height - (ground + 0.2 * scale) - plan.below);
+    const cellH = plan.least + Math.min(spare / plan.rows, (plan.rows > 1 ? 150 : 170) - plan.least);
+    const share = (spare - plan.rows * (cellH - plan.least)) / (plan.kind === 'stacked' ? 3 : 2);
+    const top = ground + 0.2 * scale + 24 + share + 26;
+    cell =
+      plan.kind === 'side'
+        ? (i) => ({ x: pad + w + gap + ((i % 2) + 0.5) * (w / 2), y: top + Math.floor(i / 2) * (cellH + 8) + 50 })
+        : (i) => ({ x: pad + (i + 0.5) * ((box.width - 2 * pad) / 4), y: top + 50 });
+  }
+  return { scale, ground, left: pad + w / 2, right: pad + w + gap + w / 2, cell };
 }
 
 async function canvasBox(page) {
@@ -162,12 +179,11 @@ test('arch room: a tap in the row of shapes tests that shape', async ({ page }) 
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/#room=arch');
   const box = await canvasBox(page);
-  const { pad, row } = places(box);
-  test.skip(box.height < row + 200, 'the row of shapes needs a tall picture');
-  const cell = (box.width - 2 * pad) / 4;
-  await page.mouse.click(box.x + pad + 1.5 * cell, box.y + row + 50);
+  const { cell } = places(box);
+  test.skip(!cell, 'the row of shapes needs a taller picture');
+  await page.mouse.click(box.x + cell(1).x, box.y + cell(1).y);
   await expect(status(page)).toHaveText('Turned over, it stands · A pointed arch: stands');
-  await page.mouse.click(box.x + pad + 0.5 * cell, box.y + row + 50);
+  await page.mouse.click(box.x + cell(0).x, box.y + cell(0).y);
   await expect(status(page)).toHaveText('Turned over, it stands · A semicircle: falls');
 });
 
