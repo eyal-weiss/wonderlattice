@@ -1,118 +1,140 @@
 /* Light a town 100 km away · visitor-facing words (ar). */
+// «جهد» (voltage), «تيار» (current), «سلك» (wire) and «محوّل» (transformer) are masculine; «قدرة» (power), «بلدة»
+// (town) and «حرارة» (heat) feminine. Units keep their Latin symbols, isolated so that they read left to right. The
+// picture is drawn left to right on every page, so a label that mixes Arabic with numbers or punctuation is wrapped
+// in a right-to-left isolate (U+2067 … U+2069), which lays it out as on this page.
 Wonderlattice.defineText('voltage', 'ar', {
-  eyebrow: 'POWER LINES',
-  name: 'Light a town 100 km away',
-  tagline: 'Send the same power at ten times the voltage, and the wire wastes a hundred times less.',
-  title: 'Light a town 100 km away.',
+  eyebrow: 'خطوط الكهرباء',
+  name: 'إنارة بلدة على بُعد \u2066100\u00a0km\u2069',
+  tagline: 'أرسلوا القدرة نفسها بعشرة أضعاف الجهد، فيهدر السلك أقل بمئة مرة.',
+  title: 'إنارة بلدة على بُعد \u2066100\u00a0km\u2069.',
   subtitle:
-    'The same power, the same wire. At low voltage the line glows and the town stays dark; turn the voltage up and the windows light. Then take the dial yourself.',
-  field: 'Joule heating · Transformers · A square law',
-  sceneLabel: '10 MW sent · 100 km of wire',
+    'القدرة نفسها، والسلك نفسه. عند جهد منخفض يتوهّج الخط وتبقى البلدة مظلمة؛ ارفعوا الجهد فتضيء النوافذ. ثم أمسكوا القرص بأنفسكم.',
+  field: 'تسخين جول · المحوّلات · قانون التربيع',
+  sceneLabel: 'إرسال \u206610\u00a0MW\u2069 · سلك طوله \u2066100\u00a0km\u2069',
   // By the kind of current: alternating, direct as in the 1880s, direct as today.
   sceneNames: [
-    'Alternating current, through transformers',
-    'Direct current, as in the 1880s',
-    'Direct current today, through converters',
+    'تيار متردد، عبر محوّلات',
+    'تيار مستمر، كما في ثمانينيات القرن التاسع عشر',
+    'تيار مستمر اليوم، عبر محطات تحويل',
   ],
-  tip: 'Drag along the voltage scale under the picture, or press ← → on the picture, to turn the voltage',
-  soundOff: 'Turn sound on',
-  soundOn: 'Sound on · mute',
-  noSound: 'Sound is unavailable in this browser. You can still watch the line.',
+  tip: 'اسحبوا على امتداد مقياس الجهد تحت الصورة، أو اضغطوا ← و→ على الصورة، لرفع الجهد أو خفضه',
+  soundOff: 'تشغيل الصوت',
+  soundOn: 'الصوت يعمل · كتم',
+  noSound: 'الصوت غير متاح في هذا المتصفح. لا يزال بإمكانكم مشاهدة الخط.',
   canvasLabel:
-    'At night, a power station on the left sends electricity along a line of pylons to a town of little houses on the right, 100 km away, through a transformer at each end. When the voltage is low, the wire glows orange and heat shimmers above it, and most windows in the town stay dark. As the voltage rises, the glow fades and the windows light up one by one. Below, a chart shows the heat wasted in the wire against the voltage: a straight line falling steeply, where ten times the voltage means a hundred times less heat. Its horizontal axis is the dial.',
-  panelEyebrow: 'Turn the dial',
-  whyLabel: 'Why does high voltage waste less?',
+    'في الليل، ترسل محطة كهرباء على اليسار الكهرباءَ عبر خط من الأبراج إلى بلدة من بيوت صغيرة على اليمين، على بُعد \u2066100\u00a0km\u2069، عبر محوّل عند كل طرف. حين يكون الجهد منخفضًا، يتوهّج السلك بلون برتقالي وتتراقص الحرارة فوقه، وتبقى معظم نوافذ البلدة مظلمة. ومع ارتفاع الجهد، يخفت التوهّج وتضيء النوافذ واحدة تلو الأخرى. وفي الأسفل، رسم بياني يُظهر الحرارة المهدورة في السلك مقابل الجهد: خط مستقيم ينحدر بشدة، حيث عشرة أضعاف الجهد تعني حرارة أقل بمئة مرة. ومحوره الأفقي هو القرص.',
+  panelEyebrow: 'أديروا القرص',
+  whyLabel: 'لماذا يهدر الجهد العالي أقل؟',
   nudge:
-    'Watch the line as the voltage climbs from 10 kV to 100 kV: the heat falls a hundred times. Then switch to direct current, as in the 1880s, to see what the transformers were doing.',
+    'راقبوا الخط والجهد يصعد من \u206610\u00a0kV\u2069 إلى \u2066100\u00a0kV\u2069: تنخفض الحرارة مئة مرة. ثم انتقلوا إلى التيار المستمر، كما في ثمانينيات القرن التاسع عشر، لتروا ما كانت تفعله المحوّلات.',
   connection: {
-    html: '<strong>Power through a network.</strong> Here, one line carries a town’s power. Real grids are networks, and networks can surprise you: in The tempting shortcut, a new road slows every driver down. Computer models suggest the same can happen when a power grid gains a line.',
-    label: 'Try the shortcut',
+    html: '<strong>الكهرباء عبر شبكة.</strong> هنا يحمل خط واحد كهرباء بلدة. أما الكهرباء الحقيقية فتسري عبر شبكات، والشبكات قد تفاجئكم: في «الاختصار المُغري»، يُبطئ طريق جديد كل السائقين. وتشير النماذج الحاسوبية إلى أن الأمر نفسه قد يحدث حين يُضاف خط إلى شبكة كهرباء.',
+    label: 'تجربة الاختصار',
   },
 
   presets: [
-    { name: 'Half of it lost', note: 'The wire turns half the power into heat.', badge: '10 kV' },
-    { name: 'Like a main grid line', note: 'Barely warm, and every window lit.', badge: '400 kV' },
-    { name: 'Just add metal', note: 'A hundred times the aluminium, still at 10 kV.', badge: '×100' },
+    { name: 'ضياع النصف', note: 'يحوّل السلك نصف القدرة إلى حرارة.', badge: '10 kV' },
+    { name: 'مثل خط رئيسي في الشبكة', note: 'دافئ بالكاد، وكل النوافذ مضاءة.', badge: '400 kV' },
+    { name: 'مجرد إضافة معدن', note: 'مئة ضعف من الألومنيوم، والجهد ما زال \u206610\u00a0kV\u2069.', badge: '×100' },
   ],
 
-  voltage: 'Voltage on the line',
-  voltageHint:
-    'Transformers step the voltage up at the station and down again in the town, so the houses still get 230 V.',
-  voltageValue: (kv, lost) => `${kv}, ${lost} lost as heat`,
-  modeLabel: 'Current',
+  voltage: 'الجهد على الخط',
+  voltageHint: 'ترفع المحوّلات الجهد في المحطة وتخفضه من جديد في البلدة، فتبقى البيوت تحصل على \u2066230\u00a0V\u2069.',
+  voltageValue: (kv, lost) => `${kv}، ويضيع ${lost} حرارةً`,
+  modeLabel: 'التيار',
   // By the kind of current: alternating, direct as in the 1880s, direct as today.
-  modes: ['AC', 'DC, 1880s', 'DC, today'],
-  modeHint: 'Alternating current (AC) swings back and forth 50 times a second; direct current (DC) flows one way.',
-  metal: 'Metal in the wire',
-  metalHint: 'The other way to waste less: more aluminium means less resistance. Twice the metal, half the heat.',
+  modes: ['متردد', 'مستمر، قديمًا', 'مستمر، اليوم'],
+  modeHint: 'التيار المتردد (AC) يتأرجح ذهابًا وإيابًا 50 مرة في الثانية؛ والتيار المستمر (DC) يسري في اتجاه واحد.',
+  metal: 'المعدن في السلك',
+  metalHint: 'الطريقة الأخرى لتقليل الهدر: ألومنيوم أكثر يعني مقاومة أقل. ضعف المعدن، نصف الحرارة.',
 
   // Units, with a number already written in the page's language.
-  kv: (n) => `${n}\u00a0kV`,
-  times: (n) => `×${n}`,
-  watts: [(n) => `${n}\u00a0W`, (n) => `${n}\u00a0kW`, (n) => `${n}\u00a0MW`, (n) => `${n}\u00a0GW`],
-  cm: (n) => `${n}\u00a0cm`,
-  tonnes: (n) => `${n}\u00a0tonnes`,
+  kv: (n) => `\u2066${n}\u00a0kV\u2069`,
+  times: (n) => `\u2066×${n}\u2069`,
+  watts: [
+    (n) => `\u2066${n}\u00a0W\u2069`,
+    (n) => `\u2066${n}\u00a0kW\u2069`,
+    (n) => `\u2066${n}\u00a0MW\u2069`,
+    (n) => `\u2066${n}\u00a0GW\u2069`,
+  ],
+  cm: (n) => `\u2066${n}\u00a0cm\u2069`,
+  // The wire's weight, already written ('150', '15,000').
+  tonnes: (n) => {
+    const v = n.replace(',', '') * 1;
+    const k = v % 100;
+    return v === 1
+      ? 'طن واحد'
+      : v === 2
+        ? 'طنّان'
+        : v % 1 === 0 && k >= 3 && k <= 10
+          ? `${n} أطنان`
+          : v % 1 === 0 && k >= 11
+            ? `${n} طنًا`
+            : `${n} طن`;
+  },
 
   // A number and one line: the rest (the current, ten times the voltage) is on the chart and in the explanation.
   readout: {
-    lost: 'Lost as heat',
-    lostOf: (loss, sent) => `${loss} of the ${sent} sent. The town gets the rest.`,
-    tooMuch: (loss, sent) => `${loss}, more than the ${sent} sent: nothing reaches the town.`,
+    lost: 'الضائع حرارةً',
+    lostOf: (loss, sent) => `${loss} من أصل ${sent} ترسلها المحطة. والباقي يصل إلى البلدة.`,
+    tooMuch: (loss, sent) => `${loss}، أي أكثر مما ترسله المحطة (${sent}): لا يصل شيء إلى البلدة.`,
     // Only once the visitor adds metal.
-    wire: (cm, tonnes) => `The wire is ${cm} thick: ${tonnes} of aluminium.`,
-    stopped: 'Steady direct current can’t pass a transformer, so nothing reaches the town.',
-    converters: 'Converters step direct current up and down; in this simple model it loses as much as AC.',
+    wire: (cm, tonnes) => `قطر السلك ${cm}: ${tonnes} من الألومنيوم.`,
+    stopped: 'التيار المستمر الثابت لا يعبر المحوّل، لذا لا يصل شيء إلى البلدة.',
+    converters:
+      'محطات التحويل ترفع جهد التيار المستمر وتخفضه؛ وفي هذا النموذج البسيط يضيع منه بقدر ما يضيع من التيار المتردد.',
   },
 
-  status: (kv, lost) => `${kv} · ${lost} lost`,
-  statusStopped: 'No current gets through',
+  status: (kv, lost) => `${kv} · يضيع ${lost}`,
+  statusStopped: 'لا يمرّ أي تيار',
 
   // Words drawn on the picture.
   labels: {
-    station: 'power station',
-    town: 'town',
-    distance: '100 km',
-    house: '230 V',
-    lost: (share) => `${share} lost as heat`,
-    nothing: 'nothing reaches the town',
-    stopped: 'steady current: the transformers pass nothing',
-    chartTitle: 'heat wasted in the wire',
-    chartX: 'voltage on the line',
-    sent: 'all 10 MW sent',
-    over: 'the town gets nothing',
+    station: 'محطة كهرباء',
+    town: 'البلدة',
+    distance: '\u2066100 km\u2069',
+    house: '\u2066230 V\u2069',
+    lost: (share) => `\u2067يضيع ${share} حرارةً\u2069`,
+    nothing: 'لا يصل شيء إلى البلدة',
+    stopped: '\u2067تيار ثابت: المحوّلات لا تمرّر شيئًا\u2069',
+    chartTitle: 'الحرارة المهدورة في السلك',
+    chartX: 'الجهد على الخط',
+    sent: '\u2067المُرسَل: \u206610 MW\u2069\u2069',
+    over: 'البلدة لا تحصل على شيء',
     // The step between the dot and ten times (or a tenth of) its voltage.
-    up: ['× 10 voltage', '÷ 100 heat'],
-    down: ['÷ 10 voltage', '× 100 heat'],
-    drag: 'drag to turn',
+    up: ['\u2067جهد × 10\u2069', '\u2067حرارة ÷ 100\u2069'],
+    down: ['\u2067جهد ÷ 10\u2069', '\u2067حرارة × 100\u2069'],
+    drag: 'اسحبوا للتدوير',
   },
 
   guests: [
     {
-      name: 'James Prescott Joule',
-      note: 'In 1840 he measured the heat a current makes in a wire, and found it grows with the square of the current: twice the current, four times the heat.',
+      name: 'جيمس بريسكوت جول',
+      note: 'عام 1840 قاس الحرارة التي يولّدها التيار في السلك، ووجد أنها تزداد مع مربع التيار: ضعف التيار، أربعة أضعاف الحرارة.',
     },
     {
-      name: 'Thomas Edison',
-      note: 'In the 1880s his company sent out direct current at 110 volts. It reached only customers less than a mile from each power station, but it worked with storage batteries, electric motors and his electricity meter.',
+      name: 'توماس إديسون',
+      note: 'في ثمانينيات القرن التاسع عشر، كانت شركته ترسل تيارًا مستمرًا بجهد 110 فولت. لم يكن يصل إلا إلى الزبائن الذين يبعدون أقل من ميل عن كل محطة كهرباء، لكنه كان يعمل مع بطاريات التخزين والمحركات الكهربائية وعدّاد الكهرباء الذي صمّمه.',
     },
     {
-      name: 'Nikola Tesla',
-      note: 'His motor ran on alternating current. In 1888 George Westinghouse licensed his patents, and with transformers to raise the voltage, alternating current went on to win the contest with Edison’s direct current.',
+      name: 'نيكولا تسلا',
+      note: 'كان محرّكه يعمل بالتيار المتردد. وعام 1888 حصل جورج وستنغهاوس على ترخيص لبراءات اختراعه، ومع المحوّلات التي ترفع الجهد، مضى التيار المتردد ليفوز في المنافسة مع تيار إديسون المستمر.',
     },
   ],
 
   insight: {
-    title: 'Why does high voltage waste less?',
-    html: `<p>A power station sends power as voltage times current: P = V × I. The wire turns some of it into heat, and that heat grows with the <em>square</em> of the current: I² × R, where R is the wire’s resistance (Joule’s law). So to send the same power, raise the voltage and lower the current. Ten times the voltage means a tenth of the current, and a hundredth of the heat.</p>
-<div class="insight-visual">heat wasted = I² × R = (P ÷ V)² × R = P² × R ÷ V²</div>
-<h3>The numbers in this room</h3>
-<p>The station sends 10 MW along 100 km of wire with a resistance of 5 Ω. At 10 kV the current is 1,000 A, and the wire wastes 5 MW: half of everything. At 100 kV the current is 100 A, and it wastes 50 kW, or 0.5%. At 400 kV it wastes about 3 kW. Below about 7 kV the sum would waste more than the station sends, so the town gets nothing at all.</p>
-<h3>Why not a thicker wire?</h3>
-<p>A wire’s resistance falls in proportion to its cross-section, so halving the heat by metal alone means doubling the metal. The thinnest wire here is solid aluminium about 2.7 cm thick, some 150 tonnes of it. To do at 10 kV what 100 kV does, you would need a hundred times as much: a wire 27 cm thick, weighing 15,000 tonnes. Raising the voltage is far cheaper.</p>
-<h3>The transformer, and the war of the currents</h3>
-<p>Houses can’t use 400,000 volts, so the voltage has to come down again at the end. A transformer does this with two coils on an iron core: a changing current in one makes a changing magnetic field, which drives a current in the other. The voltages are in the ratio of the coils’ turns, and the current changes the other way, so the power stays nearly the same. But it only works while the current keeps changing. In the late 1880s and early 1890s, that made alternating current the winner of the “war of the currents”. Edison’s direct current had real merits, and worked with storage batteries, motors and meters, but it couldn’t be stepped up, so it went out at 110 V and reached customers less than a mile away. Later, mercury-arc valves and then, from the 1970s, electronics made it possible to convert between alternating and direct current at very high voltage, and today many of the longest links carry direct current: China’s Zhundong–South Anhui line runs at ±1,100 kV for more than 3,000 km.</p>
-<h3>What this leaves out</h3>
-<p>This is one wire with resistance alone, carrying a fixed power. Real lines carry three phases, and the line’s own magnetic and electric fields, and the current crowding towards the wire’s surface, add to their losses. The sums also assume the station can always push its power through. Once the wire would waste a large part of it, that fails: below about 7 kV here, the voltage the wire uses up on the way, I × R, would be more than the station’s whole voltage, so in reality the lamps would dim and the current couldn’t grow so large. Either way, the town stays dark. The glow is a picture of the heat wasted, not of a temperature: a real line would sag towards the ground, and be switched off, long before it glowed. Voltage can’t rise for ever, either. Towers must be taller and insulators longer, and near the top of the dial the air around the wire begins to glow and crackle (corona discharge); above about 2,000 kV, those losses could cancel out the savings. Real conductors are aluminium strands, often round a steel core, and the houses get 230 V in most of the world, but 120 V in North America.</p>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Electric_power_transmission" target="_blank" rel="noopener">Electric power transmission</a><a class="source-link" href="https://en.wikipedia.org/wiki/Joule_heating" target="_blank" rel="noopener">Joule heating</a><a class="source-link" href="https://en.wikipedia.org/wiki/Transformer" target="_blank" rel="noopener">Transformer</a><a class="source-link" href="https://en.wikipedia.org/wiki/War_of_the_currents" target="_blank" rel="noopener">War of the currents</a><a class="source-link" href="https://en.wikipedia.org/wiki/High-voltage_direct_current" target="_blank" rel="noopener">High-voltage direct current</a><a class="source-link" href="https://en.wikipedia.org/wiki/Corona_discharge" target="_blank" rel="noopener">Corona discharge</a><a class="source-link" href="https://en.wikipedia.org/wiki/Mains_electricity" target="_blank" rel="noopener">Mains electricity</a><a class="source-link" href="https://en.wikipedia.org/wiki/Electrical_resistivity_and_conductivity" target="_blank" rel="noopener">Electrical resistivity (aluminium)</a></div>`,
+    title: 'لماذا يهدر الجهد العالي أقل؟',
+    html: `<p>ترسل محطة الكهرباء القدرة على شكل جهد مضروب في تيار: \u2066P\u00a0=\u00a0V\u00a0×\u00a0I\u2069. ويحوّل السلك جزءًا منها إلى حرارة، وتزداد هذه الحرارة مع <em>مربع</em> التيار: \u2066I²\u00a0×\u00a0R\u2069، حيث R مقاومة السلك (قانون جول). لذا، لإرسال القدرة نفسها، ارفعوا الجهد واخفضوا التيار. عشرة أضعاف الجهد تعني عُشر التيار، وجزءًا من مئة من الحرارة.</p>
+<div class="insight-visual">الحرارة المهدورة = \u2066I²\u00a0×\u00a0R\u2069 = \u2066(P\u00a0÷\u00a0V)²\u00a0×\u00a0R\u2069 = \u2066P²\u00a0×\u00a0R\u00a0÷\u00a0V²\u2069</div>
+<h3>الأرقام في هذه الغرفة</h3>
+<p>ترسل المحطة \u206610\u00a0MW\u2069 عبر \u2066100\u00a0km\u2069 من السلك مقاومتها \u20665\u00a0Ω\u2069. عند \u206610\u00a0kV\u2069 يكون التيار \u20661,000\u00a0A\u2069، ويهدر السلك \u20665\u00a0MW\u2069: نصف كل شيء. وعند \u2066100\u00a0kV\u2069 يكون التيار \u2066100\u00a0A\u2069، ويهدر \u206650\u00a0kW\u2069، أي 0.5%. وعند \u2066400\u00a0kV\u2069 يهدر نحو \u20663\u00a0kW\u2069. وتحت نحو \u20667\u00a0kV\u2069 سيعطي الحساب هدرًا أكبر مما ترسله المحطة، فلا تحصل البلدة على شيء أبدًا.</p>
+<h3>لماذا لا نستخدم سلكًا أسمك؟</h3>
+<p>تتناسب مقاومة السلك عكسيًا مع مساحة مقطعه، لذا فإن تنصيف الحرارة بالمعدن وحده يعني مضاعفة المعدن. أرفع سلك هنا من الألومنيوم المصمت، قطره نحو \u20662.7\u00a0cm\u2069، ووزنه نحو 150 طنًا. ولتحقيق ما يحققه جهد \u2066100\u00a0kV\u2069 بجهد \u206610\u00a0kV\u2069، ستحتاجون إلى مئة ضعف ذلك: سلك قطره \u206627\u00a0cm\u2069، يزن 15,000 طن. ورفع الجهد أرخص بكثير.</p>
+<h3>المحوّل، وحرب التيارات</h3>
+<p>لا تستطيع البيوت استخدام 400,000 فولت، لذا يجب أن ينخفض الجهد من جديد في النهاية. ويفعل المحوّل ذلك بملفّين على قلب من الحديد: التيار المتغيّر في أحدهما يولّد مجالًا مغناطيسيًا متغيّرًا، يدفع تيارًا في الآخر. ونسبة الجهدين هي نسبة عدد لفّات الملفّين، ويتغيّر التيار بالنسبة المعاكسة، فتبقى القدرة تقريبًا كما هي. لكن ذلك لا ينجح إلا ما دام التيار يتغيّر. وفي أواخر ثمانينيات القرن التاسع عشر وأوائل تسعينياته، جعل هذا التيارَ المتردد الفائزَ في «حرب التيارات». كانت لتيار إديسون المستمر مزايا حقيقية، فقد كان يعمل مع بطاريات التخزين والمحركات والعدّادات، لكن لم يكن ممكنًا رفع جهده، لذا كان يخرج بجهد \u2066110\u00a0V\u2069 ولا يصل إلا إلى الزبائن الذين يبعدون أقل من ميل. ولاحقًا، أتاحت صمامات القوس الزئبقي، ثم الإلكترونيات منذ سبعينيات القرن العشرين، التحويلَ بين التيار المتردد والمستمر بجهد عالٍ جدًا، واليوم تحمل كثير من أطول الوصلات تيارًا مستمرًا: فخط جوندونغ–جنوب آنهوي في الصين يعمل بجهد \u2066±1,100\u00a0kV\u2069 لمسافة تزيد على \u20663,000\u00a0km\u2069.</p>
+<h3>ما يُغفله هذا النموذج</h3>
+<p>هذا سلك واحد ليس فيه إلا المقاومة، يحمل قدرة ثابتة. أما الخطوط الحقيقية فتحمل ثلاثة أطوار، وتزيد من خسائرها المجالاتُ المغناطيسية والكهربائية للخط نفسه، وتزاحمُ التيار نحو سطح السلك. ويفترض الحساب أيضًا أن المحطة تستطيع دائمًا أن تدفع قدرتها عبر السلك. لكن حين يوشك السلك أن يهدر جزءًا كبيرًا منها، يسقط هذا الافتراض: تحت نحو \u20667\u00a0kV\u2069 هنا، سيكون الجهد الذي يستهلكه السلك في الطريق، \u2066I\u00a0×\u00a0R\u2069، أكبر من جهد المحطة كله، لذا في الواقع سيخفت ضوء المصابيح ولن يستطيع التيار أن يكبر إلى هذا الحد. وفي الحالتين، تبقى البلدة مظلمة. والتوهّج صورة للحرارة المهدورة، لا لدرجة حرارة: فالخط الحقيقي سيتدلّى نحو الأرض، ويُفصل، قبل أن يتوهّج بوقت طويل. ولا يمكن للجهد أن يرتفع بلا حدود أيضًا. فلا بد أن تكون الأبراج أعلى والعوازل أطول، وقرب أعلى القرص يبدأ الهواء حول السلك بالتوهّج والطقطقة (التفريغ الهالي)؛ وفوق نحو \u20662,000\u00a0kV\u2069، قد تلغي هذه الخسائر ما يتحقق من توفير. والموصلات الحقيقية جدائل من الألومنيوم، تلتفّ غالبًا حول قلب من الفولاذ، والبيوت تحصل على \u2066230\u00a0V\u2069 في معظم أنحاء العالم، لكن على \u2066120\u00a0V\u2069 في أمريكا الشمالية.</p>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Electric_power_transmission" target="_blank" rel="noopener">نقل الطاقة الكهربائية (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Joule_heating" target="_blank" rel="noopener">تسخين جول (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Transformer" target="_blank" rel="noopener">المحوّل الكهربائي (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/War_of_the_currents" target="_blank" rel="noopener">حرب التيارات (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/High-voltage_direct_current" target="_blank" rel="noopener">التيار المستمر عالي الجهد (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Corona_discharge" target="_blank" rel="noopener">التفريغ الهالي (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Mains_electricity" target="_blank" rel="noopener">كهرباء الشبكة العامة (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Electrical_resistivity_and_conductivity" target="_blank" rel="noopener">المقاومة النوعية الكهربائية (الألومنيوم، بالإنجليزية)</a></div>`,
   },
 });

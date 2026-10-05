@@ -1,20 +1,20 @@
 import { test, expect, expectRoom } from './helpers.js';
 
 // The home map names the newest rooms (their `added` dates), up to three from the last 30 days. Rooms still waiting
-// for their translations aren't on the map, so they aren't named either (the rollers, the truss and the voltage room,
-// 4 October).
+// for their translations aren't on the map, so they aren't named either; a room's date is the day its translations
+// put it on the map (the rollers, the truss and the voltage room, 5 October).
 test('the home map names the newest rooms, newest first, and each opens its room', async ({ page }) => {
-  await page.clock.setFixedTime(new Date('2026-09-30T12:00:00Z'));
+  await page.clock.setFixedTime(new Date('2026-10-06T12:00:00Z'));
   await page.goto('/');
   const line = page.locator('#whats-new');
   await expect(line).toBeVisible();
   await expect(line.locator('button')).toHaveText([
-    'Kaleidoscope of cheaters',
-    'Hang it, flip it, build it',
-    'Square wheels, smooth ride',
+    'Light a town 100 km away',
+    'The stubborn triangle',
+    'Rollers that aren’t round',
   ]);
-  await line.getByRole('button', { name: 'Kaleidoscope of cheaters' }).click();
-  await expectRoom(page, 'cheaters');
+  await line.getByRole('button', { name: 'The stubborn triangle' }).click();
+  await expectRoom(page, 'truss');
 });
 
 test('with nothing new for 30 days, there is no line', async ({ page }) => {
@@ -25,7 +25,7 @@ test('with nothing new for 30 days, there is no line', async ({ page }) => {
 });
 
 test('the line speaks the page language', async ({ page }) => {
-  await page.clock.setFixedTime(new Date('2026-09-30T12:00:00Z'));
+  await page.clock.setFixedTime(new Date('2026-10-06T12:00:00Z'));
   await page.goto('/?lang=he');
   await expect(page.locator('#whats-new .eyebrow')).toHaveText('חדש');
   // Each room is named as the map's list names it: in Hebrew once the room is translated, in English until then.

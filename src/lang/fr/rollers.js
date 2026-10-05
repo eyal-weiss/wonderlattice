@@ -1,158 +1,161 @@
-/* Rollers that aren't round · visitor-facing words (fr). */
+/* Des rouleaux pas ronds · les mots vus par le visiteur (fr). */
 Wonderlattice.defineText('rollers', 'fr', {
-  eyebrow: 'CONSTANT WIDTH',
-  name: 'Rollers that aren’t round',
+  eyebrow: 'LARGEUR CONSTANTE',
+  name: 'Des rouleaux pas ronds',
   tagline:
-    'A plank glides perfectly level on rollers shaped like rounded triangles, and one of them can drill an almost square hole.',
-  title: 'Rollers that aren’t round.',
+    'Une planche glisse parfaitement à l’horizontale sur des rouleaux en forme de triangles arrondis, et l’un d’eux peut percer un trou presque carré.',
+  title: 'Des rouleaux pas ronds.',
   subtitle:
-    'A plank on rollers shaped like rounded triangles glides perfectly level, as on round logs. Below, the same shapes as wheels on axles: the cart bobs.',
-  field: 'Geometry · Curves of constant width · The Reuleaux triangle',
-  sceneLabels: ['Rollers and wheels', 'A drill in a square', 'One turn each'],
-  tip: 'Drag sideways to roll · Keys: ← → roll, ↑ ↓ change the shape · Enter: a new lopsided shape',
-  actionLabel: 'New lopsided shape',
+    'Une planche posée sur des rouleaux en forme de triangles arrondis glisse parfaitement à l’horizontale, comme sur des rondins. En dessous, les mêmes formes en roues sur des essieux : le chariot oscille.',
+  field: 'Géométrie · Courbes de largeur constante · Le triangle de Reuleaux',
+  sceneLabels: ['Rouleaux et roues', 'Un foret dans un carré', 'Un tour chacune'],
+  tip: 'Faites glisser sur le côté pour rouler · Clavier : ← → font rouler, ↑ ↓ changent la forme · Entrée : une nouvelle forme biscornue',
+  actionLabel: 'Nouvelle forme biscornue',
   canvasLabel:
-    'Above, a plank with a crate rides on three rollers that aren’t round, and a pen on the crate draws a perfectly straight line. Below, a cart on wheels of the same shape, fixed to axles, bobs up and down, and its pen draws a wave. In the drill view, a curved triangle turns inside a square, painting nearly all of it. In the race, four shapes of the same width each roll one turn and finish together.',
-  panelEyebrow: 'Pick a shape',
-  whyLabel: 'Why does the plank stay level?',
+    'En haut, une planche portant une caisse roule sur trois rouleaux qui ne sont pas ronds, et un stylo posé sur la caisse trace une ligne parfaitement droite. En bas, un chariot sur des roues de la même forme, fixées à des essieux, monte et descend, et son stylo trace une vague. Dans la vue du foret, un triangle courbe tourne dans un carré et le peint presque entièrement. Dans la course, quatre formes de même largeur font chacune un tour et arrivent ensemble.',
+  panelEyebrow: 'Choisissez une forme',
+  whyLabel: 'Pourquoi la planche reste-t-elle horizontale ?',
   nudge:
-    'Press “New lopsided shape”: any shape that is equally wide every way carries the plank level. Then try “Drill a square hole”.',
+    'Appuyez sur « Nouvelle forme biscornue » : toute forme qui a la même largeur dans tous les sens porte la planche à l’horizontale. Puis essayez « Percer un trou carré ».',
   connection: {
-    html: '<strong>Smooth rides.</strong> Here, rollers that aren’t round carry a plank level. In “Square wheels, smooth ride”, square wheels ride level over a road of bumps.',
-    label: 'Square wheels, smooth ride',
+    html: '<strong>Des trajets en douceur.</strong> Ici, des rouleaux pas ronds portent une planche bien horizontale. Dans « Roues carrées, trajet en douceur », des roues carrées roulent sans cahot sur une route de bosses.',
+    label: 'Roues carrées, trajet en douceur',
   },
 
   presets: [
-    { name: 'Triangle rollers', note: 'Three under a plank, and the same shape as wheels.' },
-    { name: 'Drill a square hole', note: 'A turning triangle fills almost all of a square.' },
-    { name: 'One turn each', note: 'The same width, the same rim: they all roll as far.' },
+    { name: 'Rouleaux triangulaires', note: 'Trois sous une planche, et la même forme en roues.' },
+    { name: 'Percer un trou carré', note: 'Un triangle qui tourne remplit presque tout un carré.' },
+    { name: 'Un tour chacune', note: 'Même largeur, même pourtour : elles roulent toutes aussi loin.' },
   ],
 
-  view: 'What to try',
-  views: ['Rollers', 'Drill', 'One turn'],
-  shape: 'Shape',
-  shapes: ['Circle', 'Triangle', 'Pentagon', 'Lopsided'],
-  lines: 'Lines it’s drawn from',
-  linesHint: 'Each piece of its rim is an arc centred where two of the lines cross.',
-  corners: 'Rounded corners',
-  cornersHint: 'The tightest curve’s radius, as a share of the width. Rounding every corner keeps the width the same.',
+  view: 'À essayer',
+  views: ['Rouleaux', 'Foret', 'Un tour'],
+  shape: 'Forme',
+  shapes: ['Cercle', 'Triangle', 'Pentagone', 'Biscornue'],
+  lines: 'Droites de construction',
+  linesHint: 'Chaque morceau de son pourtour est un arc centré là où deux des droites se croisent.',
+  corners: 'Coins arrondis',
+  cornersHint:
+    'Le rayon de la courbe la plus serrée, en part de la largeur. Arrondir tous les coins garde la même largeur.',
 
-  // The scene's name, for each shape (sharp or rounded) and each view.
+  // Le nom de la scène, pour chaque forme (pointue ou arrondie) et chaque vue.
   names: {
     rollers: (kind, rounded) =>
       kind === 0
-        ? 'Round logs'
+        ? 'Rondins'
         : kind === 1
           ? rounded
-            ? 'Rounded triangles'
-            : 'Reuleaux triangles'
+            ? 'Triangles arrondis'
+            : 'Triangles de Reuleaux'
           : kind === 2
             ? rounded
-              ? 'Rounded pentagons'
-              : 'Reuleaux pentagons'
-            : 'A lopsided shape',
+              ? 'Pentagones arrondis'
+              : 'Pentagones de Reuleaux'
+            : 'Une forme biscornue',
     drill: (kind, rounded) =>
       kind === 0
-        ? 'Drilling with a circle'
+        ? 'Percer avec un cercle'
         : kind === 1
           ? rounded
-            ? 'Drilling with a rounded triangle'
-            : 'Drilling with a Reuleaux triangle'
+            ? 'Percer avec un triangle arrondi'
+            : 'Percer avec un triangle de Reuleaux'
           : kind === 2
             ? rounded
-              ? 'Drilling with a rounded pentagon'
-              : 'Drilling with a Reuleaux pentagon'
-            : 'Drilling with a lopsided shape',
-    race: 'Four shapes, one width',
+              ? 'Percer avec un pentagone arrondi'
+              : 'Percer avec un pentagone de Reuleaux'
+            : 'Percer avec une forme biscornue',
+    race: 'Quatre formes, une seule largeur',
   },
 
-  // Numbers arrive already written in the page's language.
-  percent: (x) => `${x}%`,
+  // Les nombres arrivent déjà écrits dans la langue de la page.
+  percent: (x) => `${x} %`,
   readout: {
-    level: 'The plank stays perfectly level.',
-    drill: 'Almost a square hole.',
-    drillRound: 'A round hole.',
-    drillOther: 'A hole with rounded corners.',
-    race: 'They all finish together.',
-    plank: 'The plank on rollers',
-    plankValue: 'never rises or falls',
-    cart: 'The cart on axles bobs by',
-    cartValue: (share) => `${share} of the width`,
-    rim: 'Its rim is',
-    rimValue: (times) => `${times} × its width`,
-    area: 'Its area is',
-    areaValue: (share) => `${share} of a circle’s`,
-    drilled: 'Drilled so far',
-    drilledValue: (share) => `${share} of the square`,
-    full: 'After a whole turn',
-    fullValue: (share) => `${share} of the square`,
-    rims: 'Every rim is',
-    rimsValue: 'π × the width',
-    least: 'The least area',
-    leastValue: (share) => `the triangle: ${share} of a circle’s`,
-    widthRule: 'However you turn it, it is exactly as wide.',
-    drillRule: 'It touches all four sides as it turns, because it is as wide as the square every way.',
-    raceRule: 'Rolled once round, a shape travels the length of its rim: π times its width, whatever its shape.',
+    level: 'La planche reste parfaitement horizontale.',
+    drill: 'Un trou presque carré.',
+    drillRound: 'Un trou rond.',
+    drillOther: 'Un trou aux coins arrondis.',
+    race: 'Elles arrivent toutes ensemble.',
+    plank: 'La planche sur rouleaux',
+    plankValue: 'ne monte ni ne descend jamais',
+    cart: 'Le chariot sur essieux oscille de',
+    cartValue: (share) => `${share} de la largeur`,
+    rim: 'Son pourtour mesure',
+    rimValue: (times) => `${times} × sa largeur`,
+    area: 'Son aire vaut',
+    areaValue: (share) => `${share} de celle d’un cercle`,
+    drilled: 'Déjà percé',
+    drilledValue: (share) => `${share} du carré`,
+    full: 'Après un tour complet',
+    fullValue: (share) => `${share} du carré`,
+    rims: 'Chaque pourtour mesure',
+    rimsValue: 'π × la largeur',
+    least: 'La plus petite aire',
+    leastValue: (share) => `le triangle : ${share} de celle d’un cercle`,
+    widthRule: 'Dans quelque sens qu’on la tourne, elle garde exactement la même largeur.',
+    drillRule:
+      'En tournant, elle touche les quatre côtés, car elle est aussi large que le carré dans toutes les directions.',
+    raceRule:
+      'En faisant un tour complet, une forme parcourt la longueur de son pourtour : π fois sa largeur, quelle que soit sa forme.',
   },
   status: {
-    rollers: 'Level on rollers',
-    drill: (share) => `${share} drilled`,
-    race: 'Same width, same rim',
+    rollers: 'Planche horizontale sur rouleaux',
+    drill: (share) => `Percé à ${share}`,
+    race: 'Même largeur, même pourtour',
   },
 
-  // Words drawn on the canvas.
+  // Les mots dessinés sur l’image.
   labels: {
-    rollers: 'As rollers: the plank stays perfectly level',
-    axles: (share) => `As wheels on axles: the cart bobs by ${share} of the width`,
-    axlesRound: 'As wheels on axles: a circle rolls level too',
-    close: 'Up close: as wide every way',
-    width: 'width',
-    lines: 'The lines it’s drawn from',
-    corner: (n) => `A corner, ${n}× closer`,
-    path: 'Path of its middle',
-    finish: 'One turn: π × the width',
-    rim: 'Rim rolled out',
+    rollers: 'En rouleaux : la planche reste horizontale',
+    axles: (share) => `En roues : le chariot oscille de ${share} de la largeur`,
+    axlesRound: 'En roues : un cercle roule aussi sans cahot',
+    close: 'De près : même largeur partout',
+    width: 'largeur',
+    lines: 'Ses droites de construction',
+    corner: (n) => `Un coin, grossi ×${n}`,
+    path: 'Trajet de son centre',
+    finish: 'Un tour : π × la largeur',
+    rim: 'Pourtour déroulé',
   },
 
   announce: {
     rollers: (name, share) =>
-      `${name}: the plank stays level on rollers; on axles the cart bobs by ${share} of the width.`,
-    round: (name) => `${name}: level as rollers, and level on axles too.`,
-    drill: (name, share) => `${name}: after a whole turn it has drilled ${share} of the square.`,
-    race: 'Four shapes of the same width each roll one turn, and they all finish together.',
+      `${name} : la planche reste horizontale sur rouleaux ; sur essieux, le chariot oscille de ${share} de la largeur.`,
+    round: (name) => `${name} : tout reste horizontal, en rouleaux comme sur essieux.`,
+    drill: (name, share) => `${name} : après un tour complet, ${share} du carré est percé.`,
+    race: 'Quatre formes de même largeur font chacune un tour, et elles arrivent toutes ensemble.',
   },
 
   guests: [
     {
       name: 'Franz Reuleaux',
-      note: 'I described machines as chains of simple moving parts, and had hundreds of models of mechanisms built for teaching. The curved triangle here carries my name, though others drew it long before me.',
+      note: 'J’ai décrit les machines comme des chaînes de pièces mobiles simples, et j’ai fait construire des centaines de modèles de mécanismes pour l’enseignement. Le triangle courbe de cette salle porte mon nom, même si d’autres l’avaient dessiné bien avant moi.',
     },
     {
       name: 'Leonhard Euler',
-      note: 'In a paper I presented in 1771, I studied curved triangles and the shapes that are equally wide in every direction. I called them orbiforms.',
+      note: 'Dans un mémoire présenté en 1771, j’ai étudié les triangles courbes et les formes qui ont la même largeur dans toutes les directions. Je les ai appelées orbiformes.',
     },
     {
       name: 'Joseph-Émile Barbier',
-      note: 'In 1860 I showed that every shape of constant width has a rim exactly π times its width, whatever its shape.',
+      note: 'En 1860, j’ai montré que toute forme de largeur constante a un pourtour qui mesure exactement π fois sa largeur, quelle que soit sa forme.',
     },
   ],
 
   insight: {
-    title: 'Why does the plank stay level?',
-    html: `<p>The ground is under each roller and the plank rests on top, so the plank’s height is the distance between two parallel lines that both touch the roller: its width, measured straight up. A circle is equally wide every way. So is every shape in this room: measure it across in any direction, and you get the same. As it turns, its width straight up never changes, so neither does the plank.</p>
-<div class="insight-visual">height of the plank = the roller’s width straight up = the same in every direction</div>
-<h3>Rollers, not wheels</h3>
-<p>The middle of a Reuleaux triangle is closer to its sides than to its corners, so as it rolls, its middle rises and falls. A roller doesn’t mind, since nothing is fixed to its middle. A wheel turns on an axle through its middle, so a cart on Reuleaux triangles bobs, three times a turn, by 15% of the width. Under the plank, the rollers don’t keep exactly in step either: each moves ahead a little faster or slower as it turns, though on average, like round logs, at half the plank’s speed.</p>
-<h3>How to draw one</h3>
-<p>Draw an equilateral triangle, put the point of a compass on each corner in turn, and draw the arc between the other two: that is a Reuleaux triangle. Any regular polygon with an odd number of sides works the same way. The lopsided shapes use the crossed-lines method: draw a few lines, all crossing one another, and join each line to the next one round by an arc centred where they cross. Going round twice, the curve closes up, as wide in every direction. Rounding off the corners, by the same amount all the way round, keeps the width the same.</p>
-<h3>One turn, the same distance</h3>
-<p>Every shape here has a rim exactly π times its width, as long as a circle’s of the same width. This is Barbier’s theorem, from 1860. So rolled once round, each one travels the same distance. Their areas differ: the circle holds the most, and the Reuleaux triangle the least of all shapes of the same width, the Blaschke–Lebesgue theorem (Henri Lebesgue in 1914, Wilhelm Blaschke in 1915).</p>
-<h3>A square hole</h3>
-<p>Any shape of constant width can turn inside a square as wide as itself, touching all four sides all the time. The Reuleaux triangle, with the sharpest corners such a shape can have (120°), sweeps all but the very corners: 2√3 + π/6 − 3 of the square, about 98.8%. Square drill bits built on this idea were patented in 1914 and are still made, though similar drills were used earlier. The bit’s middle wanders as it turns, so it needs a special chuck that lets it, and a guide with a square hole. The pentagon’s blunter corners leave more behind, and a circle drills a round hole, π/4 of the square.</p>
-<h3>What the room leaves out</h3>
-<p>Here the rollers are perfect, the ground and the plank perfectly flat, and nothing slips. Real rollers must all be exactly the same width, and someone has to carry each one from the back to the front, as happens here when a roller fades away and comes back. A real drill bit also needs cutting edges, so it is a Reuleaux triangle with grooves cut into it. There are solids of constant width too, such as the Meissner bodies, but the room stays flat; the solid made like a Reuleaux triangle from four balls, the Reuleaux tetrahedron, is not quite as wide every way.</p>
-<p>Manhole covers are often said to be round so that they can’t fall into their holes. A cover shaped like any shape here couldn’t either; round covers are also much easier to make, and needn’t be turned to fit. Some coins are shapes of constant width, such as the British 20p and 50p, which are Reuleaux heptagons, so that machines can measure them across whichever way they lie.</p>
-<details><summary>The mathematics, if you want it</summary><p>Describe a shape by its support function h(θ): how far from a centre its tangent line facing direction θ lies. Its width facing θ is h(θ) + h(θ + π), so constant width w means h(θ) + h(θ + π) = w for every θ. Rolling on the ground without slipping, the shape turns about the point where it touches. As it turns by dψ, the plank, w above that point, moves w dψ, and the centre, h above it, moves h dψ. Over a whole turn the centre moves ∫h dθ = πw, half as far as the plank, because opposite values of h add up to w. The rim’s length is ∫(h + h″) dθ = ∫h dθ, the same πw: Barbier’s theorem.</p><p>The room’s shapes are built from arcs by the crossed-lines method, and each turns about the centre of its smallest enclosing circle, which for a shape of constant width is also the centre of the largest circle inside it; those two radii add up to the width. In the square from −½ to ½, the shape turned by φ has its centre at (½ − h(−φ), ½ − h(π/2 − φ)), so its tangent lines facing right and up lie on those sides, and by constant width the left and bottom ones do too. For the Reuleaux triangle that centre runs round four arcs of ellipses.</p><p>The room’s tests check, against a separate program that builds each Reuleaux polygon from overlapping discs: the width in every direction, the rim’s length π, the triangle’s area (π − √3)/2 ≈ 0.7048 and the pentagon’s, the bob on an axle of 2/√3 − 1 ≈ 15.5% for the triangle and 5.1% for the pentagon, and the share of the square drilled: 98.8% by the triangle, 87.9% by the pentagon, and π/4 by the circle.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Reuleaux_triangle" target="_blank" rel="noopener">Reuleaux triangle (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Curve_of_constant_width" target="_blank" rel="noopener">Curve of constant width (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Reuleaux_polygon" target="_blank" rel="noopener">Reuleaux polygon (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Barbier%27s_theorem" target="_blank" rel="noopener">Barbier’s theorem (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Blaschke%E2%80%93Lebesgue_theorem" target="_blank" rel="noopener">Blaschke–Lebesgue theorem (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Watts_Brothers_Tool_Works" target="_blank" rel="noopener">Watts Brothers Tool Works (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Manhole_cover" target="_blank" rel="noopener">Manhole cover (Wikipedia)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Barbier/" target="_blank" rel="noopener">Joseph-Émile Barbier (MacTutor)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Franz_Reuleaux" target="_blank" rel="noopener">Franz Reuleaux (Wikipedia)</a></div>`,
+    title: 'Pourquoi la planche reste-t-elle horizontale ?',
+    html: `<p>Le sol est sous chaque rouleau et la planche repose dessus : la hauteur de la planche est donc la distance entre deux droites parallèles qui touchent toutes deux le rouleau, c’est-à-dire sa largeur, mesurée à la verticale. Un cercle a la même largeur dans toutes les directions. Toutes les formes de cette salle aussi : mesurez-les d’un bord à l’autre dans n’importe quelle direction, vous trouverez la même valeur. Quand la forme tourne, sa largeur à la verticale ne change jamais, et la hauteur de la planche non plus.</p>
+<div class="insight-visual">hauteur de la planche = largeur du rouleau à la verticale = la même dans toutes les directions</div>
+<h3>Des rouleaux, pas des roues</h3>
+<p>Le centre d’un triangle de Reuleaux est plus près de ses côtés que de ses coins : quand il roule, son centre monte et descend. Pour un rouleau, peu importe, puisque rien n’est fixé à son centre. Une roue, elle, tourne autour d’un essieu qui passe par son centre : un chariot sur des triangles de Reuleaux oscille donc, trois fois par tour, de 15 % de la largeur. Sous la planche, les rouleaux ne gardent pas non plus exactement le même rythme : chacun avance un peu plus vite ou un peu plus lentement en tournant, mais en moyenne, comme des rondins, à la moitié de la vitesse de la planche.</p>
+<h3>Comment en tracer une</h3>
+<p>Tracez un triangle équilatéral, piquez la pointe d’un compas sur chaque coin tour à tour, et tracez l’arc entre les deux autres : voilà un triangle de Reuleaux. Tout polygone régulier qui a un nombre impair de côtés fonctionne de la même façon. Les formes biscornues utilisent la méthode des droites croisées : tracez quelques droites qui se croisent toutes, et reliez chaque droite à la suivante, en tournant, par un arc centré là où elles se croisent. Après deux tours, la courbe se referme, aussi large dans toutes les directions. Arrondir les coins, de la même quantité tout autour, garde la même largeur.</p>
+<h3>Un tour, la même distance</h3>
+<p>Chaque forme ici a un pourtour qui mesure exactement π fois sa largeur, autant que celui d’un cercle de même largeur. C’est le théorème de Barbier, de 1860. Après un tour complet, chacune a donc parcouru la même distance. Leurs aires diffèrent : de toutes les formes de même largeur, le cercle a la plus grande, et le triangle de Reuleaux la plus petite, selon le théorème de Blaschke–Lebesgue (Henri Lebesgue en 1914, Wilhelm Blaschke en 1915).</p>
+<h3>Un trou carré</h3>
+<p>Toute forme de largeur constante peut tourner dans un carré aussi large qu’elle, en touchant sans cesse ses quatre côtés. Le triangle de Reuleaux, qui a les coins les plus pointus possibles pour une telle forme (120°), balaie tout sauf l’extrême pointe des coins : 2√3 + π/6 − 3 du carré, environ 98,8 %. Des forets à trous carrés fondés sur cette idée ont été brevetés en 1914 et se fabriquent encore, même si des forets semblables avaient servi plus tôt. Le centre du foret se déplace en tournant : il lui faut donc un mandrin spécial qui le lui permet, et un guide percé d’un trou carré. Les coins plus émoussés du pentagone laissent davantage de matière, et un cercle perce un trou rond, π/4 du carré.</p>
+<h3>Ce que cette salle laisse de côté</h3>
+<p>Ici, les rouleaux sont parfaits, le sol et la planche parfaitement plats, et rien ne glisse. De vrais rouleaux doivent tous avoir exactement la même largeur, et quelqu’un doit porter chacun d’eux de l’arrière vers l’avant, comme ici quand un rouleau s’efface puis revient. Un vrai foret a aussi besoin d’arêtes tranchantes : c’est un triangle de Reuleaux creusé de rainures. Il existe aussi des solides de largeur constante, comme les solides de Meissner, mais la salle reste dans le plan ; le solide construit comme un triangle de Reuleaux à partir de quatre boules, le tétraèdre de Reuleaux, n’a pas tout à fait la même largeur dans toutes les directions.</p>
+<p>On dit souvent que les plaques d’égout sont rondes pour ne pas pouvoir tomber dans leur trou. Une plaque qui aurait l’une des formes de cette salle n’y tomberait pas non plus ; les plaques rondes sont aussi bien plus faciles à fabriquer, et n’ont pas besoin d’être tournées pour s’ajuster. Certaines pièces de monnaie sont des formes de largeur constante, comme les pièces britanniques de 20p et de 50p, des heptagones de Reuleaux, pour que les machines puissent les mesurer d’un bord à l’autre quel que soit le sens où elles sont posées.</p>
+<details><summary>Les mathématiques, si vous voulez</summary><p>Décrivez une forme par sa fonction d’appui h(θ) : la distance entre un centre et sa tangente tournée vers la direction θ. Sa largeur dans la direction θ vaut h(θ) + h(θ + π), donc une largeur constante w signifie h(θ) + h(θ + π) = w pour tout θ. En roulant sur le sol sans glisser, la forme tourne autour de son point de contact. Quand elle tourne de dψ, la planche, à w au-dessus de ce point, avance de w dψ, et le centre, à h au-dessus, avance de h dψ. Sur un tour complet, le centre avance de ∫h dθ = πw, moitié moins que la planche, car les valeurs opposées de h ont pour somme w. La longueur du pourtour vaut ∫(h + h″) dθ = ∫h dθ, le même πw : c’est le théorème de Barbier.</p><p>Les formes de la salle sont construites à partir d’arcs par la méthode des droites croisées, et chacune tourne autour du centre du plus petit cercle qui la contient, qui, pour une forme de largeur constante, est aussi le centre du plus grand cercle qu’elle contient ; ces deux rayons ont pour somme la largeur. Dans le carré qui va de −½ à ½, la forme tournée de φ a son centre en (½ − h(−φ), ½ − h(π/2 − φ)), si bien que ses tangentes tournées vers la droite et vers le haut sont sur ces côtés-là, et, par la largeur constante, celles de gauche et du bas aussi. Pour le triangle de Reuleaux, ce centre parcourt quatre arcs d’ellipses.</p><p>Les tests de la salle vérifient, à l’aide d’un programme distinct qui construit chaque polygone de Reuleaux à partir de disques qui se recouvrent : la largeur dans toutes les directions, la longueur π du pourtour, l’aire du triangle, (π − √3)/2 ≈ 0,7048, et celle du pentagone, l’oscillation sur essieu, 2/√3 − 1 ≈ 15,5 % pour le triangle et 5,1 % pour le pentagone, et la part du carré percée : 98,8 % par le triangle, 87,9 % par le pentagone, et π/4 par le cercle.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Reuleaux_triangle" target="_blank" rel="noopener">Triangle de Reuleaux (Wikipédia, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Curve_of_constant_width" target="_blank" rel="noopener">Courbe de largeur constante (Wikipédia, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Reuleaux_polygon" target="_blank" rel="noopener">Polygone de Reuleaux (Wikipédia, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Barbier%27s_theorem" target="_blank" rel="noopener">Théorème de Barbier (Wikipédia, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Blaschke%E2%80%93Lebesgue_theorem" target="_blank" rel="noopener">Théorème de Blaschke–Lebesgue (Wikipédia, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Watts_Brothers_Tool_Works" target="_blank" rel="noopener">Watts Brothers Tool Works (Wikipédia, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Manhole_cover" target="_blank" rel="noopener">Plaque d’égout (Wikipédia, en anglais)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Barbier/" target="_blank" rel="noopener">Joseph-Émile Barbier (MacTutor, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Franz_Reuleaux" target="_blank" rel="noopener">Franz Reuleaux (Wikipédia, en anglais)</a></div>`,
   },
 });

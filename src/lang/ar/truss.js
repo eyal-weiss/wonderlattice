@@ -1,129 +1,268 @@
 /* The stubborn triangle · visitor-facing words (ar). */
+// «قضيب» (bar, pl. قضبان), «جسر» (bridge), «مفصل» (pin), «قطر» (diagonal) and «جملون» (truss) are masculine; «عُقدة»
+// (joint, pl. عُقد) and «طريقة» (way) feminine. The counts follow the agreement table in docs/lang/ar-glossary.md §4.
+// The words above the picture follow the page's right-to-left direction; only the number tags on the bars read left
+// to right.
 Wonderlattice.defineText('truss', 'ar', {
-  eyebrow: 'STRUCTURES',
-  name: 'The stubborn triangle',
-  tagline:
-    'A bridge of squares folds under a toy truck. Add the right bars and it locks, and every bar shows its load.',
-  title: 'The stubborn triangle.',
+  eyebrow: 'الهياكل',
+  name: 'المثلث العنيد',
+  tagline: 'جسر من المربعات ينطوي تحت شاحنة لعبة. أضيفوا القضبان المناسبة فيتماسك، ويُظهر كل قضيب حمله.',
+  title: 'المثلث العنيد.',
   subtitle:
-    'Squares fold and triangles don’t. Watch the bridge give way, then tap bars in and out: blue bars are squeezed, red bars stretched.',
-  field: 'Rigidity · Maxwell’s count · The Geiringer–Laman theorem · Forces in a truss',
-  sceneLabel: 'Bars, pins and a toy truck',
+    'المربعات تنطوي والمثلثات لا تنطوي. شاهدوا الجسر يتهاوى، ثم انقروا لإضافة قضبان وإزالتها: القضبان الزرقاء مضغوطة، والحمراء مشدودة.',
+  field: 'الصلابة · عدّ ماكسويل · مبرهنة غايرنغر–لامان · القوى في الجملون',
+  sceneLabel: 'قضبان ومفاصل وشاحنة لعبة',
   sceneNames: {
-    squares: 'Squares only',
-    pratt: 'A Pratt truss',
-    howe: 'A Howe truss',
-    counted: 'Counted, but floppy',
-    own: 'Your own bridge',
-    bracing: 'Bracing the squares',
+    squares: 'مربعات فقط',
+    pratt: 'جملون برات',
+    howe: 'جملون هاو',
+    counted: 'العدد صحيح، لكنه رخو',
+    own: 'جسركم الخاص',
+    bracing: 'تدعيم المربعات',
   },
-  tip: 'Tap a bar to take it out, or a dashed line to put one in · Drag the truck · Arrow keys aim, Enter switches',
-  actionBrace: 'Brace every square',
-  actionUnbrace: 'Take the diagonals out',
+  tip: 'انقروا على قضيب لإزالته، أو على خط متقطع لإضافة قضيب · اسحبوا الشاحنة · مفاتيح الأسهم للتصويب، وEnter للتبديل',
+  actionBrace: 'تدعيم كل المربعات',
+  actionUnbrace: 'إزالة الأقطار',
   canvasLabel:
-    'A bridge of bars and pins across a gap, with a toy truck on its road. Tap a bar to take it out or a dashed line to put one in, or use the arrow keys to aim and Enter to switch. Drag the truck to move it.',
-  panelEyebrow: 'Bars and pins',
-  whyLabel: 'Why do triangles hold?',
+    'جسر من القضبان والمفاصل فوق فجوة، وعلى طريقه شاحنة لعبة. انقروا على قضيب لإزالته أو على خط متقطع لإضافة قضيب، أو استخدموا مفاتيح الأسهم للتصويب وEnter للتبديل. اسحبوا الشاحنة لتحريكها.',
+  panelEyebrow: 'قضبان ومفاصل',
+  whyLabel: 'لماذا تصمد المثلثات؟',
   nudge:
-    'Take any one bar out of a locked bridge and watch it fold again. Then give one square a second diagonal: is the bridge any stiffer?',
+    'أزيلوا أي قضيب واحد من جسر متماسك، وشاهدوه ينطوي من جديد. ثم أعطوا مربعًا واحدًا قطرًا ثانيًا: هل صار الجسر أصلب؟',
   connection: {
-    html: '<strong>Squeezed and stretched.</strong> A truss uses both. Stones in an arch can only be squeezed, so the arch must take the shape of a hanging chain, upside down. See it in “Hang it, flip it, build it”.',
-    label: 'Visit “Hang it, flip it, build it”',
+    html: '<strong>ضغط وشدّ.</strong> الجملون يستخدم الاثنين. أما حجارة القوس فلا يمكن إلا أن تنضغط، لذا يجب أن يتخذ القوس شكل سلسلة متدلّية، مقلوبًا رأسًا على عقب. شاهدوا ذلك في «تعليق، فقلب، فبناء».',
+    label: 'زيارة «تعليق، فقلب، فبناء»',
   },
 
   presets: [
-    { name: 'Squares only', note: 'Top, bottom and uprights, no diagonals.' },
-    { name: 'A Pratt truss', note: 'A diagonal in every square.' },
-    { name: 'Counted, but floppy', note: 'Enough bars, in the wrong places.' },
+    { name: 'مربعات فقط', note: 'قضبان علوية وسفلية وقوائم، بلا أقطار.' },
+    { name: 'جملون برات', note: 'قطر في كل مربع.' },
+    { name: 'العدد صحيح، لكنه رخو', note: 'قضبان كافية، في الأماكن الخطأ.' },
   ],
 
-  panels: 'Squares across the gap',
-  panelsHint: 'Each square adds two joints, so the bridge needs four more bars.',
-  forces: 'Show what each bar carries',
+  panels: 'عدد المربعات فوق الفجوة',
+  panelsHint: 'كل مربع يضيف عُقدتين، فيحتاج الجسر إلى أربعة قضبان إضافية.',
+  forces: 'إظهار ما يحمله كل قضيب',
 
-  verdict: { rigid: 'RIGID', floppy: 'FLOPPY' },
-  count: (joints, needed, bars) => `${joints} joints × 2 − 3 = ${needed} bars needed · ${bars} here`,
-  reason: {
-    short: (k) => (k === 1 ? 'one bar short' : `${k} bars short`),
-    spread: 'enough bars, badly spread',
-    rigid: (spare) => (spare === 0 ? 'not one bar to spare' : spare === 1 ? 'one spare bar' : `${spare} spare bars`),
+  verdict: { rigid: 'صلب', floppy: 'رخو' },
+  // Whole numbers: the joints, the bars needed (2 × joints − 3) and the bars there are.
+  count: (joints, needed, bars) => {
+    const kj = joints % 100;
+    const kn = needed % 100;
+    const j =
+      joints === 1
+        ? 'عُقدة واحدة'
+        : joints === 2
+          ? 'عُقدتان'
+          : kj >= 3 && kj <= 10
+            ? `${joints} عُقد`
+            : `${joints} عُقدة`;
+    const n =
+      needed === 1
+        ? 'قضيب واحد لازم'
+        : needed === 2
+          ? 'قضيبان لازمان'
+          : kn >= 3 && kn <= 10
+            ? `${needed} قضبان لازمة`
+            : kn >= 11
+              ? `${needed} قضيبًا لازمًا`
+              : `${needed} قضيب لازم`;
+    return `${j} × 2 − 3 = ${n} · هنا ${bars}`;
   },
-  times: (x) => `${x}×`,
+  reason: {
+    short: (k) => {
+      const m = k % 100;
+      return k === 1
+        ? 'ينقصه قضيب واحد'
+        : k === 2
+          ? 'ينقصه قضيبان'
+          : m >= 3 && m <= 10
+            ? `ينقصه ${k} قضبان`
+            : m >= 11
+              ? `ينقصه ${k} قضيبًا`
+              : `ينقصه ${k} قضيب`;
+    },
+    spread: 'قضبان كافية، سيئة التوزيع',
+    rigid: (spare) => {
+      const m = spare % 100;
+      return spare === 0
+        ? 'دون أي قضيب زائد'
+        : spare === 1
+          ? 'قضيب زائد واحد'
+          : spare === 2
+            ? 'قضيبان زائدان'
+            : m >= 3 && m <= 10
+              ? `${spare} قضبان زائدة`
+              : m >= 11
+                ? `${spare} قضيبًا زائدًا`
+                : `${spare} قضيب زائد`;
+    },
+  },
+  times: (x) => `\u2066${x}×\u2069`,
 
   key: {
-    squeezed: 'Squeezed',
-    stretched: 'Stretched',
-    nothing: 'Carries nothing',
-    spare: 'Spare',
+    squeezed: 'مضغوط',
+    stretched: 'مشدود',
+    nothing: 'لا يحمل شيئًا',
+    spare: 'زائد',
   },
 
   primer: {
-    title: 'WHY TRIANGLES',
-    square: 'A square folds',
-    squareCount: '4 joints × 2 − 3 = 5 bars needed · it has 4',
-    triangle: 'A triangle holds',
-    triangleCount: '3 joints × 2 − 3 = 3 bars needed · it has 3',
+    title: 'لماذا المثلثات',
+    square: 'المربع ينطوي',
+    squareCount: '4 عُقد × 2 − 3 = 5 قضبان لازمة · فيه 4',
+    triangle: 'المثلث يصمد',
+    triangleCount: '3 عُقد × 2 − 3 = 3 قضبان لازمة · فيه 3',
   },
 
   status: {
-    rigid: (spare) =>
-      spare === 0 ? 'Rigid · no spare bars' : spare === 1 ? 'Rigid · one spare bar' : `Rigid · ${spare} spare bars`,
-    short: (k) => (k === 1 ? 'Floppy · one bar short' : `Floppy · ${k} bars short`),
-    spread: 'Floppy · bars badly spread',
+    rigid: (spare) => {
+      const m = spare % 100;
+      return spare === 0
+        ? 'صلب · لا قضبان زائدة'
+        : spare === 1
+          ? 'صلب · قضيب زائد واحد'
+          : spare === 2
+            ? 'صلب · قضيبان زائدان'
+            : m >= 3 && m <= 10
+              ? `صلب · ${spare} قضبان زائدة`
+              : m >= 11
+                ? `صلب · ${spare} قضيبًا زائدًا`
+                : `صلب · ${spare} قضيب زائد`;
+    },
+    short: (k) => {
+      const m = k % 100;
+      return k === 1
+        ? 'رخو · ينقصه قضيب واحد'
+        : k === 2
+          ? 'رخو · ينقصه قضيبان'
+          : m >= 3 && m <= 10
+            ? `رخو · ينقصه ${k} قضبان`
+            : m >= 11
+              ? `رخو · ينقصه ${k} قضيبًا`
+              : `رخو · ينقصه ${k} قضيب`;
+    },
+    spread: 'رخو · القضبان سيئة التوزيع',
   },
-  folded: 'The bridge folds.',
-  locked: 'The bridge is rigid.',
+  folded: 'الجسر ينطوي.',
+  locked: 'الجسر صلب.',
 
   readout: {
-    have: (bars, needed) => `${bars} bars, ${needed} needed`,
-    count: (joints, ways, needed, bars) =>
-      `${joints} joints can each move two ways: ${ways} ways in all. Take away 3 for sliding and turning the whole bridge, and it needs ${needed} bars. It has ${bars}.`,
-    short: (k) =>
-      k === 1
-        ? 'One bar is missing, so the bridge can still fold one way.'
-        : `${k} bars are missing, so the bridge can still fold.`,
+    have: (bars, needed) => {
+      const m = bars % 100;
+      const b =
+        bars === 1
+          ? 'قضيب واحد'
+          : bars === 2
+            ? 'قضيبان'
+            : m >= 3 && m <= 10
+              ? `${bars} قضبان`
+              : m >= 11
+                ? `${bars} قضيبًا`
+                : `${bars} قضيب`;
+      return `${b}، واللازم ${needed}`;
+    },
+    // ways is twice the joints.
+    count: (joints, ways, needed, bars) => {
+      const kj = joints % 100;
+      const kw = ways % 100;
+      const kn = needed % 100;
+      const j =
+        joints === 1
+          ? 'عُقدة واحدة'
+          : joints === 2
+            ? 'عُقدتان'
+            : kj >= 3 && kj <= 10
+              ? `${joints} عُقد`
+              : `${joints} عُقدة`;
+      const w =
+        ways === 1 ? 'طريقة واحدة' : ways === 2 ? 'طريقتان' : kw >= 3 && kw <= 10 ? `${ways} طرق` : `${ways} طريقة`;
+      const n =
+        needed === 1
+          ? 'قضيب واحد'
+          : needed === 2
+            ? 'قضيبين'
+            : kn >= 3 && kn <= 10
+              ? `${needed} قضبان`
+              : kn >= 11
+                ? `${needed} قضيبًا`
+                : `${needed} قضيب`;
+      return `في الجسر ${j}، ويمكن لكلٍّ منها أن تتحرك بطريقتين: ${w} في المجموع. اطرحوا 3 لانزلاق الجسر كله ودورانه، فيحتاج إلى ${n}. وفيه ${bars}.`;
+    },
+    short: (k) => {
+      const m = k % 100;
+      return k === 1
+        ? 'هناك قضيب واحد ناقص، لذا ما زال الجسر يستطيع أن ينطوي بطريقة واحدة.'
+        : k === 2
+          ? 'هناك قضيبان ناقصان، لذا ما زال الجسر يستطيع أن ينطوي.'
+          : m >= 3 && m <= 10
+            ? `هناك ${k} قضبان ناقصة، لذا ما زال الجسر يستطيع أن ينطوي.`
+            : m >= 11
+              ? `هناك ${k} قضيبًا ناقصًا، لذا ما زال الجسر يستطيع أن ينطوي.`
+              : `هناك ${k} قضيب ناقص، لذا ما زال الجسر يستطيع أن ينطوي.`;
+    },
     spread:
-      'There are enough bars, but some are crowded where they repeat each other (the dashed one is spare), so another part has too few and folds.',
-    busiest: (x) => `The busiest bar carries ${x} times the truck’s weight.`,
-    busiestSame: 'The busiest bar carries as much as the truck weighs.',
-    nothing: (k) =>
-      k === 0 ? 'Every bar carries something.' : k === 1 ? 'One bar carries nothing.' : `${k} bars carry nothing.`,
-    spare: (k) =>
-      k === 1
-        ? 'One bar is spare (dashed): take it out and the bridge still stands.'
-        : `${k} bars are spare (dashed): the bridge doesn’t need them to stand.`,
-    ashore: 'The truck is on solid ground, so no bar carries anything.',
+      'القضبان كافية، لكن بعضها مزدحم في مكان يكرّر فيه بعضها بعضًا (القضيب المتقطع زائد)، فيبقى في جزء آخر عدد أقل من اللازم، فينطوي.',
+    busiest: (x) => `أكثر القضبان حملًا يحمل وزن الشاحنة مضروبًا في ${x}.`,
+    busiestSame: 'أكثر القضبان حملًا يحمل ما يعادل وزن الشاحنة.',
+    nothing: (k) => {
+      const m = k % 100;
+      return k === 0
+        ? 'كل قضيب يحمل شيئًا.'
+        : k === 1
+          ? 'قضيب واحد لا يحمل شيئًا.'
+          : k === 2
+            ? 'قضيبان لا يحملان شيئًا.'
+            : m >= 3 && m <= 10
+              ? `${k} قضبان لا تحمل شيئًا.`
+              : m >= 11
+                ? `${k} قضيبًا لا تحمل شيئًا.`
+                : `${k} قضيب لا تحمل شيئًا.`;
+    },
+    spare: (k) => {
+      const m = k % 100;
+      return k === 1
+        ? 'قضيب واحد زائد (متقطع): أزيلوه ويبقى الجسر قائمًا.'
+        : k === 2
+          ? 'قضيبان زائدان (متقطعان): لا يحتاجهما الجسر ليبقى قائمًا.'
+          : m >= 3 && m <= 10
+            ? `${k} قضبان زائدة (متقطعة): لا يحتاجها الجسر ليبقى قائمًا.`
+            : m >= 11
+              ? `${k} قضيبًا زائدًا (متقطعة): لا يحتاجها الجسر ليبقى قائمًا.`
+              : `${k} قضيب زائد (متقطعة): لا يحتاجها الجسر ليبقى قائمًا.`;
+    },
+    ashore: 'الشاحنة على أرض صلبة، لذا لا يحمل أي قضيب شيئًا.',
   },
 
   guests: [
     {
-      name: 'James Clerk Maxwell',
-      note: 'In 1864 I counted. Each joint of a flat frame can move two ways, and three of those ways just slide or turn the whole frame. So a frame of j joints needs at least 2j − 3 bars.',
+      name: 'جيمس كلارك ماكسويل',
+      note: 'عام 1864 لجأت إلى العدّ. كل عُقدة في إطار مستوٍ يمكنها أن تتحرك بطريقتين، وثلاث من تلك الطرق لا تفعل سوى أن تُزلق الإطار كله أو تُديره. لذا يحتاج إطار عدد عُقده j إلى \u20662j\u00a0−\u00a03\u2069 من القضبان على الأقل.',
     },
     {
-      name: 'Hilda Geiringer',
-      note: 'In 1927 I found exactly which flat frames are rigid: not one part may have more bars than it needs. Gerard Laman found the same rule again in 1970, and today it carries both our names.',
+      name: 'هيلدا غايرنغر',
+      note: 'عام 1927 وجدتُ بالضبط أيّ الإطارات المستوية صلبة: لا يجوز أن يكون في أي جزء منها قضبان أكثر مما يحتاج. ثم وجد جيرارد لامان القاعدة نفسها من جديد عام 1970، واليوم تحمل اسمينا كلينا.',
     },
     {
-      name: 'Squire Whipple',
-      note: 'In 1847 I published a book that worked out the force in every bar of a truss, instead of guessing. My iron bowstring bridges crossed the Erie Canal.',
+      name: 'سكواير ويبل',
+      note: 'عام 1847 نشرت كتابًا يحسب القوة في كل قضيب من قضبان الجملون، بدل التخمين. وجسوري الحديدية ذات القوس والوتر عبرت قناة إيري.',
     },
   ],
 
   insight: {
-    title: 'Why do triangles hold?',
-    html: `<p>A bar keeps its length, and a pin lets bars turn. Three lengths fix a triangle’s shape completely, so a triangle of bars can’t change shape at all. Four lengths don’t fix a square: it leans into a rhombus without a single bar bending or stretching. That’s why the frames of bridges, cranes and roofs are made of triangles.</p>
-<div class="insight-visual">joints × 2 − 3 = bars needed</div>
-<h3>Counting the ways to move</h3>
-<p>On a flat wall, each joint can move in two directions, so j joints have 2j ways to move. Each bar takes away at most one. Three ways always remain, however many bars there are: even a rigid frame can slide sideways, slide up and down, and turn as a whole. Here the pin and the roller under the bridge take those three away. So a frame needs at least 2j − 3 bars, a count James Clerk Maxwell gave in 1864. A bridge of four squares has 10 joints, so it needs 17 bars. With only its top, bottom and uprights it has 13, so it’s four short: one diagonal per square.</p>
-<h3>Counting isn’t enough</h3>
-<p>Put in 17 bars with two diagonals in one square and none in the next, and the bridge still folds. The second diagonal is spare: it holds nothing the first doesn’t already hold. Hilda Pollaczek-Geiringer found the exact rule in 1927, and Gerard Laman found it again in 1970. A frame with 2j − 3 bars is rigid exactly when no part of it is crowded: every group of k joints has at most 2k − 3 bars between them. The rule is for joints in general position. In special positions, such as three joints in a straight line, a frame with the right bars can still give a little. On this bridge’s pegboard, every choice of bars behaves just as it would in general position.</p>
-<h3>What each bar carries</h3>
-<p>Once the bridge is rigid, every joint must balance: the pushes and pulls of its bars, and the truck’s weight where the road rests on it, add up to nothing. Solving all those balances together (the method of joints) gives the force in every bar. Blue bars are squeezed and red bars are stretched, and a thicker bar carries more. Some bars carry nothing at all while the truck is in one place, and a lot when it moves. And a bar can carry more than the truck weighs: in a Pratt truss of six squares, with the truck in the middle, the middle of the top is squeezed with one and a half times the truck’s weight.</p>
-<p>In a Pratt truss the diagonals lean in towards the middle and are stretched, while the uprights are squeezed. Mirror every diagonal and you get a Howe truss, where the diagonals are squeezed and the uprights stretched. That difference mattered to builders: a long squeezed bar can buckle, bowing sideways long before it would crush, so squeezed bars must be fatter. William Howe’s 1840 design squeezed timber diagonals and stretched iron rods. Thomas and Caleb Pratt’s 1844 design turned that round, and it suited bridges as iron and steel took over from wood. The Warren truss of 1848 uses a zigzag of diagonals, squeezed and stretched in turn.</p>
-<h3>What this model leaves out</h3>
-<p>The bars here weigh nothing, their joints are perfect pins, the truck’s weight reaches the bridge only at its joints through the road, and every bar is the same steel. Real bridges carry their own weight, which is usually far more than any truck’s. Their joints are riveted, bolted or welded, which stiffens them. Their squeezed bars buckle before they break. Where a bridge has spare bars, how they share the load depends on how stretchy each one is, and here they’re all alike. The folding is a cartoon: a real frame would fall faster, and break. And triangles aren’t the only way to be stiff: frames with rigid joints, shells and tensegrity structures are stiff too. Bridge-building games such as Poly Bridge simulate whole bridges; this room sticks to the counting and the forces.</p>
-<details><summary>The mathematics, if you want it</summary><p>Moving joint a by u<sub>a</sub> and joint b by u<sub>b</sub> keeps bar ab’s length, to first order, when (p<sub>a</sub> − p<sub>b</sub>) · (u<sub>a</sub> − u<sub>b</sub>) = 0. One such equation per bar makes the rigidity matrix, with two columns per joint. With three more rows for the pin and the roller, the bridge is rigid exactly when the matrix has full rank, 2j. The room also finds the rank with the joints jumbled slightly into general position, to tell a badly spread frame from a special position. A floppy bridge folds along a motion the matrix allows: the part of the truck’s push that no bar resists. The forces come from the stiffness method with every bar alike. For a bridge with no spare bars, that gives exactly the forces of the method of joints, whatever the bars are made of. The forces were checked against an independent program for Pratt and Howe trusses of two to six squares, and the rank against Laman’s condition on 150 random small frames.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Truss" target="_blank" rel="noopener">Truss</a><a class="source-link" href="https://en.wikipedia.org/wiki/Laman_graph" target="_blank" rel="noopener">Laman graph</a><a class="source-link" href="https://en.wikipedia.org/wiki/Structural_rigidity" target="_blank" rel="noopener">Structural rigidity</a><a class="source-link" href="https://en.wikipedia.org/wiki/Truss_bridge" target="_blank" rel="noopener">Truss bridge (Pratt, Howe and Warren)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Squire_Whipple" target="_blank" rel="noopener">Squire Whipple</a><a class="source-link" href="https://doi.org/10.1080/14786446408643668" target="_blank" rel="noopener">Maxwell (1864), On the calculation of the equilibrium and stiffness of frames</a><a class="source-link" href="https://doi.org/10.1002/zamm.19270070107" target="_blank" rel="noopener">Pollaczek-Geiringer (1927), Über die Gliederung ebener Fachwerke</a><a class="source-link" href="https://doi.org/10.1007/BF01534980" target="_blank" rel="noopener">Laman (1970), On graphs and rigidity of plane skeletal structures</a></div>`,
+    title: 'لماذا تصمد المثلثات؟',
+    html: `<p>القضيب يحافظ على طوله، والمفصل يسمح للقضبان بالدوران. ثلاثة أطوال تحدّد شكل المثلث تمامًا، لذا لا يستطيع مثلث من القضبان أن يغيّر شكله أبدًا. أما أربعة أطوال فلا تحدّد شكل المربع: إنه يميل فيصير معيّنًا دون أن ينثني قضيب واحد أو يتمدّد. ولهذا تُصنع هياكل الجسور والرافعات والأسقف من مثلثات.</p>
+<div class="insight-visual">العُقد × 2 − 3 = القضبان اللازمة</div>
+<h3>عدّ طرق الحركة</h3>
+<p>على جدار مستوٍ، تستطيع كل عُقدة أن تتحرك في اتجاهين، لذا يكون لعُقد عددها j ما مجموعه \u20662j\u2069 من طرق الحركة. وكل قضيب يزيل طريقة واحدة على الأكثر. وتبقى ثلاث طرق دائمًا، مهما كان عدد القضبان: فحتى الإطار الصلب يستطيع أن ينزلق جانبًا، وأن ينزلق صعودًا وهبوطًا، وأن يدور ككل. وهنا يزيل المفصل والبكرة تحت الجسر هذه الطرق الثلاث. لذا يحتاج الإطار إلى \u20662j\u00a0−\u00a03\u2069 من القضبان على الأقل، وهو عدّ قدّمه جيمس كلارك ماكسويل عام 1864. الجسر المؤلّف من أربعة مربعات فيه 10 عُقد، فيحتاج إلى 17 قضيبًا. وإذا لم يكن فيه إلا القضبان العلوية والسفلية والقوائم، فلديه 13، أي ينقصه أربعة: قطر واحد لكل مربع.</p>
+<h3>العدّ وحده لا يكفي</h3>
+<p>ضعوا 17 قضيبًا، مع قطرين في مربع ولا قطر في المربع التالي، فيظل الجسر ينطوي. القطر الثاني زائد: لا يثبّت شيئًا لا يثبّته الأول أصلًا. وجدت هيلدا بولاتشيك-غايرنغر القاعدة الدقيقة عام 1927، ثم وجدها جيرارد لامان من جديد عام 1970. الإطار الذي فيه \u20662j\u00a0−\u00a03\u2069 من القضبان يكون صلبًا بالضبط حين لا يكون أي جزء منه مزدحمًا: كل مجموعة من العُقد عددها k لا يربط بينها أكثر من \u20662k\u00a0−\u00a03\u2069 من القضبان. وتنطبق القاعدة على العُقد في وضع عام. أما في الأوضاع الخاصة، مثل ثلاث عُقد على خط مستقيم، فقد يرتخي قليلًا إطار فيه القضبان الصحيحة. وعلى اللوح المثقّب لهذا الجسر، يتصرّف كل اختيار للقضبان تمامًا كما كان سيتصرّف في وضع عام.</p>
+<h3>ما يحمله كل قضيب</h3>
+<p>حين يصير الجسر صلبًا، يجب أن تتوازن كل عُقدة: مجموع دفع قضبانها وشدّها، ووزن الشاحنة حيث يرتكز الطريق عليها، يساوي صفرًا. وحلّ معادلات التوازن هذه كلها معًا (طريقة العُقد) يعطي القوة في كل قضيب. القضبان الزرقاء مضغوطة والحمراء مشدودة، والقضيب الأسمك يحمل أكثر. بعض القضبان لا تحمل شيئًا على الإطلاق والشاحنة في موضع ما، وتحمل الكثير حين تتحرك. بل إن القضيب قد يحمل أكثر من وزن الشاحنة: في جملون برات من ستة مربعات، والشاحنة في منتصفه، ينضغط منتصف الحافة العليا بقوة تعادل وزن الشاحنة ونصفه.</p>
+<p>في جملون برات تميل الأقطار نحو المنتصف وتكون مشدودة، بينما تكون القوائم مضغوطة. اعكسوا كل قطر كما في المرآة تحصلوا على جملون هاو، حيث الأقطار مضغوطة والقوائم مشدودة. وكان لهذا الفرق أهمية عند البنّائين: القضيب الطويل المضغوط قد ينبعج، فينحني جانبًا قبل أن ينسحق بكثير، لذا يجب أن تكون القضبان المضغوطة أسمك. تصميم ويليام هاو عام 1840 ضغط أقطارًا خشبية وشدّ قضبانًا حديدية. وتصميم توماس وكاليب برات عام 1844 قلب ذلك، فناسب الجسور حين حلّ الحديد والفولاذ محل الخشب. أما جملون وارن من عام 1848 فيستخدم أقطارًا متعرّجة، مضغوطة ومشدودة بالتناوب.</p>
+<h3>ما يُغفله هذا النموذج</h3>
+<p>القضبان هنا لا وزن لها، ووصلاتها مفاصل مثالية، ووزن الشاحنة لا يصل إلى الجسر إلا عند عُقده عبر الطريق، وكل القضبان من الفولاذ نفسه. أما الجسور الحقيقية فتحمل وزنها الذاتي، وهو عادةً أكبر بكثير من وزن أي شاحنة. ووصلاتها مثبّتة بالبرشام أو البراغي أو اللحام، مما يزيدها صلابة. وقضبانها المضغوطة تنبعج قبل أن تنكسر. وحيث يكون في الجسر قضبان زائدة، تتوقف طريقة تقاسمها الحمل على مدى قابلية كل منها للتمدّد، وهي هنا كلها متماثلة. والانطواء هنا رسم كاريكاتوري: الإطار الحقيقي سيسقط أسرع، وينكسر. والمثلثات ليست الطريقة الوحيدة لتحقيق الصلابة: فالإطارات ذات الوصلات الصلبة، والهياكل القشرية، وهياكل الشدّ المتكامل صلبة أيضًا. وألعاب بناء الجسور مثل \u2066Poly Bridge\u2069 تحاكي جسورًا كاملة؛ أما هذه الغرفة فتكتفي بالعدّ والقوى.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>تحريك العُقدة a بمقدار u<sub>a</sub> والعُقدة b بمقدار u<sub>b</sub> يحافظ على طول القضيب ab، في التقريب الأول، حين يكون \u2066(p<sub>a</sub>\u00a0−\u00a0p<sub>b</sub>)\u00a0·\u00a0(u<sub>a</sub>\u00a0−\u00a0u<sub>b</sub>)\u00a0=\u00a00\u2069. ومعادلة كهذه لكل قضيب تشكّل مصفوفة الصلابة، بعمودين لكل عُقدة. ومع ثلاثة صفوف إضافية للمفصل والبكرة، يكون الجسر صلبًا بالضبط حين تكون رتبة المصفوفة كاملة، أي \u20662j\u2069. وتحسب الغرفة الرتبة أيضًا بعد خلخلة مواضع العُقد قليلًا لتصير في وضع عام، كي تميّز بين إطار سيئ التوزيع ووضع خاص. والجسر الرخو ينطوي وفق حركة تسمح بها المصفوفة: الجزء من دفع الشاحنة الذي لا يقاومه أي قضيب. أما القوى فتأتي من طريقة الجساءة، مع قضبان متماثلة كلها. وفي جسر لا قضبان زائدة فيه، يعطي ذلك تمامًا قوى طريقة العُقد، أيًّا كانت مادة القضبان. وقد تم التحقق من القوى بمقارنتها ببرنامج مستقل لجمالين برات وهاو من مربعين إلى ستة مربعات، ومن الرتبة بمقارنتها بشرط لامان على 150 إطارًا صغيرًا عشوائيًا.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Truss" target="_blank" rel="noopener">الجملون (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Laman_graph" target="_blank" rel="noopener">مخطط لامان (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Structural_rigidity" target="_blank" rel="noopener">الصلابة البنيوية (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Truss_bridge" target="_blank" rel="noopener">الجسر الجملوني (برات وهاو ووارن، بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Squire_Whipple" target="_blank" rel="noopener">سكواير ويبل (بالإنجليزية)</a><a class="source-link" href="https://doi.org/10.1080/14786446408643668" target="_blank" rel="noopener">ماكسويل، \u2066“On the calculation of the equilibrium and stiffness of frames”\u2069 \u200f(1864، بالإنجليزية)</a><a class="source-link" href="https://doi.org/10.1002/zamm.19270070107" target="_blank" rel="noopener">بولاتشيك-غايرنغر، \u2066“Über die Gliederung ebener Fachwerke”\u2069 \u200f(1927، بالألمانية)</a><a class="source-link" href="https://doi.org/10.1007/BF01534980" target="_blank" rel="noopener">لامان، \u2066“On graphs and rigidity of plane skeletal structures”\u2069 \u200f(1970، بالإنجليزية)</a></div>`,
   },
 });

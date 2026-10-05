@@ -1,129 +1,127 @@
 /* The stubborn triangle · visitor-facing words (he). */
 Wonderlattice.defineText('truss', 'he', {
-  eyebrow: 'STRUCTURES',
-  name: 'The stubborn triangle',
-  tagline:
-    'A bridge of squares folds under a toy truck. Add the right bars and it locks, and every bar shows its load.',
-  title: 'The stubborn triangle.',
+  eyebrow: 'מבנים',
+  name: 'המשולש העקשן',
+  tagline: 'גשר של ריבועים מתקפל תחת משאית צעצוע. הוסיפו את המוטות הנכונים והוא ננעל, וכל מוט מראה את העומס שלו.',
+  title: 'המשולש העקשן.',
   subtitle:
-    'Squares fold and triangles don’t. Watch the bridge give way, then tap bars in and out: blue bars are squeezed, red bars stretched.',
-  field: 'Rigidity · Maxwell’s count · The Geiringer–Laman theorem · Forces in a truss',
-  sceneLabel: 'Bars, pins and a toy truck',
+    'ריבועים מתקפלים, משולשים לא. צפו בגשר מתמוטט, ואז הקישו כדי להוסיף ולהוציא מוטות: מוטות כחולים נלחצים, ומוטות אדומים נמתחים.',
+  field: 'קשיחות · הספירה של מקסוול · משפט גיירינגר–לאמאן · כוחות במסבך',
+  sceneLabel: 'מוטות, מפרקים ומשאית צעצוע',
   sceneNames: {
-    squares: 'Squares only',
-    pratt: 'A Pratt truss',
-    howe: 'A Howe truss',
-    counted: 'Counted, but floppy',
-    own: 'Your own bridge',
-    bracing: 'Bracing the squares',
+    squares: 'רק ריבועים',
+    pratt: 'מסבך פראט',
+    howe: 'מסבך האו',
+    counted: 'ספירה נכונה, גשר רופף',
+    own: 'הגשר שלכם',
+    bracing: 'מחזקים את הריבועים',
   },
-  tip: 'Tap a bar to take it out, or a dashed line to put one in · Drag the truck · Arrow keys aim, Enter switches',
-  actionBrace: 'Brace every square',
-  actionUnbrace: 'Take the diagonals out',
+  tip: 'הקישו על מוט כדי להוציא אותו, או על קו מקווקו כדי להכניס מוט · גררו את המשאית · מקשי החיצים מכוונים, Enter מחליף',
+  actionBrace: 'לחזק כל ריבוע',
+  actionUnbrace: 'להוציא את האלכסונים',
   canvasLabel:
-    'A bridge of bars and pins across a gap, with a toy truck on its road. Tap a bar to take it out or a dashed line to put one in, or use the arrow keys to aim and Enter to switch. Drag the truck to move it.',
-  panelEyebrow: 'Bars and pins',
-  whyLabel: 'Why do triangles hold?',
+    'גשר של מוטות ומפרקים מעל פער, ומשאית צעצוע על הכביש שלו. הקישו על מוט כדי להוציא אותו או על קו מקווקו כדי להכניס מוט, או כוונו במקשי החיצים ולחצו Enter כדי להחליף. גררו את המשאית כדי להזיז אותה.',
+  panelEyebrow: 'מוטות ומפרקים',
+  whyLabel: 'למה משולשים מחזיקים?',
   nudge:
-    'Take any one bar out of a locked bridge and watch it fold again. Then give one square a second diagonal: is the bridge any stiffer?',
+    'הוציאו מוט אחד כלשהו מגשר נעול, וצפו בו מתקפל שוב. אחר כך תנו לריבוע אחד אלכסון שני: האם הגשר נעשה קשיח יותר?',
   connection: {
-    html: '<strong>Squeezed and stretched.</strong> A truss uses both. Stones in an arch can only be squeezed, so the arch must take the shape of a hanging chain, upside down. See it in “Hang it, flip it, build it”.',
-    label: 'Visit “Hang it, flip it, build it”',
+    html: '<strong>נלחצים ונמתחים.</strong> מסבך משתמש בשניהם. אבנים בקשת יכולות רק להילחץ, ולכן הקשת חייבת לקבל את הצורה של שרשרת תלויה, הפוכה. ראו את זה ב”לתלות, להפוך, לבנות”.',
+    label: 'לבקר ב”לתלות, להפוך, לבנות”',
   },
 
   presets: [
-    { name: 'Squares only', note: 'Top, bottom and uprights, no diagonals.' },
-    { name: 'A Pratt truss', note: 'A diagonal in every square.' },
-    { name: 'Counted, but floppy', note: 'Enough bars, in the wrong places.' },
+    { name: 'רק ריבועים', note: 'למעלה, למטה ומוטות אנכיים, בלי אלכסונים.' },
+    { name: 'מסבך פראט', note: 'אלכסון בכל ריבוע.' },
+    { name: 'ספירה נכונה, גשר רופף', note: 'מספיק מוטות, במקומות הלא נכונים.' },
   ],
 
-  panels: 'Squares across the gap',
-  panelsHint: 'Each square adds two joints, so the bridge needs four more bars.',
-  forces: 'Show what each bar carries',
+  panels: 'ריבועים מעל הפער',
+  panelsHint: 'כל ריבוע מוסיף שני צמתים, ולכן הגשר צריך עוד ארבעה מוטות.',
+  forces: 'להראות מה כל מוט נושא',
 
-  verdict: { rigid: 'RIGID', floppy: 'FLOPPY' },
-  count: (joints, needed, bars) => `${joints} joints × 2 − 3 = ${needed} bars needed · ${bars} here`,
+  // Drawn on the canvas, which is laid out right to left like the page: a word formula reads right to left here.
+  verdict: { rigid: 'קשיח', floppy: 'רופף' },
+  count: (joints, needed, bars) => `${joints} צמתים × 2 − 3 = ${needed} מוטות נחוצים · יש כאן ${bars}`,
   reason: {
-    short: (k) => (k === 1 ? 'one bar short' : `${k} bars short`),
-    spread: 'enough bars, badly spread',
-    rigid: (spare) => (spare === 0 ? 'not one bar to spare' : spare === 1 ? 'one spare bar' : `${spare} spare bars`),
+    short: (k) => (k === 1 ? 'חסר מוט אחד' : `חסרים ${k} מוטות`),
+    spread: 'מספיק מוטות, מפוזרים רע',
+    rigid: (spare) => (spare === 0 ? 'אף מוט לא מיותר' : spare === 1 ? 'מוט מיותר אחד' : `${spare} מוטות מיותרים`),
   },
-  times: (x) => `${x}×`,
+  // Drawn left to right on a bar; isolated, so the number comes first on every page.
+  times: (x) => `\u2066${x}×\u2069`,
 
   key: {
-    squeezed: 'Squeezed',
-    stretched: 'Stretched',
-    nothing: 'Carries nothing',
-    spare: 'Spare',
+    squeezed: 'נלחץ',
+    stretched: 'נמתח',
+    nothing: 'לא נושא כלום',
+    spare: 'מיותר',
   },
 
   primer: {
-    title: 'WHY TRIANGLES',
-    square: 'A square folds',
-    squareCount: '4 joints × 2 − 3 = 5 bars needed · it has 4',
-    triangle: 'A triangle holds',
-    triangleCount: '3 joints × 2 − 3 = 3 bars needed · it has 3',
+    title: 'למה משולשים',
+    square: 'ריבוע מתקפל',
+    squareCount: '4 צמתים × 2 − 3 = 5 מוטות נחוצים · יש לו 4',
+    triangle: 'משולש מחזיק',
+    triangleCount: '3 צמתים × 2 − 3 = 3 מוטות נחוצים · יש לו 3',
   },
 
   status: {
     rigid: (spare) =>
-      spare === 0 ? 'Rigid · no spare bars' : spare === 1 ? 'Rigid · one spare bar' : `Rigid · ${spare} spare bars`,
-    short: (k) => (k === 1 ? 'Floppy · one bar short' : `Floppy · ${k} bars short`),
-    spread: 'Floppy · bars badly spread',
+      spare === 0 ? 'קשיח · אין מוטות מיותרים' : spare === 1 ? 'קשיח · מוט מיותר אחד' : `קשיח · ${spare} מוטות מיותרים`,
+    short: (k) => (k === 1 ? 'רופף · חסר מוט אחד' : `רופף · חסרים ${k} מוטות`),
+    spread: 'רופף · המוטות מפוזרים רע',
   },
-  folded: 'The bridge folds.',
-  locked: 'The bridge is rigid.',
+  folded: 'הגשר מתקפל.',
+  locked: 'הגשר קשיח.',
 
   readout: {
-    have: (bars, needed) => `${bars} bars, ${needed} needed`,
+    have: (bars, needed) => `${bars} מוטות, נחוצים ${needed}`,
     count: (joints, ways, needed, bars) =>
-      `${joints} joints can each move two ways: ${ways} ways in all. Take away 3 for sliding and turning the whole bridge, and it needs ${needed} bars. It has ${bars}.`,
+      `${joints} צמתים, וכל אחד מהם יכול לזוז בשתי דרכים: ${ways} דרכים בסך הכול. מורידים 3 בשביל הזזה וסיבוב של הגשר כולו, והוא צריך ${needed} מוטות. יש לו ${bars}.`,
     short: (k) =>
-      k === 1
-        ? 'One bar is missing, so the bridge can still fold one way.'
-        : `${k} bars are missing, so the bridge can still fold.`,
+      k === 1 ? 'חסר מוט אחד, ולכן הגשר עדיין יכול להתקפל בדרך אחת.' : `חסרים ${k} מוטות, ולכן הגשר עדיין יכול להתקפל.`,
     spread:
-      'There are enough bars, but some are crowded where they repeat each other (the dashed one is spare), so another part has too few and folds.',
-    busiest: (x) => `The busiest bar carries ${x} times the truck’s weight.`,
-    busiestSame: 'The busiest bar carries as much as the truck weighs.',
-    nothing: (k) =>
-      k === 0 ? 'Every bar carries something.' : k === 1 ? 'One bar carries nothing.' : `${k} bars carry nothing.`,
+      'יש מספיק מוטות, אבל חלקם מצטופפים במקום שבו הם חוזרים זה על זה (המקווקו מיותר), ולכן בחלק אחר יש מעט מדי, והוא מתקפל.',
+    busiest: (x) => `המוט העמוס ביותר נושא פי ${x} ממשקל המשאית.`,
+    busiestSame: 'המוט העמוס ביותר נושא כמו משקל המשאית.',
+    nothing: (k) => (k === 0 ? 'כל מוט נושא משהו.' : k === 1 ? 'מוט אחד לא נושא כלום.' : `${k} מוטות לא נושאים כלום.`),
     spare: (k) =>
       k === 1
-        ? 'One bar is spare (dashed): take it out and the bridge still stands.'
-        : `${k} bars are spare (dashed): the bridge doesn’t need them to stand.`,
-    ashore: 'The truck is on solid ground, so no bar carries anything.',
+        ? 'מוט אחד מיותר (מקווקו): הוציאו אותו, והגשר עדיין עומד.'
+        : `${k} מוטות מיותרים (מקווקווים): הגשר לא צריך אותם כדי לעמוד.`,
+    ashore: 'המשאית על קרקע מוצקה, ולכן אף מוט לא נושא כלום.',
   },
 
   guests: [
     {
-      name: 'James Clerk Maxwell',
-      note: 'In 1864 I counted. Each joint of a flat frame can move two ways, and three of those ways just slide or turn the whole frame. So a frame of j joints needs at least 2j − 3 bars.',
+      name: 'ג׳יימס קלרק מקסוול',
+      note: 'ב־1864 ספרתי. כל צומת של מסגרת שטוחה יכול לזוז בשתי דרכים, ושלוש מהדרכים האלה רק מזיזות או מסובבות את המסגרת כולה. לכן מסגרת עם j צמתים צריכה לפחות \u20662j − 3\u2069 מוטות.',
     },
     {
-      name: 'Hilda Geiringer',
-      note: 'In 1927 I found exactly which flat frames are rigid: not one part may have more bars than it needs. Gerard Laman found the same rule again in 1970, and today it carries both our names.',
+      name: 'הילדה גיירינגר',
+      note: 'ב־1927 מצאתי בדיוק אילו מסגרות שטוחות הן קשיחות: לאף חלק שלהן אסור שיהיו יותר מוטות ממה שהוא צריך. ג׳רארד לאמאן מצא שוב את אותו כלל ב־1970, והיום הוא נושא את שמות שנינו.',
     },
     {
-      name: 'Squire Whipple',
-      note: 'In 1847 I published a book that worked out the force in every bar of a truss, instead of guessing. My iron bowstring bridges crossed the Erie Canal.',
+      name: 'סקוויר ויפל',
+      note: 'ב־1847 פרסמתי ספר שחישב את הכוח בכל מוט של מסבך, במקום לנחש. גשרי הברזל שלי, בצורת קשת ומיתר, חצו את תעלת אירי.',
     },
   ],
 
   insight: {
-    title: 'Why do triangles hold?',
-    html: `<p>A bar keeps its length, and a pin lets bars turn. Three lengths fix a triangle’s shape completely, so a triangle of bars can’t change shape at all. Four lengths don’t fix a square: it leans into a rhombus without a single bar bending or stretching. That’s why the frames of bridges, cranes and roofs are made of triangles.</p>
-<div class="insight-visual">joints × 2 − 3 = bars needed</div>
-<h3>Counting the ways to move</h3>
-<p>On a flat wall, each joint can move in two directions, so j joints have 2j ways to move. Each bar takes away at most one. Three ways always remain, however many bars there are: even a rigid frame can slide sideways, slide up and down, and turn as a whole. Here the pin and the roller under the bridge take those three away. So a frame needs at least 2j − 3 bars, a count James Clerk Maxwell gave in 1864. A bridge of four squares has 10 joints, so it needs 17 bars. With only its top, bottom and uprights it has 13, so it’s four short: one diagonal per square.</p>
-<h3>Counting isn’t enough</h3>
-<p>Put in 17 bars with two diagonals in one square and none in the next, and the bridge still folds. The second diagonal is spare: it holds nothing the first doesn’t already hold. Hilda Pollaczek-Geiringer found the exact rule in 1927, and Gerard Laman found it again in 1970. A frame with 2j − 3 bars is rigid exactly when no part of it is crowded: every group of k joints has at most 2k − 3 bars between them. The rule is for joints in general position. In special positions, such as three joints in a straight line, a frame with the right bars can still give a little. On this bridge’s pegboard, every choice of bars behaves just as it would in general position.</p>
-<h3>What each bar carries</h3>
-<p>Once the bridge is rigid, every joint must balance: the pushes and pulls of its bars, and the truck’s weight where the road rests on it, add up to nothing. Solving all those balances together (the method of joints) gives the force in every bar. Blue bars are squeezed and red bars are stretched, and a thicker bar carries more. Some bars carry nothing at all while the truck is in one place, and a lot when it moves. And a bar can carry more than the truck weighs: in a Pratt truss of six squares, with the truck in the middle, the middle of the top is squeezed with one and a half times the truck’s weight.</p>
-<p>In a Pratt truss the diagonals lean in towards the middle and are stretched, while the uprights are squeezed. Mirror every diagonal and you get a Howe truss, where the diagonals are squeezed and the uprights stretched. That difference mattered to builders: a long squeezed bar can buckle, bowing sideways long before it would crush, so squeezed bars must be fatter. William Howe’s 1840 design squeezed timber diagonals and stretched iron rods. Thomas and Caleb Pratt’s 1844 design turned that round, and it suited bridges as iron and steel took over from wood. The Warren truss of 1848 uses a zigzag of diagonals, squeezed and stretched in turn.</p>
-<h3>What this model leaves out</h3>
-<p>The bars here weigh nothing, their joints are perfect pins, the truck’s weight reaches the bridge only at its joints through the road, and every bar is the same steel. Real bridges carry their own weight, which is usually far more than any truck’s. Their joints are riveted, bolted or welded, which stiffens them. Their squeezed bars buckle before they break. Where a bridge has spare bars, how they share the load depends on how stretchy each one is, and here they’re all alike. The folding is a cartoon: a real frame would fall faster, and break. And triangles aren’t the only way to be stiff: frames with rigid joints, shells and tensegrity structures are stiff too. Bridge-building games such as Poly Bridge simulate whole bridges; this room sticks to the counting and the forces.</p>
-<details><summary>The mathematics, if you want it</summary><p>Moving joint a by u<sub>a</sub> and joint b by u<sub>b</sub> keeps bar ab’s length, to first order, when (p<sub>a</sub> − p<sub>b</sub>) · (u<sub>a</sub> − u<sub>b</sub>) = 0. One such equation per bar makes the rigidity matrix, with two columns per joint. With three more rows for the pin and the roller, the bridge is rigid exactly when the matrix has full rank, 2j. The room also finds the rank with the joints jumbled slightly into general position, to tell a badly spread frame from a special position. A floppy bridge folds along a motion the matrix allows: the part of the truck’s push that no bar resists. The forces come from the stiffness method with every bar alike. For a bridge with no spare bars, that gives exactly the forces of the method of joints, whatever the bars are made of. The forces were checked against an independent program for Pratt and Howe trusses of two to six squares, and the rank against Laman’s condition on 150 random small frames.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Truss" target="_blank" rel="noopener">Truss</a><a class="source-link" href="https://en.wikipedia.org/wiki/Laman_graph" target="_blank" rel="noopener">Laman graph</a><a class="source-link" href="https://en.wikipedia.org/wiki/Structural_rigidity" target="_blank" rel="noopener">Structural rigidity</a><a class="source-link" href="https://en.wikipedia.org/wiki/Truss_bridge" target="_blank" rel="noopener">Truss bridge (Pratt, Howe and Warren)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Squire_Whipple" target="_blank" rel="noopener">Squire Whipple</a><a class="source-link" href="https://doi.org/10.1080/14786446408643668" target="_blank" rel="noopener">Maxwell (1864), On the calculation of the equilibrium and stiffness of frames</a><a class="source-link" href="https://doi.org/10.1002/zamm.19270070107" target="_blank" rel="noopener">Pollaczek-Geiringer (1927), Über die Gliederung ebener Fachwerke</a><a class="source-link" href="https://doi.org/10.1007/BF01534980" target="_blank" rel="noopener">Laman (1970), On graphs and rigidity of plane skeletal structures</a></div>`,
+    title: 'למה משולשים מחזיקים?',
+    html: `<p>מוט שומר על האורך שלו, ומפרק מאפשר למוטות להסתובב. שלושה אורכים קובעים את הצורה של משולש לגמרי, ולכן משולש של מוטות לא יכול לשנות את הצורה שלו בכלל. ארבעה אורכים לא קובעים ריבוע: הוא נוטה והופך למעוין, בלי שאף מוט יתכופף או יימתח. זו הסיבה שהשלדים של גשרים, עגורנים וגגות בנויים ממשולשים.</p>
+<div class="insight-visual">צמתים × 2 − 3 = מוטות נחוצים</div>
+<h3>סופרים את הדרכים לזוז</h3>
+<p>על קיר שטוח, כל צומת יכול לזוז בשני כיוונים, ולכן ל־j צמתים יש \u20662j\u2069 דרכים לזוז. כל מוט מבטל לכל היותר אחת מהן. שלוש דרכים נשארות תמיד, לא משנה כמה מוטות יש: גם מסגרת קשיחה יכולה לזוז הצידה, לזוז למעלה ולמטה, ולהסתובב כולה. כאן המפרק והגלגלת שמתחת לגשר מבטלים את שלוש הדרכים האלה. לכן מסגרת צריכה לפחות \u20662j − 3\u2069 מוטות, ספירה שג׳יימס קלרק מקסוול נתן ב־1864. לגשר של ארבעה ריבועים יש 10 צמתים, ולכן הוא צריך 17 מוטות. עם הקורה העליונה, הקורה התחתונה והמוטות האנכיים בלבד יש לו 13, ולכן חסרים לו ארבעה: אלכסון אחד לכל ריבוע.</p>
+<h3>לספור זה לא מספיק</h3>
+<p>הכניסו 17 מוטות, עם שני אלכסונים בריבוע אחד ואף לא אחד בריבוע הבא, והגשר עדיין מתקפל. האלכסון השני מיותר: הוא לא מחזיק שום דבר שהראשון לא מחזיק כבר. הילדה פולאצ׳ק־גיירינגר מצאה את הכלל המדויק ב־1927, וג׳רארד לאמאן מצא אותו שוב ב־1970. מסגרת עם \u20662j − 3\u2069 מוטות היא קשיחה בדיוק כשאף חלק שלה לא צפוף: לכל קבוצה של k צמתים יש ביניהם לכל היותר \u20662k − 3\u2069 מוטות. הכלל מתייחס לצמתים במצב כללי. במצבים מיוחדים, כמו שלושה צמתים על קו ישר, מסגרת עם המוטות הנכונים עדיין יכולה לזוז קצת. על לוח היתדות של הגשר הזה, כל בחירה של מוטות מתנהגת בדיוק כמו שהייתה מתנהגת במצב כללי.</p>
+<h3>מה כל מוט נושא</h3>
+<p>ברגע שהגשר קשיח, כל צומת חייב להיות מאוזן: הדחיפות והמשיכות של המוטות שלו, ומשקל המשאית במקום שבו הכביש נשען עליו, מסתכמים באפס. פתרון כל משוואות האיזון האלה יחד (שיטת הצמתים) נותן את הכוח בכל מוט. מוטות כחולים נלחצים ומוטות אדומים נמתחים, ומוט עבה יותר נושא יותר. יש מוטות שלא נושאים כלום כל עוד המשאית נמצאת במקום אחד, ונושאים הרבה כשהיא זזה. ומוט יכול לשאת יותר ממשקל המשאית: במסבך פראט של שישה ריבועים, כשהמשאית באמצע, האמצע של הקורה העליונה נלחץ בכוח של פי אחד וחצי ממשקל המשאית.</p>
+<p>במסבך פראט האלכסונים נוטים פנימה, לכיוון האמצע, ונמתחים, והמוטות האנכיים נלחצים. הפכו כל אלכסון כמו במראה ותקבלו מסבך האו, שבו האלכסונים נלחצים והמוטות האנכיים נמתחים. ההבדל הזה היה חשוב לבונים: מוט ארוך שנלחץ יכול לקרוס, להתעקם הצידה הרבה לפני שהיה נמעך, ולכן מוטות שנלחצים צריכים להיות עבים יותר. בתכנון של ויליאם האו מ־1840 נלחצו אלכסונים מעץ ונמתחו מוטות מברזל. התכנון של תומאס וקיילב פראט מ־1844 הפך את זה, והתאים לגשרים כשהברזל והפלדה תפסו את מקומו של העץ. מסבך וורן מ־1848 משתמש בזיגזג של אלכסונים, שנלחצים ונמתחים לסירוגין.</p>
+<h3>מה המודל הזה משאיר בחוץ</h3>
+<p>המוטות כאן לא שוקלים כלום, הצמתים שלהם הם מפרקים מושלמים, המשקל של המשאית מגיע לגשר רק בצמתים, דרך הכביש, וכל המוטות עשויים מאותה פלדה. גשרים אמיתיים נושאים את המשקל של עצמם, שבדרך כלל גדול בהרבה מהמשקל של כל משאית. הצמתים שלהם מסומרים, מוברגים או מרותכים, וזה מקשיח אותם. המוטות שלהם שנלחצים קורסים לפני שהם נשברים. כשיש בגשר מוטות מיותרים, האופן שבו הם מתחלקים בעומס תלוי בכמה קל למתוח כל אחד מהם, וכאן כולם זהים. ההתקפלות היא רק סקיצה: מסגרת אמיתית הייתה נופלת מהר יותר, ונשברת. ומשולשים הם לא הדרך היחידה להיות קשיח: גם מסגרות עם חיבורים קשיחים, קליפות ומבני טנסגריטי הם קשיחים. משחקי בניית גשרים כמו Poly Bridge מדמים גשרים שלמים; החדר הזה מתמקד בספירה ובכוחות.</p>
+<details><summary>המתמטיקה, למי שרוצה</summary><p>הזזה של צומת a ב־\u2066u<sub>a</sub>\u2069 ושל צומת b ב־\u2066u<sub>b</sub>\u2069 שומרת על האורך של המוט ab, בקירוב ראשון, כאשר \u2066(p<sub>a</sub> − p<sub>b</sub>) · (u<sub>a</sub> − u<sub>b</sub>) = 0\u2069. משוואה כזאת לכל מוט יוצרת את מטריצת הקשיחות, עם שתי עמודות לכל צומת. עם עוד שלוש שורות בשביל המפרק והגלגלת, הגשר קשיח בדיוק כשלמטריצה יש דרגה מלאה, \u20662j\u2069. החדר גם מחשב את הדרגה כשהצמתים מוזזים מעט, באקראי, למצב כללי, כדי להבחין בין מסגרת שהמוטות שלה מפוזרים רע לבין מצב מיוחד. גשר רופף מתקפל לאורך תנועה שהמטריצה מאפשרת: החלק של הדחיפה של המשאית שאף מוט לא מתנגד לו. הכוחות מחושבים בשיטת הקשיחות, כשכל המוטות זהים. בגשר בלי מוטות מיותרים, זה נותן בדיוק את הכוחות של שיטת הצמתים, לא משנה ממה עשויים המוטות. הכוחות נבדקו מול תוכנה עצמאית במסבכי פראט והאו של שניים עד שישה ריבועים, והדרגה נבדקה מול התנאי של לאמאן ב־150 מסגרות קטנות אקראיות.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Truss" target="_blank" rel="noopener">מסבך (באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Laman_graph" target="_blank" rel="noopener">גרף לאמאן (באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Structural_rigidity" target="_blank" rel="noopener">קשיחות מבנית (באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Truss_bridge" target="_blank" rel="noopener">גשר מסבך (פראט, האו ו־וורן) (באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Squire_Whipple" target="_blank" rel="noopener">סקוויר ויפל (באנגלית)</a><a class="source-link" href="https://doi.org/10.1080/14786446408643668" target="_blank" rel="noopener">מקסוול (1864), \u2066On the calculation of the equilibrium and stiffness of frames\u2069 (באנגלית)</a><a class="source-link" href="https://doi.org/10.1002/zamm.19270070107" target="_blank" rel="noopener">פולאצ׳ק־גיירינגר (1927), \u2066Über die Gliederung ebener Fachwerke\u2069 (בגרמנית)</a><a class="source-link" href="https://doi.org/10.1007/BF01534980" target="_blank" rel="noopener">לאמאן (1970), \u2066On graphs and rigidity of plane skeletal structures\u2069 (באנגלית)</a></div>`,
   },
 });

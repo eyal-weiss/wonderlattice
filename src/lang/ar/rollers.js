@@ -1,158 +1,171 @@
 /* Rollers that aren't round · visitor-facing words (ar). */
+// «أسطوانة» (roller), «عجلة» (wheel) and «عربة» (cart) are feminine; «لوح» (plank), «شكل» (shape), «محيط» (rim),
+// «عرض» (width), «ثقب» (hole) and «ركن» (a corner of the square) masculine. A shape's corner is «رأس», as for a
+// triangle. The picture follows the page's right-to-left direction.
 Wonderlattice.defineText('rollers', 'ar', {
-  eyebrow: 'CONSTANT WIDTH',
-  name: 'Rollers that aren’t round',
-  tagline:
-    'A plank glides perfectly level on rollers shaped like rounded triangles, and one of them can drill an almost square hole.',
-  title: 'Rollers that aren’t round.',
+  eyebrow: 'عرض ثابت',
+  name: 'أسطوانات غير مستديرة',
+  tagline: 'لوح ينزلق مستويًا تمامًا فوق أسطوانات بشكل مثلثات مقوّسة، وإحداها تستطيع أن تحفر ثقبًا مربعًا تقريبًا.',
+  title: 'أسطوانات غير مستديرة.',
   subtitle:
-    'A plank on rollers shaped like rounded triangles glides perfectly level, as on round logs. Below, the same shapes as wheels on axles: the cart bobs.',
-  field: 'Geometry · Curves of constant width · The Reuleaux triangle',
-  sceneLabels: ['Rollers and wheels', 'A drill in a square', 'One turn each'],
-  tip: 'Drag sideways to roll · Keys: ← → roll, ↑ ↓ change the shape · Enter: a new lopsided shape',
-  actionLabel: 'New lopsided shape',
+    'لوح فوق أسطوانات بشكل مثلثات مقوّسة ينزلق مستويًا تمامًا، كما لو كان فوق جذوع مستديرة. وفي الأسفل، الأشكال نفسها عجلاتٍ على محاور: العربة تصعد وتهبط.',
+  field: 'الهندسة · المنحنيات ذات العرض الثابت · مثلث رولو',
+  sceneLabels: ['أسطوانات وعجلات', 'مثقاب في مربع', 'دورة لكل شكل'],
+  tip: 'اسحبوا جانبًا للدحرجة · المفاتيح: ← و→ للدحرجة، و↑ و↓ لتغيير الشكل · Enter لشكل غير منتظم جديد',
+  actionLabel: 'شكل غير منتظم جديد',
   canvasLabel:
-    'Above, a plank with a crate rides on three rollers that aren’t round, and a pen on the crate draws a perfectly straight line. Below, a cart on wheels of the same shape, fixed to axles, bobs up and down, and its pen draws a wave. In the drill view, a curved triangle turns inside a square, painting nearly all of it. In the race, four shapes of the same width each roll one turn and finish together.',
-  panelEyebrow: 'Pick a shape',
-  whyLabel: 'Why does the plank stay level?',
+    'في الأعلى، لوح عليه صندوق يسير فوق ثلاث أسطوانات غير مستديرة، وقلم على الصندوق يرسم خطًا مستقيمًا تمامًا. وفي الأسفل، عربة على عجلات بالشكل نفسه، مثبّتة على محاور، تصعد وتهبط، وقلمها يرسم موجة. وفي عرض المثقاب، يدور مثلث مقوّس داخل مربع، فيلوّنه كله تقريبًا. وفي السباق، تتدحرج أربعة أشكال لها العرض نفسه دورة واحدة لكلٍّ منها، فتصل كلها معًا.',
+  panelEyebrow: 'اختاروا شكلًا',
+  whyLabel: 'لماذا يبقى اللوح مستويًا؟',
   nudge:
-    'Press “New lopsided shape”: any shape that is equally wide every way carries the plank level. Then try “Drill a square hole”.',
+    'انقروا على «شكل غير منتظم جديد»: أي شكل عرضه واحد في كل الاتجاهات يحمل اللوح مستويًا. ثم جرّبوا «حفر ثقب مربع».',
   connection: {
-    html: '<strong>Smooth rides.</strong> Here, rollers that aren’t round carry a plank level. In “Square wheels, smooth ride”, square wheels ride level over a road of bumps.',
-    label: 'Square wheels, smooth ride',
+    html: '<strong>رحلات سلسة.</strong> هنا تحمل أسطوانات غير مستديرة لوحًا مستويًا. وفي «عجلات مربعة، ورحلة سلسة»، تسير عجلات مربعة مستويةً فوق طريق من الحدبات.',
+    label: 'عجلات مربعة، ورحلة سلسة',
   },
 
   presets: [
-    { name: 'Triangle rollers', note: 'Three under a plank, and the same shape as wheels.' },
-    { name: 'Drill a square hole', note: 'A turning triangle fills almost all of a square.' },
-    { name: 'One turn each', note: 'The same width, the same rim: they all roll as far.' },
+    { name: 'أسطوانات مثلثة', note: 'ثلاث تحت لوح، والشكل نفسه على هيئة عجلات.' },
+    { name: 'حفر ثقب مربع', note: 'مثلث يدور يملأ المربع كله تقريبًا.' },
+    { name: 'دورة لكل شكل', note: 'العرض نفسه، والمحيط نفسه: تقطع كلها المسافة نفسها.' },
   ],
 
-  view: 'What to try',
-  views: ['Rollers', 'Drill', 'One turn'],
-  shape: 'Shape',
-  shapes: ['Circle', 'Triangle', 'Pentagon', 'Lopsided'],
-  lines: 'Lines it’s drawn from',
-  linesHint: 'Each piece of its rim is an arc centred where two of the lines cross.',
-  corners: 'Rounded corners',
-  cornersHint: 'The tightest curve’s radius, as a share of the width. Rounding every corner keeps the width the same.',
+  view: 'ماذا تجرّبون',
+  views: ['أسطوانات', 'مثقاب', 'دورة واحدة'],
+  shape: 'الشكل',
+  shapes: ['دائرة', 'مثلث', 'مخمّس', 'غير منتظم'],
+  lines: 'الخطوط التي يُرسم منها',
+  linesHint: 'كل جزء من محيطه قوس مركزه نقطة تقاطع خطين منها.',
+  corners: 'تدوير الرؤوس',
+  cornersHint: 'نصف قطر أضيق انحناء فيه، كنسبة من العرض. تدوير كل الرؤوس يُبقي العرض كما هو.',
 
   // The scene's name, for each shape (sharp or rounded) and each view.
   names: {
     rollers: (kind, rounded) =>
       kind === 0
-        ? 'Round logs'
+        ? 'جذوع مستديرة'
         : kind === 1
           ? rounded
-            ? 'Rounded triangles'
-            : 'Reuleaux triangles'
+            ? 'مثلثات مدوّرة الرؤوس'
+            : 'مثلثات رولو'
           : kind === 2
             ? rounded
-              ? 'Rounded pentagons'
-              : 'Reuleaux pentagons'
-            : 'A lopsided shape',
+              ? 'مخمّسات مدوّرة الرؤوس'
+              : 'مخمّسات رولو'
+            : 'شكل غير منتظم',
     drill: (kind, rounded) =>
       kind === 0
-        ? 'Drilling with a circle'
+        ? 'الحفر بدائرة'
         : kind === 1
           ? rounded
-            ? 'Drilling with a rounded triangle'
-            : 'Drilling with a Reuleaux triangle'
+            ? 'الحفر بمثلث مدوّر الرؤوس'
+            : 'الحفر بمثلث رولو'
           : kind === 2
             ? rounded
-              ? 'Drilling with a rounded pentagon'
-              : 'Drilling with a Reuleaux pentagon'
-            : 'Drilling with a lopsided shape',
-    race: 'Four shapes, one width',
+              ? 'الحفر بمخمّس مدوّر الرؤوس'
+              : 'الحفر بمخمّس رولو'
+            : 'الحفر بشكل غير منتظم',
+    race: 'أربعة أشكال، وعرض واحد',
   },
 
   // Numbers arrive already written in the page's language.
   percent: (x) => `${x}%`,
   readout: {
-    level: 'The plank stays perfectly level.',
-    drill: 'Almost a square hole.',
-    drillRound: 'A round hole.',
-    drillOther: 'A hole with rounded corners.',
-    race: 'They all finish together.',
-    plank: 'The plank on rollers',
-    plankValue: 'never rises or falls',
-    cart: 'The cart on axles bobs by',
-    cartValue: (share) => `${share} of the width`,
-    rim: 'Its rim is',
-    rimValue: (times) => `${times} × its width`,
-    area: 'Its area is',
-    areaValue: (share) => `${share} of a circle’s`,
-    drilled: 'Drilled so far',
-    drilledValue: (share) => `${share} of the square`,
-    full: 'After a whole turn',
-    fullValue: (share) => `${share} of the square`,
-    rims: 'Every rim is',
-    rimsValue: 'π × the width',
-    least: 'The least area',
-    leastValue: (share) => `the triangle: ${share} of a circle’s`,
-    widthRule: 'However you turn it, it is exactly as wide.',
-    drillRule: 'It touches all four sides as it turns, because it is as wide as the square every way.',
-    raceRule: 'Rolled once round, a shape travels the length of its rim: π times its width, whatever its shape.',
+    level: 'يبقى اللوح مستويًا تمامًا.',
+    drill: 'ثقب مربع تقريبًا.',
+    drillRound: 'ثقب مستدير.',
+    drillOther: 'ثقب بأركان مستديرة.',
+    race: 'تصل كلها معًا.',
+    plank: 'اللوح على الأسطوانات',
+    plankValue: 'لا يرتفع ولا ينخفض أبدًا',
+    cart: 'العربة على المحاور تصعد وتهبط بمقدار',
+    cartValue: (share) => `${share} من العرض`,
+    rim: 'محيط الشكل',
+    rimValue: (times) => `${times} × عرضه`,
+    area: 'مساحة الشكل',
+    areaValue: (share) => `${share} من مساحة الدائرة`,
+    drilled: 'حُفر حتى الآن',
+    drilledValue: (share) => `${share} من المربع`,
+    full: 'بعد دورة كاملة',
+    fullValue: (share) => `${share} من المربع`,
+    rims: 'محيط كل شكل',
+    rimsValue: 'π × العرض',
+    least: 'أصغر مساحة',
+    leastValue: (share) => `المثلث: ${share} من مساحة الدائرة`,
+    widthRule: 'كيفما أدرتموه، يبقى عرضه هو نفسه تمامًا.',
+    drillRule: 'يلمس الأضلاع الأربعة وهو يدور، لأن عرضه في كل اتجاه يساوي عرض المربع.',
+    raceRule: 'حين يتدحرج الشكل دورة واحدة، يقطع مسافة تساوي طول محيطه: π × عرضه، أيًّا كان شكله.',
   },
   status: {
-    rollers: 'Level on rollers',
-    drill: (share) => `${share} drilled`,
-    race: 'Same width, same rim',
+    rollers: 'مستوٍ على الأسطوانات',
+    drill: (share) => `حُفر ${share} من المربع`,
+    race: 'العرض نفسه، والمحيط نفسه',
   },
 
   // Words drawn on the canvas.
   labels: {
-    rollers: 'As rollers: the plank stays perfectly level',
-    axles: (share) => `As wheels on axles: the cart bobs by ${share} of the width`,
-    axlesRound: 'As wheels on axles: a circle rolls level too',
-    close: 'Up close: as wide every way',
-    width: 'width',
-    lines: 'The lines it’s drawn from',
-    corner: (n) => `A corner, ${n}× closer`,
-    path: 'Path of its middle',
-    finish: 'One turn: π × the width',
-    rim: 'Rim rolled out',
+    rollers: 'كأسطوانات: يبقى اللوح مستويًا تمامًا',
+    axles: (share) => `كعجلات على محاور: تصعد العربة وتهبط بمقدار ${share} من العرض`,
+    axlesRound: 'كعجلات على محاور: الدائرة تسير مستويةً أيضًا',
+    close: 'عن قرب: العرض نفسه في كل اتجاه',
+    width: 'العرض',
+    lines: 'الخطوط التي رُسم منها',
+    // n is a whole number, the zoom.
+    corner: (n) => {
+      const k = n % 100;
+      const shown = n.toLocaleString('en');
+      return n === 1
+        ? 'ركن مكبَّر مرة واحدة'
+        : n === 2
+          ? 'ركن مكبَّر مرتين'
+          : k >= 3 && k <= 10
+            ? `ركن مكبَّر ${shown} مرات`
+            : `ركن مكبَّر ${shown} مرة`;
+    },
+    path: 'مسار مركزه',
+    finish: 'دورة واحدة: π × العرض',
+    rim: 'المحيط مفرودًا',
   },
 
   announce: {
     rollers: (name, share) =>
-      `${name}: the plank stays level on rollers; on axles the cart bobs by ${share} of the width.`,
-    round: (name) => `${name}: level as rollers, and level on axles too.`,
-    drill: (name, share) => `${name}: after a whole turn it has drilled ${share} of the square.`,
-    race: 'Four shapes of the same width each roll one turn, and they all finish together.',
+      `${name}: يبقى اللوح مستويًا على الأسطوانات؛ أما على المحاور فتصعد العربة وتهبط بمقدار ${share} من العرض.`,
+    round: (name) => `${name}: سير مستوٍ كأسطوانات، وسير مستوٍ على المحاور أيضًا.`,
+    drill: (name, share) => `${name}: بعد دورة كاملة، حُفر ${share} من المربع.`,
+    race: 'أربعة أشكال لها العرض نفسه، يتدحرج كلٌّ منها دورة واحدة، فتصل كلها معًا.',
   },
 
   guests: [
     {
-      name: 'Franz Reuleaux',
-      note: 'I described machines as chains of simple moving parts, and had hundreds of models of mechanisms built for teaching. The curved triangle here carries my name, though others drew it long before me.',
+      name: 'فرانتس رولو',
+      note: 'وصفتُ الآلات بأنها سلاسل من أجزاء متحركة بسيطة، وأمرت ببناء مئات النماذج من الآليات للتعليم. المثلث المقوّس هنا يحمل اسمي، مع أن آخرين رسموه قبلي بزمن طويل.',
     },
     {
-      name: 'Leonhard Euler',
-      note: 'In a paper I presented in 1771, I studied curved triangles and the shapes that are equally wide in every direction. I called them orbiforms.',
+      name: 'ليونهارد أويلر',
+      note: 'في بحث قدّمته عام 1771، درست المثلثات المقوّسة والأشكال التي عرضها واحد في كل الاتجاهات. وسمّيتها orbiforms.',
     },
     {
-      name: 'Joseph-Émile Barbier',
-      note: 'In 1860 I showed that every shape of constant width has a rim exactly π times its width, whatever its shape.',
+      name: 'جوزيف إميل باربييه',
+      note: 'عام 1860 بيّنت أن محيط كل شكل ذي عرض ثابت يساوي عرضه مضروبًا في π تمامًا، أيًّا كان شكله.',
     },
   ],
 
   insight: {
-    title: 'Why does the plank stay level?',
-    html: `<p>The ground is under each roller and the plank rests on top, so the plank’s height is the distance between two parallel lines that both touch the roller: its width, measured straight up. A circle is equally wide every way. So is every shape in this room: measure it across in any direction, and you get the same. As it turns, its width straight up never changes, so neither does the plank.</p>
-<div class="insight-visual">height of the plank = the roller’s width straight up = the same in every direction</div>
-<h3>Rollers, not wheels</h3>
-<p>The middle of a Reuleaux triangle is closer to its sides than to its corners, so as it rolls, its middle rises and falls. A roller doesn’t mind, since nothing is fixed to its middle. A wheel turns on an axle through its middle, so a cart on Reuleaux triangles bobs, three times a turn, by 15% of the width. Under the plank, the rollers don’t keep exactly in step either: each moves ahead a little faster or slower as it turns, though on average, like round logs, at half the plank’s speed.</p>
-<h3>How to draw one</h3>
-<p>Draw an equilateral triangle, put the point of a compass on each corner in turn, and draw the arc between the other two: that is a Reuleaux triangle. Any regular polygon with an odd number of sides works the same way. The lopsided shapes use the crossed-lines method: draw a few lines, all crossing one another, and join each line to the next one round by an arc centred where they cross. Going round twice, the curve closes up, as wide in every direction. Rounding off the corners, by the same amount all the way round, keeps the width the same.</p>
-<h3>One turn, the same distance</h3>
-<p>Every shape here has a rim exactly π times its width, as long as a circle’s of the same width. This is Barbier’s theorem, from 1860. So rolled once round, each one travels the same distance. Their areas differ: the circle holds the most, and the Reuleaux triangle the least of all shapes of the same width, the Blaschke–Lebesgue theorem (Henri Lebesgue in 1914, Wilhelm Blaschke in 1915).</p>
-<h3>A square hole</h3>
-<p>Any shape of constant width can turn inside a square as wide as itself, touching all four sides all the time. The Reuleaux triangle, with the sharpest corners such a shape can have (120°), sweeps all but the very corners: 2√3 + π/6 − 3 of the square, about 98.8%. Square drill bits built on this idea were patented in 1914 and are still made, though similar drills were used earlier. The bit’s middle wanders as it turns, so it needs a special chuck that lets it, and a guide with a square hole. The pentagon’s blunter corners leave more behind, and a circle drills a round hole, π/4 of the square.</p>
-<h3>What the room leaves out</h3>
-<p>Here the rollers are perfect, the ground and the plank perfectly flat, and nothing slips. Real rollers must all be exactly the same width, and someone has to carry each one from the back to the front, as happens here when a roller fades away and comes back. A real drill bit also needs cutting edges, so it is a Reuleaux triangle with grooves cut into it. There are solids of constant width too, such as the Meissner bodies, but the room stays flat; the solid made like a Reuleaux triangle from four balls, the Reuleaux tetrahedron, is not quite as wide every way.</p>
-<p>Manhole covers are often said to be round so that they can’t fall into their holes. A cover shaped like any shape here couldn’t either; round covers are also much easier to make, and needn’t be turned to fit. Some coins are shapes of constant width, such as the British 20p and 50p, which are Reuleaux heptagons, so that machines can measure them across whichever way they lie.</p>
-<details><summary>The mathematics, if you want it</summary><p>Describe a shape by its support function h(θ): how far from a centre its tangent line facing direction θ lies. Its width facing θ is h(θ) + h(θ + π), so constant width w means h(θ) + h(θ + π) = w for every θ. Rolling on the ground without slipping, the shape turns about the point where it touches. As it turns by dψ, the plank, w above that point, moves w dψ, and the centre, h above it, moves h dψ. Over a whole turn the centre moves ∫h dθ = πw, half as far as the plank, because opposite values of h add up to w. The rim’s length is ∫(h + h″) dθ = ∫h dθ, the same πw: Barbier’s theorem.</p><p>The room’s shapes are built from arcs by the crossed-lines method, and each turns about the centre of its smallest enclosing circle, which for a shape of constant width is also the centre of the largest circle inside it; those two radii add up to the width. In the square from −½ to ½, the shape turned by φ has its centre at (½ − h(−φ), ½ − h(π/2 − φ)), so its tangent lines facing right and up lie on those sides, and by constant width the left and bottom ones do too. For the Reuleaux triangle that centre runs round four arcs of ellipses.</p><p>The room’s tests check, against a separate program that builds each Reuleaux polygon from overlapping discs: the width in every direction, the rim’s length π, the triangle’s area (π − √3)/2 ≈ 0.7048 and the pentagon’s, the bob on an axle of 2/√3 − 1 ≈ 15.5% for the triangle and 5.1% for the pentagon, and the share of the square drilled: 98.8% by the triangle, 87.9% by the pentagon, and π/4 by the circle.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Reuleaux_triangle" target="_blank" rel="noopener">Reuleaux triangle (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Curve_of_constant_width" target="_blank" rel="noopener">Curve of constant width (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Reuleaux_polygon" target="_blank" rel="noopener">Reuleaux polygon (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Barbier%27s_theorem" target="_blank" rel="noopener">Barbier’s theorem (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Blaschke%E2%80%93Lebesgue_theorem" target="_blank" rel="noopener">Blaschke–Lebesgue theorem (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Watts_Brothers_Tool_Works" target="_blank" rel="noopener">Watts Brothers Tool Works (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Manhole_cover" target="_blank" rel="noopener">Manhole cover (Wikipedia)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Barbier/" target="_blank" rel="noopener">Joseph-Émile Barbier (MacTutor)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Franz_Reuleaux" target="_blank" rel="noopener">Franz Reuleaux (Wikipedia)</a></div>`,
+    title: 'لماذا يبقى اللوح مستويًا؟',
+    html: `<p>الأرض تحت كل أسطوانة، واللوح يرتكز فوقها، لذا فارتفاع اللوح هو المسافة بين خطين متوازيين يلمسان الأسطوانة كلاهما: أي عرضها، مقيسًا في الاتجاه العمودي. الدائرة عرضها واحد في كل الاتجاهات. وكذلك كل شكل في هذه الغرفة: قيسوا عرضه في أي اتجاه، تحصلوا على القيمة نفسها. وبينما يدور، لا يتغيّر عرضه العمودي أبدًا، فلا يتغيّر ارتفاع اللوح أيضًا.</p>
+<div class="insight-visual">ارتفاع اللوح = عرض الأسطوانة في الاتجاه العمودي = العرض نفسه في كل اتجاه</div>
+<h3>أسطوانات، لا عجلات</h3>
+<p>مركز مثلث رولو أقرب إلى أضلاعه منه إلى رؤوسه، لذا يصعد مركزه ويهبط وهو يتدحرج. ولا يضير ذلك الأسطوانة، إذ لا شيء مثبَّت في مركزها. أما العجلة فتدور على محور يمرّ بمركزها، لذا تصعد العربة ذات العجلات من مثلثات رولو وتهبط، ثلاث مرات في كل دورة، بمقدار 15% من العرض. وتحت اللوح، لا تسير الأسطوانات بخطى متطابقة تمامًا أيضًا: كلٌّ منها تتقدّم أسرع قليلًا أو أبطأ قليلًا وهي تدور، لكنها في المتوسط، مثل الجذوع المستديرة، تسير بنصف سرعة اللوح.</p>
+<h3>كيف ترسمونه</h3>
+<p>ارسموا مثلثًا متساوي الأضلاع، وضعوا سنّ الفرجار على كل رأس بدوره، وارسموا القوس بين الرأسين الآخرين: هذا هو مثلث رولو. وتنجح الطريقة نفسها مع أي مضلع منتظم عدد أضلاعه فردي. أما الأشكال غير المنتظمة فتستخدم طريقة الخطوط المتقاطعة: ارسموا بضعة خطوط، يتقاطع كلٌّ منها مع الخطوط الأخرى جميعًا، وصِلوا كل خط بالخط الذي يليه في الدوران بقوس مركزه نقطة تقاطعهما. وبعد دورتين، ينغلق المنحنى، وعرضه واحد في كل اتجاه. وتدوير الرؤوس، بالمقدار نفسه على طول المحيط كله، يُبقي العرض كما هو.</p>
+<h3>دورة واحدة، والمسافة نفسها</h3>
+<p>محيط كل شكل هنا يساوي عرضه مضروبًا في π تمامًا، أي طول محيط دائرة لها العرض نفسه. هذه مبرهنة باربييه، من عام 1860. لذا حين يتدحرج كلٌّ منها دورة واحدة، يقطع المسافة نفسها. أما مساحاتها فتختلف: الدائرة أكبرها مساحة، ومثلث رولو أصغر الأشكال ذات العرض نفسه كلها مساحةً، وهذه مبرهنة بلاشكه–لوبيغ (هنري لوبيغ عام 1914، وفيلهلم بلاشكه عام 1915).</p>
+<h3>ثقب مربع</h3>
+<p>أي شكل ذي عرض ثابت يستطيع أن يدور داخل مربع عرضه مثل عرضه، لامسًا الأضلاع الأربعة طوال الوقت. ومثلث رولو، وله أحدّ رؤوس يمكن أن تكون لشكل كهذا (120°)، يمسح المربع كله ما عدا أطراف أركانه: \u20662√3\u00a0+\u00a0π/\u20606\u00a0−\u00a03\u2069 من المربع، أي نحو 98.8%. وقد سُجّلت براءة اختراع للقم مثاقب مربعة مبنية على هذه الفكرة عام 1914، وما زالت تُصنع، مع أن مثاقب مشابهة استُخدمت قبل ذلك. ومركز اللقمة يتجوّل وهي تدور، لذا تحتاج إلى ظرف خاص يسمح لها بذلك، وإلى دليل فيه ثقب مربع. ورؤوس المخمّس الأقل حدّة تترك أكثر، والدائرة تحفر ثقبًا مستديرًا، \u2066π/\u20604\u2069 من المربع.</p>
+<h3>ما تُغفله هذه الغرفة</h3>
+<p>الأسطوانات هنا مثالية، والأرض واللوح مستويان تمامًا، ولا شيء ينزلق. أما الأسطوانات الحقيقية فيجب أن يكون عرضها كلها واحدًا تمامًا، ويجب أن يحمل أحدٌ كل واحدة منها من الخلف إلى الأمام، كما يحدث هنا حين تتلاشى أسطوانة ثم تعود. واللقمة الحقيقية تحتاج أيضًا إلى حواف قاطعة، لذا فهي مثلث رولو حُفرت فيه أخاديد. وهناك مجسّمات ذات عرض ثابت أيضًا، مثل أجسام مايسنر، لكن الغرفة تبقى مسطّحة؛ والمجسّم المصنوع من أربع كرات على طريقة مثلث رولو، وهو رباعي أوجه رولو، ليس عرضه واحدًا تمامًا في كل الاتجاهات.</p>
+<p>كثيرًا ما يقال إن أغطية فتحات الصرف مستديرة كي لا تسقط في فتحاتها. لكن غطاءً بأي شكل من أشكال هذه الغرفة لن يسقط هو أيضًا؛ والأغطية المستديرة أسهل صنعًا بكثير، ولا تحتاج إلى تدوير كي تستقر في مكانها. وبعض القطع النقدية أشكال ذات عرض ثابت، مثل القطعتين البريطانيتين من فئة 20 بنسًا و50 بنسًا، وهما مسبّعا رولو، كي تستطيع الآلات قياس عرضهما كيفما استقرّتا.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>لنصف الشكل بدالّة الإسناد \u2066h(θ)\u2069: بُعد خطه المماس المتجه نحو الاتجاه θ عن مركزٍ ما. عرضه في الاتجاه θ هو \u2066h(θ)\u00a0+\u00a0h(θ\u00a0+\u00a0π)\u2069، لذا فالعرض الثابت w يعني أن \u2066h(θ)\u00a0+\u00a0h(θ\u00a0+\u00a0π)\u00a0=\u00a0w\u2069 لكل θ. وحين يتدحرج الشكل على الأرض بلا انزلاق، يدور حول نقطة التلامس. وحين يدور بزاوية dψ، يتحرك اللوح، الذي يعلو تلك النقطة بمقدار w، مسافة \u2066w\u00a0dψ\u2069، ويتحرك المركز، الذي يعلوها بمقدار h، مسافة \u2066h\u00a0dψ\u2069. وفي دورة كاملة يتحرك المركز \u2066∫h\u00a0dθ\u00a0=\u00a0πw\u2069، أي نصف مسافة اللوح، لأن كل قيمتين متقابلتين من قيم h مجموعهما w. وطول المحيط هو \u2066∫(h\u00a0+\u00a0h″)\u00a0dθ\u00a0=\u00a0∫h\u00a0dθ\u2069، أي πw نفسها: مبرهنة باربييه.</p><p>أشكال الغرفة مبنية من أقواس بطريقة الخطوط المتقاطعة، وكلٌّ منها يدور حول مركز أصغر دائرة تحيط به، وهو في الشكل ذي العرض الثابت مركز أكبر دائرة داخله أيضًا؛ ومجموع نصفي القطرين هذين يساوي العرض. وفي المربع الممتد من \u2066−½\u2069 إلى ½، يكون مركز الشكل المُدار بزاوية φ عند \u2066(½\u00a0−\u00a0h(−φ),\u00a0½\u00a0−\u00a0h(π/\u20602\u00a0−\u00a0φ))\u2069، لذا يقع خطّاه المماسان المتجهان يمينًا وإلى الأعلى على هذين الضلعين من المربع، وبفضل ثبات العرض يقع عليهما أيضًا الخطّان المتجهان يسارًا وإلى الأسفل. وفي مثلث رولو، يسير ذلك المركز على أربعة أقواس من قطوع ناقصة.</p><p>تتحقّق اختبارات الغرفة، بمقارنتها ببرنامج منفصل يبني كل مضلع رولو من أقراص متداخلة، من: العرض في كل اتجاه، وطول المحيط π، ومساحة المثلث \u2066(π\u00a0−\u00a0√3)/\u20602\u00a0≈\u00a00.7048\u2069 ومساحة المخمّس، ومقدار الصعود والهبوط على محور، \u20662/\u2060√3\u00a0−\u00a01\u00a0≈\u00a015.5%\u2069 للمثلث و5.1% للمخمّس، ونسبة ما يُحفر من المربع: 98.8% بالمثلث، و87.9% بالمخمّس، و\u2066π/\u20604\u2069 بالدائرة.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Reuleaux_triangle" target="_blank" rel="noopener">مثلث رولو (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Curve_of_constant_width" target="_blank" rel="noopener">منحنى ذو عرض ثابت (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Reuleaux_polygon" target="_blank" rel="noopener">مضلع رولو (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Barbier%27s_theorem" target="_blank" rel="noopener">مبرهنة باربييه (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Blaschke%E2%80%93Lebesgue_theorem" target="_blank" rel="noopener">مبرهنة بلاشكه–لوبيغ (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Watts_Brothers_Tool_Works" target="_blank" rel="noopener">شركة واتس براذرز للأدوات (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Manhole_cover" target="_blank" rel="noopener">غطاء فتحة الصرف (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Barbier/" target="_blank" rel="noopener">جوزيف إميل باربييه (MacTutor، بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Franz_Reuleaux" target="_blank" rel="noopener">فرانتس رولو (ويكيبيديا، بالإنجليزية)</a></div>`,
   },
 });

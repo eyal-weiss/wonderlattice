@@ -1,158 +1,157 @@
 /* Rollers that aren't round · visitor-facing words (he). */
 Wonderlattice.defineText('rollers', 'he', {
-  eyebrow: 'CONSTANT WIDTH',
-  name: 'Rollers that aren’t round',
-  tagline:
-    'A plank glides perfectly level on rollers shaped like rounded triangles, and one of them can drill an almost square hole.',
-  title: 'Rollers that aren’t round.',
+  eyebrow: 'רוחב קבוע',
+  name: 'גלילים לא עגולים',
+  tagline: 'קרש גולש מאוזן לגמרי על גלילים בצורת משולשים מעוגלים, ואחד מהם יכול לקדוח חור כמעט מרובע.',
+  title: 'גלילים לא עגולים.',
   subtitle:
-    'A plank on rollers shaped like rounded triangles glides perfectly level, as on round logs. Below, the same shapes as wheels on axles: the cart bobs.',
-  field: 'Geometry · Curves of constant width · The Reuleaux triangle',
-  sceneLabels: ['Rollers and wheels', 'A drill in a square', 'One turn each'],
-  tip: 'Drag sideways to roll · Keys: ← → roll, ↑ ↓ change the shape · Enter: a new lopsided shape',
-  actionLabel: 'New lopsided shape',
+    'קרש על גלילים בצורת משולשים מעוגלים גולש מאוזן לגמרי, כמו על בולי עץ עגולים. למטה, אותן צורות כגלגלים על צירים: העגלה עולה ויורדת.',
+  field: 'גאומטריה · עקומות בעלות רוחב קבוע · משולש רולו',
+  sceneLabels: ['גלילים וגלגלים', 'מקדח בתוך ריבוע', 'סיבוב לכל צורה'],
+  tip: 'גררו הצידה כדי לגלגל · מקשים: ← → מגלגלים, ↑ ↓ משנים את הצורה · Enter: צורה לא סדירה חדשה',
+  actionLabel: 'צורה לא סדירה חדשה',
   canvasLabel:
-    'Above, a plank with a crate rides on three rollers that aren’t round, and a pen on the crate draws a perfectly straight line. Below, a cart on wheels of the same shape, fixed to axles, bobs up and down, and its pen draws a wave. In the drill view, a curved triangle turns inside a square, painting nearly all of it. In the race, four shapes of the same width each roll one turn and finish together.',
-  panelEyebrow: 'Pick a shape',
-  whyLabel: 'Why does the plank stay level?',
+    'למעלה, קרש ועליו ארגז נוסע על שלושה גלילים לא עגולים, ועט על הארגז מצייר קו ישר לגמרי. למטה, עגלה על גלגלים באותה צורה, מחוברים לצירים, עולה ויורדת, והעט שלה מצייר גל. במצב הקדיחה, משולש מעוקל מסתובב בתוך ריבוע וצובע כמעט את כולו. במרוץ, ארבע צורות באותו רוחב מתגלגלות כל אחת סיבוב אחד, ומסיימות יחד.',
+  panelEyebrow: 'לבחור צורה',
+  whyLabel: 'למה הקרש נשאר מאוזן?',
   nudge:
-    'Press “New lopsided shape”: any shape that is equally wide every way carries the plank level. Then try “Drill a square hole”.',
+    'לחצו על ”צורה לא סדירה חדשה”: כל צורה שרוחבה זהה בכל כיוון נושאת את הקרש מאוזן. אחר כך נסו את ”לקדוח חור מרובע”.',
   connection: {
-    html: '<strong>Smooth rides.</strong> Here, rollers that aren’t round carry a plank level. In “Square wheels, smooth ride”, square wheels ride level over a road of bumps.',
-    label: 'Square wheels, smooth ride',
+    html: '<strong>נסיעות חלקות.</strong> כאן, גלילים לא עגולים נושאים קרש מאוזן. ב”גלגלים מרובעים, נסיעה חלקה”, גלגלים מרובעים נוסעים מאוזנים על כביש של גבשושיות.',
+    label: 'גלגלים מרובעים, נסיעה חלקה',
   },
 
   presets: [
-    { name: 'Triangle rollers', note: 'Three under a plank, and the same shape as wheels.' },
-    { name: 'Drill a square hole', note: 'A turning triangle fills almost all of a square.' },
-    { name: 'One turn each', note: 'The same width, the same rim: they all roll as far.' },
+    { name: 'גלילים משולשים', note: 'שלושה מתחת לקרש, ואותה צורה כגלגלים.' },
+    { name: 'לקדוח חור מרובע', note: 'משולש מסתובב ממלא כמעט את כל הריבוע.' },
+    { name: 'סיבוב לכל צורה', note: 'אותו רוחב, אותו היקף: כולן מתגלגלות לאותו מרחק.' },
   ],
 
-  view: 'What to try',
-  views: ['Rollers', 'Drill', 'One turn'],
-  shape: 'Shape',
-  shapes: ['Circle', 'Triangle', 'Pentagon', 'Lopsided'],
-  lines: 'Lines it’s drawn from',
-  linesHint: 'Each piece of its rim is an arc centred where two of the lines cross.',
-  corners: 'Rounded corners',
-  cornersHint: 'The tightest curve’s radius, as a share of the width. Rounding every corner keeps the width the same.',
+  view: 'מה לנסות',
+  views: ['גלילים', 'מקדח', 'סיבוב אחד'],
+  shape: 'צורה',
+  shapes: ['עיגול', 'משולש', 'מחומש', 'לא סדירה'],
+  lines: 'הקווים שמהם היא בנויה',
+  linesHint: 'כל קטע בהיקף שלה הוא קשת שמרכזה בנקודה שבה שניים מהקווים נחתכים.',
+  corners: 'פינות מעוגלות',
+  cornersHint: 'הרדיוס של העיקול החד ביותר, כחלק מהרוחב. כשמעגלים את כל הפינות, הרוחב לא משתנה.',
 
   // The scene's name, for each shape (sharp or rounded) and each view.
   names: {
     rollers: (kind, rounded) =>
       kind === 0
-        ? 'Round logs'
+        ? 'בולי עץ עגולים'
         : kind === 1
           ? rounded
-            ? 'Rounded triangles'
-            : 'Reuleaux triangles'
+            ? 'משולשים מעוגלים'
+            : 'משולשי רולו'
           : kind === 2
             ? rounded
-              ? 'Rounded pentagons'
-              : 'Reuleaux pentagons'
-            : 'A lopsided shape',
+              ? 'מחומשים מעוגלים'
+              : 'מחומשי רולו'
+            : 'צורה לא סדירה',
     drill: (kind, rounded) =>
       kind === 0
-        ? 'Drilling with a circle'
+        ? 'קדיחה בעיגול'
         : kind === 1
           ? rounded
-            ? 'Drilling with a rounded triangle'
-            : 'Drilling with a Reuleaux triangle'
+            ? 'קדיחה במשולש מעוגל'
+            : 'קדיחה במשולש רולו'
           : kind === 2
             ? rounded
-              ? 'Drilling with a rounded pentagon'
-              : 'Drilling with a Reuleaux pentagon'
-            : 'Drilling with a lopsided shape',
-    race: 'Four shapes, one width',
+              ? 'קדיחה במחומש מעוגל'
+              : 'קדיחה במחומש רולו'
+            : 'קדיחה בצורה לא סדירה',
+    race: 'ארבע צורות, רוחב אחד',
   },
 
   // Numbers arrive already written in the page's language.
   percent: (x) => `${x}%`,
+  // Each label is shown beside its value, as one sentence in two parts.
   readout: {
-    level: 'The plank stays perfectly level.',
-    drill: 'Almost a square hole.',
-    drillRound: 'A round hole.',
-    drillOther: 'A hole with rounded corners.',
-    race: 'They all finish together.',
-    plank: 'The plank on rollers',
-    plankValue: 'never rises or falls',
-    cart: 'The cart on axles bobs by',
-    cartValue: (share) => `${share} of the width`,
-    rim: 'Its rim is',
-    rimValue: (times) => `${times} × its width`,
-    area: 'Its area is',
-    areaValue: (share) => `${share} of a circle’s`,
-    drilled: 'Drilled so far',
-    drilledValue: (share) => `${share} of the square`,
-    full: 'After a whole turn',
-    fullValue: (share) => `${share} of the square`,
-    rims: 'Every rim is',
-    rimsValue: 'π × the width',
-    least: 'The least area',
-    leastValue: (share) => `the triangle: ${share} of a circle’s`,
-    widthRule: 'However you turn it, it is exactly as wide.',
-    drillRule: 'It touches all four sides as it turns, because it is as wide as the square every way.',
-    raceRule: 'Rolled once round, a shape travels the length of its rim: π times its width, whatever its shape.',
+    level: 'הקרש נשאר מאוזן לגמרי.',
+    drill: 'חור כמעט מרובע.',
+    drillRound: 'חור עגול.',
+    drillOther: 'חור עם פינות מעוגלות.',
+    race: 'כולן מסיימות יחד.',
+    plank: 'הקרש על הגלילים',
+    plankValue: 'לא עולה ולא יורד',
+    cart: 'העגלה על הצירים עולה ויורדת בשיעור של',
+    cartValue: (share) => `${share} מהרוחב`,
+    rim: 'ההיקף שלה',
+    rimValue: (times) => `פי ${times} מהרוחב שלה`,
+    area: 'השטח שלה',
+    areaValue: (share) => `${share} מהשטח של עיגול`,
+    drilled: 'נקדח עד עכשיו',
+    drilledValue: (share) => `${share} מהריבוע`,
+    full: 'אחרי סיבוב שלם',
+    fullValue: (share) => `${share} מהריבוע`,
+    rims: 'ההיקף של כל אחת',
+    rimsValue: 'פי π מהרוחב',
+    least: 'השטח הקטן ביותר',
+    leastValue: (share) => `למשולש: ${share} מהשטח של עיגול`,
+    widthRule: 'איך שלא מסובבים אותה, הרוחב שלה זהה בדיוק.',
+    drillRule: 'היא נוגעת בכל ארבע הצלעות כשהיא מסתובבת, כי בכל כיוון היא רחבה בדיוק כמו הריבוע.',
+    raceRule: 'בסיבוב אחד, צורה מתקדמת לאורך ההיקף שלה: פי π מהרוחב שלה, לא משנה מה הצורה.',
   },
   status: {
-    rollers: 'Level on rollers',
-    drill: (share) => `${share} drilled`,
-    race: 'Same width, same rim',
+    rollers: 'מאוזן על גלילים',
+    drill: (share) => `${share} מהריבוע נקדחו`,
+    race: 'אותו רוחב, אותו היקף',
   },
 
-  // Words drawn on the canvas.
+  // Words drawn on the canvas, which is laid out right to left like the page.
   labels: {
-    rollers: 'As rollers: the plank stays perfectly level',
-    axles: (share) => `As wheels on axles: the cart bobs by ${share} of the width`,
-    axlesRound: 'As wheels on axles: a circle rolls level too',
-    close: 'Up close: as wide every way',
-    width: 'width',
-    lines: 'The lines it’s drawn from',
-    corner: (n) => `A corner, ${n}× closer`,
-    path: 'Path of its middle',
-    finish: 'One turn: π × the width',
-    rim: 'Rim rolled out',
+    rollers: 'כגלילים: הקרש נשאר מאוזן לגמרי',
+    axles: (share) => `כגלגלים על צירים: העגלה עולה ויורדת ב־${share} מהרוחב`,
+    axlesRound: 'כגלגלים על צירים: גם עיגול נוסע מאוזן',
+    close: 'מקרוב: אותו רוחב בכל כיוון',
+    width: 'רוחב',
+    lines: 'הקווים שמהם היא בנויה',
+    corner: (n) => `פינה, מוגדלת פי ${n}`,
+    path: 'מסלול האמצע',
+    finish: 'סיבוב אחד: פי π מהרוחב',
+    rim: 'ההיקף, פרוש',
   },
 
   announce: {
-    rollers: (name, share) =>
-      `${name}: the plank stays level on rollers; on axles the cart bobs by ${share} of the width.`,
-    round: (name) => `${name}: level as rollers, and level on axles too.`,
-    drill: (name, share) => `${name}: after a whole turn it has drilled ${share} of the square.`,
-    race: 'Four shapes of the same width each roll one turn, and they all finish together.',
+    rollers: (name, share) => `${name}: על גלילים הקרש נשאר מאוזן; על צירים העגלה עולה ויורדת ב־${share} מהרוחב.`,
+    round: (name) => `${name}: נסיעה מאוזנת כגלילים, וגם על צירים.`,
+    drill: (name, share) => `${name}: אחרי סיבוב שלם נקדחו ${share} מהריבוע.`,
+    race: 'ארבע צורות באותו רוחב מתגלגלות כל אחת סיבוב אחד, וכולן מסיימות יחד.',
   },
 
   guests: [
     {
-      name: 'Franz Reuleaux',
-      note: 'I described machines as chains of simple moving parts, and had hundreds of models of mechanisms built for teaching. The curved triangle here carries my name, though others drew it long before me.',
+      name: 'פרנץ רולו',
+      note: 'תיארתי מכונות כשרשראות של חלקים נעים פשוטים, ודאגתי שייבנו מאות דגמים של מנגנונים לצורכי הוראה. המשולש המעוקל כאן נושא את שמי, אף שאחרים שרטטו אותו הרבה לפניי.',
     },
     {
-      name: 'Leonhard Euler',
-      note: 'In a paper I presented in 1771, I studied curved triangles and the shapes that are equally wide in every direction. I called them orbiforms.',
+      name: 'לאונרד אוילר',
+      note: 'במאמר שהצגתי ב־1771 חקרתי משולשים מעוקלים ואת הצורות שרוחבן זהה בכל כיוון. קראתי להן ”אורביפורמות”.',
     },
     {
-      name: 'Joseph-Émile Barbier',
-      note: 'In 1860 I showed that every shape of constant width has a rim exactly π times its width, whatever its shape.',
+      name: 'ז׳וזף־אמיל ברבייה',
+      note: 'ב־1860 הראיתי שלכל צורה בעלת רוחב קבוע יש היקף שהוא בדיוק פי π מהרוחב שלה, לא משנה מה הצורה.',
     },
   ],
 
   insight: {
-    title: 'Why does the plank stay level?',
-    html: `<p>The ground is under each roller and the plank rests on top, so the plank’s height is the distance between two parallel lines that both touch the roller: its width, measured straight up. A circle is equally wide every way. So is every shape in this room: measure it across in any direction, and you get the same. As it turns, its width straight up never changes, so neither does the plank.</p>
-<div class="insight-visual">height of the plank = the roller’s width straight up = the same in every direction</div>
-<h3>Rollers, not wheels</h3>
-<p>The middle of a Reuleaux triangle is closer to its sides than to its corners, so as it rolls, its middle rises and falls. A roller doesn’t mind, since nothing is fixed to its middle. A wheel turns on an axle through its middle, so a cart on Reuleaux triangles bobs, three times a turn, by 15% of the width. Under the plank, the rollers don’t keep exactly in step either: each moves ahead a little faster or slower as it turns, though on average, like round logs, at half the plank’s speed.</p>
-<h3>How to draw one</h3>
-<p>Draw an equilateral triangle, put the point of a compass on each corner in turn, and draw the arc between the other two: that is a Reuleaux triangle. Any regular polygon with an odd number of sides works the same way. The lopsided shapes use the crossed-lines method: draw a few lines, all crossing one another, and join each line to the next one round by an arc centred where they cross. Going round twice, the curve closes up, as wide in every direction. Rounding off the corners, by the same amount all the way round, keeps the width the same.</p>
-<h3>One turn, the same distance</h3>
-<p>Every shape here has a rim exactly π times its width, as long as a circle’s of the same width. This is Barbier’s theorem, from 1860. So rolled once round, each one travels the same distance. Their areas differ: the circle holds the most, and the Reuleaux triangle the least of all shapes of the same width, the Blaschke–Lebesgue theorem (Henri Lebesgue in 1914, Wilhelm Blaschke in 1915).</p>
-<h3>A square hole</h3>
-<p>Any shape of constant width can turn inside a square as wide as itself, touching all four sides all the time. The Reuleaux triangle, with the sharpest corners such a shape can have (120°), sweeps all but the very corners: 2√3 + π/6 − 3 of the square, about 98.8%. Square drill bits built on this idea were patented in 1914 and are still made, though similar drills were used earlier. The bit’s middle wanders as it turns, so it needs a special chuck that lets it, and a guide with a square hole. The pentagon’s blunter corners leave more behind, and a circle drills a round hole, π/4 of the square.</p>
-<h3>What the room leaves out</h3>
-<p>Here the rollers are perfect, the ground and the plank perfectly flat, and nothing slips. Real rollers must all be exactly the same width, and someone has to carry each one from the back to the front, as happens here when a roller fades away and comes back. A real drill bit also needs cutting edges, so it is a Reuleaux triangle with grooves cut into it. There are solids of constant width too, such as the Meissner bodies, but the room stays flat; the solid made like a Reuleaux triangle from four balls, the Reuleaux tetrahedron, is not quite as wide every way.</p>
-<p>Manhole covers are often said to be round so that they can’t fall into their holes. A cover shaped like any shape here couldn’t either; round covers are also much easier to make, and needn’t be turned to fit. Some coins are shapes of constant width, such as the British 20p and 50p, which are Reuleaux heptagons, so that machines can measure them across whichever way they lie.</p>
-<details><summary>The mathematics, if you want it</summary><p>Describe a shape by its support function h(θ): how far from a centre its tangent line facing direction θ lies. Its width facing θ is h(θ) + h(θ + π), so constant width w means h(θ) + h(θ + π) = w for every θ. Rolling on the ground without slipping, the shape turns about the point where it touches. As it turns by dψ, the plank, w above that point, moves w dψ, and the centre, h above it, moves h dψ. Over a whole turn the centre moves ∫h dθ = πw, half as far as the plank, because opposite values of h add up to w. The rim’s length is ∫(h + h″) dθ = ∫h dθ, the same πw: Barbier’s theorem.</p><p>The room’s shapes are built from arcs by the crossed-lines method, and each turns about the centre of its smallest enclosing circle, which for a shape of constant width is also the centre of the largest circle inside it; those two radii add up to the width. In the square from −½ to ½, the shape turned by φ has its centre at (½ − h(−φ), ½ − h(π/2 − φ)), so its tangent lines facing right and up lie on those sides, and by constant width the left and bottom ones do too. For the Reuleaux triangle that centre runs round four arcs of ellipses.</p><p>The room’s tests check, against a separate program that builds each Reuleaux polygon from overlapping discs: the width in every direction, the rim’s length π, the triangle’s area (π − √3)/2 ≈ 0.7048 and the pentagon’s, the bob on an axle of 2/√3 − 1 ≈ 15.5% for the triangle and 5.1% for the pentagon, and the share of the square drilled: 98.8% by the triangle, 87.9% by the pentagon, and π/4 by the circle.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Reuleaux_triangle" target="_blank" rel="noopener">Reuleaux triangle (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Curve_of_constant_width" target="_blank" rel="noopener">Curve of constant width (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Reuleaux_polygon" target="_blank" rel="noopener">Reuleaux polygon (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Barbier%27s_theorem" target="_blank" rel="noopener">Barbier’s theorem (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Blaschke%E2%80%93Lebesgue_theorem" target="_blank" rel="noopener">Blaschke–Lebesgue theorem (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Watts_Brothers_Tool_Works" target="_blank" rel="noopener">Watts Brothers Tool Works (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Manhole_cover" target="_blank" rel="noopener">Manhole cover (Wikipedia)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Barbier/" target="_blank" rel="noopener">Joseph-Émile Barbier (MacTutor)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Franz_Reuleaux" target="_blank" rel="noopener">Franz Reuleaux (Wikipedia)</a></div>`,
+    title: 'למה הקרש נשאר מאוזן?',
+    html: `<p>הקרקע נמצאת מתחת לכל גליל והקרש מונח מעליו, ולכן הגובה של הקרש הוא המרחק בין שני קווים מקבילים ששניהם נוגעים בגליל: הרוחב שלו, כשמודדים אותו ישר למעלה. עיגול רחב באותה מידה בכל כיוון. כך גם כל צורה בחדר הזה: מדדו אותה לרוחבה בכל כיוון, ותקבלו אותה תוצאה. כשהיא מסתובבת, הרוחב שלה בכיוון ישר למעלה לא משתנה אף פעם, ולכן גם הגובה של הקרש לא משתנה.</p>
+<div class="insight-visual">גובה הקרש = הרוחב של הגליל ישר למעלה = אותו רוחב בכל כיוון</div>
+<h3>גלילים, לא גלגלים</h3>
+<p>האמצע של משולש רולו קרוב יותר לצלעות שלו מאשר לפינות, ולכן כשהוא מתגלגל, האמצע שלו עולה ויורד. לגליל זה לא מפריע, כי שום דבר לא מחובר לאמצע שלו. גלגל מסתובב על ציר שעובר באמצע שלו, ולכן עגלה על משולשי רולו עולה ויורדת, שלוש פעמים בכל סיבוב, ב־15% מהרוחב. גם מתחת לקרש הגלילים לא נעים בדיוק באותו קצב: כל אחד מתקדם קצת יותר מהר או יותר לאט בזמן שהוא מסתובב, אבל בממוצע, כמו בולי עץ עגולים, במחצית מהמהירות של הקרש.</p>
+<h3>איך משרטטים אחד כזה</h3>
+<p>שרטטו משולש שווה צלעות, הציבו את חוד המחוגה על כל אחת מהפינות בתורה, ושרטטו את הקשת שבין שתי הפינות האחרות: זה משולש רולו. כל מצולע משוכלל עם מספר אי־זוגי של צלעות עובד באותה דרך. הצורות הלא סדירות בנויות בשיטת הקווים הנחתכים: שרטטו כמה קווים, שכל אחד מהם חותך את כל האחרים, וחברו כל קו לקו הבא אחריו בסיבוב בקשת שמרכזה בנקודה שבה הם נחתכים. אחרי שני סיבובים העקומה נסגרת, ורוחבה זהה בכל כיוון. עיגול הפינות, באותה מידה לאורך כל ההיקף, שומר על אותו רוחב.</p>
+<h3>סיבוב אחד, אותו מרחק</h3>
+<p>לכל צורה כאן יש היקף שהוא בדיוק פי π מהרוחב שלה, ארוך כמו ההיקף של עיגול באותו רוחב. זה משפט ברבייה, מ־1860. לכן בסיבוב אחד, כל אחת מהן מתקדמת אותו מרחק. השטחים שלהן שונים: לעיגול יש השטח הגדול ביותר, ולמשולש רולו הקטן ביותר מכל הצורות באותו רוחב, לפי משפט בלשקה–לבג (אנרי לבג ב־1914, וילהלם בלשקה ב־1915).</p>
+<h3>חור מרובע</h3>
+<p>כל צורה בעלת רוחב קבוע יכולה להסתובב בתוך ריבוע ברוחב שלה, ולגעת כל הזמן בכל ארבע הצלעות. משולש רולו, עם הפינות החדות ביותר שיכולות להיות לצורה כזאת (120°), עובר על כל הריבוע חוץ מהפינות ממש: \u20662√3 + π/6 − 3\u2069 מהריבוע, בערך 98.8%. מקדחים מרובעים שמבוססים על הרעיון הזה נרשמו כפטנט ב־1914 ועדיין מייצרים אותם, אף שמקדחים דומים היו בשימוש עוד קודם. האמצע של המקדח נודד כשהוא מסתובב, ולכן הוא צריך תפסנית מיוחדת שמאפשרת לו את זה, ומוביל עם חור מרובע. הפינות הקהות יותר של המחומש משאירות יותר, ועיגול קודח חור עגול, \u2066π/4\u2069 מהריבוע.</p>
+<h3>מה החדר משאיר בחוץ</h3>
+<p>כאן הגלילים מושלמים, הקרקע והקרש שטוחים לגמרי, ושום דבר לא מחליק. גלילים אמיתיים צריכים להיות כולם בדיוק באותו רוחב, ומישהו צריך לסחוב כל אחד מהם מהקצה האחורי אל הקצה הקדמי, כמו שקורה כאן כשגליל נעלם וחוזר. מקדח אמיתי צריך גם להבי חיתוך, ולכן הוא משולש רולו שחורצו בו חריצים. יש גם גופים בעלי רוחב קבוע, כמו גופי מייסנר, אבל החדר נשאר במישור; הגוף שנבנה כמו משולש רולו מארבעה כדורים, ארבעון רולו, לא ממש רחב באותה מידה בכל כיוון.</p>
+<p>לעתים קרובות אומרים שמכסי ביוב עגולים כדי שלא יוכלו ליפול לתוך הפתח שלהם. גם מכסה בצורה של כל אחת מהצורות כאן לא היה יכול ליפול; מכסים עגולים גם קלים הרבה יותר לייצור, ולא צריך לסובב אותם כדי שיתאימו. יש מטבעות בצורות בעלות רוחב קבוע, כמו מטבעות ה־20 וה־50 פני הבריטיים, שהם משובעי רולו, כדי שמכונות יוכלו למדוד את הרוחב שלהם בכל כיוון שבו הם מונחים.</p>
+<details><summary>המתמטיקה, למי שרוצה</summary><p>נתאר צורה לפי פונקציית התמיכה שלה, \u2066h(θ)\u2069: המרחק ממרכז אל הישר המשיק לה שפונה לכיוון θ. הרוחב שלה בכיוון θ הוא \u2066h(θ) + h(θ + π)\u2069, ולכן רוחב קבוע w פירושו \u2066h(θ) + h(θ + π) = w\u2069 לכל θ. כשהיא מתגלגלת על הקרקע בלי להחליק, הצורה מסתובבת סביב נקודת המגע. כשהיא מסתובבת ב־\u2066dψ\u2069, הקרש, בגובה w מעל הנקודה הזאת, זז \u2066w dψ\u2069, והמרכז, בגובה h מעליה, זז \u2066h dψ\u2069. לאורך סיבוב שלם המרכז זז \u2066∫h dθ = πw\u2069, מחצית מהמרחק של הקרש, כי ערכים של h בכיוונים מנוגדים מסתכמים ב־w. אורך ההיקף הוא \u2066∫(h + h″) dθ = ∫h dθ\u2069, אותו \u2066πw\u2069: משפט ברבייה.</p><p>הצורות של החדר בנויות מקשתות בשיטת הקווים הנחתכים, וכל אחת מסתובבת סביב המרכז של העיגול הקטן ביותר שמכיל אותה, שבצורה בעלת רוחב קבוע הוא גם המרכז של העיגול הגדול ביותר שבתוכה; סכום שני הרדיוסים האלה הוא הרוחב. בריבוע שבין \u2066−½\u2069 ל־\u2066½\u2069, המרכז של הצורה שסובבה בזווית φ נמצא ב־\u2066(½ − h(−φ), ½ − h(π/2 − φ))\u2069, ולכן הישרים המשיקים לה שפונים ימינה ולמעלה מונחים על הצלעות האלה, ובזכות הרוחב הקבוע גם השמאלי והתחתון. במשולש רולו, המרכז הזה עובר לאורך ארבע קשתות של אליפסות.</p><p>הבדיקות של החדר מוודאות, מול תוכנה נפרדת שבונה כל מצולע רולו מעיגולים חופפים: את הרוחב בכל כיוון, את אורך ההיקף, π, את השטח של המשולש, \u2066(π − √3)/2 ≈ 0.7048\u2069, ושל המחומש, את העלייה והירידה על ציר, \u20662/√3 − 1 ≈ 15.5%\u2069 במשולש ו־5.1% במחומש, ואת החלק של הריבוע שנקדח: 98.8% במשולש, 87.9% במחומש, ו־\u2066π/4\u2069 בעיגול.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Reuleaux_triangle" target="_blank" rel="noopener">משולש רולו (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Curve_of_constant_width" target="_blank" rel="noopener">עקומה בעלת רוחב קבוע (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Reuleaux_polygon" target="_blank" rel="noopener">מצולע רולו (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Barbier%27s_theorem" target="_blank" rel="noopener">משפט ברבייה (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Blaschke%E2%80%93Lebesgue_theorem" target="_blank" rel="noopener">משפט בלשקה–לבג (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Watts_Brothers_Tool_Works" target="_blank" rel="noopener">\u2066Watts Brothers Tool Works\u2069 (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Manhole_cover" target="_blank" rel="noopener">מכסה ביוב (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Barbier/" target="_blank" rel="noopener">ז׳וזף־אמיל ברבייה (MacTutor, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Franz_Reuleaux" target="_blank" rel="noopener">פרנץ רולו (ויקיפדיה, באנגלית)</a></div>`,
   },
 });

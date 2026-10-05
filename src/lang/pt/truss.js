@@ -1,129 +1,138 @@
-/* The stubborn triangle · visitor-facing words (pt). */
+/* O triângulo teimoso · palavras para o visitante (pt). */
 Wonderlattice.defineText('truss', 'pt', {
-  eyebrow: 'STRUCTURES',
-  name: 'The stubborn triangle',
+  eyebrow: 'ESTRUTURAS',
+  name: 'O triângulo teimoso',
   tagline:
-    'A bridge of squares folds under a toy truck. Add the right bars and it locks, and every bar shows its load.',
-  title: 'The stubborn triangle.',
+    'Uma ponte de quadrados se dobra sob um caminhão de brinquedo. Ponha as barras certas e ela trava, e cada barra mostra a sua carga.',
+  title: 'O triângulo teimoso.',
   subtitle:
-    'Squares fold and triangles don’t. Watch the bridge give way, then tap bars in and out: blue bars are squeezed, red bars stretched.',
-  field: 'Rigidity · Maxwell’s count · The Geiringer–Laman theorem · Forces in a truss',
-  sceneLabel: 'Bars, pins and a toy truck',
+    'Quadrados se dobram, triângulos não. Veja a ponte ceder, depois toque para tirar e pôr barras: barras azuis são comprimidas, barras vermelhas, esticadas.',
+  field: 'Rigidez · A contagem de Maxwell · O teorema de Geiringer–Laman · Forças numa treliça',
+  sceneLabel: 'Barras, pinos e um caminhão de brinquedo',
   sceneNames: {
-    squares: 'Squares only',
-    pratt: 'A Pratt truss',
-    howe: 'A Howe truss',
-    counted: 'Counted, but floppy',
-    own: 'Your own bridge',
-    bracing: 'Bracing the squares',
+    squares: 'Só quadrados',
+    pratt: 'Uma treliça Pratt',
+    howe: 'Uma treliça Howe',
+    counted: 'Conta certa, mas bamba',
+    own: 'Sua própria ponte',
+    bracing: 'Travando os quadrados',
   },
-  tip: 'Tap a bar to take it out, or a dashed line to put one in · Drag the truck · Arrow keys aim, Enter switches',
-  actionBrace: 'Brace every square',
-  actionUnbrace: 'Take the diagonals out',
+  tip: 'Toque numa barra para tirá-la, ou numa linha tracejada para pôr uma · Arraste o caminhão · As setas miram, Enter muda',
+  actionBrace: 'Travar cada quadrado',
+  actionUnbrace: 'Tirar as diagonais',
   canvasLabel:
-    'A bridge of bars and pins across a gap, with a toy truck on its road. Tap a bar to take it out or a dashed line to put one in, or use the arrow keys to aim and Enter to switch. Drag the truck to move it.',
-  panelEyebrow: 'Bars and pins',
-  whyLabel: 'Why do triangles hold?',
+    'Uma ponte de barras e pinos sobre um vão, com um caminhão de brinquedo na pista. Toque numa barra para tirá-la ou numa linha tracejada para pôr uma, ou use as setas para mirar e Enter para mudar. Arraste o caminhão para movê-lo.',
+  panelEyebrow: 'Barras e pinos',
+  whyLabel: 'Por que os triângulos aguentam?',
   nudge:
-    'Take any one bar out of a locked bridge and watch it fold again. Then give one square a second diagonal: is the bridge any stiffer?',
+    'Tire qualquer barra de uma ponte travada e veja-a se dobrar de novo. Depois dê a um quadrado uma segunda diagonal: a ponte fica mais firme?',
   connection: {
-    html: '<strong>Squeezed and stretched.</strong> A truss uses both. Stones in an arch can only be squeezed, so the arch must take the shape of a hanging chain, upside down. See it in “Hang it, flip it, build it”.',
-    label: 'Visit “Hang it, flip it, build it”',
+    html: '<strong>Comprimir e esticar.</strong> Uma treliça usa as duas coisas. As pedras de um arco só podem ser comprimidas, então o arco precisa ter a forma de uma corrente pendurada, de cabeça para baixo. Veja em “Pendure, vire, construa”.',
+    label: 'Visitar “Pendure, vire, construa”',
   },
 
   presets: [
-    { name: 'Squares only', note: 'Top, bottom and uprights, no diagonals.' },
-    { name: 'A Pratt truss', note: 'A diagonal in every square.' },
-    { name: 'Counted, but floppy', note: 'Enough bars, in the wrong places.' },
+    { name: 'Só quadrados', note: 'Topo, base e verticais, sem diagonais.' },
+    { name: 'Uma treliça Pratt', note: 'Uma diagonal em cada quadrado.' },
+    { name: 'Conta certa, mas bamba', note: 'Barras suficientes, nos lugares errados.' },
   ],
 
-  panels: 'Squares across the gap',
-  panelsHint: 'Each square adds two joints, so the bridge needs four more bars.',
-  forces: 'Show what each bar carries',
+  panels: 'Quadrados sobre o vão',
+  panelsHint: 'Cada quadrado acrescenta dois nós, então a ponte precisa de mais quatro barras.',
+  forces: 'Mostrar o que cada barra carrega',
 
-  verdict: { rigid: 'RIGID', floppy: 'FLOPPY' },
-  count: (joints, needed, bars) => `${joints} joints × 2 − 3 = ${needed} bars needed · ${bars} here`,
+  verdict: { rigid: 'RÍGIDA', floppy: 'BAMBA' },
+  count: (joints, needed, bars) => `${joints} nós × 2 − 3 = ${needed} barras necessárias · ${bars} aqui`,
   reason: {
-    short: (k) => (k === 1 ? 'one bar short' : `${k} bars short`),
-    spread: 'enough bars, badly spread',
-    rigid: (spare) => (spare === 0 ? 'not one bar to spare' : spare === 1 ? 'one spare bar' : `${spare} spare bars`),
+    short: (k) => (k === 1 ? 'falta uma barra' : `faltam ${k} barras`),
+    spread: 'barras suficientes, mal postas',
+    rigid: (spare) =>
+      spare === 0 ? 'nenhuma barra sobrando' : spare === 1 ? 'uma barra sobrando' : `${spare} barras sobrando`,
   },
   times: (x) => `${x}×`,
 
   key: {
-    squeezed: 'Squeezed',
-    stretched: 'Stretched',
-    nothing: 'Carries nothing',
-    spare: 'Spare',
+    squeezed: 'Comprimida',
+    stretched: 'Esticada',
+    nothing: 'Sem carga',
+    spare: 'Sobrando',
   },
 
   primer: {
-    title: 'WHY TRIANGLES',
-    square: 'A square folds',
-    squareCount: '4 joints × 2 − 3 = 5 bars needed · it has 4',
-    triangle: 'A triangle holds',
-    triangleCount: '3 joints × 2 − 3 = 3 bars needed · it has 3',
+    title: 'POR QUE TRIÂNGULOS',
+    square: 'O quadrado dobra',
+    squareCount: '4 nós × 2 − 3 = 5 barras necessárias · tem 4',
+    triangle: 'O triângulo aguenta',
+    triangleCount: '3 nós × 2 − 3 = 3 barras necessárias · tem 3',
   },
 
   status: {
     rigid: (spare) =>
-      spare === 0 ? 'Rigid · no spare bars' : spare === 1 ? 'Rigid · one spare bar' : `Rigid · ${spare} spare bars`,
-    short: (k) => (k === 1 ? 'Floppy · one bar short' : `Floppy · ${k} bars short`),
-    spread: 'Floppy · bars badly spread',
+      spare === 0
+        ? 'Rígida · nenhuma barra sobrando'
+        : spare === 1
+          ? 'Rígida · uma barra sobrando'
+          : `Rígida · ${spare} barras sobrando`,
+    short: (k) => (k === 1 ? 'Bamba · falta uma barra' : `Bamba · faltam ${k} barras`),
+    spread: 'Bamba · barras mal distribuídas',
   },
-  folded: 'The bridge folds.',
-  locked: 'The bridge is rigid.',
+  folded: 'A ponte se dobra.',
+  locked: 'A ponte está rígida.',
 
   readout: {
-    have: (bars, needed) => `${bars} bars, ${needed} needed`,
+    have: (bars, needed) => `${bars} barras, ${needed} necessárias`,
     count: (joints, ways, needed, bars) =>
-      `${joints} joints can each move two ways: ${ways} ways in all. Take away 3 for sliding and turning the whole bridge, and it needs ${needed} bars. It has ${bars}.`,
+      `${joints} nós podem se mover, cada um, de duas maneiras: ${ways} maneiras ao todo. Descontando 3, que só deslizam ou giram a ponte inteira, ela precisa de ${needed} barras. Ela tem ${bars}.`,
     short: (k) =>
       k === 1
-        ? 'One bar is missing, so the bridge can still fold one way.'
-        : `${k} bars are missing, so the bridge can still fold.`,
+        ? 'Falta uma barra, então a ponte ainda pode se dobrar de um jeito.'
+        : `Faltam ${k} barras, então a ponte ainda pode se dobrar.`,
     spread:
-      'There are enough bars, but some are crowded where they repeat each other (the dashed one is spare), so another part has too few and folds.',
-    busiest: (x) => `The busiest bar carries ${x} times the truck’s weight.`,
-    busiestSame: 'The busiest bar carries as much as the truck weighs.',
+      'Há barras suficientes, mas algumas se amontoam onde repetem umas às outras (a tracejada sobra), então outra parte fica com barras de menos e se dobra.',
+    busiest: (x) => `A barra mais exigida carrega ${x} vezes o peso do caminhão.`,
+    busiestSame: 'A barra mais exigida carrega tanto quanto o caminhão pesa.',
     nothing: (k) =>
-      k === 0 ? 'Every bar carries something.' : k === 1 ? 'One bar carries nothing.' : `${k} bars carry nothing.`,
+      k === 0
+        ? 'Toda barra carrega alguma coisa.'
+        : k === 1
+          ? 'Uma barra não carrega nada.'
+          : `${k} barras não carregam nada.`,
     spare: (k) =>
       k === 1
-        ? 'One bar is spare (dashed): take it out and the bridge still stands.'
-        : `${k} bars are spare (dashed): the bridge doesn’t need them to stand.`,
-    ashore: 'The truck is on solid ground, so no bar carries anything.',
+        ? 'Uma barra sobra (tracejada): tire-a e a ponte continua de pé.'
+        : `${k} barras sobram (tracejadas): a ponte não precisa delas para ficar de pé.`,
+    ashore: 'O caminhão está em terra firme, então nenhuma barra carrega nada.',
   },
 
   guests: [
     {
       name: 'James Clerk Maxwell',
-      note: 'In 1864 I counted. Each joint of a flat frame can move two ways, and three of those ways just slide or turn the whole frame. So a frame of j joints needs at least 2j − 3 bars.',
+      note: 'Em 1864, eu contei. Cada nó de uma estrutura plana pode se mover de duas maneiras, e três dessas maneiras só deslizam ou giram a estrutura inteira. Então uma estrutura de j nós precisa de pelo menos 2j − 3 barras.',
     },
     {
       name: 'Hilda Geiringer',
-      note: 'In 1927 I found exactly which flat frames are rigid: not one part may have more bars than it needs. Gerard Laman found the same rule again in 1970, and today it carries both our names.',
+      note: 'Em 1927, descobri exatamente quais estruturas planas são rígidas: nenhuma parte pode ter mais barras do que precisa. Gerard Laman encontrou a mesma regra de novo em 1970, e hoje ela leva os nossos dois nomes.',
     },
     {
       name: 'Squire Whipple',
-      note: 'In 1847 I published a book that worked out the force in every bar of a truss, instead of guessing. My iron bowstring bridges crossed the Erie Canal.',
+      note: 'Em 1847, publiquei um livro que calculava a força em cada barra de uma treliça, em vez de adivinhar. As minhas pontes de ferro em arco atirantado atravessavam o Canal Erie.',
     },
   ],
 
   insight: {
-    title: 'Why do triangles hold?',
-    html: `<p>A bar keeps its length, and a pin lets bars turn. Three lengths fix a triangle’s shape completely, so a triangle of bars can’t change shape at all. Four lengths don’t fix a square: it leans into a rhombus without a single bar bending or stretching. That’s why the frames of bridges, cranes and roofs are made of triangles.</p>
-<div class="insight-visual">joints × 2 − 3 = bars needed</div>
-<h3>Counting the ways to move</h3>
-<p>On a flat wall, each joint can move in two directions, so j joints have 2j ways to move. Each bar takes away at most one. Three ways always remain, however many bars there are: even a rigid frame can slide sideways, slide up and down, and turn as a whole. Here the pin and the roller under the bridge take those three away. So a frame needs at least 2j − 3 bars, a count James Clerk Maxwell gave in 1864. A bridge of four squares has 10 joints, so it needs 17 bars. With only its top, bottom and uprights it has 13, so it’s four short: one diagonal per square.</p>
-<h3>Counting isn’t enough</h3>
-<p>Put in 17 bars with two diagonals in one square and none in the next, and the bridge still folds. The second diagonal is spare: it holds nothing the first doesn’t already hold. Hilda Pollaczek-Geiringer found the exact rule in 1927, and Gerard Laman found it again in 1970. A frame with 2j − 3 bars is rigid exactly when no part of it is crowded: every group of k joints has at most 2k − 3 bars between them. The rule is for joints in general position. In special positions, such as three joints in a straight line, a frame with the right bars can still give a little. On this bridge’s pegboard, every choice of bars behaves just as it would in general position.</p>
-<h3>What each bar carries</h3>
-<p>Once the bridge is rigid, every joint must balance: the pushes and pulls of its bars, and the truck’s weight where the road rests on it, add up to nothing. Solving all those balances together (the method of joints) gives the force in every bar. Blue bars are squeezed and red bars are stretched, and a thicker bar carries more. Some bars carry nothing at all while the truck is in one place, and a lot when it moves. And a bar can carry more than the truck weighs: in a Pratt truss of six squares, with the truck in the middle, the middle of the top is squeezed with one and a half times the truck’s weight.</p>
-<p>In a Pratt truss the diagonals lean in towards the middle and are stretched, while the uprights are squeezed. Mirror every diagonal and you get a Howe truss, where the diagonals are squeezed and the uprights stretched. That difference mattered to builders: a long squeezed bar can buckle, bowing sideways long before it would crush, so squeezed bars must be fatter. William Howe’s 1840 design squeezed timber diagonals and stretched iron rods. Thomas and Caleb Pratt’s 1844 design turned that round, and it suited bridges as iron and steel took over from wood. The Warren truss of 1848 uses a zigzag of diagonals, squeezed and stretched in turn.</p>
-<h3>What this model leaves out</h3>
-<p>The bars here weigh nothing, their joints are perfect pins, the truck’s weight reaches the bridge only at its joints through the road, and every bar is the same steel. Real bridges carry their own weight, which is usually far more than any truck’s. Their joints are riveted, bolted or welded, which stiffens them. Their squeezed bars buckle before they break. Where a bridge has spare bars, how they share the load depends on how stretchy each one is, and here they’re all alike. The folding is a cartoon: a real frame would fall faster, and break. And triangles aren’t the only way to be stiff: frames with rigid joints, shells and tensegrity structures are stiff too. Bridge-building games such as Poly Bridge simulate whole bridges; this room sticks to the counting and the forces.</p>
-<details><summary>The mathematics, if you want it</summary><p>Moving joint a by u<sub>a</sub> and joint b by u<sub>b</sub> keeps bar ab’s length, to first order, when (p<sub>a</sub> − p<sub>b</sub>) · (u<sub>a</sub> − u<sub>b</sub>) = 0. One such equation per bar makes the rigidity matrix, with two columns per joint. With three more rows for the pin and the roller, the bridge is rigid exactly when the matrix has full rank, 2j. The room also finds the rank with the joints jumbled slightly into general position, to tell a badly spread frame from a special position. A floppy bridge folds along a motion the matrix allows: the part of the truck’s push that no bar resists. The forces come from the stiffness method with every bar alike. For a bridge with no spare bars, that gives exactly the forces of the method of joints, whatever the bars are made of. The forces were checked against an independent program for Pratt and Howe trusses of two to six squares, and the rank against Laman’s condition on 150 random small frames.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Truss" target="_blank" rel="noopener">Truss</a><a class="source-link" href="https://en.wikipedia.org/wiki/Laman_graph" target="_blank" rel="noopener">Laman graph</a><a class="source-link" href="https://en.wikipedia.org/wiki/Structural_rigidity" target="_blank" rel="noopener">Structural rigidity</a><a class="source-link" href="https://en.wikipedia.org/wiki/Truss_bridge" target="_blank" rel="noopener">Truss bridge (Pratt, Howe and Warren)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Squire_Whipple" target="_blank" rel="noopener">Squire Whipple</a><a class="source-link" href="https://doi.org/10.1080/14786446408643668" target="_blank" rel="noopener">Maxwell (1864), On the calculation of the equilibrium and stiffness of frames</a><a class="source-link" href="https://doi.org/10.1002/zamm.19270070107" target="_blank" rel="noopener">Pollaczek-Geiringer (1927), Über die Gliederung ebener Fachwerke</a><a class="source-link" href="https://doi.org/10.1007/BF01534980" target="_blank" rel="noopener">Laman (1970), On graphs and rigidity of plane skeletal structures</a></div>`,
+    title: 'Por que os triângulos aguentam?',
+    html: `<p>Uma barra mantém o seu comprimento, e um pino deixa as barras girarem. Três comprimentos fixam completamente a forma de um triângulo, então um triângulo de barras não consegue mudar de forma. Quatro comprimentos não fixam um quadrado: ele se inclina e vira um losango sem que nenhuma barra se curve ou estique. É por isso que as estruturas de pontes, guindastes e telhados são feitas de triângulos.</p>
+<div class="insight-visual">nós × 2 − 3 = barras necessárias</div>
+<h3>Contando as maneiras de se mover</h3>
+<p>Numa parede plana, cada nó pode se mover em duas direções, então j nós têm 2j maneiras de se mover. Cada barra tira no máximo uma. Três maneiras sempre sobram, por mais barras que haja: até uma estrutura rígida pode deslizar para o lado, deslizar para cima e para baixo, e girar inteira. Aqui, o pino e o rolo sob a ponte tiram essas três. Então uma estrutura precisa de pelo menos 2j − 3 barras, uma contagem que James Clerk Maxwell deu em 1864. Uma ponte de quatro quadrados tem 10 nós, então precisa de 17 barras. Só com as barras de cima, de baixo e verticais, ela tem 13, então faltam quatro: uma diagonal por quadrado.</p>
+<h3>Contar não basta</h3>
+<p>Ponha 17 barras, com duas diagonais num quadrado e nenhuma no seguinte, e a ponte ainda se dobra. A segunda diagonal sobra: ela não segura nada que a primeira já não segure. Hilda Pollaczek-Geiringer encontrou a regra exata em 1927, e Gerard Laman a encontrou de novo em 1970. Uma estrutura com 2j − 3 barras é rígida exatamente quando nenhuma parte dela está amontoada: todo grupo de k nós tem no máximo 2k − 3 barras entre eles. A regra vale para nós em posição geral. Em posições especiais, como três nós numa linha reta, uma estrutura com as barras certas ainda pode ceder um pouco. Na grade de pinos desta ponte, toda escolha de barras se comporta exatamente como se comportaria em posição geral.</p>
+<h3>O que cada barra carrega</h3>
+<p>Quando a ponte está rígida, cada nó precisa se equilibrar: os empurrões e puxões das suas barras, e o peso do caminhão onde a pista se apoia nele, somam zero. Resolver todos esses equilíbrios juntos (o método dos nós) dá a força em cada barra. As barras azuis são comprimidas e as vermelhas são esticadas, e uma barra mais grossa carrega mais. Algumas barras não carregam nada enquanto o caminhão está num lugar, e carregam muito quando ele se move. E uma barra pode carregar mais do que o caminhão pesa: numa treliça Pratt de seis quadrados, com o caminhão no meio, o meio da parte de cima é comprimido com uma vez e meia o peso do caminhão.</p>
+<p>Numa treliça Pratt, as diagonais se inclinam em direção ao meio e são esticadas, enquanto as verticais são comprimidas. Espelhe cada diagonal e você tem uma treliça Howe, em que as diagonais são comprimidas e as verticais, esticadas. Essa diferença importava para os construtores: uma barra longa comprimida pode flambar, envergando para o lado muito antes de ser esmagada, então as barras comprimidas precisam ser mais grossas. O projeto de William Howe, de 1840, comprimia diagonais de madeira e esticava tirantes de ferro. O projeto de Thomas e Caleb Pratt, de 1844, inverteu isso, e se adaptou bem às pontes quando o ferro e o aço tomaram o lugar da madeira. A treliça Warren, de 1848, usa um zigue-zague de diagonais, comprimidas e esticadas alternadamente.</p>
+<h3>O que este modelo deixa de fora</h3>
+<p>As barras daqui não pesam nada, os nós são pinos perfeitos, o peso do caminhão chega à ponte só pelos nós, através da pista, e toda barra é do mesmo aço. Pontes de verdade carregam o próprio peso, que costuma ser muito maior que o de qualquer caminhão. Os nós delas são rebitados, aparafusados ou soldados, o que os enrijece. As barras comprimidas delas flambam antes de quebrar. Onde uma ponte tem barras sobrando, a maneira como elas dividem a carga depende de quanto cada uma estica, e aqui todas são iguais. A dobra é uma caricatura: uma estrutura de verdade cairia mais rápido, e se quebraria. E triângulos não são o único jeito de ficar firme: estruturas com nós rígidos, cascas e estruturas de tensegridade também são firmes. Jogos de construir pontes, como o Poly Bridge, simulam pontes inteiras; esta sala fica na contagem e nas forças.</p>
+<details><summary>A matemática, se você quiser</summary><p>Mover o nó a por u<sub>a</sub> e o nó b por u<sub>b</sub> mantém o comprimento da barra ab, em primeira ordem, quando (p<sub>a</sub> − p<sub>b</sub>) · (u<sub>a</sub> − u<sub>b</sub>) = 0. Uma equação dessas por barra forma a matriz de rigidez, com duas colunas por nó. Com mais três linhas para o pino e o rolo, a ponte é rígida exatamente quando a matriz tem posto completo, 2j. A sala também calcula o posto com os nós levemente embaralhados para uma posição geral, para distinguir uma estrutura de barras mal distribuídas de uma posição especial. Uma ponte bamba se dobra ao longo de um movimento que a matriz permite: a parte do empurrão do caminhão a que nenhuma barra resiste. As forças vêm do método da rigidez, com todas as barras iguais. Para uma ponte sem barras sobrando, isso dá exatamente as forças do método dos nós, seja qual for o material das barras. As forças foram conferidas com um programa independente para treliças Pratt e Howe de dois a seis quadrados, e o posto com a condição de Laman em 150 pequenas estruturas aleatórias.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Truss" target="_blank" rel="noopener">Treliça (em inglês)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Laman_graph" target="_blank" rel="noopener">Grafo de Laman (em inglês)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Structural_rigidity" target="_blank" rel="noopener">Rigidez estrutural (em inglês)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Truss_bridge" target="_blank" rel="noopener">Ponte treliçada (Pratt, Howe e Warren, em inglês)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Squire_Whipple" target="_blank" rel="noopener">Squire Whipple (em inglês)</a><a class="source-link" href="https://doi.org/10.1080/14786446408643668" target="_blank" rel="noopener">Maxwell (1864), On the calculation of the equilibrium and stiffness of frames (em inglês)</a><a class="source-link" href="https://doi.org/10.1002/zamm.19270070107" target="_blank" rel="noopener">Pollaczek-Geiringer (1927), Über die Gliederung ebener Fachwerke (em alemão)</a><a class="source-link" href="https://doi.org/10.1007/BF01534980" target="_blank" rel="noopener">Laman (1970), On graphs and rigidity of plane skeletal structures (em inglês)</a></div>`,
   },
 });

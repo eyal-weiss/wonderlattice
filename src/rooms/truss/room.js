@@ -863,7 +863,7 @@
     id: 'truss',
     symbol: '△',
     theme: 'engineering',
-    added: '2026-10-04',
+    added: '2026-10-05',
     eyebrow: t.eyebrow,
     name: t.name,
     tagline: t.tagline,

@@ -52,8 +52,8 @@ test('the Julia room’s label keeps its formula’s letters as they are', async
   await expect(page.locator('#scene-label')).toHaveText('One rule · z → z² + c');
 });
 
-// The globe and stopping rooms draw their pictures left to right on every page, so a Hebrew or Arabic label there
-// needs marks to keep its punctuation and numbers in place. Each label drawn must look as it would in the page.
+// The globe, stopping and voltage rooms draw their pictures left to right on every page, so a Hebrew or Arabic label
+// there needs marks to keep its punctuation and numbers in place. Each label drawn must look as it would in the page.
 test('on left-to-right pictures, Hebrew and Arabic labels read as they do in the page', async ({ page }) => {
   await page.addInitScript(() => {
     window.__drawn = new Set();
@@ -109,5 +109,14 @@ test('on left-to-right pictures, Hebrew and Arabic labels read as they do in the
     await page.keyboard.press('Enter');
     await expect.poll(drawn).toBeGreaterThan(10);
     expect(await misordered(), `${lang} stopping`).toEqual([]);
+    // The power line: the dial turning, too low a voltage for anything to arrive, the top of the dial (its step
+    // points down), and direct current that the transformers stop.
+    await page.emulateMedia({ reducedMotion: 'no-preference' });
+    for (const settings of ['', '&kv=5', '&kv=900', '&kv=100&current=1']) {
+      await page.goto('about:blank');
+      await page.goto(`/?lang=${lang}#room=voltage${settings}`);
+      await expect.poll(drawn).toBeGreaterThan(5);
+      expect(await misordered(), `${lang} voltage${settings}`).toEqual([]);
+    }
   }
 });

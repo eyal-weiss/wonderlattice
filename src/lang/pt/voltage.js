@@ -1,118 +1,120 @@
-/* Light a town 100 km away · visitor-facing words (pt). */
+/* Ilumine uma cidade a 100 km · palavras para o visitante (pt). */
 Wonderlattice.defineText('voltage', 'pt', {
-  eyebrow: 'POWER LINES',
-  name: 'Light a town 100 km away',
-  tagline: 'Send the same power at ten times the voltage, and the wire wastes a hundred times less.',
-  title: 'Light a town 100 km away.',
+  eyebrow: 'ALTA TENSÃO',
+  name: 'Ilumine uma cidade a 100 km',
+  tagline: 'Envie a mesma potência com dez vezes a tensão, e o fio desperdiça cem vezes menos.',
+  title: 'Ilumine uma cidade a 100 km.',
   subtitle:
-    'The same power, the same wire. At low voltage the line glows and the town stays dark; turn the voltage up and the windows light. Then take the dial yourself.',
-  field: 'Joule heating · Transformers · A square law',
-  sceneLabel: '10 MW sent · 100 km of wire',
+    'A mesma potência, o mesmo fio. Com tensão baixa, a linha brilha e a cidade fica no escuro; aumente a tensão e as janelas se acendem. Depois, assuma o controle.',
+  field: 'Efeito Joule · Transformadores · Uma lei quadrática',
+  sceneLabel: '10 MW enviados · 100 km de fio',
   // By the kind of current: alternating, direct as in the 1880s, direct as today.
   sceneNames: [
-    'Alternating current, through transformers',
-    'Direct current, as in the 1880s',
-    'Direct current today, through converters',
+    'Corrente alternada, com transformadores',
+    'Corrente contínua, como nos anos 1880',
+    'Corrente contínua hoje, com conversores',
   ],
-  tip: 'Drag along the voltage scale under the picture, or press ← → on the picture, to turn the voltage',
-  soundOff: 'Turn sound on',
-  soundOn: 'Sound on · mute',
-  noSound: 'Sound is unavailable in this browser. You can still watch the line.',
+  tip: 'Arraste pela escala de tensão embaixo da imagem, ou aperte ← → na imagem, para mudar a tensão',
+  soundOff: 'Ligar o som',
+  soundOn: 'Som ligado · silenciar',
+  noSound: 'O som não está disponível neste navegador. Você ainda pode observar a linha.',
   canvasLabel:
-    'At night, a power station on the left sends electricity along a line of pylons to a town of little houses on the right, 100 km away, through a transformer at each end. When the voltage is low, the wire glows orange and heat shimmers above it, and most windows in the town stay dark. As the voltage rises, the glow fades and the windows light up one by one. Below, a chart shows the heat wasted in the wire against the voltage: a straight line falling steeply, where ten times the voltage means a hundred times less heat. Its horizontal axis is the dial.',
-  panelEyebrow: 'Turn the dial',
-  whyLabel: 'Why does high voltage waste less?',
+    'À noite, uma usina à esquerda manda eletricidade por uma linha de torres até uma cidade de casinhas à direita, a 100 km, passando por um transformador em cada ponta. Com tensão baixa, o fio brilha em laranja, o calor tremula acima dele, e a maioria das janelas da cidade fica apagada. À medida que a tensão sobe, o brilho some e as janelas se acendem uma a uma. Embaixo, um gráfico mostra o calor desperdiçado no fio em função da tensão: uma reta que cai bruscamente, em que dez vezes a tensão significa cem vezes menos calor. O eixo horizontal dele é o próprio controle.',
+  panelEyebrow: 'Gire o botão',
+  whyLabel: 'Por que a alta tensão desperdiça menos?',
   nudge:
-    'Watch the line as the voltage climbs from 10 kV to 100 kV: the heat falls a hundred times. Then switch to direct current, as in the 1880s, to see what the transformers were doing.',
+    'Observe a linha enquanto a tensão sobe de 10 kV para 100 kV: o calor cai cem vezes. Depois mude para corrente contínua, como nos anos 1880, para ver o que os transformadores estavam fazendo.',
   connection: {
-    html: '<strong>Power through a network.</strong> Here, one line carries a town’s power. Real grids are networks, and networks can surprise you: in The tempting shortcut, a new road slows every driver down. Computer models suggest the same can happen when a power grid gains a line.',
-    label: 'Try the shortcut',
+    html: '<strong>Energia em rede.</strong> Aqui, uma só linha leva a energia de uma cidade. Na vida real, a energia corre por redes, e redes podem surpreender: em “O atalho tentador”, uma rua nova deixa todos os motoristas mais lentos. Modelos de computador sugerem que o mesmo pode acontecer quando uma rede elétrica ganha uma linha.',
+    label: 'Experimente o atalho',
   },
 
   presets: [
-    { name: 'Half of it lost', note: 'The wire turns half the power into heat.', badge: '10 kV' },
-    { name: 'Like a main grid line', note: 'Barely warm, and every window lit.', badge: '400 kV' },
-    { name: 'Just add metal', note: 'A hundred times the aluminium, still at 10 kV.', badge: '×100' },
+    { name: 'Metade se perde', note: 'O fio transforma metade da potência em calor.', badge: '10 kV' },
+    { name: 'Como a rede principal', note: 'Quase não esquenta, e todas as janelas acendem.', badge: '400 kV' },
+    { name: 'Só mais metal', note: 'Cem vezes mais alumínio, ainda a 10 kV.', badge: '×100' },
   ],
 
-  voltage: 'Voltage on the line',
+  voltage: 'Tensão na linha',
   voltageHint:
-    'Transformers step the voltage up at the station and down again in the town, so the houses still get 230 V.',
-  voltageValue: (kv, lost) => `${kv}, ${lost} lost as heat`,
-  modeLabel: 'Current',
+    'Transformadores elevam a tensão na usina e a baixam de novo na cidade, então as casas continuam recebendo 230 V.',
+  voltageValue: (kv, lost) => `${kv}, ${lost} perdidos em calor`,
+  modeLabel: 'Corrente',
   // By the kind of current: alternating, direct as in the 1880s, direct as today.
-  modes: ['AC', 'DC, 1880s', 'DC, today'],
-  modeHint: 'Alternating current (AC) swings back and forth 50 times a second; direct current (DC) flows one way.',
-  metal: 'Metal in the wire',
-  metalHint: 'The other way to waste less: more aluminium means less resistance. Twice the metal, half the heat.',
+  modes: ['CA', 'CC, anos 1880', 'CC, hoje'],
+  modeHint: 'A corrente alternada (CA) vai e volta 50 vezes por segundo; a corrente contínua (CC) flui num só sentido.',
+  metal: 'Metal no fio',
+  metalHint:
+    'O outro jeito de desperdiçar menos: mais alumínio significa menos resistência. O dobro de metal, metade do calor.',
 
   // Units, with a number already written in the page's language.
   kv: (n) => `${n}\u00a0kV`,
   times: (n) => `×${n}`,
   watts: [(n) => `${n}\u00a0W`, (n) => `${n}\u00a0kW`, (n) => `${n}\u00a0MW`, (n) => `${n}\u00a0GW`],
   cm: (n) => `${n}\u00a0cm`,
-  tonnes: (n) => `${n}\u00a0tonnes`,
+  tonnes: (n) => `${n}\u00a0toneladas`,
 
   // A number and one line: the rest (the current, ten times the voltage) is on the chart and in the explanation.
   readout: {
-    lost: 'Lost as heat',
-    lostOf: (loss, sent) => `${loss} of the ${sent} sent. The town gets the rest.`,
-    tooMuch: (loss, sent) => `${loss}, more than the ${sent} sent: nothing reaches the town.`,
+    lost: 'Perda em calor',
+    lostOf: (loss, sent) => `${loss} dos ${sent} enviados. A cidade recebe o resto.`,
+    tooMuch: (loss, sent) => `${loss}, mais do que os ${sent} enviados: nada chega à cidade.`,
     // Only once the visitor adds metal.
-    wire: (cm, tonnes) => `The wire is ${cm} thick: ${tonnes} of aluminium.`,
-    stopped: 'Steady direct current can’t pass a transformer, so nothing reaches the town.',
-    converters: 'Converters step direct current up and down; in this simple model it loses as much as AC.',
+    wire: (cm, tonnes) => `O fio tem ${cm} de espessura: ${tonnes} de alumínio.`,
+    stopped: 'Corrente contínua constante não atravessa um transformador, então nada chega à cidade.',
+    converters:
+      'Conversores elevam e baixam a tensão da corrente contínua; neste modelo simples, ela perde tanto quanto a CA.',
   },
 
-  status: (kv, lost) => `${kv} · ${lost} lost`,
-  statusStopped: 'No current gets through',
+  status: (kv, lost) => `${kv} · ${lost} perdidos`,
+  statusStopped: 'Nenhuma corrente passa',
 
   // Words drawn on the picture.
   labels: {
-    station: 'power station',
-    town: 'town',
+    station: 'usina',
+    town: 'cidade',
     distance: '100 km',
     house: '230 V',
-    lost: (share) => `${share} lost as heat`,
-    nothing: 'nothing reaches the town',
-    stopped: 'steady current: the transformers pass nothing',
-    chartTitle: 'heat wasted in the wire',
-    chartX: 'voltage on the line',
-    sent: 'all 10 MW sent',
-    over: 'the town gets nothing',
+    lost: (share) => `${share} perdidos em calor`,
+    nothing: 'nada chega à cidade',
+    stopped: 'CC: nada passa pelos transformadores',
+    chartTitle: 'calor desperdiçado no fio',
+    chartX: 'tensão na linha',
+    sent: 'os 10 MW enviados',
+    over: 'a cidade não recebe nada',
     // The step between the dot and ten times (or a tenth of) its voltage.
-    up: ['× 10 voltage', '÷ 100 heat'],
-    down: ['÷ 10 voltage', '× 100 heat'],
-    drag: 'drag to turn',
+    up: ['× 10 tensão', '÷ 100 calor'],
+    down: ['÷ 10 tensão', '× 100 calor'],
+    drag: 'arraste aqui',
   },
 
   guests: [
     {
       name: 'James Prescott Joule',
-      note: 'In 1840 he measured the heat a current makes in a wire, and found it grows with the square of the current: twice the current, four times the heat.',
+      note: 'Em 1840, ele mediu o calor que uma corrente produz num fio e descobriu que ele cresce com o quadrado da corrente: o dobro da corrente, quatro vezes o calor.',
     },
     {
       name: 'Thomas Edison',
-      note: 'In the 1880s his company sent out direct current at 110 volts. It reached only customers less than a mile from each power station, but it worked with storage batteries, electric motors and his electricity meter.',
+      note: 'Nos anos 1880, a empresa dele fornecia corrente contínua a 110 volts. Ela só chegava a clientes a menos de uma milha de cada usina, mas funcionava com baterias, motores elétricos e o medidor de eletricidade dele.',
     },
     {
       name: 'Nikola Tesla',
-      note: 'His motor ran on alternating current. In 1888 George Westinghouse licensed his patents, and with transformers to raise the voltage, alternating current went on to win the contest with Edison’s direct current.',
+      note: 'O motor dele funcionava com corrente alternada. Em 1888, George Westinghouse licenciou as patentes dele e, com transformadores para elevar a tensão, a corrente alternada acabou vencendo a disputa com a corrente contínua de Edison.',
     },
   ],
 
   insight: {
-    title: 'Why does high voltage waste less?',
-    html: `<p>A power station sends power as voltage times current: P = V × I. The wire turns some of it into heat, and that heat grows with the <em>square</em> of the current: I² × R, where R is the wire’s resistance (Joule’s law). So to send the same power, raise the voltage and lower the current. Ten times the voltage means a tenth of the current, and a hundredth of the heat.</p>
-<div class="insight-visual">heat wasted = I² × R = (P ÷ V)² × R = P² × R ÷ V²</div>
-<h3>The numbers in this room</h3>
-<p>The station sends 10 MW along 100 km of wire with a resistance of 5 Ω. At 10 kV the current is 1,000 A, and the wire wastes 5 MW: half of everything. At 100 kV the current is 100 A, and it wastes 50 kW, or 0.5%. At 400 kV it wastes about 3 kW. Below about 7 kV the sum would waste more than the station sends, so the town gets nothing at all.</p>
-<h3>Why not a thicker wire?</h3>
-<p>A wire’s resistance falls in proportion to its cross-section, so halving the heat by metal alone means doubling the metal. The thinnest wire here is solid aluminium about 2.7 cm thick, some 150 tonnes of it. To do at 10 kV what 100 kV does, you would need a hundred times as much: a wire 27 cm thick, weighing 15,000 tonnes. Raising the voltage is far cheaper.</p>
-<h3>The transformer, and the war of the currents</h3>
-<p>Houses can’t use 400,000 volts, so the voltage has to come down again at the end. A transformer does this with two coils on an iron core: a changing current in one makes a changing magnetic field, which drives a current in the other. The voltages are in the ratio of the coils’ turns, and the current changes the other way, so the power stays nearly the same. But it only works while the current keeps changing. In the late 1880s and early 1890s, that made alternating current the winner of the “war of the currents”. Edison’s direct current had real merits, and worked with storage batteries, motors and meters, but it couldn’t be stepped up, so it went out at 110 V and reached customers less than a mile away. Later, mercury-arc valves and then, from the 1970s, electronics made it possible to convert between alternating and direct current at very high voltage, and today many of the longest links carry direct current: China’s Zhundong–South Anhui line runs at ±1,100 kV for more than 3,000 km.</p>
-<h3>What this leaves out</h3>
-<p>This is one wire with resistance alone, carrying a fixed power. Real lines carry three phases, and the line’s own magnetic and electric fields, and the current crowding towards the wire’s surface, add to their losses. The sums also assume the station can always push its power through. Once the wire would waste a large part of it, that fails: below about 7 kV here, the voltage the wire uses up on the way, I × R, would be more than the station’s whole voltage, so in reality the lamps would dim and the current couldn’t grow so large. Either way, the town stays dark. The glow is a picture of the heat wasted, not of a temperature: a real line would sag towards the ground, and be switched off, long before it glowed. Voltage can’t rise for ever, either. Towers must be taller and insulators longer, and near the top of the dial the air around the wire begins to glow and crackle (corona discharge); above about 2,000 kV, those losses could cancel out the savings. Real conductors are aluminium strands, often round a steel core, and the houses get 230 V in most of the world, but 120 V in North America.</p>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Electric_power_transmission" target="_blank" rel="noopener">Electric power transmission</a><a class="source-link" href="https://en.wikipedia.org/wiki/Joule_heating" target="_blank" rel="noopener">Joule heating</a><a class="source-link" href="https://en.wikipedia.org/wiki/Transformer" target="_blank" rel="noopener">Transformer</a><a class="source-link" href="https://en.wikipedia.org/wiki/War_of_the_currents" target="_blank" rel="noopener">War of the currents</a><a class="source-link" href="https://en.wikipedia.org/wiki/High-voltage_direct_current" target="_blank" rel="noopener">High-voltage direct current</a><a class="source-link" href="https://en.wikipedia.org/wiki/Corona_discharge" target="_blank" rel="noopener">Corona discharge</a><a class="source-link" href="https://en.wikipedia.org/wiki/Mains_electricity" target="_blank" rel="noopener">Mains electricity</a><a class="source-link" href="https://en.wikipedia.org/wiki/Electrical_resistivity_and_conductivity" target="_blank" rel="noopener">Electrical resistivity (aluminium)</a></div>`,
+    title: 'Por que a alta tensão desperdiça menos?',
+    html: `<p>Uma usina envia potência como tensão vezes corrente: P = V × I. O fio transforma parte dela em calor, e esse calor cresce com o <em>quadrado</em> da corrente: I² × R, onde R é a resistência do fio (a lei de Joule). Então, para enviar a mesma potência, aumente a tensão e diminua a corrente. Dez vezes a tensão significa um décimo da corrente, e um centésimo do calor.</p>
+<div class="insight-visual">calor desperdiçado = I² × R = (P ÷ V)² × R = P² × R ÷ V²</div>
+<h3>Os números desta sala</h3>
+<p>A usina envia 10 MW por 100 km de fio com uma resistência de 5 Ω. Com 10 kV, a corrente é de 1.000 A, e o fio desperdiça 5 MW: metade de tudo. Com 100 kV, a corrente é de 100 A, e ele desperdiça 50 kW, ou 0,5%. Com 400 kV, desperdiça cerca de 3 kW. Abaixo de uns 7 kV, a conta daria um desperdício maior do que tudo o que a usina envia, então a cidade não recebe nada.</p>
+<h3>Por que não um fio mais grosso?</h3>
+<p>A resistência de um fio cai na proporção da sua seção transversal, então reduzir o calor à metade só com metal significa dobrar o metal. O fio mais fino daqui é de alumínio maciço, com cerca de 2,7 cm de espessura: umas 150 toneladas de alumínio. Para fazer a 10 kV o que 100 kV faz, você precisaria de cem vezes mais: um fio de 27 cm de espessura, pesando 15.000 toneladas. Aumentar a tensão sai muito mais barato.</p>
+<h3>O transformador, e a guerra das correntes</h3>
+<p>As casas não podem usar 400.000 volts, então a tensão precisa baixar de novo no fim. Um transformador faz isso com duas bobinas num núcleo de ferro: uma corrente que varia numa delas cria um campo magnético que varia, e esse campo produz uma corrente na outra. As tensões ficam na proporção das espiras das bobinas, e a corrente muda no sentido contrário, então a potência fica quase a mesma. Mas isso só funciona enquanto a corrente continua variando. No fim dos anos 1880 e no começo dos anos 1890, isso fez da corrente alternada a vencedora da “guerra das correntes”. A corrente contínua de Edison tinha méritos de verdade, e funcionava com baterias, motores e medidores, mas não dava para elevar a tensão dela, então ela saía a 110 V e só chegava a clientes a menos de uma milha. Mais tarde, as válvulas de arco de mercúrio e depois, a partir dos anos 1970, a eletrônica tornaram possível converter entre corrente alternada e contínua em tensões muito altas, e hoje muitas das ligações mais longas levam corrente contínua: a linha Zhundong–Sul de Anhui, na China, opera a ±1.100 kV por mais de 3.000 km.</p>
+<h3>O que fica de fora</h3>
+<p>Isto é um único fio, só com resistência, levando uma potência fixa. Linhas de verdade levam três fases, e os próprios campos magnético e elétrico da linha, e a corrente que se concentra perto da superfície do fio, aumentam as perdas. As contas também supõem que a usina sempre consegue empurrar a sua potência pelo fio. Quando o fio desperdiçaria boa parte dela, isso deixa de valer: abaixo de uns 7 kV aqui, a tensão que o fio consome no caminho, I × R, seria maior do que toda a tensão da usina, então, na realidade, as lâmpadas ficariam fracas e a corrente não conseguiria crescer tanto. De um jeito ou de outro, a cidade fica no escuro. O brilho é uma imagem do calor desperdiçado, não de uma temperatura: uma linha de verdade se curvaria em direção ao chão, e seria desligada, muito antes de brilhar. A tensão também não pode subir para sempre. As torres precisam ser mais altas e os isoladores mais longos, e perto do topo da escala o ar em volta do fio começa a brilhar e a crepitar (o efeito corona); acima de uns 2.000 kV, essas perdas poderiam anular a economia. Os condutores de verdade são fios de alumínio trançados, muitas vezes em volta de uma alma de aço, e as casas recebem 230 V na maior parte do mundo, mas 120 V na América do Norte.</p>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Electric_power_transmission" target="_blank" rel="noopener">Transmissão de energia elétrica (em inglês)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Joule_heating" target="_blank" rel="noopener">Efeito Joule (em inglês)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Transformer" target="_blank" rel="noopener">Transformador (em inglês)</a><a class="source-link" href="https://en.wikipedia.org/wiki/War_of_the_currents" target="_blank" rel="noopener">Guerra das correntes (em inglês)</a><a class="source-link" href="https://en.wikipedia.org/wiki/High-voltage_direct_current" target="_blank" rel="noopener">Corrente contínua em alta tensão (em inglês)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Corona_discharge" target="_blank" rel="noopener">Efeito corona (em inglês)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Mains_electricity" target="_blank" rel="noopener">Eletricidade da rede doméstica (em inglês)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Electrical_resistivity_and_conductivity" target="_blank" rel="noopener">Resistividade elétrica (alumínio, em inglês)</a></div>`,
   },
 });

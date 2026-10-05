@@ -1,118 +1,119 @@
 /* Light a town 100 km away · visitor-facing words (he). */
 Wonderlattice.defineText('voltage', 'he', {
-  eyebrow: 'POWER LINES',
-  name: 'Light a town 100 km away',
-  tagline: 'Send the same power at ten times the voltage, and the wire wastes a hundred times less.',
-  title: 'Light a town 100 km away.',
+  eyebrow: 'קווי חשמל',
+  name: 'להאיר עיר במרחק \u2066100 km\u2069',
+  tagline: 'שלחו את אותו הספק במתח גבוה פי עשרה, והכבל מבזבז פחות פי מאה.',
+  title: 'להאיר עיר במרחק \u2066100 km\u2069.',
   subtitle:
-    'The same power, the same wire. At low voltage the line glows and the town stays dark; turn the voltage up and the windows light. Then take the dial yourself.',
-  field: 'Joule heating · Transformers · A square law',
-  sceneLabel: '10 MW sent · 100 km of wire',
+    'אותו הספק, אותו כבל. במתח נמוך הקו זוהר והעיר נשארת חשוכה; הגבירו את המתח, והחלונות נדלקים. אחר כך קחו את החוגה בעצמכם.',
+  field: 'חימום ג׳ול · שנאים · חוק ריבועי',
+  sceneLabel: 'נשלחים \u206610 MW\u2069 · \u2066100 km\u2069 של כבל',
   // By the kind of current: alternating, direct as in the 1880s, direct as today.
-  sceneNames: [
-    'Alternating current, through transformers',
-    'Direct current, as in the 1880s',
-    'Direct current today, through converters',
-  ],
-  tip: 'Drag along the voltage scale under the picture, or press ← → on the picture, to turn the voltage',
-  soundOff: 'Turn sound on',
-  soundOn: 'Sound on · mute',
-  noSound: 'Sound is unavailable in this browser. You can still watch the line.',
+  sceneNames: ['זרם חילופין, דרך שנאים', 'זרם ישר, כמו בשנות ה־1880', 'זרם ישר היום, דרך ממירים'],
+  tip: 'גררו לאורך סרגל המתח שמתחת לתמונה, או לחצו על ← → על התמונה, כדי לשנות את המתח',
+  soundOff: 'הפעלת הצליל',
+  soundOn: 'הצליל פועל · השתקה',
+  noSound: 'הצליל לא זמין בדפדפן הזה. עדיין אפשר לצפות בקו.',
   canvasLabel:
-    'At night, a power station on the left sends electricity along a line of pylons to a town of little houses on the right, 100 km away, through a transformer at each end. When the voltage is low, the wire glows orange and heat shimmers above it, and most windows in the town stay dark. As the voltage rises, the glow fades and the windows light up one by one. Below, a chart shows the heat wasted in the wire against the voltage: a straight line falling steeply, where ten times the voltage means a hundred times less heat. Its horizontal axis is the dial.',
-  panelEyebrow: 'Turn the dial',
-  whyLabel: 'Why does high voltage waste less?',
+    'בלילה, תחנת כוח משמאל שולחת חשמל לאורך שורה של עמודי חשמל אל עיר של בתים קטנים מימין, במרחק \u2066100 km\u2069, דרך שנאי בכל קצה. כשהמתח נמוך, הכבל זוהר בכתום וחום מרצד מעליו, ורוב החלונות בעיר נשארים חשוכים. כשהמתח עולה, הזוהר דועך והחלונות נדלקים אחד אחרי השני. למטה, תרשים מראה את החום שמתבזבז בכבל לעומת המתח: קו ישר שיורד בתלילות, שבו מתח גבוה פי עשרה פירושו חום קטן פי מאה. הציר האופקי שלו הוא החוגה.',
+  panelEyebrow: 'לסובב את החוגה',
+  whyLabel: 'למה מתח גבוה מבזבז פחות?',
   nudge:
-    'Watch the line as the voltage climbs from 10 kV to 100 kV: the heat falls a hundred times. Then switch to direct current, as in the 1880s, to see what the transformers were doing.',
+    'צפו בקו כשהמתח מטפס מ־\u206610 kV\u2069 ל־\u2066100 kV\u2069: החום יורד פי מאה. אחר כך עברו לזרם ישר, כמו בשנות ה־1880, כדי לראות מה השנאים עשו.',
   connection: {
-    html: '<strong>Power through a network.</strong> Here, one line carries a town’s power. Real grids are networks, and networks can surprise you: in The tempting shortcut, a new road slows every driver down. Computer models suggest the same can happen when a power grid gains a line.',
-    label: 'Try the shortcut',
+    html: '<strong>חשמל שעובר ברשת.</strong> כאן, קו אחד נושא את החשמל של עיר. במציאות החשמל עובר ברשתות, ורשתות יכולות להפתיע: ב”הקיצור המפתה”, כביש חדש מאט את כל הנהגים. מודלים ממוחשבים מרמזים שאותו דבר יכול לקרות כשמוסיפים קו לרשת חשמל.',
+    label: 'לנסות את הקיצור',
   },
 
   presets: [
-    { name: 'Half of it lost', note: 'The wire turns half the power into heat.', badge: '10 kV' },
-    { name: 'Like a main grid line', note: 'Barely warm, and every window lit.', badge: '400 kV' },
-    { name: 'Just add metal', note: 'A hundred times the aluminium, still at 10 kV.', badge: '×100' },
+    { name: 'חצי הולך לאיבוד', note: 'הכבל הופך חצי מההספק לחום.', badge: '10 kV' },
+    { name: 'כמו קו ראשי ברשת', note: 'בקושי חמים, וכל החלונות דולקים.', badge: '400 kV' },
+    { name: 'פשוט להוסיף מתכת', note: 'פי מאה אלומיניום, ועדיין ב־\u206610 kV\u2069.', badge: '×100' },
   ],
 
-  voltage: 'Voltage on the line',
-  voltageHint:
-    'Transformers step the voltage up at the station and down again in the town, so the houses still get 230 V.',
-  voltageValue: (kv, lost) => `${kv}, ${lost} lost as heat`,
-  modeLabel: 'Current',
+  voltage: 'המתח בקו',
+  voltageHint: 'שנאים מעלים את המתח בתחנה ומורידים אותו שוב בעיר, כך שהבתים עדיין מקבלים \u2066230 V\u2069.',
+  voltageValue: (kv, lost) => `${kv}, ${lost} אובדים כחום`,
+  modeLabel: 'זרם',
   // By the kind of current: alternating, direct as in the 1880s, direct as today.
-  modes: ['AC', 'DC, 1880s', 'DC, today'],
-  modeHint: 'Alternating current (AC) swings back and forth 50 times a second; direct current (DC) flows one way.',
-  metal: 'Metal in the wire',
-  metalHint: 'The other way to waste less: more aluminium means less resistance. Twice the metal, half the heat.',
+  modes: ['חילופין', 'ישר, שנות ה־1880', 'ישר, היום'],
+  modeHint: 'זרם חילופין (AC) מחליף כיוון הלוך ושוב 50 פעמים בשנייה; זרם ישר (DC) זורם בכיוון אחד.',
+  metal: 'מתכת בכבל',
+  metalHint: 'הדרך האחרת לבזבז פחות: יותר אלומיניום פירושו פחות התנגדות. פי שניים מתכת, חצי מהחום.',
 
-  // Units, with a number already written in the page's language.
-  kv: (n) => `${n}\u00a0kV`,
-  times: (n) => `×${n}`,
-  watts: [(n) => `${n}\u00a0W`, (n) => `${n}\u00a0kW`, (n) => `${n}\u00a0MW`, (n) => `${n}\u00a0GW`],
-  cm: (n) => `${n}\u00a0cm`,
-  tonnes: (n) => `${n}\u00a0tonnes`,
+  // Units, with a number already written in the page's language. Isolated, so each reads number first, then unit.
+  kv: (n) => `\u2066${n}\u00a0kV\u2069`,
+  times: (n) => `\u2066×${n}\u2069`,
+  watts: [
+    (n) => `\u2066${n}\u00a0W\u2069`,
+    (n) => `\u2066${n}\u00a0kW\u2069`,
+    (n) => `\u2066${n}\u00a0MW\u2069`,
+    (n) => `\u2066${n}\u00a0GW\u2069`,
+  ],
+  cm: (n) => `\u2066${n}\u00a0cm\u2069`,
+  tonnes: (n) => `${n}\u00a0טון`,
 
   // A number and one line: the rest (the current, ten times the voltage) is on the chart and in the explanation.
   readout: {
-    lost: 'Lost as heat',
-    lostOf: (loss, sent) => `${loss} of the ${sent} sent. The town gets the rest.`,
-    tooMuch: (loss, sent) => `${loss}, more than the ${sent} sent: nothing reaches the town.`,
+    lost: 'אובד כחום',
+    lostOf: (loss, sent) => `${loss} מתוך ${sent} שנשלחים. העיר מקבלת את השאר.`,
+    tooMuch: (loss, sent) => `${loss}, יותר מה־${sent} שנשלחים: שום דבר לא מגיע לעיר.`,
     // Only once the visitor adds metal.
-    wire: (cm, tonnes) => `The wire is ${cm} thick: ${tonnes} of aluminium.`,
-    stopped: 'Steady direct current can’t pass a transformer, so nothing reaches the town.',
-    converters: 'Converters step direct current up and down; in this simple model it loses as much as AC.',
+    wire: (cm, tonnes) => `הכבל בעובי ${cm}: ${tonnes} אלומיניום.`,
+    stopped: 'זרם ישר קבוע לא יכול לעבור דרך שנאי, ולכן שום דבר לא מגיע לעיר.',
+    converters: 'ממירים מעלים ומורידים את המתח של זרם ישר; במודל הפשוט הזה הוא מאבד כמו זרם חילופין.',
   },
 
-  status: (kv, lost) => `${kv} · ${lost} lost`,
-  statusStopped: 'No current gets through',
+  status: (kv, lost) => `${kv} · ${lost} אובדים`,
+  statusStopped: 'שום זרם לא עובר',
 
-  // Words drawn on the picture.
+  // Words drawn on the picture, which is laid out left to right: a label with a number is isolated right to left,
+  // so it reads as it would on the page.
   labels: {
-    station: 'power station',
-    town: 'town',
-    distance: '100 km',
-    house: '230 V',
-    lost: (share) => `${share} lost as heat`,
-    nothing: 'nothing reaches the town',
-    stopped: 'steady current: the transformers pass nothing',
-    chartTitle: 'heat wasted in the wire',
-    chartX: 'voltage on the line',
-    sent: 'all 10 MW sent',
-    over: 'the town gets nothing',
+    station: 'תחנת כוח',
+    town: 'עיר',
+    distance: '\u2066100 km\u2069',
+    house: '\u2066230 V\u2069',
+    lost: (share) => `\u2067${share} אובדים כחום\u2069`,
+    nothing: 'שום דבר לא מגיע לעיר',
+    stopped: 'זרם קבוע: השנאים לא מעבירים כלום',
+    chartTitle: 'החום שמתבזבז בכבל',
+    chartX: 'המתח בקו',
+    sent: '\u2067נשלחים \u206610 MW\u2069\u2069',
+    over: 'העיר לא מקבלת כלום',
     // The step between the dot and ten times (or a tenth of) its voltage.
-    up: ['× 10 voltage', '÷ 100 heat'],
-    down: ['÷ 10 voltage', '× 100 heat'],
-    drag: 'drag to turn',
+    up: ['\u2067מתח × 10\u2069', '\u2067חום ÷ 100\u2069'],
+    down: ['\u2067מתח ÷ 10\u2069', '\u2067חום × 100\u2069'],
+    drag: 'גררו לסיבוב',
   },
 
   guests: [
     {
-      name: 'James Prescott Joule',
-      note: 'In 1840 he measured the heat a current makes in a wire, and found it grows with the square of the current: twice the current, four times the heat.',
+      name: 'ג׳יימס פרסקוט ג׳ול',
+      note: 'ב־1840 הוא מדד את החום שזרם יוצר בחוט, ומצא שהוא גדל עם ריבוע הזרם: זרם כפול, פי ארבעה חום.',
     },
     {
-      name: 'Thomas Edison',
-      note: 'In the 1880s his company sent out direct current at 110 volts. It reached only customers less than a mile from each power station, but it worked with storage batteries, electric motors and his electricity meter.',
+      name: 'תומאס אדיסון',
+      note: 'בשנות ה־1880 החברה שלו סיפקה זרם ישר ב־110 וולט. הוא הגיע רק ללקוחות במרחק של פחות ממייל מכל תחנת כוח, אבל הוא עבד עם מצברים, מנועים חשמליים ומונה החשמל שלו.',
     },
     {
-      name: 'Nikola Tesla',
-      note: 'His motor ran on alternating current. In 1888 George Westinghouse licensed his patents, and with transformers to raise the voltage, alternating current went on to win the contest with Edison’s direct current.',
+      name: 'ניקולה טסלה',
+      note: 'המנוע שלו פעל על זרם חילופין. ב־1888 ג׳ורג׳ וסטינגהאוס קנה רישיון לפטנטים שלו, ועם שנאים שמעלים את המתח, זרם החילופין ניצח בסופו של דבר בתחרות מול הזרם הישר של אדיסון.',
     },
   ],
 
   insight: {
-    title: 'Why does high voltage waste less?',
-    html: `<p>A power station sends power as voltage times current: P = V × I. The wire turns some of it into heat, and that heat grows with the <em>square</em> of the current: I² × R, where R is the wire’s resistance (Joule’s law). So to send the same power, raise the voltage and lower the current. Ten times the voltage means a tenth of the current, and a hundredth of the heat.</p>
-<div class="insight-visual">heat wasted = I² × R = (P ÷ V)² × R = P² × R ÷ V²</div>
-<h3>The numbers in this room</h3>
-<p>The station sends 10 MW along 100 km of wire with a resistance of 5 Ω. At 10 kV the current is 1,000 A, and the wire wastes 5 MW: half of everything. At 100 kV the current is 100 A, and it wastes 50 kW, or 0.5%. At 400 kV it wastes about 3 kW. Below about 7 kV the sum would waste more than the station sends, so the town gets nothing at all.</p>
-<h3>Why not a thicker wire?</h3>
-<p>A wire’s resistance falls in proportion to its cross-section, so halving the heat by metal alone means doubling the metal. The thinnest wire here is solid aluminium about 2.7 cm thick, some 150 tonnes of it. To do at 10 kV what 100 kV does, you would need a hundred times as much: a wire 27 cm thick, weighing 15,000 tonnes. Raising the voltage is far cheaper.</p>
-<h3>The transformer, and the war of the currents</h3>
-<p>Houses can’t use 400,000 volts, so the voltage has to come down again at the end. A transformer does this with two coils on an iron core: a changing current in one makes a changing magnetic field, which drives a current in the other. The voltages are in the ratio of the coils’ turns, and the current changes the other way, so the power stays nearly the same. But it only works while the current keeps changing. In the late 1880s and early 1890s, that made alternating current the winner of the “war of the currents”. Edison’s direct current had real merits, and worked with storage batteries, motors and meters, but it couldn’t be stepped up, so it went out at 110 V and reached customers less than a mile away. Later, mercury-arc valves and then, from the 1970s, electronics made it possible to convert between alternating and direct current at very high voltage, and today many of the longest links carry direct current: China’s Zhundong–South Anhui line runs at ±1,100 kV for more than 3,000 km.</p>
-<h3>What this leaves out</h3>
-<p>This is one wire with resistance alone, carrying a fixed power. Real lines carry three phases, and the line’s own magnetic and electric fields, and the current crowding towards the wire’s surface, add to their losses. The sums also assume the station can always push its power through. Once the wire would waste a large part of it, that fails: below about 7 kV here, the voltage the wire uses up on the way, I × R, would be more than the station’s whole voltage, so in reality the lamps would dim and the current couldn’t grow so large. Either way, the town stays dark. The glow is a picture of the heat wasted, not of a temperature: a real line would sag towards the ground, and be switched off, long before it glowed. Voltage can’t rise for ever, either. Towers must be taller and insulators longer, and near the top of the dial the air around the wire begins to glow and crackle (corona discharge); above about 2,000 kV, those losses could cancel out the savings. Real conductors are aluminium strands, often round a steel core, and the houses get 230 V in most of the world, but 120 V in North America.</p>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Electric_power_transmission" target="_blank" rel="noopener">Electric power transmission</a><a class="source-link" href="https://en.wikipedia.org/wiki/Joule_heating" target="_blank" rel="noopener">Joule heating</a><a class="source-link" href="https://en.wikipedia.org/wiki/Transformer" target="_blank" rel="noopener">Transformer</a><a class="source-link" href="https://en.wikipedia.org/wiki/War_of_the_currents" target="_blank" rel="noopener">War of the currents</a><a class="source-link" href="https://en.wikipedia.org/wiki/High-voltage_direct_current" target="_blank" rel="noopener">High-voltage direct current</a><a class="source-link" href="https://en.wikipedia.org/wiki/Corona_discharge" target="_blank" rel="noopener">Corona discharge</a><a class="source-link" href="https://en.wikipedia.org/wiki/Mains_electricity" target="_blank" rel="noopener">Mains electricity</a><a class="source-link" href="https://en.wikipedia.org/wiki/Electrical_resistivity_and_conductivity" target="_blank" rel="noopener">Electrical resistivity (aluminium)</a></div>`,
+    title: 'למה מתח גבוה מבזבז פחות?',
+    html: `<p>תחנת כוח שולחת הספק שהוא המתח כפול הזרם: \u2066P = V × I\u2069. הכבל הופך חלק ממנו לחום, והחום הזה גדל עם <em>ריבוע</em> הזרם: \u2066I² × R\u2069, כאשר R היא ההתנגדות של הכבל (חוק ג׳ול). לכן כדי לשלוח את אותו הספק, מעלים את המתח ומורידים את הזרם. מתח גבוה פי עשרה פירושו עשירית מהזרם, ומאית מהחום.</p>
+<div class="insight-visual">החום שמתבזבז = \u2066I² × R = (P ÷ V)² × R = P² × R ÷ V²\u2069</div>
+<h3>המספרים בחדר הזה</h3>
+<p>התחנה שולחת \u206610 MW\u2069 לאורך \u2066100 km\u2069 של כבל עם התנגדות של \u20665 Ω\u2069. ב־\u206610 kV\u2069 הזרם הוא \u20661,000 A\u2069, והכבל מבזבז \u20665 MW\u2069: חצי מהכול. ב־\u2066100 kV\u2069 הזרם הוא \u2066100 A\u2069, והוא מבזבז \u206650 kW\u2069, כלומר 0.5%. ב־\u2066400 kV\u2069 הוא מבזבז בערך \u20663 kW\u2069. מתחת לכ־\u20667 kV\u2069, לפי החישוב הכבל היה מבזבז יותר ממה שהתחנה שולחת, ולכן העיר לא מקבלת כלום.</p>
+<h3>למה לא כבל עבה יותר?</h3>
+<p>ההתנגדות של כבל יורדת ביחס הפוך לשטח החתך שלו, ולכן כדי לחצות את החום בעזרת מתכת בלבד צריך להכפיל את המתכת. הכבל הדק ביותר כאן הוא אלומיניום מלא בעובי של בערך \u20662.7 cm\u2069, כ־150 טון ממנו. כדי לעשות ב־\u206610 kV\u2069 את מה ש־\u2066100 kV\u2069 עושים, הייתם צריכים פי מאה: כבל בעובי \u206627 cm\u2069, במשקל 15,000 טון. העלאת המתח זולה בהרבה.</p>
+<h3>השנאי, ומלחמת הזרמים</h3>
+<p>בתים לא יכולים להשתמש ב־400,000 וולט, ולכן בסוף הדרך צריך להוריד את המתח שוב. שנאי עושה את זה בעזרת שני סלילים על ליבת ברזל: זרם משתנה באחד מהם יוצר שדה מגנטי משתנה, שמניע זרם בשני. היחס בין המתחים שווה ליחס בין מספרי הליפופים של הסלילים, והזרם משתנה בכיוון ההפוך, כך שההספק נשאר כמעט אותו דבר. אבל זה עובד רק כל עוד הזרם ממשיך להשתנות. בסוף שנות ה־1880 ובתחילת שנות ה־1890, זה הפך את זרם החילופין למנצח ב”מלחמת הזרמים”. לזרם הישר של אדיסון היו יתרונות אמיתיים, והוא עבד עם מצברים, מנועים ומוני חשמל, אבל אי אפשר היה להעלות את המתח שלו, ולכן הוא יצא ב־\u2066110 V\u2069 והגיע ללקוחות במרחק של פחות ממייל. מאוחר יותר, מיישרי קשת כספית, ואחריהם, משנות ה־1970, רכיבים אלקטרוניים, אפשרו להמיר בין זרם חילופין לזרם ישר במתח גבוה מאוד, והיום רבים מהקווים הארוכים ביותר מעבירים זרם ישר: הקו ג׳ונדונג–דרום אנחווי בסין פועל ב־\u2066±1,100 kV\u2069 לאורך יותר מ־\u20663,000 km\u2069.</p>
+<h3>מה החדר משאיר בחוץ</h3>
+<p>זה כבל אחד, עם התנגדות בלבד, שמעביר הספק קבוע. קווים אמיתיים מעבירים שלוש פאזות, והשדות המגנטיים והחשמליים של הקו עצמו, וגם הצטופפות הזרם לכיוון פני השטח של הכבל, מוסיפים להפסדים שלהם. החישובים גם מניחים שהתחנה תמיד יכולה לדחוף את ההספק שלה דרך הקו. ברגע שהכבל היה מבזבז חלק גדול ממנו, ההנחה הזאת נכשלת: מתחת לכ־\u20667 kV\u2069 כאן, המתח שהכבל צורך בדרך, \u2066I × R\u2069, היה גדול מכל המתח של התחנה, ולכן במציאות הנורות היו מתעמעמות, והזרם לא היה יכול לגדול כל כך. כך או כך, העיר נשארת חשוכה. הזוהר הוא ציור של החום שמתבזבז, לא של טמפרטורה: קו אמיתי היה שוקע לכיוון הקרקע, ומנותק, הרבה לפני שהיה מתחיל לזהור. גם המתח לא יכול לעלות בלי סוף. עמודי החשמל צריכים להיות גבוהים יותר והמבודדים ארוכים יותר, וליד הקצה העליון של החוגה האוויר סביב הכבל מתחיל לזהור ולפצפץ (פריקת קורונה); מעל כ־\u20662,000 kV\u2069, ההפסדים האלה עלולים לבטל את החיסכון. מוליכים אמיתיים עשויים מגדילים של אלומיניום, לעתים קרובות סביב ליבת פלדה, והבתים מקבלים \u2066230 V\u2069 ברוב העולם, אבל \u2066120 V\u2069 בצפון אמריקה.</p>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Electric_power_transmission" target="_blank" rel="noopener">הולכת חשמל (באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Joule_heating" target="_blank" rel="noopener">חימום ג׳ול (באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Transformer" target="_blank" rel="noopener">שנאי (באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/War_of_the_currents" target="_blank" rel="noopener">מלחמת הזרמים (באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/High-voltage_direct_current" target="_blank" rel="noopener">זרם ישר במתח גבוה (באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Corona_discharge" target="_blank" rel="noopener">פריקת קורונה (באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Mains_electricity" target="_blank" rel="noopener">חשמל ביתי (באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Electrical_resistivity_and_conductivity" target="_blank" rel="noopener">התנגדות סגולית (אלומיניום) (באנגלית)</a></div>`,
   },
 });

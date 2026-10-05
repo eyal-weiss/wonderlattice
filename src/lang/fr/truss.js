@@ -1,129 +1,138 @@
-/* The stubborn triangle · visitor-facing words (fr). */
+/* Le triangle têtu · les mots vus par le visiteur (fr). */
 Wonderlattice.defineText('truss', 'fr', {
   eyebrow: 'STRUCTURES',
-  name: 'The stubborn triangle',
+  name: 'Le triangle têtu',
   tagline:
-    'A bridge of squares folds under a toy truck. Add the right bars and it locks, and every bar shows its load.',
-  title: 'The stubborn triangle.',
+    'Un pont fait de carrés se plie sous un camion jouet. Ajoutez les bonnes barres et il se bloque, et chaque barre montre sa charge.',
+  title: 'Le triangle têtu.',
   subtitle:
-    'Squares fold and triangles don’t. Watch the bridge give way, then tap bars in and out: blue bars are squeezed, red bars stretched.',
-  field: 'Rigidity · Maxwell’s count · The Geiringer–Laman theorem · Forces in a truss',
-  sceneLabel: 'Bars, pins and a toy truck',
+    'Les carrés se plient, les triangles non. Regardez le pont céder, puis touchez des barres pour les retirer ou les remettre : les barres bleues sont comprimées, les rouges étirées.',
+  field: 'Rigidité · Le décompte de Maxwell · Le théorème de Geiringer–Laman · Les forces dans un treillis',
+  sceneLabel: 'Des barres, des pivots et un camion jouet',
   sceneNames: {
-    squares: 'Squares only',
-    pratt: 'A Pratt truss',
-    howe: 'A Howe truss',
-    counted: 'Counted, but floppy',
-    own: 'Your own bridge',
-    bracing: 'Bracing the squares',
+    squares: 'Rien que des carrés',
+    pratt: 'Un treillis Pratt',
+    howe: 'Un treillis Howe',
+    counted: 'Le compte y est, mais il plie',
+    own: 'Votre propre pont',
+    bracing: 'Renforcer les carrés',
   },
-  tip: 'Tap a bar to take it out, or a dashed line to put one in · Drag the truck · Arrow keys aim, Enter switches',
-  actionBrace: 'Brace every square',
-  actionUnbrace: 'Take the diagonals out',
+  tip: 'Touchez une barre pour la retirer, ou un pointillé pour en poser une · Faites glisser le camion · Les flèches visent, Entrée retire ou pose',
+  actionBrace: 'Renforcer chaque carré',
+  actionUnbrace: 'Retirer les diagonales',
   canvasLabel:
-    'A bridge of bars and pins across a gap, with a toy truck on its road. Tap a bar to take it out or a dashed line to put one in, or use the arrow keys to aim and Enter to switch. Drag the truck to move it.',
-  panelEyebrow: 'Bars and pins',
-  whyLabel: 'Why do triangles hold?',
+    'Un pont de barres et de pivots au-dessus d’un vide, avec un camion jouet sur sa route. Touchez une barre pour la retirer ou un pointillé pour en poser une, ou visez avec les flèches et appuyez sur Entrée pour retirer ou poser. Faites glisser le camion pour le déplacer.',
+  panelEyebrow: 'Barres et pivots',
+  whyLabel: 'Pourquoi les triangles tiennent-ils ?',
   nudge:
-    'Take any one bar out of a locked bridge and watch it fold again. Then give one square a second diagonal: is the bridge any stiffer?',
+    'Retirez une seule barre d’un pont rigide, et regardez-le se replier. Puis donnez une seconde diagonale à un carré : le pont est-il plus rigide pour autant ?',
   connection: {
-    html: '<strong>Squeezed and stretched.</strong> A truss uses both. Stones in an arch can only be squeezed, so the arch must take the shape of a hanging chain, upside down. See it in “Hang it, flip it, build it”.',
-    label: 'Visit “Hang it, flip it, build it”',
+    html: '<strong>Comprimer et étirer.</strong> Un treillis fait les deux. Les pierres d’un arc ne peuvent être que comprimées, si bien que l’arc doit prendre la forme d’une chaîne suspendue, à l’envers. Voyez-le dans « Suspendre, retourner, bâtir ».',
+    label: 'Visiter « Suspendre, retourner, bâtir »',
   },
 
   presets: [
-    { name: 'Squares only', note: 'Top, bottom and uprights, no diagonals.' },
-    { name: 'A Pratt truss', note: 'A diagonal in every square.' },
-    { name: 'Counted, but floppy', note: 'Enough bars, in the wrong places.' },
+    { name: 'Rien que des carrés', note: 'Barres du haut et du bas, montants, aucune diagonale.' },
+    { name: 'Un treillis Pratt', note: 'Une diagonale dans chaque carré.' },
+    { name: 'Le compte y est, mais il plie', note: 'Assez de barres, aux mauvais endroits.' },
   ],
 
-  panels: 'Squares across the gap',
-  panelsHint: 'Each square adds two joints, so the bridge needs four more bars.',
-  forces: 'Show what each bar carries',
+  panels: 'Carrés au-dessus du vide',
+  panelsHint: 'Chaque carré ajoute deux nœuds, et il faut donc au pont quatre barres de plus.',
+  forces: 'Montrer ce que porte chaque barre',
 
-  verdict: { rigid: 'RIGID', floppy: 'FLOPPY' },
-  count: (joints, needed, bars) => `${joints} joints × 2 − 3 = ${needed} bars needed · ${bars} here`,
+  verdict: { rigid: 'RIGIDE', floppy: 'DÉFORMABLE' },
+  count: (joints, needed, bars) => `${joints} nœuds × 2 − 3 = ${needed} barres requises · ${bars} ici`,
   reason: {
-    short: (k) => (k === 1 ? 'one bar short' : `${k} bars short`),
-    spread: 'enough bars, badly spread',
-    rigid: (spare) => (spare === 0 ? 'not one bar to spare' : spare === 1 ? 'one spare bar' : `${spare} spare bars`),
+    short: (k) => (k === 1 ? 'il manque une barre' : `il manque ${k} barres`),
+    spread: 'barres mal réparties',
+    rigid: (spare) =>
+      spare === 0 ? 'pas une barre en trop' : spare === 1 ? 'une barre en trop' : `${spare} barres en trop`,
   },
   times: (x) => `${x}×`,
 
   key: {
-    squeezed: 'Squeezed',
-    stretched: 'Stretched',
-    nothing: 'Carries nothing',
-    spare: 'Spare',
+    squeezed: 'Comprimée',
+    stretched: 'Étirée',
+    nothing: 'Ne porte rien',
+    spare: 'En trop',
   },
 
   primer: {
-    title: 'WHY TRIANGLES',
-    square: 'A square folds',
-    squareCount: '4 joints × 2 − 3 = 5 bars needed · it has 4',
-    triangle: 'A triangle holds',
-    triangleCount: '3 joints × 2 − 3 = 3 bars needed · it has 3',
+    title: 'POURQUOI DES TRIANGLES',
+    square: 'Un carré se plie',
+    squareCount: '4 nœuds × 2 − 3 = 5 barres requises · il en a 4',
+    triangle: 'Un triangle tient',
+    triangleCount: '3 nœuds × 2 − 3 = 3 barres requises · il en a 3',
   },
 
   status: {
     rigid: (spare) =>
-      spare === 0 ? 'Rigid · no spare bars' : spare === 1 ? 'Rigid · one spare bar' : `Rigid · ${spare} spare bars`,
-    short: (k) => (k === 1 ? 'Floppy · one bar short' : `Floppy · ${k} bars short`),
-    spread: 'Floppy · bars badly spread',
+      spare === 0
+        ? 'Rigide · aucune barre en trop'
+        : spare === 1
+          ? 'Rigide · une barre en trop'
+          : `Rigide · ${spare} barres en trop`,
+    short: (k) => (k === 1 ? 'Déformable · il manque une barre' : `Déformable · il manque ${k} barres`),
+    spread: 'Déformable · barres mal réparties',
   },
-  folded: 'The bridge folds.',
-  locked: 'The bridge is rigid.',
+  folded: 'Le pont se replie.',
+  locked: 'Le pont est rigide.',
 
   readout: {
-    have: (bars, needed) => `${bars} bars, ${needed} needed`,
+    have: (bars, needed) => `${bars} barres, ${needed} requises`,
     count: (joints, ways, needed, bars) =>
-      `${joints} joints can each move two ways: ${ways} ways in all. Take away 3 for sliding and turning the whole bridge, and it needs ${needed} bars. It has ${bars}.`,
+      `${joints} nœuds peuvent chacun bouger de deux façons : ${ways} façons en tout. Ôtez-en 3, qui font glisser ou tourner le pont tout entier, et il lui faut ${needed} barres. Il en a ${bars}.`,
     short: (k) =>
       k === 1
-        ? 'One bar is missing, so the bridge can still fold one way.'
-        : `${k} bars are missing, so the bridge can still fold.`,
+        ? 'Il manque une barre, donc le pont peut encore se plier d’une façon.'
+        : `Il manque ${k} barres, donc le pont peut encore se plier.`,
     spread:
-      'There are enough bars, but some are crowded where they repeat each other (the dashed one is spare), so another part has too few and folds.',
-    busiest: (x) => `The busiest bar carries ${x} times the truck’s weight.`,
-    busiestSame: 'The busiest bar carries as much as the truck weighs.',
+      'Il y a assez de barres, mais certaines s’entassent là où elles font double emploi (celle en pointillé est en trop), si bien qu’une autre partie en manque et se plie.',
+    busiest: (x) => `La barre la plus chargée porte ${x} fois le poids du camion.`,
+    busiestSame: 'La barre la plus chargée porte autant que pèse le camion.',
     nothing: (k) =>
-      k === 0 ? 'Every bar carries something.' : k === 1 ? 'One bar carries nothing.' : `${k} bars carry nothing.`,
+      k === 0
+        ? 'Chaque barre porte quelque chose.'
+        : k === 1
+          ? 'Une barre ne porte rien.'
+          : `${k} barres ne portent rien.`,
     spare: (k) =>
       k === 1
-        ? 'One bar is spare (dashed): take it out and the bridge still stands.'
-        : `${k} bars are spare (dashed): the bridge doesn’t need them to stand.`,
-    ashore: 'The truck is on solid ground, so no bar carries anything.',
+        ? 'Une barre est en trop (en pointillé) : retirez-la et le pont tient toujours.'
+        : `${k} barres sont en trop (en pointillé) : le pont n’en a pas besoin pour tenir.`,
+    ashore: 'Le camion est sur la terre ferme, alors aucune barre ne porte de charge.',
   },
 
   guests: [
     {
       name: 'James Clerk Maxwell',
-      note: 'In 1864 I counted. Each joint of a flat frame can move two ways, and three of those ways just slide or turn the whole frame. So a frame of j joints needs at least 2j − 3 bars.',
+      note: 'En 1864, j’ai compté. Chaque nœud d’une structure plane peut bouger de deux façons, et trois de ces façons ne font que glisser ou tourner la structure entière. Il faut donc à une structure de j nœuds au moins 2j − 3 barres.',
     },
     {
       name: 'Hilda Geiringer',
-      note: 'In 1927 I found exactly which flat frames are rigid: not one part may have more bars than it needs. Gerard Laman found the same rule again in 1970, and today it carries both our names.',
+      note: 'En 1927, j’ai trouvé exactement quelles structures planes sont rigides : aucune partie ne doit avoir plus de barres qu’il ne lui en faut. Gerard Laman a retrouvé la même règle en 1970, et aujourd’hui elle porte nos deux noms.',
     },
     {
       name: 'Squire Whipple',
-      note: 'In 1847 I published a book that worked out the force in every bar of a truss, instead of guessing. My iron bowstring bridges crossed the Erie Canal.',
+      note: 'En 1847, j’ai publié un livre qui calculait la force dans chaque barre d’un treillis, au lieu de la deviner. Mes ponts bowstring en fer franchissaient le canal Érié.',
     },
   ],
 
   insight: {
-    title: 'Why do triangles hold?',
-    html: `<p>A bar keeps its length, and a pin lets bars turn. Three lengths fix a triangle’s shape completely, so a triangle of bars can’t change shape at all. Four lengths don’t fix a square: it leans into a rhombus without a single bar bending or stretching. That’s why the frames of bridges, cranes and roofs are made of triangles.</p>
-<div class="insight-visual">joints × 2 − 3 = bars needed</div>
-<h3>Counting the ways to move</h3>
-<p>On a flat wall, each joint can move in two directions, so j joints have 2j ways to move. Each bar takes away at most one. Three ways always remain, however many bars there are: even a rigid frame can slide sideways, slide up and down, and turn as a whole. Here the pin and the roller under the bridge take those three away. So a frame needs at least 2j − 3 bars, a count James Clerk Maxwell gave in 1864. A bridge of four squares has 10 joints, so it needs 17 bars. With only its top, bottom and uprights it has 13, so it’s four short: one diagonal per square.</p>
-<h3>Counting isn’t enough</h3>
-<p>Put in 17 bars with two diagonals in one square and none in the next, and the bridge still folds. The second diagonal is spare: it holds nothing the first doesn’t already hold. Hilda Pollaczek-Geiringer found the exact rule in 1927, and Gerard Laman found it again in 1970. A frame with 2j − 3 bars is rigid exactly when no part of it is crowded: every group of k joints has at most 2k − 3 bars between them. The rule is for joints in general position. In special positions, such as three joints in a straight line, a frame with the right bars can still give a little. On this bridge’s pegboard, every choice of bars behaves just as it would in general position.</p>
-<h3>What each bar carries</h3>
-<p>Once the bridge is rigid, every joint must balance: the pushes and pulls of its bars, and the truck’s weight where the road rests on it, add up to nothing. Solving all those balances together (the method of joints) gives the force in every bar. Blue bars are squeezed and red bars are stretched, and a thicker bar carries more. Some bars carry nothing at all while the truck is in one place, and a lot when it moves. And a bar can carry more than the truck weighs: in a Pratt truss of six squares, with the truck in the middle, the middle of the top is squeezed with one and a half times the truck’s weight.</p>
-<p>In a Pratt truss the diagonals lean in towards the middle and are stretched, while the uprights are squeezed. Mirror every diagonal and you get a Howe truss, where the diagonals are squeezed and the uprights stretched. That difference mattered to builders: a long squeezed bar can buckle, bowing sideways long before it would crush, so squeezed bars must be fatter. William Howe’s 1840 design squeezed timber diagonals and stretched iron rods. Thomas and Caleb Pratt’s 1844 design turned that round, and it suited bridges as iron and steel took over from wood. The Warren truss of 1848 uses a zigzag of diagonals, squeezed and stretched in turn.</p>
-<h3>What this model leaves out</h3>
-<p>The bars here weigh nothing, their joints are perfect pins, the truck’s weight reaches the bridge only at its joints through the road, and every bar is the same steel. Real bridges carry their own weight, which is usually far more than any truck’s. Their joints are riveted, bolted or welded, which stiffens them. Their squeezed bars buckle before they break. Where a bridge has spare bars, how they share the load depends on how stretchy each one is, and here they’re all alike. The folding is a cartoon: a real frame would fall faster, and break. And triangles aren’t the only way to be stiff: frames with rigid joints, shells and tensegrity structures are stiff too. Bridge-building games such as Poly Bridge simulate whole bridges; this room sticks to the counting and the forces.</p>
-<details><summary>The mathematics, if you want it</summary><p>Moving joint a by u<sub>a</sub> and joint b by u<sub>b</sub> keeps bar ab’s length, to first order, when (p<sub>a</sub> − p<sub>b</sub>) · (u<sub>a</sub> − u<sub>b</sub>) = 0. One such equation per bar makes the rigidity matrix, with two columns per joint. With three more rows for the pin and the roller, the bridge is rigid exactly when the matrix has full rank, 2j. The room also finds the rank with the joints jumbled slightly into general position, to tell a badly spread frame from a special position. A floppy bridge folds along a motion the matrix allows: the part of the truck’s push that no bar resists. The forces come from the stiffness method with every bar alike. For a bridge with no spare bars, that gives exactly the forces of the method of joints, whatever the bars are made of. The forces were checked against an independent program for Pratt and Howe trusses of two to six squares, and the rank against Laman’s condition on 150 random small frames.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Truss" target="_blank" rel="noopener">Truss</a><a class="source-link" href="https://en.wikipedia.org/wiki/Laman_graph" target="_blank" rel="noopener">Laman graph</a><a class="source-link" href="https://en.wikipedia.org/wiki/Structural_rigidity" target="_blank" rel="noopener">Structural rigidity</a><a class="source-link" href="https://en.wikipedia.org/wiki/Truss_bridge" target="_blank" rel="noopener">Truss bridge (Pratt, Howe and Warren)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Squire_Whipple" target="_blank" rel="noopener">Squire Whipple</a><a class="source-link" href="https://doi.org/10.1080/14786446408643668" target="_blank" rel="noopener">Maxwell (1864), On the calculation of the equilibrium and stiffness of frames</a><a class="source-link" href="https://doi.org/10.1002/zamm.19270070107" target="_blank" rel="noopener">Pollaczek-Geiringer (1927), Über die Gliederung ebener Fachwerke</a><a class="source-link" href="https://doi.org/10.1007/BF01534980" target="_blank" rel="noopener">Laman (1970), On graphs and rigidity of plane skeletal structures</a></div>`,
+    title: 'Pourquoi les triangles tiennent-ils ?',
+    html: `<p>Une barre garde sa longueur, et un pivot laisse les barres tourner. Trois longueurs fixent entièrement la forme d’un triangle : un triangle de barres ne peut donc pas changer de forme du tout. Quatre longueurs ne fixent pas un carré : il penche jusqu’à devenir un losange sans qu’une seule barre ne plie ni ne s’étire. Voilà pourquoi les structures des ponts, des grues et des toits sont faites de triangles.</p>
+<div class="insight-visual">nœuds × 2 − 3 = barres requises</div>
+<h3>Compter les façons de bouger</h3>
+<p>Sur un mur plat, chaque nœud peut bouger dans deux directions : j nœuds ont donc 2j façons de bouger. Chaque barre en retire au plus une. Trois façons restent toujours, quel que soit le nombre de barres : même une structure rigide peut glisser de côté, glisser de haut en bas, et tourner tout entière. Ici, le pivot et le rouleau sous le pont retirent ces trois-là. Il faut donc à une structure au moins 2j − 3 barres, un décompte donné par James Clerk Maxwell en 1864. Un pont de quatre carrés a 10 nœuds : il lui faut donc 17 barres. Avec seulement ses barres du haut et du bas et ses montants, il en a 13 : il lui en manque quatre, une diagonale par carré.</p>
+<h3>Compter ne suffit pas</h3>
+<p>Posez 17 barres, avec deux diagonales dans un carré et aucune dans le suivant, et le pont se plie quand même. La seconde diagonale est en trop : elle ne tient rien que la première ne tienne déjà. Hilda Pollaczek-Geiringer a trouvé la règle exacte en 1927, et Gerard Laman l’a retrouvée en 1970. Une structure de 2j − 3 barres est rigide exactement quand aucune de ses parties n’a trop de barres : tout groupe de k nœuds a au plus 2k − 3 barres entre eux. La règle vaut pour des nœuds en position générale. Dans des positions particulières, comme trois nœuds alignés, une structure qui a les bonnes barres peut encore céder un peu. Sur le panneau perforé de ce pont, chaque choix de barres se comporte exactement comme en position générale.</p>
+<h3>Ce que porte chaque barre</h3>
+<p>Une fois le pont rigide, chaque nœud doit être en équilibre : les poussées et les tractions de ses barres, et le poids du camion là où la route repose sur lui, s’annulent. Résoudre tous ces équilibres ensemble (la méthode des nœuds) donne la force dans chaque barre. Les barres bleues sont comprimées et les rouges étirées, et une barre plus épaisse porte davantage. Certaines barres ne portent rien du tout quand le camion est à un endroit, et beaucoup quand il se déplace. Et une barre peut porter plus que le poids du camion : dans un treillis Pratt de six carrés, avec le camion au milieu, le milieu du haut est comprimé par une fois et demie le poids du camion.</p>
+<p>Dans un treillis Pratt, les diagonales penchent vers le milieu et sont étirées, tandis que les montants sont comprimés. Retournez chaque diagonale comme dans un miroir et vous obtenez un treillis Howe, où les diagonales sont comprimées et les montants étirés. Cette différence comptait pour les bâtisseurs : une longue barre comprimée peut flamber, c’est-à-dire se courber de côté bien avant de s’écraser, si bien que les barres comprimées doivent être plus épaisses. Le modèle de William Howe, en 1840, comprimait des diagonales en bois et étirait des tiges de fer. Celui de Thomas et Caleb Pratt, en 1844, inversait les rôles, et il convenait aux ponts à mesure que le fer et l’acier remplaçaient le bois. Le treillis Warren, de 1848, utilise un zigzag de diagonales, tour à tour comprimées et étirées.</p>
+<h3>Ce que ce modèle laisse de côté</h3>
+<p>Ici, les barres ne pèsent rien, leurs nœuds sont des pivots parfaits, le poids du camion n’atteint le pont qu’à ses nœuds, par la route, et toutes les barres sont du même acier. Les vrais ponts portent leur propre poids, en général bien plus lourd que n’importe quel camion. Leurs nœuds sont rivetés, boulonnés ou soudés, ce qui les raidit. Leurs barres comprimées flambent avant de rompre. Quand un pont a des barres en trop, la façon dont elles se partagent la charge dépend de l’élasticité de chacune, et ici elles sont toutes pareilles. Le pliage est une caricature : une vraie structure tomberait plus vite, et se briserait. Et les triangles ne sont pas la seule façon d’être rigide : les structures à nœuds rigides, les coques et les structures de tenségrité le sont aussi. Des jeux de construction de ponts comme Poly Bridge simulent des ponts entiers ; cette salle s’en tient au décompte et aux forces.</p>
+<details><summary>Les mathématiques, si vous voulez</summary><p>Déplacer le nœud a de u<sub>a</sub> et le nœud b de u<sub>b</sub> conserve la longueur de la barre ab, au premier ordre, quand (p<sub>a</sub> − p<sub>b</sub>) · (u<sub>a</sub> − u<sub>b</sub>) = 0. Une telle équation par barre forme la matrice de rigidité, avec deux colonnes par nœud. Avec trois lignes de plus pour le pivot et le rouleau, le pont est rigide exactement quand la matrice est de rang plein, 2j. La salle calcule aussi le rang avec les nœuds légèrement décalés au hasard, en position générale, pour distinguer une structure aux barres mal réparties d’une position particulière. Un pont déformable se plie selon un mouvement que la matrice permet : la part de la poussée du camion à laquelle aucune barre ne résiste. Les forces viennent de la méthode des déplacements, avec toutes les barres identiques. Pour un pont sans barre en trop, elle donne exactement les forces de la méthode des nœuds, quel que soit le matériau des barres. Les forces ont été vérifiées par un programme indépendant pour des treillis Pratt et Howe de deux à six carrés, et le rang par la condition de Laman sur 150 petites structures prises au hasard.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Truss" target="_blank" rel="noopener">Treillis (en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Laman_graph" target="_blank" rel="noopener">Graphe de Laman (en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Structural_rigidity" target="_blank" rel="noopener">Rigidité structurelle (en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Truss_bridge" target="_blank" rel="noopener">Pont en treillis (Pratt, Howe et Warren, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Squire_Whipple" target="_blank" rel="noopener">Squire Whipple (en anglais)</a><a class="source-link" href="https://doi.org/10.1080/14786446408643668" target="_blank" rel="noopener">Maxwell (1864), « On the calculation of the equilibrium and stiffness of frames » (en anglais)</a><a class="source-link" href="https://doi.org/10.1002/zamm.19270070107" target="_blank" rel="noopener">Pollaczek-Geiringer (1927), « Über die Gliederung ebener Fachwerke » (en allemand)</a><a class="source-link" href="https://doi.org/10.1007/BF01534980" target="_blank" rel="noopener">Laman (1970), « On graphs and rigidity of plane skeletal structures » (en anglais)</a></div>`,
   },
 });
