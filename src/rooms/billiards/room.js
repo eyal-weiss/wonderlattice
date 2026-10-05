@@ -148,7 +148,9 @@
 
   /**
    * Layout: on a wide picture the tables sit side by side at the top, where they are seen first, with the chart
-   * below; on a narrow one they are stacked, with shorter labels, and the chart only if there's room.
+   * below; on a narrow one they are stacked, with shorter labels, and the chart only if there's room. The chart
+   * grows a little on a tall picture; any height still left over is shared evenly above the tables, between them and
+   * the chart, and below it, so the picture fills its frame without stretching anything.
    */
   function layout(cw, ch, small) {
     const pad = Math.max(8, Math.round(Math.min(cw, ch) * 0.03));
@@ -169,16 +171,20 @@
       const h = 2 * scale + rail;
       boxes = [0, 1].map((i) => ({ x: pad, y: pad + labelH + i * (h + labelH + pad), w, h }));
     }
+    let bottom = boxes[1].y + boxes[1].h;
+    const room = ch - bottom - legendH - 2 * pad;
+    const chartH = room >= 110 ? Math.min(room, Math.max(300, ch * 0.4)) : 0;
+    const gap = Math.max(0, (room - chartH) / (chartH ? 3 : 2));
+    for (const box of boxes) box.y += gap;
+    bottom += gap;
     both().forEach((T, i) => {
       const box = boxes[i],
         cx = box.x + box.w / 2;
       T.view = { cx, cy: box.y + box.h / 2, scale, labelX: side ? cx - T.shape.halfWidth * scale : pad, side };
     });
-    const bottom = boxes[1].y + boxes[1].h,
-      legendY = bottom + legendH / 2,
-      chartY = bottom + legendH + pad,
-      room = ch - chartY - pad;
-    const chart = room >= 110 ? { x: pad, y: chartY, w: cw - 2 * pad, h: Math.min(room, 300) } : null;
+    const legendY = bottom + legendH / 2,
+      chartY = bottom + legendH + pad + gap;
+    const chart = chartH ? { x: pad, y: chartY, w: cw - 2 * pad, h: chartH } : null;
     return { legendY, chart };
   }
 
@@ -605,7 +611,8 @@
   function readouts(s) {
     const E = tables.ellipse,
       S = tables.stadium;
-    if (!E || !S) return;
+    // Tables from before a change of settings (a preset, say) wait to start again; draw() says the new readouts.
+    if (!E || !S || E.key !== keyOf('ellipse', s) || S.key !== keyOf('stadium', s)) return;
     write(
       'scene-status',
       s.pocket

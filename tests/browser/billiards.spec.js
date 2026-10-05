@@ -3,23 +3,28 @@ import { test, expect, tool } from './helpers.js';
 const settings = async (page) => (await tool(page, 'read_exploration')).settings;
 const status = (page) => page.locator('#scene-status');
 
-/** The middle of the felt in one column of the picture (a fraction of its width), in page coordinates. */
+/**
+ * The middle of the first table in one column of the picture (a fraction of its width), in page coordinates: halfway
+ * between its rail at the top and its rail at the bottom. (The felt itself is crossed by the long exposure's lines.)
+ */
 async function feltCentre(page, across) {
   const box = await page.locator('#scene-canvas').boundingBox();
-  const rows = await page.locator('#scene-canvas').evaluate((canvas, f) => {
+  const rails = await page.locator('#scene-canvas').evaluate((canvas, f) => {
     const x = Math.round(canvas.width * f);
     const { data } = canvas.getContext('2d').getImageData(x, 0, 1, canvas.height);
-    const felt = [];
+    const rail = [0x6b, 0x4a, 0x2e];
+    const runs = [];
     for (let y = 0; y < canvas.height; y++) {
-      const [r, g, b] = data.slice(4 * y, 4 * y + 3);
-      if (r < 40 && g > 40 && g < 75 && b > 30 && b < 60) felt.push(y / canvas.height);
+      const pixel = data.slice(4 * y, 4 * y + 3);
+      if (!pixel.every((c, i) => Math.abs(c - rail[i]) < 16)) continue;
+      const last = runs[runs.length - 1];
+      if (last && y - last.end <= 2) last.end = y;
+      else runs.push({ start: y, end: y });
     }
-    return felt;
+    return runs.map(({ start, end }) => ({ start: start / canvas.height, end: end / canvas.height }));
   }, across);
-  // The first run of felt from the top is the table in that column.
-  let end = 0;
-  while (end + 1 < rows.length && rows[end + 1] - rows[end] < 0.02) end++;
-  return { x: box.x + box.width * across, y: box.y + box.height * ((rows[0] + rows[end]) / 2) };
+  // The first two runs of rail from the top are the first table's top and bottom.
+  return { x: box.x + box.width * across, y: box.y + box.height * ((rails[0].start + rails[1].end) / 2) };
 }
 
 test('billiards room: within seconds, without a click, the stadium forgets and the ellipse remembers', async ({
