@@ -46,6 +46,35 @@ test('voltage room: with reduced motion it stays at 10 kV, where half is lost, a
   await expect(readout(page)).toContainText('The sums ask the wire to waste 20 MW, more than the 10 MW sent');
 });
 
+test('voltage room: beside the long panel the picture fills its frame, with the dial just above the buttons', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/#room=voltage');
+  await expect(status(page)).toHaveText('10 kV · 50% lost');
+  // The panel makes the canvas taller than its width calls for; the chart takes the extra height, so no empty band
+  // is left between the picture and the buttons.
+  const { height, emptyBelow } = await page.locator('#scene-canvas').evaluate((canvas) => {
+    const { width, height } = canvas;
+    const data = canvas.getContext('2d').getImageData(0, 0, width, height).data;
+    const differs = (o, base) =>
+      Math.abs(data[o] - data[base]) + Math.abs(data[o + 1] - data[base + 1]) + Math.abs(data[o + 2] - data[base + 2]) >
+      24;
+    let last = 0;
+    for (let y = height - 1; y >= 0 && !last; y--)
+      for (let x = 0; x < width; x += 2)
+        if (differs((y * width + x) * 4, y * width * 4)) {
+          last = y;
+          break;
+        }
+    const scale = canvas.getBoundingClientRect().height / height;
+    return { height: canvas.getBoundingClientRect().height, emptyBelow: (height - 1 - last) * scale };
+  });
+  expect(height).toBeGreaterThan(800);
+  expect(emptyBelow).toBeLessThan(40);
+});
+
 test('voltage room: the presets, a main grid line and a hundred times the metal', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/#room=voltage');

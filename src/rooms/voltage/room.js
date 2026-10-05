@@ -216,7 +216,8 @@
 
   /**
    * The landscape at the top, and the chart below, whose horizontal axis is the dial. Beside a long panel the canvas
-   * can be taller than the screen, so the picture keeps a landscape shape at the top rather than stretching.
+   * can be taller than the screen: the landscape keeps its shape at the top, so the first screen shows it whole, and
+   * the chart takes the rest of the height, so the picture fills its frame and the dial sits just above the buttons.
    */
   function place(width, height, fill = false) {
     const narrow = width < 560;
@@ -224,7 +225,7 @@
     const pad = Math.max(8, Math.min(width, H) * 0.025);
     const small = Math.round(clamp(Math.min(width, H) / 30, 10, 13));
     const sceneH = Math.round(H * (narrow ? 0.56 : 0.6));
-    const chart = { x: pad, y: sceneH + pad * 0.5, w: width - pad * 2, h: H - sceneH - pad };
+    const chart = { x: pad, y: sceneH + pad * 0.5, w: width - pad * 2, h: height - sceneH - pad };
     // The chart's plot, and the dial's track under it.
     const left = small * 3.3;
     const plot = { x: chart.x + left, y: chart.y + small * 1.9, w: chart.w - left - small * 0.6, h: 0 };
