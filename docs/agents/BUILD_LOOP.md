@@ -54,8 +54,16 @@ reviews:
 - **The surprise lands without reading or clicking.** Within about ten seconds of opening, the room already shows
   its surprise. Explore controls come after. (The Parrondo room first opened on one game in a fog of dots, and the
   paradox only appeared after a click.)
-- **Look at it.** Take screenshots at 1280×900 and 390×844, during the animation and at its end. On the desktop view,
-  the part that matters must be above the fold. Automated tests passed on rooms that looked wrong.
+- **Look at it.** Take screenshots at 1280×900, 1920×1080, 1024×768 and 390×844, during the animation and at its end.
+  Automated tests passed on rooms that looked wrong.
+- **Fill the frame.** The picture's frame is as tall as the window on wide screens (or as the panel, when that is
+  shorter) and pinned above the controls on phones, so draw for the canvas you're given: about 834 × 678 at 1280×900,
+  1074 × 858 at 1920×1080, 662 × 546 at 1024×768 and 344 × 287 on a phone. No empty band (an empty band looked broken
+  to the owner), and no part stretched or blown up just to use the space (a giant chart looked wrong too): scale the
+  main picture proportionally and arrange the parts. `tests/browser/picture-fills.spec.js` checks every room.
+- **A short panel.** Keep the panel short, with few explanations: a readout is a number with at most a short line, a
+  control has at most one line of help, and a longer explanation appears only where it really helps. Background and
+  detail belong in the explanation behind "Why…?", for visitors who ask for it.
 - **Recompute the mathematics independently** (a short script, not the room's own code) and put the checked numbers
   in `model.js` tests.
 - **Honesty:** say what the model leaves out; cite sources you have opened; word open or contested results carefully.

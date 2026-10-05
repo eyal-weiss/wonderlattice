@@ -15,6 +15,13 @@ This file is a changelog of the site, newest first. How the code fits together i
 - **Room ideas:** issues labelled `room idea`, indexed in #19; the ones labelled `ready to build` are approved.
 - Text drawn inside the pictures doesn't grow with the Display setting; the browser's zoom enlarges everything.
 
+## 2026-10-05
+
+- **Pictures that fit the screen.** On a laptop or desktop, a room's picture is now never taller than the window, and
+  it stays in view while you scroll down a long panel, so a slider at the bottom still shows its effect. Before, the
+  picture's frame grew as long as the panel (up to 1,150 px) and several rooms left an empty black band under their
+  picture. Every room now fills its frame, and a test checks all of them at five sizes.
+
 ## 2026-10-04
 
 - **Kaleidoscope of cheaters in every language.** The room (No. 22 on the route) had shipped in English only, so it
