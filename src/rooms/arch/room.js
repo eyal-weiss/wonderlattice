@@ -334,39 +334,95 @@
   // ---------- layout ----------
 
   /**
-   * Two pictures side by side, on one scale, in the part of the canvas likely to be on screen. A metre-wide arch
-   * fits each picture with room for a tall one above and a hanging road below; on a tall canvas, a row of other
-   * arch shapes follows underneath.
+   * Two pictures on one scale, a metre-wide arch in each, with room for a tall one above it (its crown may rise
+   * beside the words at the top) and for a hanging road below. On a wide screen they stand side by side, and below
+   * them, as space allows, the row of other arch shapes and the chart of how thin their stones may be: one above the
+   * other, or side by side, the pictures a little smaller to leave them room. On a phone the two pictures stand one
+   * above the other, each beside its words.
    */
   function layout(width, height) {
     const narrow = width < 560;
-    const seen = Math.min(height, Math.max(0.6 * width, 300));
-    const pad = narrow ? 8 : 14,
-      gap = narrow ? 8 : 18,
-      head = narrow ? 36 : 48;
+    if (narrow) {
+      const pad = 8,
+        gap = 6;
+      const tall = (height - 2 * pad - gap) / 2;
+      const scale = Math.max(30, Math.min(tall / 1.18, (width - 2 * pad) / 2.6));
+      const lane = (top) => ({
+        x: pad,
+        w: width - 2 * pad,
+        cx: width * 0.6,
+        top,
+        head: top + 6, // a tall arch or tower may rise to near the top, beside the words
+        ground: top + 0.98 * scale,
+        words: [top + 6, top + 22],
+      });
+      const panels = [lane(pad), lane(pad + tall + gap)];
+      return { narrow, pad, scale, panels, gallery: null, width, height };
+    }
+    const pad = 14,
+      gap = 18,
+      head = 48; // the words at the top of each picture
     const w = (width - 2 * pad - gap) / 2;
-    const scale = Math.max(40, Math.min(w / 1.28, (seen - head - pad) / (0.98 + 0.2)));
-    // With a row of shapes below, the pictures sit at the top; without, their ground is near the bottom.
-    const ground = narrow ? Math.max(head + 0.98 * scale, seen - pad - 0.2 * scale) : head + 0.98 * scale;
-    const panels = [
-      { x: pad, w, cx: pad + w / 2 },
-      { x: pad + w + gap, w, cx: pad + w + gap + w / 2 },
+    // The room kept above a semicircle for taller arches (0.44 of the scale, less the words beside it) stays under
+    // an eighth of the picture's height.
+    const most = Math.min(w / 1.28, (height / 8 + 28) / 0.44);
+    const GAP = 24,
+      TITLE = 26; // from the pictures' ground down to the row's title, and from the title to the shapes
+    const CHART = 36 + 166; // the chart under the row: its title, five bars and the axis
+    // What goes below the pictures: the first plan that leaves them big enough.
+    const plans = [
+      { kind: 'stacked', rows: 1, least: 130, extra: CHART, keep: 0.84 },
+      { kind: 'side', rows: 2, least: 118, extra: 8, keep: 0.8, fits: w >= 360 }, // 8: between the two rows
+      { kind: 'row', rows: 1, least: 120, extra: 0, keep: 0.75 },
     ];
-    const below = height - (ground + 0.2 * scale);
+    const below = (p) => GAP + TITLE + p.rows * p.least + p.extra + pad;
+    const sized = (room) => Math.max(40, Math.min(most, (room - pad) / 1.18));
+    const plan = plans.find((p) => p.fits !== false && sized(height - below(p)) >= p.keep * most) ?? null;
+    const scale = sized(plan ? height - below(plan) : height - pad);
+    const ground = pad + 0.98 * scale;
+    const panel = (x) => ({ x, w, cx: x + w / 2, top: 0, head, ground, words: [18, 38] });
+    const panels = [panel(pad), panel(pad + w + gap)];
     let gallery = null;
-    if (below >= 170 && !narrow) {
-      const top = ground + 0.2 * scale + 24;
-      const cellW = (width - 2 * pad) / SHAPES.length,
-        cellH = Math.min(170, height - top - 30 - pad);
-      if (cellH >= 110) {
+    if (plan) {
+      // Taller shapes with what is left over (up to a point), and any rest shared out between the gaps.
+      const spare = Math.max(0, height - (ground + 0.2 * scale) - below(plan));
+      const cellH = plan.least + Math.min(spare / plan.rows, (plan.rows > 1 ? 150 : 170) - plan.least);
+      const gaps = plan.kind === 'stacked' ? 3 : 2;
+      const share = (spare - plan.rows * (cellH - plan.least)) / gaps;
+      const top = ground + 0.2 * scale + GAP + share;
+      if (plan.kind === 'side') {
+        // The chart under the chain's picture; the shapes, two by two, under the other arch they can replace.
+        const cellW = w / 2;
         gallery = {
           top,
-          cells: SHAPES.map((_, i) => ({ x: pad + i * cellW, y: top + 26, w: cellW, h: cellH })),
+          x: panels[1].x,
+          cells: SHAPES.map((_, i) => ({
+            x: panels[1].x + (i % 2) * cellW,
+            y: top + TITLE + Math.floor(i / 2) * (cellH + 8),
+            w: cellW,
+            h: cellH,
+          })),
         };
-        // And below that, when there is room, how thin each arch's stones may be.
-        const bottom = top + 26 + cellH;
-        if (height - bottom - pad >= 36 + 5 * 26 + 30)
-          gallery.chart = { top: bottom + 36, x: pad + 4, w: width - 2 * pad - 8 };
+        // The chart in the middle of its column: its title, the stones chosen, five bars and the axis.
+        const column = TITLE + 2 * cellH + 8 - 4,
+          pitch = clamp((column - 92) / 4, 26, 30),
+          tall = 92 + 4 * pitch;
+        gallery.chart = { top: top + 4 + Math.max(0, (column - tall) / 2), x: pad + 4, w: w - 8, pitch, lead: 44 };
+      } else {
+        const cellW = (width - 2 * pad) / SHAPES.length;
+        gallery = {
+          top,
+          x: pad,
+          cells: SHAPES.map((_, i) => ({ x: pad + i * cellW, y: top + TITLE, w: cellW, h: cellH })),
+        };
+        if (plan.kind === 'stacked')
+          gallery.chart = {
+            top: top + TITLE + cellH + share + 36,
+            x: pad + 4,
+            w: width - 2 * pad - 8,
+            pitch: 26,
+            lead: 30,
+          };
       }
     }
     return { narrow, pad, head, scale, ground, panels, gallery, width, height };
@@ -385,7 +441,11 @@
     const towerTop = Math.max(...towersOf(s)) * STOREY;
     const above = Math.max(towerTop, s.road ? DECK + 0.03 : 0) + thick(s);
     const spanW = Math.max(...xs) - Math.min(...xs) + 2 * thick(s);
-    const sc = Math.min(l.scale, (l.panels[0].w - 8) / spanW, (l.ground - l.head) / (high - low + above || 1));
+    const sc = Math.min(
+      l.scale,
+      (l.panels[0].w - 8) / spanW,
+      (l.panels[0].ground - l.panels[0].head) / (high - low + above || 1),
+    );
     return { s: sc, xm: (Math.max(...xs) + Math.min(...xs)) / 2, low, level: (low + high) / 2 };
   }
 
@@ -566,7 +626,7 @@
     const v = viewFor(s, l);
     const turn = story.turn;
     const flipY = (y) => v.level + (y - v.level) * Math.cos(Math.PI * turn);
-    const toCanvas = ([x, y]) => [panel.cx + (x - v.xm) * v.s, l.ground - (y - v.low) * v.s];
+    const toCanvas = ([x, y]) => [panel.cx + (x - v.xm) * v.s, panel.ground - (y - v.low) * v.s];
     // Points of the turned-over arch are first turned back to where the turn has reached.
     const fromArch = ([x, y]) => toCanvas([x, flipY(2 * v.level - y)]);
     const [a, b] = pegs(s);
@@ -576,16 +636,16 @@
     // The ground under the arch, and a pier under a foot that stands higher.
     const groundAlpha = smooth(0.45, 0.95, turn);
     if (groundAlpha > 0) {
-      drawGround(ctx, panel.x, panel.x + panel.w, l.ground, 0.2 * l.scale, groundAlpha);
+      drawGround(ctx, panel.x, panel.x + panel.w, panel.ground, 0.2 * l.scale, groundAlpha);
       for (const p of [a, b]) {
         const foot = 2 * v.level - p[1];
         if (foot - v.low > 0.004) {
           const [x, y] = toCanvas([p[0], foot]);
           ctx.globalAlpha = groundAlpha;
           ctx.fillStyle = '#2a3343';
-          ctx.fillRect(x - 0.06 * v.s, y + 2, 0.12 * v.s, l.ground - y - 2);
+          ctx.fillRect(x - 0.06 * v.s, y + 2, 0.12 * v.s, panel.ground - y - 2);
           ctx.strokeStyle = EARTH_LINE;
-          ctx.strokeRect(x - 0.06 * v.s, y + 2, 0.12 * v.s, l.ground - y - 2);
+          ctx.strokeRect(x - 0.06 * v.s, y + 2, 0.12 * v.s, panel.ground - y - 2);
           ctx.globalAlpha = 1;
         }
       }
@@ -669,7 +729,7 @@
         ctx.lineWidth = 3;
         ctx.beginPath();
         ctx.moveTo(x, y);
-        ctx.lineTo(x, Math.max(l.head - 6, y - 0.12 * v.s));
+        ctx.lineTo(x, Math.max(panel.head - 6, y - 0.12 * v.s));
         ctx.stroke();
         ctx.beginPath();
         ctx.arc(x, y, Math.max(4.5, 0.016 * v.s), 0, TAU);
@@ -714,10 +774,10 @@
       small = l.narrow ? '600 11.5px system-ui, sans-serif' : '600 13px system-ui, sans-serif';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'alphabetic';
-    label(ctx, arching ? t.labels.arch : t.labels.chain, x, l.narrow ? 14 : 18, MUTED, small);
+    label(ctx, arching ? t.labels.arch : t.labels.chain, x, panel.words[0], MUTED, small);
     if (story.turn === 1 && left.line) {
       const fell = !!left.fall;
-      label(ctx, fell ? t.labels.falls : t.labels.stands, x, l.narrow ? 30 : 38, fell ? RED : GREEN, big);
+      label(ctx, fell ? t.labels.falls : t.labels.stands, x, panel.words[1], fell ? RED : GREEN, big);
     }
   }
 
@@ -781,8 +841,8 @@
   /** The other arch: on its frame, then struck, then standing or falling. */
   function drawRight(ctx, s, l) {
     const panel = l.panels[1];
-    const map = ([x, y]) => [panel.cx + x * l.scale, l.ground - y * l.scale];
-    drawGround(ctx, panel.x, panel.x + panel.w, l.ground, 0.2 * l.scale);
+    const map = ([x, y]) => [panel.cx + x * l.scale, panel.ground - y * l.scale];
+    drawGround(ctx, panel.x, panel.x + panel.w, panel.ground, 0.2 * l.scale);
     if (!right.arch) buildRight(s);
     const struck = story.struckAt !== null;
     const since = struck ? clock - story.struckAt : -1;
@@ -830,7 +890,7 @@
       big = l.narrow ? '700 13px system-ui, sans-serif' : '700 16px system-ui, sans-serif',
       small = l.narrow ? '600 11.5px system-ui, sans-serif' : '600 13px system-ui, sans-serif';
     ctx.textAlign = 'left';
-    label(ctx, t.labels[SHAPES[s.shape]], x, l.narrow ? 14 : 18, MUTED, small);
+    label(ctx, t.labels[SHAPES[s.shape]], x, panel.words[0], MUTED, small);
     const word =
       dragging?.kind === 'draw'
         ? t.labels.drawing
@@ -840,7 +900,7 @@
             ? t.labels.falls
             : t.labels.stands;
     const colour = !struck || dragging?.kind === 'draw' ? MUTED : right.fall ? RED : GREEN;
-    label(ctx, word, x, l.narrow ? 30 : 38, colour, struck ? big : small);
+    label(ctx, word, x, panel.words[1], colour, struck ? big : small);
   }
 
   function drawFrame(ctx, arch, map, drop, scale) {
@@ -876,12 +936,12 @@
     const g = l.gallery;
     if (!g) return;
     ctx.textAlign = 'left';
-    label(ctx, t.labels.gallery, l.pad + 4, g.top + 4, MUTED, '600 13px system-ui, sans-serif');
+    label(ctx, t.labels.gallery, g.x + 4, g.top + 4, MUTED, '600 13px system-ui, sans-serif');
     g.cells.forEach((cell, i) => {
       const key = i === 3 ? 'own' + DOTS.map((k) => s[k]).join(',') : SHAPES[i];
       const shape = i === 3 ? M.drawnShape(DOTS.map((k) => s[k] / 100)) : M.shapes[SHAPES[i]];
       const entry = galleryArch(key, shape, s.thick);
-      const sc = Math.min((cell.w - 20) / 1.25, (cell.h - 56) / 0.95);
+      const sc = Math.min((cell.w - 20) / 1.25, (cell.h - 64) / 0.95);
       const ground = cell.y + 18 + 0.95 * sc;
       const cx = cell.x + cell.w / 2;
       const map = ([x, y]) => [cx + x * sc, ground - y * sc];
@@ -937,13 +997,13 @@
     const nameW = Math.max(...rows.map((r) => ctx.measureText(r.name).width)) + 16;
     const x0 = c.x + nameW,
       x1 = c.x + c.w - 96,
-      top = c.top + 30,
+      top = c.top + c.lead, // the bars, below the title and the stones chosen
       most = 12; // centimetres along the axis
     const at = (cmValue) => x0 + (Math.min(cmValue, most) / most) * (x1 - x0);
     ctx.textAlign = 'left';
     label(ctx, t.labels.chartTitle, c.x, c.top, MUTED, font);
     rows.forEach((row, r) => {
-      const y = top + r * 26;
+      const y = top + r * c.pitch;
       const job = thinFor(row.key, row.build);
       ctx.textAlign = 'right';
       label(ctx, row.name, x0 - 10, y + 5, INK, font);
@@ -957,10 +1017,13 @@
       ctx.globalAlpha = 1;
       ctx.textAlign = 'left';
       const text = job.never ? t.labels.never(cm(THIN.hi)) : job.any ? t.labels.any : cm(job.hi);
-      label(ctx, text, Math.min(at(need), x1) + 8, y + 5, MUTED, small);
+      // After the bar; or, when that would run past the chart's edge, ending at the edge.
+      ctx.font = small;
+      const after = Math.min(at(need), x1) + 8;
+      label(ctx, text, Math.min(after, c.x + c.w - ctx.measureText(text).width), y + 5, MUTED, small);
     });
     // The stones chosen now, as a line across the bars, and the axis in centimetres.
-    const bottom = top + (rows.length - 1) * 26 + 10;
+    const bottom = top + (rows.length - 1) * c.pitch + 10;
     const mark = at(s.thick);
     ctx.save();
     ctx.strokeStyle = '#ffffff';
@@ -1189,7 +1252,8 @@
 
   const cursor = { on: false, handle: 'stone', index: 10 }; // the keyboard's choice: a peg, a stone or a dot
 
-  const panelAt = (x) => (lay && x >= lay.panels[1].x - 4 ? 1 : 0);
+  /** Which picture a point is in: side by side, or (on a phone) one above the other. */
+  const panelAt = (x, y) => (lay && (lay.narrow ? y >= lay.panels[1].top - 3 : x >= lay.panels[1].x - 4) ? 1 : 0);
   /** The shape in the row below that a point is on, or −1. */
   const cellAt = (x, y) =>
     lay?.gallery
@@ -1203,7 +1267,7 @@
     let best = -1,
       bestD = 22;
     pegs(s).forEach((p, i) => {
-      const d = Math.hypot(panel.cx + (p[0] - v.xm) * v.s - x, lay.ground - (p[1] - v.low) * v.s - y);
+      const d = Math.hypot(panel.cx + (p[0] - v.xm) * v.s - x, panel.ground - (p[1] - v.low) * v.s - y);
       if (d < bestD) {
         best = i;
         bestD = d;
@@ -1217,7 +1281,7 @@
     if (!lay || story.turning) return -1;
     const v = view ?? leftView(s, lay);
     const panel = lay.panels[0];
-    const toCanvas = ([px, py]) => [panel.cx + (px - v.xm) * v.s, lay.ground - (py - v.low) * v.s];
+    const toCanvas = ([px, py]) => [panel.cx + (px - v.xm) * v.s, panel.ground - (py - v.low) * v.s];
     let best = -1,
       bestD = Math.max(18, 0.06 * v.s);
     if (story.turn === 1 && left.arch) {
@@ -1253,7 +1317,7 @@
         r = shape(phi);
       const d = Math.hypot(
         panel.cx + r * Math.cos(phi) * lay.scale - x,
-        lay.ground - r * Math.sin(phi) * lay.scale - y,
+        panel.ground - r * Math.sin(phi) * lay.scale - y,
       );
       if (d < bestD) {
         best = k;
@@ -1278,7 +1342,7 @@
     const polar = points
       .map(([x, y]) => {
         const wx = (x - panel.cx) / lay.scale,
-          wy = (lay.ground - y) / lay.scale;
+          wy = (panel.ground - y) / lay.scale;
         return { phi: Math.atan2(Math.max(wy, 0), wx), r: Math.hypot(wx, Math.max(wy, 0)) };
       })
       .filter((p) => p.r > 0.08);
@@ -1433,7 +1497,7 @@
         return (
           pegNear(x, y, s) >= 0 ||
           dotNear(x, y, s) >= 0 ||
-          (s.shape === 3 && panelAt(x) === 1 && y < (lay?.ground ?? 0) + 10)
+          (s.shape === 3 && panelAt(x, y) === 1 && y < (lay?.panels[1].ground ?? 0) + 10)
         );
       },
       down(p, s, stage, e) {
@@ -1456,7 +1520,7 @@
           dragging = { kind: 'peg', index: peg };
           return;
         }
-        if (panelAt(x) === 0) {
+        if (panelAt(x, y) === 0) {
           const j = stoneNear(x, y, s);
           if (j >= 0) tap = { index: j, x, y };
           return;
@@ -1466,7 +1530,7 @@
           dragging = { kind: 'dot', index: k };
           return;
         }
-        if (s.shape === 3 && y < lay.ground + 10) dragging = { kind: 'draw', points: [[x, y]] };
+        if (s.shape === 3 && y < lay.panels[1].ground + 10) dragging = { kind: 'draw', points: [[x, y]] };
       },
       move(p, { dragging: held, mouse }, s, stage) {
         const x = p.x * stage.width,
@@ -1477,9 +1541,9 @@
           canvas.classList.toggle('arch-grab', over);
           canvas.classList.toggle(
             'arch-pick',
-            !over && (cellAt(x, y) >= 0 || (panelAt(x) === 0 && stoneNear(x, y, s) >= 0)),
+            !over && (cellAt(x, y) >= 0 || (panelAt(x, y) === 0 && stoneNear(x, y, s) >= 0)),
           );
-          canvas.classList.toggle('arch-draw', !over && s.shape === 3 && panelAt(x) === 1);
+          canvas.classList.toggle('arch-draw', !over && s.shape === 3 && panelAt(x, y) === 1);
         }
         if (tap && Math.hypot(x - tap.x, y - tap.y) > 8) tap = null;
         if (!held || !dragging) return;
@@ -1487,7 +1551,7 @@
           const v = view ?? leftView(s, lay);
           const panel = lay.panels[0];
           const wx = clamp(v.xm + (x - panel.cx) / v.s, -0.9, 0.9),
-            wy = clamp(v.low + (lay.ground - y) / v.s, -0.6, 0.6);
+            wy = clamp(v.low + (panel.ground - y) / v.s, -0.6, 0.6);
           const other = pegs(s)[1 - dragging.index];
           const keys = dragging.index === 0 ? ['ax', 'ay'] : ['bx', 'by'];
           let px = dragging.index === 0 ? Math.min(wx, other[0] - 0.1) : Math.max(wx, other[0] + 0.1);
@@ -1506,7 +1570,7 @@
         } else if (dragging.kind === 'dot') {
           const panel = lay.panels[1];
           const phi = M.dotAngle(dragging.index);
-          const along = ((x - panel.cx) * Math.cos(phi) + (lay.ground - y) * Math.sin(phi)) / lay.scale;
+          const along = ((x - panel.cx) * Math.cos(phi) + (panel.ground - y) * Math.sin(phi)) / lay.scale;
           setDot(dragging.index, along, s, stage);
           stage.sync();
         } else if (dragging.kind === 'draw') {

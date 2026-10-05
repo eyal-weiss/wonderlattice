@@ -5,14 +5,36 @@ const scene = (page) => page.locator('#scene-name');
 const readout = (page) => page.locator('#wheels-readout');
 
 /**
- * Where the room puts things on a wide picture (its layout): the lanes fit in the part of the picture likely on
- * screen, the first lane's axle is `axle` from the top, and its cart is centred at 42% of the width.
+ * Where the room puts things on a wide picture (its layout): the lanes on top, the first lane's axle `axle` from the
+ * top and its cart centred at 42% of the width; below them, the row of wheels, as the first plan that leaves the
+ * lanes big enough (for regular wheels, two rows of three beside the hanging chain; else one row), its cells `cell(i)`.
  */
 function lanes(box, own) {
-  const seen = Math.min(box.height, Math.max(0.58 * box.width, 300));
-  const room = seen - 24 - (2 * 22 + 14);
-  const R = own ? Math.min((room * 0.58) / 3.3, 96, (box.width * 0.4) / 2.4) : Math.min((room * 0.5) / 3.3, 64);
-  return { R, axle: 12 + 22 + 2 * R, cx: 0.42 * box.width };
+  const items = own ? 5 : 6,
+    inner = box.width - 24;
+  const size = (h) => {
+    const room = h - 24 - (2 * 22 + 14);
+    return own ? Math.min((room * 0.58) / 3.3, 96, (box.width * 0.4) / 2.4) : Math.min((room * 0.5) / 3.3, 64);
+  };
+  const plans = [
+    ...(own ? [] : [{ cols: 3, rows: 2, least: 108, smallest: 46, chain: true }]),
+    inner / items >= 100
+      ? { cols: items, rows: 1, least: 104, smallest: own ? 50 : 38 }
+      : { cols: Math.ceil(items / 2), rows: 2, least: 100, smallest: own ? 50 : 38 },
+  ];
+  const plan = plans.find((p) => size(box.height - 50 - p.rows * p.least) >= p.smallest);
+  const R = size(plan ? box.height - 50 - plan.rows * plan.least : box.height);
+  let cell = null;
+  if (plan && !own) {
+    const last = 12 + 2 * (22 + 3.3 * R) + 14;
+    const spare = Math.max(0, box.height - 12 - last - 50 - plan.rows * plan.least);
+    const cellH = plan.least + Math.min(spare / plan.rows, (plan.rows > 1 ? 160 : 150) - plan.least);
+    const top = last + 50 + (spare - plan.rows * (cellH - plan.least)) / 2;
+    const cellW = (inner - (plan.chain ? Math.min(480, Math.max(320, inner * 0.5)) + 16 : 0)) / plan.cols;
+    // The middle of a cell's wheel and road, above its name.
+    cell = (i) => ({ x: 12 + ((i % plan.cols) + 0.5) * cellW, y: top + Math.floor(i / plan.cols) * cellH + 30 });
+  }
+  return { R, axle: 12 + 22 + 2 * R, cx: 0.42 * box.width, cell };
 }
 
 test('wheels room: opens on square wheels riding level, beside the same cart bobbing on a flat road', async ({
@@ -125,13 +147,11 @@ test('wheels room: a tap in the row of wheels rides that wheel', async ({ page }
   const canvas = page.locator('#scene-canvas');
   await canvas.evaluate((c) => c.scrollIntoView({ block: 'start' }));
   const box = await canvas.boundingBox();
-  test.skip(box.height < 700, 'the row of wheels needs a tall picture');
-  // Under the two lanes (each 22 + 3.3 R tall, 14 apart), the row's title, then six wheels across.
-  const { R } = lanes(box, false);
-  const top = 12 + 2 * (22 + 3.3 * R) + 14 + 40 + 22;
-  await page.mouse.click(box.x + 12 + (box.width - 24) / 12, box.y + top + 40);
+  const { cell } = lanes(box, false);
+  test.skip(!cell, 'the row of wheels needs a taller picture');
+  await page.mouse.click(box.x + cell(0).x, box.y + cell(0).y);
   await expect(scene(page)).toHaveText('A triangle crashes');
-  await page.mouse.click(box.x + 12 + (7 * (box.width - 24)) / 12, box.y + top + 40); // the fourth: six sides
+  await page.mouse.click(box.x + cell(3).x, box.y + cell(3).y); // the fourth: six sides
   await expect(scene(page)).toHaveText('Hexagon wheels');
 });
 
