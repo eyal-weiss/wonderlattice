@@ -24,11 +24,12 @@ test('compress room: drawing on the picture makes it your own, by pointer and by
   await expect(page.locator('#scene-name')).toHaveText('Face');
   await page.locator('#scene-canvas').scrollIntoViewIfNeeded();
   const box = await page.locator('#scene-canvas').boundingBox();
-  // The picture is the left of three squares; drag across its middle.
-  const y = box.y + box.height / 2;
-  await page.mouse.move(box.x + box.width * 0.12, y);
+  // The picture is the first of three squares: the left of a row, or the top left with the building blocks below.
+  // Drag from a point inside it in both arrangements (a quarter across, a third down).
+  const y = box.y + box.height * 0.3;
+  await page.mouse.move(box.x + box.width * 0.26, y);
   await page.mouse.down();
-  await page.mouse.move(box.x + box.width * 0.28, y, { steps: 6 });
+  await page.mouse.move(box.x + box.width * 0.4, y, { steps: 6 });
   await page.mouse.up();
   await expect(page.locator('#scene-name')).toHaveText('Your own picture');
 

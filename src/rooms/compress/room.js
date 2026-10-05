@@ -92,18 +92,58 @@
     return patterns;
   }
 
-  /** Three squares in a row: your picture, what survives, the building blocks. */
+  const measurer = document.createElement('canvas').getContext('2d');
+  /** How wide "broad washes" and "fine ripples" are, in the size they're drawn at. */
+  function wordWidths(small) {
+    measurer.font = `${small - 1}px system-ui`;
+    return [t.broad, t.fine].map((word) => measurer.measureText(word).width);
+  }
+
+  /**
+   * Three squares: your picture, what survives, the building blocks. In a row where the frame is wide; where it is
+   * taller than that, the two pictures side by side and the building blocks (a little smaller) centred below them,
+   * which fills the frame's height, unless a row shows the pictures much larger. Either way they're centred.
+   */
+  const BLOCKS = 0.8; // the building blocks' size beside the pictures', when they sit below
   function layout(width, height, labels) {
     const pad = Math.max(8, Math.min(width, height) * 0.035);
     const gap = Math.max(8, width * 0.025);
     const small = Math.round(clamp(width / 60, 10, 13));
     const top = labels ? small + 8 : 0;
-    const bottom = labels ? small + 6 : 0;
-    const side = Math.max(20, Math.min((width - 2 * pad - 2 * gap) / 3, height - 2 * pad - top - bottom));
-    const x0 = (width - (3 * side + 2 * gap)) / 2;
-    const y0 = pad + top + Math.max(0, (height - 2 * pad - top - bottom - side) / 2);
-    const square = (i) => ({ x: x0 + i * (side + gap), y: y0, s: side });
-    return { small, picture: square(0), survivor: square(1), blocks: square(2) };
+    const [broad, fine] = labels ? wordWidths(small) : [0, 0];
+    // Under the building blocks in a row: one line of words, or two where they don't fit side by side.
+    const under = (side) => (!labels ? 0 : broad + fine + 10 <= side ? small + 6 : 2 * small + 8);
+    // Below the pictures the words sit beside the blocks' corners instead, where they fit.
+    const room = (blocks) => (width - blocks) / 2 - pad - 8;
+    const beside = (blocks) => Math.max(broad, fine) <= room(blocks);
+    const rowSide = (bottom) => Math.min((width - 2 * pad - 2 * gap) / 3, height - 2 * pad - top - bottom);
+    const stackSide = (bottom) =>
+      Math.min((width - 2 * pad - gap) / 2, (height - 2 * pad - 2 * top - gap - bottom) / (1 + BLOCKS));
+    const row = rowSide(under(rowSide(under(width))));
+    let stack = stackSide(0);
+    const words = beside(stack * BLOCKS);
+    if (!words) stack = stackSide(under(stackSide(under(width)) * BLOCKS));
+    if (!labels || 0.85 * row > stack) {
+      const side = Math.max(20, row),
+        bottom = under(side);
+      const x0 = (width - (3 * side + 2 * gap)) / 2;
+      const y0 = pad + top + Math.max(0, (height - 2 * pad - top - bottom - side) / 2);
+      const square = (i) => ({ x: x0 + i * (side + gap), y: y0, s: side });
+      return { small, picture: square(0), survivor: square(1), blocks: square(2) };
+    }
+    const side = Math.max(20, stack),
+      blocks = side * BLOCKS;
+    const used = 2 * top + side + gap + blocks + (words ? 0 : under(blocks));
+    const x0 = (width - (2 * side + gap)) / 2;
+    const y0 = (height - used) / 2 + top;
+    return {
+      small,
+      picture: { x: x0, y: y0, s: side },
+      survivor: { x: x0 + side + gap, y: y0, s: side },
+      blocks: { x: (width - blocks) / 2, y: y0 + side + gap + top, s: blocks },
+      title: width - 2 * pad, // the room the building blocks' label has, alone on its row
+      beside: words ? room(blocks) : 0, // the room for each word beside the blocks, or 0 for words under them
+    };
   }
 
   function render(ctx, s, stage, { labels = true } = {}) {
@@ -155,18 +195,28 @@
     ctx.font = `600 ${L.small}px system-ui`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'alphabetic';
-    const label = (sq, text) => ctx.fillText(text, sq.x + sq.s / 2, sq.y - 7, sq.s + 8);
+    const label = (sq, text, room = sq.s + 8) => ctx.fillText(text, sq.x + sq.s / 2, sq.y - 7, room);
     label(L.picture, edited ? t.yourPicture : t.yours);
     label(L.survivor, t.survives);
-    label(L.blocks, t.blocks);
-    // Under the building blocks: broad washes at the top left, fine ripples at the bottom right.
+    label(L.blocks, t.blocks, L.title);
+    // Broad washes at the top left of the building blocks, fine ripples at the bottom right: beside those corners
+    // when the blocks have a row to themselves, otherwise under them.
     ctx.font = `${L.small - 1}px system-ui`;
-    const below = L.blocks.y + L.blocks.s + L.small + 3;
-    const fits = ctx.measureText(t.broad).width + ctx.measureText(t.fine).width + 10 <= L.blocks.s;
+    const { x, y, s: side } = L.blocks;
+    if (L.beside) {
+      ctx.textBaseline = 'middle';
+      ctx.textAlign = 'right';
+      ctx.fillText(t.broad, x - 8, y + cell / 2, L.beside);
+      ctx.textAlign = 'left';
+      ctx.fillText(t.fine, x + side + 8, y + side - cell / 2, L.beside);
+      return;
+    }
+    const below = y + side + L.small + 3;
+    const [broad, fine] = wordWidths(L.small);
     ctx.textAlign = 'left';
-    ctx.fillText(t.broad, L.blocks.x, below, L.blocks.s);
+    ctx.fillText(t.broad, x, below, side);
     ctx.textAlign = 'right';
-    ctx.fillText(t.fine, L.blocks.x + L.blocks.s, fits ? below : below + L.small + 2, L.blocks.s);
+    ctx.fillText(t.fine, x + side, broad + fine + 10 <= side ? below : below + L.small + 2, side);
   }
 
   function draw(ctx, s, stage) {
