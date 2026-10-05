@@ -242,12 +242,13 @@
 
   /**
    * Showers in a row at the top, with the map (or, with the visitor's hand, a big tap) beside them, and the chart
-   * underneath. Beside a long panel the canvas can be taller than the screen, so everything keeps a landscape
-   * shape at the top rather than stretching below the fold.
+   * underneath. The frame is never taller than the window, so the picture fills it, up to a height of about five
+   * sixths of its width (beyond that the showers would only grow thin). The map keeps about a third of the row, room
+   * for its words.
    */
   function place(width, height, mode, fill = false) {
     const narrow = width < 560;
-    const H = fill ? height : Math.min(height, width * (narrow ? 0.84 : 0.6));
+    const H = fill ? height : Math.min(height, width * 0.84);
     const pad = Math.max(8, Math.min(width, H) * 0.03);
     const small = Math.round(clamp(Math.min(width, H) / 30, 10, 13));
     const inner = width - pad * 2;
@@ -255,7 +256,7 @@
     const count = mode === RACE ? 2 : 1;
     const side = mode !== RACE || !narrow;
     let cubW = sceneH * (side ? 0.9 : 1.05);
-    if (mode === RACE) cubW = Math.min(cubW, (inner - pad - (side ? Math.max(170, inner * 0.28) + pad : 0)) / 2);
+    if (mode === RACE) cubW = Math.min(cubW, (inner - pad - (side ? Math.max(170, inner * 0.35) + pad : 0)) / 2);
     else cubW = Math.min(cubW, inner * 0.46);
     const row = count * cubW + (count - 1) * pad;
     const sideW = side ? inner - row - pad : 0;

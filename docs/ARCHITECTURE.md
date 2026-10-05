@@ -94,6 +94,26 @@ There are two kinds of room:
 - **Custom rooms** (`layout: 'custom'`, currently only motion) bring their own markup (`#motion-room`) and logic. The app
   just shows their `panel` and calls their hooks.
 
+### The picture's frame
+
+On wide screens (two columns, from 961 px) a room's picture sits beside its panel. Its frame is as tall as the panel
+but never taller than the window, and it stays in view (sticky) while a longer panel scrolls past, so a control or a
+readout far down the panel still shows its effect (`styles/base.css`, next to the phones' rule). On phones the picture
+is pinned above the controls, which scroll under it. Either way a room draws for the canvas it is given, which at
+common sizes is about 834 × 678 (1280×900), 1074 × 858 (1920×1080), 662 × 546 (1024×768) and 344 × 287 (a phone):
+
+```
+ opened                          scrolled down the panel
+ ┌──────────────┬───────┐       ┌──────────────┬───────┐
+ │   picture    │ panel │       │   picture    │ lower │
+ │   buttons    │  …    │       │   buttons    │ panel │
+ └──────────────┤       │       └──────────────┤       │
+```
+
+The picture fills it: `tests/browser/picture-fills.spec.js` checks every room at five sizes for an empty strip taller
+than a sixth of the picture. (Before, the frame stretched to the panel's length, up to 1,150 px, and a room that drew
+a fixed-shape picture left an empty band under it.)
+
 ### Stage room fields
 
 | Field                                                             | Purpose                                                                                                       |

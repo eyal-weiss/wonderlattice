@@ -134,18 +134,26 @@
   // --------------------------------------------------------------- layout
 
   /**
-   * Where the grid and the chart go. On wide screens the grid sits top left, small enough to stay above the fold
-   * on a laptop, with the chart and the colour key beside it. On phones the picture is short (it stays pinned while
-   * the controls scroll), so the grid fills its height, a slim meter stands beside it, and the key is in the panel.
+   * Where the grid and the chart go. On wide screens the grid sits top left with the chart and the colour key beside
+   * it, and the inspector below it: the grid gives up a little of its size so the three share the picture's height
+   * (it is never taller than the window). Only when that would shrink the grid too much does the inspector stay away.
+   * On phones the picture is short (it stays pinned while the controls scroll), so the grid fills its height, a slim
+   * meter stands beside it, and the key is in the panel.
    */
   function measure(width, height) {
-    const pad = 12;
+    const pad = 12,
+      gap = 28;
     if (width >= 600) {
-      const size = Math.max(160, Math.min(height - 2 * pad, width * 0.57, 600));
-      const x = pad + size + 28,
-        below = pad + size + 28;
+      const alone = Math.max(160, Math.min(height - 2 * pad, width * 0.57, 600));
+      const inspectorHeight = clamp(Math.round(height * 0.26), 160, 190);
+      const shared = Math.min(alone, height - 2 * pad - gap - inspectorHeight);
+      const inspect = shared >= Math.max(240, alone * 0.7);
+      const size = inspect ? shared : alone;
+      const x = pad + size + gap,
+        below = pad + size + gap;
       return {
         wide: true,
+        inspect,
         x: pad,
         y: pad,
         size,
@@ -216,7 +224,7 @@
       const chartH = Math.min(230, side.h * 0.5);
       chart(ctx, side.x, side.y, side.w, chartH);
       key(ctx, s, side.x, side.y + chartH + 36, side.w);
-      if (layout.below.h >= 170) inspector(ctx, s, layout.below);
+      if (layout.inspect) inspector(ctx, s, layout.below);
     } else if (side) meter(ctx, side);
     // Without room for the key on the canvas (phones), the one in the panel shows.
     const panelKey = $('cheaters-key');
@@ -230,7 +238,7 @@
     const n = grid.n,
       cell = size / n;
     const box = (i) => [x + (i % n) * cell, y + Math.floor(i / n) * cell];
-    if (layout.wide && layout.below.h >= 170) {
+    if (layout.inspect) {
       // The neighbourhood the inspector below magnifies.
       const [bx, by] = box(inspected());
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.55)';

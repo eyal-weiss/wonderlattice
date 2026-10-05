@@ -137,16 +137,26 @@
   // ---------------------------------------------------------------- geometry
 
   const textRoom = (width) => (width < 480 ? 62 : 52); // space under the board for the explanation
+  const firstLine = (width) => (width < 480 ? 27 : 36); // the board's edge to the foot of its first line of words
+
+  /** The board's size, and the network's: they grow with the picture's height, which is never above the window's. */
+  function sizes(width, height) {
+    const room = height - textRoom(width) - 10;
+    const most = Math.max(440, Math.min(height * 0.7, 620));
+    return {
+      board: Math.min(width * 0.92, room, most),
+      net: Math.min(width * 0.8, room * 0.84, most * (400 / 440)),
+    };
+  }
 
   /**
-   * Where the board sits: near the top of the stage, with room below for the
-   * explanation. The network view spreads the four boxes apart, so the layout
-   * eases between the two.
+   * Where the board sits: in the middle of the picture, with its first line of explanation just below (more lines
+   * hang lower, so the board doesn't move as the words change). The network view spreads the four boxes apart, so
+   * the layout eases between the two.
    */
   function layout(width, height, m) {
+    const { board: boardSize, net: netSize } = sizes(width, height);
     const room = height - textRoom(width) - 10;
-    const boardSize = Math.min(width * 0.92, room, 440);
-    const netSize = Math.min(width * 0.8, room * 0.84, 400);
     const size = boardSize + (netSize - boardSize) * m;
     const cell = size / SIDE;
     const gap = cell * 0.22 * m;
@@ -155,8 +165,23 @@
       cell,
       gap,
       x0: (width - size) / 2,
-      y0: gap + Math.max(4, Math.min((room - size - 2 * gap) / 2, 16)),
+      // Centred, though always leaving room below for two lines of words and the network's caption.
+      y0: gap + Math.max(4, Math.min((height - size - 2 * gap - firstLine(width)) / 2, room - size - 2 * gap - 24)),
     };
+  }
+
+  /**
+   * Where the solver's two finishes go when the puzzle has two: one on each side of the board, if the picture is
+   * wide enough to hold them beside it (or beside the network, which is a little wider); otherwise null, and they
+   * go in the panel. It depends only on the picture's size, so they never move the board.
+   */
+  function finishesPlace(width, height) {
+    const { board, net } = sizes(width, height);
+    const margin = (width - Math.max(board, net * 1.11)) / 2; // the network's boxes spread 0.22 of a square apart
+    const size = Math.min(board * 0.3, margin - 40);
+    if (size < 100 || width <= 540) return null;
+    const middle = layout(width, height, 0).y0 + board / 2;
+    return { size, xs: [margin / 2 - size / 2, width - margin / 2 - size / 2], y: middle - (size + 24) / 2 };
   }
 
   /** Break a sentence into lines that fit a width. */
@@ -480,33 +505,35 @@
       ctx.globalAlpha = 1;
     }
 
-    // On a tall stage the solver's two finishes sit under the board; otherwise they go in the panel.
-    const fits = height - bottom > 190 && width > 540;
-    if (fits !== finishesOnStage) {
-      finishesOnStage = fits;
+    // On a wide stage the solver's two finishes stand either side of the board; otherwise they go in the panel.
+    const finishes = finishesPlace(width, height);
+    if (!!finishes !== finishesOnStage) {
+      finishesOnStage = !!finishes;
       stage.sync();
     }
-    if (fits && info.solutions.count === 2) drawFinishes(ctx, s, width, bottom + 26);
+    if (finishes && info.solutions.count === 2) drawFinishes(ctx, s, width, bottom + 24, finishes);
   }
 
-  /** The two completed grids the solver found, with the squares that differ outlined. */
-  function drawFinishes(ctx, s, width, y) {
+  /**
+   * The two completed grids the solver found, with the squares that differ outlined, beside the board (`place`,
+   * from finishesPlace), and what they are in words, at `y` under the board's explanation.
+   */
+  function drawFinishes(ctx, s, width, y, place) {
     const [a, b] = info.solutions.solutions;
     const swap = model.differences(a, b);
-    const size = 130,
-      gap = 36;
+    const { size } = place;
     ctx.fillStyle = '#b7c3cf';
     ctx.font = '13px system-ui, sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText(t.twoFinishes, width / 2, y);
+    wrap(ctx, t.twoFinishes, Math.min(width - 24, 560)).forEach((line, i) => ctx.fillText(line, width / 2, y + i * 18));
     [a, b].forEach((grid, i) => {
-      const x0 = width / 2 + (i ? gap / 2 : -gap / 2 - size);
+      const x0 = place.xs[i];
       drawScene(ctx, {
         grid,
         givens: board.givens,
         style: s.style,
         m: 0,
-        L: { size, cell: size / SIDE, gap: 0, x0, y0: y + 20 },
+        L: { size, cell: size / SIDE, gap: 0, x0, y0: place.y },
         selected: -1,
         options: grid.map(() => []),
         clashes: [],
@@ -518,7 +545,7 @@
       });
       ctx.fillStyle = '#98aab7';
       ctx.font = '12px system-ui, sans-serif';
-      ctx.fillText(t.answerLabel(i + 1), x0 + size / 2, y + 20 + size + 24);
+      ctx.fillText(t.answerLabel(i + 1), x0 + size / 2, place.y + size + 24);
     });
   }
 

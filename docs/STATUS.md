@@ -21,6 +21,10 @@ This file is a changelog of the site, newest first. How the code fits together i
 - **New rooms wait for their translations.** A room now joins the map, the route, the "New" line and Surprise only
   once every language has its words, so visitors reading Hebrew, Arabic, Spanish, French or Portuguese no longer meet
   a new room in English. Until then a direct link opens it. The rollers and the stubborn triangle wait for theirs.
+- **Pictures that fit the screen.** On a laptop or desktop, a room's picture is now never taller than the window, and
+  it stays in view while you scroll down a long panel, so a slider at the bottom still shows its effect. Before, the
+  picture's frame grew as long as the panel (up to 1,150 px) and several rooms left an empty black band under their
+  picture. Every room now fills its frame, and a test checks all of them at five sizes.
 
 ## 2026-10-04
 

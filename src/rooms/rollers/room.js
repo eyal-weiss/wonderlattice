@@ -131,29 +131,39 @@
   // ------------------------------------------------------------ layout
 
   /**
-   * Where things go. On a laptop only the top of the picture is likely on screen, so the main scene fits in `seen`
-   * and anything extra goes below it. On phones the picture is short and wide.
+   * Where things go. The frame is never taller than the window, so the whole picture is seen. On a wide picture with
+   * room for it, the rollers and the wheels share the height with the close-up below them: about a third, and
+   * whatever the lanes can't use. The drill's square sits in the middle of the height; the race's rows share it.
+   * On phones the picture is short and wide.
    */
   function layout(width, height) {
-    const seen = Math.min(height, Math.max(0.58 * width, 300));
-    const laneH = seen / 2;
-    const size = Math.max(40, Math.min((laneH - 36) / 1.75, width / 6.8, 130));
-    const rowH = seen / 4;
-    const raceSize = Math.max(20, Math.min(rowH - 30, (width - 40) / (Math.PI + 1.4), 110));
     const wide = width >= 600;
-    const square = wide ? Math.min(seen - 24, width * 0.56, 560) : Math.max(100, Math.min(height - 24, width - 100));
+    const rollerSize = (lanes) => Math.max(40, Math.min((lanes / 2 - 36) / 1.75, width / 6.8, 130));
+    let seen = height,
+      close = null;
+    if (wide) {
+      const lanes = Math.min(height * 0.66, 2 * (1.75 * rollerSize(height * 0.66) + 36));
+      if (height - lanes >= 170) {
+        seen = lanes;
+        close = { top: lanes + 6, h: height - lanes - 6 };
+      }
+    }
+    const laneH = seen / 2;
+    const rowH = height / 4;
+    const raceSize = Math.max(20, Math.min(rowH - 30, (width - 40) / (Math.PI + 1.4), 110));
+    const square = wide ? Math.min(height - 24, width * 0.6, 640) : Math.max(100, Math.min(height - 24, width - 100));
     return {
       width,
       height,
       seen,
-      size, // a roller's width in pixels
+      size: rollerSize(seen), // a roller's width in pixels
       centre: Math.round(width * 0.56),
       lanes: [0, 1].map((i) => ({ top: i * laneH, ground: (i + 1) * laneH - 14 })),
-      close: height - seen >= 230 ? { top: seen + 10, h: height - seen - 20 } : null,
+      close,
       rowH,
       raceSize,
       wide,
-      square: { x: 12, y: 12, size: square },
+      square: { x: 12, y: wide ? Math.round((height - square) / 2) : 12, size: square },
     };
   }
 
@@ -336,21 +346,26 @@
 
   /**
    * On a tall picture, below: the shape up close, turning between two parallel lines that always touch it, and the
-   * lines it was drawn from, with the arcs' centres where they cross.
+   * lines it was drawn from, with the arcs' centres where they cross. The shape sits in the middle of the space under
+   * the heading; its jaws are never more than 0.58 widths from its middle (the Reuleaux triangle's corners).
    */
   function closeUp(ctx, sh, box) {
     const { width } = lay;
     label(ctx, t.labels.close, 12, box.top + 18, width - 24);
-    const size = Math.min(box.h - 70, width * 0.36, 240);
+    const room = box.h - 40; // below the heading, above a margin at the bottom
+    const size = Math.min(room / 1.2, width * 0.36, 240);
     if (size < 60) return;
     const x = width * 0.3,
-      y = box.top + 40 + size * 0.62;
+      y = box.top + 30 + room / 2;
     const turn = -psi * 0.5;
     // The two jaws: tangent lines facing straight up and straight down.
     const up = y - size * M.h(sh.raw, Math.PI / 2 - turn),
       down = y + size * M.h(sh.raw, -Math.PI / 2 - turn);
     if (sh.raw.lines.length) {
       ctx.save();
+      ctx.beginPath();
+      ctx.rect(0, box.top + 24, width, box.h - 24); // clear of the heading and the wheels above
+      ctx.clip();
       ctx.beginPath();
       ctx.arc(x, y, size * 0.95, 0, TAU);
       ctx.clip();
@@ -408,9 +423,11 @@
       ctx.lineTo(ax + 4, yy + 7 * d);
       ctx.fill();
     }
-    label(ctx, t.labels.width, ax + 8, (up + down) / 2 + 4, size * 0.5, { colour: LEVEL, weight: 500 });
+    label(ctx, t.labels.width, ax + 8, (up + down) / 2 + 4, width - ax - 20, { colour: LEVEL, weight: 500 });
+    // The lines' name further right, clear of the width's.
+    const after = Math.max(x + size * 1.05, ax + 8 + ctx.measureText(t.labels.width).width + 24);
     if (sh.raw.lines.length)
-      label(ctx, t.labels.lines, x + size * 1.05, y + 4, width - x - size * 1.05 - 12, {
+      label(ctx, t.labels.lines, after, y + 4, width - after - 12, {
         colour: MUTED,
         weight: 500,
         size: 12,

@@ -17,10 +17,17 @@ const spot = (page, n, x, y) =>
       const r = canvas.getBoundingClientRect();
       const narrow = r.width < 600,
         band = narrow ? 42 : 68;
-      const P = Math.max(24, Math.min(140, r.width / (n + 2.3), (r.height - band - 8) / 2.6));
-      const own = band + 0.5 * P + 7 + 2.04 * P;
-      const roomy = !narrow && r.height - own >= 210;
-      const road = band + 0.5 * P + (roomy ? 0 : Math.max(0, (r.height - own) * 0.3));
+      let P = Math.max(24, Math.min(140, r.width / (n + 2.3), (r.height - band - 8) / 2.6));
+      const own = (P) => band + 0.5 * P + 7 + 2.04 * P;
+      // Wide pictures keep the square and the triangle below, the bridge a little smaller if it must.
+      let roomy = false;
+      if (!narrow && r.height - own(P) - 36 >= 174) roomy = true;
+      else if (!narrow && (r.height - band - 7 - 36 - 184) / 2.54 >= 0.85 * P) {
+        P = (r.height - band - 7 - 36 - 184) / 2.54;
+        roomy = true;
+      }
+      const end = roomy ? r.height - 36 - Math.min(230, r.height - own(P) - 36) : r.height;
+      const road = band + 0.5 * P + Math.max(0, (end - own(P)) * 0.3);
       const bottom = road + 7 + P;
       return { x: (r.width - n * P) / 2 + x * P, y: bottom - y * P, P };
     },

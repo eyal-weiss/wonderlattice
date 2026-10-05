@@ -33,7 +33,8 @@ test('pools room: a tap hides the glow in another tube, and the tests find it ag
   await page.goto('/#room=pools');
   const canvas = page.locator('#scene-canvas');
   const box = await canvas.boundingBox();
-  await canvas.click({ position: { x: box.width * 0.2, y: 60 } });
+  // A tube in the rack, which spans the width of the picture's upper part (the frame's spare height sits around it).
+  await canvas.click({ position: { x: box.width * 0.2, y: box.height * 0.3 } });
   const name = await page.locator('#scene-name').textContent();
   const tube = Number(name.match(/tube ([\d,]+)/)[1].replace(',', ''));
   expect(tube).not.toBe(673);

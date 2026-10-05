@@ -127,9 +127,9 @@
   }
 
   /**
-   * Where things go. A tall picture may show only its top at first, so the ball sits high, sized so a triangle
-   * facing us fits above the fold, and its lower half may run off. Below it, when there's room, the chart.
-   * On a narrow picture the second line of words moves to the bottom.
+   * Where things go. The ball sits high, sized so a triangle facing us fits in the picture; on a short picture its
+   * lower half may run off. The chart goes beside the ball when it fits there (the ball then sits halfway down, when
+   * there's room), else below it when there's room. On a narrow picture the second line of words moves to the bottom.
    */
   function layout(width, height) {
     const narrow = width < 560;
@@ -138,24 +138,47 @@
     const seen = Math.min(height, Math.max(0.58 * width, 300)); // the part of the picture likely on screen
     // On a narrow picture, a little more room above the ball, for the label of the corner at the top.
     const base = Math.max(30, Math.min(width / 2 - 12, (seen - top - bottom) / (narrow ? 1.6 : 1.45)));
-    const cy = top + 0.88 * base + (narrow ? 22 : 6);
+    const high = (r) => top + 0.88 * r + (narrow ? 22 : 6);
+    const words = width - 28,
+      caption = narrow ? seen - 12 : 76; // the walk's news: at the bottom on a narrow picture, else under the words
+    // Beside the ball, in a column on the left, when the ball can move over and keep nearly all its size. The ball
+    // stays to the right of the chart, however close the view comes.
+    const column = clamp(width * 0.36, 260, 340);
+    const beside = Math.min(base, (width - column) / 2 - 12);
+    if (!narrow && beside >= base * 0.9) {
+      const cy = Math.max(high(beside), height / 2);
+      const chart = sideChart(column, height, cy);
+      if (chart) {
+        const cx = column + (width - column) / 2;
+        return { cx, cy, base: beside, narrow, words, caption, chart, floor: height, wall: column - 6 };
+      }
+    }
+    // Otherwise below the ball, when there's room; the ball then stays above it.
+    const cy = high(base);
     const below = cy + base + 18;
     const chartWidth = Math.min(width - 96, 520);
     const chart =
       height - below >= 190 && chartWidth > 200
         ? { x: (width - chartWidth) / 2 + 20, y: below + 34, w: chartWidth, h: Math.min(200, height - below - 90) }
         : null;
-    return {
-      cx: width / 2,
-      cy,
-      base,
-      narrow,
-      words: width - 28,
-      caption: narrow ? seen - 12 : 76, // the walk's news: at the bottom on a narrow picture, else under the words
-      chart,
-      // With a chart below, the ball stays above it, however close the view comes.
-      floor: chart ? below - 6 : height,
-    };
+    return { cx: width / 2, cy, base, narrow, words, caption, chart, floor: chart ? below - 6 : height, wall: 0 };
+  }
+
+  /**
+   * The chart in a column on the left, under the words: square, as wide as the column allows, level with the ball's
+   * middle where it can be. Its title may take two lines. Null when the column is too short for it.
+   */
+  function sideChart(column, height, middle) {
+    const x = 66, // room on the left for the degrees and the upright label
+      w = column - x - 20,
+      words = 100, // under the words at the top
+      title = 48, // two lines of title above the chart, and the gap under them
+      under = 38; // the shares and their label under it
+    const h = Math.min(w, height - words - title - under - 14);
+    if (h < 120) return null;
+    const block = title + h + under;
+    const start = clamp(middle - block / 2, words, height - 14 - block);
+    return { x, y: start + title, w, h, title: column - x + 12 };
   }
 
   /** A camera looking at the ball: screen centre, radius in pixels, and the directions out of, across and up it. */
@@ -185,7 +208,7 @@
   }
   const currentView = (stage) => {
     const L = layout(stage.width, stage.height);
-    return { ...viewFor(L.cx, L.cy, L.base, shown(), stage.width, stage.height), floor: L.floor };
+    return { ...viewFor(L.cx, L.cy, L.base, shown(), stage.width, stage.height), floor: L.floor, wall: L.wall };
   };
 
   /** Screen position of a point of the ball; z > 0 on the side facing us. */
@@ -359,6 +382,28 @@
     ctx.lineWidth = 2.5;
     ctx.lineJoin = 'round';
     trace(ctx, v, (f) => pts[Math.round(f * pts.length) % pts.length], pts.length);
+  }
+
+  /** Words broken into lines no wider than `width` (a word wider than that gets a line of its own). */
+  function lines(ctx, text, width) {
+    const all = [];
+    let line = '';
+    for (const word of text.split(' ')) {
+      const next = line ? `${line} ${word}` : word;
+      if (line && ctx.measureText(next).width > width) {
+        all.push(line);
+        line = word;
+      } else line = next;
+    }
+    return line ? [...all, line] : all;
+  }
+
+  /** The same, with the lines as even as they can be: no narrower than needed, so a last line isn't left nearly bare. */
+  function evenLines(ctx, text, width) {
+    const count = lines(ctx, text, width).length;
+    let w = width;
+    while (count > 1 && w > 40 && lines(ctx, text, w - 6).length === count) w -= 6;
+    return lines(ctx, text, w);
   }
 
   /** Text with a dark rim, readable over the ball and its lines. */
@@ -558,7 +603,7 @@
     const m = measure(s);
     ctx.save();
     ctx.beginPath();
-    ctx.rect(0, 0, width, L.floor);
+    ctx.rect(L.wall, 0, width - L.wall, L.floor);
     ctx.clip();
     paint(ctx, v, m, true);
     const walking = !movingCorner();
@@ -608,7 +653,9 @@
     ctx.textBaseline = 'alphabetic';
     ctx.textAlign = 'left';
     ctx.font = '600 14px system-ui, sans-serif';
-    label(ctx, t.chart.title, box.x - 20, box.y - 16, '#f5f1e6');
+    // The title, on two lines when the chart is beside the ball and the words need them.
+    const title = box.title ? evenLines(ctx, t.chart.title, box.title) : [t.chart.title];
+    title.forEach((line, i) => label(ctx, line, box.x - 20, box.y - 16 - (title.length - 1 - i) * 18, '#f5f1e6'));
     ctx.strokeStyle = 'rgba(160, 190, 220, 0.3)';
     ctx.lineWidth = 1;
     ctx.font = '12px system-ui, sans-serif';
@@ -806,14 +853,14 @@
     cornersOf(s).forEach((p, i) => {
       const q = project(p, v);
       const d = Math.hypot(q.x - x, q.y - y);
-      if (q.z >= 0 && q.y < v.floor && d < bestD) {
+      if (q.z >= 0 && q.y < v.floor && q.x >= v.wall && d < bestD) {
         best = i;
         bestD = d;
       }
     });
     return best;
   }
-  const onBall = (x, y, v) => y < v.floor && Math.hypot(x - v.cx, y - v.cy) <= v.R;
+  const onBall = (x, y, v) => y < v.floor && x >= v.wall && Math.hypot(x - v.cx, y - v.cy) <= v.R;
 
   W.defineRoom({
     id: 'globe',

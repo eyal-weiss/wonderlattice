@@ -1294,6 +1294,21 @@ dialog a {
     min-height: 0;
   }
 }
+/*
+ * Wide screens: the same idea beside the panel. The picture is never taller than the window, and stays in view while
+ * a longer panel scrolls past, so its frame doesn't stretch to the panel's length (leaving the picture an empty
+ * band) and a control far down the panel still shows its effect.
+ */
+@media (min-width: 961px) {
+  body:not(.focus-mode) .workspace {
+    overflow: clip; /* as on phones: hidden would stop the picture sticking */
+  }
+  body:not(.focus-mode) .workspace > .drawing {
+    position: sticky;
+    top: 12px;
+    max-height: calc(100svh - 24px);
+  }
+}
 /* "Send to phones": a QR code for the room's link, large enough to scan from across a classroom. */
 .send-code svg {
   display: block;

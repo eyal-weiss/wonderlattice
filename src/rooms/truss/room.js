@@ -241,29 +241,38 @@
 
   /**
    * Where the bridge goes: centred, with room on each bank for the truck to wait, the road a little below the words
-   * at the top, and the river below. On a desktop the whole bridge stays above the fold; a tall picture also gets
-   * the square and the triangle underneath.
+   * at the top, and the river below. On a wide screen the square and the triangle go underneath, the bridge giving up
+   * a little of its size for them when the picture is short; the scene spreads down to fill what they leave.
    */
   function measure(width, height, panels, picture = false) {
     const narrow = width < 600;
     const band = picture ? 0 : narrow ? 42 : 68;
     const across = picture && width > height * 1.4 ? height : width; // the map's picture crops to its middle square
     // A picture has no truck waiting on the banks, so the bridge fills more of it.
-    const P = picture
+    let P = picture
       ? Math.min(across / (panels + 0.9), (height - 8) / 2.1)
       : Math.max(24, Math.min(140, across / (panels + 2.3), (height - band - 8) / 2.6));
+    // The scene's own height, from the top to the river's far bank; and below it, the square and the triangle.
+    const own = (P) => band + 0.5 * P + ROAD + 2.04 * P;
+    const BELOW = 22 + 14; // the gaps above and below the square and the triangle
+    let roomy = false;
+    if (!picture && !narrow) {
+      if (height - own(P) - BELOW >= 174) roomy = true;
+      else {
+        const smaller = (height - band - ROAD - BELOW - 184) / 2.54; // a bridge that leaves them 184 px
+        if (smaller >= 0.85 * P) [P, roomy] = [smaller, true];
+      }
+    }
     const x0 = (width - panels * P) / 2;
-    const own = band + 0.5 * P + ROAD + 2.04 * P; // the scene's own height, from the top to the river's far bank
-    const roomy = !picture && !narrow && height - own >= 210;
-    // Without the square and the triangle below, the scene spreads down the picture and the river reaches the bottom.
-    const road = picture
-      ? (height - 1.9 * P) / 2 + 0.4 * P
-      : band + 0.5 * P + (roomy ? 0 : Math.max(0, (height - own) * 0.3));
+    const primerH = roomy ? Math.min(230, height - own(P) - BELOW) : 0;
+    // The scene spreads down to whatever is below it (the square and the triangle, or the bottom of the picture).
+    const end = roomy ? height - BELOW - primerH : height;
+    const road = picture ? (height - 1.9 * P) / 2 + 0.4 * P : band + 0.5 * P + Math.max(0, (end - own(P)) * 0.3);
     const yt = road + ROAD,
       yb = yt + P;
     const river = yb + 0.72 * P;
-    const bottom = roomy || picture ? river + 0.32 * P : height;
-    const primer = roomy ? { x: 14, y: bottom + 22, w: width - 28, h: Math.min(230, height - bottom - 36) } : null;
+    const bottom = picture ? river + 0.32 * P : end;
+    const primer = roomy ? { x: 14, y: bottom + 22, w: width - 28, h: primerH } : null;
     return { narrow, band, P, x0, road, yt, yb, river, bottom, primer, width, height };
   }
 
