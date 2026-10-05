@@ -14,6 +14,10 @@ const SIZES = [
   [390, 844],
 ];
 const allowed = (height) => Math.max(64, height * 0.16);
+// Pictures whose emptiness is the point, by room and preset number, with the reason.
+const DELIBERATE = {
+  'waves 3': 'the two tones cancel: their sum is a flat line across an empty row, and that silence is the surprise',
+};
 
 /** The tallest strip of rows with nothing drawn across them (each row a single colour), in CSS pixels. */
 function tallestEmptyStrip(canvas) {
@@ -61,7 +65,7 @@ for (const room of Object.keys(ROOMS).filter((id) => id !== 'motion')) {
         await presets.nth(i).click();
         await page.waitForTimeout(500);
         const { strip, height: canvas } = await page.locator('#scene-canvas').evaluate(tallestEmptyStrip);
-        if (strip > allowed(canvas))
+        if (strip > allowed(canvas) && !DELIBERATE[`${room} ${i + 1}`])
           problems.push(`${width}×${height}, preset ${i + 1}: ${strip} px empty in a ${canvas} px picture`);
       }
     }

@@ -174,36 +174,45 @@
     travel = 0;
 
   /**
-   * Where everything goes. The cards and the curve share a landscape box at the top, so on a canvas taller than the
-   * window both stay in view; on a tall canvas the curves for bigger decks fill the space underneath.
+   * Where everything goes. The cards and the curve share a box at the top, at most a landscape one. Under it, the
+   * curves for smaller and bigger decks take the rest of the height when they fit at a fair size and the cards stay a
+   * good size; otherwise the cards and the curve take the whole height, so the picture always fills its frame.
    */
   function place(width, height) {
     const small = Math.round(Math.min(13, Math.max(10, Math.min(width, height) / 32)));
     const pad = Math.max(10, Math.min(22, Math.min(width, height) * 0.03));
     const narrow = width < 560;
-    const box = Math.min(height, Math.max(width * 0.6, 280));
-    const gameH = box * (narrow ? 0.52 : 0.5);
     const pill = Math.round(small * 2);
-    const stripH = Math.max(14, Math.min(30, gameH * 0.12));
     const names = small * 2.6; // two lines of names under the strip
-    const cardH = Math.max(40, gameH - pad - 5 - pill - 8 - stripH - names);
-    const strip = { x: pad, y: pad + cardH + 5 + pill + 8, w: width - pad * 2, h: stripH };
+    // The cards and the strip take the top half of the box (a little more when narrow), the curve the rest.
+    const cards = (box) => {
+      const gameH = box * (narrow ? 0.52 : 0.5);
+      const stripH = Math.max(14, Math.min(30, gameH * 0.12));
+      return { stripH, cardH: Math.max(40, gameH - pad - 5 - pill - 8 - stripH - names) };
+    };
+    const landscape = Math.min(height, Math.max(width * 0.6, 280));
+    const moreMin = small * 13.5 + pad * 2; // a title, each chart's labels, and a plot about seven lines tall
+    let box = Math.min(landscape, height - moreMin);
+    const more = box > 0 && cards(box).cardH >= Math.min(small * 7, cards(landscape).cardH);
+    if (!more) box = height;
+    const moreH = more ? Math.min(height - box, width * 0.36 + pad * 2) : 0;
+    const top = (height - box - moreH) / 2; // centred, in the rare frame taller than both need
+    const { stripH, cardH } = cards(box);
+    const strip = { x: pad, y: top + pad + cardH + 5 + pill + 8, w: width - pad * 2, h: stripH };
     // Three columns: the best card so far (the past), the card that is up (now), the deck (what's to come).
     const col = strip.w / 3;
     const card = (column, scale) => {
       const h = cardH * scale,
         w = Math.min(col - small, h * (narrow ? 1.2 : 0.74));
-      return { x: pad + col * column + (col - w) / 2, y: pad + cardH - h, w, h };
+      return { x: pad + col * column + (col - w) / 2, y: top + pad + cardH - h, w, h };
     };
     const L = { small, pad, box, pill, strip, before: card(0, 0.84), mine: card(1, 1), deck: card(2, 0.84) };
     L.namesY = strip.y + stripH;
-    const top = L.namesY + names + pad * 0.3;
-    L.plot = { x: pad + small * 2.8, y: top + small * 1.5 };
+    const below = L.namesY + names + pad * 0.3;
+    L.plot = { x: pad + small * 2.8, y: below + small * 1.5 };
     L.plot.w = width - pad - L.plot.x;
-    L.plot.h = Math.max(40, box - pad * 0.6 - small * 2.6 - L.plot.y);
-    const spare = height - box;
-    L.more =
-      spare > 190 ? { x: pad, y: box + pad, w: width - pad * 2, h: Math.min(spare - pad * 2, width * 0.36) } : null;
+    L.plot.h = Math.max(40, top + box - pad * 0.6 - small * 2.6 - L.plot.y);
+    L.more = more ? { x: pad, y: top + box + pad, w: width - pad * 2, h: moreH - pad * 2 } : null;
     return L;
   }
 
@@ -223,6 +232,50 @@
     return size;
   }
 
+  /** Words broken into lines no wider than `width` (a word wider than that gets a line of its own). */
+  function wrap(ctx, text, width) {
+    const lines = [];
+    let line = '';
+    for (const word of text.split(' ')) {
+      const next = line ? `${line} ${word}` : word;
+      if (line && ctx.measureText(next).width > width) {
+        lines.push(line);
+        line = word;
+      } else line = next;
+    }
+    return line ? [...lines, line] : lines;
+  }
+
+  /**
+   * Small words on a card, no wider than `width`: one line when they fit (or fit a pixel smaller), otherwise two
+   * lines when the card has room (`two`), so they never have to be squeezed out of shape. Sets the font.
+   */
+  function cardLines(ctx, text, width, size, weight, two) {
+    const font = (px) => (ctx.font = `${weight} ${px}px system-ui`);
+    const fits = (lines) => lines.every((line) => ctx.measureText(line).width <= width);
+    for (const px of [size, size - 1]) {
+      font(px);
+      if (fits([text])) return { lines: [text], size: px };
+    }
+    let lines = [text],
+      px = size - 1;
+    if (two) {
+      font((px = size));
+      lines = wrap(ctx, text, width);
+      if (lines.length > 2) lines = [lines[0], lines.slice(1).join(' ')];
+    }
+    while (px > Math.max(7, size - 3) && !fits(lines)) font(--px);
+    return { lines, size: px };
+  }
+
+  /** Words on a card, centred at x: from the line at y downwards, or upwards from it (`up`), as they need. */
+  function cardWords(ctx, L, box, text, y, weight, up = false) {
+    const { lines, size } = cardLines(ctx, text, box.w - 8, L.small - 1, weight, box.h >= L.small * 6);
+    lines.forEach((line, i) =>
+      ctx.fillText(line, box.x + box.w / 2, y + (up ? i - lines.length + 1 : i) * size * 1.15, box.w - 8),
+    );
+  }
+
   /** A face-up card: a small label at the top, its number in the middle, an optional note at the bottom. */
   function faceUp(ctx, box, L, { label, value, note, border, line = 1.5, noteColour = COLOURS.faceMuted }) {
     const r = Math.min(10, box.w * 0.08);
@@ -234,15 +287,13 @@
     ctx.stroke();
     ctx.textAlign = 'center';
     ctx.fillStyle = COLOURS.faceMuted;
-    ctx.font = `${L.small - 1}px system-ui`;
-    ctx.fillText(label, box.x + box.w / 2, box.y + L.small + 3, box.w - 8);
+    cardWords(ctx, L, box, label, box.y + L.small + 3, '400');
     ctx.fillStyle = COLOURS.faceInk;
     fit(ctx, value, box.w - 12, Math.min(box.h * 0.26, box.w * 0.3, 34), 9);
     ctx.fillText(value, box.x + box.w / 2, box.y + box.h / 2 + box.h * 0.08);
     if (note) {
       ctx.fillStyle = noteColour;
-      ctx.font = `600 ${L.small - 1}px system-ui`;
-      ctx.fillText(note, box.x + box.w / 2, box.y + box.h - 7, box.w - 8);
+      cardWords(ctx, L, box, note, box.y + box.h - 7, '600', true);
     }
   }
 
@@ -301,9 +352,21 @@
       ctx.setLineDash([]);
       ctx.fillStyle = COLOURS.muted;
       ctx.textAlign = 'center';
-      ctx.font = `${L.small - 1}px system-ui`;
-      ctx.fillText(t.labels.bestBefore, L.before.x + L.before.w / 2, L.before.y + L.before.h / 2 - 2, L.before.w - 8);
-      ctx.fillText(t.labels.noneYet, L.before.x + L.before.w / 2, L.before.y + L.before.h / 2 + L.small + 2);
+      // "best before it", then "none yet" (each on two lines when the card is narrow), centred on the empty card.
+      const room = L.before.h >= L.small * 6;
+      const words = [t.labels.bestBefore, t.labels.noneYet].map((text) =>
+        cardLines(ctx, text, L.before.w - 8, L.small - 1, '400', room),
+      );
+      const step = L.small + 4,
+        x = L.before.x + L.before.w / 2;
+      let y = L.before.y + L.before.h / 2 - 2 - ((words[0].lines.length + words[1].lines.length - 2) * step) / 2;
+      for (const { lines, size } of words) {
+        ctx.font = `${size}px system-ui`;
+        for (const line of lines) {
+          ctx.fillText(line, x, y, L.before.w - 8);
+          y += step;
+        }
+      }
     } else
       faceUp(ctx, L.before, L, {
         label: done ? t.labels.biggest : t.labels.bestBefore,
@@ -355,7 +418,7 @@
       ctx.fillRect(L.deck.x + L.deck.w / 2 - w / 2, L.deck.y + L.deck.h / 2 - L.small, w, L.small * 1.7);
       ctx.fillStyle = COLOURS.ink;
       ctx.textAlign = 'center';
-      ctx.fillText(label, L.deck.x + L.deck.w / 2, L.deck.y + L.deck.h / 2 + L.small * 0.35, L.deck.w - 4);
+      ctx.fillText(label, L.deck.x + L.deck.w / 2, L.deck.y + L.deck.h / 2 + L.small * 0.35, L.strip.w / 3 - 4);
     } else {
       rounded(ctx, L.deck.x, L.deck.y, L.deck.w, L.deck.h, Math.min(10, L.deck.w * 0.08));
       ctx.setLineDash([5, 4]);
