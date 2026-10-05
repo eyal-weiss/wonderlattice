@@ -6,13 +6,14 @@
 
 ![Wonderlattice: the start of the route on the home map, with a flower drawn by turning arms, a road diagram and a flock](assets/social.jpg)
 
-Wonderlattice is a free collection of thirty-four rooms, each built around one surprise:
+Wonderlattice is a free collection of thirty-six rooms, each built around one surprise:
 
 - **Shape & space:** draw flowers with two turning arms, walk along a ribbon that has only one side, bend the plane
   until a circle becomes a wing, drag one seed to grow infinite fractal coastlines, play one shot twice on two billiard
   tables, an ellipse that remembers it and a stadium that forgets it within seconds, draw a triangle on a ball
-  with three right angles, round which a carried arrow comes home turned, and ride a cart with square wheels
-  perfectly level over a road of upside-down hanging chains, or draw any wheel and get its own road.
+  with three right angles, round which a carried arrow comes home turned, ride a cart with square wheels perfectly
+  level over a road of upside-down hanging chains, or draw any wheel and get its own road, and roll a plank perfectly
+  level on rollers that aren't round, one of which drills an almost square hole.
 - **Chance & evidence:** three dice that beat each other in a circle, a toy city where a huge poll is confidently
   wrong, a basketball court where the better shooter loses overall (built by a contributor), and a treasure detector
   that's usually right, yet whose beeps are usually wrong.
@@ -24,8 +25,9 @@ Wonderlattice is a free collection of thirty-four rooms, each built around one s
 - **Engineering:** a shower whose eager bather is scalded, then frozen, by a two-second pipe, a stack of blocks that
   leans as far past the table's edge as you like, a thousand samples in which ten pooled tests, run at once, find
   the one glowing tube, a hanging chain that, turned upside down, stands as an arch of loose stones, while a
-  semicircle of the same stones falls, and a power line that glows and leaves its town dark until the voltage goes
-  up: ten times the voltage, a hundred times less heat.
+  semicircle of the same stones falls, a bridge of squares that folds under a toy truck until the right diagonals lock
+  it, when every bar shows whether it's squeezed, stretched or carrying nothing at all, and a power line that glows and
+  leaves its town dark until the voltage goes up: ten times the voltage, a hundred times less heat.
 - **Living patterns:** a flock with no leader, fireflies that fall into step, fingerprints that grow by themselves,
   waves that curl into spirals, as in a heartbeat, and one cheater among cooperators who grows into an ever-changing
   kaleidoscope where cooperation never dies out.

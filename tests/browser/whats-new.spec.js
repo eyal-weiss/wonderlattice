@@ -8,8 +8,8 @@ test('the home map names the newest rooms, newest first, and each opens its room
   await expect(line).toBeVisible();
   await expect(line.locator('button')).toHaveText([
     'Light a town 100 km away',
-    'Kaleidoscope of cheaters',
-    'Hang it, flip it, build it',
+    'The stubborn triangle',
+    'Rollers that aren’t round',
   ]);
   await line.getByRole('button', { name: 'Light a town 100 km away' }).click();
   await expectRoom(page, 'voltage');
