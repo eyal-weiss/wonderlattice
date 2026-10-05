@@ -1,7 +1,7 @@
 # Project state
 
-Wonderlattice has 33 rooms in seven themes (and three more waiting for their translations), in six languages
-(English, Hebrew, Spanish, Brazilian Portuguese, French and Arabic). Visitors can keep moments in My trail, share any
+Wonderlattice has 36 rooms in seven themes, in six languages (English, Hebrew, Spanish, Brazilian Portuguese, French
+and Arabic). Visitors can keep moments in My trail, share any
 room with its settings, show a room on a big screen or send it to phones with a QR code, make the text larger or raise
 the contrast, and send a message from the end of any explanation. It runs in the browser with no accounts or
 tracking, even offline, and as a single file.
@@ -18,6 +18,10 @@ This file is a changelog of the site, newest first. How the code fits together i
 
 ## 2026-10-05
 
+- **Three new rooms, in every language, now on the map.** Rollers that aren’t round, The stubborn triangle and Light
+  a town 100 km away are translated into Hebrew, Spanish, Brazilian Portuguese, French and Arabic: the page, the words
+  drawn in the pictures, the visitors and the explanations. With that they join the map, the route and Surprise, and
+  the map's "New" line names them from today.
 - **New rooms wait for their translations.** A room now joins the map, the route, the "New" line and Surprise only
   once every language has its words, so visitors reading Hebrew, Arabic, Spanish, French or Portuguese no longer meet
   a new room in English. Until then a direct link opens it. The rollers and the stubborn triangle wait for theirs.
