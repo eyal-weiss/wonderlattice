@@ -1,0 +1,53 @@
+/* The stubborn triangle · the readout and, on phones, the colour key. */
+.truss-readout p {
+  margin: 6px 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.truss-big {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 0.8125rem;
+  color: var(--ink);
+}
+.truss-big strong {
+  font-size: 1.125rem;
+  letter-spacing: 0.06em;
+}
+/* Spaced letters read badly in Hebrew and break Arabic's joined letters apart (as in styles/base.css). */
+:is(:lang(he), :lang(ar)) .truss-big strong {
+  letter-spacing: normal;
+}
+.truss-big strong.is-rigid {
+  color: color-mix(in srgb, #22a35a 60%, var(--ink));
+}
+.truss-big strong.is-floppy {
+  color: color-mix(in srgb, #e8742a 60%, var(--ink));
+}
+
+/* The colour key, in the panel when the picture has no room for its own (phones). */
+.truss-key[hidden] {
+  display: none;
+}
+.truss-key ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8125rem;
+}
+.truss-key li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.truss-key svg {
+  flex: none;
+  width: 22px;
+  height: 10px;
+}
