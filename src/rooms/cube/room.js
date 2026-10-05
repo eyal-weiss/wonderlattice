@@ -171,11 +171,13 @@
     const side = compare && width < height * 1.05; // stack the two cubes on narrow screens
     const cellW = side ? width : width / count,
       cellH = side ? usable / count : usable;
-    const scale = Math.min(cellW, cellH) * (compare ? 0.17 : 0.2);
+    // Side by side, each cube has half the width: a little larger, and lifted so it and its label share the middle.
+    const scale = Math.min(cellW, cellH) * (compare ? (side ? 0.17 : 0.2) : 0.2);
+    const lift = compare && !side ? scale * 0.45 : 0;
     ctx.textAlign = 'center';
     for (let k = 0; k < count; k++) {
       const cx = side ? width / 2 : cellW * (k + 0.5),
-        cy = top + (side ? cellH * (k + 0.5) : cellH / 2);
+        cy = top + (side ? cellH * (k + 0.5) : cellH / 2) - lift;
       drawCube(ctx, cubes[k], { cx, cy, scale }, s.highlight && !compare);
       if (compare) {
         const [left, right] = t.compareLabels(C.MOVES[s.a].name, C.MOVES[s.b].name);

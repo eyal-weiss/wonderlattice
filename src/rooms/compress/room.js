@@ -92,9 +92,10 @@
     return patterns;
   }
 
-  const measurer = document.createElement('canvas').getContext('2d');
+  let measurer = null; // made on first use: the build reads this script where there is no page
   /** How wide "broad washes" and "fine ripples" are, in the size they're drawn at. */
   function wordWidths(small) {
+    measurer ??= document.createElement('canvas').getContext('2d');
     measurer.font = `${small - 1}px system-ui`;
     return [t.broad, t.fine].map((word) => measurer.measureText(word).width);
   }
