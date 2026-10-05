@@ -8,8 +8,8 @@ test('the home map names the newest rooms, newest first, and each opens its room
   await expect(line).toBeVisible();
   await expect(line.locator('button')).toHaveText([
     'The stubborn triangle',
+    'Rollers that aren’t round',
     'Kaleidoscope of cheaters',
-    'Hang it, flip it, build it',
   ]);
   await line.getByRole('button', { name: 'The stubborn triangle' }).click();
   await expectRoom(page, 'truss');
