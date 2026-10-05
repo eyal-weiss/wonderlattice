@@ -4,9 +4,9 @@ import { test, expect, ROOMS, openRoom, tool, expectRoom, expectedLink } from '.
 async function squareCentre(page, row, col) {
   const box = await page.locator('#scene-canvas').boundingBox();
   const room = box.height - (box.width < 480 ? 62 : 52) - 10;
-  const size = Math.min(box.width * 0.92, room, 440);
+  const size = Math.min(box.width * 0.92, room, Math.max(440, Math.min(box.height * 0.7, 620)));
   const x0 = (box.width - size) / 2,
-    y0 = Math.max(4, Math.min((room - size) / 2, 16));
+    y0 = Math.max(4, Math.min((box.height - size - (box.width < 480 ? 27 : 36)) / 2, room - size - 24));
   return { x: box.x + x0 + (col + 0.5) * (size / 4), y: box.y + y0 + (row + 0.5) * (size / 4) };
 }
 
