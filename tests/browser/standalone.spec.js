@@ -1,14 +1,14 @@
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { test, expect, ROOMS, openRoom } from './helpers.js';
+import { test, expect, PUBLISHED, openRoom } from './helpers.js';
 
 const standalone = resolve('dist/wonderlattice-standalone.html');
 
 test('the single-file export works from disk with portraits, map pictures and fonts embedded', async ({ page }) => {
   test.skip(!existsSync(standalone), 'Run npm run build first');
   await page.goto(pathToFileURL(standalone).href);
-  await expect(page.locator('.map-room')).toHaveCount(Object.keys(ROOMS).length);
+  await expect(page.locator('.map-room')).toHaveCount(PUBLISHED.length);
   await expect(page.locator('#card-dice img')).toHaveAttribute('src', /^data:image\/webp/);
   // The typefaces travel inside the file, so it keeps its look even opened from disk.
   await expect(page.locator('html')).not.toHaveAttribute('data-fonts', 'device');

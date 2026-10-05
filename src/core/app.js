@@ -21,10 +21,11 @@
     NEW_MOST = 3; // and how many it names at once
   const panelOf = (room) => room.panel ?? 'new-room';
   /**
-   * Rooms in route order: the order of their scripts in index.html. That order is the numbering on the map and the
-   * room bar's ‹ ›, a tour designed so each room is unlike the one before (docs/ARCHITECTURE.md, "The route").
+   * Published rooms in route order: the order of their scripts in index.html. That order is the numbering on the map
+   * and the room bar's ‹ ›, a tour designed so each room is unlike the one before (docs/ARCHITECTURE.md, "The route").
+   * A room still waiting for its translations is left out until they arrive (W.published); a direct link opens it.
    */
-  const ordered = () => rooms;
+  const ordered = () => rooms.filter((room) => W.published(room.id));
 
   /** Rooms set themselves up the first time they are opened. */
   function prepare(room) {
@@ -100,7 +101,7 @@
     const since = Date.now() - NEW_DAYS * 24 * 60 * 60 * 1000;
     // Newest first; rooms that went live on the same day in a fixed order (by id), since the room list's order is
     // the route, not the order of arrival.
-    const fresh = rooms
+    const fresh = ordered()
       .filter((room) => room.added && Date.parse(room.added) >= since)
       .sort((a, b) => b.added.localeCompare(a.added) || b.id.localeCompare(a.id))
       .slice(0, NEW_MOST);
@@ -262,7 +263,7 @@
       `<p><svg viewBox="0 0 34 16" aria-hidden="true"><line class="map-line" x1="4" y1="8" x2="30" y2="8"/>` +
       `<path class="map-arrow" d="M14.5 4 L19.5 8 L14.5 12"/></svg>${t.map.key(ordered().length)}</p>` +
       `<ul class="map-legend">${W.themes
-        .filter((theme) => rooms.some((r) => r.theme === theme.id))
+        .filter((theme) => ordered().some((r) => r.theme === theme.id))
         .map((theme) => `<li style="--c:${themeColour(theme.id)}"><i></i>${theme.name}</li>`)
         .join('')}</ul>`;
   }
@@ -602,9 +603,9 @@
         /* the browser declined this tool */
       }
     };
-    const ids = rooms.map((r) => r.id);
+    const ids = ordered().map((r) => r.id);
     const app = { choose: open };
-    for (const room of rooms) room.agentTools?.(app).forEach(register);
+    for (const room of ordered()) room.agentTools?.(app).forEach(register);
     register({
       name: 'open_exploration',
       description: 'Open one of Wonderlattice’s visible playgrounds. Sound remains off.',

@@ -15,9 +15,27 @@ test('the route has every room once', () => {
   assert.equal(new Set(route).size, route.length);
 });
 
-test('neighbouring rooms on the route never share a theme', () => {
-  const same = route.slice(1).flatMap((id, i) => (themeOf(id) === themeOf(route[i]) ? [`${route[i]}, ${id}`] : []));
-  assert.deepEqual(same, [], 'move a room so its neighbours are from other themes');
+// The route visitors see leaves out rooms still waiting for their translations (Wonderlattice.published): every
+// language must have a file for a room (src/lang/languages.js).
+const languageFiles = {};
+new Function('Wonderlattice', read('src/lang/languages.js'))({
+  defineLanguage: () => {},
+  set languageFiles(files) {
+    Object.assign(languageFiles, files);
+  },
+});
+const published = route.filter((id) => Object.values(languageFiles).every((files) => files.includes(id)));
+const sameThemeNeighbours = (list) =>
+  list.slice(1).flatMap((id, i) => (themeOf(id) === themeOf(list[i]) ? [`${list[i]}, ${id}`] : []));
+
+test('neighbouring rooms on the route never share a theme, with or without the rooms awaiting translation', () => {
+  assert.deepEqual(sameThemeNeighbours(route), [], 'move a room so its neighbours are from other themes');
+  assert.ok(published.length > 10);
+  assert.deepEqual(
+    sameThemeNeighbours(published),
+    [],
+    'a room awaiting translation sits between two rooms of one theme: move it, or one of them',
+  );
 });
 
 test('every theme appears among the first ten rooms', () => {
