@@ -73,6 +73,10 @@ read it for tone and line breaks.
 
 ## For developers: keeping the site translatable
 
+- **A new room waits for its translations.** It stays off the map, the route, the "New" line and Surprise until every
+  language has a file for it in `src/lang/<code>/` (then `npm run i18n:sync`), so visitors who read another language
+  never meet it in English; a direct link (`#room=<id>`) opens it meanwhile. `npm run i18n:new` gives a new language
+  a file for every room, so starting a language hides nothing.
 - **Room words** go in `src/rooms/<id>/text.en.js` (`Wonderlattice.defineText('<id>', 'en', {...})`), and `room.js` reads
   them with `const t = Wonderlattice.text('<id>')`. That includes words drawn on a canvas and aria-labels. The mathematics
   in `model.js` never contains visitor-facing words.

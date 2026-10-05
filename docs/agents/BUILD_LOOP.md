@@ -38,7 +38,9 @@ Do the first of these that has something to do.
 3. **Translate.** If a merged room is still English-only in some languages (`npm run i18n:check` lists its strings as
    untranslated), open one pull request translating it into every language, following docs/TRANSLATING.md and each
    language's conventions in its `language.js`. Look at the room in each language at phone width, and right to left
-   in Hebrew.
+   in Hebrew. A new room is hidden from the map until every language has it (docs/ARCHITECTURE.md, "The route"), so
+   this pull request is the one that shows it to visitors: set the room's `added` to the day you open it, so the
+   map's "New" line announces it then, and say in the pull request that it puts the room on the map.
 4. **Build the next approved issue.** Choose from open `ready to build` issues that aren't `in progress`, in this
    order: anything labelled `feedback` or `bug` first, then anything labelled `next`, then the issue the runner
    passes.
@@ -80,10 +82,11 @@ reviews:
 - **Day and night:** the room's panel takes its colours from the tokens (`var(--ink)`, `--soft`, `--muted`, `--line`,
   `--panel-2`, `--em`), never colours made for a dark page; look at the room by day and at night (the sun and moon
   button) before opening the pull request.
-- **Date:** set the room's `added` to the day you open the pull request (`'YYYY-MM-DD'`), so the home map lists it as
-  new; the owner updates it if the room goes live later.
+- **Date:** set the room's `added` to the day you open the pull request (`'YYYY-MM-DD'`); the translation that puts
+  the room on the map sets it again.
 - **Text:** every visitor-facing word goes in `text.en.js`, in British spelling. New rooms ship in English; translation
-  is a separate step, after the room merges.
+  is a separate step, after the room merges. Until then the room stays off the map (docs/ARCHITECTURE.md, "The
+  route"): it opens only from a direct link.
 
 ## Testing, gently
 
@@ -99,7 +102,9 @@ workers, plus its own `PW_PORT` and `PW_CHANNEL=chrome`.
 
 ## The pull request
 
-Title: `Add room: <name> (closes #<n>)`. Describe what the visitor sees in the first minute, the mathematics you
-checked and how, what you tested, and what remains unverified: sound, real phones, and taste. List decisions left
+Title: `Add room: <name> (closes #<n>)`. Give the room's direct link on the preview deployment
+(`https://<branch, with / as ->.wonderlattice.pages.dev/#room=<id>`): a new room isn't on the map until it's
+translated. Describe what the visitor sees in the first minute, the mathematics you checked and how, what you tested,
+and what remains unverified: sound, real phones, and taste. List decisions left
 for review under "Open questions". Comment on the issue with the pull request's link. Keep the issue `in progress` until the pull
 request merges or closes.

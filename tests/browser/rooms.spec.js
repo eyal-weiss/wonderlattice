@@ -1,4 +1,4 @@
-import { test, expect, ROOMS, openRoom, tool, setRange, inkedPixels, expectRoom } from './helpers.js';
+import { test, expect, ROOMS, PUBLISHED, openRoom, tool, setRange, inkedPixels, expectRoom } from './helpers.js';
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/#room=motion');
@@ -9,21 +9,26 @@ test('the home map shows every room once, numbered along the route, with a pictu
   await expect(page).toHaveTitle(/Wonderlattice/);
   await expectRoom(page, 'home');
   await expect(page.locator('#room-bar')).toBeHidden();
-  const order = await page.evaluate(() => globalThis.Wonderlattice.rooms.map((r) => r.id));
-  await expect(page.locator('.map-room')).toHaveCount(Object.keys(ROOMS).length);
+  const order = await page.evaluate(() =>
+    globalThis.Wonderlattice.rooms.map((r) => r.id).filter((id) => globalThis.Wonderlattice.published(id)),
+  );
+  expect(order).toEqual(PUBLISHED);
+  await expect(page.locator('.map-room')).toHaveCount(PUBLISHED.length);
   // The map's rooms, numbered 1, 2, 3… in the order of the room list (the route).
   expect(await page.locator('.map-room').evaluateAll((rooms) => rooms.map((r) => r.dataset.room))).toEqual(order);
   expect(await page.locator('.map-num').allTextContents()).toEqual(order.map((_, i) => String(i + 1)));
   // Every picture loads (they are ready-made images: the map needs no room's code).
   await page.locator('.map-room').last().scrollIntoViewIfNeeded();
-  for (const room of Object.keys(ROOMS))
+  for (const room of PUBLISHED)
     await expect
       .poll(() => page.locator(`#card-${room} img`).evaluate((img) => img.complete && img.naturalWidth))
       .toBeGreaterThan(0);
   // The list under the map names every room by theme, in the themes' declared order.
   const expected = await page.evaluate(() =>
     globalThis.Wonderlattice.themes
-      .filter((t) => globalThis.Wonderlattice.rooms.some((r) => r.theme === t.id))
+      .filter((t) =>
+        globalThis.Wonderlattice.rooms.some((r) => r.theme === t.id && globalThis.Wonderlattice.published(r.id)),
+      )
       .map((t) => t.name),
   );
   expect(await page.locator('.room-list-theme h3').allTextContents()).toEqual(expected);
@@ -129,14 +134,14 @@ test('the room bar, Back button, and logo move between the map and rooms', async
   // Stepping through every room with "next" visits each one and comes back round.
   await page.locator('#card-motion').click();
   const seen = new Set();
-  for (let i = 0; i < Object.keys(ROOMS).length; i++) {
+  for (let i = 0; i < PUBLISHED.length; i++) {
     const here = await page.evaluate(() => document.body.dataset.room);
     seen.add(here);
     await page.locator('#room-next').click();
     // On the published site the next room may still be loading.
     await expect(page.locator('body')).not.toHaveAttribute('data-room', here);
   }
-  expect([...seen].sort()).toEqual(Object.keys(ROOMS).sort());
+  expect([...seen].sort()).toEqual([...PUBLISHED].sort());
   await expectRoom(page, 'motion');
 });
 

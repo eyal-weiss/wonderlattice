@@ -231,6 +231,8 @@
     });
     $('connection').innerHTML =
       `<p>${room.connection.html}</p><button class="button" data-go="${room.connection.go}">${room.connection.label}</button>`;
+    // A room still waiting for its translations isn't offered as the next stop (see W.published).
+    $('connection').hidden = !W.published(room.connection.go);
     renderControls();
     room.enter?.(settings[room.id], stage);
     size();

@@ -15,6 +15,10 @@ const page = readFileSync(`${root}index.html`, 'utf8');
 const titleOf = (id) =>
   globalThis.Wonderlattice.text(id).title ?? page.match(new RegExp(`data-t="${id}\\.title">([^<]+)<`))?.[1];
 export const ROOMS = Object.fromEntries(roomIds.map((id) => [id, titleOf(id)]));
+// The rooms on the map and the route: those every language has words for (src/lang/languages.js). The others, still
+// waiting for translations, open only from a direct link (Wonderlattice.published).
+await import(pathToFileURL(`${root}src/lang/languages.js`).href);
+export const PUBLISHED = roomIds.filter((id) => globalThis.Wonderlattice.published(id));
 
 // Records page errors, captures clipboard writes, and exposes the optional
 // browser-agent tools so tests can read app state the way an agent would.
@@ -52,6 +56,11 @@ export { expect };
 
 /** Open a room the way a visitor does: back to the map if needed, then its card. */
 export async function openRoom(page, room) {
+  if (!PUBLISHED.includes(room)) {
+    // Not on the map until it's translated: open it as a shared link would.
+    await page.evaluate((id) => (location.hash = `room=${id}`), room);
+    return expectRoom(page, room);
+  }
   if (await page.locator('#room-home').isVisible()) await page.locator('#room-home').click();
   await page.locator(`#card-${room}`).click();
   await expectRoom(page, room);
