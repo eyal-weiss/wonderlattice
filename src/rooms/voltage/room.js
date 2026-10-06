@@ -702,7 +702,8 @@
       words = share >= 1 ? t.labels.nothing : t.labels.lost(percent(share));
       ctx.fillStyle = view.heat > 0.15 ? glow(Math.max(0.5, view.heat)) : COLOURS.cool;
     }
-    ctx.fillText(words, cx, small * 3.8, width);
+    // The sky is clear from the station to the town at this height, so the words may reach that far.
+    ctx.fillText(words, cx, small * 3.8, 2 * Math.min(cx - L.station.x, L.town.x1 - cx));
   }
 
   /** The landscape in `box`; its sky and ground may reach wider, across `sky`. */
