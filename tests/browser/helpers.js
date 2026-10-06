@@ -19,6 +19,8 @@ export const ROOMS = Object.fromEntries(roomIds.map((id) => [id, titleOf(id)]));
 // waiting for translations, open only from a direct link (Wonderlattice.published).
 await import(pathToFileURL(`${root}src/lang/languages.js`).href);
 export const PUBLISHED = roomIds.filter((id) => globalThis.Wonderlattice.published(id));
+// Every language besides English, as the language menu lists them.
+export const LANGUAGES = Object.keys(globalThis.Wonderlattice.languages());
 
 // Records page errors, captures clipboard writes, and exposes the optional
 // browser-agent tools so tests can read app state the way an agent would.
