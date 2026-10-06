@@ -1,4 +1,4 @@
-import { test, expect, ROOMS } from './helpers.js';
+import { test, expect, ROOMS, LANGUAGES } from './helpers.js';
 
 // Display settings (src/core/display.js): larger text and high contrast, kept in this browser.
 
@@ -253,6 +253,25 @@ for (const room of ['home', ...Object.keys(ROOMS)]) {
     expect(await lowContrast(page, 7)).toEqual([]);
   });
 }
+
+// The room bar is the same in every room, and its words are longest in Spanish, French and Portuguese: with the
+// largest text on the narrowest phone, "All experiments" wraps and the arrows may take a second line, but they stay
+// on the screen (#136).
+test('the room bar keeps its arrows on the screen with the largest text, in every language', async ({ page }) => {
+  await chosen(page, { textSize: 'larger' });
+  await page.setViewportSize({ width: 320, height: 740 });
+  for (const lang of ['en', ...LANGUAGES]) {
+    await page.goto(`/?lang=${lang}#room=dice`);
+    await expect(page.locator('body')).toHaveAttribute('data-room', 'dice');
+    const sideways = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+    expect(sideways, `${lang}: the page is wider than the screen`).toBeLessThanOrEqual(0);
+    for (const id of ['room-home', 'room-surprise', 'room-prev', 'room-next']) {
+      const box = await page.locator(`#${id}`).boundingBox();
+      expect(box.x, `${lang} #${id}`).toBeGreaterThanOrEqual(0);
+      expect(box.x + box.width, `${lang} #${id}`).toBeLessThanOrEqual(320);
+    }
+  }
+});
 
 // Every word on every page is readable in both looks: at least 4.5:1 by day and at night, and 7:1 at night in high
 // contrast (by day, the phone test above checks it). A room's panel takes its colours from the tokens (base.css).

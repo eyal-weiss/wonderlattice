@@ -134,9 +134,10 @@
    * Where things go. The frame is never taller than the window, so the whole picture is seen. On a wide picture with
    * room for it, the rollers and the wheels share the height with the close-up below them: about a third, and
    * whatever the lanes can't use. The drill's square sits in the middle of the height; the race's rows share it.
-   * On phones the picture is short and wide.
+   * On phones the picture is short and wide, and the race's shapes leave room after the finish for the longest of
+   * their names (`longest`, in pixels).
    */
-  function layout(width, height) {
+  function layout(width, height, longest = 0) {
     const wide = width >= 600;
     const rollerSize = (lanes) => Math.max(40, Math.min((lanes / 2 - 36) / 1.75, width / 6.8, 130));
     let seen = height,
@@ -150,7 +151,8 @@
     }
     const laneH = seen / 2;
     const rowH = height / 4;
-    const raceSize = Math.max(20, Math.min(rowH - 30, (width - 40) / (Math.PI + 1.4), 110));
+    const named = wide ? Infinity : (width - 28 - longest) / (Math.PI + 1.57); // see drawRace: names, then 8 px
+    const raceSize = Math.max(20, Math.min(rowH - 30, (width - 40) / (Math.PI + 1.4), 110, named));
     const square = wide ? Math.min(height - 24, width * 0.6, 640) : Math.max(100, Math.min(height - 24, width - 100));
     return {
       width,
@@ -196,6 +198,45 @@
     ctx.textAlign = align;
     ctx.textBaseline = 'alphabetic';
     ctx.fillText(words, x, y, w);
+  }
+
+  /** Words broken into lines no wider than `width` (a word wider than that gets a line of its own). */
+  function wrap(ctx, text, width) {
+    const lines = [];
+    let line = '';
+    for (const word of text.split(' ')) {
+      const next = line ? `${line} ${word}` : word;
+      if (line && ctx.measureText(next).width > width) {
+        lines.push(line);
+        line = word;
+      } else line = next;
+    }
+    return line ? [...lines, line] : lines;
+  }
+
+  /** The lanes' captions share one size: 13 px, or down to 11 px for the first to fit on one line. */
+  function captionSize(ctx, words, width) {
+    for (let px = 13; px > 11; px--) {
+      ctx.font = `600 ${px}px system-ui, sans-serif`;
+      if (ctx.measureText(words).width <= width - 24) return px;
+    }
+    return 11;
+  }
+
+  /**
+   * A lane's caption, at its top left: one line where it fits, or else two if the lane has room above its drawing
+   * (`clear`, the drawing's highest point), so that on a narrow picture it isn't squeezed out of shape.
+   */
+  function caption(ctx, words, top, width, size, clear) {
+    const x = 12,
+      y = top + 18,
+      w = width - 24,
+      gap = Math.round(size * 1.25);
+    ctx.font = `600 ${size}px system-ui, sans-serif`;
+    const lines = ctx.measureText(words).width > w ? wrap(ctx, words, w) : [words];
+    if (lines.length === 2 && y + gap + 8 <= clear)
+      return lines.forEach((line, i) => label(ctx, line, x, y + i * gap, w, { size }));
+    label(ctx, words, x, y, w, { size });
   }
 
   function ground(ctx, y, width, travel, step) {
@@ -308,7 +349,9 @@
     });
     plank(ctx, centre - (span / 2 + 0.15) * size, centre + (span / 2 + 0.15) * size, plankTop, 0.12 * size);
     crate(ctx, centre, plankTop, size);
-    label(ctx, t.labels.rollers, 12, top.top + 18, width - 24);
+    // Both captions take the size at which this one fits; it keeps to one line, as the pen's line is close below.
+    const px = captionSize(ctx, t.labels.rollers, width);
+    caption(ctx, t.labels.rollers, top.top, width, px, 0);
 
     // Below: the same shape as wheels fixed to axles through their middles. The cart rides on the axles.
     const low = lanes[1];
@@ -322,10 +365,12 @@
     ctx.lineWidth = 2.5;
     ctx.beginPath();
     ctx.moveTo(centre, penAt(r));
+    let highest = penAt(r); // the wave's top, which the caption keeps clear of
     for (let k = 1; k < 400; k++) {
       const back = M.roll(sh.raw, psi - k * 0.025),
         x = centre - (r.x - back.x) * size;
       ctx.lineTo(x, penAt(back));
+      highest = Math.min(highest, penAt(back));
       if (x < 8) break;
     }
     ctx.stroke();
@@ -333,12 +378,13 @@
     plank(ctx, centre - wheelX - 0.6 * size, centre + wheelX + 0.6 * size, axle(r) - bed, 2 * bed);
     crate(ctx, centre, axle(r) - bed, size);
     for (const side of [-1, 1]) body(ctx, sh, centre + side * wheelX, axle(r), size, r.turn, { spokes: true });
-    label(
+    caption(
       ctx,
       sh.kind === CIRCLE ? t.labels.axlesRound : t.labels.axles(percent(sh.bob)),
-      12,
-      low.top + 18,
-      width - 24,
+      low.top,
+      width,
+      px,
+      highest - 2,
     );
 
     if (lay.close) closeUp(ctx, sh, lay.close);
@@ -574,7 +620,8 @@
     ctx.lineTo(finish, 4 * rowH - 6);
     ctx.stroke();
     ctx.setLineDash([]);
-    label(ctx, t.labels.finish, finish, 14, width - finish - 8, {
+    // Centred on the finish line, so it has twice the room on its narrower side.
+    label(ctx, t.labels.finish, finish, 14, 2 * Math.min(width - finish - 8, finish - 8), {
       colour: PATH,
       weight: 600,
       size: 12,
@@ -588,7 +635,8 @@
     const { width, height } = stage;
     ctx.fillStyle = '#0a0e15';
     ctx.fillRect(0, 0, width, height);
-    lay = layout(width, height);
+    ctx.font = '700 12px system-ui, sans-serif';
+    lay = layout(width, height, Math.max(...t.shapes.map((name) => ctx.measureText(name).width)));
     if (s.view === 1) drawDrill(ctx, s);
     else if (s.view === 2) drawRace(ctx, s);
     else drawRollers(ctx, s);

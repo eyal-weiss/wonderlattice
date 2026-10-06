@@ -1,5 +1,5 @@
 import { readFile } from 'node:fs/promises';
-import { test, expect, ROOMS, openRoom, expectRoom } from './helpers.js';
+import { test, expect, ROOMS, LANGUAGES, openRoom, expectRoom } from './helpers.js';
 
 test('a saved moment survives reload and can be revisited', async ({ page }) => {
   await page.goto('/#room=motion');
@@ -80,17 +80,20 @@ test('reduced motion shows finished drawings and still guests', async ({ page })
   await expect(page.locator('#scene-play')).toHaveText('Play');
 });
 
-for (const width of [375, 320]) {
-  test(`every room fits a ${width}px phone screen`, async ({ page }) => {
+// English at two phone widths, and every other language at the narrowest, where longer words once pushed the room
+// bar's arrows off the screen in Spanish, French and Portuguese (#136).
+const phones = [[375, 'en'], [320, 'en'], ...LANGUAGES.map((lang) => [320, lang])];
+for (const [width, lang] of phones) {
+  test(`every room fits a ${width}px phone screen (${lang})`, async ({ page }) => {
     test.slow(); // walks through every room, so it grows with each new one
     await page.setViewportSize({ width, height: 740 });
-    await page.goto('/');
+    await page.goto(`/?lang=${lang}`);
     for (const room of Object.keys(ROOMS)) {
       await openRoom(page, room);
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
       );
-      expect(overflow, `${room} horizontal overflow`).toBeLessThanOrEqual(0);
+      expect(overflow, `${room} horizontal overflow (${lang})`).toBeLessThanOrEqual(0);
     }
   });
 }

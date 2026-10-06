@@ -582,11 +582,23 @@ a.brand:focus-visible {
 /* ---------- Inside a room: back to the map, and the route's neighbours ---------- */
 .room-bar {
   display: flex;
+  flex-wrap: wrap; /* the arrows move to a second line only when nothing else can give way */
   align-items: center;
   gap: 16px;
   padding-top: 18px;
 }
+/* Short of room, the theme's name wraps first, then "All experiments" (the longer languages at 320 px, or larger
+   text), so the arrows stay on the screen. Each keeps to one line where it fits. */
+.room-home {
+  flex: 100 1 0;
+  min-width: min-content;
+  max-width: max-content;
+  text-align: start;
+}
 .room-bar-theme {
+  flex: 1 1 0;
+  min-width: min-content;
+  max-width: max-content;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -653,14 +665,6 @@ a.brand:focus-visible {
   .room-bar {
     padding-top: 12px;
     gap: 10px;
-  }
-  .room-home {
-    white-space: nowrap;
-  }
-  /* Larger text: "All experiments" may take two lines, so the arrows stay on the screen. */
-  :root[data-text-size] .room-home {
-    white-space: normal;
-    text-align: start;
   }
   .room-bar-theme {
     font-size: 0.75rem;
