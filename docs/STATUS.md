@@ -18,6 +18,11 @@ This file is a changelog of the site, newest first. How the code fits together i
 
 ## 2026-10-05
 
+- **Small phones in every language.** On a 320 px screen in Spanish, French and Portuguese, the longer "← All
+  experiments" pushed the room bar's next arrow past the edge, so every room's page scrolled sideways. The link
+  now takes two lines there, and with the largest text the arrows take a second line. In the rollers and voltage
+  rooms, three labels drawn in the picture were squeezed to half or two thirds of their width on small phones, even
+  in English; they now wrap or use the room they have. The phone-width test walks every room in every language.
 - **Three new rooms, in every language, now on the map.** Rollers that aren’t round, The stubborn triangle and Light
   a town 100 km away are translated into Hebrew, Spanish, Brazilian Portuguese, French and Arabic: the page, the words
   drawn in the pictures, the visitors and the explanations. With that they join the map, the route and Surprise, and
