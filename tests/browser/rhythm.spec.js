@@ -104,6 +104,12 @@ test('rhythm room: the explanation works through the outer ring’s own numbers'
   await expect(rounds).toContainText('[x··] [x··] [x·]');
   await expect(rounds).toContainText('8 = 2 × 3 + 2');
   await expect(rounds).toContainText('2 = 2 × 1 + 0');
+  // One beat is a beat, not “1 beats”.
+  await page.keyboard.press('Escape');
+  await page.goto('/#room=rhythm&steps=5&beats=1');
+  await expect(status(page)).toHaveText('1 beat in 5 steps');
+  await page.locator('#scene-why').click();
+  await expect(rounds).toContainText('Spreading 1 beat over 5 steps, round by round:');
 });
 
 test('rhythm room: with reduced motion the picture holds still, the beats already spread', async ({ page }) => {

@@ -44,7 +44,7 @@ Wonderlattice.defineText('rhythm', 'en', {
   // The scene's name: a rhythm Toussaint lists (its name, where it is played), or an even spread with no name here.
   scene: (name, from) => `${name} · ${from}`,
   unnamed: 'An even spread',
-  // Whole numbers of beats (0 to 24) and steps (2 to 24).
+  // Whole numbers of beats (0 to 24) and steps (2 to 24, so always more than one).
   status: (k, n) => `${k === 1 ? '1 beat' : `${k} beats`} in ${n} steps`,
 
   // Words drawn on the canvas, kept short.
@@ -57,7 +57,7 @@ Wonderlattice.defineText('rhythm', 'en', {
   },
 
   announce: (k, n, name) =>
-    name ? `${k} beats in ${n} steps: ${name}.` : `${k} beats in ${n} steps, spread as evenly as possible.`,
+    `${k === 1 ? '1 beat' : `${k} beats`} in ${n} steps` + (name ? `: ${name}.` : ', spread as evenly as possible.'),
 
   // Rhythms in Toussaint’s list (2005), by the names and places he gives.
   rhythms: {
@@ -85,7 +85,7 @@ Wonderlattice.defineText('rhythm', 'en', {
 
   // The explanation's worked example, for the outer ring's numbers: Bjorklund's rounds (already drawn as groups of
   // x and ·), then Euclid's divisions a = q × b + r.
-  roundsIntro: (k, n) => `Spreading ${k} beats over ${n} steps, round by round:`,
+  roundsIntro: (k, n) => `Spreading ${k === 1 ? '1 beat' : `${k} beats`} over ${n} steps, round by round:`,
   divisionsIntro: (n, k) => `Euclid’s algorithm on ${n} and ${k}:`,
   division: (a, q, b, r) => `${a} = ${q} × ${b} + ${r}`,
   noRounds: 'With no beats, or no rests, there is nothing to spread.',
