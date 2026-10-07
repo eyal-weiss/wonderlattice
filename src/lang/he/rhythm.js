@@ -1,121 +1,123 @@
 /* Rhythms from Euclid · visitor-facing words (he). */
 Wonderlattice.defineText('rhythm', 'he', {
-  eyebrow: 'EUCLIDEAN RHYTHMS',
-  name: 'Rhythms from Euclid',
-  tagline: 'Spread a few beats round a circle as evenly as you can, and out come rhythms played around the world.',
-  title: 'Rhythms from Euclid.',
+  eyebrow: 'מקצבים אוקלידיים',
+  name: 'המקצבים של אוקלידס',
+  tagline: 'פזרו כמה פעימות סביב מעגל, באופן אחיד ככל האפשר, ויוצאים מקצבים שמנגנים בכל העולם.',
+  title: 'המקצבים של אוקלידס.',
   subtitle:
-    'Three beats spread as evenly as possible over eight steps: the Cuban tresillo. Change the numbers, or turn the sound on.',
-  field: 'Number · Euclid’s algorithm · Rhythm',
-  sceneLabel: 'Beats round a circle',
-  tip: 'The hand goes round once a bar, lighting each beat it passes · Tap a named rhythm to play it · Keys: ← → the next one',
-  actionLabel: 'Turn sound on',
+    'שלוש פעימות שמפוזרות באופן אחיד ככל האפשר על פני שמונה צעדים: הטרסיו הקובני. שנו את המספרים, או הפעילו את הצליל.',
+  field: 'מספרים · האלגוריתם של אוקלידס · מקצב',
+  sceneLabel: 'פעימות סביב מעגל',
+  tip: 'המחוג מסתובב פעם אחת בכל תיבה, ומאיר כל פעימה שהוא עובר · הקישו על מקצב עם שם כדי לנגן אותו · מקשים: ← → עוברים למקצב הבא',
+  actionLabel: 'הפעלת הצליל',
   canvasLabel:
-    'A clock face of steps with a hand going round. The beats, spread as evenly as possible, are the corners of a polygon and light up as the hand passes. Beside it, the same beats as a row of boxes, under a straight line drawn in pixels that steps up on every beat.',
-  panelEyebrow: 'Beats and steps',
-  whyLabel: 'Where do these rhythms come from?',
-  nudge: 'Turn the sound on, then try 5 beats in 8 steps, and 7 in 12: many of the most even spreads have names.',
+    'לוח שעון של צעדים, עם מחוג שמסתובב. הפעימות, מפוזרות באופן אחיד ככל האפשר, הן הקודקודים של מצולע, והן נדלקות כשהמחוג עובר עליהן. לצדו, אותן פעימות כשורה של משבצות, מתחת לקו ישר שמצויר בפיקסלים ועולה מדרגה בכל פעימה.',
+  panelEyebrow: 'פעימות וצעדים',
+  whyLabel: 'מאיפה המקצבים האלה באים?',
+  nudge: 'הפעילו את הצליל, ואז נסו 5 פעימות ב־8 צעדים, ו־7 ב־12: להרבה מהפיזורים האחידים ביותר יש שמות.',
   connection: {
-    html: '<strong>Beats inside two notes.</strong> Two tones slightly out of tune swell and fade in a rhythm of their own, called beats.',
-    label: 'Hear the shape',
+    html: '<strong>פעימות בתוך שני צלילים.</strong> שני צלילים שלא לגמרי מכוונים זה לזה מתגברים ודועכים במקצב משלהם, שנקרא פעימות.',
+    label: 'לשמוע את הצורה',
   },
 
   presets: [
-    { name: 'Tresillo', note: '3 beats in 8 steps, from Cuba.' },
-    { name: 'Bossa nova', note: '5 in 16, over a steady 4.' },
-    { name: 'West African bell', note: '7 in 12, over 4 and 3.' },
+    { name: 'טרסיו', note: '3 פעימות ב־8 צעדים, מקובה.' },
+    { name: 'בוסה נובה', note: '5 מתוך 16, מעל 4 פעימות קבועות.' },
+    { name: 'פעמון ממערב אפריקה', note: '7 מתוך 12, מעל 4 ומעל 3.' },
   ],
 
-  soundOff: 'Turn sound on',
-  soundOn: 'Sound on · mute',
-  noSound: 'Sound is unavailable in this browser. You can still watch the beats.',
+  soundOff: 'הפעלת הצליל',
+  soundOn: 'הצליל פועל · השתקה',
+  noSound: 'הצליל לא זמין בדפדפן הזה. עדיין אפשר לצפות בפעימות.',
 
-  rings: 'Rings',
-  ringCounts: ['One', 'Two', 'Three'],
-  change: 'Change',
-  ringNames: ['Outer', 'Middle', 'Inner'],
-  steps: 'Steps',
-  beats: 'Beats',
-  start: 'Start on step',
-  startHint: 'The same beats, started from another step of the circle.',
-  speed: 'One turn takes',
+  rings: 'טבעות',
+  ringCounts: ['אחת', 'שתיים', 'שלוש'],
+  change: 'לשנות',
+  ringNames: ['חיצונית', 'אמצעית', 'פנימית'],
+  steps: 'צעדים',
+  beats: 'פעימות',
+  start: 'להתחיל בצעד',
+  startHint: 'אותן פעימות, מתחילות מצעד אחר במעגל.',
+  speed: 'סיבוב אחד נמשך',
   seconds: ' s',
 
   // The scene's name: a rhythm Toussaint lists (its name, where it is played), or an even spread with no name here.
   scene: (name, from) => `${name} · ${from}`,
-  unnamed: 'An even spread',
+  unnamed: 'פיזור אחיד',
   // Whole numbers of beats (0 to 24) and steps (2 to 24).
-  status: (k, n) => `${k === 1 ? '1 beat' : `${k} beats`} in ${n} steps`,
+  status: (k, n) => `${k === 1 ? 'פעימה אחת' : `${k} פעימות`} ב־${n} צעדים`,
 
   // Words drawn on the canvas, kept short.
   labels: {
-    line: (k, n) => `A line rising ${k} in ${n}, in pixels`,
-    steps: 'It steps up on the beats',
-    ring: (k, n) => `${k} in ${n}`,
-    ringNamed: (k, n, name) => `${k} in ${n} · ${name}`,
-    gallery: 'More rhythms with names · tap one',
+    line: (k, n) => `קו שעולה ${k} לאורך ${n}, בפיקסלים`,
+    steps: 'הוא עולה מדרגה בפעימות',
+    ring: (k, n) => `${k} מ־${n}`,
+    ringNamed: (k, n, name) => `${k} מ־${n} · ${name}`,
+    gallery: 'עוד מקצבים עם שמות · הקישו על אחד',
   },
 
   announce: (k, n, name) =>
-    name ? `${k} beats in ${n} steps: ${name}.` : `${k} beats in ${n} steps, spread as evenly as possible.`,
+    name
+      ? `${k === 1 ? 'פעימה אחת' : `${k} פעימות`} ב־${n} צעדים: ${name}.`
+      : `${k === 1 ? 'פעימה אחת' : `${k} פעימות`} ב־${n} צעדים, מפוזרות באופן אחיד ככל האפשר.`,
 
   // Rhythms in Toussaint’s list (2005), by the names and places he gives.
   rhythms: {
-    conga: { name: 'Conga pattern', from: 'Cuba' },
-    khafif: { name: 'Khafif-e-ramal', from: 'Persia, 13th century' },
-    cumbia: { name: 'Cumbia', from: 'Colombia' },
-    romanian: { name: 'Folk dance', from: 'Romania' },
-    ruchenitza: { name: 'Ruchenitza', from: 'Bulgaria' },
-    tresillo: { name: 'Tresillo', from: 'Cuba' },
-    ruchenitzaFour: { name: 'Ruchenitza', from: 'Bulgaria' },
-    aksak: { name: 'Aksak', from: 'Turkey' },
-    yorkSamai: { name: 'York-Samai', from: 'Arab music' },
-    nawakhat: { name: 'Nawakhat', from: 'Arab music' },
-    cinquillo: { name: 'Cinquillo', from: 'Cuba' },
-    agsagSamai: { name: 'Agsag-Samai', from: 'Arab music' },
-    venda: { name: 'Venda clapping song', from: 'South Africa' },
-    bossa: { name: 'Bossa nova', from: 'Brazil' },
-    bendir: { name: 'Bendir drum', from: 'Tuareg, Libya' },
-    bell: { name: 'Bell pattern', from: 'West Africa' },
-    samba: { name: 'Samba', from: 'Brazil' },
-    central: { name: 'Central African rhythm', from: 'Central African Republic' },
-    aka: { name: 'Aka rhythm', from: 'Central Africa' },
-    sangha: { name: 'Aka rhythm', from: 'Upper Sangha, Central Africa' },
+    conga: { name: 'מקצב קונגה', from: 'קובה' },
+    khafif: { name: 'ח׳פיף־א־רמל', from: 'פרס, המאה ה־13' },
+    cumbia: { name: 'קומביה', from: 'קולומביה' },
+    romanian: { name: 'ריקוד עם', from: 'רומניה' },
+    ruchenitza: { name: 'רוצ׳ניצה', from: 'בולגריה' },
+    tresillo: { name: 'טרסיו', from: 'קובה' },
+    ruchenitzaFour: { name: 'רוצ׳ניצה', from: 'בולגריה' },
+    aksak: { name: 'אקסאק', from: 'טורקיה' },
+    yorkSamai: { name: 'יורק־סמאעי', from: 'מוזיקה ערבית' },
+    nawakhat: { name: 'נוואח׳ת', from: 'מוזיקה ערבית' },
+    cinquillo: { name: 'סינקיו', from: 'קובה' },
+    agsagSamai: { name: 'אגסאג־סמאעי', from: 'מוזיקה ערבית' },
+    venda: { name: 'שיר מחיאות של הוונדה', from: 'דרום אפריקה' },
+    bossa: { name: 'בוסה נובה', from: 'ברזיל' },
+    bendir: { name: 'תוף בנדיר', from: 'טוארגים, לוב' },
+    bell: { name: 'מקצב פעמון', from: 'מערב אפריקה' },
+    samba: { name: 'סמבה', from: 'ברזיל' },
+    central: { name: 'מקצב ממרכז אפריקה', from: 'הרפובליקה המרכז־אפריקאית' },
+    aka: { name: 'מקצב אקה', from: 'מרכז אפריקה' },
+    sangha: { name: 'מקצב אקה', from: 'סנגה עילית, מרכז אפריקה' },
   },
 
   // The explanation's worked example, for the outer ring's numbers: Bjorklund's rounds (already drawn as groups of
   // x and ·), then Euclid's divisions a = q × b + r.
-  roundsIntro: (k, n) => `Spreading ${k} beats over ${n} steps, round by round:`,
-  divisionsIntro: (n, k) => `Euclid’s algorithm on ${n} and ${k}:`,
+  roundsIntro: (k, n) => `פיזור של ${k} פעימות על פני ${n} צעדים, סבב אחרי סבב:`,
+  divisionsIntro: (n, k) => `האלגוריתם של אוקלידס על ${n} ו־${k}:`,
   division: (a, q, b, r) => `${a} = ${q} × ${b} + ${r}`,
-  noRounds: 'With no beats, or no rests, there is nothing to spread.',
+  noRounds: 'בלי פעימות, או בלי הפסקות, אין מה לפזר.',
 
   guests: [
     {
-      name: 'Euclid',
-      note: 'In my Elements I found the largest number that measures two others by taking the smaller from the larger, again and again. The same steps spread these beats.',
+      name: 'אוקלידס',
+      note: 'בספר ”היסודות” שלי מצאתי את המספר הגדול ביותר שמודד שני מספרים אחרים, על ידי חיסור הקטן מהגדול, שוב ושוב. אותם צעדים מפזרים את הפעימות האלה.',
     },
     {
-      name: 'Godfried Toussaint',
-      note: 'I noticed that a recipe for timing pulses in a particle accelerator also makes rhythms played around the world, and in 2005 I called them Euclidean rhythms.',
+      name: 'גודפריד טוסן',
+      note: 'שמתי לב שמתכון לתזמון פולסים במאיץ חלקיקים יוצר גם מקצבים שמנגנים בכל העולם, וב־2005 קראתי להם מקצבים אוקלידיים.',
     },
   ],
 
   insight: {
-    title: 'Where do these rhythms come from?',
-    html: `<p>Put a few beats on a circle of steps, as far apart as they can go. When the beats divide the steps exactly, every gap is the same. When they don’t, the gaps come in two sizes, one step apart, mixed as evenly as possible: 3 beats in 8 steps leave gaps of 3, 3 and 2. That pattern is the tresillo, a basic rhythm of Cuban music, also played on bells in West Africa and in the bass lines of 1950s rock and roll.</p>
-<h3>Euclid’s subtraction</h3>
-<p>To spread them, write the beats in a row, then the rests. Tuck a rest behind each beat, then keep tucking the leftover groups behind the others until at most one group is left over. Eric Bjorklund used this in 2003 to space timing pulses in a particle accelerator, the Spallation Neutron Source. It takes the same steps as Euclid’s algorithm for the greatest common divisor, from his Elements of about 300 BC: divide, then divide by the remainder, again and again.</p>
+    title: 'מאיפה המקצבים האלה באים?',
+    html: `<p>שימו כמה פעימות על מעגל של צעדים, רחוק ככל האפשר זו מזו. כשהפעימות מחלקות את הצעדים בדיוק, כל המרווחים שווים. כשלא, המרווחים באים בשני גדלים, בהפרש של צעד אחד, מעורבבים באופן אחיד ככל האפשר: 3 פעימות ב־8 צעדים משאירות מרווחים של 3, 3 ו־2. התבנית הזאת היא הטרסיו, מקצב בסיסי במוזיקה הקובנית, שמנגנים אותו גם על פעמונים במערב אפריקה ובקווי הבס של הרוקנרול בשנות ה־1950.</p>
+<h3>החיסור של אוקלידס</h3>
+<p>כדי לפזר אותן, כתבו את הפעימות בשורה, ואחריהן את ההפסקות. הכניסו הפסקה מאחורי כל פעימה, ואז המשיכו להכניס את הקבוצות שנשארו מאחורי האחרות, עד שנשארת לכל היותר קבוצה אחת. אריק ביורקלונד השתמש בזה ב־2003 כדי לרווח פולסי תזמון במאיץ חלקיקים, \u2066Spallation Neutron Source\u2069. זה לוקח את אותם צעדים כמו האלגוריתם של אוקלידס למציאת המחלק המשותף הגדול ביותר, מתוך ”היסודות” שלו, מסביבות 300 לפני הספירה: מחלקים, ואז מחלקים בשארית, שוב ושוב.</p>
 <div class="insight-visual" id="rhythm-rounds"></div>
-<h3>Rhythms with names</h3>
-<p>In 2005 Godfried Toussaint called these patterns Euclidean rhythms, and listed traditional rhythms among them, from Cuba, Brazil, West and Central Africa, Turkey, Bulgaria and Arab music. A name here means the same pattern started from any step, as in his list: many rhythms are played from another beat. Bossa nova starts its 5 in 16 on the third beat, and samba its 7 in 16 on the last; “Start on step” turns a ring. The West African bell’s 7 in 12 is also the pattern of the white keys among the twelve keys of an octave on a piano.</p>
-<h3>A line in pixels</h3>
-<p>Draw a straight line rising 3 in 8 on a screen, one pixel in each column. It climbs into a new row 3 times, and the columns where it climbs are the tresillo again. For any numbers, the line steps up in a most even pattern, read from some column.</p>
-<h3>As far apart as possible</h3>
-<p>Of all the ways to put the beats on the steps, these keep them furthest apart: add up the straight distances between every pair of beats round the circle, and only a Euclidean rhythm, turned or not, has the largest total. Erik Demaine and colleagues proved this in 2009.</p>
-<h3>What the room leaves out</h3>
-<p>Nobody claims musicians used Euclid’s algorithm: evenness is simply something these rhythms share. Real playing has accents, swing and the sound of each instrument, which beats and rests leave out. Not every rhythm is Euclidean: the son clave has five beats in sixteen, like bossa nova, but gaps of 3, 3, 4, 2 and 4. The names follow Toussaint’s list, and the same pattern often goes by other names elsewhere.</p>
-<details><summary>The mathematics, if you want it</summary><p>A pattern of k beats in n steps is a necklace of k ones and n − k zeros. Bjorklund’s algorithm keeps two piles of groups, [1] × k and [0] × (n − k); each round joins one group from the back pile to each group of the front pile, and what is left over becomes the new back pile. The sizes of the piles follow Euclid’s algorithm on n − k and k, and the process ends when at most one group is left over.</p><p>The digital straight line gives the same necklace: step i is a beat when ⌊ik/n⌋ &gt; ⌊(i − 1)k/n⌋, the pattern Bresenham’s line algorithm draws on a screen. In music theory, Clough and Douthett’s maximally even sets are the same idea for scales. Evenness here is the sum of the chord lengths between all pairs of beats on a unit circle.</p><p>The room’s tests check, against a separate program: Toussaint’s table, every E(k, n) up to 32 steps against the line, every pattern of up to 14 steps for the largest spread, and the bossa nova and samba starts.</p></details>
-<div class="sources"><a class="source-link" href="https://archive.bridgesmathart.org/2005/bridges2005-47.html" target="_blank" rel="noopener">Toussaint, The Euclidean algorithm generates traditional musical rhythms (Bridges, 2005)</a><a class="source-link" href="https://arxiv.org/abs/0705.4085" target="_blank" rel="noopener">Demaine and others, The distance geometry of music (2009)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Euclidean_rhythm" target="_blank" rel="noopener">Euclidean rhythm (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Maximal_evenness" target="_blank" rel="noopener">Maximal evenness (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Tresillo_(rhythm)" target="_blank" rel="noopener">Tresillo (Wikipedia)</a></div>`,
+<h3>מקצבים עם שמות</h3>
+<p>ב־2005 גודפריד טוסן קרא לתבניות האלה מקצבים אוקלידיים, ומנה ביניהן מקצבים מסורתיים מקובה, מברזיל, ממערב אפריקה וממרכז אפריקה, מטורקיה, מבולגריה ומהמוזיקה הערבית. שם כאן פירושו אותה תבנית כשהיא מתחילה מכל צעד שהוא, כמו ברשימה שלו: הרבה מקצבים מנגנים החל מפעימה אחרת. הבוסה נובה מתחילה את ה־5 מתוך 16 שלה בפעימה השלישית, והסמבה את ה־7 מתוך 16 שלה באחרונה; ”להתחיל בצעד” מסובב טבעת. ה־7 מתוך 12 של הפעמון ממערב אפריקה הוא גם התבנית של הקלידים הלבנים מבין שנים־עשר הקלידים של אוקטבה בפסנתר.</p>
+<h3>קו בפיקסלים</h3>
+<p>שרטטו על מסך קו ישר שעולה 3 לאורך 8, פיקסל אחד בכל עמודה. הוא מטפס לשורה חדשה 3 פעמים, והעמודות שבהן הוא מטפס הן שוב הטרסיו. לכל זוג מספרים, הקו עולה במדרגות בתבנית האחידה ביותר, כשקוראים אותה החל מעמודה מסוימת.</p>
+<h3>רחוק ככל האפשר</h3>
+<p>מכל הדרכים להציב את הפעימות על הצעדים, אלה מרחיקות אותן הכי הרבה זו מזו: סכמו את המרחקים הישרים בין כל זוג פעימות סביב המעגל, ורק למקצב אוקלידי, מסובב או לא, יש הסכום הגדול ביותר. אריק דמיין ועמיתיו הוכיחו את זה ב־2009.</p>
+<h3>מה החדר משאיר בחוץ</h3>
+<p>אף אחד לא טוען שמוזיקאים השתמשו באלגוריתם של אוקלידס: האחידות היא פשוט משהו שמשותף למקצבים האלה. בנגינה אמיתית יש הדגשות, סווינג והצליל של כל כלי, ופעימות והפסקות משאירות את כל אלה בחוץ. לא כל מקצב הוא אוקלידי: בסון קלאבה יש חמש פעימות בשישה־עשר צעדים, כמו בבוסה נובה, אבל מרווחים של 3, 3, 4, 2 ו־4. השמות לקוחים מהרשימה של טוסן, ולעתים קרובות אותה תבנית נקראת בשמות אחרים במקומות אחרים.</p>
+<details><summary>המתמטיקה, למי שרוצה</summary><p>תבנית של k פעימות ב־n צעדים היא שרשרת של k אחדות ו־\u2066n − k\u2069 אפסים. האלגוריתם של ביורקלונד מחזיק שתי ערימות של קבוצות, \u2066[1] × k\u2069 ו־\u2066[0] × (n − k)\u2069; בכל סבב מצרפים קבוצה אחת מהערימה האחורית לכל קבוצה בערימה הקדמית, ומה שנשאר הופך לערימה האחורית החדשה. גודלי הערימות עוקבים אחרי האלגוריתם של אוקלידס על \u2066n − k\u2069 ו־k, והתהליך נגמר כשנשארת לכל היותר קבוצה אחת.</p><p>הקו הישר הדיגיטלי נותן את אותה שרשרת: צעד i הוא פעימה כאשר \u2066⌊ik/n⌋ &gt; ⌊(i − 1)k/n⌋\u2069, התבנית שהאלגוריתם של ברזנהאם לשרטוט קווים מצייר על מסך. בתורת המוזיקה, הקבוצות האחידות במידה מרבית של קלאף ודאות׳ט הן אותו רעיון עבור סולמות. האחידות כאן היא סכום אורכי המיתרים בין כל זוגות הפעימות על מעגל היחידה.</p><p>הבדיקות של החדר מוודאות, מול תוכנה נפרדת: את הטבלה של טוסן, כל \u2066E(k, n)\u2069 עד 32 צעדים מול הקו, כל תבנית של עד 14 צעדים עבור הפיזור הגדול ביותר, ואת נקודות ההתחלה של הבוסה נובה ושל הסמבה.</p></details>
+<div class="sources"><a class="source-link" href="https://archive.bridgesmathart.org/2005/bridges2005-47.html" target="_blank" rel="noopener">טוסן, \u2066“The Euclidean algorithm generates traditional musical rhythms” (Bridges, 2005)\u2069 (באנגלית)</a><a class="source-link" href="https://arxiv.org/abs/0705.4085" target="_blank" rel="noopener">דמיין ואחרים, \u2066“The distance geometry of music” (2009)\u2069 (באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Euclidean_rhythm" target="_blank" rel="noopener">מקצב אוקלידי (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Maximal_evenness" target="_blank" rel="noopener">אחידות מרבית (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Tresillo_(rhythm)" target="_blank" rel="noopener">טרסיו (ויקיפדיה, באנגלית)</a></div>`,
   },
 });

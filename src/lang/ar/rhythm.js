@@ -1,121 +1,134 @@
 /* Rhythms from Euclid · visitor-facing words (ar). */
+// «ضربة» (beat, as in «ضربات» for two tones in «سماع الشكل»), «خطوة» (step), «سكتة» (rest) and «حلقة» (ring) are
+// feminine: ضربة واحدة، ضربتان، 3 ضربات، 11 ضربة. "k in n" is «k من n», since «3 في 8» reads as three times eight.
 Wonderlattice.defineText('rhythm', 'ar', {
-  eyebrow: 'EUCLIDEAN RHYTHMS',
-  name: 'Rhythms from Euclid',
-  tagline: 'Spread a few beats round a circle as evenly as you can, and out come rhythms played around the world.',
-  title: 'Rhythms from Euclid.',
+  eyebrow: 'الإيقاعات الإقليدية',
+  name: 'إيقاعات من إقليدس',
+  tagline: 'وزّعوا بضع ضربات حول دائرة بأكبر قدر ممكن من التساوي، فتخرج إيقاعات تُعزف حول العالم.',
+  title: 'إيقاعات من إقليدس.',
   subtitle:
-    'Three beats spread as evenly as possible over eight steps: the Cuban tresillo. Change the numbers, or turn the sound on.',
-  field: 'Number · Euclid’s algorithm · Rhythm',
-  sceneLabel: 'Beats round a circle',
-  tip: 'The hand goes round once a bar, lighting each beat it passes · Tap a named rhythm to play it · Keys: ← → the next one',
-  actionLabel: 'Turn sound on',
+    'ثلاث ضربات موزّعة بأكبر قدر ممكن من التساوي على ثماني خطوات: التريسيو الكوبي. غيّروا الأعداد، أو شغّلوا الصوت.',
+  field: 'الأعداد · خوارزمية إقليدس · الإيقاع',
+  sceneLabel: 'ضربات حول دائرة',
+  tip: 'يدور العقرب دورة واحدة في كل مازورة، ويُضيء كل ضربة يمرّ بها · انقروا على إيقاع له اسم لعزفه · المفاتيح: ← و→ للإيقاع التالي',
+  actionLabel: 'تشغيل الصوت',
   canvasLabel:
-    'A clock face of steps with a hand going round. The beats, spread as evenly as possible, are the corners of a polygon and light up as the hand passes. Beside it, the same beats as a row of boxes, under a straight line drawn in pixels that steps up on every beat.',
-  panelEyebrow: 'Beats and steps',
-  whyLabel: 'Where do these rhythms come from?',
-  nudge: 'Turn the sound on, then try 5 beats in 8 steps, and 7 in 12: many of the most even spreads have names.',
+    'وجه ساعة من الخطوات يدور فيه عقرب. الضربات، الموزّعة بأكبر قدر ممكن من التساوي، هي رؤوس مضلّع، وتُضيء حين يمرّ بها العقرب. وإلى جانبها، الضربات نفسها كصفّ من المربعات، تحت خط مستقيم مرسوم بالبكسلات يصعد درجةً عند كل ضربة.',
+  panelEyebrow: 'ضربات وخطوات',
+  whyLabel: 'من أين تأتي هذه الإيقاعات؟',
+  nudge: 'شغّلوا الصوت، ثم جرّبوا 5 ضربات في 8 خطوات، و7 ضربات في 12 خطوة: لكثير من أكثر التوزيعات تساويًا أسماء.',
   connection: {
-    html: '<strong>Beats inside two notes.</strong> Two tones slightly out of tune swell and fade in a rhythm of their own, called beats.',
-    label: 'Hear the shape',
+    html: '<strong>ضربات داخل نغمتين.</strong> نغمتان مختلفتان قليلًا في الضبط تعلوان وتخفتان بإيقاع خاص بهما، يُسمّى الضربات.',
+    label: 'سماع الشكل',
   },
 
   presets: [
-    { name: 'Tresillo', note: '3 beats in 8 steps, from Cuba.' },
-    { name: 'Bossa nova', note: '5 in 16, over a steady 4.' },
-    { name: 'West African bell', note: '7 in 12, over 4 and 3.' },
+    { name: 'تريسيو', note: '3 ضربات في 8 خطوات، من كوبا.' },
+    { name: 'بوسا نوفا', note: '5 من 16، فوق نبض ثابت من 4.' },
+    { name: 'جرس غرب أفريقيا', note: '7 من 12، فوق نبض من 4 ونبض من 3.' },
   ],
 
-  soundOff: 'Turn sound on',
-  soundOn: 'Sound on · mute',
-  noSound: 'Sound is unavailable in this browser. You can still watch the beats.',
+  soundOff: 'تشغيل الصوت',
+  soundOn: 'الصوت يعمل · كتم',
+  noSound: 'الصوت غير متاح في هذا المتصفح. لا يزال بإمكانكم مشاهدة الضربات.',
 
-  rings: 'Rings',
-  ringCounts: ['One', 'Two', 'Three'],
-  change: 'Change',
-  ringNames: ['Outer', 'Middle', 'Inner'],
-  steps: 'Steps',
-  beats: 'Beats',
-  start: 'Start on step',
-  startHint: 'The same beats, started from another step of the circle.',
-  speed: 'One turn takes',
+  rings: 'الحلقات',
+  ringCounts: ['واحدة', 'اثنتان', 'ثلاث'],
+  change: 'تعديل',
+  ringNames: ['الخارجية', 'الوسطى', 'الداخلية'],
+  steps: 'الخطوات',
+  beats: 'الضربات',
+  start: 'البدء من الخطوة',
+  startHint: 'الضربات نفسها، بدءًا من خطوة أخرى على الدائرة.',
+  speed: 'مدة الدورة الواحدة',
   seconds: ' s',
 
   // The scene's name: a rhythm Toussaint lists (its name, where it is played), or an even spread with no name here.
   scene: (name, from) => `${name} · ${from}`,
-  unnamed: 'An even spread',
+  unnamed: 'توزيع متساوٍ',
   // Whole numbers of beats (0 to 24) and steps (2 to 24).
-  status: (k, n) => `${k === 1 ? '1 beat' : `${k} beats`} in ${n} steps`,
+  status: (k, n) => {
+    const beats = k === 1 ? 'ضربة واحدة' : k === 2 ? 'ضربتان' : k >= 3 && k <= 10 ? `${k} ضربات` : `${k} ضربة`;
+    const steps = n === 2 ? 'خطوتين' : n >= 3 && n <= 10 ? `${n} خطوات` : `${n} خطوة`;
+    return `${beats} في ${steps}`;
+  },
 
   // Words drawn on the canvas, kept short.
   labels: {
-    line: (k, n) => `A line rising ${k} in ${n}, in pixels`,
-    steps: 'It steps up on the beats',
-    ring: (k, n) => `${k} in ${n}`,
-    ringNamed: (k, n, name) => `${k} in ${n} · ${name}`,
-    gallery: 'More rhythms with names · tap one',
+    line: (k, n) => `خط بالبكسلات يرتفع ${k} كل ${n}`,
+    steps: 'يصعد درجةً عند كل ضربة',
+    ring: (k, n) => `${k} من ${n}`,
+    ringNamed: (k, n, name) => `${k} من ${n} · ${name}`,
+    gallery: 'إيقاعات مسمّاة أخرى · انقروا على أحدها',
   },
 
-  announce: (k, n, name) =>
-    name ? `${k} beats in ${n} steps: ${name}.` : `${k} beats in ${n} steps, spread as evenly as possible.`,
+  announce: (k, n, name) => {
+    const beats = k === 1 ? 'ضربة واحدة' : k === 2 ? 'ضربتان' : k >= 3 && k <= 10 ? `${k} ضربات` : `${k} ضربة`;
+    const steps = n === 2 ? 'خطوتين' : n >= 3 && n <= 10 ? `${n} خطوات` : `${n} خطوة`;
+    return name ? `${beats} في ${steps}: ${name}.` : `${beats} في ${steps}، موزّعة بأكبر قدر ممكن من التساوي.`;
+  },
 
   // Rhythms in Toussaint’s list (2005), by the names and places he gives.
   rhythms: {
-    conga: { name: 'Conga pattern', from: 'Cuba' },
-    khafif: { name: 'Khafif-e-ramal', from: 'Persia, 13th century' },
-    cumbia: { name: 'Cumbia', from: 'Colombia' },
-    romanian: { name: 'Folk dance', from: 'Romania' },
-    ruchenitza: { name: 'Ruchenitza', from: 'Bulgaria' },
-    tresillo: { name: 'Tresillo', from: 'Cuba' },
-    ruchenitzaFour: { name: 'Ruchenitza', from: 'Bulgaria' },
-    aksak: { name: 'Aksak', from: 'Turkey' },
-    yorkSamai: { name: 'York-Samai', from: 'Arab music' },
-    nawakhat: { name: 'Nawakhat', from: 'Arab music' },
-    cinquillo: { name: 'Cinquillo', from: 'Cuba' },
-    agsagSamai: { name: 'Agsag-Samai', from: 'Arab music' },
-    venda: { name: 'Venda clapping song', from: 'South Africa' },
-    bossa: { name: 'Bossa nova', from: 'Brazil' },
-    bendir: { name: 'Bendir drum', from: 'Tuareg, Libya' },
-    bell: { name: 'Bell pattern', from: 'West Africa' },
-    samba: { name: 'Samba', from: 'Brazil' },
-    central: { name: 'Central African rhythm', from: 'Central African Republic' },
-    aka: { name: 'Aka rhythm', from: 'Central Africa' },
-    sangha: { name: 'Aka rhythm', from: 'Upper Sangha, Central Africa' },
+    conga: { name: 'نمط الكونغا', from: 'كوبا' },
+    khafif: { name: 'خفيف الرمل', from: 'بلاد فارس، القرن الثالث عشر' },
+    cumbia: { name: 'كومبيا', from: 'كولومبيا' },
+    romanian: { name: 'رقصة شعبية', from: 'رومانيا' },
+    ruchenitza: { name: 'روتشينيتسا', from: 'بلغاريا' },
+    tresillo: { name: 'تريسيو', from: 'كوبا' },
+    ruchenitzaFour: { name: 'روتشينيتسا', from: 'بلغاريا' },
+    aksak: { name: 'أقصاق', from: 'تركيا' },
+    yorkSamai: { name: 'يوروك سماعي', from: 'الموسيقى العربية' },
+    nawakhat: { name: 'نوخت', from: 'الموسيقى العربية' },
+    cinquillo: { name: 'سينكيو', from: 'كوبا' },
+    agsagSamai: { name: 'أقصاق سماعي', from: 'الموسيقى العربية' },
+    venda: { name: 'أغنية تصفيق من الفندا', from: 'جنوب أفريقيا' },
+    bossa: { name: 'بوسا نوفا', from: 'البرازيل' },
+    bendir: { name: 'طبل البندير', from: 'الطوارق، ليبيا' },
+    bell: { name: 'نمط الجرس', from: 'غرب أفريقيا' },
+    samba: { name: 'سامبا', from: 'البرازيل' },
+    central: { name: 'إيقاع من أفريقيا الوسطى', from: 'جمهورية أفريقيا الوسطى' },
+    aka: { name: 'إيقاع الآكا', from: 'وسط أفريقيا' },
+    sangha: { name: 'إيقاع الآكا', from: 'أعالي سانغا، وسط أفريقيا' },
   },
 
   // The explanation's worked example, for the outer ring's numbers: Bjorklund's rounds (already drawn as groups of
   // x and ·), then Euclid's divisions a = q × b + r.
-  roundsIntro: (k, n) => `Spreading ${k} beats over ${n} steps, round by round:`,
-  divisionsIntro: (n, k) => `Euclid’s algorithm on ${n} and ${k}:`,
+  roundsIntro: (k, n) => {
+    const beats = k === 1 ? 'ضربة واحدة' : k === 2 ? 'ضربتين' : k >= 3 && k <= 10 ? `${k} ضربات` : `${k} ضربة`;
+    const steps = n === 2 ? 'خطوتين' : n >= 3 && n <= 10 ? `${n} خطوات` : `${n} خطوة`;
+    return `توزيع ${beats} على ${steps}، جولة بعد جولة:`;
+  },
+  divisionsIntro: (n, k) => `خوارزمية إقليدس على ${n} و${k}:`,
   division: (a, q, b, r) => `${a} = ${q} × ${b} + ${r}`,
-  noRounds: 'With no beats, or no rests, there is nothing to spread.',
+  noRounds: 'بلا ضربات، أو بلا سكتات، لا يوجد ما يُوزَّع.',
 
   guests: [
     {
-      name: 'Euclid',
-      note: 'In my Elements I found the largest number that measures two others by taking the smaller from the larger, again and again. The same steps spread these beats.',
+      name: 'إقليدس',
+      note: 'في كتابي «الأصول» وجدتُ أكبر عدد يقيس عددين آخرين، بطرح الأصغر من الأكبر، مرة بعد مرة. والخطوات نفسها توزّع هذه الضربات.',
     },
     {
-      name: 'Godfried Toussaint',
-      note: 'I noticed that a recipe for timing pulses in a particle accelerator also makes rhythms played around the world, and in 2005 I called them Euclidean rhythms.',
+      name: 'غودفريد توسان',
+      note: 'لاحظتُ أن وصفة لتوقيت النبضات في مسرّع جسيمات تصنع أيضًا إيقاعات تُعزف حول العالم، وعام 2005 سمّيتها الإيقاعات الإقليدية.',
     },
   ],
 
   insight: {
-    title: 'Where do these rhythms come from?',
-    html: `<p>Put a few beats on a circle of steps, as far apart as they can go. When the beats divide the steps exactly, every gap is the same. When they don’t, the gaps come in two sizes, one step apart, mixed as evenly as possible: 3 beats in 8 steps leave gaps of 3, 3 and 2. That pattern is the tresillo, a basic rhythm of Cuban music, also played on bells in West Africa and in the bass lines of 1950s rock and roll.</p>
-<h3>Euclid’s subtraction</h3>
-<p>To spread them, write the beats in a row, then the rests. Tuck a rest behind each beat, then keep tucking the leftover groups behind the others until at most one group is left over. Eric Bjorklund used this in 2003 to space timing pulses in a particle accelerator, the Spallation Neutron Source. It takes the same steps as Euclid’s algorithm for the greatest common divisor, from his Elements of about 300 BC: divide, then divide by the remainder, again and again.</p>
+    title: 'من أين تأتي هذه الإيقاعات؟',
+    html: `<p>ضعوا بضع ضربات على دائرة من الخطوات، متباعدة قدر الإمكان. حين يقسم عدد الضربات عدد الخطوات تمامًا، تتساوى كل الفجوات. وحين لا يقسمه، تأتي الفجوات بحجمين يختلفان بخطوة واحدة، ممزوجةً بأكبر قدر ممكن من التساوي: 3 ضربات في 8 خطوات تترك فجوات من 3 و3 و2. هذا النمط هو التريسيو، إيقاع أساسي في الموسيقى الكوبية، يُعزف أيضًا على الأجراس في غرب أفريقيا، وفي خطوط الباص في موسيقى الروك آند رول في خمسينيات القرن العشرين.</p>
+<h3>طرح إقليدس</h3>
+<p>لتوزيعها، اكتبوا الضربات في صف، ثم السكتات. ألحِقوا سكتة خلف كل ضربة، ثم استمرّوا في إلحاق المجموعات المتبقية خلف الأخرى، حتى تبقى مجموعة واحدة على الأكثر. استخدم إريك بيوركلوند هذه الطريقة عام 2003 لتوزيع نبضات التوقيت في مسرّع جسيمات، هو مصدر النيوترونات بالتشظّي. وهي تمرّ بالخطوات نفسها التي تمرّ بها خوارزمية إقليدس لإيجاد القاسم المشترك الأكبر، من كتابه «الأصول» نحو عام 300 قبل الميلاد: اقسموا، ثم اقسموا على الباقي، مرة بعد مرة.</p>
 <div class="insight-visual" id="rhythm-rounds"></div>
-<h3>Rhythms with names</h3>
-<p>In 2005 Godfried Toussaint called these patterns Euclidean rhythms, and listed traditional rhythms among them, from Cuba, Brazil, West and Central Africa, Turkey, Bulgaria and Arab music. A name here means the same pattern started from any step, as in his list: many rhythms are played from another beat. Bossa nova starts its 5 in 16 on the third beat, and samba its 7 in 16 on the last; “Start on step” turns a ring. The West African bell’s 7 in 12 is also the pattern of the white keys among the twelve keys of an octave on a piano.</p>
-<h3>A line in pixels</h3>
-<p>Draw a straight line rising 3 in 8 on a screen, one pixel in each column. It climbs into a new row 3 times, and the columns where it climbs are the tresillo again. For any numbers, the line steps up in a most even pattern, read from some column.</p>
-<h3>As far apart as possible</h3>
-<p>Of all the ways to put the beats on the steps, these keep them furthest apart: add up the straight distances between every pair of beats round the circle, and only a Euclidean rhythm, turned or not, has the largest total. Erik Demaine and colleagues proved this in 2009.</p>
-<h3>What the room leaves out</h3>
-<p>Nobody claims musicians used Euclid’s algorithm: evenness is simply something these rhythms share. Real playing has accents, swing and the sound of each instrument, which beats and rests leave out. Not every rhythm is Euclidean: the son clave has five beats in sixteen, like bossa nova, but gaps of 3, 3, 4, 2 and 4. The names follow Toussaint’s list, and the same pattern often goes by other names elsewhere.</p>
-<details><summary>The mathematics, if you want it</summary><p>A pattern of k beats in n steps is a necklace of k ones and n − k zeros. Bjorklund’s algorithm keeps two piles of groups, [1] × k and [0] × (n − k); each round joins one group from the back pile to each group of the front pile, and what is left over becomes the new back pile. The sizes of the piles follow Euclid’s algorithm on n − k and k, and the process ends when at most one group is left over.</p><p>The digital straight line gives the same necklace: step i is a beat when ⌊ik/n⌋ &gt; ⌊(i − 1)k/n⌋, the pattern Bresenham’s line algorithm draws on a screen. In music theory, Clough and Douthett’s maximally even sets are the same idea for scales. Evenness here is the sum of the chord lengths between all pairs of beats on a unit circle.</p><p>The room’s tests check, against a separate program: Toussaint’s table, every E(k, n) up to 32 steps against the line, every pattern of up to 14 steps for the largest spread, and the bossa nova and samba starts.</p></details>
-<div class="sources"><a class="source-link" href="https://archive.bridgesmathart.org/2005/bridges2005-47.html" target="_blank" rel="noopener">Toussaint, The Euclidean algorithm generates traditional musical rhythms (Bridges, 2005)</a><a class="source-link" href="https://arxiv.org/abs/0705.4085" target="_blank" rel="noopener">Demaine and others, The distance geometry of music (2009)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Euclidean_rhythm" target="_blank" rel="noopener">Euclidean rhythm (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Maximal_evenness" target="_blank" rel="noopener">Maximal evenness (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Tresillo_(rhythm)" target="_blank" rel="noopener">Tresillo (Wikipedia)</a></div>`,
+<h3>إيقاعات لها أسماء</h3>
+<p>عام 2005 سمّى غودفريد توسان هذه الأنماط الإيقاعات الإقليدية، وعدّد بينها إيقاعات تقليدية من كوبا والبرازيل وغرب أفريقيا ووسطها وتركيا وبلغاريا والموسيقى العربية. والاسم هنا يعني النمط نفسه أيًّا كانت الخطوة التي يبدأ منها، كما في قائمته: فكثير من الإيقاعات تُعزف بدءًا من ضربة أخرى. تبدأ البوسا نوفا نمطها، 5 من 16، من الضربة الثالثة، وتبدأ السامبا نمطها، 7 من 16، من الضربة الأخيرة؛ و«البدء من الخطوة» يُدير الحلقة. ونمط جرس غرب أفريقيا، 7 من 12، هو أيضًا نمط المفاتيح البيضاء بين المفاتيح الاثني عشر لأوكتاف واحد على البيانو.</p>
+<h3>خط بالبكسلات</h3>
+<p>ارسموا على شاشة خطًا مستقيمًا يرتفع 3 كل 8، بكسلًا واحدًا في كل عمود. يصعد الخط إلى صف جديد 3 مرات، والأعمدة التي يصعد فيها هي التريسيو من جديد. ومع أي أعداد، يصعد الخط وفق نمط متساوٍ إلى أقصى حد، إذا قُرئ بدءًا من عمود ما.</p>
+<h3>متباعدة قدر الإمكان</h3>
+<p>من بين كل طرق وضع الضربات على الخطوات، هذه هي التي تُبقيها أبعد ما يمكن بعضها عن بعض: اجمعوا المسافات المستقيمة بين كل زوج من الضربات حول الدائرة، فلن يكون أكبر مجموع إلا لإيقاع إقليدي، مُدارًا كان أو لا. برهن إريك ديمين وزملاؤه على ذلك عام 2009.</p>
+<h3>ما تُغفله هذه الغرفة</h3>
+<p>لا أحد يدّعي أن الموسيقيين استخدموا خوارزمية إقليدس: التساوي ببساطة شيء تشترك فيه هذه الإيقاعات. والعزف الحقيقي فيه نبرات، وتأرجح إيقاعي، وصوت كل آلة، وكلها أمور تُغفلها الضربات والسكتات. وليس كل إيقاع إقليديًا: فإيقاع السون كلافي فيه خمس ضربات في ست عشرة خطوة، مثل البوسا نوفا، لكن فجواته 3 و3 و4 و2 و4. والأسماء تتبع قائمة توسان، وكثيرًا ما يُعرف النمط نفسه بأسماء أخرى في أماكن أخرى.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>نمط من k من الضربات في n من الخطوات هو عِقد من k من الآحاد و\u2066n\u00a0−\u00a0k\u2069 من الأصفار. تحتفظ خوارزمية بيوركلوند بكومتين من المجموعات، \u2066[1]\u00a0×\u00a0k\u2069 و\u2066[0]\u00a0×\u00a0(n\u00a0−\u00a0k)\u2069؛ وفي كل جولة تُلحق مجموعة من الكومة الخلفية بكل مجموعة من الكومة الأمامية، وما يتبقّى يصبح الكومة الخلفية الجديدة. وأحجام الكومتين تتبع خوارزمية إقليدس على \u2066n\u00a0−\u00a0k\u2069 وk، وتنتهي العملية حين تبقى مجموعة واحدة على الأكثر.</p><p>والخط المستقيم الرقمي يعطي العِقد نفسه: الخطوة i ضربة حين يكون \u2066⌊ik/\u2060n⌋\u00a0&gt;\u00a0⌊(i\u00a0−\u00a01)k/\u2060n⌋\u2069، وهو النمط الذي ترسمه خوارزمية بريزنهام للخطوط على الشاشة. وفي نظرية الموسيقى، المجموعات ذات التساوي الأقصى عند كلاف ودوثيت هي الفكرة نفسها مطبّقة على السلالم الموسيقية. والتساوي هنا هو مجموع أطوال الأوتار بين كل أزواج الضربات على دائرة الوحدة.</p><p>وتتحقّق اختبارات الغرفة، بالمقارنة مع برنامج منفصل، من: جدول توسان، وكل \u2066E(k,\u00a0n)\u2069 حتى 32 خطوة مقارنةً بالخط، وكل نمط حتى 14 خطوة من حيث أكبر تباعد، وبدايتَي البوسا نوفا والسامبا.</p></details>
+<div class="sources"><a class="source-link" href="https://archive.bridgesmathart.org/2005/bridges2005-47.html" target="_blank" rel="noopener">توسان، \u2066The Euclidean algorithm generates traditional musical rhythms\u2069 \u200f(Bridges،\u200f 2005، بالإنجليزية)</a><a class="source-link" href="https://arxiv.org/abs/0705.4085" target="_blank" rel="noopener">ديمين وآخرون، \u2066The distance geometry of music\u2069 \u200f(2009، بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Euclidean_rhythm" target="_blank" rel="noopener">الإيقاع الإقليدي (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Maximal_evenness" target="_blank" rel="noopener">التساوي الأقصى (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Tresillo_(rhythm)" target="_blank" rel="noopener">التريسيو (ويكيبيديا، بالإنجليزية)</a></div>`,
   },
 });

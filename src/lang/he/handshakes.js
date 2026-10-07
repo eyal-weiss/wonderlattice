@@ -1,81 +1,81 @@
 /* Six handshakes · visitor-facing words (he). */
 Wonderlattice.defineText('handshakes', 'he', {
-  eyebrow: 'SMALL WORLDS',
-  name: 'Six handshakes',
-  tagline: 'Two hundred friends in a ring are 25 handshakes apart. Five random friendships nearly halve that.',
-  title: 'Six handshakes.',
+  eyebrow: 'עולמות קטנים',
+  name: 'שש לחיצות יד',
+  tagline: 'מאתיים חברים במעגל רחוקים 25 לחיצות יד זה מזה. חמש חברויות אקראיות כמעט מקצרות את זה בחצי.',
+  title: 'שש לחיצות יד.',
   subtitle:
-    'Two hundred people in a ring, each friends with their four nearest neighbours. Watch a few random friendships shrink the whole world, then add more.',
-  field: 'Networks · Graph theory · Social science',
-  sceneLabel: 'One ring · a few strangers',
-  sceneName: 'A ring of 200 friends',
-  tip: 'Tap anyone to count the handshakes from you · Keys: ← → choose someone, + adds a shortcut',
-  actionLabel: 'Add a shortcut',
+    'מאתיים אנשים במעגל, כל אחד חבר של ארבעת השכנים הקרובים אליו. צפו איך כמה חברויות אקראיות מכווצות את העולם כולו, ואז הוסיפו עוד.',
+  field: 'רשתות · תורת הגרפים · מדעי החברה',
+  sceneLabel: 'מעגל אחד · כמה זרים',
+  sceneName: 'מעגל של 200 חברים',
+  tip: 'הקישו על מישהו כדי לספור כמה לחיצות יד מפרידות ביניכם · מקשים: ← → בוחרים מישהו, + מוסיף קיצור דרך',
+  actionLabel: 'להוסיף קיצור דרך',
   canvasLabel:
-    'Two hundred people on a circle, each linked to their nearest neighbours, with a few long links across it. The average number of handshakes between two people is in the middle.',
-  panelEyebrow: 'Friends of friends',
-  whyLabel: 'Why do a few shortcuts shrink the world?',
-  nudge: 'Start again for a plain ring, then add shortcuts one at a time. Which one makes the biggest difference?',
+    'מאתיים אנשים על מעגל, כל אחד מחובר לשכנים הקרובים אליו, וכמה קישורים ארוכים חוצים אותו. באמצע, המספר הממוצע של לחיצות יד בין שני אנשים.',
+  panelEyebrow: 'חברים של חברים',
+  whyLabel: 'למה כמה קיצורי דרך מכווצים את העולם?',
+  nudge: 'התחילו מחדש עם מעגל פשוט, ואז הוסיפו קיצורי דרך אחד אחד. איזה מהם משנה הכי הרבה?',
   connection: {
-    html: '<strong>Small worlds keep time.</strong> Watts and Strogatz noticed that clocks linked like a small world fall into step more easily. Watch a meadow of them in Fireflies that fall into step.',
-    label: 'Watch the fireflies',
+    html: '<strong>עולמות קטנים שומרים על קצב.</strong> ווטס וסטרוגץ שמו לב ששעונים שמחוברים כמו עולם קטן נכנסים לאותו קצב בקלות רבה יותר. צפו באחו שלם של כאלה ב”גחליליות שנכנסות לאותו קצב”.',
+    label: 'לצפות בגחליליות',
   },
 
   presets: [
-    { name: 'Only neighbours', note: 'A plain ring.', badge: '0' },
-    { name: 'Five strangers meet', note: 'Five random friendships.', badge: '5' },
-    { name: 'A rumour', note: 'News spreads from you.', badge: '20' },
+    { name: 'רק שכנים', note: 'מעגל פשוט.', badge: '0' },
+    { name: 'חמישה זרים נפגשים', note: 'חמש חברויות אקראיות.', badge: '5' },
+    { name: 'שמועה', note: 'החדשות מתפשטות מכם.', badge: '20' },
   ],
 
-  shortcuts: 'Shortcuts across the circle',
-  rumour: 'Spread a rumour from you',
+  shortcuts: 'קיצורי דרך שחוצים את המעגל',
+  rumour: 'להפיץ שמועה שמתחילה אצלכם',
 
   // The status line above the picture. `steps`, `heard`, `round` and `rounds` are whole numbers.
   status: {
-    path: (steps) => `You to them: ${steps} ${steps === 1 ? 'handshake' : 'handshakes'}`,
-    spreading: (heard, round) => `Round ${round}: ${heard} of 200 have heard`,
-    everyone: (rounds) => `Everyone has heard after ${rounds} rounds`,
+    path: (steps) => `מכם לאדם המסומן: ${steps === 1 ? 'לחיצת יד אחת' : `${steps} לחיצות יד`}`,
+    spreading: (heard, round) => `סבב ${round}: ${heard} מתוך 200 שמעו`,
+    everyone: (rounds) => `כולם שמעו אחרי ${rounds} סבבים`,
   },
   // Said once the number of shortcuts settles. `count` is a whole number, `distance` a formatted number.
   announce: (count, distance) =>
-    `${count === 0 ? 'With no shortcuts' : count === 1 ? 'With 1 shortcut' : `With ${count} shortcuts`}, two people are ${distance} handshakes apart on average.`,
+    `${count === 0 ? 'בלי קיצורי דרך' : count === 1 ? 'עם קיצור דרך אחד' : `עם ${count} קיצורי דרך`}, שני אנשים רחוקים בממוצע ${distance} לחיצות יד זה מזה.`,
 
   // Words drawn on the canvas.
   labels: {
-    apart: 'handshakes apart',
-    onAverage: 'on average',
-    knit: 'Friends who know each other',
-    you: 'You',
-    steps: (steps) => `${steps} ${steps === 1 ? 'handshake' : 'handshakes'}`,
-    chart: 'As shortcuts arrive',
-    far: 'How far apart',
-    close: 'How close-knit',
-    scale: '100% = the plain ring',
-    axis: (count) => `${count} shortcuts`,
+    apart: 'לחיצות יד זה מזה',
+    onAverage: 'בממוצע',
+    knit: 'חברים שמכירים זה את זה',
+    you: 'אתם',
+    steps: (steps) => (steps === 1 ? 'לחיצת יד אחת' : `${steps} לחיצות יד`),
+    chart: 'עם כל קיצור דרך נוסף',
+    far: 'כמה רחוקים',
+    close: 'כמה מלוכדים',
+    scale: '\u2066100%\u2069 = המעגל הפשוט',
+    axis: (count) => `${count} קיצורי דרך`,
   },
 
   guests: [
     {
-      name: 'Frigyes Karinthy',
-      note: 'In his 1929 short story “Chains”, a character bets that anyone on Earth can be reached through at most five acquaintances.',
+      name: 'פריגיש קרינתי',
+      note: 'בסיפור הקצר שלו ”שרשראות” מ־1929, אחת הדמויות מתערבת שאפשר להגיע לכל אדם על פני כדור הארץ דרך חמישה מכרים לכל היותר.',
     },
     {
-      name: 'Stanley Milgram',
-      note: 'In the 1960s he asked people to pass a letter towards a stranger, only through someone they knew well. Most letters never arrived; those that did took about six steps.',
+      name: 'סטנלי מילגרם',
+      note: 'בשנות ה־1960 הוא ביקש מאנשים להעביר מכתב לעבר אדם זר, רק דרך מישהו שהם מכירים היטב. רוב המכתבים לא הגיעו אף פעם; אלה שהגיעו עברו כשישה צעדים.',
     },
   ],
 
   insight: {
-    title: 'Why do a few shortcuts shrink the world?',
-    html: `<p>On the ring, news can only crawl from neighbour to neighbour: reaching the far side takes 50 handshakes, and two people are about 25 apart on average. A shortcut is a bridge across the circle. Everyone near one end of it is suddenly close to everyone near the other end, so one new friendship shortens thousands of chains at once.</p>
-<div class="insight-visual">a few long links → almost every chain gets shorter → a small world</div>
-<h3>Close-knit, and close</h3>
-<p>Meanwhile almost nothing changes near you. On the ring, half of the pairs of your friends know each other, and a handful of shortcuts barely touch that. A world can be cosy and local and still be small. Duncan Watts and Steven Strogatz called this a small world in 1998, and found it in the network of film actors, a power grid and the nerves of a tiny worm.</p>
-<h3>Six degrees?</h3>
-<p>In Stanley Milgram’s letter experiments in the 1960s, most letters never arrived: in one study, 64 of 296 did. The chains that arrived took about six steps, and “six degrees of separation” became folklore. In 2016 Facebook measured an average of 4.57 steps (3.57 people in between) among its 1.59 billion users: one platform, not the whole world.</p>
-<h3>What this model leaves out</h3>
-<p>Real friendships aren’t a tidy ring, and people have very different numbers of friends. Here the shortcuts are added on top of the ring (a variant studied by Mark Newman and Duncan Watts); in the original model some existing links are moved instead. And a short chain isn’t always one you can find: Jon Kleinberg showed that people who know only their own friends find short chains only when the long links follow one special pattern.</p>
-<details><summary>The numbers, if you want them</summary><p>With 200 people and 4 friends each (400 links), the ring’s average distance is exactly 5050 / 199 ≈ 25.4, and its clustering (the share of pairs of one’s friends who are friends too) is 3(k − 2) / (4(k − 1)) = ½ for k = 4. Averaged over 40 random draws, the average distance is about 13.9 with 5 shortcuts, 10.2 with 10, 7.5 with 20 and 5.0 with 60, while the clustering goes 0.49, 0.48, 0.46 and 0.40. Each draw differs: with 5 shortcuts it ranged from about 12 to 17.</p></details>
-<div class="sources"><a class="source-link" href="https://www.nature.com/articles/30918" target="_blank" rel="noopener">Watts &amp; Strogatz, <em>Nature</em> (1998)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Small-world_experiment" target="_blank" rel="noopener">Small-world experiment</a><a class="source-link" href="https://research.facebook.com/blog/2016/2/three-and-a-half-degrees-of-separation/" target="_blank" rel="noopener">Facebook Research (2016)</a>J. Travers and S. Milgram, <em>Sociometry</em> 32 (1969) · J. Kleinberg, <em>Nature</em> 406 (2000)</div>`,
+    title: 'למה כמה קיצורי דרך מכווצים את העולם?',
+    html: `<p>במעגל, חדשות יכולות רק לזחול משכן לשכן: כדי להגיע לצד השני צריך 50 לחיצות יד, ושני אנשים רחוקים בממוצע כ־25 לחיצות יד זה מזה. קיצור דרך הוא גשר שחוצה את המעגל. כל מי שנמצא ליד קצה אחד שלו נהיה פתאום קרוב לכל מי שנמצא ליד הקצה השני, וכך חברות חדשה אחת מקצרת אלפי שרשראות בבת אחת.</p>
+<div class="insight-visual">כמה קישורים ארוכים ← כמעט כל שרשרת מתקצרת ← עולם קטן</div>
+<h3>מלוכדים, וקרובים</h3>
+<p>ובינתיים כמעט שום דבר לא משתנה בסביבה שלכם. במעגל, מחצית מזוגות החברים שלכם מכירים זה את זה, וקומץ קיצורי דרך כמעט לא נוגע בזה. עולם יכול להיות חמים ומקומי, ועדיין קטן. דאנקן ווטס וסטיבן סטרוגץ קראו לזה עולם קטן ב־1998, ומצאו אותו ברשת שחקני הקולנוע, ברשת חשמל ובמערכת העצבים של תולעת זעירה.</p>
+<h3>שש דרגות?</h3>
+<p>בניסויי המכתבים של סטנלי מילגרם בשנות ה־1960, רוב המכתבים לא הגיעו אף פעם: באחד המחקרים הגיעו 64 מתוך 296. השרשראות שהגיעו עברו כשישה צעדים, ו”שש דרגות של הפרדה” הפכו לפולקלור. ב־2016 פייסבוק מדדה ממוצע של 4.57 צעדים (3.57 אנשים באמצע) בין 1.59 מיליארד המשתמשים שלה: פלטפורמה אחת, לא העולם כולו.</p>
+<h3>מה המודל הזה משמיט</h3>
+<p>חברויות אמיתיות הן לא מעגל מסודר, ולאנשים יש מספרים שונים מאוד של חברים. כאן קיצורי הדרך נוספים מעל המעגל (גרסה שמארק ניומן ודאנקן ווטס חקרו); במודל המקורי, חלק מהקישורים הקיימים מוזזים במקום זה. וגם שרשרת קצרה היא לא תמיד שרשרת שאפשר למצוא: ג׳ון קליינברג הראה שאנשים שמכירים רק את החברים שלהם מוצאים שרשראות קצרות רק כשהקישורים הארוכים עוקבים אחרי תבנית מיוחדת אחת.</p>
+<details><summary>המספרים, למי שרוצה</summary><p>עם 200 אנשים ו־4 חברים לכל אחד (400 קישורים), המרחק הממוצע במעגל הוא בדיוק \u20665050 / 199 ≈ 25.4\u2069, ומקדם ההתקבצות שלו (החלק מבין זוגות החברים של כל אחד שהם חברים גם זה של זה) הוא \u20663(k − 2) / (4(k − 1)) = ½\u2069 עבור \u2066k = 4\u2069. בממוצע על פני 40 הגרלות אקראיות, המרחק הממוצע הוא בערך 13.9 עם 5 קיצורי דרך, 10.2 עם 10, 7.5 עם 20 ו־5.0 עם 60, ומקדם ההתקבצות הוא 0.49, 0.48, 0.46 ו־0.40 בהתאמה. כל הגרלה שונה: עם 5 קיצורי דרך הוא נע בין 12 ל־17 בערך.</p></details>
+<div class="sources"><a class="source-link" href="https://www.nature.com/articles/30918" target="_blank" rel="noopener">ווטס וסטרוגץ, \u2066<em>Nature</em> (1998)\u2069 (באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Small-world_experiment" target="_blank" rel="noopener">ניסוי העולם הקטן (באנגלית)</a><a class="source-link" href="https://research.facebook.com/blog/2016/2/three-and-a-half-degrees-of-separation/" target="_blank" rel="noopener">\u2066Facebook Research (2016)\u2069 (באנגלית)</a>ג׳. טרוורס וס. מילגרם, \u2066<em>Sociometry</em> 32 (1969)\u2069 · ג׳. קליינברג, \u2066<em>Nature</em> 406 (2000)\u2069</div>`,
   },
 });

@@ -1,112 +1,124 @@
-/* The hotel that is always full · visitor-facing words (fr). */
+/* L’hôtel toujours complet · les mots vus par le visiteur (fr). */
 Wonderlattice.defineText('hotel', 'fr', {
-  eyebrow: 'INFINITY',
-  name: 'The hotel that is always full',
-  tagline: 'Every room is taken, yet one more guest fits, then endlessly many. Then comes a coach that never can.',
-  title: 'The hotel that is always full.',
+  eyebrow: 'INFINI',
+  name: 'L’hôtel toujours complet',
+  tagline:
+    'Toutes les chambres sont prises, et pourtant un client de plus trouve sa place, puis une infinité d’autres. Puis arrive un car qui n’en trouvera jamais.',
+  title: 'L’hôtel toujours complet.',
   subtitle:
-    'Every room of an endless hotel is taken, yet watch it fit one more guest, then a coach of endless passengers. Then try the coach of coin flips.',
-  field: 'Infinity · Pairing off · Cantor’s diagonal argument',
-  sceneLabel: 'Rooms 1, 2, 3, … without end',
-  sceneNames: ['One more guest', 'An endless coach', 'Endless coaches', 'The coin-flip coach'],
-  tip: 'Pick a moving card in the panel · With the coin-flip coach, tap a flip to change it (arrow keys aim, Enter flips)',
-  actionLabel: 'Next arrival',
+    'Toutes les chambres d’un hôtel infini sont prises, et pourtant regardez-le accueillir un client de plus, puis un car rempli d’une infinité de passagers. Essayez ensuite le car à pile ou face.',
+  field: 'Infini · Correspondance un à un · L’argument de la diagonale de Cantor',
+  sceneLabel: 'Chambres 1, 2, 3, … à l’infini',
+  sceneNames: ['Un client de plus', 'Un car sans fin', 'Une infinité de cars', 'Le car à pile ou face'],
+  tip: 'Choisissez une carte de déplacement dans le panneau · Avec le car à pile ou face, touchez une pièce pour la retourner (les flèches visent, Entrée retourne)',
+  actionLabel: 'Arrivée suivante',
   canvasLabel:
-    'An endless hotel corridor with numbered doors shrinking into the distance, every room taken. New guests arrive, and every guest moves at once to free rooms for them. With the coin-flip coach, a list of passengers, one per room, and a new passenger built from its diagonal. Tap a flip to change it, or use the arrow keys to aim and Enter to flip.',
-  panelEyebrow: 'Moving cards',
-  whyLabel: 'How can a full hotel take more guests?',
+    'Un couloir d’hôtel sans fin, aux portes numérotées qui rapetissent au loin, toutes les chambres occupées. De nouveaux clients arrivent, et tous les clients changent de chambre en même temps pour leur faire de la place. Avec le car à pile ou face, une liste de passagers, un par chambre, et un nouveau passager construit à partir de sa diagonale. Touchez une pièce pour la retourner, ou utilisez les flèches pour viser et Entrée pour retourner.',
+  panelEyebrow: 'Cartes de déplacement',
+  whyLabel: 'Comment un hôtel complet peut-il accueillir d’autres clients ?',
   nudge:
-    'After the endless coach, press “Next arrival”: endless coaches, then a coach whose passengers no list of rooms can hold.',
+    'Après le car sans fin, appuyez sur « Arrivée suivante » : une infinité de cars, puis un car dont aucune liste de chambres ne peut loger tous les passagers.',
   connection: {
-    html: '<strong>Impossible, whatever you try.</strong> Here, no list of rooms holds every coin-flip passenger. In “The impossible floor”, a colouring proves that no tiling can cover the board.',
-    label: 'Visit “The impossible floor”',
+    html: '<strong>Impossible, quoi que vous essayiez.</strong> Ici, aucune liste de chambres ne loge tous les passagers du car à pile ou face. Dans « Le sol impossible », un coloriage prouve qu’aucun pavage ne peut couvrir le sol.',
+    label: 'Visiter « Le sol impossible »',
   },
 
   presets: [
-    { name: 'One more guest', note: 'The hotel is full. A guest knocks.' },
-    { name: 'Endless coaches', note: 'Endlessly many, each one full.' },
-    { name: 'The coin-flip coach', note: 'The coach that cannot fit.' },
+    { name: 'Un client de plus', note: 'L’hôtel est complet. Un client frappe.' },
+    { name: 'Une infinité de cars', note: 'Une infinité, et chacun est plein.' },
+    { name: 'Le car à pile ou face', note: 'Le car qui ne trouve pas de place.' },
   ],
 
   // The moving cards: the big face, and what it tells the guest in room n.
   cards: {
-    one: { face: '+1', rule: 'room n → room n + 1' },
-    five: { face: '+5', rule: 'room n → room n + 5' },
-    double: { face: '×2', rule: 'room n → room 2n' },
-    zigzag: { face: 'Zigzag', rule: 'walk the seats back and forth' },
-    admit: { face: '+1', rule: 'seat the new passenger in room 1' },
-    shuffle: { face: '↻', rule: 'a new list: every room gets new flips' },
+    one: { face: '+1', rule: 'chambre n → chambre n + 1' },
+    five: { face: '+5', rule: 'chambre n → chambre n + 5' },
+    double: { face: '×2', rule: 'chambre n → chambre 2n' },
+    zigzag: { face: 'Zigzag', rule: 'parcourir les places en allers-retours' },
+    admit: { face: '+1', rule: 'installer le nouveau passager dans la chambre 1' },
+    shuffle: { face: '↻', rule: 'une nouvelle liste : chaque chambre reçoit de nouveaux lancers' },
   },
-  pick: 'Pick a card. Every guest moves at once.',
-  everyone: (face) => `Everyone ${face}`,
+  pick: 'Choisissez une carte. Tous les clients bougent en même temps.',
+  everyone: (face) => `Tout le monde ${face}`,
 
   // Drawn on the picture.
-  full: 'NO VACANCIES',
-  vacant: 'VACANCIES',
-  guest: 'New guest',
-  coach: 'Endless coach',
-  queue: 'Passengers 1, 2, 3, …',
-  hotelRow: 'Hotel',
-  coachRow: (n) => `Coach ${n}`,
-  seat: 'Seats 1, 2, 3, …',
-  rooms: 'Rooms 1, 2, 3, …',
-  room: (n) => `Room ${n}`,
-  heads: 'H',
-  tails: 'T',
-  flips: 'Flips 1, 2, 3, …',
-  passenger: 'New passenger',
-  question: '“Which room is mine?”',
-  differs: 'Different at the diagonal',
+  full: 'COMPLET',
+  vacant: 'LIBRE',
+  guest: 'Nouveau client',
+  coach: 'Car sans fin',
+  queue: 'Passagers 1, 2, 3, …',
+  hotelRow: 'Hôtel',
+  coachRow: (n) => `Car ${n}`,
+  seat: 'Places 1, 2, 3, …',
+  rooms: 'Chambres 1, 2, 3, …',
+  room: (n) => `Chambre ${n}`,
+  heads: 'F',
+  tails: 'P',
+  flips: 'Lancers 1, 2, 3, …',
+  passenger: 'Nouveau passager',
+  question: '« Et ma chambre ? »',
+  differs: 'Différent sur la diagonale',
 
-  listHint: 'Tap any flip in the picture to change it. The diagonal changes too, and its passenger is still left out.',
+  listHint:
+    'Touchez n’importe quelle pièce de l’image pour la retourner. La diagonale change aussi, et son passager reste toujours sans chambre.',
   status: {
-    waiting: ['A new guest knocks. Every room is taken.', 'An endless coach arrives.', 'Endless coaches arrive.'],
-    one: ['Room 1 came free. Still no vacancies.', 'Passenger 1 is in. Passengers 2, 3, 4, … wait.'],
-    five: ['The guest is in, and rooms 2 to 5 stand empty.', 'Passengers 1 to 5 are in. 6, 7, 8, … wait.'],
-    double: [
-      'The guest is in, and the odd rooms stand empty.',
-      'Passenger n has room 2n − 1. Still no vacancies.',
-      'Coach 1 is in. Coaches 2, 3, 4, … wait.',
+    waiting: [
+      'Un nouveau client frappe. Toutes les chambres sont prises.',
+      'Un car sans fin arrive.',
+      'Une infinité de cars arrivent.',
     ],
-    zigzag: 'Every seat of every coach has a room.',
+    one: [
+      'La chambre 1 s’est libérée. Toujours complet.',
+      'Le passager 1 est installé. Les passagers 2, 3, 4, … attendent.',
+    ],
+    five: [
+      'Le client est installé, et les chambres 2 à 5 restent vides.',
+      'Les passagers 1 à 5 sont installés. 6, 7, 8, … attendent.',
+    ],
+    double: [
+      'Le client est installé, et les chambres impaires restent vides.',
+      'Le passager n occupe la chambre 2n − 1. Toujours complet.',
+      'Le car 1 est installé. Les cars 2, 3, 4, … attendent.',
+    ],
+    zigzag: 'Chaque place de chaque car a sa chambre.',
     tracing: (room, row, seat) =>
-      row === 0 ? `Room ${room}: the guest from room ${seat}` : `Room ${room}: coach ${row}, seat ${seat}`,
-    building: (k) => `Flip ${k}: the opposite of room ${k}’s flip ${k}`,
-    built: 'No room has them: they differ from room k at flip k.',
-    admitted: 'Seated in room 1, yet the new diagonal leaves someone out.',
-    edited: 'A new diagonal, and still someone left out.',
-    shuffled: 'A new list, and still someone left out.',
+      row === 0 ? `Chambre ${room} : le client de la chambre ${seat}` : `Chambre ${room} : car ${row}, place ${seat}`,
+    building: (k) => `Lancer ${k} : l’inverse du lancer ${k} de la chambre ${k}`,
+    built: 'Aucune chambre n’est la sienne : il diffère de la chambre k au lancer k.',
+    admitted: 'Installé dans la chambre 1, et pourtant la nouvelle diagonale laisse quelqu’un dehors.',
+    edited: 'Une nouvelle diagonale, et toujours quelqu’un dehors.',
+    shuffled: 'Une nouvelle liste, et toujours quelqu’un dehors.',
   },
 
   guests: [
     {
       name: 'David Hilbert',
-      note: 'In a lecture in 1924 I told of a hotel with endlessly many rooms, all taken, that can still take a newcomer. A completed infinity behaves like nothing finite.',
+      note: 'Lors d’une conférence en 1924, j’ai raconté l’histoire d’un hôtel aux chambres infiniment nombreuses, toutes occupées, qui peut pourtant accueillir un nouveau venu. Un infini achevé ne se comporte comme rien de fini.',
     },
     {
       name: 'Georg Cantor',
-      note: 'In 1891 I showed that endless strings of two symbols can’t all be listed: change the first symbol of the first string, the second of the second, and so on, and you have one the list missed.',
+      note: 'En 1891, j’ai montré qu’on ne peut pas dresser la liste de toutes les suites infinies de deux symboles : changez le premier symbole de la première suite, le deuxième de la deuxième, et ainsi de suite, et vous en obtenez une que la liste a oubliée.',
     },
     {
       name: 'George Gamow',
-      note: 'In my 1947 book, One Two Three… Infinity, I retold Hilbert’s hotel for everyone. That is how most people first heard of it.',
+      note: 'Dans mon livre de 1947, « One Two Three… Infinity », j’ai raconté l’hôtel de Hilbert pour tout le monde. C’est ainsi que la plupart des gens en ont entendu parler pour la première fois.',
     },
   ],
 
   insight: {
-    title: 'How can a full hotel take more guests?',
-    html: `<p>“Infinitely many” isn’t a number you can count up to, so the hotel can’t compare sizes by counting. What it can do is pair things off. Two collections have the <em>same size</em> when they can be paired off exactly, one with one, nobody left over. The guests and the rooms are paired off: every room is taken.</p>
-<div class="insight-visual">+1: room n → room n + 1 · ×2: room n → room 2n · no two guests ever share a room</div>
-<h3>Room for a coach</h3>
-<p>“Everyone +1” is a new pairing: the old guests with rooms 2, 3, 4, …, which leaves room 1 for the newcomer. “Everyone ×2” sends the old guests to the even rooms and leaves every odd room free, so a whole endless coach fits: passenger n takes room 2n − 1. The even numbers are as many as all the whole numbers. A part as big as the whole is exactly what makes a collection infinite. Here no sum like “infinity plus one” is being worked out; every step is a pairing.</p>
-<h3>Endless coaches</h3>
-<p>Write the coaches as rows and their seats as columns. A zigzag along the short diagonals, back and forth from the corner, reaches every seat of every coach after finitely many steps, so each gets a room of its own (this is Cantor’s pairing). The same zigzag lists every fraction. Any collection that can be listed like this is called <em>countable</em>.</p>
-<h3>The coach that cannot fit</h3>
-<p>Each passenger of the last coach is named by an endless string of coin flips. Try to give them rooms: room 1 gets one string, room 2 another, and so on. Now build a passenger whose first flip is the opposite of room 1’s first flip, whose second is the opposite of room 2’s second, and so on down the diagonal. This passenger differs from room k’s guest at flip k, for every k, so they have no room. That works for every list, however clever. So there are more endless coin-flip strings than rooms: a bigger infinity. This is Cantor’s diagonal argument of 1891. Read heads as 1 and tails as 0, and each string is a number between 0 and 1 in binary; the same argument (with a little care, since 0.0111… and 0.1000… are the same number) shows that the real numbers can’t be listed either.</p>
-<h3>What the picture leaves out</h3>
-<p>It shows a few dozen doors and an 8 × 8 corner of the list, but the argument is about every room and every flip at once: flip 100 of the new passenger is the opposite of room 100’s flip 100, far off the picture. No real hotel could move infinitely many guests in one step; mathematics can, because a rule like “room n → room 2n” says where everyone goes at once.</p>
-<h3>Where the story comes from</h3>
-<p>David Hilbert told the hotel story in a lecture in January 1924; his notes stayed unpublished for decades. George Gamow’s book <em>One Two Three… Infinity</em> (1947) made it famous, as Helge Kragh traces. Georg Cantor’s diagonal argument appeared in 1891, though it was not his first proof that the real numbers can’t be listed: that one, from 1874, used a different argument.</p>
-<div class="sources"><a class="source-link" href="https://arxiv.org/abs/1403.0059" target="_blank" rel="noopener">Kragh (2014), The true (?) story of Hilbert’s infinite hotel</a><a class="source-link" href="https://en.wikipedia.org/wiki/Hilbert%27s_paradox_of_the_Grand_Hotel" target="_blank" rel="noopener">Hilbert’s paradox of the Grand Hotel</a><a class="source-link" href="https://en.wikipedia.org/wiki/Cantor%27s_diagonal_argument" target="_blank" rel="noopener">Cantor’s diagonal argument</a><a class="source-link" href="https://en.wikipedia.org/wiki/Pairing_function" target="_blank" rel="noopener">Pairing functions</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Cantor/" target="_blank" rel="noopener">MacTutor: Georg Cantor</a><a class="source-link" href="https://en.wikipedia.org/wiki/One_Two_Three..._Infinity" target="_blank" rel="noopener">Gamow, One Two Three… Infinity (1947)</a></div>`,
+    title: 'Comment un hôtel complet peut-il accueillir d’autres clients ?',
+    html: `<p>« Une infinité » n’est pas un nombre jusqu’auquel on peut compter : l’hôtel ne peut donc pas comparer des tailles en comptant. Ce qu’il peut faire, c’est associer les choses une à une. Deux collections ont la <em>même taille</em> quand on peut les associer exactement, un élément avec un élément, sans personne en trop. Les clients et les chambres sont associés ainsi : chaque chambre est prise.</p>
+<div class="insight-visual">+1 : chambre n → chambre n + 1 · ×2 : chambre n → chambre 2n · jamais deux clients dans la même chambre</div>
+<h3>De la place pour un car</h3>
+<p>« Tout le monde +1 » est une nouvelle correspondance : les anciens clients avec les chambres 2, 3, 4, …, ce qui laisse la chambre 1 au nouveau venu. « Tout le monde ×2 » envoie les anciens clients dans les chambres paires et libère toutes les chambres impaires : un car sans fin y entre donc tout entier, le passager n prenant la chambre 2n − 1. Les nombres pairs sont aussi nombreux que tous les nombres entiers. Une partie aussi grande que le tout, c’est exactement ce qui rend une collection infinie. Ici, on ne calcule aucune somme comme « infini plus un » : chaque étape est une correspondance.</p>
+<h3>Une infinité de cars</h3>
+<p>Écrivez les cars en lignes et leurs places en colonnes. Un zigzag le long des petites diagonales, en allers-retours depuis le coin, atteint chaque place de chaque car au bout d’un nombre fini d’étapes : chacune reçoit donc sa propre chambre (c’est le couplage de Cantor). Le même zigzag dresse la liste de toutes les fractions. Toute collection dont on peut dresser la liste de cette façon est dite <em>dénombrable</em>.</p>
+<h3>Le car qui ne trouve pas de place</h3>
+<p>Chaque passager du dernier car a pour nom une suite infinie de pile ou face. Essayez de leur donner des chambres : la chambre 1 reçoit une suite, la chambre 2 une autre, et ainsi de suite. Construisez maintenant un passager dont le premier lancer est l’inverse du premier lancer de la chambre 1, le deuxième l’inverse du deuxième de la chambre 2, et ainsi de suite le long de la diagonale. Ce passager diffère du client de la chambre k au lancer k, pour tout k : il n’a donc pas de chambre. Cela marche pour toute liste, aussi astucieuse soit-elle. Il y a donc plus de suites infinies de pile ou face que de chambres : un infini plus grand. C’est l’argument de la diagonale de Cantor, de 1891. Lisez face comme 1 et pile comme 0, et chaque suite devient un nombre entre 0 et 1 écrit en binaire ; le même argument (avec un peu de soin, puisque 0,0111… et 0,1000… sont le même nombre) montre qu’on ne peut pas non plus dresser la liste des nombres réels.</p>
+<h3>Ce que l’image laisse de côté</h3>
+<p>Elle montre quelques dizaines de portes et un coin de 8 × 8 de la liste, mais l’argument porte sur toutes les chambres et tous les lancers à la fois : le lancer 100 du nouveau passager est l’inverse du lancer 100 de la chambre 100, bien loin hors de l’image. Aucun vrai hôtel ne pourrait déplacer une infinité de clients en une seule étape ; les mathématiques le peuvent, car une règle comme « chambre n → chambre 2n » dit d’un coup où va chacun.</p>
+<h3>D’où vient l’histoire</h3>
+<p>David Hilbert a raconté l’histoire de l’hôtel lors d’une conférence en janvier 1924 ; ses notes sont restées inédites pendant des décennies. Le livre de George Gamow <em>One Two Three… Infinity</em> (1947) l’a rendue célèbre, comme le retrace Helge Kragh. L’argument de la diagonale de Georg Cantor a paru en 1891, mais ce n’était pas sa première preuve qu’on ne peut pas dresser la liste des nombres réels : celle-là, de 1874, reposait sur un autre argument.</p>
+<div class="sources"><a class="source-link" href="https://arxiv.org/abs/1403.0059" target="_blank" rel="noopener">Kragh (2014), The true (?) story of Hilbert’s infinite hotel (en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Hilbert%27s_paradox_of_the_Grand_Hotel" target="_blank" rel="noopener">Le paradoxe du Grand Hôtel de Hilbert (Wikipédia, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Cantor%27s_diagonal_argument" target="_blank" rel="noopener">L’argument de la diagonale de Cantor (Wikipédia, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Pairing_function" target="_blank" rel="noopener">Les fonctions de couplage (Wikipédia, en anglais)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Cantor/" target="_blank" rel="noopener">Georg Cantor (MacTutor, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/One_Two_Three..._Infinity" target="_blank" rel="noopener">Gamow, One Two Three… Infinity (1947, en anglais)</a></div>`,
   },
 });

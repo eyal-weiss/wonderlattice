@@ -1,81 +1,83 @@
-/* Six handshakes · visitor-facing words (es). */
+/* Seis apretones de manos · palabras para el visitante (es). */
 Wonderlattice.defineText('handshakes', 'es', {
-  eyebrow: 'SMALL WORLDS',
-  name: 'Six handshakes',
-  tagline: 'Two hundred friends in a ring are 25 handshakes apart. Five random friendships nearly halve that.',
-  title: 'Six handshakes.',
+  eyebrow: 'MUNDOS PEQUEÑOS',
+  name: 'Seis apretones de manos',
+  tagline:
+    'Doscientos amigos en un anillo están a 25 apretones de manos unos de otros. Cinco amistades al azar casi lo reducen a la mitad.',
+  title: 'Seis apretones de manos.',
   subtitle:
-    'Two hundred people in a ring, each friends with their four nearest neighbours. Watch a few random friendships shrink the whole world, then add more.',
-  field: 'Networks · Graph theory · Social science',
-  sceneLabel: 'One ring · a few strangers',
-  sceneName: 'A ring of 200 friends',
-  tip: 'Tap anyone to count the handshakes from you · Keys: ← → choose someone, + adds a shortcut',
-  actionLabel: 'Add a shortcut',
+    'Doscientas personas en un anillo, cada una amiga de sus cuatro vecinos más cercanos. Mira cómo unas pocas amistades al azar encogen el mundo entero, y luego añade más.',
+  field: 'Redes · Teoría de grafos · Ciencias sociales',
+  sceneLabel: 'Un anillo · unos pocos desconocidos',
+  sceneName: 'Un anillo de 200 amigos',
+  tip: 'Toca a cualquiera para contar los apretones de manos desde ti · Teclas: ← → eligen a alguien, + añade un atajo',
+  actionLabel: 'Añadir un atajo',
   canvasLabel:
-    'Two hundred people on a circle, each linked to their nearest neighbours, with a few long links across it. The average number of handshakes between two people is in the middle.',
-  panelEyebrow: 'Friends of friends',
-  whyLabel: 'Why do a few shortcuts shrink the world?',
-  nudge: 'Start again for a plain ring, then add shortcuts one at a time. Which one makes the biggest difference?',
+    'Doscientas personas en un círculo, cada una unida a sus vecinos más cercanos, con unos pocos enlaces largos que lo cruzan. En el centro, el número medio de apretones de manos entre dos personas.',
+  panelEyebrow: 'Amigos de amigos',
+  whyLabel: '¿Por qué unos pocos atajos encogen el mundo?',
+  nudge:
+    'Empieza de nuevo para tener un anillo simple, y luego añade atajos de uno en uno. ¿Cuál cambia más las cosas?',
   connection: {
-    html: '<strong>Small worlds keep time.</strong> Watts and Strogatz noticed that clocks linked like a small world fall into step more easily. Watch a meadow of them in Fireflies that fall into step.',
-    label: 'Watch the fireflies',
+    html: '<strong>Los mundos pequeños marcan el compás.</strong> Watts y Strogatz notaron que los relojes unidos como un mundo pequeño se sincronizan con más facilidad. Mira un prado lleno de ellos en «Luciérnagas que se sincronizan».',
+    label: 'Ver las luciérnagas',
   },
 
   presets: [
-    { name: 'Only neighbours', note: 'A plain ring.', badge: '0' },
-    { name: 'Five strangers meet', note: 'Five random friendships.', badge: '5' },
-    { name: 'A rumour', note: 'News spreads from you.', badge: '20' },
+    { name: 'Solo vecinos', note: 'Un anillo simple.', badge: '0' },
+    { name: 'Cinco desconocidos se conocen', note: 'Cinco amistades al azar.', badge: '5' },
+    { name: 'Un rumor', note: 'La noticia se extiende desde ti.', badge: '20' },
   ],
 
-  shortcuts: 'Shortcuts across the circle',
-  rumour: 'Spread a rumour from you',
+  shortcuts: 'Atajos a través del círculo',
+  rumour: 'Difundir un rumor desde ti',
 
-  // The status line above the picture. `steps`, `heard`, `round` and `rounds` are whole numbers.
+  // La línea de estado sobre la imagen. `steps`, `heard`, `round` y `rounds` son números enteros.
   status: {
-    path: (steps) => `You to them: ${steps} ${steps === 1 ? 'handshake' : 'handshakes'}`,
-    spreading: (heard, round) => `Round ${round}: ${heard} of 200 have heard`,
-    everyone: (rounds) => `Everyone has heard after ${rounds} rounds`,
+    path: (steps) => `De ti a esa persona: ${steps} ${steps === 1 ? 'apretón de manos' : 'apretones de manos'}`,
+    spreading: (heard, round) => `Ronda ${round}: ${heard} de 200 ya lo saben`,
+    everyone: (rounds) => `Todos lo saben tras ${rounds} rondas`,
   },
-  // Said once the number of shortcuts settles. `count` is a whole number, `distance` a formatted number.
+  // Se lee en voz alta cuando el número de atajos se asienta. `count` es un entero, `distance` un número ya escrito.
   announce: (count, distance) =>
-    `${count === 0 ? 'With no shortcuts' : count === 1 ? 'With 1 shortcut' : `With ${count} shortcuts`}, two people are ${distance} handshakes apart on average.`,
+    `${count === 0 ? 'Sin atajos' : count === 1 ? 'Con 1 atajo' : `Con ${count} atajos`}, dos personas están, en promedio, a ${distance} apretones de manos de distancia.`,
 
-  // Words drawn on the canvas.
+  // Palabras dibujadas en la imagen.
   labels: {
-    apart: 'handshakes apart',
-    onAverage: 'on average',
-    knit: 'Friends who know each other',
-    you: 'You',
-    steps: (steps) => `${steps} ${steps === 1 ? 'handshake' : 'handshakes'}`,
-    chart: 'As shortcuts arrive',
-    far: 'How far apart',
-    close: 'How close-knit',
-    scale: '100% = the plain ring',
-    axis: (count) => `${count} shortcuts`,
+    apart: 'apretones de manos',
+    onAverage: 'en promedio',
+    knit: 'Amigos que se conocen',
+    you: 'Tú',
+    steps: (steps) => `${steps} ${steps === 1 ? 'apretón de manos' : 'apretones de manos'}`,
+    chart: 'Al añadir atajos',
+    far: 'Cuán lejos',
+    close: 'Cuán unidos',
+    scale: '100% = el anillo simple',
+    axis: (count) => `${count} atajos`,
   },
 
   guests: [
     {
       name: 'Frigyes Karinthy',
-      note: 'In his 1929 short story “Chains”, a character bets that anyone on Earth can be reached through at most five acquaintances.',
+      note: 'En su cuento «Cadenas», de 1929, un personaje apuesta a que se puede llegar a cualquier persona de la Tierra a través de cinco conocidos como mucho.',
     },
     {
       name: 'Stanley Milgram',
-      note: 'In the 1960s he asked people to pass a letter towards a stranger, only through someone they knew well. Most letters never arrived; those that did took about six steps.',
+      note: 'En la década de 1960 pidió a varias personas que hicieran avanzar una carta hacia un desconocido, pasándola solo a alguien a quien conocieran bien. La mayoría de las cartas nunca llegaron; las que sí llegaron necesitaron unos seis pasos.',
     },
   ],
 
   insight: {
-    title: 'Why do a few shortcuts shrink the world?',
-    html: `<p>On the ring, news can only crawl from neighbour to neighbour: reaching the far side takes 50 handshakes, and two people are about 25 apart on average. A shortcut is a bridge across the circle. Everyone near one end of it is suddenly close to everyone near the other end, so one new friendship shortens thousands of chains at once.</p>
-<div class="insight-visual">a few long links → almost every chain gets shorter → a small world</div>
-<h3>Close-knit, and close</h3>
-<p>Meanwhile almost nothing changes near you. On the ring, half of the pairs of your friends know each other, and a handful of shortcuts barely touch that. A world can be cosy and local and still be small. Duncan Watts and Steven Strogatz called this a small world in 1998, and found it in the network of film actors, a power grid and the nerves of a tiny worm.</p>
-<h3>Six degrees?</h3>
-<p>In Stanley Milgram’s letter experiments in the 1960s, most letters never arrived: in one study, 64 of 296 did. The chains that arrived took about six steps, and “six degrees of separation” became folklore. In 2016 Facebook measured an average of 4.57 steps (3.57 people in between) among its 1.59 billion users: one platform, not the whole world.</p>
-<h3>What this model leaves out</h3>
-<p>Real friendships aren’t a tidy ring, and people have very different numbers of friends. Here the shortcuts are added on top of the ring (a variant studied by Mark Newman and Duncan Watts); in the original model some existing links are moved instead. And a short chain isn’t always one you can find: Jon Kleinberg showed that people who know only their own friends find short chains only when the long links follow one special pattern.</p>
-<details><summary>The numbers, if you want them</summary><p>With 200 people and 4 friends each (400 links), the ring’s average distance is exactly 5050 / 199 ≈ 25.4, and its clustering (the share of pairs of one’s friends who are friends too) is 3(k − 2) / (4(k − 1)) = ½ for k = 4. Averaged over 40 random draws, the average distance is about 13.9 with 5 shortcuts, 10.2 with 10, 7.5 with 20 and 5.0 with 60, while the clustering goes 0.49, 0.48, 0.46 and 0.40. Each draw differs: with 5 shortcuts it ranged from about 12 to 17.</p></details>
-<div class="sources"><a class="source-link" href="https://www.nature.com/articles/30918" target="_blank" rel="noopener">Watts &amp; Strogatz, <em>Nature</em> (1998)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Small-world_experiment" target="_blank" rel="noopener">Small-world experiment</a><a class="source-link" href="https://research.facebook.com/blog/2016/2/three-and-a-half-degrees-of-separation/" target="_blank" rel="noopener">Facebook Research (2016)</a>J. Travers and S. Milgram, <em>Sociometry</em> 32 (1969) · J. Kleinberg, <em>Nature</em> 406 (2000)</div>`,
+    title: '¿Por qué unos pocos atajos encogen el mundo?',
+    html: `<p>En el anillo, una noticia solo puede arrastrarse de vecino en vecino: llegar al lado opuesto cuesta 50 apretones de manos, y dos personas están, en promedio, a unos 25. Un atajo es un puente que cruza el círculo. Todos los que están cerca de uno de sus extremos quedan de pronto cerca de todos los que están cerca del otro, así que una sola amistad nueva acorta miles de cadenas a la vez.</p>
+<div class="insight-visual">unos pocos enlaces largos → casi todas las cadenas se acortan → un mundo pequeño</div>
+<h3>Muy unidos, y muy cerca</h3>
+<p>Mientras tanto, casi nada cambia a tu alrededor. En el anillo, la mitad de los pares de tus amigos se conocen entre sí, y un puñado de atajos apenas lo altera. Un mundo puede ser acogedor y local, y aun así pequeño. Duncan Watts y Steven Strogatz lo llamaron un mundo pequeño en 1998, y lo encontraron en la red de actores de cine, en una red eléctrica y en los nervios de un gusano diminuto.</p>
+<h3>¿Seis grados?</h3>
+<p>En los experimentos de las cartas de Stanley Milgram, en la década de 1960, la mayoría de las cartas nunca llegaron: en uno de los estudios, llegaron 64 de 296. Las cadenas que llegaron necesitaron unos seis pasos, y los «seis grados de separación» pasaron al folclore. En 2016, Facebook midió un promedio de 4,57 pasos (3,57 personas intermedias) entre sus 1590 millones de usuarios: una plataforma, no el mundo entero.</p>
+<h3>Lo que este modelo deja fuera</h3>
+<p>Las amistades reales no forman un anillo ordenado, y cada persona tiene un número de amigos muy distinto. Aquí los atajos se añaden encima del anillo (una variante que estudiaron Mark Newman y Duncan Watts); en el modelo original, en cambio, se mueven algunos de los enlaces que ya existen. Y una cadena corta no siempre es una que se pueda encontrar: Jon Kleinberg demostró que las personas que solo conocen a sus propios amigos encuentran cadenas cortas solo cuando los enlaces largos siguen un patrón especial.</p>
+<details><summary>Los números, si te apetecen</summary><p>Con 200 personas y 4 amigos cada una (400 enlaces), la distancia media del anillo es exactamente 5050 / 199 ≈ 25,4, y su coeficiente de agrupamiento (la proporción de pares de amigos de alguien que también son amigos entre sí) es 3(k − 2) / (4(k − 1)) = ½ para k = 4. Promediando 40 sorteos al azar, la distancia media es de unos 13,9 con 5 atajos, 10,2 con 10, 7,5 con 20 y 5,0 con 60, mientras que el agrupamiento pasa por 0,49, 0,48, 0,46 y 0,40. Cada sorteo es distinto: con 5 atajos, fue de unos 12 a 17.</p></details>
+<div class="sources"><a class="source-link" href="https://www.nature.com/articles/30918" target="_blank" rel="noopener">Watts y Strogatz, <em>Nature</em> (1998, en inglés)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Small-world_experiment" target="_blank" rel="noopener">El experimento del mundo pequeño (Wikipedia, en inglés)</a><a class="source-link" href="https://research.facebook.com/blog/2016/2/three-and-a-half-degrees-of-separation/" target="_blank" rel="noopener">Facebook Research (2016, en inglés)</a>J. Travers y S. Milgram, <em>Sociometry</em> 32 (1969) · J. Kleinberg, <em>Nature</em> 406 (2000)</div>`,
   },
 });
