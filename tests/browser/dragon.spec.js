@@ -11,13 +11,17 @@ const drawn = (page) =>
     return count / (data.length / 4);
   });
 
+// The show (ten folds, then opening) is 7.6 seconds of the room's own time. A frame counts for at most 35 ms of it, so
+// on a busy machine drawing few frames a second it takes longer: the waits below allow for that.
+const SHOW = { timeout: 60000 };
+
 test('without a click, the strip folds and then opens into a dragon that never crosses itself', async ({ page }) => {
+  test.slow();
   await page.goto('/#room=dragon');
   await expect(page.locator('body')).toHaveAttribute('data-room', 'dragon');
   await expect(page.locator('#scene-name')).toHaveText('Folding');
   await expect(page.locator('#scene-status')).toContainText('layers');
-  // The whole show (ten folds, then opening) takes under ten seconds.
-  await expect(page.locator('#scene-name')).toHaveText('The dragon', { timeout: 12000 });
+  await expect(page.locator('#scene-name')).toHaveText('The dragon', SHOW);
   await expect(page.locator('#scene-status')).toHaveText(/^10 folds · 1,024 pieces · never crosses itself$/);
   expect(await drawn(page)).toBeGreaterThan(0.04);
 });
@@ -73,6 +77,7 @@ test.describe('with reduced motion', () => {
 });
 
 test('Pause stops the folding where it is, and Play carries on', async ({ page }) => {
+  test.slow();
   await page.goto('/#room=dragon');
   await expect(page.locator('#scene-name')).toHaveText('Folding');
   await page.locator('#scene-play').click();
@@ -80,5 +85,5 @@ test('Pause stops the folding where it is, and Play carries on', async ({ page }
   await page.waitForTimeout(1200);
   await expect(page.locator('#scene-status')).toHaveText(status);
   await page.locator('#scene-play').click();
-  await expect(page.locator('#scene-name')).toHaveText('The dragon', { timeout: 12000 });
+  await expect(page.locator('#scene-name')).toHaveText('The dragon', SHOW);
 });
