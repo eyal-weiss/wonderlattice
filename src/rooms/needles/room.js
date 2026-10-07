@@ -336,28 +336,30 @@
 
   /** The running guess on the floor. */
   function drawTag(ctx, L, r) {
+    // The counts the panel last showed, so the picture and the words beside it never disagree.
+    const seen = r.seen ?? { thrown: 0, crossed: 0, reruns: 0, exact: 0, done: false };
     const x = L.floor.x + L.pad,
       y = L.floor.y + L.pad;
     if (r.lucky) {
-      if (r.done)
+      if (seen.done)
         return tag(
           ctx,
           x,
           y,
           t.readout.typical(decimals(typicalMiss(r), 3)),
-          t.labels.hits(number(r.results.length), number(r.exact)),
+          t.labels.hits(number(seen.reruns), number(seen.exact)),
           L,
         );
-      const k = Math.min(r.results.length + 1, RERUNS);
-      return tag(ctx, x, y, t.labels.run(number(k)), t.labels.guess(guessOf(r.thrown, r.crossed, r.length)), L);
+      const k = Math.min(seen.reruns + 1, RERUNS);
+      return tag(ctx, x, y, t.labels.run(number(k)), t.labels.guess(guessOf(seen.thrown, seen.crossed, r.length)), L);
     }
-    if (r.kind === M.RING) return tag(ctx, x, y, t.labels.ring, t.labels.rings(number(r.thrown)), L);
+    if (r.kind === M.RING) return tag(ctx, x, y, t.labels.ring, t.labels.rings(number(seen.thrown)), L);
     tag(
       ctx,
       x,
       y,
-      t.labels.guess(guessOf(r.thrown, r.crossed, r.length)),
-      t.labels.tally(number(r.thrown), number(r.crossed)),
+      t.labels.guess(guessOf(seen.thrown, seen.crossed, r.length)),
+      t.labels.tally(number(seen.thrown), number(seen.crossed)),
       L,
     );
   }
@@ -672,6 +674,8 @@
 
   function readouts(s) {
     const r = current(s);
+    // The picture's tag shows these same counts until the panel next changes (a few times a second while it rains).
+    r.seen = { thrown: r.thrown, crossed: r.crossed, reruns: r.results.length, exact: r.exact, done: r.done };
     $('scene-name').textContent = t.sceneNames[s.lucky ? LUCKY : s.shape];
     $('scene-status').textContent = r.lucky
       ? t.status.reruns(r.results.length)

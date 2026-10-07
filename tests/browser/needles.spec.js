@@ -97,3 +97,22 @@ test('needles room: a shared link restores the shape and length, and Throw again
   const after = (await rows(page))['Landed across a line'];
   expect(after).not.toBe(before);
 });
+
+test('needles room: the picture and the status line above it show the same count', async ({ page }) => {
+  await page.addInitScript(() => {
+    const fill = CanvasRenderingContext2D.prototype.fillText;
+    CanvasRenderingContext2D.prototype.fillText = function (text, ...rest) {
+      if (/ needles · /.test(text)) window.__tally = String(text);
+      return fill.call(this, text, ...rest);
+    };
+  });
+  await page.goto('/#room=needles');
+  for (const wait of [4500, 2500, 1500]) {
+    await page.waitForTimeout(wait); // the rain speeds up: thousands of needles a second by now
+    const [tally, words] = await page.evaluate(() => [
+      window.__tally,
+      document.getElementById('scene-status').textContent,
+    ]);
+    expect(tally.match(/^[\d,]+/)[0]).toBe(words.match(/^[\d,]+/)[0]);
+  }
+});
