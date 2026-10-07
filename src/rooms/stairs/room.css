@@ -1,0 +1,18 @@
+/* The staircase of sound: the "up or down?" box in the panel. */
+.stairs-pair h3 {
+  margin: 0 0 4px;
+  font-size: 0.9375rem;
+}
+.stairs-pair p {
+  margin: 0 0 10px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--soft);
+}
+.stairs-pair .stairs-answer {
+  margin: 10px 0 0;
+  color: var(--ink);
+}
+.stairs-pair .stairs-answer:empty {
+  display: none;
+}
