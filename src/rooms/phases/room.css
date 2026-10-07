@@ -1,0 +1,48 @@
+/* Three wires, no way back: the readout, and each wire's colour and line beside its slider. */
+.phases-readout p {
+  margin: 6px 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.phases-big {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  color: var(--ink);
+}
+.phases-big strong {
+  font:
+    600 2rem Georgia,
+    serif;
+}
+.phases-big strong.is-calm {
+  color: color-mix(in srgb, #22a35a 60%, var(--ink));
+}
+.phases-big strong.is-busy {
+  color: color-mix(in srgb, #e8742a 60%, var(--ink));
+}
+.phases-swatch {
+  display: inline-block;
+  width: 1.4em;
+  margin-inline-end: 0.45em;
+  vertical-align: middle;
+  border-top: 3px solid;
+}
+.phases-swatch-1 {
+  border-top-color: #e69f00;
+}
+.phases-swatch-2 {
+  border-top-style: dashed;
+  border-top-color: #56b4e9;
+}
+.phases-swatch-3 {
+  border-top-style: dotted;
+  border-top-color: #cc79a7;
+}
+.phases-hint {
+  margin: 4px 0 0;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
