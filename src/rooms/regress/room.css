@@ -1,0 +1,22 @@
+/* The punishment illusion: the coach's three words in the panel, and the pointer over the faces to tap. */
+body[data-room='regress'] #scene-canvas {
+  cursor: pointer;
+}
+.regress-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.regress-words .button {
+  flex: 1 1 auto;
+  justify-content: center;
+  padding-inline: 10px;
+  white-space: normal;
+}
+.regress-words [data-word='praise'] {
+  border-color: color-mix(in srgb, #c9a800 70%, var(--line-strong));
+}
+.regress-words [data-word='scold'] {
+  border-color: color-mix(in srgb, #d9534f 70%, var(--line-strong));
+}
