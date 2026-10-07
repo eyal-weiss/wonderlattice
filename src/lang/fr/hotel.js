@@ -57,7 +57,6 @@ Wonderlattice.defineText('hotel', 'fr', {
   flips: 'Lancers 1, 2, 3, …',
   passenger: 'Nouveau passager',
   question: '« Et ma chambre ? »',
-  differs: 'Différent sur la diagonale',
 
   listHint:
     'Touchez n’importe quelle pièce de l’image pour la retourner. La diagonale change aussi, et son passager reste toujours sans chambre.',

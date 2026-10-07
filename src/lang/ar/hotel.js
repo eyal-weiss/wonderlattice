@@ -60,7 +60,6 @@ Wonderlattice.defineText('hotel', 'ar', {
   flips: 'الرميات 1، 2، 3، …',
   passenger: 'راكب جديد',
   question: '«أيّ غرفة لي؟»',
-  differs: 'مختلف عند القطر',
 
   listHint: 'انقروا على أي رمية في الصورة لتغييرها. يتغيّر القطر أيضًا، ويبقى راكبه خارج القائمة.',
   status: {

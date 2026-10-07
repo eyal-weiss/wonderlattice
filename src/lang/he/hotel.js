@@ -56,7 +56,6 @@ Wonderlattice.defineText('hotel', 'he', {
   flips: 'הטלות 1, 2, 3, …',
   passenger: 'נוסע חדש',
   question: '”איזה חדר שלי?”',
-  differs: 'שונה באלכסון',
 
   listHint: 'הקישו על הטלה כלשהי בתמונה כדי להפוך אותה. גם האלכסון משתנה, והנוסע שלו עדיין נשאר בחוץ.',
   status: {

@@ -57,7 +57,6 @@ Wonderlattice.defineText('hotel', 'pt', {
   flips: 'Lances 1, 2, 3, …',
   passenger: 'Novo passageiro',
   question: '“Qual quarto é meu?”',
-  differs: 'Diferente na diagonal',
 
   listHint:
     'Toque em qualquer lance na imagem para mudá-lo. A diagonal também muda, e o passageiro dela continua de fora.',
