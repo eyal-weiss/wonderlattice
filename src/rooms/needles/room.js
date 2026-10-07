@@ -592,11 +592,11 @@
     paint(ctx, stage.width, stage.height, current(s));
   }
 
-  /** The map's picture and the link preview: a floor after a few thousand needles, with the guess in the middle. */
+  /** The map's picture and the link preview: a floor after many needles, with the guess in the middle. */
   function preview(ctx, width, height) {
     const r = fresh({ shape: M.NEEDLE, length: 100, lucky: false, seed: 4 });
     r.time = 10;
-    throwMany(r, 4000);
+    throwMany(r, 200000);
     ctx.fillStyle = COLOURS.ground;
     ctx.fillRect(0, 0, width, height);
     ctx.direction = 'ltr';
