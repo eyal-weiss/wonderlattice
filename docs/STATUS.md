@@ -1,6 +1,6 @@
 # Project state
 
-Wonderlattice has 36 rooms in seven themes, in six languages (English, Hebrew, Spanish, Brazilian Portuguese, French
+Wonderlattice has 39 rooms in seven themes, in six languages (English, Hebrew, Spanish, Brazilian Portuguese, French
 and Arabic). Visitors can keep moments in My trail, share any
 room with its settings, show a room on a big screen or send it to phones with a QR code, make the text larger or raise
 the contrast, and send a message from the end of any explanation. It runs in the browser with no accounts or
@@ -15,6 +15,14 @@ This file is a changelog of the site, newest first. How the code fits together i
   dice didn't work on iPhone Safari could not be reproduced in emulation.
 - **Room ideas:** issues labelled `room idea`, indexed in #19; the ones labelled `ready to build` are approved.
 - Text drawn inside the pictures doesn't grow with the Display setting; the browser's zoom enlarges everything.
+
+## 2026-10-07
+
+- **Three rooms, in every language.** _The hotel that is always full_ (`hotel`, Hilbert's hotel and Cantor's
+  diagonal), _Rhythms from Euclid_ (`rhythm`, evenly spread beats that turn into rhythms from around the world, with
+  sound when the visitor turns it on) and _Six handshakes_ (`handshakes`, a ring of friends that a few random
+  friendships shrink to a small world), each in English, Hebrew, Spanish, French, Brazilian Portuguese and Arabic,
+  so they join the map together.
 
 ## 2026-10-05
 

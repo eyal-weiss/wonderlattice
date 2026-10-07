@@ -6,7 +6,7 @@
 
 ![Wonderlattice: the start of the route on the home map, with a flower drawn by turning arms, a road diagram and a flock](assets/social.jpg)
 
-Wonderlattice is a free collection of thirty-six rooms, each built around one surprise:
+Wonderlattice is a free collection of thirty-nine rooms, each built around one surprise:
 
 - **Shape & space:** draw flowers with two turning arms, walk along a ribbon that has only one side, bend the plane
   until a circle becomes a wing, drag one seed to grow infinite fractal coastlines, play one shot twice on two billiard
@@ -19,7 +19,8 @@ Wonderlattice is a free collection of thirty-six rooms, each built around one su
   that's usually right, yet whose beeps are usually wrong.
 - **Games & puzzles:** Sudoku as colouring a network, a puzzle cube where two turns, repeated, take 105 rounds to
   come home, a floor that one glance at the colours proves no dominoes can cover, and 100 cards turned one at a time,
-  where just looking at the first 37, then leaping, finds the biggest more than a third of the time.
+  where just looking at the first 37, then leaping, finds the biggest more than a third of the time, and a hotel with every room taken that still fits one more guest,
+  then endlessly many, until a coach arrives that no rearranging can seat.
 - **Making:** a loom that weaves twill, stripes and houndstooth from a tiny grid of choices, and an Escher-style tile
   whose edges you bend while it still covers the plane.
 - **Engineering:** a shower whose eager bather is scalded, then frozen, by a two-second pipe, a stack of blocks that
@@ -32,8 +33,9 @@ Wonderlattice is a free collection of thirty-six rooms, each built around one su
   waves that curl into spirals, as in a heartbeat, and one cheater among cooperators who grows into an ever-changing
   kaleidoscope where cooperation never dies out.
 - **Signals & networks:** waves you can hear, a picture sent through a storm of flipped bits, a new road that slows
-  every driver down, a secret agreed out loud, a picture that survives losing most of its numbers, and weather twins
-  that drift apart.
+  every driver down, a secret agreed out loud, a picture that survives losing most of its numbers, weather twins
+  that drift apart, beats spread as evenly as possible round a circle that turn into rhythms from around the world,
+  and a ring of two hundred friends that a few random friendships shrink to a small world.
 
 The home page is a map: one route through every room, numbered so each stop is unlike the one before, whether you
 stay five minutes or an hour. Each room has an optional explanation with sources, and a visiting mathematician. There
