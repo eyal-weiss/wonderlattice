@@ -99,8 +99,8 @@ test('handshakes: a rumour reaches everyone in 50 rounds on the ring, far fewer 
   await page.reload();
   await page.locator('#scene-presets .scene-preset').nth(2).click();
   await expect(page.locator('[data-check="rumour"]')).toBeChecked();
-  await expect(status(page)).toHaveText(/^Round \d+: \d+ of 200 have heard$/);
-  await expect(status(page)).toHaveText(/^Everyone has heard after \d+ rounds$/, { timeout: 15000 });
+  await expect(status(page)).toHaveText(/^Round \d+: \d+ of 200 (has|have) heard$/);
+  await expect(status(page)).toHaveText(/^Everyone has heard after \d+ rounds?$/, { timeout: 15000 });
 });
 
 test('handshakes: a shared link keeps its shortcuts and strangers, and ignores numbers out of range', async ({

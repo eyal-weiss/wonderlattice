@@ -33,8 +33,8 @@ Wonderlattice.defineText('handshakes', 'en', {
   // The status line above the picture. `steps`, `heard`, `round` and `rounds` are whole numbers.
   status: {
     path: (steps) => `You to them: ${steps} ${steps === 1 ? 'handshake' : 'handshakes'}`,
-    spreading: (heard, round) => `Round ${round}: ${heard} of 200 have heard`,
-    everyone: (rounds) => `Everyone has heard after ${rounds} rounds`,
+    spreading: (heard, round) => `Round ${round}: ${heard} of 200 ${heard === 1 ? 'has' : 'have'} heard`,
+    everyone: (rounds) => `Everyone has heard after ${rounds} ${rounds === 1 ? 'round' : 'rounds'}`,
   },
   // Said once the number of shortcuts settles. `count` is a whole number, `distance` a formatted number.
   announce: (count, distance) =>
@@ -51,7 +51,7 @@ Wonderlattice.defineText('handshakes', 'en', {
     far: 'How far apart',
     close: 'How close-knit',
     scale: '100% = the plain ring',
-    axis: (count) => `${count} shortcuts`,
+    axis: (count) => `${count} ${count === 1 ? 'shortcut' : 'shortcuts'}`,
   },
 
   guests: [
