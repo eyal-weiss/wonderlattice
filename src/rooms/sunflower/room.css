@@ -1,0 +1,10 @@
+/* The sunflower's secret angle: the row of small turns under the slider. */
+.sunflower-nudge {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+.sunflower-nudge .button {
+  padding-inline: 4px;
+  font-variant-numeric: tabular-nums;
+}
