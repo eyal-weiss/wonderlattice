@@ -56,7 +56,6 @@ Wonderlattice.defineText('hotel', 'en', {
   flips: 'Flips 1, 2, 3, …',
   passenger: 'New passenger',
   question: '“Which room is mine?”',
-  differs: 'Different at the diagonal',
 
   listHint: 'Tap any flip in the picture to change it. The diagonal changes too, and its passenger is still left out.',
   status: {
