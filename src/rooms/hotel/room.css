@@ -1,0 +1,40 @@
+/* The hotel that is always full: the moving cards in the panel. */
+.hotel-pick p {
+  margin: 0 0 10px;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.hotel-cards {
+  display: grid;
+  gap: 8px;
+}
+.button.hotel-card {
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 8px 12px;
+  text-align: start;
+}
+.hotel-face {
+  flex: 0 0 4.25rem;
+  text-align: center;
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.2;
+  /* "+1" and "×2" read the same way in every language. */
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+.hotel-rule {
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--muted);
+}
+.button.hotel-card[aria-pressed='true'] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+.button.hotel-card[aria-pressed='true'] .hotel-rule {
+  color: var(--accent-ink);
+}
