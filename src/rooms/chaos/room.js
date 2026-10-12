@@ -40,7 +40,7 @@
     grabbing = -1, // the corner being dragged
     pending = null, // where a tap started, to start the dot there when it ends
     firstVisit = true,
-    lastStatus = 0;
+    lastStatus = -Infinity; // when the status line was last written (the first write is never held back)
 
   const number = (n) => n.toLocaleString(W.numberLocale);
   const density = () => Math.min(devicePixelRatio || 1, 1.5); // sharp enough, and light enough to redraw every frame
@@ -386,7 +386,8 @@
     label(ctx, caption, x, L.h - L.pad, L.w - 2 * L.pad, L.small, COLORS.label, 500);
     ctx.direction = 'ltr';
 
-    status(s);
+    // While the game plays, the next frame catches up on a held-back update; when nothing moves, no frame comes.
+    status(s, !stage.playing);
   }
 
   /** The line over the picture: the dots in the middle hole (for the triangle), or the jumps so far. */
@@ -621,7 +622,7 @@
         newGame(s, fresh && stage.playing ? 'slow' : 'quick');
         play.instant = !stage.playing;
       }
-      lastStatus = 0;
+      lastStatus = -Infinity;
     },
 
     onInput(s, stage) {
