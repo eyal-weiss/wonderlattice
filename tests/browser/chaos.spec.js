@@ -124,6 +124,20 @@ test('chaos room: with reduced motion the finished picture shows at once and hol
   await expect(page.locator('#scene-status')).toHaveText(`Jumps so far: ${(jumps + 1).toLocaleString('en')}`);
 });
 
+// With nothing moving, no later frame catches up on a held-back status, so each change must show at once (#166).
+test('chaos room: with reduced motion the line over the picture follows quick changes', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/#room=chaos');
+  const status = page.locator('#scene-status');
+  await expect(status).toHaveText('Dots in the middle hole: not one');
+  await page.waitForTimeout(400);
+  await setRange(page, '#c-corners', 4);
+  await expect(status).toHaveText(/^Jumps so far: /);
+  await setRange(page, '#c-corners', 3); // within a quarter of a second of the last change
+  await page.waitForTimeout(600);
+  await expect(status).toHaveText('Dots in the middle hole: not one');
+});
+
 test('chaos room: a tap starts the dot again from there; Enter makes one jump and pauses', async ({ page }) => {
   await page.goto('/#room=chaos');
   const canvas = page.locator('#scene-canvas');
