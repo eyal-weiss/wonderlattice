@@ -16,7 +16,7 @@ This file is a changelog of the site, newest first. How the code fits together i
 - **Room ideas:** issues labelled `room idea`, indexed in #19; the ones labelled `ready to build` are approved.
 - Text drawn inside the pictures doesn't grow with the Display setting; the browser's zoom enlarges everything.
 
-## 2026-10-07
+## 2026-10-12
 
 - **Three rooms, in every language.** _The hotel that is always full_ (`hotel`, Hilbert's hotel and Cantor's
   diagonal), _Rhythms from Euclid_ (`rhythm`, evenly spread beats that turn into rhythms from around the world, with

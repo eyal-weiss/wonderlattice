@@ -51,7 +51,7 @@ Wonderlattice.defineText('hotel', 'fr', {
   coachRow: (n) => `Car ${n}`,
   seat: 'Places 1, 2, 3, …',
   rooms: 'Chambres 1, 2, 3, …',
-  room: (n) => `Chambre ${n}`,
+  room: (n) => `Ch. ${n}`, // drawn beside each row of coins, where « Chambre » would be squeezed on a phone
   heads: 'F',
   tails: 'P',
   flips: 'Lancers 1, 2, 3, …',
