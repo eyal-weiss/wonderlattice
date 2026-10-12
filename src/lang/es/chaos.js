@@ -16,7 +16,7 @@ Wonderlattice.defineText('chaos', 'es', {
   panelEyebrow: 'Cambia el juego',
   whyLabel: '¿Por qué el azar dibuja una forma perfecta?',
   nudge:
-    'Prueba con cuatro esquinas: pura niebla. Luego marca «Nunca la misma esquina dos veces» y mira cómo sale un fractal de la niebla.',
+    'Prueba con cuatro esquinas: pura niebla. Luego marca «Nunca la misma esquina dos veces seguidas» y mira cómo sale un fractal de la niebla.',
   connection: {
     html: '<strong>Dos clases de caos.</strong> Aquí, «caos» es solo el nombre del juego: empieza donde quieras y aparece la misma forma. En «Gemelos del tiempo», la diferencia más pequeña crece hasta convertirse en otro futuro.',
     label: 'Gemelos del tiempo',

@@ -30,6 +30,10 @@ This file is a changelog of the site, newest first. How the code fits together i
   (`phases`, three-phase power) and _The shape hiding inside randomness_ (`galton`, the Galton board), now in Hebrew,
   Spanish, French, Brazilian Portuguese and Arabic too, so they join the map. The "New" line names three of the
   thirteen rooms that arrived on 12 October.
+- **Small words, set right.** One needle, one rerun, one throw and one point are singular now (the needles room said
+  "1 needles so far" in English, Hebrew, Spanish and Portuguese). The chaos room's hint quotes its checkbox exactly
+  ("Never the same corner twice in a row"). In the punishment room, the question in the hidden-wiring box takes two
+  lines on a phone instead of being squeezed to half its width.
 
 ## 2026-10-05
 

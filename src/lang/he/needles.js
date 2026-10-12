@@ -33,7 +33,7 @@ Wonderlattice.defineText('needles', 'he', {
   lucky: 'לחזור על הניסוי של לצריני מ־1901, 3,408 מחטים בכל פעם',
 
   status: {
-    raining: (needles) => `${needles} מחטים עד כה`,
+    raining: (needles) => (needles === '1' ? 'מחט אחת עד כה' : `${needles} מחטים עד כה`),
     done: (needles, pi) => `${needles} מחטים: \u2066π ≈ ${pi}\u2069`,
     rings: (rings) => `${rings} טבעות, 2 חציות לכל אחת`,
     reruns: (runs) => (runs === 1 ? 'חזרה אחת על 3,408 מחטים' : `${runs} חזרות על 3,408 מחטים`),
@@ -71,7 +71,8 @@ Wonderlattice.defineText('needles', 'he', {
     count: 'כמה קווים כל טבעת חוצה',
     every: 'כל טבעת\u200f', // the code adds ` · count`; the mark keeps it reading right to left
     run: (k) => `\u2067חזרה ${k}\u2069`,
-    hits: (runs, exact) => `\u2067${runs} חזרות · ${exact} נתנו 355/113\u2069`,
+    hits: (runs, exact) =>
+      `\u2067${runs === '1' ? 'חזרה אחת' : `${runs} חזרות`} · ${exact === '1' ? 'אחת נתנה' : `${exact} נתנו`} 355/113\u2069`,
     reruns: '\u2067כל נקודה: חזרה אחת על 3,408 מחטים\u2069',
     his: '\u2067לצריני, 1901\u2069',
   },

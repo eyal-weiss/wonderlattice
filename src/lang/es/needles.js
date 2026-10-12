@@ -34,7 +34,7 @@ Wonderlattice.defineText('needles', 'es', {
   lucky: 'Repetir el experimento de Lazzarini de 1901, en tandas de 3408 agujas',
 
   status: {
-    raining: (needles) => `${needles} agujas hasta ahora`,
+    raining: (needles) => `${needles} ${needles === '1' ? 'aguja' : 'agujas'} hasta ahora`,
     done: (needles, pi) => `${needles} agujas: π ≈ ${pi}`,
     rings: (rings) => `${rings} anillos, 2 cruces cada uno`,
     reruns: (runs) => `${runs} ${runs === 1 ? 'tanda' : 'tandas'} de 3408 agujas`,
@@ -71,7 +71,8 @@ Wonderlattice.defineText('needles', 'es', {
     count: 'Cuántas líneas cruza cada anillo',
     every: 'cada anillo',
     run: (k) => `Tanda ${k}`,
-    hits: (runs, exact) => `${runs} tandas · ${exact} dieron 355/113`,
+    hits: (runs, exact) =>
+      `${runs} ${runs === '1' ? 'tanda' : 'tandas'} · ${exact} ${exact === '1' ? 'dio' : 'dieron'} 355/113`,
     reruns: 'Cada punto: una tanda de 3408 agujas',
     his: 'Lazzarini, 1901',
   },

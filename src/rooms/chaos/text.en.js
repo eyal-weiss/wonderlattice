@@ -16,7 +16,7 @@ Wonderlattice.defineText('chaos', 'en', {
   panelEyebrow: 'Change the game',
   whyLabel: 'Why does chance draw a perfect shape?',
   nudge:
-    'Try four corners: plain fog. Then tick “Never the same corner twice” and watch a fractal come out of the fog.',
+    'Try four corners: plain fog. Then tick “Never the same corner twice in a row” and watch a fractal come out of the fog.',
   connection: {
     html: '<strong>Two kinds of chaos.</strong> Here “chaos” is only the game’s name: start anywhere, and the same shape appears. In Weather twins, the smallest difference grows into a different future.',
     label: 'Weather twins',
