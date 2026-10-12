@@ -1,0 +1,35 @@
+/* Rhythms from Euclid: the labels of the ring choices, each ring's colour swatch, and the explanation's worked example. */
+.rhythm-label {
+  display: block;
+  font-size: 0.875rem;
+}
+.rhythm-label + .segment {
+  margin-top: 8px;
+}
+.rhythm-swatch {
+  display: inline-block;
+  width: 0.625rem;
+  height: 0.625rem;
+  margin-inline-end: 6px;
+  border-radius: 50%;
+  vertical-align: baseline;
+}
+.rhythm-ring-0 {
+  background: #f2c46d;
+}
+.rhythm-ring-1 {
+  background: #6fd6c8;
+}
+.rhythm-ring-2 {
+  background: #f39ac0;
+}
+#rhythm-rounds .rhythm-groups {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  direction: ltr;
+  unicode-bidi: isolate;
+  overflow-wrap: anywhere;
+  margin-block: 2px 6px;
+}
+body[data-room='rhythm'] #scene-canvas.rhythm-hover {
+  cursor: pointer;
+}
