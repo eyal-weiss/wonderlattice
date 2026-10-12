@@ -30,6 +30,10 @@ This file is a changelog of the site, newest first. How the code fits together i
   (`phases`, three-phase power) and _The shape hiding inside randomness_ (`galton`, the Galton board), now in Hebrew,
   Spanish, French, Brazilian Portuguese and Arabic too, so they join the map. The "New" line names three of the
   thirteen rooms that arrived on 12 October.
+- **The chaos room's status line keeps up when nothing moves (#166).** With reduced motion or the game paused, the
+  line over the picture could stay empty on opening, or keep the last game's count after a quick change of corners,
+  because it is written at most every quarter of a second and no later frame came to catch up. It now updates at
+  once whenever nothing moves. This was also the chaos test that failed now and then on the built site.
 
 ## 2026-10-05
 
