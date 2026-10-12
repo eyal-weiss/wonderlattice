@@ -270,7 +270,7 @@
     return [clamp(x, -1, 1), clamp(y, -1, 1)];
   };
 
-  /** Words on the picture, with a dark rim so they read over the dots. */
+  /** Words on the picture, with a dark rim so they read over the dots; still too long at 9 px, they're narrowed. */
   function label(ctx, text, x, y, width, size, color, weight = 600) {
     let px = size;
     do ctx.font = `${weight} ${px}px system-ui`;
@@ -278,9 +278,9 @@
     ctx.lineJoin = 'round';
     ctx.lineWidth = 4;
     ctx.strokeStyle = COLORS.rim;
-    ctx.strokeText(text, x, y);
+    ctx.strokeText(text, x, y, width);
     ctx.fillStyle = color;
-    ctx.fillText(text, x, y);
+    ctx.fillText(text, x, y, width);
   }
 
   function draw(ctx, s, stage) {

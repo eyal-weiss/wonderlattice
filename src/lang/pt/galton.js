@@ -71,7 +71,7 @@ Wonderlattice.defineText('galton', 'pt', {
     bell: 'o sino',
     others: (pours, balls) =>
       `mais ${pours} levas de ${balls.toLocaleString(Wonderlattice.lang)} bolinhas: o mesmo sino`,
-    yourDie: 'Seu dado · arraste as barras',
+    yourDie: 'Seu dado · mova as barras',
     oneThrow: 'Um lançamento',
     average: (n) => `Médias de ${n} lançamentos`,
     oneSpin: 'Um giro',
