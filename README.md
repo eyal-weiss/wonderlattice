@@ -6,7 +6,7 @@
 
 ![Wonderlattice: the start of the route on the home map, with a flower drawn by turning arms, a road diagram and a flock](assets/social.jpg)
 
-Wonderlattice is a free collection of thirty-nine rooms, each built around one surprise:
+Wonderlattice is a free collection of forty-nine rooms, each built around one surprise:
 
 - **Shape & space:** draw flowers with two turning arms, walk along a ribbon that has only one side, bend the plane
   until a circle becomes a wing, drag one seed to grow infinite fractal coastlines, play one shot twice on two billiard
@@ -15,27 +15,35 @@ Wonderlattice is a free collection of thirty-nine rooms, each built around one s
   level over a road of upside-down hanging chains, or draw any wheel and get its own road, and roll a plank perfectly
   level on rollers that aren't round, one of which drills an almost square hole.
 - **Chance & evidence:** three dice that beat each other in a circle, a toy city where a huge poll is confidently
-  wrong, a basketball court where the better shooter loses overall (built by a contributor), and a treasure detector
-  that's usually right, yet whose beeps are usually wrong.
+  wrong, a basketball court where the better shooter loses overall (built by a contributor), a treasure detector
+  that's usually right, yet whose beeps are usually wrong, needles dropped on floorboards that count out π, random
+  jumps towards the corners of a triangle that draw a flawless fractal, a coach whose scolding seems to work nine times
+  in ten though it does nothing, and balls bouncing left or right at random that build the same bell every time.
 - **Games & puzzles:** Sudoku as colouring a network, a puzzle cube where two turns, repeated, take 105 rounds to
-  come home, a floor that one glance at the colours proves no dominoes can cover, and 100 cards turned one at a time,
-  where just looking at the first 37, then leaping, finds the biggest more than a third of the time, and a hotel with every room taken that still fits one more guest,
-  then endlessly many, until a coach arrives that no rearranging can seat.
-- **Making:** a loom that weaves twill, stripes and houndstooth from a tiny grid of choices, and an Escher-style tile
-  whose edges you bend while it still covers the plane.
+  come home, a floor that one glance at the colours proves no dominoes can cover, 100 cards turned one at a time,
+  where just looking at the first 37, then leaping, finds the biggest more than a third of the time, a hotel with
+  every room taken that still fits one more guest, then endlessly many, until a coach arrives that no rearranging can
+  seat, and six students paired with six clubs so that nobody would rather swap, where whoever asks first gets the
+  best deal.
+- **Making:** a loom that weaves twill, stripes and houndstooth from a tiny grid of choices, an Escher-style tile
+  whose edges you bend while it still covers the plane, and a strip of paper, folded in half again and again, that
+  opens into a dragon.
 - **Engineering:** a shower whose eager bather is scalded, then frozen, by a two-second pipe, a stack of blocks that
   leans as far past the table's edge as you like, a thousand samples in which ten pooled tests, run at once, find
   the one glowing tube, a hanging chain that, turned upside down, stands as an arch of loose stones, while a
   semicircle of the same stones falls, a bridge of squares that folds under a toy truck until the right diagonals lock
-  it, when every bar shows whether it's squeezed, stretched or carrying nothing at all, and a power line that glows and
-  leaves its town dark until the voltage goes up: ten times the voltage, a hundred times less heat.
+  it, when every bar shows whether it's squeezed, stretched or carrying nothing at all, a power line that glows and
+  leaves its town dark until the voltage goes up: ten times the voltage, a hundred times less heat, a steel plank that
+  is 36 times stiffer standing on its edge, and three currents that chase each other round a circle and add up to
+  nothing at every instant.
 - **Living patterns:** a flock with no leader, fireflies that fall into step, fingerprints that grow by themselves,
-  waves that curl into spirals, as in a heartbeat, and one cheater among cooperators who grows into an ever-changing
-  kaleidoscope where cooperation never dies out.
+  waves that curl into spirals, as in a heartbeat, one cheater among cooperators who grows into an ever-changing
+  kaleidoscope where cooperation never dies out, and seeds that pack into a sunflower at only one angle of turn.
 - **Signals & networks:** waves you can hear, a picture sent through a storm of flipped bits, a new road that slows
   every driver down, a secret agreed out loud, a picture that survives losing most of its numbers, weather twins
   that drift apart, beats spread as evenly as possible round a circle that turn into rhythms from around the world,
-  and a ring of two hundred friends that a few random friendships shrink to a small world.
+  a ring of two hundred friends that a few random friendships shrink to a small world, and a scale that climbs step
+  after step and never gets any higher.
 
 The home page is a map: one route through every room, numbered so each stop is unlike the one before, whether you
 stay five minutes or an hour. Each room has an optional explanation with sources, and a visiting mathematician. There

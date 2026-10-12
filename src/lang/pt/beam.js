@@ -51,7 +51,7 @@ Wonderlattice.defineText('beam', 'pt', {
     unit: '1 quadrado = 1 cm',
     squares: (used, total) => `${used} de ${total} quadrados`,
     stiffness: 'Rigidez',
-    times: (x) => `${x}× a prancha deitada`,
+    times: (x) => `${x}× a deitada`,
     timesShort: (x) => `${x}×`,
     chart: 'Mesmo aço, outras formas: quão rígidas?',
     rows: { plank: 'Deitada', edge: 'Em pé', ibeam: 'Uma viga I', yours: 'A sua' },

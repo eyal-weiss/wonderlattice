@@ -785,7 +785,7 @@
     eyebrow: t.eyebrow,
     name: t.name,
     theme: 'chance',
-    added: '2026-10-07',
+    added: '2026-10-12',
     tagline: t.tagline,
     accent: { background: '#2b2214', border: '#f7b955', color: '#fcd99a' },
 

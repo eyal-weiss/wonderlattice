@@ -1,6 +1,6 @@
 # Project state
 
-Wonderlattice has 39 rooms in seven themes, in six languages (English, Hebrew, Spanish, Brazilian Portuguese, French
+Wonderlattice has 49 rooms in seven themes, in six languages (English, Hebrew, Spanish, Brazilian Portuguese, French
 and Arabic). Visitors can keep moments in My trail, share any
 room with its settings, show a room on a big screen or send it to phones with a QR code, make the text larger or raise
 the contrast, and send a message from the end of any explanation. It runs in the browser with no accounts or
@@ -23,6 +23,13 @@ This file is a changelog of the site, newest first. How the code fits together i
   sound when the visitor turns it on) and _Six handshakes_ (`handshakes`, a ring of friends that a few random
   friendships shrink to a small world), each in English, Hebrew, Spanish, French, Brazilian Portuguese and Arabic,
   so they join the map together.
+- **Ten more rooms, in every language.** _The sunflower's secret angle_ (`sunflower`), _Fold a dragon_ (`dragon`),
+  _Who asks wins_ (`matching`, stable matching), _Needles that know π_ (`needles`, Buffon's needle), _Random jumps,
+  perfect triangle_ (`chaos`, the chaos game), _The ruler on its edge_ (`beam`), _The staircase of sound_ (`stairs`,
+  Shepard tones), _The punishment illusion_ (`regress`, regression to the mean), _Three wires, no way back_
+  (`phases`, three-phase power) and _The shape hiding inside randomness_ (`galton`, the Galton board), now in Hebrew,
+  Spanish, French, Brazilian Portuguese and Arabic too, so they join the map. The "New" line names three of the
+  thirteen rooms that arrived on 12 October.
 
 ## 2026-10-05
 
