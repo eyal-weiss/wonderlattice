@@ -1,0 +1,42 @@
+/* The ruler on its edge · the readout, and the Undo and Clear buttons. */
+.beam-readout p {
+  margin: 6px 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.beam-big {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 4px 12px;
+  color: var(--ink);
+}
+.beam-big span {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+.beam-big strong {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.beam-readout p.beam-warn {
+  color: color-mix(in srgb, #e8742a 60%, var(--ink));
+}
+.beam-readout p.beam-good {
+  color: color-mix(in srgb, #22a35a 60%, var(--ink));
+}
+.beam-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.beam-buttons .button[disabled] {
+  opacity: 0.5;
+  cursor: default;
+}
+
+:root[data-contrast='more'] .beam-readout p {
+  color: var(--ink);
+}
