@@ -1,0 +1,67 @@
+/* Needles that know π: the choice of shape, and the readout of the guess. */
+.needles-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+}
+.needles-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.needles-choices .button {
+  flex: 1 1 auto;
+  justify-content: center;
+  padding-inline: 10px;
+  white-space: normal;
+}
+.needles-choices .button[aria-pressed='true'] {
+  border-color: #e0b44c;
+  background: color-mix(in srgb, #e0b44c 26%, var(--panel));
+  color: var(--ink);
+}
+.needles-readout {
+  border: 1px solid var(--line-strong);
+  background: var(--panel-2);
+  padding: 12px 14px;
+  border-radius: 9px;
+}
+.needles-big {
+  margin: 0 0 10px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.needles-rows {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px 12px;
+  align-items: baseline;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.needles-rows strong {
+  color: var(--ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}
+.needles-rule {
+  margin: 10px 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+:root[data-contrast='more'] .needles-readout {
+  border-color: var(--edge);
+}
+:root[data-contrast='more'] .needles-rows,
+:root[data-contrast='more'] .needles-rule {
+  color: var(--ink);
+}
+:root[data-contrast='more'] .needles-choices .button[aria-pressed='true'] {
+  border-color: #f6dc9a;
+  color: var(--ink);
+}
