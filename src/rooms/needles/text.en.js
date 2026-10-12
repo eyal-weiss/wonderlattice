@@ -34,7 +34,7 @@ Wonderlattice.defineText('needles', 'en', {
   lucky: 'Rerun Lazzarini’s 1901 experiment, 3,408 needles at a time',
 
   status: {
-    raining: (needles) => `${needles} needles so far`,
+    raining: (needles) => `${needles} ${needles === '1' ? 'needle' : 'needles'} so far`, // needles: formatted
     done: (needles, pi) => `${needles} needles: π ≈ ${pi}`,
     rings: (rings) => `${rings} rings, 2 crossings each`,
     reruns: (runs) => `${runs} ${runs === 1 ? 'rerun' : 'reruns'} of 3,408 needles`,
@@ -71,7 +71,7 @@ Wonderlattice.defineText('needles', 'en', {
     count: 'How many lines each ring crosses',
     every: 'every ring',
     run: (k) => `Rerun ${k}`,
-    hits: (runs, exact) => `${runs} reruns · ${exact} gave 355/113`,
+    hits: (runs, exact) => `${runs} ${runs === '1' ? 'rerun' : 'reruns'} · ${exact} gave 355/113`, // formatted
     reruns: 'Each dot: one rerun of 3,408 needles',
     his: 'Lazzarini, 1901',
   },

@@ -35,7 +35,7 @@ Wonderlattice.defineText('regress', 'en', {
 
   labels: {
     board: (n) => `Throw ${n}`,
-    points: (p) => `${p} points`,
+    points: (p) => `${p} ${p === 1 ? 'point' : 'points'}`,
     praise: 'Well done!',
     scold: 'Sloppy!',
     nothing: '…',
@@ -59,7 +59,7 @@ Wonderlattice.defineText('regress', 'en', {
 
   status: {
     waiting: (n) => `Throw ${n}: your word?`,
-    count: (n) => `${n} throws`,
+    count: (n) => `${n} ${n === 1 ? 'throw' : 'throws'}`,
     done: (n) => `${n} throws, all done`,
   },
   announce: (pw, pn, sb, sn) =>

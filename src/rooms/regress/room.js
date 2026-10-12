@@ -118,6 +118,17 @@
 
   // ——— Drawing ———
 
+  /** Words in one line, or, where they would be squeezed, two lines broken at the space nearest the middle. */
+  function lines(ctx, text, maxWidth) {
+    if (ctx.measureText(text).width <= maxWidth) return [text];
+    const spaces = [...text.matchAll(/ /g)].map((m) => m.index);
+    if (!spaces.length) return [text];
+    const cut = spaces.reduce((best, at) =>
+      Math.abs(at - text.length / 2) < Math.abs(best - text.length / 2) ? at : best,
+    );
+    return [text.slice(0, cut), text.slice(cut + 1)];
+  }
+
   function roundRect(ctx, x, y, w, h, r) {
     ctx.beginPath();
     ctx.roundRect(x, y, w, h, Math.min(r, w / 2, h / 2));
@@ -364,9 +375,12 @@
       ctx.fillText('?', cx, cy - r * 0.3);
       ctx.font = `600 ${small}px system-ui`;
       ctx.fillStyle = COLOURS.ink;
-      ctx.fillText(t.labels.hidden, cx, cy + r * 0.9, box.w - 20);
+      // The question takes two lines where one would squeeze it (a phone, or a longer language).
+      const question = lines(ctx, t.labels.hidden, box.w - 20);
+      question.forEach((line, i) => ctx.fillText(line, cx, cy + r * 0.9 + i * small * 1.25, box.w - 20));
       ctx.fillStyle = COLOURS.soft;
-      ctx.fillText(t.labels.hiddenHint, cx, cy + r * 0.9 + small * 1.5, box.w - 20);
+      const hint = cy + r * 0.9 + (question.length - 1) * small * 1.25 + small * 1.5;
+      ctx.fillText(t.labels.hiddenHint, cx, hint, box.w - 20);
       return;
     }
     ctx.fillStyle = '#0f151e';

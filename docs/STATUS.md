@@ -38,6 +38,10 @@ This file is a changelog of the site, newest first. How the code fits together i
   is wide (a 1100 × 1000 window, say), the circle sits above the rows, and with three rings the last row of boxes ran
   up to 13 px past the bottom edge. The room now measures the words and rows first and gives the pixel line only the
   height left, so every row ends inside the picture.
+- **Small words, set right.** One needle, one rerun, one throw and one point are singular now (the needles room said
+  "1 needles so far" in English, Hebrew, Spanish and Portuguese). The chaos room's hint quotes its checkbox exactly
+  ("Never the same corner twice in a row"). In the punishment room, the question in the hidden-wiring box takes two
+  lines on a phone instead of being squeezed to half its width.
 
 ## 2026-10-05
 

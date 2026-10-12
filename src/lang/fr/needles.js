@@ -79,7 +79,8 @@ Wonderlattice.defineText('needles', 'fr', {
     count: 'Lignes croisées par chaque anneau',
     every: 'chaque anneau',
     run: (k) => `Essai ${k}`,
-    hits: (runs, exact) => `${runs} essais · ${exact} ${exact === '0' || exact === '1' ? 'a' : 'ont'} donné 355/113`,
+    hits: (runs, exact) =>
+      `${runs} ${runs === '0' || runs === '1' ? 'essai' : 'essais'} · ${exact} ${exact === '0' || exact === '1' ? 'a' : 'ont'} donné 355/113`,
     reruns: 'Un point par essai de 3 408 aiguilles',
     his: 'Lazzarini, 1901',
   },
