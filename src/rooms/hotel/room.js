@@ -730,7 +730,7 @@
     id: 'hotel',
     symbol: '∞',
     theme: 'games',
-    added: '2026-10-07',
+    added: '2026-10-12',
     eyebrow: t.eyebrow,
     name: t.name,
     tagline: t.tagline,
