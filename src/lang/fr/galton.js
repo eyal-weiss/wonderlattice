@@ -1,105 +1,109 @@
-/* The shape hiding inside randomness · visitor-facing words (fr). */
+/* La forme cachée dans le hasard · les mots vus par le visiteur (fr). */
 Wonderlattice.defineText('galton', 'fr', {
-  eyebrow: 'PROBABILITY',
-  name: 'The shape hiding inside randomness',
-  tagline: 'Every ball bounces left or right at random. Together they build the same bell every time.',
-  title: 'The shape hiding inside randomness.',
+  eyebrow: 'PROBABILITÉS',
+  name: 'La forme cachée dans le hasard',
+  tagline:
+    'Chaque bille rebondit à gauche ou à droite au hasard. Ensemble, elles dessinent la même cloche à chaque fois.',
+  title: 'La forme cachée dans le hasard.',
   subtitle:
-    'Each ball bounces left or right at random, yet the heap grows into the same bell every time. Then average a lopsided die.',
-  field: 'Probability · Pascal’s triangle · The central limit theorem',
+    'Chaque bille rebondit à gauche ou à droite au hasard, et pourtant le tas prend la forme de la même cloche à chaque fois. Faites ensuite la moyenne d’un dé pipé.',
+  field: 'Probabilités · Le triangle de Pascal · Le théorème central limite',
   canvasLabel:
-    'A board of pegs. Balls fall from the top, bounce left or right at random at every peg, and pile up in bins at the bottom, under a bell-shaped curve. Below it, four more pours have made the same bell.',
-  panelEyebrow: 'Left to chance',
-  whyLabel: 'Why does randomness make a bell?',
+    'Une planche à clous. Des billes tombent du haut, rebondissent à gauche ou à droite au hasard sur chaque clou, et s’entassent dans des cases en bas, sous une courbe en cloche. En dessous, quatre autres essais ont donné la même cloche.',
+  panelEyebrow: 'Laissé au hasard',
+  whyLabel: 'Pourquoi le hasard fait-il une cloche ?',
   nudge:
-    'Pour again: every ball takes a new path, and the heap still makes the same bell. Then design a lopsided die and watch its averages.',
+    'Versez encore : chaque bille prend un nouveau chemin, et le tas forme toujours la même cloche. Puis créez un dé pipé et regardez ses moyennes.',
   connection: {
-    html: '<strong>Averages tame chance.</strong> In A spoonful of a city, a small random poll lands close to the truth for the same reason: averages of many random answers crowd into a narrow bell.',
-    label: 'Take a spoonful of a city',
+    html: '<strong>Les moyennes apprivoisent le hasard.</strong> Dans « Une cuillerée de ville », un petit sondage au hasard tombe près de la vérité pour la même raison : les moyennes de nombreuses réponses prises au hasard se resserrent en une cloche étroite.',
+    label: 'Prendre une cuillerée de ville',
   },
 
   // The three things that fall: each has its own scene, tip and action.
-  viewLabel: 'What falls',
-  views: ['Balls on pegs', 'A lopsided die', 'A stubborn spinner'],
+  viewLabel: 'Ce qui tombe',
+  views: ['Billes et clous', 'Un dé pipé', 'Un phare têtu'],
   scenes: [
-    { label: 'Left or right at every peg', name: 'Balls on pegs' },
-    { label: 'Your die, and averages of its throws', name: 'A lopsided die' },
-    { label: 'A lamp spins and shines at a wall', name: 'A stubborn spinner' },
+    { label: 'À gauche ou à droite à chaque clou', name: 'Des billes sur des clous' },
+    { label: 'Votre dé, et les moyennes de ses lancers', name: 'Un dé pipé' },
+    { label: 'Une lampe tourne et éclaire un mur', name: 'Un phare têtu' },
   ],
   tips: [
-    'Arrow keys tilt the pegs · Pour again for new balls',
-    'Drag the die’s bars to reshape it · Arrow keys pick a face and change it',
-    'Each spin marks where the light lands · Spin again for new spins',
+    'Les flèches inclinent les clous · « Verser encore » pour de nouvelles billes',
+    'Tirez les barres du dé pour changer sa forme · Les flèches choisissent une face et la modifient',
+    'Chaque tour marque où tombe la lumière · « Tourner encore » pour de nouveaux tours',
   ],
-  actions: ['Pour again', 'Throw again', 'Spin again'],
+  actions: ['Verser encore', 'Relancer', 'Tourner encore'],
   canvasLabels: [
-    'A board of pegs. Balls fall from the top, bounce left or right at random at every peg, and pile up in bins at the bottom, under a bell-shaped curve. Below it, four more pours have made the same bell.',
-    'A lopsided die drawn as six bars, and three heaps beside it: single throws, averages of 2 throws and averages of more throws, each with a bell-shaped curve over it.',
-    'A lamp spins and shines at a wall; the heap of where single spins land and the heap of averages of several spins have the same shape.',
+    'Une planche à clous. Des billes tombent du haut, rebondissent à gauche ou à droite au hasard sur chaque clou, et s’entassent dans des cases en bas, sous une courbe en cloche. En dessous, quatre autres essais ont donné la même cloche.',
+    'Un dé pipé dessiné en six barres, et trois tas à côté : des lancers simples, des moyennes de 2 lancers et des moyennes de plus de lancers, chacun surmonté d’une courbe en cloche.',
+    'Une lampe tourne et éclaire un mur ; le tas des points où tombent les tours simples et le tas des moyennes de plusieurs tours ont la même forme.',
   ],
 
   presets: [
-    { name: 'Balls on pegs', note: 'The same bell every time.', badge: '½' },
-    { name: 'Tilt the pegs', note: 'The bell moves over.', badge: '¾' },
-    { name: 'A lopsided die', note: 'Its averages turn into a bell.', badge: '1·6' },
+    { name: 'Des billes sur des clous', note: 'La même cloche à chaque fois.', badge: '½' },
+    { name: 'Incliner les clous', note: 'La cloche se déplace.', badge: '¾' },
+    { name: 'Un dé pipé', note: 'Ses moyennes deviennent une cloche.', badge: '1·6' },
   ],
 
-  rows: 'Rows of pegs',
-  tilt: 'Chance of bouncing right',
-  tiltHint: 'At 50% every peg is fair. Tilt them, and the bell moves over.',
-  throws: 'Throws in each average',
-  dieHint: 'Drag the bars of the die in the picture to reshape it.',
-  shapeLabel: 'Start from',
-  shapes: ['Mostly 1s and 6s', 'A fair die', 'Mostly 6s'],
-  spins: 'Spins in each average',
-  spinHint: 'Averaging more spins doesn’t help: the spinner has no finite spread for the bell to need.',
+  rows: 'Rangées de clous',
+  tilt: 'Chance de rebondir à droite',
+  tiltHint: 'À 50 %, chaque clou est équitable. Inclinez-les, et la cloche se déplace.',
+  throws: 'Lancers par moyenne',
+  dieHint: 'Tirez les barres du dé dans l’image pour changer sa forme.',
+  shapeLabel: 'Partir de',
+  shapes: ['Surtout 1 et 6', 'Un dé honnête', 'Surtout des 6'],
+  spins: 'Tours par moyenne',
+  spinHint:
+    'Faire la moyenne de plus de tours n’aide pas : la dispersion de la lampe n’est pas finie, alors que la cloche en a besoin.',
 
   status: {
-    pouring: (n) => `${n.toLocaleString('en')} ${n === 1 ? 'ball' : 'balls'} · left or right at random at every peg`,
-    poured: (n) => `${n.toLocaleString('en')} balls · the same bell every time`,
-    throwing: (n) => `${n.toLocaleString('en')} in each heap`,
-    spinning: (n) => `${n.toLocaleString('en')} in each heap`,
+    pouring: (n) =>
+      `${n.toLocaleString('fr')} ${n < 2 ? 'bille' : 'billes'} · à gauche ou à droite au hasard à chaque clou`,
+    poured: (n) => `${n.toLocaleString('fr')} billes · la même cloche à chaque fois`,
+    throwing: (n) => `${n.toLocaleString('fr')} dans chaque tas`,
+    spinning: (n) => `${n.toLocaleString('fr')} dans chaque tas`,
   },
   announce: {
-    poured: (n) => `${n.toLocaleString('en')} balls have landed, in the shape of the bell.`,
-    die: (face, weight) => `Face ${face}: ${weight} of 10`,
+    poured: (n) => `${n.toLocaleString('fr')} billes sont tombées, en forme de cloche.`,
+    die: (face, weight) => `Face ${face} : ${weight} sur 10`,
   },
 
   labels: {
-    bell: 'the bell',
-    others: (pours, balls) => `${pours} more pours of ${balls.toLocaleString('en')} balls: the same bell`,
-    yourDie: 'Your die · drag the bars',
-    oneThrow: 'One throw',
-    average: (n) => `Averages of ${n} throws`,
-    oneSpin: 'One spin',
-    averageSpins: (n) => `Averages of ${n} spins`,
-    off: (n) => `${n.toLocaleString('en')} off the chart`,
-    lamp: 'lamp',
-    wall: 'wall',
+    bell: 'la cloche',
+    others: (pours, balls) =>
+      `${pours} ${pours < 2 ? 'autre essai' : 'autres essais'} de ${balls.toLocaleString('fr')} billes : la même cloche`,
+    yourDie: 'Votre dé · tirez les barres',
+    oneThrow: 'Un lancer',
+    average: (n) => `Moyennes de ${n} lancers`,
+    oneSpin: 'Un tour',
+    averageSpins: (n) => `Moyennes de ${n} tours`,
+    off: (n) => `${n.toLocaleString('fr')} hors graphique`,
+    lamp: 'lampe',
+    wall: 'mur',
   },
 
   guests: [
     {
       name: 'Abraham de Moivre',
-      note: 'In 1733 I showed that the number of heads in thousands of coin tosses follows a smooth, bell-shaped curve.',
+      note: 'En 1733, j’ai montré que le nombre de fois où une pièce tombe sur face, en des milliers de lancers, suit une courbe lisse en forme de cloche.',
     },
     {
       name: 'Pierre-Simon Laplace',
-      note: 'I showed that the bell reaches far beyond coins: averages of many kinds of random measurement crowd into it.',
+      note: 'J’ai montré que la cloche va bien au-delà des pièces : les moyennes de nombreuses sortes de mesures aléatoires s’y resserrent.',
     },
   ],
 
   insight: {
-    title: 'Why does randomness make a bell?',
-    html: `<p>Every ball makes the same kind of choice at each peg: left or right. To land at the far edge, it must go the same way every time, and only one path does that. To land in the middle, it needs as many lefts as rights, and hundreds of paths do. Counting the paths to each bin gives a row of Pascal’s triangle (1, 12, 66, 220, 495, 792, 924, … for twelve rows), and those counts make the bell. No single ball knows where it is going; the shape comes from counting.</p>
-<div class="insight-visual">12 rows of pegs: 1 path to each edge, 924 paths to the middle, out of 4,096</div>
-<h3>Averages make the same bell</h3>
-<p>The die’s single throws keep its lopsided shape. Average two throws and a peak appears in the middle, with the odd shape still showing; average ten and the heap becomes more bell-like and narrower. This is the central limit theorem: averages of many independent throws, of almost any die, crowd into a bell around the die’s mean, and the bell narrows like 1/√n. Averages of 10 throws spread about √10, a little over 3 times, less than single throws.</p>
-<h3>When it fails</h3>
-<p>The theorem needs throws that don’t affect each other and whose spread is finite. The stubborn spinner breaks the second rule: a lamp that spins at random sometimes shines almost along the wall, so a few spins land enormously far away. Its averages are as wild as a single spin, however many you take. That spinner follows the Cauchy distribution, named after Augustin-Louis Cauchy.</p>
-<h3>What this room simplifies</h3>
-<p>The balls follow a random model, not physics: each peg is a coin toss, fair or tilted, independent of the others. Real boards are never perfectly fair, and real balls bounce and spin, so their heaps are rougher. Averages of 2 or 5 throws are closer to a bell, not exactly one.</p>
-<details><summary>The mathematics, if you want it</summary><p>With n rows and a chance p of bouncing right, a ball lands in bin k (k bounces right) with chance C(n, k)·pᵏ·(1 − p)ⁿ⁻ᵏ, the binomial distribution, with mean np and spread √(np(1 − p)). Abraham de Moivre showed in 1733, and in the second edition of his <em>Doctrine of Chances</em> (1738), that for many tosses this is close to the normal curve; Pierre-Simon Laplace published a more general result in his <em>Théorie analytique des probabilités</em> (1812). Francis Galton designed the board, which he called the quincunx, for a lecture at the Royal Institution in 1874, and described it in <em>Natural Inheritance</em> (1889). The average of n Cauchy spins has exactly the same distribution as a single spin.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Galton_board" target="_blank" rel="noopener">Galton board</a><a class="source-link" href="https://en.wikipedia.org/wiki/De_Moivre%E2%80%93Laplace_theorem" target="_blank" rel="noopener">De Moivre–Laplace theorem</a><a class="source-link" href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank" rel="noopener">Central limit theorem</a><a class="source-link" href="https://en.wikipedia.org/wiki/Cauchy_distribution" target="_blank" rel="noopener">Cauchy distribution</a></div>`,
+    title: 'Pourquoi le hasard fait-il une cloche ?',
+    html: `<p>Chaque bille fait le même genre de choix à chaque clou : à gauche ou à droite. Pour arriver tout au bord, elle doit aller du même côté à chaque fois, et un seul chemin fait cela. Pour arriver au milieu, il lui faut autant de gauches que de droites, et des centaines de chemins le font. Compter les chemins qui mènent à chaque case donne une ligne du triangle de Pascal (1, 12, 66, 220, 495, 792, 924, … pour douze rangées), et ces nombres dessinent la cloche. Aucune bille ne sait où elle va ; la forme vient du dénombrement.</p>
+<div class="insight-visual">12 rangées de clous : 1 chemin vers chaque bord, 924 chemins vers le milieu, sur 4 096</div>
+<h3>Les moyennes font la même cloche</h3>
+<p>Les lancers simples du dé gardent sa forme bancale. Faites la moyenne de deux lancers et un pic apparaît au milieu, la forme bizarre restant visible ; faites la moyenne de dix et le tas ressemble davantage à une cloche, plus étroite. C’est le théorème central limite : les moyennes de nombreux lancers indépendants, de presque n’importe quel dé, se resserrent en une cloche autour de la moyenne du dé, et la cloche rétrécit comme 1/√n. Les moyennes de 10 lancers sont environ √10 fois, soit un peu plus de 3 fois, moins dispersées que les lancers simples.</p>
+<h3>Quand ça ne marche pas</h3>
+<p>Le théorème demande des lancers qui ne s’influencent pas les uns les autres, et dont la dispersion est finie. Le phare têtu enfreint la seconde règle : une lampe qui tourne au hasard éclaire parfois presque le long du mur, si bien que quelques tours atterrissent extrêmement loin. Ses moyennes sont aussi folles qu’un tour unique, quel que soit le nombre de tours. Cette lampe suit la loi de Cauchy, du nom d’Augustin-Louis Cauchy.</p>
+<h3>Ce que cette salle simplifie</h3>
+<p>Les billes suivent un modèle aléatoire, pas la physique : chaque clou est un pile ou face, équitable ou biaisé, indépendant des autres. Les vraies planches ne sont jamais parfaitement équitables, et les vraies billes rebondissent et tournent sur elles-mêmes, si bien que leurs tas sont plus irréguliers. Les moyennes de 2 ou 5 lancers sont plus proches d’une cloche, sans en être exactement une.</p>
+<details><summary>Les mathématiques, si vous voulez</summary><p>Avec n rangées et une chance p de rebondir à droite, une bille tombe dans la case k (k rebonds à droite) avec la probabilité C(n, k)·pᵏ·(1 − p)ⁿ⁻ᵏ, la loi binomiale, de moyenne np et d’écart type √(np(1 − p)). Abraham de Moivre a montré en 1733, puis dans la deuxième édition de sa <em>Doctrine of Chances</em> (1738), que pour de nombreux lancers elle est proche de la courbe normale ; Pierre-Simon Laplace a publié un résultat plus général dans sa <em>Théorie analytique des probabilités</em> (1812). Francis Galton a conçu la planche, qu’il appelait le quincunx, pour une conférence à la Royal Institution en 1874, et l’a décrite dans <em>Natural Inheritance</em> (1889). La moyenne de n tours de Cauchy a exactement la même loi qu’un tour unique.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Galton_board" target="_blank" rel="noopener">Planche de Galton (Wikipédia, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/De_Moivre%E2%80%93Laplace_theorem" target="_blank" rel="noopener">Théorème de Moivre-Laplace (Wikipédia, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank" rel="noopener">Théorème central limite (Wikipédia, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Cauchy_distribution" target="_blank" rel="noopener">Loi de Cauchy (Wikipédia, en anglais)</a></div>`,
   },
 });

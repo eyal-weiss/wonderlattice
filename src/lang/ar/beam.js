@@ -1,115 +1,151 @@
 /* The ruler on its edge · visitor-facing words (ar). */
+// «عارضة» (beam, pl. عوارض), «مسطرة» (ruler), «شفة» (flange), «قطعة» (piece) and «صلابة» (stiffness) are feminine;
+// «لوح» (plank), «جذع» (web), «مربع» (square) and «تدلٍّ» (sag) masculine: 3 مربعات، 24 مربعًا. Units keep their Latin
+// symbols, isolated so that they read left to right. The picture follows the page's right-to-left direction.
 Wonderlattice.defineText('beam', 'ar', {
-  eyebrow: 'BEAMS',
-  name: 'The ruler on its edge',
+  eyebrow: 'العوارض',
+  name: 'المسطرة على حافتها',
   tagline:
-    'Stand a steel plank on its edge and it’s 36 times stiffer. Paint your own beam and find where the steel should go.',
-  title: 'The ruler on its edge.',
+    'أوقفوا لوحًا من الفولاذ على حافته فيصير أصلب 36 مرة. ارسموا عارضتكم بأنفسكم واكتشفوا أين يجب أن يكون الفولاذ.',
+  title: 'المسطرة على حافتها.',
   subtitle:
-    'A steel beam with a weight in its middle, and its cross-section below. Turn it on its edge, or paint the 24 squares of steel anywhere, and watch the sag.',
-  field: 'Second moment of area · Euler–Bernoulli beam theory · I-beams',
-  sceneLabel: 'A steel beam and its cross-section',
+    'عارضة من الفولاذ يتدلّى من وسطها ثقل، ومقطعها العرضي في الأسفل. أديروها على حافتها، أو لوّنوا مربعات الفولاذ الـ24 أينما شئتم، وشاهدوا كم تتدلّى.',
+  field: 'العزم الثاني للمساحة · نظرية أويلر–برنولي للعوارض · عوارض I',
+  sceneLabel: 'عارضة من الفولاذ ومقطعها العرضي',
   sceneNames: {
-    plank: 'A flat plank',
-    edge: 'On its edge',
-    ibeam: 'An I-beam',
-    own: 'Your own beam',
-    none: 'No steel yet',
+    plank: 'لوح مسطّح',
+    edge: 'على حافته',
+    ibeam: 'عارضة I',
+    own: 'عارضتكم',
+    none: 'لا فولاذ بعد',
   },
-  tip: 'Tap or drag across the squares to add or take away steel · Arrow keys move, Enter paints, Backspace undoes',
-  actionLabel: 'Turn it 90°',
+  tip: 'انقروا على المربعات أو اسحبوا عبرها لإضافة الفولاذ أو إزالته · مفاتيح الأسهم للتنقّل، وEnter للتلوين، وBackspace للتراجع',
+  actionLabel: 'تدوير \u206690°\u2069',
   canvasLabel:
-    'A steel beam resting on two supports, with a 100 kg weight hanging from its middle, above a 12 by 12 grid of its cross-section. Tap or drag across the grid to add or take away squares of steel, or use the arrow keys and Enter.',
-  panelEyebrow: 'Steel and shape',
-  whyLabel: 'Why does the edge win?',
+    'عارضة من الفولاذ ترتكز على دعامتين، ويتدلّى من وسطها ثقل وزنه \u2066100\u00a0kg\u2069، وتحتها شبكة من 12 × 12 مربعًا تمثّل مقطعها العرضي. انقروا على الشبكة أو اسحبوا عبرها لإضافة مربعات من الفولاذ أو إزالتها، أو استخدموا مفاتيح الأسهم وEnter.',
+  panelEyebrow: 'الفولاذ والشكل',
+  whyLabel: 'لماذا تفوز الحافة؟',
   nudge:
-    'Can you beat the plank on its edge with the same 24 squares? Then cut the thin web that joins the top of your best beam to its bottom: how stiff are the two loose halves?',
+    'هل يمكنكم التفوّق على اللوح الواقف على حافته بالمربعات الـ24 نفسها؟ ثم اقطعوا الجذع الرفيع الذي يصل أعلى أفضل عارضة لديكم بأسفلها: ما مدى صلابة النصفين المنفصلين؟',
   connection: {
-    html: '<strong>Steel where it counts.</strong> A truss is a beam with most of its middle taken away: the bars along its top are squeezed, the bars along its bottom stretched, and triangles hold them together. See it in “The stubborn triangle”.',
-    label: 'Visit “The stubborn triangle”',
+    html: '<strong>الفولاذ حيث يهمّ.</strong> الجملون عارضة أُزيل معظم وسطها: القضبان على امتداد أعلاه مضغوطة، والقضبان على امتداد أسفله مشدودة، والمثلثات تربطها معًا. شاهدوا ذلك في «المثلث العنيد».',
+    label: 'زيارة «المثلث العنيد»',
   },
 
   presets: [
-    { name: 'A flat plank', note: '12 cm wide and 2 cm thick, lying flat.' },
-    { name: 'On its edge', note: 'The same plank, turned 90°.' },
-    { name: 'An I-beam', note: 'Steel at the top and bottom, a thin web between.' },
+    { name: 'لوح مسطّح', note: 'عرضه \u206612\u00a0cm\u2069 وسماكته \u20662\u00a0cm\u2069، موضوع مسطّحًا.' },
+    { name: 'على حافته', note: 'اللوح نفسه، مُدارًا \u206690°\u2069.' },
+    { name: 'عارضة I', note: 'فولاذ في الأعلى والأسفل، وبينهما جذع رفيع.' },
   ],
 
-  undo: 'Undo',
-  clear: 'Clear',
+  undo: 'تراجع',
+  clear: 'مسح',
 
-  // Drawn in the picture: keep these short.
+  // Drawn in the picture: keep these short. `n` (how much larger the sag is drawn) is a whole number written without
+  // separators; `used` and `total` are whole numbers; `mm` and `x` are already written as numbers.
   picture: {
-    caption: '3 m of steel, with 100 kg in the middle',
-    drawn: (n) => `The sag is drawn ${n} times larger`,
-    drawnShort: (n) => `Sag drawn ${n}× larger`,
-    weight: '100 kg',
-    sag: (mm) => `Sag ${mm} mm`,
-    beyond: 'Sag over 10 cm',
-    none: 'No steel',
-    section: 'Cross-section',
-    unit: '1 square = 1 cm',
-    squares: (used, total) => `${used} of ${total} squares`,
-    stiffness: 'Stiffness',
-    times: (x) => `${x}× the flat plank`,
-    timesShort: (x) => `${x}×`,
-    chart: 'Same steel, different shapes: how stiff?',
-    rows: { plank: 'Flat plank', edge: 'On its edge', ibeam: 'An I-beam', yours: 'Yours' },
-    marks: { plank: 'Flat plank', edge: 'On its edge', best: 'Best with 24' },
-    key: { squeezed: 'Squeezed', stretched: 'Stretched', axis: 'Neither' },
-    loose: (k) => `${k} loose pieces: each bends on its own`,
-    wobbly: 'Wobbly: it could tip over sideways',
-    full: 'No steel left: tap a square to take it away',
-    best: 'As stiff as 24 squares can be',
+    caption: '\u20663\u00a0m\u2069 من الفولاذ، و\u2066100\u00a0kg\u2069 في الوسط',
+    drawn: (n) => {
+      const v = n * 1;
+      const k = v % 100;
+      return v === 1
+        ? 'التدلّي مرسوم بحجمه الحقيقي'
+        : v === 2
+          ? 'التدلّي مرسوم أكبر مرتين'
+          : k >= 3 && k <= 10
+            ? `التدلّي مرسوم أكبر ${n} مرات`
+            : `التدلّي مرسوم أكبر ${n} مرة`;
+    },
+    drawnShort: (n) => `التدلّي مكبَّر \u2066${n}×\u2069`,
+    weight: '\u2066100\u00a0kg\u2069',
+    sag: (mm) => `تدلٍّ \u2066${mm}\u00a0mm\u2069`,
+    beyond: 'تدلٍّ فوق \u206610\u00a0cm\u2069',
+    none: 'لا فولاذ',
+    section: 'المقطع العرضي',
+    unit: 'كل مربع = \u20661\u00a0cm\u2069',
+    squares: (used, total) => {
+      const k = total % 100;
+      return k >= 3 && k <= 10
+        ? `${used} من ${total} مربعات`
+        : k >= 11
+          ? `${used} من ${total} مربعًا`
+          : `${used} من ${total} مربع`;
+    },
+    stiffness: 'الصلابة',
+    times: (x) => `\u2066${x}×\u2069 اللوح المسطّح`,
+    timesShort: (x) => `\u2066${x}×\u2069`,
+    chart: 'الفولاذ نفسه، والأشكال مختلفة: ما مدى الصلابة؟',
+    rows: { plank: 'لوح مسطّح', edge: 'على حافته', ibeam: 'عارضة I', yours: 'عارضتكم' },
+    marks: { plank: 'لوح مسطّح', edge: 'على حافته', best: 'الأفضل مع 24' },
+    key: { squeezed: 'مضغوط', stretched: 'مشدود', axis: 'محايد' },
+    loose: (k) => {
+      const m = k % 100;
+      return k === 2
+        ? 'قطعتان منفصلتان: تنثني كلٌّ منهما وحدها'
+        : m >= 3 && m <= 10
+          ? `${k} قطع منفصلة: تنثني كلٌّ منها وحدها`
+          : `${k} قطعة منفصلة: تنثني كلٌّ منها وحدها`;
+    },
+    wobbly: 'غير مستقرة: قد تنقلب جانبًا',
+    full: 'نفد الفولاذ: انقروا على مربع لإزالته',
+    best: 'أقصى صلابة تعطيها 24 مربعًا',
   },
 
   // The panel's readout and the status line.
   status: {
-    sag: (mm) => `Sag ${mm} mm`,
-    said: (mm, x) => `Sag ${mm} mm, ${x} times as stiff as the flat plank`,
-    beyond: 'Sag over 10 cm',
-    none: 'No steel',
+    sag: (mm) => `التدلّي \u2066${mm}\u00a0mm\u2069`,
+    said: (mm, x) => `التدلّي \u2066${mm}\u00a0mm\u2069، والصلابة تساوي صلابة اللوح المسطّح مضروبة في ${x}`,
+    beyond: 'التدلّي أكثر من \u206610\u00a0cm\u2069',
+    none: 'لا فولاذ',
   },
   readout: {
-    sag: (mm) => `Sag ${mm} mm`,
-    times: (x) => `${x}× the flat plank`,
-    plank: 'The flat plank',
-    used: (used, total) =>
-      used === total ? `All ${total} squares of steel used.` : `${used} of ${total} squares of steel used.`,
-    none: 'Paint some squares of steel in the grid.',
-    beyond: 'Past 10 cm, the simple theory used here stops being reliable.',
-    loose: (k) =>
-      `${k} loose pieces: squares that don’t share an edge slide past one another, so each piece bends on its own.`,
-    wobbly: 'Tall and thin: under the weight it could tip over, or twist sideways (a rule of thumb, see “Why”).',
-    best: 'As stiff as 24 squares can be in this grid.',
+    sag: (mm) => `التدلّي \u2066${mm}\u00a0mm\u2069`,
+    times: (x) => `\u2066${x}×\u2069 صلابة اللوح المسطّح`,
+    plank: 'اللوح المسطّح',
+    used: (used, total) => {
+      const k = total % 100;
+      const squares = k >= 3 && k <= 10 ? 'مربعات' : k >= 11 ? 'مربعًا' : 'مربع';
+      return used === total
+        ? `استُخدمت مربعات الفولاذ الـ${total} كلها.`
+        : `استُخدم ${used} من أصل ${total} ${squares} من الفولاذ.`;
+    },
+    none: 'لوّنوا بعض مربعات الفولاذ في الشبكة.',
+    beyond: 'بعد \u206610\u00a0cm\u2069، لا تعود النظرية البسيطة المستخدمة هنا موثوقة.',
+    loose: (k) => {
+      const m = k % 100;
+      const pieces = k === 2 ? 'قطعتان منفصلتان' : m >= 3 && m <= 10 ? `${k} قطع منفصلة` : `${k} قطعة منفصلة`;
+      return `${pieces}: المربعات التي لا تشترك في ضلع تنزلق إحداها على الأخرى، فتنثني كل قطعة وحدها.`;
+    },
+    wobbly: 'طويلة ورفيعة: قد تنقلب تحت الثقل، أو تلتوي جانبًا (قاعدة تقريبية، انظروا الشرح).',
+    best: 'أقصى صلابة يمكن أن تعطيها 24 مربعًا في هذه الشبكة.',
   },
 
   guests: [
     {
-      name: 'Galileo Galilei',
-      note: 'In 1638 I wrote that a ruler standing on its edge resists breaking more than one lying flat, as many times over as it is wider than it is thick. I also saw that bird bones and reeds are hollow: light, yet hard to bend.',
+      name: 'غاليليو غاليلي',
+      note: 'عام 1638 كتبتُ أن المسطرة الواقفة على حافتها تقاوم الكسر أكثر من المسطرة الممدّدة على وجهها، بعدد المرات التي يزيد بها عرضها على سماكتها. ورأيت أيضًا أن عظام الطيور والقصب جوفاء: خفيفة، ومع ذلك يصعب ثنيها.',
     },
     {
-      name: 'Leonhard Euler',
-      note: 'Jacob Bernoulli guessed that a bent beam curves in proportion to the turning force on it. In 1744 I followed that idea with calculus and worked out the curves of bent elastic strips.',
+      name: 'ليونهارد أويلر',
+      note: 'خمّن ياكوب برنولي أن العارضة المثنية تتقوّس بما يتناسب مع قوة الثني المؤثرة فيها. وعام 1744 تابعت تلك الفكرة بحساب التفاضل والتكامل، ووجدت منحنيات الشرائط المرنة المثنية.',
     },
     {
-      name: 'Claude-Louis Navier',
-      note: 'In 1819 I found where the line in a bent beam that is neither squeezed nor stretched really lies, putting Galileo right. In 1826 I separated what a beam’s material gives its stiffness from what its shape gives.',
+      name: 'كلود لوي نافييه',
+      note: 'عام 1819 وجدت أين يقع فعلًا الخط الذي لا ينضغط ولا ينشدّ في العارضة المثنية، فصحّحت ما قاله غاليليو. وعام 1826 فصلت ما تمنحه مادة العارضة لصلابتها عمّا يمنحه شكلها.',
     },
   ],
 
   insight: {
-    title: 'Why does the edge win?',
-    html: `<p>Bend a beam and its top is squeezed while its bottom is stretched. Between them runs a line that is neither, the neutral axis, through the middle of the cross-section (its centroid). Steel far from that line is squeezed or stretched a lot for a small bend, so it pushes back hard, and it pushes with more leverage too. Both effects grow with the distance, so each square counts with the <em>square</em> of its distance from the line. Adding them up gives the second moment of area, I, in cm⁴.</p>
-<div class="insight-visual">I = Σ (1/12 + d²) over the squares · sag = F·L³ ⁄ (48·E·I)</div>
-<h3>Flat or on its edge</h3>
-<p>For a rectangle b wide and h tall, I = b·h³ ⁄ 12, so its height counts three times over. The plank 12 cm wide and 2 cm thick has I = 8 cm⁴ lying flat and 288 cm⁴ on its edge: (12 ÷ 2)² = 36 times stiffer, with the same steel. With 100 kg in the middle of 3 m of steel (E = 200 GPa), it sags 34 mm flat and less than 1 mm on its edge. A plastic ruler 30 mm wide and 1 mm thick is (30 ÷ 1)² = 900 times stiffer on its edge.</p>
-<h3>The I-beam</h3>
-<p>The best place for steel is as far from the middle as it can go: a flange along the top and another along the bottom. But they must be joined, or they slide past each other like the pages of a book, and each bends on its own: two loose strips of 12 squares have I = 2 cm⁴ between them. A thin web holds them together. With 7 squares in each flange and 10 in the web, I = 508 cm⁴, 63.5 times the flat plank, and the most that any 24 joined squares can give in this grid. Bones, bamboo, bicycle frames and scaffolding poles are hollow for the same reason. In 1638 Galileo pointed to the bones of birds and to reeds, and showed that a ruler on its edge is harder to break, by the ratio of its width to its thickness.</p>
-<h3>What this model leaves out</h3>
-<p>A tall, thin beam wins on paper, but it can tip over, or twist and buckle sideways under its load (lateral–torsional buckling), and a thin web or flange can crumple. The wobble warning is this room’s own rule of thumb: a shape more than 20 times stiffer up and down than sideways. Engineers check the real thing, which also depends on the span, the load and how well the beam resists twisting, and they brace tall, thin beams such as floor joists. Stiffness (how far a beam sags) isn’t strength (when it breaks, or bends for good): this room is about stiffness. The sag comes from the theory for small sags. It leaves out the beam’s own weight (about 57 kg of steel here, which would add about a third to every sag) and the little extra give from shearing, and it assumes the beam is held straight sideways, so a lopsided shape doesn’t swing aside. Squares joined edge to edge count as welded together; squares that touch only at a corner don’t.</p>
-<details><summary>The mathematics, if you want it</summary><p>A square of side 1 whose centre is a distance d from the neutral axis adds ∫ y² dA = 1/12 + d² to I (the parallel axis theorem), so I is a sum over the painted squares. The neutral axis of each piece passes through its centroid: the average height of its squares. Loose pieces are treated as beams bending side by side with the same sag, so their I’s add. The bent beam’s shape is v(x) = F·x·(3L² − 4x²) ⁄ (48·E·I) up to the middle, where the sag is F·L³ ⁄ (48·E·I). The most that 24 joined squares can reach was found by an exact search over how many squares sit in each row: every row between the top and the bottom needs at least one, and the best place for the rest is the top and bottom rows, shared equally. The numbers were checked against an independent program.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Second_moment_of_area" target="_blank" rel="noopener">Second moment of area</a><a class="source-link" href="https://en.wikipedia.org/wiki/Euler%E2%80%93Bernoulli_beam_theory" target="_blank" rel="noopener">Euler–Bernoulli beam theory</a><a class="source-link" href="https://en.wikipedia.org/wiki/I-beam" target="_blank" rel="noopener">I-beam</a><a class="source-link" href="https://en.wikipedia.org/wiki/Claude-Louis_Navier" target="_blank" rel="noopener">Claude-Louis Navier</a><a class="source-link" href="https://archive.org/details/dialoguesconcern00galiuoft" target="_blank" rel="noopener">Galileo (1638), Dialogues Concerning Two New Sciences, Second Day (tr. Crew and de Salvio, 1914)</a></div>`,
+    title: 'لماذا تفوز الحافة؟',
+    html: `<p>اثنوا عارضة، فينضغط أعلاها بينما ينشدّ أسفلها. وبينهما يمتدّ خط لا ينضغط ولا ينشدّ، هو المحور المحايد، ويمرّ بوسط المقطع العرضي (مركزه الهندسي). الفولاذ البعيد عن ذلك الخط ينضغط أو ينشدّ كثيرًا مع انثناء صغير، فيقاوم بقوة، ويقاوم أيضًا بذراع رافعة أطول. وكلا الأثرين يكبر مع المسافة، لذا يُحسب كل مربع وفق <em>مربّع</em> بُعده عن الخط. وجمعها كلها يعطي العزم الثاني للمساحة، I، بوحدة \u2066cm⁴\u2069.</p>
+<div class="insight-visual">\u2066I\u00a0=\u00a0Σ\u00a0(1/\u206012\u00a0+\u00a0d²)\u2069 على كل المربعات · التدلّي = \u2066F·L³\u00a0⁄\u00a0(48·E·I)\u2069</div>
+<h3>مسطّحًا أو على حافته</h3>
+<p>لمستطيل عرضه b وارتفاعه h، يكون \u2066I\u00a0=\u00a0b·h³\u00a0⁄\u00a012\u2069، فيُحسب ارتفاعه ثلاث مرات. اللوح الذي عرضه \u206612\u00a0cm\u2069 وسماكته \u20662\u00a0cm\u2069 له \u2066I\u00a0=\u00a08\u00a0cm⁴\u2069 حين يكون مسطّحًا، و\u2066288\u00a0cm⁴\u2069 حين يقف على حافته: أصلب \u2066(12\u00a0÷\u00a02)²\u00a0=\u00a036\u2069 مرة، بالفولاذ نفسه. ومع \u2066100\u00a0kg\u2069 في وسط \u20663\u00a0m\u2069 من الفولاذ (\u2066E\u00a0=\u00a0200\u00a0GPa\u2069)، يتدلّى \u206634\u00a0mm\u2069 وهو مسطّح، وأقل من \u20661\u00a0mm\u2069 وهو على حافته. والمسطرة البلاستيكية التي عرضها \u206630\u00a0mm\u2069 وسماكتها \u20661\u00a0mm\u2069 أصلب على حافتها \u2066(30\u00a0÷\u00a01)²\u00a0=\u00a0900\u2069 مرة.</p>
+<h3>عارضة I</h3>
+<p>أفضل مكان للفولاذ هو أبعد ما يمكن عن الوسط: شفة على امتداد الأعلى، وأخرى على امتداد الأسفل. لكن يجب وصلهما، وإلا انزلقت إحداهما على الأخرى مثل صفحات كتاب، وانثنت كلٌّ منهما وحدها: شريطان منفصلان، في كلٍّ منهما 12 مربعًا، لهما معًا \u2066I\u00a0=\u00a02\u00a0cm⁴\u2069. ويربطهما جذع رفيع. ومع 7 مربعات في كل شفة و10 في الجذع، يكون \u2066I\u00a0=\u00a0508\u00a0cm⁴\u2069، أي 63.5 ضعف صلابة اللوح المسطّح، وهو أقصى ما يمكن أن تعطيه أي 24 مربعًا متصلة في هذه الشبكة. وللسبب نفسه تكون العظام والخيزران وهياكل الدراجات وأعمدة السقالات جوفاء. عام 1638 أشار غاليليو إلى عظام الطيور وإلى القصب، وبيّن أن المسطرة الواقفة على حافتها أصعب كسرًا، بنسبة عرضها إلى سماكتها.</p>
+<h3>ما يُغفله هذا النموذج</h3>
+<p>العارضة الطويلة الرفيعة تفوز على الورق، لكنها قد تنقلب، أو تلتوي وتنبعج جانبًا تحت حملها (الانبعاج الجانبي الالتوائي)، وقد يتجعّد جذع رفيع أو شفة رفيعة. وتحذير عدم الاستقرار قاعدة تقريبية خاصة بهذه الغرفة: شكل صلابته في الاتجاه العمودي أكبر من صلابته الجانبية بأكثر من 20 مرة. أما المهندسون فيتحقّقون من الحالة الحقيقية، التي تتوقف أيضًا على المسافة بين الدعامتين والحمل ومدى مقاومة العارضة للالتواء، ويدعّمون العوارض الطويلة الرفيعة مثل روافد الأرضيات. والصلابة (مقدار تدلّي العارضة) ليست المتانة (متى تنكسر، أو تنثني بلا رجعة): هذه الغرفة عن الصلابة. ويأتي التدلّي من النظرية الخاصة بالتدلّيات الصغيرة. وهي تُغفل وزن العارضة نفسها (نحو \u206657\u00a0kg\u2069 من الفولاذ هنا، وهو ما سيزيد كل تدلٍّ بنحو الثلث) والليونة الإضافية القليلة الناتجة عن القصّ، وتفترض أن العارضة مثبّتة باستقامة من الجانبين، فلا ينحرف الشكل غير المتماثل جانبًا. والمربعات المتصلة ضلعًا بضلع تُعدّ ملحومة معًا؛ أما المربعات التي تتلامس عند رأس فقط فلا.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>المربع الذي طول ضلعه 1 ويبعد مركزه مسافة d عن المحور المحايد يضيف \u2066∫\u00a0y²\u00a0dA\u00a0=\u00a01/\u206012\u00a0+\u00a0d²\u2069 إلى I (مبرهنة المحاور المتوازية)، لذا فإن I مجموع على المربعات الملوّنة. والمحور المحايد لكل قطعة يمرّ بمركزها الهندسي: متوسط ارتفاع مربعاتها. وتُعامَل القطع المنفصلة كعوارض تنثني جنبًا إلى جنب بالتدلّي نفسه، لذا تُجمع قيم I الخاصة بها. وشكل العارضة المثنية هو \u2066v(x)\u00a0= F·x·(3L²\u00a0−\u00a04x²)\u00a0⁄\u00a0(48·E·I)\u2069 حتى المنتصف، حيث يكون التدلّي \u2066F·L³\u00a0⁄\u00a0(48·E·I)\u2069. أما أقصى ما يمكن أن تبلغه 24 مربعًا متصلة فوُجد ببحث دقيق في عدد المربعات في كل صف: كل صف بين الأعلى والأسفل يحتاج إلى مربع واحد على الأقل، وأفضل مكان للبقية هو الصفان الأعلى والأسفل، مقسومة بينهما بالتساوي. وقد تم التحقق من الأرقام بمقارنتها ببرنامج مستقل.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Second_moment_of_area" target="_blank" rel="noopener">العزم الثاني للمساحة (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Euler%E2%80%93Bernoulli_beam_theory" target="_blank" rel="noopener">نظرية أويلر–برنولي للعوارض (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/I-beam" target="_blank" rel="noopener">عارضة I \u200f(بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Claude-Louis_Navier" target="_blank" rel="noopener">كلود لوي نافييه (بالإنجليزية)</a><a class="source-link" href="https://archive.org/details/dialoguesconcern00galiuoft" target="_blank" rel="noopener">غاليليو (1638)، \u2066Dialogues Concerning Two New Sciences\u2069، اليوم الثاني (ترجمة كرو ودي سالفيو، 1914، بالإنجليزية)</a></div>`,
   },
 });

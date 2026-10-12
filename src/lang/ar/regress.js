@@ -1,92 +1,107 @@
 /* The punishment illusion · visitor-facing words (ar). */
+// «رمية» (throw) and «نقطة» (point) are feminine: رمية واحدة، رميتان، 3 رميات، 11 رمية. The coach («المدرّب») and the
+// thrower («اللاعب») are unnamed; the coach's words to the thrower avoid a gendered ending. The picture follows the
+// page's right-to-left direction; the chart's axes still run left to right, so «→» stays first in `thisThrow`, at
+// the right-hand end of the label.
 Wonderlattice.defineText('regress', 'ar', {
-  eyebrow: 'STATISTICS',
-  name: 'The punishment illusion',
-  tagline: 'Scold a bad throw and the next one is better, nine times in ten. The scolding did nothing.',
-  title: 'The punishment illusion.',
-  subtitle: 'A coach praises the best throws and scolds the worst. Watch what follows each word, then show the wiring.',
-  field: 'Statistics · Regression to the mean · Intuition fooled',
-  sceneLabel: 'One thrower · One coach',
-  sceneName: 'The coach’s tally',
-  tip: 'Tap a face to coach · Keys: ↑ praise, ↓ scold, → say nothing',
-  actionLabel: 'Show the wiring',
-  hideLabel: 'Hide the wiring',
+  eyebrow: 'الإحصاء',
+  name: 'وهم العقاب',
+  tagline: 'وبّخوا على رمية سيئة فتأتي التالية أفضل، تسع مرات من عشر. التوبيخ لم يفعل شيئًا.',
+  title: 'وهم العقاب.',
+  subtitle: 'مدرّب يمدح أفضل الرميات ويوبّخ على أسوئها. شاهدوا ما يتبع كل كلمة، ثم اكشفوا التوصيلات.',
+  field: 'الإحصاء · الانحدار نحو المتوسط · حدس مخدوع',
+  sceneLabel: 'لاعب واحد · مدرّب واحد',
+  sceneName: 'حصيلة المدرّب',
+  tip: 'انقروا على وجه لتقولوا كلمتكم · المفاتيح: ↑ للمدح، و↓ للتوبيخ، و→ للصمت',
+  actionLabel: 'إظهار التوصيلات',
+  hideLabel: 'إخفاء التوصيلات',
   canvasLabel:
-    'A dartboard where a thrower’s darts land, a coach who praises or scolds each throw, and a tally of whether the next throw was better or worse after each word.',
-  panelEyebrow: 'Coach',
-  whyLabel: 'Why does scolding seem to work?',
-  nudge: 'Turn the automatic coach off and coach by hand: praise and scold whatever you like. Then show the wiring.',
+    'لوحة سهام تسقط عليها سهام اللاعب، ومدرّب يمدح كل رمية أو يوبّخ عليها، وحصيلة تُظهر هل جاءت الرمية التالية أفضل أم أسوأ بعد كل كلمة.',
+  panelEyebrow: 'المدرّب',
+  whyLabel: 'لماذا يبدو التوبيخ ناجحًا؟',
+  nudge: 'أوقفوا المدرّب الآلي ودرّبوا بأنفسكم: امدحوا ووبّخوا كما تشاؤون. ثم اكشفوا التوصيلات.',
   connection: {
-    html: '<strong>Intuition against arithmetic.</strong> In The imperfect treasure detector, a beep means less than it seems. Here, a coach’s words seem to do more than they do.',
-    label: 'Sweep for treasure',
+    html: '<strong>الحدس في مواجهة الحساب.</strong> في «كاشف الكنز غير المثالي»، يعني الصفير أقل مما يبدو. وهنا، يبدو أن لكلمات المدرّب أثرًا أكبر مما لها فعلًا.',
+    label: 'البحث عن الكنز',
   },
 
   presets: [
-    { name: 'Automatic coach', note: 'Praise the best, scold the worst.', badge: '20%' },
-    { name: 'You coach', note: 'Every word is yours.', badge: '↑↓' },
-    { name: 'Praise really helps', note: 'Does the tally notice?', badge: '+' },
+    { name: 'المدرّب الآلي', note: 'مدح الأفضل، وتوبيخ الأسوأ.', badge: '20%' },
+    { name: 'تدريبكم', note: 'كل كلمة لكم.', badge: '↑↓' },
+    { name: 'المدح يساعد فعلًا', note: 'هل تلاحظ الحصيلة ذلك؟', badge: '+' },
   ],
 
-  auto: 'Automatic coach: praise the best throws, scold the worst',
-  share: 'The coach reacts to the best and worst',
-  shareHint: 'The more extreme the throws it reacts to, the stronger the illusion.',
-  helps: 'Praise really helps a little (the next throw gets a small lift)',
-  words: { praise: 'Praise', scold: 'Scold', nothing: 'Say nothing' },
+  auto: 'المدرّب الآلي: يمدح أفضل الرميات، ويوبّخ على أسوئها',
+  share: 'يتفاعل المدرّب مع الأفضل والأسوأ',
+  shareHint: 'كلما كانت الرميات التي يتفاعل معها أكثر تطرّفًا، ازداد الوهم قوة.',
+  helps: 'المدح يساعد فعلًا، قليلًا (تتحسّن الرمية التالية تحسّنًا طفيفًا)',
+  words: { praise: 'مدح', scold: 'توبيخ', nothing: 'صمت' },
 
+  // Words drawn on the picture. `n`, `p`, `k` are whole numbers.
   labels: {
-    board: (n) => `Throw ${n}`,
-    points: (p) => `${p} points`,
-    praise: 'Well done!',
-    scold: 'Sloppy!',
+    board: (n) => `الرمية ${n}`,
+    points: (p) => {
+      const k = p % 100;
+      return p === 1 ? 'نقطة واحدة' : p === 2 ? 'نقطتان' : k >= 3 && k <= 10 ? `${p} نقاط` : `${p} نقطة`;
+    },
+    praise: 'أحسنت!',
+    scold: 'يا للإهمال!',
     nothing: '…',
-    yourWord: 'Your word?',
-    afterPraise: 'After praise',
-    afterScold: 'After scolding',
-    better: 'next better',
-    worse: 'next worse',
-    times: (k, n) => `${k} of ${n}`,
-    none: 'not yet',
-    hidden: 'What are the coach’s words wired to?',
-    hiddenHint: 'Show the wiring to see',
-    wired: 'Words wired to the next throw:',
-    nothing2: 'nothing',
-    lift: 'praise: a small lift',
-    thisThrow: 'this throw →',
-    nextThrow: 'next throw ↑',
-    same: 'same again',
-    fitted: 'best fit',
+    yourWord: 'كلمتكم؟',
+    afterPraise: 'بعد المدح',
+    afterScold: 'بعد التوبيخ',
+    better: 'التالية أفضل',
+    worse: 'التالية أسوأ',
+    times: (k, n) => `${k} من ${n}`,
+    none: 'ليس بعد',
+    hidden: 'بماذا ترتبط كلمات المدرّب؟',
+    hiddenHint: 'اكشفوا التوصيلات لتروا',
+    wired: 'ما يربط الكلمات بالرمية التالية:',
+    nothing2: 'لا شيء',
+    lift: 'المدح: تحسّن طفيف',
+    thisThrow: '→ هذه الرمية',
+    nextThrow: 'الرمية التالية ↑',
+    same: 'التالية مثل هذه',
+    fitted: 'أفضل خط',
   },
 
   status: {
-    waiting: (n) => `Throw ${n}: your word?`,
-    count: (n) => `${n} throws`,
-    done: (n) => `${n} throws, all done`,
+    waiting: (n) => `الرمية ${n}: ما كلمتكم؟`,
+    count: (n) => {
+      const k = n % 100;
+      return n === 1 ? 'رمية واحدة' : n === 2 ? 'رميتان' : k >= 3 && k <= 10 ? `${n} رميات` : `${n} رمية`;
+    },
+    done: (n) => {
+      const k = n % 100;
+      const throws = n === 1 ? 'رمية واحدة' : n === 2 ? 'رميتان' : k >= 3 && k <= 10 ? `${n} رميات` : `${n} رمية`;
+      return `${throws}، وانتهى كل شيء`;
+    },
   },
   announce: (pw, pn, sb, sn) =>
-    `After praise the next throw was worse ${pw} times in ${pn}; after scolding it was better ${sb} times in ${sn}.`,
+    `بعد المدح جاءت الرمية التالية أسوأ في ${pw} من أصل ${pn}؛ وبعد التوبيخ جاءت أفضل في ${sb} من أصل ${sn}.`,
 
   guests: [
     {
-      name: 'Francis Galton',
-      note: 'I measured parents and their grown children: the children of very tall parents were tall, but on average only two-thirds as far from the middle.',
+      name: 'فرانسيس غالتون',
+      note: 'قستُ أطوال الوالدين وأبنائهم البالغين: أبناء الوالدين الطويلين جدًا كانوا طوالًا، لكن بُعدهم عن الوسط لم يكن في المتوسط إلا ثلثي بُعد والديهم.',
     },
     {
-      name: 'Daniel Kahneman',
-      note: 'A flight instructor told me that praise made cadets worse and shouting made them better. He had seen it, and it was regression to the mean.',
+      name: 'دانيال كانمان',
+      note: 'أخبرني مدرّب طيران أن المدح يجعل الطلاب الطيارين أسوأ، وأن الصراخ يجعلهم أفضل. لقد رأى ذلك بعينيه، وكان ذلك انحدارًا نحو المتوسط.',
     },
   ],
 
   insight: {
-    title: 'Why does scolding seem to work?',
-    html: `<p>Every throw is the thrower’s skill plus luck. An unusually good throw is usually a good throw with good luck on top, and luck doesn’t carry over. So the next throw is likely to be nearer the thrower’s average, whatever the coach says. With the coach reacting to the best and worst fifth of throws, the throw after a praised one is worse 9 times in 10 in this room, and the throw after a scolded one is better 9 times in 10. The coach’s words reach nothing at all.</p>
-<div class="insight-visual">a great throw = skill + good luck → next throw = skill + ordinary luck → “praise made it worse”</div>
-<h3>The flight instructor</h3>
-<p>Daniel Kahneman tells how he once taught Israeli air force flight instructors that praise works better than punishment. A seasoned instructor objected: when he praised a cadet for a clean manoeuvre, the next try was usually worse, and when he screamed at one, the next try was usually better. Kahneman saw at once that this was regression to the mean: because we praise people when they have done well and scold them when they have done badly, we are, as he put it, “statistically punished for rewarding others and rewarded for punishing them”. He then had everyone in the room toss two coins at a target behind their backs, with no feedback at all: those who did best the first time mostly did worse the second time, and the other way round.</p>
-<h3>Galton’s word for it</h3>
-<p>Francis Galton found the same pattern in 1886 in the heights of parents and their grown children. Children of very tall parents were tall, but on average only about two-thirds as far from the middle as their parents; children of very short parents were short, but less so. He called it regression towards mediocrity. People don’t all drift towards average: each generation is as spread out as the last. Only those picked for being extreme regress, because part of what made them extreme was luck that isn’t passed on.</p>
-<h3>What this room keeps simple</h3>
-<p>Here the thrower’s skill never changes and each throw’s luck is fresh, so the words truly do nothing. Real feedback can matter. Turn on “Praise really helps” and the tally still says praise backfires, about 8 times in 10: comparing a throw with the next one can’t tell. To learn what praise does, compare with throws after which the coach said nothing, or with a group that wasn’t praised. The nine in ten belongs to these settings: it is 1 − p/2 when the coach reacts to the best and worst share p of throws (95% at a tenth, 75% at half). The same illusion appears when an athlete slumps after a magazine cover, or when patients who enrol in a study at their worst seem to improve on any treatment.</p>
-<details><summary>The mathematics, if you want it</summary><p>If scores are skill plus independent luck, the expected next score is the average plus r times this score’s distance from the average, where r is the correlation between one score and the next. For one thrower whose skill never changes, r = 0: the best-fit line through “this throw, next throw” is flat, while the dashed line “same again” rises. With normal luck and a cutoff c above which lie the best share p of throws, P(next worse | this in the best p) = 1 − p/2, and the mean change is −φ(c)/p, about −1.40 standard deviations for p = 20%. F. Galton, “Regression towards mediocrity in hereditary stature”, Journal of the Anthropological Institute 15 (1886) 246–263. D. Kahneman, autobiography for the 2002 Nobel Prize, and Thinking, Fast and Slow (2011), chapter 17.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Regression_toward_the_mean" target="_blank" rel="noopener">Regression toward the mean</a><a class="source-link" href="https://www.nobelprize.org/prizes/economic-sciences/2002/kahneman/biographical/" target="_blank" rel="noopener">Kahneman’s Nobel autobiography</a><a class="source-link" href="https://galton.org/essays/1880-1889/galton-1886-jaigi-regression-stature.pdf" target="_blank" rel="noopener">Galton 1886 (PDF)</a></div>`,
+    title: 'لماذا يبدو التوبيخ ناجحًا؟',
+    html: `<p>كل رمية هي مهارة اللاعب زائد الحظ. والرمية الجيدة على نحو غير عادي هي في الغالب رمية جيدة أضيف إليها حظ جيد، والحظ لا ينتقل إلى الرمية التالية. لذا يُرجَّح أن تكون الرمية التالية أقرب إلى متوسط اللاعب، مهما قال المدرّب. وحين يتفاعل المدرّب مع الخُمس الأفضل والخُمس الأسوأ من الرميات، تأتي الرمية التي تلي رمية ممدوحة أسوأ في 9 مرات من 10 في هذه الغرفة، وتأتي الرمية التي تلي رمية موبَّخ عليها أفضل في 9 مرات من 10. كلمات المدرّب لا تصل إلى أي شيء.</p>
+<div class="insight-visual">رمية رائعة = مهارة + حظ جيد ← الرمية التالية = مهارة + حظ عادي ← «المدح جعلها أسوأ»</div>
+<h3>مدرّب الطيران</h3>
+<p>يروي دانيال كانمان كيف علّم مرة مدرّبي طيران في سلاح الجو الإسرائيلي أن المدح أنجع من العقاب. فاعترض مدرّب متمرّس: حين يمدح طالبًا على مناورة متقنة، تكون المحاولة التالية في الغالب أسوأ، وحين يصرخ في وجه أحدهم، تكون المحاولة التالية في الغالب أفضل. أدرك كانمان فورًا أن هذا انحدار نحو المتوسط: لأننا نمدح الناس حين يُحسنون ونوبّخهم حين يُسيئون، فإننا، كما قال، «نُعاقَب إحصائيًا على مكافأة الآخرين، ونُكافأ على معاقبتهم». ثم طلب من كل من في القاعة أن يرمي قطعتين نقديتين نحو هدف خلف ظهره، دون أي تغذية راجعة على الإطلاق: معظم من كانوا الأفضل في المرة الأولى كانوا أسوأ في الثانية، والعكس بالعكس.</p>
+<h3>تسمية غالتون</h3>
+<p>وجد فرانسيس غالتون النمط نفسه عام 1886 في أطوال الوالدين وأبنائهم البالغين. أبناء الوالدين الطويلين جدًا كانوا طوالًا، لكن بُعدهم عن الوسط كان في المتوسط نحو ثلثي بُعد والديهم فقط؛ وأبناء الوالدين القصيرين جدًا كانوا قصارًا، لكن بدرجة أقل. وسمّى ذلك «الانحدار نحو الوسطيّة» (\u2066regression towards mediocrity\u2069). لا ينجرف الناس جميعًا نحو المتوسط: فكل جيل منتشر بقدر انتشار الجيل الذي سبقه. وحدهم الذين يُختارون لتطرّفهم ينحدرون، لأن جزءًا مما جعلهم متطرّفين كان حظًا لا يُورَّث.</p>
+<h3>ما تُبقيه هذه الغرفة بسيطًا</h3>
+<p>هنا لا تتغيّر مهارة اللاعب أبدًا، وحظ كل رمية جديد، لذا فالكلمات لا تفعل شيئًا حقًا. أما التغذية الراجعة الحقيقية فقد يكون لها أثر. فعّلوا «المدح يساعد فعلًا»، وستظل الحصيلة تقول إن المدح يأتي بنتيجة عكسية، في نحو 8 مرات من 10: مقارنة رمية بالتي تليها لا تكشف شيئًا. ولمعرفة ما يفعله المدح، قارنوا بالرميات التي لم يقل المدرّب بعدها شيئًا، أو بمجموعة لم تُمدح. أما «تسع مرات من عشر» فتخصّ هذه الإعدادات: إنها \u20661\u00a0−\u00a0p/\u20602\u2069 حين يتفاعل المدرّب مع أفضل الرميات وأسوئها بنسبة p (95% عند العُشر، و75% عند النصف). ويظهر الوهم نفسه حين يتراجع أداء رياضي بعد ظهوره على غلاف مجلة، أو حين يبدو أن المرضى الذين ينضمّون إلى دراسة وهم في أسوأ حالاتهم يتحسّنون مع أي علاج.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>إذا كانت النتائج مهارة زائد حظ مستقل، فإن النتيجة التالية المتوقعة هي المتوسط زائد r مضروبًا في بُعد هذه النتيجة عن المتوسط، حيث r هو الارتباط بين نتيجة والنتيجة التي تليها. وللاعب واحد لا تتغيّر مهارته أبدًا، \u2066r\u00a0=\u00a00\u2069: خط أفضل ملاءمة لنقاط «هذه الرمية، الرمية التالية» أفقي، بينما يرتفع الخط المتقطع «التالية مثل هذه». ومع حظ يتبع التوزيع الطبيعي، ونقطة قطع c تقع فوقها النسبة p الفضلى من الرميات، يكون احتمال أن تأتي الرمية التالية أسوأ، إذا كانت هذه الرمية ضمن النسبة p الفضلى، هو \u20661\u00a0−\u00a0p/\u20602\u2069، ومتوسط التغيّر هو \u2066−φ(c)/\u2060p\u2069، أي نحو \u2066−1.40\u2069 انحراف معياري عند \u2066p\u00a0=\u00a020%\u2069. \u2066F. Galton, “Regression towards mediocrity in hereditary stature”, Journal of the Anthropological Institute 15 (1886) 246–263.\u2069 دانيال كانمان، سيرته الذاتية لجائزة نوبل 2002، و\u2066Thinking, Fast and Slow\u2069 (2011)، الفصل 17.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Regression_toward_the_mean" target="_blank" rel="noopener">الانحدار نحو المتوسط (بالإنجليزية)</a><a class="source-link" href="https://www.nobelprize.org/prizes/economic-sciences/2002/kahneman/biographical/" target="_blank" rel="noopener">سيرة كانمان الذاتية لجائزة نوبل (بالإنجليزية)</a><a class="source-link" href="https://galton.org/essays/1880-1889/galton-1886-jaigi-regression-stature.pdf" target="_blank" rel="noopener">غالتون 1886 (PDF، بالإنجليزية)</a></div>`,
   },
 });

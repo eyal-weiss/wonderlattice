@@ -1,112 +1,114 @@
-/* The staircase of sound · visitor-facing words (pt). */
+/* A escada do som · palavras para o visitante (pt). */
 Wonderlattice.defineText('stairs', 'pt', {
-  eyebrow: 'SOUND · ILLUSION',
-  name: 'The staircase of sound',
-  tagline: 'A scale that climbs step after step, and never gets any higher.',
-  title: 'The staircase of sound.',
+  eyebrow: 'SOM · ILUSÃO',
+  name: 'A escada do som',
+  tagline: 'Uma escala que sobe degrau após degrau, e nunca fica mais aguda.',
+  title: 'A escada do som.',
   subtitle:
-    'A scale climbs step after step, yet twelve steps later it is back where it began. Turn the sound on to hear it; the picture shows the trick.',
-  field: 'Sound · Octaves · Perception',
-  sceneLabel: 'Eight tones, an octave apart',
-  sceneNames: ['A scale that climbs forever', 'A slide that rises forever', 'The trick, taken away'],
-  tip: 'Best heard quietly, or with headphones · Each glowing dot is a tone, and they all sound at once',
+    'Uma escala sobe degrau após degrau, mas doze degraus depois está de volta onde começou. Ligue o som para ouvi-la; a imagem mostra o truque.',
+  field: 'Som · Oitavas · Percepção',
+  sceneLabel: 'Oito tons, a uma oitava um do outro',
+  sceneNames: ['Uma escala que sobe para sempre', 'Um glissando que sobe para sempre', 'O truque, desfeito'],
+  tip: 'Melhor ouvir baixinho, ou com fones de ouvido · Cada ponto brilhante é um tom, e todos soam ao mesmo tempo',
   canvasLabel:
-    'A spiral of pitch, one turn for each octave, with a glowing dot on every turn: the tones that sound together, brightest in the middle. Seen from above, the spiral is a circle of twelve notes. Beside it, the same tones as bars under a fixed loudness curve.',
-  panelEyebrow: 'Listen & look',
-  whyLabel: 'Why does it never get higher?',
+    'Uma espiral de alturas sonoras, uma volta por oitava, com um ponto brilhante em cada volta: os tons que soam juntos, mais brilhantes no meio. Vista de cima, a espiral é um círculo de doze notas. Ao lado, os mesmos tons como barras sob uma curva de volume fixa.',
+  panelEyebrow: 'Ouça e veja',
+  whyLabel: 'Por que ela nunca fica mais aguda?',
   nudge:
-    'Turn the sound on, then narrow the loudness curve to one octave: the trick falls apart, and you hear the drop back down.',
+    'Ligue o som e depois estreite a curva de volume para uma oitava: o truque se desfaz, e você ouve a queda de volta para baixo.',
   connection: {
-    html: '<strong>An octave is a doubling.</strong> Every tone here is twice the frequency of the one below it. In Hear the shape, two tones in simple ratios add up to beats and loops.',
-    label: 'Hear two tones together',
+    html: '<strong>Uma oitava é o dobro.</strong> Cada tom aqui tem o dobro da frequência do tom abaixo dele. Em “Ouça a forma”, dois tons em razões simples se somam em batimentos e laços.',
+    label: 'Ouvir dois tons juntos',
   },
 
   presets: [
-    { name: 'The endless staircase', note: 'Twelve steps up, back at the start.' },
-    { name: 'The endless slide', note: 'Risset’s gliding version.' },
-    { name: 'Take the trick away', note: 'One tone at a time: hear it drop.' },
+    { name: 'A escada sem fim', note: 'Doze degraus acima, de volta ao início.' },
+    { name: 'O glissando sem fim', note: 'A versão deslizante de Risset.' },
+    { name: 'Tirar o truque', note: 'Um tom de cada vez: ouça a queda.' },
   ],
 
-  soundOff: 'Turn sound on',
-  soundOn: 'Sound on · mute',
-  noSound: 'Sound is unavailable in this browser. You can still watch how the trick works.',
+  soundOff: 'Ligar o som',
+  soundOn: 'Som ligado · silenciar',
+  noSound: 'O som não está disponível neste navegador. Você ainda pode ver como o truque funciona.',
 
-  how: 'How it climbs',
-  modes: ['Steps', 'Glide'],
-  bell: 'Width of the loudness curve, in octaves',
-  bellHint: 'At one octave, only one tone sounds at a time.',
-  speed: 'Steps per second',
+  how: 'Como ela sobe',
+  modes: ['Degraus', 'Deslizando'],
+  bell: 'Largura da curva de volume, em oitavas',
+  bellHint: 'Com uma oitava, só um tom soa de cada vez.',
+  speed: 'Degraus por segundo',
   volume: 'Volume',
 
   // Note names round the circle, from C. Write them the way your language names notes.
-  notes: ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B'],
+  notes: ['Dó', 'Dó♯', 'Ré', 'Ré♯', 'Mi', 'Fá', 'Fá♯', 'Sol', 'Sol♯', 'Lá', 'Lá♯', 'Si'],
 
   pair: {
-    title: 'Up or down?',
-    text: 'Two notes, exactly half an octave apart. Does the second go up or down? There is no right answer.',
-    play: 'Play two notes',
-    again: 'Play another pair',
-    up: 'Up',
-    down: 'Down',
+    title: 'Sobe ou desce?',
+    text: 'Duas notas, a exatamente meia oitava uma da outra. A segunda sobe ou desce? Não há resposta certa.',
+    play: 'Tocar duas notas',
+    again: 'Tocar outro par',
+    up: 'Sobe',
+    down: 'Desce',
     answer: (up, a, b) =>
       up
-        ? `You heard ${a} to ${b} go up. Other listeners hear the very same pair go down: on the circle the two notes are opposite, so up and down are equally far.`
-        : `You heard ${a} to ${b} go down. Other listeners hear the very same pair go up: on the circle the two notes are opposite, so up and down are equally far.`,
+        ? `Para você, de ${a} para ${b} subiu. Outras pessoas ouvem esse mesmíssimo par descer: no círculo, as duas notas ficam em lados opostos, então subir e descer ficam à mesma distância.`
+        : `Para você, de ${a} para ${b} desceu. Outras pessoas ouvem esse mesmíssimo par subir: no círculo, as duas notas ficam em lados opostos, então subir e descer ficam à mesma distância.`,
   },
 
   status: {
     steps: (n, same) =>
       n < 12
-        ? `${n} ${n === 1 ? 'step' : 'steps'} up`
-        : `${n} steps up · the same sound as ${same === 0 ? 'the start' : `step ${same}`}`,
+        ? `${n} ${n === 1 ? 'degrau' : 'degraus'} acima`
+        : `${n} degraus acima · o mesmo som ${same === 0 ? 'do início' : `do degrau ${same}`}`,
     glide: (laps) =>
-      laps === 0 ? 'Rising smoothly' : `Rising smoothly · back where it began ${laps === 1 ? 'once' : `${laps} times`}`,
-    pair: (a, b) => `${a}, then ${b}: up or down?`,
+      laps === 0
+        ? 'Subindo suavemente'
+        : `Subindo suavemente · de volta ao começo ${laps === 1 ? 'uma vez' : `${laps} vezes`}`,
+    pair: (a, b) => `${a}, depois ${b}: sobe ou desce?`,
   },
 
   labels: {
-    higher: 'higher',
-    turn: 'one turn = one octave',
-    above: 'Seen from above',
-    tones: 'The tones you hear',
-    curve: 'loudness',
-    pitch: 'pitch',
-    drop: 'an octave down',
-    up: 'up?',
-    down: 'down?',
+    higher: 'mais agudo',
+    turn: 'uma volta = uma oitava',
+    above: 'Visto de cima',
+    tones: 'Os tons que você ouve',
+    curve: 'volume',
+    pitch: 'altura',
+    drop: 'uma oitava abaixo',
+    up: 'sobe?',
+    down: 'desce?',
   },
 
   guests: [
     {
       name: 'Roger Shepard',
-      note: 'At Bell Labs in the 1960s I made a scale that climbs forever. Twelve steps up, and you are back at the start.',
+      note: 'Nos Bell Labs, nos anos 1960, criei uma escala que sobe para sempre. Doze degraus acima, e você está de volta ao início.',
     },
     {
       name: 'Jean-Claude Risset',
-      note: 'I made the steps melt into one slide: a sound that rises without end, and never arrives.',
+      note: 'Fundi os degraus num só deslizar: um som que sobe sem fim, e nunca chega.',
     },
     {
       name: 'Diana Deutsch',
-      note: 'The psychologist found that two notes half an octave apart rise for some listeners and fall for others.',
+      note: 'A psicóloga descobriu que duas notas a meia oitava uma da outra sobem para alguns ouvintes e descem para outros.',
     },
   ],
 
   insight: {
-    title: 'Why does it never get higher?',
-    html: `<p>Each note here is not one tone but eight, an octave apart: a low C, the C above it, and so on up to a high C, all sounding at once. A fixed curve sets how loud each one is. The middle ones are loud; the lowest and the highest fade to nothing.</p>
-<p>Each step raises all eight by a semitone. After twelve steps every tone has doubled its frequency, so each one sits exactly where the one above it began. The top tone has faded out at the high end, a new one has faded in at the low end, and the sound is exactly the one you started with. Your ear follows the step-by-step rise and misses the swap.</p>
-<div class="insight-visual">Step 0: C1 C2 C3 C4 C5 C6 C7 C8 · Step 12: C2 C3 C4 C5 C6 C7 C8 C9 · C1 and C9 are both silent, so the two sound the same</div>
-<h3>Two sides of pitch</h3>
-<p>A note has a height (how high it is) and a chroma (which of the twelve notes it is: C, D, E…). Picture them as a spiral: going up is height, going round is chroma, and each turn is an octave. Seen from above, the spiral is a circle. This sound keeps the going round and hides the going up.</p>
-<h3>Take the trick away</h3>
-<p>Narrow the loudness curve to one octave and only one tone sounds at a time. It climbs for twelve steps, fades out, and a tone an octave lower takes over: the drop that the wide curve hides.</p>
-<h3>Up or down?</h3>
-<p>Two notes half an octave apart sit opposite each other on the circle, so neither way round is shorter. In 1986 Diana Deutsch found that listeners disagree about such pairs, and that each listener hears some pairs rising and others falling. How people hear them has been linked to the speech they grew up with: in her studies, listeners from the south of England and from California tended to hear them in opposite ways. Nobody is wrong.</p>
-<h3>Where you may have met it</h3>
-<p>Jean-Claude Risset made a version that glides instead of stepping. Shepard tones build tension in the music of Christopher Nolan’s film <em>Dunkirk</em> (2017), and a version plays on the endless staircase of the video game <em>Super Mario 64</em> (1996). The same idea as a picture is the impossible staircase that Lionel and Roger Penrose published in 1958 (Oscar Reutersvärd had drawn one in 1937), and that M. C. Escher used in <em>Ascending and Descending</em> (1960).</p>
-<h3>What this room simplifies</h3>
-<p>The “forever” lives in the ear, not in the sound, which repeats exactly every twelve steps. Not everyone hears the illusion as strongly, and small speakers can’t play the lowest tones, though the curve keeps those quiet anyway. Shepard used a curve of this kind, a raised cosine, and noted that almost any smooth curve that fades out at both ends would do.</p>
-<details><summary>The mathematics, if you want it</summary><p>At step n, tone j (j = 0 … 7) has frequency 32.7 Hz × 2<sup>x</sup> with x = (j + n/12) mod 8, and loudness L(x) = ½(1 − cos(2πx/8)): 0 at x = 0 and x = 8, and 1 at x = 4 (C5, about 523 Hz). Twelve steps add 1 to every x, mod 8, which gives the same set of tones. The loudnesses always add up to 4, so the sound’s strength never changes. R. N. Shepard, “Circularity in judgments of relative pitch”, Journal of the Acoustical Society of America 36 (1964) 2346–2353. D. Deutsch, “A musical paradox”, Music Perception 3 (1986) 275–280.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Shepard_tone" target="_blank" rel="noopener">Shepard tone</a><a class="source-link" href="https://en.wikipedia.org/wiki/Tritone_paradox" target="_blank" rel="noopener">Tritone paradox</a><a class="source-link" href="https://deutsch.ucsd.edu/psychology/pages.php?i=206" target="_blank" rel="noopener">Diana Deutsch on the tritone paradox</a><a class="source-link" href="https://en.wikipedia.org/wiki/Penrose_stairs" target="_blank" rel="noopener">Penrose stairs</a></div>`,
+    title: 'Por que ela nunca fica mais aguda?',
+    html: `<p>Cada nota aqui não é um tom, mas oito, a uma oitava um do outro: um Dó grave, o Dó acima dele, e assim por diante até um Dó agudo, todos soando ao mesmo tempo. Uma curva fixa define o volume de cada um. Os do meio soam forte; os mais graves e os mais agudos somem até o silêncio.</p>
+<p>Cada degrau sobe os oito em um semitom. Depois de doze degraus, cada tom dobrou de frequência, então cada um está exatamente onde o de cima começou. O tom mais agudo sumiu aos poucos lá em cima, um novo surgiu aos poucos lá embaixo, e o som é exatamente aquele com que você começou. O seu ouvido acompanha a subida degrau por degrau e não percebe a troca.</p>
+<div class="insight-visual">Degrau 0: Dó1 Dó2 Dó3 Dó4 Dó5 Dó6 Dó7 Dó8 · Degrau 12: Dó2 Dó3 Dó4 Dó5 Dó6 Dó7 Dó8 Dó9 · Dó1 e Dó9 estão em silêncio, então os dois soam iguais</div>
+<h3>Os dois lados de uma nota</h3>
+<p>Uma nota tem uma altura (quão aguda ela é) e um croma (qual das doze notas ela é: Dó, Ré, Mi…). Imagine as duas coisas como uma espiral: subir é a altura, dar a volta é o croma, e cada volta é uma oitava. Vista de cima, a espiral é um círculo. Este som mantém o dar a volta e esconde o subir.</p>
+<h3>Tire o truque</h3>
+<p>Estreite a curva de volume para uma oitava e só um tom soa de cada vez. Ele sobe por doze degraus, some aos poucos, e um tom uma oitava abaixo assume: a queda que a curva larga esconde.</p>
+<h3>Sobe ou desce?</h3>
+<p>Duas notas a meia oitava uma da outra ficam em lados opostos do círculo, então nenhum dos dois caminhos é mais curto. Em 1986, Diana Deutsch descobriu que os ouvintes discordam sobre esses pares, e que cada ouvinte ouve alguns pares subindo e outros descendo. O jeito como as pessoas os ouvem foi associado à fala com que elas cresceram: nos estudos dela, ouvintes do sul da Inglaterra e da Califórnia tendiam a ouvi-los de maneiras opostas. Ninguém está errado.</p>
+<h3>Onde você pode já ter ouvido isso</h3>
+<p>Jean-Claude Risset fez uma versão que desliza em vez de subir em degraus. Tons de Shepard criam tensão na música do filme <em>Dunkirk</em> (2017), de Christopher Nolan, e uma versão toca na escada sem fim do videogame <em>Super Mario 64</em> (1996). A mesma ideia em forma de imagem é a escada impossível que Lionel e Roger Penrose publicaram em 1958 (Oscar Reutersvärd tinha desenhado uma em 1937), e que M. C. Escher usou em <em>Ascending and Descending</em> (1960).</p>
+<h3>O que esta sala simplifica</h3>
+<p>O “para sempre” mora no ouvido, não no som, que se repete exatamente a cada doze degraus. Nem todo mundo ouve a ilusão com a mesma força, e alto-falantes pequenos não conseguem tocar os tons mais graves, embora a curva os deixe baixinhos de qualquer jeito. Shepard usou uma curva desse tipo, um cosseno elevado, e observou que quase qualquer curva suave que some nas duas pontas serviria.</p>
+<details><summary>A matemática, se você quiser</summary><p>No degrau n, o tom j (j = 0 … 7) tem frequência 32,7 Hz × 2<sup>x</sup>, com x = (j + n/12) mod 8, e volume L(x) = ½(1 − cos(2πx/8)): 0 em x = 0 e x = 8, e 1 em x = 4 (Dó5, cerca de 523 Hz). Doze degraus somam 1 a cada x, mod 8, o que dá o mesmo conjunto de tons. Os volumes sempre somam 4, então a intensidade do som nunca muda. R. N. Shepard, “Circularity in judgments of relative pitch”, Journal of the Acoustical Society of America 36 (1964) 2346–2353. D. Deutsch, “A musical paradox”, Music Perception 3 (1986) 275–280.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Shepard_tone" target="_blank" rel="noopener">Tom de Shepard (Wikipedia, em inglês)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Tritone_paradox" target="_blank" rel="noopener">Paradoxo do trítono (Wikipedia, em inglês)</a><a class="source-link" href="https://deutsch.ucsd.edu/psychology/pages.php?i=206" target="_blank" rel="noopener">Diana Deutsch sobre o paradoxo do trítono (em inglês)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Penrose_stairs" target="_blank" rel="noopener">Escada de Penrose (Wikipedia, em inglês)</a></div>`,
   },
 });

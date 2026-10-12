@@ -1,111 +1,144 @@
 /* Needles that know π · visitor-facing words (ar). */
+// «إبرة» (needle), «حلقة» (ring) and «إعادة» (rerun) are feminine; «تقاطع» (crossing), «لوح» (plank) and «خط»
+// (line) masculine: 3,408 إبر (the noun follows the last two digits, 08), 1,808 تقاطعات. Counts in the picture use
+// a neutral «الإبر: …» form. The picture is drawn left to right, so a label there that mixes Arabic with numbers is
+// wrapped whole in a right-to-left isolate. π is «العدد π», masculine.
 Wonderlattice.defineText('needles', 'ar', {
-  eyebrow: 'GEOMETRIC PROBABILITY',
-  name: 'Needles that know π',
-  tagline: 'Drop needles on floorboards and count how many land across a line. Out comes π.',
-  title: 'Needles that know π.',
-  subtitle: 'Needles rain onto a plank floor. Count the ones across a line, and π appears. Then bend them.',
-  field: 'Probability · Buffon’s needle · Barbier’s noodle',
-  sceneLabel: 'A plank floor · Needles at random',
-  tip: 'The needles fall by themselves · Choose a shape, or rerun a famous lucky result',
-  actionLabel: 'Throw again',
+  eyebrow: 'الاحتمال الهندسي',
+  name: 'إبر تعرف π',
+  tagline: 'أسقطوا إبرًا على أرضية من الألواح، وعدّوا كم منها يقع قاطعًا خطًا. فيظهر π.',
+  title: 'إبر تعرف π.',
+  subtitle: 'تنهمر الإبر على أرضية من الألواح. عدّوا التي تقطع خطًا، فيظهر π. ثم اثنوها.',
+  field: 'الاحتمالات · إبرة بوفون · معكرونة باربييه',
+  sceneLabel: 'أرضية من الألواح · إبر عشوائية',
+  tip: 'تسقط الإبر من تلقاء نفسها · اختاروا شكلًا، أو أعيدوا نتيجة محظوظة شهيرة',
+  actionLabel: 'إعادة الرمي',
   canvasLabel:
-    'Needles falling at random onto a floor of planks; those that land across a line between planks glow. Below, a chart of the estimate of π as the needles pile up.',
-  panelEyebrow: 'Change the needles',
-  whyLabel: 'Why does π appear?',
-  nudge:
-    'Try a ring as wide as a plank: it crosses exactly two lines every time. That one fact is the key to the whole puzzle.',
+    'إبر تتساقط عشوائيًا على أرضية من الألواح؛ والتي تقع قاطعةً خطًا بين لوحين تتوهّج. وفي الأسفل، رسم بياني لتقدير π مع تراكم الإبر.',
+  panelEyebrow: 'غيّروا الإبر',
+  whyLabel: 'لماذا يظهر π؟',
+  nudge: 'جرّبوا حلقة بعرض لوح: تقطع خطّين بالضبط في كل مرة. هذه الحقيقة وحدها مفتاح اللغز كله.',
   connection: {
-    html: '<strong>A ring as wide as a plank always crosses twice.</strong> So does every shape of constant width, which is why each one’s rim is π times its width.',
-    label: 'Roll the shapes of constant width',
+    html: '<strong>الحلقة التي بعرض لوح تقطع دائمًا مرتين.</strong> وكذلك كل شكل ذي عرض ثابت، ولهذا فإن محيط كلٍّ منها يساوي π مضروبًا في عرضه.',
+    label: 'دحرجة الأشكال ذات العرض الثابت',
   },
 
   presets: [
-    { name: 'Needles on planks', note: 'Count the crossings: π appears.', badge: 'π' },
-    { name: 'Bend them', note: 'Same length, just as many crossings.', badge: '~' },
-    { name: 'A lucky scientist', note: 'Rerun a result too good to be true.', badge: '1901' },
+    { name: 'إبر على ألواح', note: 'عدّوا التقاطعات: يظهر π.', badge: 'π' },
+    { name: 'ثني الإبر', note: 'الطول نفسه، والعدد نفسه من التقاطعات.', badge: '~' },
+    { name: 'عالِم محظوظ', note: 'أعيدوا نتيجة أفضل من أن تُصدَّق.', badge: '1901' },
   ],
 
-  shape: 'The shape',
-  shapes: ['Needle', 'Zigzag', 'Noodle', 'Ring'],
+  shape: 'الشكل',
+  shapes: ['إبرة', 'متعرّجة', 'معكرونة', 'حلقة'],
   // What the picture shows, by shape (the last: Lazzarini's reruns).
-  sceneNames: ['Straight needles', 'Zigzags', 'Noodles', 'Rings one plank wide', 'Lazzarini’s needles'],
-  length: 'Length, as a share of a plank’s width',
-  lucky: 'Rerun Lazzarini’s 1901 experiment, 3,408 needles at a time',
+  sceneNames: ['إبر مستقيمة', 'إبر متعرّجة', 'معكرونة', 'حلقات بعرض لوح', 'إبر لاتزاريني'],
+  length: 'الطول، كنسبة من عرض اللوح',
+  lucky: 'إعادة تجربة لاتزاريني من عام 1901، 3,408 إبر في كل مرة',
 
   status: {
-    raining: (needles) => `${needles} needles so far`,
-    done: (needles, pi) => `${needles} needles: π ≈ ${pi}`,
-    rings: (rings) => `${rings} rings, 2 crossings each`,
-    reruns: (runs) => `${runs} ${runs === 1 ? 'rerun' : 'reruns'} of 3,408 needles`,
+    raining: (needles) => `الإبر حتى الآن: ${needles}`,
+    // `needles` arrives written out (1,000,000), so it is read back for the noun's agreement.
+    done: (needles, pi) => {
+      const n = needles.replace(',', '').replace(',', '') * 1;
+      const k = n % 100;
+      return k >= 3 && k <= 10 ? `${needles} إبر: \u2066π ≈ ${pi}\u2069` : `${needles} إبرة: \u2066π ≈ ${pi}\u2069`;
+    },
+    rings: (rings) => `الحلقات: ${rings}، لكلٍّ منها تقاطعان`,
+    reruns: (runs) => {
+      const k = runs % 100;
+      return runs === 1
+        ? 'إعادة واحدة لرمي 3,408 إبر'
+        : runs === 2
+          ? 'إعادتان لرمي 3,408 إبر'
+          : k >= 3 && k <= 10
+            ? `${runs} إعادات لرمي 3,408 إبر`
+            : `${runs} إعادة لرمي 3,408 إبر`;
+    },
   },
 
   readout: {
-    guess: (pi) => `π ≈ ${pi}`,
-    thrown: 'Needles thrown',
-    across: 'Landed across a line',
-    off: 'Off by',
-    sameRule: 'Bent or straight: the same length crosses as many lines, on average.',
-    rule: 'π ≈ 2 × length × needles ÷ crossings, with lengths in planks.',
-    ring: 'Every ring crosses exactly 2 lines',
-    rings: 'Rings thrown',
-    ringRule:
-      'A ring as wide as a plank is π planks round, so every π planks of length cross 2 lines, bent or straight.',
-    typical: (miss) => `Typical miss: ${miss}`,
-    reruns: 'Reruns',
-    exact: 'Exactly 355/113, like Lazzarini',
-    his: 'Lazzarini’s miss',
+    guess: (pi) => `\u2066π ≈ ${pi}\u2069`,
+    thrown: 'الإبر المرميّة',
+    across: 'قطعت خطًا',
+    off: 'الخطأ',
+    sameRule: 'منحنية أو مستقيمة: الطول نفسه يقطع العدد نفسه من الخطوط، في المتوسط.',
+    rule: 'π ≈ 2 × الطول × عدد الإبر ÷ عدد التقاطعات، مع قياس الأطوال بالألواح.',
+    ring: 'كل حلقة تقطع خطّين بالضبط',
+    rings: 'الحلقات المرميّة',
+    ringRule: 'الحلقة التي بعرض لوح طول محيطها π لوح، لذا كل طول قدره π لوح يقطع خطّين، منحنيًا كان أم مستقيمًا.',
+    // Also drawn on the picture's floor once the reruns finish.
+    typical: (miss) => `\u2067الخطأ المعتاد: ${miss}\u2069`,
+    reruns: 'الإعادات',
+    exact: '355/113 بالضبط، كما عند لاتزاريني',
+    his: 'خطأ لاتزاريني',
     luckyRule:
-      'Half the reruns miss π by more than the typical miss. His needles and his count make 355/113 a possible answer, yet even so it comes up only about once in 70 runs.',
+      'نصف الإعادات تخطئ π بأكثر من الخطأ المعتاد. إبره وعدد رمياته تجعل 355/113 جوابًا ممكنًا، ومع ذلك لا يظهر إلا مرة واحدة تقريبًا كل 70 محاولة.',
   },
 
   // Words drawn in the picture: short.
   labels: {
-    tally: (needles, across) => `${needles} needles · ${across} across a line`,
-    rings: (n) => `${n} rings`,
-    guess: (pi) => `π ≈ ${pi}`,
-    ring: '2 crossings, every time',
-    chart: 'The guess, as needles pile up',
-    typical: 'typical miss',
+    tally: (needles, across) => `\u2067الإبر: ${needles} · قطعت خطًا: ${across}\u2069`,
+    // `n` and `runs` arrive written out (5,000), so they are read back for the noun's agreement.
+    rings: (n) => {
+      const k = (n.replace(',', '').replace(',', '') * 1) % 100;
+      return n === '1'
+        ? 'حلقة واحدة'
+        : n === '2'
+          ? 'حلقتان'
+          : k >= 3 && k <= 10
+            ? `\u2067${n} حلقات\u2069`
+            : `\u2067${n} حلقة\u2069`;
+    },
+    guess: (pi) => `\u2066π ≈ ${pi}\u2069`,
+    ring: 'تقاطعان، في كل مرة',
+    chart: 'التقدير مع تراكم الإبر',
+    typical: 'الخطأ المعتاد',
     pi: 'π',
-    count: 'How many lines each ring crosses',
-    every: 'every ring',
-    run: (k) => `Rerun ${k}`,
-    hits: (runs, exact) => `${runs} reruns · ${exact} gave 355/113`,
-    reruns: 'Each dot: one rerun of 3,408 needles',
-    his: 'Lazzarini, 1901',
+    count: 'كم خطًا تقطع كل حلقة',
+    // Drawn as «كل حلقة · 1,234» on a left-to-right picture: the mark keeps the count after the words.
+    every: 'كل حلقة\u200f',
+    run: (k) => `\u2067إعادة ${k}\u2069`,
+    hits: (runs, exact) => {
+      const k = (runs.replace(',', '') * 1) % 100;
+      return k >= 3 && k <= 10
+        ? `\u2067${runs} إعادات · ${exact} منها أعطت 355/113\u2069`
+        : `\u2067${runs} إعادة · ${exact} منها أعطت 355/113\u2069`;
+    },
+    reruns: '\u2067كل نقطة: إعادة واحدة لرمي 3,408 إبر\u2069',
+    his: '\u2067لاتزاريني، 1901\u2069',
   },
 
   announce: {
-    done: (pi) => `A million needles: π ≈ ${pi}.`,
-    ring: 'Every ring crosses exactly two lines.',
-    lucky: (miss) => `Typical miss of a rerun: ${miss}. Lazzarini’s: 0.0000003.`,
+    done: (pi) => `مليون إبرة: \u2066π ≈ ${pi}\u2069.`,
+    ring: 'كل حلقة تقطع خطّين بالضبط.',
+    lucky: (miss) => `الخطأ المعتاد في إعادة واحدة: ${miss}. وخطأ لاتزاريني: 0.0000003.`,
   },
 
   guests: [
     {
-      name: 'Georges-Louis Leclerc, Comte de Buffon',
-      note: 'I asked how often a stick, tossed onto a floor of narrow boards, lands across a crack between them. I put the question in 1733 and printed the answer in 1777.',
+      name: 'جورج لويس لوكلير، كونت دو بوفون',
+      note: 'سألتُ كم مرة تقع عصا، تُرمى على أرضية من ألواح ضيقة، عابرةً شقًّا بينها. طرحتُ السؤال عام 1733 ونشرتُ الجواب عام 1777.',
     },
     {
-      name: 'Joseph-Émile Barbier',
-      note: 'In 1860 I noticed that the needle can be bent any way you like: as long as its length stays the same, it crosses the lines just as often on average.',
+      name: 'جوزيف إميل باربييه',
+      note: 'في عام 1860 لاحظتُ أن الإبرة يمكن ثنيها كما تشاؤون: ما دام طولها لا يتغيّر، فإنها تقطع الخطوط بالقدر نفسه في المتوسط.',
     },
   ],
 
   insight: {
-    title: 'Why does π appear?',
-    html: `<p>A needle as long as a plank is wide lands across a line with a chance of 2/π, about 64%. So after many throws, crossings ÷ needles ≈ 2/π, and π ≈ 2 × needles ÷ crossings. Shorter needles cross less often, in proportion to their length. Georges-Louis Leclerc, Comte de Buffon, posed the question in 1733 and published the answer in 1777.</p>
-<div class="insight-visual">chance of a crossing = 2 × length ÷ (π × plank width)</div>
-<h3>Bend the needle</h3>
-<p>Cut a needle into short pieces. Each piece crosses lines, on average, in proportion to its length, wherever it sits in the needle, and averages add up even when the pieces move together. So any shape crosses, on average, a number of lines proportional to its length: bent, straight or curled. Joseph-Émile Barbier saw this in 1860. To find the constant, take a ring exactly as wide as a plank. Wherever it lands, it crosses exactly two lines. It is π planks round, so every π planks of length cross 2 lines on average: 2 × length ÷ π, the needle’s rule. The same trick shows that every shape of constant width, like the Reuleaux triangle, has a rim π times its width.</p>
-<h3>Randomness measures slowly</h3>
-<p>The guess wobbles less as needles pile up, but only like 1 ÷ √(number of needles): each extra correct digit costs about 100 times more needles. A million needles usually give π to two or three decimals.</p>
-<h3>The lucky scientist</h3>
-<p>In 1901 Mario Lazzarini reported 3,408 throws of needles 5/6 of a plank long. That gives π ≈ 355/113 = 3.1415929…, wrong only in the seventh decimal, when an experiment that size typically misses by a few hundredths. His choices make 355/113 one of the possible answers: it needs exactly 1,808 crossings, which an honest run gives about once in 70. And someone who throws in batches of 213 and stops the first time the count is right gets there within 3,408 throws more than one time in four. Lee Badger (1994) looked at the results Lazzarini reported along the way, for fewer throws, and found it very unlikely that they would stay so close to the expected values all through an honest experiment. The Dutch science journalist Hans van Maanen argues that the article was never meant to be taken too seriously: its readers, school teachers, could see that the machine Lazzarini described could not work. Either way, a result that is too good is evidence of something else.</p>
-<h3>What this room simplifies</h3>
-<p>The computer’s pseudo-random numbers stand in for real throws. They choose each needle’s direction without using π: a random point in a square, kept only if it falls inside the circle, gives every direction the same chance. The floor’s lines go on for ever, so a needle near the edge of the picture still counts. Real needles bounce, roll and land on each other, and real boards are never perfectly even.</p>
-<details><summary>The mathematics, if you want it</summary><p>Lines are a distance t apart, and a needle of length l ≤ t lands with its middle a distance x from the nearest line (even between 0 and t/2) and at an angle θ to the lines (even between 0 and π/2). It crosses when x ≤ (l/2) sin θ, so P = (2/t)(2/π) ∫₀^{π/2} (l/2) sin θ dθ = 2l/(πt). With n needles and c crossings, π ≈ 2ln/(tc); its typical error is π√((1 − p)/(pn)) with p = 2l/(πt): 0.04 for 3,408 needles one plank long, 0.05 for Lazzarini’s. Lazzarini’s needle makes the estimate (5/3) × n/c, and 355/113 = (5/3) × 3,408/1,808. The room’s tests check, against a separate program: the crossing rate 2l/π for straight needles, zigzags and noodles; exactly two crossings for every ring; the typical errors above; and, for Lazzarini’s set-up, 1,808 crossings with a chance of 1.4%, and a median miss of 0.034. Buffon, “Essai d’arithmétique morale”, Histoire naturelle, Supplément 4 (1777). E. Barbier, J. Math. Pures Appl. (2) 5 (1860). L. Badger, “Lazzarini’s lucky approximation of π”, Mathematics Magazine 67 (1994).</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Buffon%27s_needle_problem" target="_blank" rel="noopener">Buffon’s needle problem (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Buffon%27s_noodle" target="_blank" rel="noopener">Buffon’s noodle (Wikipedia)</a><a class="source-link" href="https://mathworld.wolfram.com/BuffonsNeedleProblem.html" target="_blank" rel="noopener">Buffon’s needle problem (MathWorld)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Buffon/" target="_blank" rel="noopener">Buffon (MacTutor)</a></div>`,
+    title: 'لماذا يظهر π؟',
+    html: `<p>الإبرة التي طولها مثل عرض اللوح تقع قاطعةً خطًا باحتمال \u20662/\u2060π\u2069، أي نحو 64%. لذا بعد رميات كثيرة، يكون عدد التقاطعات ÷ عدد الإبر ≈ \u20662/\u2060π\u2069، وπ\u00a0≈\u00a02 × عدد الإبر ÷ عدد التقاطعات. والإبر الأقصر تقطع الخطوط أقل، بالتناسب مع طولها. طرح جورج لويس لوكلير، كونت دو بوفون، السؤال عام 1733 ونشر الجواب عام 1777.</p>
+<div class="insight-visual">احتمال التقاطع = 2 × الطول ÷ (π × عرض اللوح)</div>
+<h3>اثنوا الإبرة</h3>
+<p>اقسموا إبرة إلى أجزاء قصيرة. كل جزء يقطع الخطوط، في المتوسط، بالتناسب مع طوله، أينما كان موضعه في الإبرة، والمتوسطات تُجمع حتى حين تتحرك الأجزاء معًا. لذا فإن أي شكل يقطع، في المتوسط، عددًا من الخطوط يتناسب مع طوله: منحنيًا كان أم مستقيمًا أم ملتفًّا. رأى جوزيف إميل باربييه هذا عام 1860. ولإيجاد الثابت، خذوا حلقة عرضها مثل عرض اللوح تمامًا. أينما وقعت، تقطع خطّين بالضبط. وطول محيطها π لوح، لذا كل طول قدره π لوح يقطع خطّين في المتوسط: 2 × الطول ÷ π، وهي قاعدة الإبرة. والحيلة نفسها تُبيّن أن محيط كل شكل ذي عرض ثابت، مثل مثلث رولو، يساوي π مضروبًا في عرضه.</p>
+<h3>العشوائية تقيس ببطء</h3>
+<p>يتذبذب التقدير أقل مع تراكم الإبر، ولكن فقط بقدر 1 مقسومًا على الجذر التربيعي لعدد الإبر: كل منزلة صحيحة إضافية تكلّف إبرًا أكثر بنحو 100 مرة. ومليون إبرة تعطي π عادةً صحيحًا حتى منزلتين أو ثلاث منازل عشرية.</p>
+<h3>العالِم المحظوظ</h3>
+<p>في عام 1901 أعلن ماريو لاتزاريني عن 3,408 رميات لإبر طولها 5/6 من عرض اللوح. هذا يعطي \u2066π\u00a0≈\u00a0355/\u2060113\u00a0=\u00a03.1415929…\u2069، وهو خاطئ في المنزلة العشرية السابعة فقط، بينما تخطئ تجربة بهذا الحجم عادةً ببضعة أجزاء من المئة. واختياراته تجعل 355/113 أحد الأجوبة الممكنة: فهو يتطلّب 1,808 تقاطعات بالضبط، وهو ما تعطيه تجربة نزيهة نحو مرة واحدة كل 70 مرة. ومن يرمي في دفعات من 213 ويتوقف أول مرة يصحّ فيها العدّ يصل إلى ذلك خلال 3,408 رميات في أكثر من مرة واحدة من كل أربع. ونظر لي بادجر (1994) في النتائج التي أعلنها لاتزاريني في الطريق، لعدد أقل من الرميات، فوجد أن من غير المرجّح جدًا أن تبقى قريبة إلى هذا الحد من القيم المتوقعة طوال تجربة نزيهة. ويرى الصحفي العلمي الهولندي هانس فان مانن أن المقال لم يُقصد به قطّ أن يؤخذ بجدية كبيرة: فقرّاؤه، وهم معلمو مدارس، كان بإمكانهم أن يروا أن الآلة التي وصفها لاتزاريني لا يمكن أن تعمل. وفي كلتا الحالتين، النتيجة الأفضل من اللازم دليل على شيء آخر.</p>
+<h3>ما تبسّطه هذه الغرفة</h3>
+<p>الأعداد شبه العشوائية التي يولّدها الحاسوب تحلّ محل الرميات الحقيقية. وهي تختار اتجاه كل إبرة دون استخدام π: نقطة عشوائية في مربع، لا تُحفظ إلا إذا وقعت داخل الدائرة، تعطي كل الاتجاهات الفرصة نفسها. وخطوط الأرضية تمتد بلا نهاية، لذا فالإبرة القريبة من حافة الصورة تُحسب أيضًا. أما الإبر الحقيقية فترتدّ وتتدحرج ويقع بعضها فوق بعض، والألواح الحقيقية ليست مستوية تمامًا أبدًا.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>تفصل بين الخطوط مسافة t، وإبرة طولها \u2066l\u00a0≤\u00a0t\u2069 تقع ومنتصفها على بعد x من أقرب خط (موزّعًا بانتظام بين 0 و\u2066t/\u20602\u2069)، وبزاوية θ مع الخطوط (موزّعة بانتظام بين 0 و\u2066π/\u20602\u2069). وتقطع خطًا حين \u2066x\u00a0≤\u00a0(l/\u20602)\u00a0sin\u00a0θ\u2069، لذا \u2066P\u00a0= (2/\u2060t)\u2060(2/\u2060π) ∫₀^{π/2}\u00a0(l/\u20602)\u00a0sin\u00a0θ\u00a0dθ\u00a0= 2l/\u2060(πt)\u2069. ومع n من الإبر وc من التقاطعات، \u2066π\u00a0≈\u00a02ln/\u2060(tc)\u2069؛ وخطؤه المعتاد \u2066π√((1\u00a0−\u00a0p)/\u2060(pn))\u2069، حيث \u2066p\u00a0=\u00a02l/\u2060(πt)\u2069: \u200f0.04 مع 3,408 إبر طولها مثل عرض اللوح، و0.05 مع إبر لاتزاريني. إبرة لاتزاريني تجعل التقدير \u2066(5/\u20603)\u00a0×\u00a0n/\u2060c\u2069، و\u2066355/\u2060113\u00a0=\u00a0(5/\u20603)\u00a0×\u00a03,408/\u20601,808\u2069. وتتحقّق اختبارات الغرفة، بمقارنتها ببرنامج منفصل، من: معدّل التقاطع \u20662l/\u2060π\u2069 للإبر المستقيمة والمتعرّجة والمعكرونة؛ وتقاطعين بالضبط لكل حلقة؛ والأخطاء المعتادة أعلاه؛ وفي إعداد لاتزاريني، 1,808 تقاطعات باحتمال 1.4%، ووسيط للخطأ قدره 0.034. \u2066Buffon, “Essai d’arithmétique morale”, Histoire naturelle, Supplément 4 (1777).\u2069 \u2066E. Barbier, J. Math. Pures Appl. (2) 5 (1860).\u2069 \u2066L. Badger, “Lazzarini’s lucky approximation of π”, Mathematics Magazine 67 (1994).\u2069</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Buffon%27s_needle_problem" target="_blank" rel="noopener">مسألة إبرة بوفون (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Buffon%27s_noodle" target="_blank" rel="noopener">معكرونة بوفون (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://mathworld.wolfram.com/BuffonsNeedleProblem.html" target="_blank" rel="noopener">مسألة إبرة بوفون (MathWorld، بالإنجليزية)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Buffon/" target="_blank" rel="noopener">بوفون (MacTutor، بالإنجليزية)</a></div>`,
   },
 });

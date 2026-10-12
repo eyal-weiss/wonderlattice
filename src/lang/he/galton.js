@@ -1,105 +1,106 @@
 /* The shape hiding inside randomness · visitor-facing words (he). */
 Wonderlattice.defineText('galton', 'he', {
-  eyebrow: 'PROBABILITY',
-  name: 'The shape hiding inside randomness',
-  tagline: 'Every ball bounces left or right at random. Together they build the same bell every time.',
-  title: 'The shape hiding inside randomness.',
+  eyebrow: 'הסתברות',
+  name: 'הצורה שמסתתרת בתוך האקראיות',
+  tagline: 'כל כדור קופץ ימינה או שמאלה באקראי. יחד הם בונים את אותו פעמון בכל פעם.',
+  title: 'הצורה שמסתתרת בתוך האקראיות.',
   subtitle:
-    'Each ball bounces left or right at random, yet the heap grows into the same bell every time. Then average a lopsided die.',
-  field: 'Probability · Pascal’s triangle · The central limit theorem',
+    'כל כדור קופץ ימינה או שמאלה באקראי, ובכל זאת הערימה גדלה לאותו פעמון בכל פעם. אחר כך חשבו ממוצעים של קובייה עקומה.',
+  field: 'הסתברות · משולש פסקל · משפט הגבול המרכזי',
   canvasLabel:
-    'A board of pegs. Balls fall from the top, bounce left or right at random at every peg, and pile up in bins at the bottom, under a bell-shaped curve. Below it, four more pours have made the same bell.',
-  panelEyebrow: 'Left to chance',
-  whyLabel: 'Why does randomness make a bell?',
+    'לוח של יתדות. כדורים נופלים מלמעלה, קופצים ימינה או שמאלה באקראי בכל יתד, ונערמים בתאים בתחתית, מתחת לעקומה בצורת פעמון. מתחתיו, ארבע שפיכות נוספות יצרו את אותו פעמון.',
+  panelEyebrow: 'בידי המקרה',
+  whyLabel: 'למה אקראיות יוצרת פעמון?',
   nudge:
-    'Pour again: every ball takes a new path, and the heap still makes the same bell. Then design a lopsided die and watch its averages.',
+    'שפכו שוב: כל כדור עובר במסלול חדש, והערימה עדיין יוצרת את אותו פעמון. אחר כך עצבו קובייה עקומה וצפו בממוצעים שלה.',
   connection: {
-    html: '<strong>Averages tame chance.</strong> In A spoonful of a city, a small random poll lands close to the truth for the same reason: averages of many random answers crowd into a narrow bell.',
-    label: 'Take a spoonful of a city',
+    html: '<strong>ממוצעים מאלפים את המקרה.</strong> ב”טעימה מהעיר”, סקר אקראי קטן נוחת קרוב לאמת מאותה סיבה: ממוצעים של הרבה תשובות אקראיות מצטופפים לתוך פעמון צר.',
+    label: 'לטעום מהעיר',
   },
 
   // The three things that fall: each has its own scene, tip and action.
-  viewLabel: 'What falls',
-  views: ['Balls on pegs', 'A lopsided die', 'A stubborn spinner'],
+  viewLabel: 'מה נופל',
+  views: ['כדורים על יתדות', 'קובייה עקומה', 'פנס עקשן'],
   scenes: [
-    { label: 'Left or right at every peg', name: 'Balls on pegs' },
-    { label: 'Your die, and averages of its throws', name: 'A lopsided die' },
-    { label: 'A lamp spins and shines at a wall', name: 'A stubborn spinner' },
+    { label: 'ימינה או שמאלה בכל יתד', name: 'כדורים על יתדות' },
+    { label: 'הקובייה שלכם, וממוצעים של ההטלות שלה', name: 'קובייה עקומה' },
+    { label: 'פנס מסתובב ומאיר על קיר', name: 'פנס עקשן' },
   ],
   tips: [
-    'Arrow keys tilt the pegs · Pour again for new balls',
-    'Drag the die’s bars to reshape it · Arrow keys pick a face and change it',
-    'Each spin marks where the light lands · Spin again for new spins',
+    'מקשי החיצים מטים את היתדות · שפכו שוב כדי לקבל כדורים חדשים',
+    'גררו את העמודות של הקובייה כדי לשנות את הצורה שלה · מקשי החיצים בוחרים פאה ומשנים אותה',
+    'כל סיבוב מסמן איפה האור נוחת · סובבו שוב כדי לקבל סיבובים חדשים',
   ],
-  actions: ['Pour again', 'Throw again', 'Spin again'],
+  actions: ['לשפוך שוב', 'להטיל שוב', 'לסובב שוב'],
   canvasLabels: [
-    'A board of pegs. Balls fall from the top, bounce left or right at random at every peg, and pile up in bins at the bottom, under a bell-shaped curve. Below it, four more pours have made the same bell.',
-    'A lopsided die drawn as six bars, and three heaps beside it: single throws, averages of 2 throws and averages of more throws, each with a bell-shaped curve over it.',
-    'A lamp spins and shines at a wall; the heap of where single spins land and the heap of averages of several spins have the same shape.',
+    'לוח של יתדות. כדורים נופלים מלמעלה, קופצים ימינה או שמאלה באקראי בכל יתד, ונערמים בתאים בתחתית, מתחת לעקומה בצורת פעמון. מתחתיו, ארבע שפיכות נוספות יצרו את אותו פעמון.',
+    'קובייה עקומה, מצוירת כשש עמודות, ולצדה שלוש ערימות: הטלות בודדות, ממוצעים של 2 הטלות וממוצעים של יותר הטלות, כל אחת עם עקומה בצורת פעמון מעליה.',
+    'פנס מסתובב ומאיר על קיר; לערימה של המקומות שבהם נוחתים סיבובים בודדים ולערימה של ממוצעים של כמה סיבובים יש אותה צורה.',
   ],
 
   presets: [
-    { name: 'Balls on pegs', note: 'The same bell every time.', badge: '½' },
-    { name: 'Tilt the pegs', note: 'The bell moves over.', badge: '¾' },
-    { name: 'A lopsided die', note: 'Its averages turn into a bell.', badge: '1·6' },
+    { name: 'כדורים על יתדות', note: 'אותו פעמון בכל פעם.', badge: '½' },
+    { name: 'להטות את היתדות', note: 'הפעמון זז הצידה.', badge: '¾' },
+    { name: 'קובייה עקומה', note: 'הממוצעים שלה הופכים לפעמון.', badge: '1·6' },
   ],
 
-  rows: 'Rows of pegs',
-  tilt: 'Chance of bouncing right',
-  tiltHint: 'At 50% every peg is fair. Tilt them, and the bell moves over.',
-  throws: 'Throws in each average',
-  dieHint: 'Drag the bars of the die in the picture to reshape it.',
-  shapeLabel: 'Start from',
-  shapes: ['Mostly 1s and 6s', 'A fair die', 'Mostly 6s'],
-  spins: 'Spins in each average',
-  spinHint: 'Averaging more spins doesn’t help: the spinner has no finite spread for the bell to need.',
+  rows: 'שורות של יתדות',
+  tilt: 'הסיכוי לקפוץ ימינה',
+  tiltHint: 'ב־50% כל יתד הוגנת. הטו אותן, והפעמון זז הצידה.',
+  throws: 'הטלות בכל ממוצע',
+  dieHint: 'גררו את העמודות של הקובייה בתמונה כדי לשנות את הצורה שלה.',
+  shapeLabel: 'נקודת התחלה',
+  shapes: ['בעיקר 1 ו־6', 'קובייה הוגנת', 'בעיקר 6'],
+  spins: 'סיבובים בכל ממוצע',
+  spinHint: 'ממוצע של יותר סיבובים לא עוזר: לפנס אין פיזור סופי, והפעמון זקוק לכזה.',
 
   status: {
-    pouring: (n) => `${n.toLocaleString('en')} ${n === 1 ? 'ball' : 'balls'} · left or right at random at every peg`,
-    poured: (n) => `${n.toLocaleString('en')} balls · the same bell every time`,
-    throwing: (n) => `${n.toLocaleString('en')} in each heap`,
-    spinning: (n) => `${n.toLocaleString('en')} in each heap`,
+    pouring: (n) =>
+      `${n === 1 ? 'כדור אחד' : `${n.toLocaleString(Wonderlattice.lang)} כדורים`} · ימינה או שמאלה באקראי בכל יתד`,
+    poured: (n) => `${n.toLocaleString(Wonderlattice.lang)} כדורים · אותו פעמון בכל פעם`,
+    throwing: (n) => `${n.toLocaleString(Wonderlattice.lang)} בכל ערימה`,
+    spinning: (n) => `${n.toLocaleString(Wonderlattice.lang)} בכל ערימה`,
   },
   announce: {
-    poured: (n) => `${n.toLocaleString('en')} balls have landed, in the shape of the bell.`,
-    die: (face, weight) => `Face ${face}: ${weight} of 10`,
+    poured: (n) => `${n.toLocaleString(Wonderlattice.lang)} כדורים נחתו, בצורת הפעמון.`,
+    die: (face, weight) => `פאה ${face}: ${weight} מתוך 10`,
   },
 
   labels: {
-    bell: 'the bell',
-    others: (pours, balls) => `${pours} more pours of ${balls.toLocaleString('en')} balls: the same bell`,
-    yourDie: 'Your die · drag the bars',
-    oneThrow: 'One throw',
-    average: (n) => `Averages of ${n} throws`,
-    oneSpin: 'One spin',
-    averageSpins: (n) => `Averages of ${n} spins`,
-    off: (n) => `${n.toLocaleString('en')} off the chart`,
-    lamp: 'lamp',
-    wall: 'wall',
+    bell: 'הפעמון',
+    others: (pours, balls) => `עוד ${pours} שפיכות של ${balls.toLocaleString(Wonderlattice.lang)} כדורים: אותו פעמון`,
+    yourDie: 'הקובייה שלכם · גררו עמודה',
+    oneThrow: 'הטלה אחת',
+    average: (n) => `ממוצעים של ${n} הטלות`,
+    oneSpin: 'סיבוב אחד',
+    averageSpins: (n) => `ממוצעים של ${n} סיבובים`,
+    off: (n) => `${n.toLocaleString(Wonderlattice.lang)} מחוץ לתרשים`,
+    lamp: 'פנס',
+    wall: 'קיר',
   },
 
   guests: [
     {
-      name: 'Abraham de Moivre',
-      note: 'In 1733 I showed that the number of heads in thousands of coin tosses follows a smooth, bell-shaped curve.',
+      name: 'אברהם דה מואבר',
+      note: 'ב־1733 הראיתי שמספר הפעמים שיוצא ”עץ” באלפי הטלות של מטבע מתנהג לפי עקומה חלקה בצורת פעמון.',
     },
     {
-      name: 'Pierre-Simon Laplace',
-      note: 'I showed that the bell reaches far beyond coins: averages of many kinds of random measurement crowd into it.',
+      name: 'פייר־סימון לפלס',
+      note: 'הראיתי שהפעמון מגיע הרבה מעבר למטבעות: ממוצעים של סוגים רבים של מדידות אקראיות מצטופפים לתוכו.',
     },
   ],
 
   insight: {
-    title: 'Why does randomness make a bell?',
-    html: `<p>Every ball makes the same kind of choice at each peg: left or right. To land at the far edge, it must go the same way every time, and only one path does that. To land in the middle, it needs as many lefts as rights, and hundreds of paths do. Counting the paths to each bin gives a row of Pascal’s triangle (1, 12, 66, 220, 495, 792, 924, … for twelve rows), and those counts make the bell. No single ball knows where it is going; the shape comes from counting.</p>
-<div class="insight-visual">12 rows of pegs: 1 path to each edge, 924 paths to the middle, out of 4,096</div>
-<h3>Averages make the same bell</h3>
-<p>The die’s single throws keep its lopsided shape. Average two throws and a peak appears in the middle, with the odd shape still showing; average ten and the heap becomes more bell-like and narrower. This is the central limit theorem: averages of many independent throws, of almost any die, crowd into a bell around the die’s mean, and the bell narrows like 1/√n. Averages of 10 throws spread about √10, a little over 3 times, less than single throws.</p>
-<h3>When it fails</h3>
-<p>The theorem needs throws that don’t affect each other and whose spread is finite. The stubborn spinner breaks the second rule: a lamp that spins at random sometimes shines almost along the wall, so a few spins land enormously far away. Its averages are as wild as a single spin, however many you take. That spinner follows the Cauchy distribution, named after Augustin-Louis Cauchy.</p>
-<h3>What this room simplifies</h3>
-<p>The balls follow a random model, not physics: each peg is a coin toss, fair or tilted, independent of the others. Real boards are never perfectly fair, and real balls bounce and spin, so their heaps are rougher. Averages of 2 or 5 throws are closer to a bell, not exactly one.</p>
-<details><summary>The mathematics, if you want it</summary><p>With n rows and a chance p of bouncing right, a ball lands in bin k (k bounces right) with chance C(n, k)·pᵏ·(1 − p)ⁿ⁻ᵏ, the binomial distribution, with mean np and spread √(np(1 − p)). Abraham de Moivre showed in 1733, and in the second edition of his <em>Doctrine of Chances</em> (1738), that for many tosses this is close to the normal curve; Pierre-Simon Laplace published a more general result in his <em>Théorie analytique des probabilités</em> (1812). Francis Galton designed the board, which he called the quincunx, for a lecture at the Royal Institution in 1874, and described it in <em>Natural Inheritance</em> (1889). The average of n Cauchy spins has exactly the same distribution as a single spin.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Galton_board" target="_blank" rel="noopener">Galton board</a><a class="source-link" href="https://en.wikipedia.org/wiki/De_Moivre%E2%80%93Laplace_theorem" target="_blank" rel="noopener">De Moivre–Laplace theorem</a><a class="source-link" href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank" rel="noopener">Central limit theorem</a><a class="source-link" href="https://en.wikipedia.org/wiki/Cauchy_distribution" target="_blank" rel="noopener">Cauchy distribution</a></div>`,
+    title: 'למה אקראיות יוצרת פעמון?',
+    html: `<p>כל כדור עושה את אותו סוג של בחירה בכל יתד: ימינה או שמאלה. כדי לנחות בקצה הרחוק, הוא צריך לפנות לאותו כיוון בכל פעם, ורק מסלול אחד עושה את זה. כדי לנחות באמצע, הוא צריך אותו מספר של פניות שמאלה וימינה, ומאות מסלולים עושים את זה. ספירת המסלולים לכל תא נותנת שורה במשולש פסקל (1, 12, 66, 220, 495, 792, 924, … עבור שתים־עשרה שורות), והספירות האלה יוצרות את הפעמון. אף כדור לא יודע לאן הוא הולך; הצורה באה מהספירה.</p>
+<div class="insight-visual">12 שורות של יתדות: מסלול אחד לכל קצה, 924 מסלולים לאמצע, מתוך 4,096</div>
+<h3>ממוצעים יוצרים את אותו פעמון</h3>
+<p>ההטלות הבודדות של הקובייה שומרות על הצורה העקומה שלה. חשבו ממוצע של שתי הטלות, ושיא מופיע באמצע, כשהצורה המשונה עדיין ניכרת; חשבו ממוצע של עשר, והערימה נעשית דומה יותר לפעמון, וצרה יותר. זה משפט הגבול המרכזי: ממוצעים של הרבה הטלות בלתי תלויות, של כמעט כל קובייה, מצטופפים לפעמון סביב הממוצע של הקובייה, והפעמון נעשה צר כמו \u20661/√n\u2069. ממוצעים של 10 הטלות מפוזרים פחות מהטלות בודדות בערך פי \u2066√10\u2069, קצת יותר מפי 3.</p>
+<h3>כשזה נכשל</h3>
+<p>המשפט צריך הטלות שלא משפיעות זו על זו, ושהפיזור שלהן סופי. הפנס העקשן שובר את הכלל השני: פנס שמסתובב באקראי מאיר לפעמים כמעט במקביל לקיר, ולכן כמה סיבובים נוחתים רחוק מאוד. הממוצעים שלו פרועים בדיוק כמו סיבוב בודד, לא משנה כמה סיבובים לוקחים. הפנס הזה מציית להתפלגות קושי, שנקראת על שם אוגוסטן־לואי קושי.</p>
+<h3>מה החדר הזה מפשט</h3>
+<p>הכדורים מצייתים למודל אקראי, לא לפיזיקה: כל יתד היא הטלת מטבע, הוגנת או מוטה, בלי תלות באחרות. לוחות אמיתיים אף פעם לא הוגנים לגמרי, וכדורים אמיתיים קופצים ומסתובבים, ולכן הערימות שלהם מחוספסות יותר. ממוצעים של 2 או 5 הטלות קרובים יותר לפעמון, אבל הם לא בדיוק פעמון.</p>
+<details><summary>המתמטיקה, למי שרוצה</summary><p>עם n שורות וסיכוי p לקפוץ ימינה, כדור נוחת בתא k \u200f(k קפיצות ימינה) בסיכוי \u2066C(n, k)·pᵏ·(1 − p)ⁿ⁻ᵏ\u2069, ההתפלגות הבינומית, עם ממוצע np ופיזור \u2066√(np(1 − p))\u2069. אברהם דה מואבר הראה ב־1733, ובמהדורה השנייה של \u2066<em>Doctrine of Chances</em>\u2069 שלו (1738), שעבור הרבה הטלות זה קרוב לעקומה הנורמלית; פייר־סימון לפלס פרסם תוצאה כללית יותר בספרו \u2066<em>Théorie analytique des probabilités</em>\u2069 \u200f(1812). פרנסיס גלטון תכנן את הלוח, שהוא קרא לו קווינקונקס, להרצאה במוסד המלכותי \u200f(\u2066Royal Institution\u2069) ב־1874, ותיאר אותו ב־\u2066<em>Natural Inheritance</em>\u2069 \u200f(1889). לממוצע של n סיבובים של קושי יש בדיוק אותה התפלגות כמו לסיבוב בודד.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Galton_board" target="_blank" rel="noopener">לוח גלטון (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/De_Moivre%E2%80%93Laplace_theorem" target="_blank" rel="noopener">משפט דה מואבר–לפלס (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank" rel="noopener">משפט הגבול המרכזי (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Cauchy_distribution" target="_blank" rel="noopener">התפלגות קושי (ויקיפדיה, באנגלית)</a></div>`,
   },
 });

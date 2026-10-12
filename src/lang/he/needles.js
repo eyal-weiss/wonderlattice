@@ -1,111 +1,111 @@
 /* Needles that know π · visitor-facing words (he). */
 Wonderlattice.defineText('needles', 'he', {
-  eyebrow: 'GEOMETRIC PROBABILITY',
-  name: 'Needles that know π',
-  tagline: 'Drop needles on floorboards and count how many land across a line. Out comes π.',
-  title: 'Needles that know π.',
-  subtitle: 'Needles rain onto a plank floor. Count the ones across a line, and π appears. Then bend them.',
-  field: 'Probability · Buffon’s needle · Barbier’s noodle',
-  sceneLabel: 'A plank floor · Needles at random',
-  tip: 'The needles fall by themselves · Choose a shape, or rerun a famous lucky result',
-  actionLabel: 'Throw again',
+  eyebrow: 'הסתברות גאומטרית',
+  name: 'מחטים שיודעות את π',
+  tagline: 'הפילו מחטים על רצפת קרשים וספרו כמה מהן נוחתות על קו. יוצא π.',
+  title: 'מחטים שיודעות את π.',
+  subtitle: 'מחטים יורדות כמו גשם על רצפת קרשים. ספרו את אלה שחוצות קו, ו־π מופיע. אחר כך כופפו אותן.',
+  field: 'הסתברות · המחט של בופון · האטרייה של ברבייה',
+  sceneLabel: 'רצפת קרשים · מחטים באקראי',
+  tip: 'המחטים נופלות מעצמן · בחרו צורה, או חזרו על תוצאת מזל מפורסמת',
+  actionLabel: 'לזרוק שוב',
   canvasLabel:
-    'Needles falling at random onto a floor of planks; those that land across a line between planks glow. Below, a chart of the estimate of π as the needles pile up.',
-  panelEyebrow: 'Change the needles',
-  whyLabel: 'Why does π appear?',
-  nudge:
-    'Try a ring as wide as a plank: it crosses exactly two lines every time. That one fact is the key to the whole puzzle.',
+    'מחטים נופלות באקראי על רצפה של קרשים; אלה שנוחתות על קו בין קרשים זוהרות. למטה, גרף של ההערכה של π ככל שהמחטים נערמות.',
+  panelEyebrow: 'לשנות את המחטים',
+  whyLabel: 'למה π מופיע?',
+  nudge: 'נסו טבעת ברוחב של קרש: היא חוצה בדיוק שני קווים בכל פעם. העובדה הזאת היא המפתח לכל החידה.',
   connection: {
-    html: '<strong>A ring as wide as a plank always crosses twice.</strong> So does every shape of constant width, which is why each one’s rim is π times its width.',
-    label: 'Roll the shapes of constant width',
+    html: '<strong>טבעת ברוחב של קרש תמיד חוצה פעמיים.</strong> כך גם כל צורה בעלת רוחב קבוע, ולכן ההיקף של כל אחת מהן הוא π כפול הרוחב שלה.',
+    label: 'לגלגל צורות בעלות רוחב קבוע',
   },
 
   presets: [
-    { name: 'Needles on planks', note: 'Count the crossings: π appears.', badge: 'π' },
-    { name: 'Bend them', note: 'Same length, just as many crossings.', badge: '~' },
-    { name: 'A lucky scientist', note: 'Rerun a result too good to be true.', badge: '1901' },
+    { name: 'מחטים על קרשים', note: 'ספרו את החציות: π מופיע.', badge: 'π' },
+    { name: 'לכופף אותן', note: 'אותו אורך, אותו מספר חציות.', badge: '~' },
+    { name: 'מדען בר מזל', note: 'חזרו על תוצאה טובה מכדי להיות אמיתית.', badge: '1901' },
   ],
 
-  shape: 'The shape',
-  shapes: ['Needle', 'Zigzag', 'Noodle', 'Ring'],
+  shape: 'הצורה',
+  shapes: ['מחט', 'זיגזג', 'אטרייה', 'טבעת'],
   // What the picture shows, by shape (the last: Lazzarini's reruns).
-  sceneNames: ['Straight needles', 'Zigzags', 'Noodles', 'Rings one plank wide', 'Lazzarini’s needles'],
-  length: 'Length, as a share of a plank’s width',
-  lucky: 'Rerun Lazzarini’s 1901 experiment, 3,408 needles at a time',
+  sceneNames: ['מחטים ישרות', 'זיגזגים', 'אטריות', 'טבעות ברוחב קרש', 'המחטים של לצריני'],
+  length: 'האורך, כחלק מרוחב הקרש',
+  lucky: 'לחזור על הניסוי של לצריני מ־1901, 3,408 מחטים בכל פעם',
 
   status: {
-    raining: (needles) => `${needles} needles so far`,
-    done: (needles, pi) => `${needles} needles: π ≈ ${pi}`,
-    rings: (rings) => `${rings} rings, 2 crossings each`,
-    reruns: (runs) => `${runs} ${runs === 1 ? 'rerun' : 'reruns'} of 3,408 needles`,
+    raining: (needles) => `${needles} מחטים עד כה`,
+    done: (needles, pi) => `${needles} מחטים: \u2066π ≈ ${pi}\u2069`,
+    rings: (rings) => `${rings} טבעות, 2 חציות לכל אחת`,
+    reruns: (runs) => (runs === 1 ? 'חזרה אחת על 3,408 מחטים' : `${runs} חזרות על 3,408 מחטים`),
   },
 
   readout: {
-    guess: (pi) => `π ≈ ${pi}`,
-    thrown: 'Needles thrown',
-    across: 'Landed across a line',
-    off: 'Off by',
-    sameRule: 'Bent or straight: the same length crosses as many lines, on average.',
-    rule: 'π ≈ 2 × length × needles ÷ crossings, with lengths in planks.',
-    ring: 'Every ring crosses exactly 2 lines',
-    rings: 'Rings thrown',
-    ringRule:
-      'A ring as wide as a plank is π planks round, so every π planks of length cross 2 lines, bent or straight.',
-    typical: (miss) => `Typical miss: ${miss}`,
-    reruns: 'Reruns',
-    exact: 'Exactly 355/113, like Lazzarini',
-    his: 'Lazzarini’s miss',
+    guess: (pi) => `\u2066π ≈ ${pi}\u2069`,
+    thrown: 'מחטים שנזרקו',
+    across: 'נחתו על קו',
+    off: 'סטייה',
+    sameRule: 'כפופה או ישרה: אותו אורך חוצה אותו מספר קווים, בממוצע.',
+    // The mark after π keeps this word formula reading right to left.
+    rule: 'π\u200f ≈ 2 × אורך × מחטים ÷ חציות, כשהאורכים נמדדים בקרשים.',
+    ring: 'כל טבעת חוצה בדיוק 2 קווים',
+    rings: 'טבעות שנזרקו',
+    ringRule: 'ההיקף של טבעת ברוחב של קרש הוא π קרשים, ולכן כל π קרשים של אורך חוצים 2 קווים, כפופים או ישרים.',
+    // Also drawn on the left-to-right picture, so it is wrapped.
+    typical: (miss) => `\u2067סטייה טיפוסית: ${miss}\u2069`,
+    reruns: 'חזרות',
+    exact: 'בדיוק 355/113, כמו לצריני',
+    his: 'הסטייה של לצריני',
     luckyRule:
-      'Half the reruns miss π by more than the typical miss. His needles and his count make 355/113 a possible answer, yet even so it comes up only about once in 70 runs.',
+      'מחצית מהחזרות סוטות מ־π ביותר מהסטייה הטיפוסית. המחטים שלו ומספר הזריקות שלו הופכים את 355/113 לתשובה אפשרית, ובכל זאת היא יוצאת רק בערך פעם ב־70 חזרות.',
   },
 
-  // Words drawn in the picture: short.
+  // Words drawn in the picture: short. The picture is left to right, so labels with numbers are wrapped.
   labels: {
-    tally: (needles, across) => `${needles} needles · ${across} across a line`,
-    rings: (n) => `${n} rings`,
-    guess: (pi) => `π ≈ ${pi}`,
-    ring: '2 crossings, every time',
-    chart: 'The guess, as needles pile up',
-    typical: 'typical miss',
+    tally: (needles, across) => `\u2067${needles} מחטים · ${across} חוצות קו\u2069`,
+    rings: (n) => `\u2067${n} טבעות\u2069`,
+    guess: (pi) => `\u2066π ≈ ${pi}\u2069`,
+    ring: '\u20672 חציות, בכל פעם\u2069',
+    chart: 'הניחוש, ככל שהמחטים נערמות',
+    typical: 'סטייה טיפוסית',
     pi: 'π',
-    count: 'How many lines each ring crosses',
-    every: 'every ring',
-    run: (k) => `Rerun ${k}`,
-    hits: (runs, exact) => `${runs} reruns · ${exact} gave 355/113`,
-    reruns: 'Each dot: one rerun of 3,408 needles',
-    his: 'Lazzarini, 1901',
+    count: 'כמה קווים כל טבעת חוצה',
+    every: 'כל טבעת\u200f', // the code adds ` · count`; the mark keeps it reading right to left
+    run: (k) => `\u2067חזרה ${k}\u2069`,
+    hits: (runs, exact) => `\u2067${runs} חזרות · ${exact} נתנו 355/113\u2069`,
+    reruns: '\u2067כל נקודה: חזרה אחת על 3,408 מחטים\u2069',
+    his: '\u2067לצריני, 1901\u2069',
   },
 
   announce: {
-    done: (pi) => `A million needles: π ≈ ${pi}.`,
-    ring: 'Every ring crosses exactly two lines.',
-    lucky: (miss) => `Typical miss of a rerun: ${miss}. Lazzarini’s: 0.0000003.`,
+    done: (pi) => `מיליון מחטים: \u2066π ≈ ${pi}\u2069.`,
+    ring: 'כל טבעת חוצה בדיוק שני קווים.',
+    lucky: (miss) => `הסטייה הטיפוסית של חזרה: ${miss}. של לצריני: 0.0000003.`,
   },
 
   guests: [
     {
-      name: 'Georges-Louis Leclerc, Comte de Buffon',
-      note: 'I asked how often a stick, tossed onto a floor of narrow boards, lands across a crack between them. I put the question in 1733 and printed the answer in 1777.',
+      name: 'ז׳ורז׳־לואי לקלרק, הרוזן דה בופון',
+      note: 'שאלתי באיזו תדירות מקל, שנזרק על רצפה של לוחות צרים, נוחת על הסדק שביניהם. הצגתי את השאלה ב־1733 ופרסמתי את התשובה ב־1777.',
     },
     {
-      name: 'Joseph-Émile Barbier',
-      note: 'In 1860 I noticed that the needle can be bent any way you like: as long as its length stays the same, it crosses the lines just as often on average.',
+      name: 'ז׳וזף־אמיל ברבייה',
+      note: 'ב־1860 שמתי לב שאפשר לכופף את המחט איך שרוצים: כל עוד האורך שלה נשאר אותו דבר, היא חוצה את הקווים באותה תדירות בממוצע.',
     },
   ],
 
   insight: {
-    title: 'Why does π appear?',
-    html: `<p>A needle as long as a plank is wide lands across a line with a chance of 2/π, about 64%. So after many throws, crossings ÷ needles ≈ 2/π, and π ≈ 2 × needles ÷ crossings. Shorter needles cross less often, in proportion to their length. Georges-Louis Leclerc, Comte de Buffon, posed the question in 1733 and published the answer in 1777.</p>
-<div class="insight-visual">chance of a crossing = 2 × length ÷ (π × plank width)</div>
-<h3>Bend the needle</h3>
-<p>Cut a needle into short pieces. Each piece crosses lines, on average, in proportion to its length, wherever it sits in the needle, and averages add up even when the pieces move together. So any shape crosses, on average, a number of lines proportional to its length: bent, straight or curled. Joseph-Émile Barbier saw this in 1860. To find the constant, take a ring exactly as wide as a plank. Wherever it lands, it crosses exactly two lines. It is π planks round, so every π planks of length cross 2 lines on average: 2 × length ÷ π, the needle’s rule. The same trick shows that every shape of constant width, like the Reuleaux triangle, has a rim π times its width.</p>
-<h3>Randomness measures slowly</h3>
-<p>The guess wobbles less as needles pile up, but only like 1 ÷ √(number of needles): each extra correct digit costs about 100 times more needles. A million needles usually give π to two or three decimals.</p>
-<h3>The lucky scientist</h3>
-<p>In 1901 Mario Lazzarini reported 3,408 throws of needles 5/6 of a plank long. That gives π ≈ 355/113 = 3.1415929…, wrong only in the seventh decimal, when an experiment that size typically misses by a few hundredths. His choices make 355/113 one of the possible answers: it needs exactly 1,808 crossings, which an honest run gives about once in 70. And someone who throws in batches of 213 and stops the first time the count is right gets there within 3,408 throws more than one time in four. Lee Badger (1994) looked at the results Lazzarini reported along the way, for fewer throws, and found it very unlikely that they would stay so close to the expected values all through an honest experiment. The Dutch science journalist Hans van Maanen argues that the article was never meant to be taken too seriously: its readers, school teachers, could see that the machine Lazzarini described could not work. Either way, a result that is too good is evidence of something else.</p>
-<h3>What this room simplifies</h3>
-<p>The computer’s pseudo-random numbers stand in for real throws. They choose each needle’s direction without using π: a random point in a square, kept only if it falls inside the circle, gives every direction the same chance. The floor’s lines go on for ever, so a needle near the edge of the picture still counts. Real needles bounce, roll and land on each other, and real boards are never perfectly even.</p>
-<details><summary>The mathematics, if you want it</summary><p>Lines are a distance t apart, and a needle of length l ≤ t lands with its middle a distance x from the nearest line (even between 0 and t/2) and at an angle θ to the lines (even between 0 and π/2). It crosses when x ≤ (l/2) sin θ, so P = (2/t)(2/π) ∫₀^{π/2} (l/2) sin θ dθ = 2l/(πt). With n needles and c crossings, π ≈ 2ln/(tc); its typical error is π√((1 − p)/(pn)) with p = 2l/(πt): 0.04 for 3,408 needles one plank long, 0.05 for Lazzarini’s. Lazzarini’s needle makes the estimate (5/3) × n/c, and 355/113 = (5/3) × 3,408/1,808. The room’s tests check, against a separate program: the crossing rate 2l/π for straight needles, zigzags and noodles; exactly two crossings for every ring; the typical errors above; and, for Lazzarini’s set-up, 1,808 crossings with a chance of 1.4%, and a median miss of 0.034. Buffon, “Essai d’arithmétique morale”, Histoire naturelle, Supplément 4 (1777). E. Barbier, J. Math. Pures Appl. (2) 5 (1860). L. Badger, “Lazzarini’s lucky approximation of π”, Mathematics Magazine 67 (1994).</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Buffon%27s_needle_problem" target="_blank" rel="noopener">Buffon’s needle problem (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Buffon%27s_noodle" target="_blank" rel="noopener">Buffon’s noodle (Wikipedia)</a><a class="source-link" href="https://mathworld.wolfram.com/BuffonsNeedleProblem.html" target="_blank" rel="noopener">Buffon’s needle problem (MathWorld)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Buffon/" target="_blank" rel="noopener">Buffon (MacTutor)</a></div>`,
+    title: 'למה π מופיע?',
+    html: `<p>מחט שאורכה כרוחב קרש נוחתת על קו בסיכוי של \u20662/π\u2069, בערך 64%. לכן אחרי הרבה זריקות, חציות ÷ מחטים ≈ \u20662/π\u2069, ו־π\u200f ≈ 2 × מחטים ÷ חציות. מחטים קצרות יותר חוצות פחות, ביחס לאורך שלהן. ז׳ורז׳־לואי לקלרק, הרוזן דה בופון, הציג את השאלה ב־1733 ופרסם את התשובה ב־1777.</p>
+<div class="insight-visual">הסיכוי לחצייה = 2 × אורך ÷ (π × רוחב הקרש)</div>
+<h3>לכופף את המחט</h3>
+<p>חתכו מחט לחתיכות קצרות. כל חתיכה חוצה קווים, בממוצע, ביחס לאורך שלה, לא משנה איפה היא יושבת במחט, וממוצעים מצטברים גם כשהחתיכות זזות יחד. לכן כל צורה חוצה, בממוצע, מספר קווים שפרופורציונלי לאורך שלה: כפופה, ישרה או מסולסלת. ז׳וזף־אמיל ברבייה ראה את זה ב־1860. כדי למצוא את הקבוע, קחו טבעת שרוחבה בדיוק כרוחב קרש. איפה שלא תנחת, היא חוצה בדיוק שני קווים. ההיקף שלה הוא π קרשים, ולכן כל π קרשים של אורך חוצים 2 קווים בממוצע: 2 × אורך ÷ π, הכלל של המחט. אותו תעלול מראה שלכל צורה בעלת רוחב קבוע, כמו משולש רולו, יש היקף של π כפול הרוחב שלה.</p>
+<h3>אקראיות מודדת לאט</h3>
+<p>הניחוש מתנדנד פחות ככל שהמחטים נערמות, אבל רק כמו 1 חלקי השורש של מספר המחטים: כל ספרה נכונה נוספת דורשת בערך פי 100 יותר מחטים. מיליון מחטים נותנות בדרך כלל את π עד שתיים או שלוש ספרות אחרי הנקודה העשרונית.</p>
+<h3>המדען בר המזל</h3>
+<p>ב־1901 דיווח מריו לצריני על 3,408 זריקות של מחטים שאורכן 5/6 מרוחב קרש. זה נותן \u2066π ≈ 355/113 = 3.1415929…\u2069, שגוי רק בספרה השביעית אחרי הנקודה, כשניסוי בגודל כזה מחטיא בדרך כלל בכמה מאיות. הבחירות שלו הופכות את 355/113 לאחת התשובות האפשריות: היא דורשת בדיוק 1,808 חציות, שניסוי הוגן נותן בערך פעם ב־70. ומי שזורק במנות של 213 ועוצר בפעם הראשונה שהספירה נכונה מגיע לשם תוך 3,408 זריקות ביותר מפעם אחת מתוך ארבע. לי באדג׳ר (1994) בחן את התוצאות שלצריני דיווח בדרך, עבור פחות זריקות, ומצא שמאוד לא סביר שהן יישארו קרובות כל כך לערכים הצפויים לאורך כל ניסוי הוגן. העיתונאי המדעי ההולנדי הנס ואן מאנן טוען שהמאמר מעולם לא נועד להילקח יותר מדי ברצינות: הקוראים שלו, מורים בבתי ספר, יכלו לראות שהמכונה שלצריני תיאר לא יכלה לעבוד. כך או כך, תוצאה טובה מדי היא ראיה למשהו אחר.</p>
+<h3>מה החדר הזה מפשט</h3>
+<p>המספרים הפסאודו־אקראיים של המחשב מחליפים זריקות אמיתיות. הם בוחרים את הכיוון של כל מחט בלי להשתמש ב־π: נקודה אקראית בריבוע, שנשמרת רק אם היא נופלת בתוך המעגל, נותנת לכל כיוון אותו סיכוי. הקווים של הרצפה ממשיכים בלי סוף, כך שמחט ליד קצה התמונה עדיין נספרת. מחטים אמיתיות קופצות, מתגלגלות ונוחתות זו על זו, וקרשים אמיתיים אף פעם לא אחידים לגמרי.</p>
+<details><summary>המתמטיקה, למי שרוצה</summary><p>הקווים נמצאים במרחק \u2066t\u2069 זה מזה, ומחט באורך \u2066l ≤ t\u2069 נוחתת כשהאמצע שלה במרחק \u2066x\u2069 מהקו הקרוב ביותר (בהתפלגות אחידה בין 0 ל־\u2066t/2\u2069) ובזווית \u2066θ\u2069 לקווים (בהתפלגות אחידה בין 0 ל־\u2066π/2\u2069). היא חוצה כש־\u2066x ≤ (l/2) sin θ\u2069, ולכן \u2066P = (2/t)(2/π) ∫₀^{π/2} (l/2) sin θ dθ = 2l/(πt)\u2069. עם \u2066n\u2069 מחטים ו־\u2066c\u2069 חציות, \u2066π ≈ 2ln/(tc)\u2069; השגיאה הטיפוסית של ההערכה הזאת היא \u2066π√((1 − p)/(pn))\u2069 עם \u2066p = 2l/(πt)\u2069: 0.04 עבור 3,408 מחטים באורך קרש אחד, 0.05 עבור המחטים של לצריני. המחט של לצריני נותנת את ההערכה \u2066(5/3) × n/c\u2069, ו־\u2066355/113 = (5/3) × 3,408/1,808\u2069. הבדיקות של החדר מוודאות, מול תוכנה נפרדת: את קצב החצייה \u20662l/π\u2069 למחטים ישרות, לזיגזגים ולאטריות; בדיוק שתי חציות לכל טבעת; את השגיאות הטיפוסיות שלמעלה; ועבור המערך של לצריני, 1,808 חציות בסיכוי של 1.4%, וסטייה חציונית של 0.034. \u2066Buffon, “Essai d’arithmétique morale”, Histoire naturelle, Supplément 4 (1777)\u2069. \u2066E. Barbier, J. Math. Pures Appl. (2) 5 (1860)\u2069. \u2066L. Badger, “Lazzarini’s lucky approximation of π”, Mathematics Magazine 67 (1994)\u2069.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Buffon%27s_needle_problem" target="_blank" rel="noopener">בעיית המחט של בופון (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Buffon%27s_noodle" target="_blank" rel="noopener">האטרייה של בופון (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://mathworld.wolfram.com/BuffonsNeedleProblem.html" target="_blank" rel="noopener">בעיית המחט של בופון (MathWorld, באנגלית)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Buffon/" target="_blank" rel="noopener">בופון (MacTutor, באנגלית)</a></div>`,
   },
 });

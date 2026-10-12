@@ -1,111 +1,111 @@
-/* Needles that know π · visitor-facing words (es). */
+/* Agujas que saben π · palabras para el visitante (es). */
 Wonderlattice.defineText('needles', 'es', {
-  eyebrow: 'GEOMETRIC PROBABILITY',
-  name: 'Needles that know π',
-  tagline: 'Drop needles on floorboards and count how many land across a line. Out comes π.',
-  title: 'Needles that know π.',
-  subtitle: 'Needles rain onto a plank floor. Count the ones across a line, and π appears. Then bend them.',
-  field: 'Probability · Buffon’s needle · Barbier’s noodle',
-  sceneLabel: 'A plank floor · Needles at random',
-  tip: 'The needles fall by themselves · Choose a shape, or rerun a famous lucky result',
-  actionLabel: 'Throw again',
+  eyebrow: 'PROBABILIDAD GEOMÉTRICA',
+  name: 'Agujas que saben π',
+  tagline: 'Deja caer agujas sobre un suelo de tablones y cuenta cuántas quedan cruzando una línea. Sale π.',
+  title: 'Agujas que saben π.',
+  subtitle: 'Llueven agujas sobre un suelo de tablones. Cuenta las que cruzan una línea, y aparece π. Luego dóblalas.',
+  field: 'Probabilidad · La aguja de Buffon · El fideo de Barbier',
+  sceneLabel: 'Un suelo de tablones · Agujas al azar',
+  tip: 'Las agujas caen solas · Elige una forma, o repite un famoso resultado afortunado',
+  actionLabel: 'Lanzar de nuevo',
   canvasLabel:
-    'Needles falling at random onto a floor of planks; those that land across a line between planks glow. Below, a chart of the estimate of π as the needles pile up.',
-  panelEyebrow: 'Change the needles',
-  whyLabel: 'Why does π appear?',
+    'Agujas que caen al azar sobre un suelo de tablones; las que quedan cruzando una línea entre tablones brillan. Debajo, un gráfico de la estimación de π a medida que se acumulan las agujas.',
+  panelEyebrow: 'Cambia las agujas',
+  whyLabel: '¿Por qué aparece π?',
   nudge:
-    'Try a ring as wide as a plank: it crosses exactly two lines every time. That one fact is the key to the whole puzzle.',
+    'Prueba un anillo tan ancho como un tablón: cruza exactamente dos líneas cada vez. Ese único hecho es la clave de todo el enigma.',
   connection: {
-    html: '<strong>A ring as wide as a plank always crosses twice.</strong> So does every shape of constant width, which is why each one’s rim is π times its width.',
-    label: 'Roll the shapes of constant width',
+    html: '<strong>Un anillo tan ancho como un tablón siempre cruza dos veces.</strong> Igual que toda forma de anchura constante, y por eso el borde de cada una mide π veces su anchura.',
+    label: 'Haz rodar las formas de anchura constante',
   },
 
   presets: [
-    { name: 'Needles on planks', note: 'Count the crossings: π appears.', badge: 'π' },
-    { name: 'Bend them', note: 'Same length, just as many crossings.', badge: '~' },
-    { name: 'A lucky scientist', note: 'Rerun a result too good to be true.', badge: '1901' },
+    { name: 'Agujas sobre tablones', note: 'Cuenta los cruces: aparece π.', badge: 'π' },
+    { name: 'Dóblalas', note: 'Misma longitud, igual número de cruces.', badge: '~' },
+    { name: 'Un científico con suerte', note: 'Repite un resultado demasiado bueno para ser verdad.', badge: '1901' },
   ],
 
-  shape: 'The shape',
-  shapes: ['Needle', 'Zigzag', 'Noodle', 'Ring'],
-  // What the picture shows, by shape (the last: Lazzarini's reruns).
-  sceneNames: ['Straight needles', 'Zigzags', 'Noodles', 'Rings one plank wide', 'Lazzarini’s needles'],
-  length: 'Length, as a share of a plank’s width',
-  lucky: 'Rerun Lazzarini’s 1901 experiment, 3,408 needles at a time',
+  shape: 'La forma',
+  shapes: ['Aguja', 'Zigzag', 'Fideo', 'Anillo'],
+  // Lo que muestra la imagen, según la forma (la última: las tandas de Lazzarini).
+  sceneNames: ['Agujas rectas', 'Zigzags', 'Fideos', 'Anillos de un tablón de ancho', 'Las agujas de Lazzarini'],
+  length: 'Longitud, como fracción de la anchura de un tablón',
+  lucky: 'Repetir el experimento de Lazzarini de 1901, en tandas de 3408 agujas',
 
   status: {
-    raining: (needles) => `${needles} needles so far`,
-    done: (needles, pi) => `${needles} needles: π ≈ ${pi}`,
-    rings: (rings) => `${rings} rings, 2 crossings each`,
-    reruns: (runs) => `${runs} ${runs === 1 ? 'rerun' : 'reruns'} of 3,408 needles`,
+    raining: (needles) => `${needles} agujas hasta ahora`,
+    done: (needles, pi) => `${needles} agujas: π ≈ ${pi}`,
+    rings: (rings) => `${rings} anillos, 2 cruces cada uno`,
+    reruns: (runs) => `${runs} ${runs === 1 ? 'tanda' : 'tandas'} de 3408 agujas`,
   },
 
   readout: {
     guess: (pi) => `π ≈ ${pi}`,
-    thrown: 'Needles thrown',
-    across: 'Landed across a line',
-    off: 'Off by',
-    sameRule: 'Bent or straight: the same length crosses as many lines, on average.',
-    rule: 'π ≈ 2 × length × needles ÷ crossings, with lengths in planks.',
-    ring: 'Every ring crosses exactly 2 lines',
-    rings: 'Rings thrown',
+    thrown: 'Agujas lanzadas',
+    across: 'Cruzando una línea',
+    off: 'Error',
+    sameRule: 'Dobladas o rectas: la misma longitud cruza, en promedio, el mismo número de líneas.',
+    rule: 'π ≈ 2 × longitud × agujas ÷ cruces, con las longitudes en tablones.',
+    ring: 'Cada anillo cruza exactamente 2 líneas',
+    rings: 'Anillos lanzados',
     ringRule:
-      'A ring as wide as a plank is π planks round, so every π planks of length cross 2 lines, bent or straight.',
-    typical: (miss) => `Typical miss: ${miss}`,
-    reruns: 'Reruns',
-    exact: 'Exactly 355/113, like Lazzarini',
-    his: 'Lazzarini’s miss',
+      'Un anillo tan ancho como un tablón mide π tablones de contorno, así que cada π tablones de longitud cruzan 2 líneas, doblados o rectos.',
+    typical: (miss) => `Error típico: ${miss}`,
+    reruns: 'Tandas',
+    exact: 'Exactamente 355/113, como Lazzarini',
+    his: 'El error de Lazzarini',
     luckyRule:
-      'Half the reruns miss π by more than the typical miss. His needles and his count make 355/113 a possible answer, yet even so it comes up only about once in 70 runs.',
+      'La mitad de las tandas se alejan de π más que el error típico. Sus agujas y su recuento hacen de 355/113 una respuesta posible, y aun así sale solo una vez de cada 70 tandas, más o menos.',
   },
 
-  // Words drawn in the picture: short.
+  // Palabras dibujadas en la imagen: cortas.
   labels: {
-    tally: (needles, across) => `${needles} needles · ${across} across a line`,
-    rings: (n) => `${n} rings`,
+    tally: (needles, across) => `${needles} agujas · ${across} cruzan una línea`,
+    rings: (n) => `${n} anillos`,
     guess: (pi) => `π ≈ ${pi}`,
-    ring: '2 crossings, every time',
-    chart: 'The guess, as needles pile up',
-    typical: 'typical miss',
+    ring: '2 cruces, cada vez',
+    chart: 'La estimación, aguja a aguja',
+    typical: 'error típico',
     pi: 'π',
-    count: 'How many lines each ring crosses',
-    every: 'every ring',
-    run: (k) => `Rerun ${k}`,
-    hits: (runs, exact) => `${runs} reruns · ${exact} gave 355/113`,
-    reruns: 'Each dot: one rerun of 3,408 needles',
+    count: 'Cuántas líneas cruza cada anillo',
+    every: 'cada anillo',
+    run: (k) => `Tanda ${k}`,
+    hits: (runs, exact) => `${runs} tandas · ${exact} dieron 355/113`,
+    reruns: 'Cada punto: una tanda de 3408 agujas',
     his: 'Lazzarini, 1901',
   },
 
   announce: {
-    done: (pi) => `A million needles: π ≈ ${pi}.`,
-    ring: 'Every ring crosses exactly two lines.',
-    lucky: (miss) => `Typical miss of a rerun: ${miss}. Lazzarini’s: 0.0000003.`,
+    done: (pi) => `Un millón de agujas: π ≈ ${pi}.`,
+    ring: 'Cada anillo cruza exactamente dos líneas.',
+    lucky: (miss) => `Error típico de una tanda: ${miss}. El de Lazzarini: 0,0000003.`,
   },
 
   guests: [
     {
-      name: 'Georges-Louis Leclerc, Comte de Buffon',
-      note: 'I asked how often a stick, tossed onto a floor of narrow boards, lands across a crack between them. I put the question in 1733 and printed the answer in 1777.',
+      name: 'Georges-Louis Leclerc, conde de Buffon',
+      note: 'Me pregunté con qué frecuencia un palito, lanzado sobre un suelo de tablas estrechas, cae cruzando una rendija entre ellas. Planteé la pregunta en 1733 y publiqué la respuesta en 1777.',
     },
     {
       name: 'Joseph-Émile Barbier',
-      note: 'In 1860 I noticed that the needle can be bent any way you like: as long as its length stays the same, it crosses the lines just as often on average.',
+      note: 'En 1860 me di cuenta de que la aguja se puede doblar como quieras: mientras su longitud siga siendo la misma, cruza las líneas igual de a menudo, en promedio.',
     },
   ],
 
   insight: {
-    title: 'Why does π appear?',
-    html: `<p>A needle as long as a plank is wide lands across a line with a chance of 2/π, about 64%. So after many throws, crossings ÷ needles ≈ 2/π, and π ≈ 2 × needles ÷ crossings. Shorter needles cross less often, in proportion to their length. Georges-Louis Leclerc, Comte de Buffon, posed the question in 1733 and published the answer in 1777.</p>
-<div class="insight-visual">chance of a crossing = 2 × length ÷ (π × plank width)</div>
-<h3>Bend the needle</h3>
-<p>Cut a needle into short pieces. Each piece crosses lines, on average, in proportion to its length, wherever it sits in the needle, and averages add up even when the pieces move together. So any shape crosses, on average, a number of lines proportional to its length: bent, straight or curled. Joseph-Émile Barbier saw this in 1860. To find the constant, take a ring exactly as wide as a plank. Wherever it lands, it crosses exactly two lines. It is π planks round, so every π planks of length cross 2 lines on average: 2 × length ÷ π, the needle’s rule. The same trick shows that every shape of constant width, like the Reuleaux triangle, has a rim π times its width.</p>
-<h3>Randomness measures slowly</h3>
-<p>The guess wobbles less as needles pile up, but only like 1 ÷ √(number of needles): each extra correct digit costs about 100 times more needles. A million needles usually give π to two or three decimals.</p>
-<h3>The lucky scientist</h3>
-<p>In 1901 Mario Lazzarini reported 3,408 throws of needles 5/6 of a plank long. That gives π ≈ 355/113 = 3.1415929…, wrong only in the seventh decimal, when an experiment that size typically misses by a few hundredths. His choices make 355/113 one of the possible answers: it needs exactly 1,808 crossings, which an honest run gives about once in 70. And someone who throws in batches of 213 and stops the first time the count is right gets there within 3,408 throws more than one time in four. Lee Badger (1994) looked at the results Lazzarini reported along the way, for fewer throws, and found it very unlikely that they would stay so close to the expected values all through an honest experiment. The Dutch science journalist Hans van Maanen argues that the article was never meant to be taken too seriously: its readers, school teachers, could see that the machine Lazzarini described could not work. Either way, a result that is too good is evidence of something else.</p>
-<h3>What this room simplifies</h3>
-<p>The computer’s pseudo-random numbers stand in for real throws. They choose each needle’s direction without using π: a random point in a square, kept only if it falls inside the circle, gives every direction the same chance. The floor’s lines go on for ever, so a needle near the edge of the picture still counts. Real needles bounce, roll and land on each other, and real boards are never perfectly even.</p>
-<details><summary>The mathematics, if you want it</summary><p>Lines are a distance t apart, and a needle of length l ≤ t lands with its middle a distance x from the nearest line (even between 0 and t/2) and at an angle θ to the lines (even between 0 and π/2). It crosses when x ≤ (l/2) sin θ, so P = (2/t)(2/π) ∫₀^{π/2} (l/2) sin θ dθ = 2l/(πt). With n needles and c crossings, π ≈ 2ln/(tc); its typical error is π√((1 − p)/(pn)) with p = 2l/(πt): 0.04 for 3,408 needles one plank long, 0.05 for Lazzarini’s. Lazzarini’s needle makes the estimate (5/3) × n/c, and 355/113 = (5/3) × 3,408/1,808. The room’s tests check, against a separate program: the crossing rate 2l/π for straight needles, zigzags and noodles; exactly two crossings for every ring; the typical errors above; and, for Lazzarini’s set-up, 1,808 crossings with a chance of 1.4%, and a median miss of 0.034. Buffon, “Essai d’arithmétique morale”, Histoire naturelle, Supplément 4 (1777). E. Barbier, J. Math. Pures Appl. (2) 5 (1860). L. Badger, “Lazzarini’s lucky approximation of π”, Mathematics Magazine 67 (1994).</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Buffon%27s_needle_problem" target="_blank" rel="noopener">Buffon’s needle problem (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Buffon%27s_noodle" target="_blank" rel="noopener">Buffon’s noodle (Wikipedia)</a><a class="source-link" href="https://mathworld.wolfram.com/BuffonsNeedleProblem.html" target="_blank" rel="noopener">Buffon’s needle problem (MathWorld)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Buffon/" target="_blank" rel="noopener">Buffon (MacTutor)</a></div>`,
+    title: '¿Por qué aparece π?',
+    html: `<p>Una aguja tan larga como ancho es un tablón cae cruzando una línea con una probabilidad de 2/π, alrededor del 64%. Así que, tras muchos lanzamientos, cruces ÷ agujas ≈ 2/π, y π ≈ 2 × agujas ÷ cruces. Las agujas más cortas cruzan menos a menudo, en proporción a su longitud. Georges-Louis Leclerc, conde de Buffon, planteó la pregunta en 1733 y publicó la respuesta en 1777.</p>
+<div class="insight-visual">probabilidad de cruce = 2 × longitud ÷ (π × anchura del tablón)</div>
+<h3>Dobla la aguja</h3>
+<p>Corta una aguja en trozos cortos. Cada trozo cruza líneas, en promedio, en proporción a su longitud, esté donde esté en la aguja, y los promedios se suman aunque los trozos se muevan juntos. Así que cualquier forma cruza, en promedio, un número de líneas proporcional a su longitud: doblada, recta o enroscada. Joseph-Émile Barbier lo vio en 1860. Para hallar la constante, toma un anillo exactamente tan ancho como un tablón. Caiga donde caiga, cruza exactamente dos líneas. Su contorno mide π tablones, así que cada π tablones de longitud cruzan 2 líneas en promedio: 2 × longitud ÷ π, la regla de la aguja. El mismo truco muestra que toda forma de anchura constante, como el triángulo de Reuleaux, tiene un borde que mide π veces su anchura.</p>
+<h3>El azar mide despacio</h3>
+<p>La estimación oscila menos a medida que se acumulan las agujas, pero solo como 1 ÷ √(número de agujas): cada cifra correcta más cuesta unas 100 veces más agujas. Un millón de agujas suele dar π con dos o tres decimales.</p>
+<h3>El científico con suerte</h3>
+<p>En 1901, Mario Lazzarini informó de 3408 lanzamientos de agujas de 5/6 de tablón de largo. Eso da π ≈ 355/113 = 3,1415929…, que solo falla en el séptimo decimal, cuando un experimento de ese tamaño suele fallar por unas centésimas. Sus elecciones hacen de 355/113 una de las respuestas posibles: necesita exactamente 1808 cruces, algo que un experimento honesto da aproximadamente una vez de cada 70. Y quien lance en grupos de 213 y pare la primera vez que el recuento sea el correcto lo consigue en 3408 lanzamientos o menos más de una vez de cada cuatro. Lee Badger (1994) examinó los resultados que Lazzarini dio por el camino, con menos lanzamientos, y encontró muy improbable que se mantuvieran tan cerca de los valores esperados a lo largo de todo un experimento honesto. El periodista científico neerlandés Hans van Maanen sostiene que el artículo nunca pretendió que se lo tomaran demasiado en serio: sus lectores, maestros de escuela, podían ver que la máquina que describía Lazzarini no podía funcionar. En cualquier caso, un resultado demasiado bueno es prueba de otra cosa.</p>
+<h3>Lo que esta sala simplifica</h3>
+<p>Los números pseudoaleatorios del ordenador sustituyen a los lanzamientos reales. Eligen la dirección de cada aguja sin usar π: un punto al azar en un cuadrado, que solo se conserva si cae dentro del círculo, da a todas las direcciones la misma probabilidad. Las líneas del suelo siguen para siempre, así que una aguja cerca del borde de la imagen sigue contando. Las agujas reales rebotan, ruedan y caen unas sobre otras, y los tablones reales nunca son perfectamente iguales.</p>
+<details><summary>Las matemáticas, si te apetecen</summary><p>Las líneas están a una distancia t entre sí, y una aguja de longitud l ≤ t cae con su punto medio a una distancia x de la línea más cercana (uniforme entre 0 y t/2) y formando un ángulo θ con las líneas (uniforme entre 0 y π/2). Cruza cuando x ≤ (l/2) sin θ, así que P = (2/t)(2/π) ∫₀^{π/2} (l/2) sin θ dθ = 2l/(πt). Con n agujas y c cruces, π ≈ 2ln/(tc); su error típico es π√((1 − p)/(pn)) con p = 2l/(πt): 0,04 para 3408 agujas de un tablón de largo, 0,05 para las de Lazzarini. La aguja de Lazzarini da la estimación (5/3) × n/c, y 355/113 = (5/3) × 3408/1808. Las pruebas de la sala comprueban, frente a un programa aparte: la frecuencia de cruce 2l/π para agujas rectas, zigzags y fideos; exactamente dos cruces para cada anillo; los errores típicos de arriba; y, para el montaje de Lazzarini, 1808 cruces con una probabilidad del 1,4%, y un error mediano de 0,034. Buffon, «Essai d’arithmétique morale», Histoire naturelle, Supplément 4 (1777). E. Barbier, J. Math. Pures Appl. (2) 5 (1860). L. Badger, «Lazzarini’s lucky approximation of π», Mathematics Magazine 67 (1994).</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Buffon%27s_needle_problem" target="_blank" rel="noopener">El problema de la aguja de Buffon (Wikipedia, en inglés)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Buffon%27s_noodle" target="_blank" rel="noopener">El fideo de Buffon (Wikipedia, en inglés)</a><a class="source-link" href="https://mathworld.wolfram.com/BuffonsNeedleProblem.html" target="_blank" rel="noopener">El problema de la aguja de Buffon (MathWorld, en inglés)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Buffon/" target="_blank" rel="noopener">Buffon (MacTutor, en inglés)</a></div>`,
   },
 });

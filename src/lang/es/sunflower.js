@@ -1,78 +1,78 @@
-/* The sunflower's secret angle · visitor-facing words (es). */
+/* El ángulo secreto del girasol · palabras para el visitante (es). */
 Wonderlattice.defineText('sunflower', 'es', {
-  eyebrow: 'GOLDEN ANGLE',
-  name: 'The sunflower’s secret angle',
-  tagline: 'Turn a little, drop a seed, repeat. Only one angle makes a sunflower.',
-  title: 'The sunflower’s secret angle.',
+  eyebrow: 'ÁNGULO ÁUREO',
+  name: 'El ángulo secreto del girasol',
+  tagline: 'Gira un poco, suelta una semilla, repite. Solo un ángulo hace un girasol.',
+  title: 'El ángulo secreto del girasol.',
   subtitle:
-    'Each seed is turned a little from the last. Change the turn by a tenth of a degree and the sunflower falls apart.',
-  field: 'Number theory · Phyllotaxis · Plants',
-  sceneLabel: 'One turn · a thousand seeds',
-  sceneName: 'The flower head',
-  tip: 'Tap the flower to count its arms · ← → turn by 0.01°, ↑ ↓ by 0.1°',
-  actionLabel: 'Grow it again',
+    'Cada semilla está girada un poco respecto a la anterior. Cambia el giro una décima de grado y el girasol se deshace.',
+  field: 'Teoría de números · Filotaxis · Plantas',
+  sceneLabel: 'Un giro · mil semillas',
+  sceneName: 'La cabeza de la flor',
+  tip: 'Toca la flor para contar sus brazos · ← → giran 0,01°, ↑ ↓ giran 0,1°',
+  actionLabel: 'Volver a crecer',
   canvasLabel:
-    'A sunflower head of a thousand seeds. Each seed is turned by the same angle from the one before, a little further out.',
-  panelEyebrow: 'One angle, many flowers',
-  whyLabel: 'Why does one angle make a sunflower?',
+    'La cabeza de un girasol con mil semillas. Cada semilla está girada el mismo ángulo respecto a la anterior, un poco más hacia fuera.',
+  panelEyebrow: 'Un ángulo, muchas flores',
+  whyLabel: '¿Por qué un solo ángulo hace un girasol?',
   nudge:
-    'Find an angle that makes straight spokes, then change it by 0.01°. How many arms appear? Are they Fibonacci numbers?',
+    'Encuentra un ángulo que forme radios rectos y luego cámbialo 0,01°. ¿Cuántos brazos aparecen? ¿Son números de Fibonacci?',
   connection: {
-    html: '<strong>Alan Turing, again.</strong> He wondered how growing things make their patterns. In Grow a fingerprint, his chemistry lays down the ridges.',
-    label: 'Grow a fingerprint',
+    html: '<strong>Alan Turing, otra vez.</strong> Se preguntaba cómo crean sus patrones los seres que crecen. En «Haz crecer una huella dactilar», su química traza las crestas.',
+    label: 'Haz crecer una huella dactilar',
   },
 
   presets: [
-    { name: 'A sunflower', note: 'The golden angle.', badge: '137.5°' },
-    { name: 'A tenth of a degree more', note: 'Gaps open between the arms.', badge: '137.6°' },
-    { name: 'Three eighths of a turn', note: 'Eight straight spokes.', badge: '135°' },
+    { name: 'Un girasol', note: 'El ángulo áureo.', badge: '137,5°' },
+    { name: 'Una décima de grado más', note: 'Se abren huecos entre los brazos.', badge: '137,6°' },
+    { name: 'Tres octavos de vuelta', note: 'Ocho radios rectos.', badge: '135°' },
   ],
 
-  angle: 'Turn between seeds',
-  nudgeGroup: 'Change the turn a little',
-  // The buttons under the slider, given the step already written as the page writes numbers ("0.01°").
-  more: (step) => `${step} more`,
-  less: (step) => `${step} less`,
-  arms: 'Show the arms, and count them',
+  angle: 'Giro entre semillas',
+  nudgeGroup: 'Cambia un poco el giro',
+  // Los botones bajo el deslizador; reciben el paso ya escrito como la página escribe los números («0,01°»).
+  more: (step) => `${step} más`,
+  less: (step) => `${step} menos`,
+  arms: 'Mostrar los brazos y contarlos',
 
-  // The status line: what the eye sees near the rim (or where the visitor tapped). Counts are whole numbers.
+  // La línea de estado: lo que se ve cerca del borde (o donde tocó el visitante). Los recuentos son enteros.
   status: {
-    growing: (seeds) => `Growing: ${seeds} seeds`,
-    spokes: (q) => (q === 1 ? 'One straight line' : `${q} straight spokes`),
-    gaps: (q) => `Gaps open between ${q} curved arms`,
-    packed: (a, b) => `Packed tight: ${a} arms one way, ${b} the other`,
+    growing: (seeds) => `Creciendo: ${seeds} semillas`,
+    spokes: (q) => (q === 1 ? 'Una sola línea recta' : `${q} radios rectos`),
+    gaps: (q) => `Se abren huecos entre ${q} brazos curvos`,
+    packed: (a, b) => `Bien apretadas: ${a} brazos en un sentido, ${b} en el otro`,
   },
 
-  // Words drawn on the canvas: keep them short.
+  // Palabras dibujadas en la imagen: cortas.
   labels: {
-    degrees: (value) => `${value}°`, // the turn, already written as the page writes numbers
-    golden: 'the golden angle',
-    ofTurn: (p, q) => `${p}/${q} of a turn`,
-    fibonacci: 'Fibonacci numbers',
+    degrees: (value) => `${value}°`, // el giro, ya escrito como la página escribe los números
+    golden: 'el ángulo áureo',
+    ofTurn: (p, q) => `${p}/${q} de vuelta`,
+    fibonacci: 'Números de Fibonacci',
   },
 
   guests: [
     {
-      name: 'Leonardo of Pisa (Fibonacci)',
-      note: 'In 1202 his book of calculation asked how fast rabbits breed. The answer, 1, 1, 2, 3, 5, 8, 13…, now carries his nickname.',
+      name: 'Leonardo de Pisa (Fibonacci)',
+      note: 'En 1202, su libro de cálculo preguntaba a qué ritmo se reproducen los conejos. La respuesta, 1, 1, 2, 3, 5, 8, 13…, lleva hoy su apodo.',
     },
     {
       name: 'Alan Turing',
-      note: 'In his last years he worked on why plants set their leaves and seeds in Fibonacci spirals. In 2012, his centenary, the public grew sunflowers to test it.',
+      note: 'En sus últimos años estudió por qué las plantas colocan sus hojas y sus semillas en espirales de Fibonacci. En 2012, año de su centenario, el público cultivó girasoles para ponerlo a prueba.',
     },
   ],
 
   insight: {
-    title: 'Why does one angle make a sunflower?',
-    html: `<p>Each new seed is turned by the same angle from the one before and sits a little further out. If that turn is a simple fraction of a full turn, say 3/8, then every eighth seed lands on the same line from the centre: eight spokes, with empty wedges between them. A turn <em>close</em> to 3/8 bends those spokes into eight curved arms, with gaps between them.</p>
-<div class="insight-visual">a turn of p/q → q spokes · close to p/q → q curved arms</div>
-<h3>The angle that avoids every fraction</h3>
-<p>To fill the head with no gaps, the turn has to stay away from every simple fraction. The golden angle, 360°/φ² ≈ 137.508° (φ = 1.618…, the golden ratio), does this better than any other: fractions approximate φ more slowly than any other number. Its best approximations are 1/3, 2/5, 3/8, 5/13, 8/21, 13/34 of a turn: ratios of Fibonacci numbers. That is why the two families of arms you can count are neighbouring Fibonacci numbers, 13 and 21 near the middle, 55 and 89 near the rim of a thousand seeds.</p>
-<h3>Real sunflowers</h3>
-<p>Plants aren’t this tidy. In the <em>Turing’s Sunflowers</em> citizen-science study of 657 flower heads, 565 of the 768 spiral counts were Fibonacci numbers, and 67 more had a related Fibonacci structure. The rest didn’t, and counts one less than a Fibonacci number turned up surprisingly often. Some heads had no clear spirals at all.</p>
-<h3>What this model leaves out</h3>
-<p>The model is told the angle; it doesn’t explain why a plant uses it. In a real flower head new buds form where a hormone, auxin, gathers, and each bud draws it away from its surroundings, so the next one forms elsewhere. Stéphane Douady and Yves Couder dropped magnetised droplets one after another onto oil, where they repel each other: each new drop settles as far as it can from the last ones, and at the right pace the golden angle appears by itself.</p>
-<details><summary>The mathematics, if you want it</summary><p>A turn of 0.381966… has the continued fraction 1/(2 + 1/(1 + 1/(1 + …))), all 1s after the 2: no continued fraction closes in more slowly. Its best fractions, the convergents, are F<sub>k</sub>/F<sub>k+2</sub>: 1/3, 2/5, 3/8, 5/13… The nearest neighbours of a seed are a Fibonacci number of seeds before or after it, and that number grows roughly in step with the distance from the centre. Exactly 137.5° is 55/144 of a turn, so it makes 144 spokes, though only once there are a few thousand seeds.</p></details>
-<div class="sources"><a class="source-link" href="https://doi.org/10.1016/0025-5564(79)90080-4" target="_blank" rel="noopener">H. Vogel, A better way to construct the sunflower head (1979)</a><a class="source-link" href="https://doi.org/10.1098/rsos.160091" target="_blank" rel="noopener">J. Swinton, E. Ochu et al., Turing’s Sunflowers (2016)</a><a class="source-link" href="https://doi.org/10.1103/PhysRevLett.68.2098" target="_blank" rel="noopener">S. Douady, Y. Couder, Phyllotaxis as a self-organised growth process (1992)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Golden_angle" target="_blank" rel="noopener">Golden angle</a></div>`,
+    title: '¿Por qué un solo ángulo hace un girasol?',
+    html: `<p>Cada semilla nueva está girada el mismo ángulo respecto a la anterior y queda un poco más hacia fuera. Si ese giro es una fracción sencilla de una vuelta completa, por ejemplo 3/8, cada octava semilla cae en la misma recta desde el centro: ocho radios, con cuñas vacías entre ellos. Un giro <em>cercano</em> a 3/8 curva esos radios en ocho brazos curvos, con huecos entre ellos.</p>
+<div class="insight-visual">un giro de p/q → q radios · cerca de p/q → q brazos curvos</div>
+<h3>El ángulo que esquiva todas las fracciones</h3>
+<p>Para llenar la cabeza sin huecos, el giro tiene que mantenerse lejos de toda fracción sencilla. El ángulo áureo, 360°/φ² ≈ 137,508° (φ = 1,618…, el número áureo), lo consigue mejor que ningún otro: las fracciones se acercan a φ más despacio que a cualquier otro número. Sus mejores aproximaciones son 1/3, 2/5, 3/8, 5/13, 8/21 y 13/34 de vuelta: cocientes de números de Fibonacci. Por eso las dos familias de brazos que puedes contar son números de Fibonacci vecinos, 13 y 21 cerca del centro, 55 y 89 cerca del borde de mil semillas.</p>
+<h3>Girasoles de verdad</h3>
+<p>Las plantas no son tan ordenadas. En el estudio de ciencia ciudadana <em>Turing’s Sunflowers</em>, con 657 cabezas de girasol, 565 de los 768 recuentos de espirales eran números de Fibonacci, y otros 67 tenían una estructura emparentada con Fibonacci. El resto no, y los recuentos de uno menos que un número de Fibonacci aparecieron con una frecuencia sorprendente. Algunas cabezas no tenían ninguna espiral clara.</p>
+<h3>Lo que este modelo deja fuera</h3>
+<p>Al modelo se le da el ángulo; no explica por qué una planta lo usa. En la cabeza de una flor real, los brotes nuevos se forman donde se acumula una hormona, la auxina, y cada brote la retira de su entorno, así que el siguiente se forma en otro sitio. Stéphane Douady e Yves Couder dejaron caer gotitas magnetizadas una tras otra sobre aceite, donde se repelen: cada gota nueva se asienta lo más lejos que puede de las últimas, y al ritmo adecuado el ángulo áureo aparece por sí solo.</p>
+<details><summary>Las matemáticas, si te apetecen</summary><p>Un giro de 0,381966… tiene la fracción continua 1/(2 + 1/(1 + 1/(1 + …))), con todos los términos iguales a 1 después del 2: ninguna fracción continua se acerca más despacio. Sus mejores fracciones, las convergentes, son F<sub>k</sub>/F<sub>k+2</sub>: 1/3, 2/5, 3/8, 5/13… Los vecinos más cercanos de una semilla están un número de Fibonacci de semillas antes o después de ella, y ese número crece más o menos al mismo paso que la distancia al centro. Exactamente 137,5° son 55/144 de vuelta, así que da 144 radios, aunque solo cuando hay unos pocos miles de semillas.</p></details>
+<div class="sources"><a class="source-link" href="https://doi.org/10.1016/0025-5564(79)90080-4" target="_blank" rel="noopener">H. Vogel, A better way to construct the sunflower head (1979, en inglés)</a><a class="source-link" href="https://doi.org/10.1098/rsos.160091" target="_blank" rel="noopener">J. Swinton, E. Ochu y otros, Turing’s Sunflowers (2016, en inglés)</a><a class="source-link" href="https://doi.org/10.1103/PhysRevLett.68.2098" target="_blank" rel="noopener">S. Douady, Y. Couder, Phyllotaxis as a self-organised growth process (1992, en inglés)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Golden_angle" target="_blank" rel="noopener">Ángulo áureo (Wikipedia, en inglés)</a></div>`,
   },
 });

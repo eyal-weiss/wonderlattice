@@ -1,112 +1,123 @@
 /* The staircase of sound · visitor-facing words (ar). */
+// «سلّم» is both a staircase and a musical scale. «درجة» (step), «نغمة» (tone), «نوتة» (note, as in دو، ري، مي) and
+// «دورة» (turn) are feminine; «أوكتاف» (octave) masculine: درجة واحدة، درجتان، 3 درجات، 12 درجة. The note names are
+// the solfège names used across the Arab world. The words in the picture follow the page's right-to-left direction;
+// only the step count in the middle of the circle is drawn left to right.
 Wonderlattice.defineText('stairs', 'ar', {
-  eyebrow: 'SOUND · ILLUSION',
-  name: 'The staircase of sound',
-  tagline: 'A scale that climbs step after step, and never gets any higher.',
-  title: 'The staircase of sound.',
+  eyebrow: 'صوت · خداع سمعي',
+  name: 'سلّم الصوت',
+  tagline: 'سلّم موسيقي يصعد درجة بعد درجة، ولا يعلو أبدًا.',
+  title: 'سلّم الصوت.',
   subtitle:
-    'A scale climbs step after step, yet twelve steps later it is back where it began. Turn the sound on to hear it; the picture shows the trick.',
-  field: 'Sound · Octaves · Perception',
-  sceneLabel: 'Eight tones, an octave apart',
-  sceneNames: ['A scale that climbs forever', 'A slide that rises forever', 'The trick, taken away'],
-  tip: 'Best heard quietly, or with headphones · Each glowing dot is a tone, and they all sound at once',
+    'سلّم موسيقي يصعد درجة بعد درجة، لكنه بعد اثنتي عشرة درجة يعود إلى حيث بدأ. شغّلوا الصوت لتسمعوه؛ والصورة تكشف الحيلة.',
+  field: 'الصوت · الأوكتافات · الإدراك',
+  sceneLabel: 'ثماني نغمات، يفصل بين كلٍّ منها والتالية أوكتاف',
+  sceneNames: ['سلّم يصعد بلا نهاية', 'انزلاق يرتفع بلا نهاية', 'من دون الحيلة'],
+  tip: 'الأفضل الاستماع بصوت خافت، أو بسماعات الرأس · كل نقطة متوهّجة نغمة، وكلها تُسمع معًا',
   canvasLabel:
-    'A spiral of pitch, one turn for each octave, with a glowing dot on every turn: the tones that sound together, brightest in the middle. Seen from above, the spiral is a circle of twelve notes. Beside it, the same tones as bars under a fixed loudness curve.',
-  panelEyebrow: 'Listen & look',
-  whyLabel: 'Why does it never get higher?',
-  nudge:
-    'Turn the sound on, then narrow the loudness curve to one octave: the trick falls apart, and you hear the drop back down.',
+    'حلزون لطبقة الصوت، بدورة واحدة لكل أوكتاف، وعلى كل دورة نقطة متوهّجة: النغمات التي تُسمع معًا، وأسطعها في الوسط. ومن الأعلى يبدو الحلزون دائرة من اثنتي عشرة نوتة. وإلى جانبه، النغمات نفسها كأعمدة تحت منحنى ثابت لشدة الصوت.',
+  panelEyebrow: 'استمعوا وانظروا',
+  whyLabel: 'لماذا لا يعلو أبدًا؟',
+  nudge: 'شغّلوا الصوت، ثم ضيّقوا منحنى شدة الصوت إلى أوكتاف واحد: تنهار الحيلة، وتسمعون الهبوط إلى الأسفل من جديد.',
   connection: {
-    html: '<strong>An octave is a doubling.</strong> Every tone here is twice the frequency of the one below it. In Hear the shape, two tones in simple ratios add up to beats and loops.',
-    label: 'Hear two tones together',
+    html: '<strong>الأوكتاف مضاعفة.</strong> تردد كل نغمة هنا ضعف تردد النغمة التي تحتها. وفي «سماع الشكل»، تجتمع نغمتان بنسب بسيطة في ضربات وحلقات.',
+    label: 'سماع نغمتين معًا',
   },
 
   presets: [
-    { name: 'The endless staircase', note: 'Twelve steps up, back at the start.' },
-    { name: 'The endless slide', note: 'Risset’s gliding version.' },
-    { name: 'Take the trick away', note: 'One tone at a time: hear it drop.' },
+    { name: 'السلّم الذي لا ينتهي', note: 'اثنتا عشرة درجة صعودًا، والعودة إلى البداية.' },
+    { name: 'الانزلاق الذي لا ينتهي', note: 'نسخة ريسيه المنزلقة.' },
+    { name: 'إزالة الحيلة', note: 'نغمة واحدة في كل مرة: اسمعوها تهبط.' },
   ],
 
-  soundOff: 'Turn sound on',
-  soundOn: 'Sound on · mute',
-  noSound: 'Sound is unavailable in this browser. You can still watch how the trick works.',
+  soundOff: 'تشغيل الصوت',
+  soundOn: 'الصوت يعمل · كتم',
+  noSound: 'الصوت غير متاح في هذا المتصفح. لا يزال بإمكانكم مشاهدة كيف تعمل الحيلة.',
 
-  how: 'How it climbs',
-  modes: ['Steps', 'Glide'],
-  bell: 'Width of the loudness curve, in octaves',
-  bellHint: 'At one octave, only one tone sounds at a time.',
-  speed: 'Steps per second',
-  volume: 'Volume',
+  how: 'كيف يصعد',
+  modes: ['درجات', 'انزلاق'],
+  bell: 'عرض منحنى شدة الصوت، بالأوكتافات',
+  bellHint: 'عند أوكتاف واحد، لا تُسمع إلا نغمة واحدة في كل مرة.',
+  speed: 'الدرجات في الثانية',
+  volume: 'مستوى الصوت',
 
-  // Note names round the circle, from C. Write them the way your language names notes.
-  notes: ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B'],
+  // Note names round the circle, from C (دو). Write them the way your language names notes.
+  notes: ['دو', 'دو♯', 'ري', 'ري♯', 'مي', 'فا', 'فا♯', 'صول', 'صول♯', 'لا', 'لا♯', 'سي'],
 
   pair: {
-    title: 'Up or down?',
-    text: 'Two notes, exactly half an octave apart. Does the second go up or down? There is no right answer.',
-    play: 'Play two notes',
-    again: 'Play another pair',
-    up: 'Up',
-    down: 'Down',
+    title: 'صعود أم هبوط؟',
+    text: 'نوتتان، بينهما نصف أوكتاف بالضبط. هل تصعد الثانية أم تهبط؟ لا توجد إجابة صحيحة.',
+    play: 'عزف نوتتين',
+    again: 'عزف زوج آخر',
+    up: 'صعود',
+    down: 'هبوط',
     answer: (up, a, b) =>
       up
-        ? `You heard ${a} to ${b} go up. Other listeners hear the very same pair go down: on the circle the two notes are opposite, so up and down are equally far.`
-        : `You heard ${a} to ${b} go down. Other listeners hear the very same pair go up: on the circle the two notes are opposite, so up and down are equally far.`,
+        ? `سمعتم الانتقال من ${a} إلى ${b} صعودًا. ومستمعون آخرون يسمعون الزوج نفسه تمامًا هبوطًا: على الدائرة تتقابل النوتتان، فالصعود والهبوط على المسافة نفسها.`
+        : `سمعتم الانتقال من ${a} إلى ${b} هبوطًا. ومستمعون آخرون يسمعون الزوج نفسه تمامًا صعودًا: على الدائرة تتقابل النوتتان، فالصعود والهبوط على المسافة نفسها.`,
   },
 
+  // `n` and `same` (0 to 11) are whole numbers of steps, `laps` a whole number of times round.
   status: {
-    steps: (n, same) =>
-      n < 12
-        ? `${n} ${n === 1 ? 'step' : 'steps'} up`
-        : `${n} steps up · the same sound as ${same === 0 ? 'the start' : `step ${same}`}`,
-    glide: (laps) =>
-      laps === 0 ? 'Rising smoothly' : `Rising smoothly · back where it began ${laps === 1 ? 'once' : `${laps} times`}`,
-    pair: (a, b) => `${a}, then ${b}: up or down?`,
+    steps: (n, same) => {
+      const k = n % 100;
+      const count = n === 1 ? 'درجة واحدة' : n === 2 ? 'درجتان' : k >= 3 && k <= 10 ? `${n} درجات` : `${n} درجة`;
+      return n < 12
+        ? `${count} صعودًا`
+        : `${count} صعودًا · الصوت نفسه ${same === 0 ? 'كما في البداية' : `كما في الدرجة ${same}`}`;
+    },
+    glide: (laps) => {
+      const k = laps % 100;
+      const times =
+        laps === 1 ? 'مرة واحدة' : laps === 2 ? 'مرتين' : k >= 3 && k <= 10 ? `${laps} مرات` : `${laps} مرة`;
+      return laps === 0 ? 'يرتفع بسلاسة' : `يرتفع بسلاسة · عاد إلى حيث بدأ ${times}`;
+    },
+    pair: (a, b) => `${a}، ثم ${b}: صعود أم هبوط؟`,
   },
 
   labels: {
-    higher: 'higher',
-    turn: 'one turn = one octave',
-    above: 'Seen from above',
-    tones: 'The tones you hear',
-    curve: 'loudness',
-    pitch: 'pitch',
-    drop: 'an octave down',
-    up: 'up?',
-    down: 'down?',
+    higher: 'أعلى',
+    turn: 'كل دورة = أوكتاف',
+    above: 'من الأعلى',
+    tones: 'النغمات المسموعة',
+    curve: 'شدة الصوت',
+    pitch: 'طبقة الصوت',
+    drop: 'هبوط أوكتاف',
+    up: 'صعود؟',
+    down: 'هبوط؟',
   },
 
   guests: [
     {
-      name: 'Roger Shepard',
-      note: 'At Bell Labs in the 1960s I made a scale that climbs forever. Twelve steps up, and you are back at the start.',
+      name: 'روجر شيبرد',
+      note: 'في مختبرات بِل، في ستينيات القرن العشرين، صنعت سلّمًا يصعد بلا نهاية. اثنتا عشرة درجة صعودًا، وتعودون إلى البداية.',
     },
     {
-      name: 'Jean-Claude Risset',
-      note: 'I made the steps melt into one slide: a sound that rises without end, and never arrives.',
+      name: 'جان كلود ريسيه',
+      note: 'جعلت الدرجات تذوب في انزلاق واحد: صوت يرتفع بلا نهاية، ولا يصل أبدًا.',
     },
     {
-      name: 'Diana Deutsch',
-      note: 'The psychologist found that two notes half an octave apart rise for some listeners and fall for others.',
+      name: 'ديانا دويتش',
+      note: 'وجدت عالمة النفس هذه أن نوتتين بينهما نصف أوكتاف تصعدان لدى بعض المستمعين وتهبطان لدى آخرين.',
     },
   ],
 
   insight: {
-    title: 'Why does it never get higher?',
-    html: `<p>Each note here is not one tone but eight, an octave apart: a low C, the C above it, and so on up to a high C, all sounding at once. A fixed curve sets how loud each one is. The middle ones are loud; the lowest and the highest fade to nothing.</p>
-<p>Each step raises all eight by a semitone. After twelve steps every tone has doubled its frequency, so each one sits exactly where the one above it began. The top tone has faded out at the high end, a new one has faded in at the low end, and the sound is exactly the one you started with. Your ear follows the step-by-step rise and misses the swap.</p>
-<div class="insight-visual">Step 0: C1 C2 C3 C4 C5 C6 C7 C8 · Step 12: C2 C3 C4 C5 C6 C7 C8 C9 · C1 and C9 are both silent, so the two sound the same</div>
-<h3>Two sides of pitch</h3>
-<p>A note has a height (how high it is) and a chroma (which of the twelve notes it is: C, D, E…). Picture them as a spiral: going up is height, going round is chroma, and each turn is an octave. Seen from above, the spiral is a circle. This sound keeps the going round and hides the going up.</p>
-<h3>Take the trick away</h3>
-<p>Narrow the loudness curve to one octave and only one tone sounds at a time. It climbs for twelve steps, fades out, and a tone an octave lower takes over: the drop that the wide curve hides.</p>
-<h3>Up or down?</h3>
-<p>Two notes half an octave apart sit opposite each other on the circle, so neither way round is shorter. In 1986 Diana Deutsch found that listeners disagree about such pairs, and that each listener hears some pairs rising and others falling. How people hear them has been linked to the speech they grew up with: in her studies, listeners from the south of England and from California tended to hear them in opposite ways. Nobody is wrong.</p>
-<h3>Where you may have met it</h3>
-<p>Jean-Claude Risset made a version that glides instead of stepping. Shepard tones build tension in the music of Christopher Nolan’s film <em>Dunkirk</em> (2017), and a version plays on the endless staircase of the video game <em>Super Mario 64</em> (1996). The same idea as a picture is the impossible staircase that Lionel and Roger Penrose published in 1958 (Oscar Reutersvärd had drawn one in 1937), and that M. C. Escher used in <em>Ascending and Descending</em> (1960).</p>
-<h3>What this room simplifies</h3>
-<p>The “forever” lives in the ear, not in the sound, which repeats exactly every twelve steps. Not everyone hears the illusion as strongly, and small speakers can’t play the lowest tones, though the curve keeps those quiet anyway. Shepard used a curve of this kind, a raised cosine, and noted that almost any smooth curve that fades out at both ends would do.</p>
-<details><summary>The mathematics, if you want it</summary><p>At step n, tone j (j = 0 … 7) has frequency 32.7 Hz × 2<sup>x</sup> with x = (j + n/12) mod 8, and loudness L(x) = ½(1 − cos(2πx/8)): 0 at x = 0 and x = 8, and 1 at x = 4 (C5, about 523 Hz). Twelve steps add 1 to every x, mod 8, which gives the same set of tones. The loudnesses always add up to 4, so the sound’s strength never changes. R. N. Shepard, “Circularity in judgments of relative pitch”, Journal of the Acoustical Society of America 36 (1964) 2346–2353. D. Deutsch, “A musical paradox”, Music Perception 3 (1986) 275–280.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Shepard_tone" target="_blank" rel="noopener">Shepard tone</a><a class="source-link" href="https://en.wikipedia.org/wiki/Tritone_paradox" target="_blank" rel="noopener">Tritone paradox</a><a class="source-link" href="https://deutsch.ucsd.edu/psychology/pages.php?i=206" target="_blank" rel="noopener">Diana Deutsch on the tritone paradox</a><a class="source-link" href="https://en.wikipedia.org/wiki/Penrose_stairs" target="_blank" rel="noopener">Penrose stairs</a></div>`,
+    title: 'لماذا لا يعلو أبدًا؟',
+    html: `<p>كل نوتة هنا ليست نغمة واحدة، بل ثماني نغمات يفصل بين كلٍّ منها والتالية أوكتاف: دو منخفضة، ثم الدو التي فوقها، وهكذا حتى دو عالية، وكلها تُسمع معًا. منحنى ثابت يحدّد شدة كلٍّ منها. النغمات الوسطى قوية؛ أما أخفضها وأعلاها فتخفتان حتى تتلاشيا.</p>
+<p>كل درجة ترفع النغمات الثماني كلها نصف تون. وبعد اثنتي عشرة درجة يكون تردد كل نغمة قد تضاعف، فتقف كلٌّ منها تمامًا حيث بدأت النغمة التي فوقها. النغمة العليا تلاشت عند الطرف العالي، ونغمة جديدة ظهرت تدريجيًا عند الطرف المنخفض، والصوت هو نفسه تمامًا الذي بدأتم به. أذنكم تتبع الصعود درجة درجة، ولا تنتبه إلى التبديل.</p>
+<div class="insight-visual">الدرجة 0: دو1 دو2 دو3 دو4 دو5 دو6 دو7 دو8 · الدرجة 12: دو2 دو3 دو4 دو5 دو6 دو7 دو8 دو9 · دو1 ودو9 صامتتان كلتاهما، فيبدو الصوتان متطابقين</div>
+<h3>وجها طبقة الصوت</h3>
+<p>للنوتة ارتفاع (مدى علوّها) وكروما (أيّ النوتات الاثنتي عشرة هي: دو، ري، مي…). تخيّلوهما حلزونًا: الصعود هو الارتفاع، والدوران هو الكروما، وكل دورة أوكتاف. ومن الأعلى يبدو الحلزون دائرة. هذا الصوت يُبقي الدوران ويُخفي الصعود.</p>
+<h3>إزالة الحيلة</h3>
+<p>ضيّقوا منحنى شدة الصوت إلى أوكتاف واحد، فلا تُسمع إلا نغمة واحدة في كل مرة. تصعد اثنتي عشرة درجة، ثم تتلاشى، وتحلّ محلها نغمة أخفض بأوكتاف: هذا هو الهبوط الذي يُخفيه المنحنى العريض.</p>
+<h3>صعود أم هبوط؟</h3>
+<p>نوتتان بينهما نصف أوكتاف تقفان متقابلتين على الدائرة، فلا طريق حولها أقصر من الآخر. عام 1986 وجدت ديانا دويتش أن المستمعين يختلفون حول أزواج كهذه، وأن كل مستمع يسمع بعض الأزواج صاعدة وبعضها هابطة. وقد رُبطت طريقة سماعها بالكلام الذي نشأ عليه الناس: في دراساتها، مال المستمعون من جنوب إنجلترا ومن كاليفورنيا إلى سماعها بطريقتين متعاكستين. لا أحد مخطئ.</p>
+<h3>أين ربما صادفتموه</h3>
+<p>صنع جان كلود ريسيه نسخة تنزلق بدل أن تصعد درجة درجة. ونغمات شيبرد تبني التوتر في موسيقى فيلم كريستوفر نولان <em>دنكيرك</em> (2017)، ونسخة منها تُعزف على السلّم الذي لا ينتهي في لعبة الفيديو <em>\u2066Super Mario 64\u2069</em> (1996). والفكرة نفسها في صورة هي السلّم المستحيل الذي نشره ليونيل وروجر بنروز عام 1958 (وكان أوسكار رويترسفارد قد رسم واحدًا عام 1937)، والذي استخدمه م. ك. إيشر في <em>\u2066Ascending and Descending\u2069</em> (1960).</p>
+<h3>ما تبسّطه هذه الغرفة</h3>
+<p>«بلا نهاية» تعيش في الأذن، لا في الصوت، الذي يتكرر بالضبط كل اثنتي عشرة درجة. لا يسمع الجميع الخداع بالقوة نفسها، ومكبّرات الصوت الصغيرة لا تستطيع عزف أخفض النغمات، مع أن المنحنى يُبقيها خافتة على أي حال. استخدم شيبرد منحنى من هذا النوع، جيب تمام مرفوعًا، وأشار إلى أن أي منحنى سلس تقريبًا يتلاشى عند طرفيه يفي بالغرض.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>عند الدرجة n، يكون تردد النغمة j (\u2066j\u00a0=\u00a00\u00a0…\u00a07\u2069) هو \u206632.7\u00a0Hz\u00a0×\u00a02<sup>x</sup>\u2069، حيث \u2066x\u00a0=\u00a0(j\u00a0+\u00a0n/\u206012)\u00a0mod\u00a08\u2069، وشدتها \u2066L(x)\u00a0=\u00a0½(1\u00a0−\u00a0cos(2πx/\u20608))\u2069: تساوي 0 عند \u2066x\u00a0=\u00a00\u2069 و\u2066x\u00a0=\u00a08\u2069، و1 عند \u2066x\u00a0=\u00a04\u2069 (دو5، نحو \u2066523\u00a0Hz\u2069). اثنتا عشرة درجة تضيف 1 إلى كل x، بحساب باقي القسمة على 8، فتعطي مجموعة النغمات نفسها. ومجموع الشدّات دائمًا 4، لذا لا تتغيّر قوة الصوت أبدًا. \u2066R. N. Shepard, “Circularity in judgments of relative pitch”, Journal of the Acoustical Society of America 36 (1964) 2346–2353.\u2069 \u2066D. Deutsch, “A musical paradox”, Music Perception 3 (1986) 275–280.\u2069</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Shepard_tone" target="_blank" rel="noopener">نغمة شيبرد (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Tritone_paradox" target="_blank" rel="noopener">مفارقة التريتون (بالإنجليزية)</a><a class="source-link" href="https://deutsch.ucsd.edu/psychology/pages.php?i=206" target="_blank" rel="noopener">ديانا دويتش عن مفارقة التريتون (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Penrose_stairs" target="_blank" rel="noopener">سلّم بنروز (بالإنجليزية)</a></div>`,
   },
 });

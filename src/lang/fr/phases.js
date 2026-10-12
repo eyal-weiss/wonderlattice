@@ -1,113 +1,113 @@
-/* Three wires, no way back · visitor-facing words (fr). */
+/* Trois fils, aucun retour · les mots vus par le visiteur (fr). */
 Wonderlattice.defineText('phases', 'fr', {
-  eyebrow: 'THREE-PHASE POWER',
-  name: 'Three wires, no way back',
-  tagline: 'Three currents chase each other round a circle, and at every instant they add up to nothing.',
-  title: 'Three wires, no way back.',
+  eyebrow: 'COURANT TRIPHASÉ',
+  name: 'Trois fils, aucun retour',
+  tagline: 'Trois courants se poursuivent autour d’un cercle, et à chaque instant leur somme est nulle.',
+  title: 'Trois fils, aucun retour.',
   subtitle:
-    'Three circuits would need six wires. Watch their three return wires merge into one that carries nothing, then load one street and wake it.',
-  field: 'Phasors · 120° apart · A turning field',
-  sceneLabel: 'Three-phase power, 150 times slower than the mains',
+    'Trois circuits demanderaient six fils. Regardez leurs trois fils de retour se fondre en un seul, où ne passe aucun courant, puis chargez une rue pour le réveiller.',
+  field: 'Phaseurs · À 120° d’écart · Un champ tournant',
+  sceneLabel: 'Du courant triphasé, 150 fois plus lent que le secteur',
   // By the view: the currents, the power, the field of three coils.
-  sceneNames: ['Three currents', 'Flickering lamps', 'A field that turns'],
-  tip: 'Drag an arrow’s tip in or out to change its wire’s current • Keys: ← → pick a wire, ↑ ↓ change its current',
+  sceneNames: ['Trois courants', 'Des lampes qui scintillent', 'Un champ qui tourne'],
+  tip: 'Tirez la pointe d’une flèche vers l’intérieur ou l’extérieur pour changer le courant de son fil • Clavier : ← → choisissent un fil, ↑ ↓ changent son courant',
   canvasLabel:
-    'On the left, three coloured arrows, a third of a turn apart, spin round a circle like clock hands; their heights trace three sine waves to the right, and a white line, their sum, stays flat at zero. Below, a power station sends the three currents down three wires to three streets of houses. At first each street has its own wire back, six wires in all; the three return wires slide together into one shared wire, whose meter reads 0 A, because the currents cancel. Load one street more and the meter wakes up. Other views show each street’s lamps flickering while their total stays steady, and three coils whose field turns a compass needle.',
-  panelEyebrow: 'Load the streets',
-  whyLabel: 'Why do the three currents cancel?',
+    'À gauche, trois flèches de couleur, à un tiers de tour l’une de l’autre, tournent autour d’un cercle comme les aiguilles d’une horloge ; leurs hauteurs tracent trois sinusoïdes vers la droite, et une ligne blanche, leur somme, reste plate à zéro. En dessous, une centrale envoie les trois courants par trois fils vers trois rues de maisons. Au début, chaque rue a son propre fil de retour, six fils en tout ; les trois fils de retour glissent l’un vers l’autre et se fondent en un seul fil commun, dont le compteur indique 0 A, car les courants s’annulent. Chargez davantage une rue et le compteur se réveille. D’autres vues montrent les lampes de chaque rue qui scintillent tandis que leur total reste stable, et trois bobines dont le champ fait tourner l’aiguille d’une boussole.',
+  panelEyebrow: 'Chargez les rues',
+  whyLabel: 'Pourquoi les trois courants s’annulent-ils ?',
   nudge:
-    'Switch the kettles on and watch the return wire wake up. Then show the field: three coils that never move turn a compass needle.',
+    'Allumez les bouilloires et regardez le fil de retour se réveiller. Puis affichez le champ : trois bobines immobiles font tourner l’aiguille d’une boussole.',
   connection: {
-    html: '<strong>Adding waves.</strong> Here, three waves of one pitch, a third of a cycle apart, add up to silence. In Hear the shape, two tones add up: they can cancel, beat or make a chord.',
-    label: 'Add two tones',
+    html: '<strong>Additionner des ondes.</strong> Ici, trois ondes de même hauteur, décalées d’un tiers de cycle, s’additionnent en silence. Dans « Entendre la forme », deux sons s’additionnent : ils peuvent s’annuler, battre ou former un accord.',
+    label: 'Additionner deux sons',
   },
 
   presets: [
-    { name: 'Balanced', note: 'Equal currents: nothing comes back.', badge: '0 A' },
-    { name: 'Kettles on one street', note: 'Twice the current in wire 1.', badge: '100 A' },
-    { name: 'A field that turns', note: 'Three still coils turn a compass.', badge: '⟳' },
+    { name: 'Équilibré', note: 'Courants égaux : rien ne revient.', badge: '0 A' },
+    { name: 'Bouilloires dans une rue', note: 'Deux fois plus de courant dans le fil 1.', badge: '100 A' },
+    { name: 'Un champ qui tourne', note: 'Trois bobines immobiles font tourner une boussole.', badge: '⟳' },
   ],
 
-  wire: (n) => `Current in wire ${n}`,
-  wireHint: 'Each wire feeds its own street. Turn one up, as if its kettles came on.',
-  amps: ' A',
-  view: 'Show',
+  wire: (n) => `Courant dans le fil ${n}`,
+  wireHint: 'Chaque fil alimente sa propre rue. Augmentez-en un, comme si ses bouilloires s’allumaient.',
+  amps: '\u00a0A',
+  view: 'Afficher',
   // The views: the currents, the power, the field of three coils.
-  views: ['Currents', 'Power', 'Field'],
-  swap: 'Swap wires 2 and 3',
-  swapHint: 'The field turns the other way: that’s how a three-phase motor is reversed.',
-  kettlesOn: 'Switch the kettles on',
-  kettlesOff: 'Switch the kettles off',
+  views: ['Courants', 'Puissance', 'Champ'],
+  swap: 'Inverser les fils 2 et 3',
+  swapHint: 'Le champ tourne dans l’autre sens : c’est ainsi qu’on inverse un moteur triphasé.',
+  kettlesOn: 'Allumer les bouilloires',
+  kettlesOff: 'Éteindre les bouilloires',
 
   // A number (or a word) and one line.
   readout: {
-    back: 'In the return wire',
-    cancel: 'The three currents cancel at every instant, so three wires do the work of six.',
-    differ: 'The currents differ, so they no longer cancel: the difference comes back.',
-    total: 'Total power',
-    steady: 'Steady',
+    back: 'Dans le fil de retour',
+    cancel: 'Les trois courants s’annulent à chaque instant, si bien que trois fils font le travail de six.',
+    differ: 'Les courants diffèrent, donc ils ne s’annulent plus : la différence revient.',
+    total: 'Puissance totale',
+    steady: 'Stable',
     swings: (share) => `± ${share}`,
-    totalSteady: 'Each street’s lamps flicker twice a cycle, but the three together never do.',
-    totalSwings: 'The loads differ, so the total swells and dips too.',
-    fieldTitle: 'The field’s strength',
-    wobbles: 'Wobbles',
-    fieldSteady: 'The field keeps its strength and turns once a cycle, though nothing moves.',
-    fieldWobbles: 'The field still turns, but unequal currents make it swell and shrink.',
-    nothing: 'No current: the lamps are off.',
+    totalSteady: 'Les lampes de chaque rue scintillent deux fois par cycle, mais les trois ensemble, jamais.',
+    totalSwings: 'Les charges diffèrent, donc le total monte et descend lui aussi.',
+    fieldTitle: 'La force du champ',
+    wobbles: 'Oscillante',
+    fieldSteady: 'Le champ garde sa force et fait un tour par cycle, alors que rien ne bouge.',
+    fieldWobbles: 'Le champ tourne toujours, mais des courants inégaux le font enfler et rétrécir.',
+    nothing: 'Pas de courant : les lampes sont éteintes.',
   },
 
-  status: (amps) => `Return wire: ${amps}`,
-  announce: (amps) => `The return wire carries ${amps}.`,
+  status: (amps) => `Fil de retour : ${amps}`,
+  announce: (amps) => `Le fil de retour transporte ${amps}.`,
 
   // Words drawn on the picture.
   labels: {
-    sum: 'sum',
-    sumZero: 'sum = 0',
-    station: 'power station',
-    street: (n) => `street ${n}`,
-    back: 'wire back',
-    shared: 'shared wire back',
+    sum: 'somme',
+    sumZero: 'somme = 0',
+    station: 'centrale',
+    street: (n) => `rue ${n}`,
+    back: 'fil de retour',
+    shared: 'retour commun',
     amps: (n) => `${n} A`,
     // The opening: six wires become three.
     story: [
-      'Three circuits: six wires',
-      'Share one wire back…',
-      '…and it carries nothing',
-      'Three wires do the work of six',
+      'Trois circuits : six fils',
+      'Un seul fil de retour…',
+      '…et rien n’y passe',
+      'Trois fils font le travail de six',
     ],
-    differ: 'Unequal currents: the difference comes back',
-    each: 'each street',
+    differ: 'Courants inégaux : la différence revient',
+    each: 'chaque rue',
     total: 'total',
-    field: 'field',
-    swapped: 'wires 2 and 3 swapped',
+    field: 'champ',
+    swapped: 'fils 2 et 3 inversés',
   },
 
   guests: [
     {
-      name: 'Mikhail Dolivo-Dobrovolsky',
-      note: 'He named three-phase current and built three-phase generators and motors from 1888. In 1891 his system carried power 175 km, from a turbine at Lauffen to an exhibition in Frankfurt, and three-quarters of it arrived.',
+      name: 'Mikhaïl Dolivo-Dobrovolski',
+      note: 'Il a baptisé le courant triphasé, et construit des générateurs et des moteurs triphasés à partir de 1888. En 1891, son système a transporté du courant sur 175 km, d’une turbine à Lauffen jusqu’à une exposition à Francfort, et les trois quarts en sont arrivés.',
     },
     {
       name: 'Nikola Tesla',
-      note: 'In 1888 he patented motors driven by alternating currents out of step, whose turning field drags the rotor round with no brushes or switches.',
+      note: 'En 1888, il a breveté des moteurs entraînés par des courants alternatifs décalés, dont le champ tournant entraîne le rotor sans balais ni interrupteurs.',
     },
     {
       name: 'Galileo Ferraris',
-      note: 'In 1885, independently of Tesla, he built a classroom model in which currents out of step made a magnetic field that turns. He published it in 1888.',
+      note: 'En 1885, indépendamment de Tesla, il a construit une maquette de démonstration dans laquelle des courants décalés créaient un champ magnétique qui tourne. Il l’a publiée en 1888.',
     },
   ],
 
   insight: {
-    title: 'Why do the three currents cancel?',
-    html: `<p>Each wire’s current is the shadow of an arrow turning round the circle: its height, traced over time, is a sine wave. The three arrows are a third of a turn apart. Put them head to tail and they close a triangle, so they add up to nothing, and so do their shadows, at every instant:</p>
+    title: 'Pourquoi les trois courants s’annulent-ils ?',
+    html: `<p>Le courant de chaque fil est l’ombre d’une flèche qui tourne autour du cercle : sa hauteur, suivie au fil du temps, est une sinusoïde. Les trois flèches sont à un tiers de tour l’une de l’autre. Mettez-les bout à bout et elles ferment un triangle : leur somme est donc nulle, et celle de leurs ombres aussi, à chaque instant :</p>
 <div class="insight-visual">sin θ + sin(θ − 120°) + sin(θ + 120°) = 0</div>
-<p>So three circuits can share one wire back, and when their loads are equal it carries nothing and can be left out: three wires do the work of six. In the language of complex numbers, the three arrows are the cube roots of 1, which add up to 0. Load one street more and its arrow grows: the triangle no longer closes, and the gap, the arrows’ sum, is the current that comes back.</p>
-<h3>Lamps that flicker, a total that doesn’t</h3>
-<p>A lamp’s power grows with the square of its current, so it swells and dies twice a cycle: on 50 Hz mains, 100 times a second. Yet sin² θ + sin²(θ − 120°) + sin²(θ + 120°) = 3/2 for every θ, so with equal loads the three phases together deliver a perfectly steady total. That is why large motors and generators use three phases: a steady push, with no shudder.</p>
-<h3>A field that turns</h3>
-<p>Feed the three currents into three coils placed a third of a turn apart round a circle, and the magnetic field at the centre keeps its strength while its direction turns, once a cycle. Nothing moves, yet a compass needle, or a motor’s rotor, is dragged round. Swap any two wires and it turns the other way, which is how a three-phase motor is reversed. Galileo Ferraris (a model in 1885, published in 1888) and Nikola Tesla (patents in 1888) found the turning field independently. Mikhail Dolivo-Dobrovolsky built three-phase generators, motors and transformers, and in 1891 his line carried three-phase power 175 km from Lauffen to an exhibition in Frankfurt.</p>
-<h3>What this leaves out</h3>
-<p>Three wires instead of six is exact only when the three loads are equal. Real loads never quite are, so the street outside a house carries a fourth wire, the neutral, to take the difference back, as in this room when you load one street. Long lines feed large, nearly balanced loads, so they carry three wires; the thinner wires often seen at the very top of pylons are earth wires, there for lightning and faults, not to carry current back. Electronics such as phone chargers draw currents with harmonics, and the third harmonic adds up in the neutral instead of cancelling, so a neutral can even carry more than a phase. Compared with a single two-wire circuit at the same voltage between its wires, a three-wire line carries the same power with about three-quarters of the metal. In this room the lamps are plain resistances, the waves are perfect sines, nothing is lost on the way, and everything runs 150 times slower than 50 Hz mains.</p>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Three-phase_electric_power" target="_blank" rel="noopener">Three-phase electric power</a><a class="source-link" href="https://en.wikipedia.org/wiki/Neutral_conductor" target="_blank" rel="noopener">Neutral conductor</a><a class="source-link" href="https://en.wikipedia.org/wiki/Phasor" target="_blank" rel="noopener">Phasor</a><a class="source-link" href="https://en.wikipedia.org/wiki/Rotating_magnetic_field" target="_blank" rel="noopener">Rotating magnetic field</a><a class="source-link" href="https://en.wikipedia.org/wiki/Mikhail_Dolivo-Dobrovolsky" target="_blank" rel="noopener">Mikhail Dolivo-Dobrovolsky</a></div>`,
+<p>Trois circuits peuvent donc partager un seul fil de retour, et quand leurs charges sont égales, il ne transporte rien et on peut s’en passer : trois fils font le travail de six. Dans le langage des nombres complexes, les trois flèches sont les racines cubiques de 1, dont la somme vaut 0. Chargez davantage une rue et sa flèche s’allonge : le triangle ne se ferme plus, et l’écart, la somme des flèches, est le courant qui revient.</p>
+<h3>Des lampes qui scintillent, un total qui ne scintille pas</h3>
+<p>La puissance d’une lampe croît avec le carré de son courant : elle enfle et retombe donc deux fois par cycle, soit, sur le secteur à 50 Hz, 100 fois par seconde. Pourtant sin² θ + sin²(θ − 120°) + sin²(θ + 120°) = 3/2 pour tout θ, si bien qu’avec des charges égales, les trois phases ensemble fournissent un total parfaitement stable. C’est pourquoi les gros moteurs et les générateurs utilisent trois phases : une poussée régulière, sans à-coups.</p>
+<h3>Un champ qui tourne</h3>
+<p>Envoyez les trois courants dans trois bobines placées à un tiers de tour l’une de l’autre autour d’un cercle, et le champ magnétique au centre garde sa force tandis que sa direction tourne, d’un tour par cycle. Rien ne bouge, et pourtant l’aiguille d’une boussole, ou le rotor d’un moteur, est entraînée. Inversez deux fils, n’importe lesquels, et il tourne dans l’autre sens : c’est ainsi qu’on inverse un moteur triphasé. Galileo Ferraris (une maquette en 1885, publiée en 1888) et Nikola Tesla (des brevets en 1888) ont trouvé le champ tournant indépendamment l’un de l’autre. Mikhaïl Dolivo-Dobrovolski a construit des générateurs, des moteurs et des transformateurs triphasés, et en 1891 sa ligne a transporté du courant triphasé sur 175 km, de Lauffen jusqu’à une exposition à Francfort.</p>
+<h3>Ce que ce modèle laisse de côté</h3>
+<p>Trois fils au lieu de six, ce n’est exact que lorsque les trois charges sont égales. Les vraies charges ne le sont jamais tout à fait : la rue devant une maison porte donc un quatrième fil, le neutre, pour ramener la différence, comme dans cette salle quand vous chargez une rue. Les longues lignes alimentent de grosses charges presque équilibrées, et n’ont donc que trois fils ; les câbles plus fins qu’on voit souvent tout en haut des pylônes sont des câbles de garde, là pour la foudre et les défauts, pas pour ramener du courant. L’électronique, comme les chargeurs de téléphone, absorbe des courants riches en harmoniques, et la troisième harmonique s’additionne dans le neutre au lieu de s’annuler, si bien qu’un neutre peut même transporter plus qu’une phase. Comparée à un simple circuit à deux fils sous la même tension entre ses fils, une ligne à trois fils transporte la même puissance avec environ les trois quarts du métal. Dans cette salle, les lampes sont de simples résistances, les ondes sont des sinusoïdes parfaites, rien ne se perd en chemin, et tout tourne 150 fois plus lentement que le secteur à 50 Hz.</p>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Three-phase_electric_power" target="_blank" rel="noopener">Courant triphasé (Wikipédia, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Neutral_conductor" target="_blank" rel="noopener">Conducteur neutre (Wikipédia, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Phasor" target="_blank" rel="noopener">Phaseur (Wikipédia, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Rotating_magnetic_field" target="_blank" rel="noopener">Champ magnétique tournant (Wikipédia, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Mikhail_Dolivo-Dobrovolsky" target="_blank" rel="noopener">Mikhaïl Dolivo-Dobrovolski (Wikipédia, en anglais)</a></div>`,
   },
 });

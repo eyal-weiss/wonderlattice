@@ -1,75 +1,81 @@
 /* Random jumps, perfect triangle · visitor-facing words (ar). */
+// «قفزة» (jump), «قاعدة» (rule) and «نسخة» (copy) are feminine; «رأس» (a corner of the shape, as for a triangle),
+// «ثقب» (hole) and «سرخس» (fern) masculine: ثلاثة رؤوس، ثلاث قواعد. The corners of a square region are «أركان».
+// The words on the picture follow the page's right-to-left direction.
 Wonderlattice.defineText('chaos', 'ar', {
-  eyebrow: 'THE CHAOS GAME',
-  name: 'Random jumps, perfect triangle',
-  tagline:
-    'Jump halfway to a corner picked at random, again and again, and a flawless fractal appears out of the noise.',
-  title: 'Random jumps, perfect triangle.',
-  subtitle:
-    'A dot jumps halfway to a corner picked at random, again and again. Tap to start it somewhere else, or drag a corner.',
-  field: 'Chance · Fractals · Repeated maps',
-  sceneLabel: 'The chaos game',
-  tip: 'Tap to start the dot there · Drag a corner to reshape the game · Enter makes one jump',
-  actionLabel: 'One jump',
-  canvasLabel:
-    'The corners of a shape, and the dots left by a point that jumps part of the way towards a corner picked at random, again and again.',
-  panelEyebrow: 'Change the game',
-  whyLabel: 'Why does chance draw a perfect shape?',
+  eyebrow: 'لعبة الفوضى',
+  name: 'قفزات عشوائية، ومثلث مثالي',
+  tagline: 'اقفزوا نصف المسافة نحو رأس يُختار عشوائيًا، مرة بعد مرة، فيظهر من العشوائية فراكتال لا عيب فيه.',
+  title: 'قفزات عشوائية، ومثلث مثالي.',
+  subtitle: 'نقطة تقفز نصف المسافة نحو رأس يُختار عشوائيًا، مرة بعد مرة. انقروا لتبدأ من مكان آخر، أو اسحبوا رأسًا.',
+  field: 'الصدفة · الفراكتالات · التحويلات المكرّرة',
+  sceneLabel: 'لعبة الفوضى',
+  tip: 'انقروا لتبدأ النقطة من هناك · اسحبوا رأسًا لتغيير شكل اللعبة · Enter لقفزة واحدة',
+  actionLabel: 'قفزة واحدة',
+  canvasLabel: 'رؤوس شكل، والنقاط التي تتركها نقطة تقفز جزءًا من المسافة نحو رأس يُختار عشوائيًا، مرة بعد مرة.',
+  panelEyebrow: 'غيّروا اللعبة',
+  whyLabel: 'لماذا ترسم الصدفة شكلًا مثاليًا؟',
   nudge:
-    'Try four corners: plain fog. Then tick “Never the same corner twice” and watch a fractal come out of the fog.',
+    'جرّبوا أربعة رؤوس: ضباب لا غير. ثم فعّلوا «منع الرأس نفسه مرتين متتاليتين»، وراقبوا فراكتالًا يخرج من الضباب.',
   connection: {
-    html: '<strong>Two kinds of chaos.</strong> Here “chaos” is only the game’s name: start anywhere, and the same shape appears. In Weather twins, the smallest difference grows into a different future.',
-    label: 'Weather twins',
+    html: '<strong>نوعان من الفوضى.</strong> هنا «الفوضى» مجرد اسم اللعبة: ابدؤوا من أي مكان، فيظهر الشكل نفسه. وفي «توأما الطقس»، يكبر أصغر فرق ليصير مستقبلًا مختلفًا.',
+    label: 'توأما الطقس',
   },
 
   presets: [
-    { name: 'Three corners', note: 'Holes inside holes, and not one dot lands in them.' },
-    { name: 'Four corners', note: 'Plain fog: the dots go everywhere.' },
-    { name: 'Four, and a rule', note: 'Never the same corner twice: a fractal in the fog.' },
-    { name: 'Five corners', note: 'Jump 61.8% of the way: five copies that just touch.' },
-    { name: 'Barnsley’s fern', note: 'Four rules, each with its own chance.' },
+    { name: 'ثلاثة رؤوس', note: 'ثقوب داخل ثقوب، ولا تقع فيها نقطة واحدة.' },
+    { name: 'أربعة رؤوس', note: 'ضباب لا غير: النقاط تذهب إلى كل مكان.' },
+    { name: 'أربعة، وقاعدة', note: 'لا الرأس نفسه مرتين: فراكتال في الضباب.' },
+    { name: 'خمسة رؤوس', note: 'اقفزوا 61.8% من المسافة: خمس نسخ تتلامس بالكاد.' },
+    { name: 'سرخس بارنسلي', note: 'أربع قواعد، لكلٍّ منها احتمالها.' },
   ],
-  yourOwn: 'Your own game',
+  yourOwn: 'لعبتكم',
 
-  corners: 'Corners',
-  jump: 'How far each jump goes',
-  jumpHint: 'The share of the way to the corner.',
-  rule: 'Never the same corner twice in a row',
-  fern: 'Grow Barnsley’s fern instead',
+  corners: 'الرؤوس',
+  jump: 'طول كل قفزة',
+  jumpHint: 'نسبة ما تقطعه من المسافة إلى الرأس.',
+  rule: 'منع الرأس نفسه مرتين متتاليتين',
+  fern: 'إنماء سرخس بارنسلي بدلًا من ذلك',
 
-  // Drawn on the picture.
-  jumps: (n, count) => `${n} ${count === 1 ? 'jump' : 'jumps'}`,
+  // Drawn on the picture. `n` arrives written out (1,234), `count` is the same number as a whole number.
+  jumps: (n, count) => {
+    const k = count % 100;
+    return count === 1 ? 'قفزة واحدة' : count === 2 ? 'قفزتان' : k >= 3 && k <= 10 ? `${n} قفزات` : `${n} قفزة`;
+  },
   caption: (percent, rule) =>
     rule
-      ? `Each jump: ${percent}% of the way to a random corner, never the same one twice`
-      : `Each jump: ${percent}% of the way to a random corner`,
-  fernCaption: 'Each jump: one of four rules, picked by chance',
+      ? `كل قفزة: ${percent}% من المسافة إلى رأس عشوائي، ولا الرأس نفسه مرتين`
+      : `كل قفزة: ${percent}% من المسافة إلى رأس عشوائي`,
+  fernCaption: 'كل قفزة: واحدة من أربع قواعد، تُختار بالصدفة',
 
-  // Over the picture, and read out once the picture settles.
-  holeStatus: (n, none) => (none ? 'Dots in the middle hole: not one' : `Dots in the middle hole: ${n}`),
-  jumpStatus: (n) => `Jumps so far: ${n}`,
-  settled: (n) => `The picture has settled after ${n} jumps.`,
+  // Over the picture, and read out once the picture settles. `n` arrives written out (200,000).
+  holeStatus: (n, none) => (none ? 'النقاط في الثقب الأوسط: ولا واحدة' : `النقاط في الثقب الأوسط: ${n}`),
+  jumpStatus: (n) => `القفزات حتى الآن: ${n}`,
+  settled: (n) => {
+    const k = (n.replace(',', '').replace(',', '') * 1) % 100;
+    return k >= 3 && k <= 10 ? `استقرت الصورة بعد ${n} قفزات.` : `استقرت الصورة بعد ${n} قفزة.`;
+  },
 
   guests: [
     {
-      name: 'Wacław Sierpiński',
-      note: 'In 1915 he described this triangle with holes inside holes. It was a curiosity then; now a die draws it in seconds.',
+      name: 'فاتسواف سيربنسكي',
+      note: 'في عام 1915 وصف هذا المثلث ذا الثقوب داخل الثقوب. كان آنذاك أعجوبة غريبة؛ أما اليوم فيرسمه حجر نرد في ثوانٍ.',
     },
     {
-      name: 'Michael Barnsley',
-      note: 'He gave the chaos game its name in the 1980s, and showed that a handful of rules like these can grow a fern.',
+      name: 'مايكل بارنسلي',
+      note: 'أعطى لعبة الفوضى اسمها في ثمانينيات القرن العشرين، وبيّن أن حفنة من القواعد كهذه تستطيع أن تُنمي سرخسًا.',
     },
   ],
 
   insight: {
-    title: 'Why does chance draw a perfect shape?',
-    html: `<p>Each jump follows one of three rules: halve your distance to corner A, to B or to C. Each rule shrinks the whole triangle onto a half-size copy at its corner. The three copies cover the triangle except for a hole in the middle, and each copy holds three smaller copies with a hole in their middle, and so on for ever. That is the <em>Sierpiński triangle</em>, the one shape made of exactly three half-size copies of itself. Each dot takes the colour of the corner it last jumped towards, so you can see the copies.</p>
-<p>A dot on the shape always jumps to another point on the shape, into the copy at the chosen corner, so it can never land in a hole. A dot that starts anywhere else halves its distance to the shape with every jump, and after twenty jumps it is closer than a pixel. The first twenty jumps aren’t kept for that reason. The die decides only the order in which the dot visits the shape. The shape itself is fixed by the rules.</p>
-<h3>Fog, and a rule that clears it</h3>
-<p>Four half-size squares fill a square exactly, with nothing left over, so with four corners the dot goes everywhere: fog. Now forbid the same corner twice in a row. To land in the quarter-size square at a corner, the last two jumps must both have gone to that corner, so those squares stay empty, and so do the corners of every smaller copy: holes at every size. With the rule each jump depends on the one before, so this is no longer the plain game, but the same reasoning still draws its shape.</p>
-<h3>Not the chaos of the weather</h3>
-<p>“The chaos game” is Michael Barnsley’s name for it, and nothing here is chaotic in the scientist’s sense: start the dot anywhere, with other random numbers, and the same picture appears. The random numbers come from the computer’s generator, which follows a fixed recipe; they aren’t truly random, but they are random enough for this. The picture is made of a finite number of dots on a grid of pixels, so it can only approximate a shape with detail at every size.</p>
-<details><summary>The mathematics, if you want it</summary><p>Each rule is a <em>contraction</em>: it brings any two points closer together. John Hutchinson proved in 1981 that any finite set of contractions has exactly one nonempty closed and bounded set that is the union of its own images, the <em>attractor</em> of this <em>iterated function system</em>. Michael Barnsley and Stephen Demko showed in 1985 that choosing the rules at random draws it: with probability 1 the dot comes close to every part of it. For a regular shape with n corners, the copies just touch when the dot keeps (3 − √5)/2 ≈ 38.2% of its distance with five corners, and a third with six. The Sierpiński triangle’s dimension is log 3 / log 2 ≈ 1.585: halve the size and you need three times as many pieces, not four. The square with the rule has the same dimension, for the same reason. The fern is four affine rules, chosen 1%, 85%, 7% and 7% of the time: one draws the stem, one the rest of the fern a size smaller, and two the lowest leaflets on each side, each a small copy of the whole fern.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Chaos_game" target="_blank" rel="noopener">Chaos game (Wikipedia)</a><a class="source-link" href="https://mathworld.wolfram.com/ChaosGame.html" target="_blank" rel="noopener">Chaos game (MathWorld)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle" target="_blank" rel="noopener">Sierpiński triangle (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Barnsley_fern" target="_blank" rel="noopener">Barnsley fern (Wikipedia)</a><a class="source-link" href="https://doi.org/10.1512/iumj.1981.30.30055" target="_blank" rel="noopener">Hutchinson, Fractals and self similarity (1981)</a><a class="source-link" href="https://doi.org/10.1098/rspa.1985.0057" target="_blank" rel="noopener">Barnsley and Demko, Iterated function systems (1985)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Sierpinski/" target="_blank" rel="noopener">Wacław Sierpiński (MacTutor)</a></div>`,
+    title: 'لماذا ترسم الصدفة شكلًا مثاليًا؟',
+    html: `<p>كل قفزة تتبع واحدة من ثلاث قواعد: تنصيف المسافة إلى الرأس A، أو إلى B، أو إلى C. كل قاعدة تقلّص المثلث كله إلى نسخة بنصف الحجم عند رأسها. والنسخ الثلاث تغطي المثلث ما عدا ثقبًا في الوسط، وكل نسخة تضم ثلاث نسخ أصغر في وسطها ثقب، وهكذا إلى ما لا نهاية. هذا هو <em>مثلث سيربنسكي</em>، الشكل الوحيد المكوّن من ثلاث نسخ بالضبط من نفسه، كلٌّ منها بنصف حجمه. وكل نقطة تأخذ لون الرأس الذي قفزت نحوه آخر مرة، لذا يمكنكم رؤية النسخ.</p>
+<p>النقطة التي على الشكل تقفز دائمًا إلى نقطة أخرى على الشكل، داخل النسخة التي عند الرأس المختار، لذا لا يمكن أن تقع في ثقب أبدًا. والنقطة التي تبدأ من أي مكان آخر تنصّف مسافتها عن الشكل مع كل قفزة، وبعد عشرين قفزة تصبح أقرب إليه من بكسل واحد. لهذا السبب لا تُحفظ القفزات العشرون الأولى. النرد يقرّر فقط الترتيب الذي تزور به النقطة الشكل. أما الشكل نفسه فتحدّده القواعد.</p>
+<h3>ضباب، وقاعدة تبدّده</h3>
+<p>أربعة مربعات بنصف الحجم تملأ مربعًا تمامًا، بلا أي فائض، لذا مع أربعة رؤوس تذهب النقطة إلى كل مكان: ضباب. والآن امنعوا الرأس نفسه مرتين متتاليتين. لكي تقع النقطة في المربع الذي بربع الحجم عند أحد الأركان، يجب أن تكون القفزتان الأخيرتان كلتاهما نحو ذلك الرأس، لذا تبقى تلك المربعات فارغة، وكذلك أركان كل نسخة أصغر: ثقوب بكل الأحجام. ومع القاعدة تعتمد كل قفزة على التي قبلها، لذا لم تعد هذه هي اللعبة البسيطة، لكن الاستدلال نفسه ما زال يرسم شكلها.</p>
+<h3>ليست فوضى الطقس</h3>
+<p>«لعبة الفوضى» هو الاسم الذي أعطاها إياه مايكل بارنسلي، ولا شيء هنا فوضوي بالمعنى العلمي: ابدؤوا بالنقطة من أي مكان، بأعداد عشوائية أخرى، فتظهر الصورة نفسها. الأعداد العشوائية تأتي من مولّد الحاسوب، الذي يتّبع وصفة ثابتة؛ فهي ليست عشوائية حقًا، لكنها عشوائية بما يكفي لهذا. والصورة مكوّنة من عدد محدود من النقاط على شبكة من البكسلات، لذا لا يمكنها إلا أن تقارب شكلًا فيه تفاصيل بكل الأحجام.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>كل قاعدة هي <em>انكماش</em>: تقرّب أي نقطتين إحداهما من الأخرى. برهن جون هتشنسون عام 1981 أن لكل مجموعة منتهية من الانكماشات مجموعةً واحدة بالضبط غير خالية، مغلقة ومحدودة، هي اتحاد صورها هي نفسها: <em>الجاذب</em> لـ<em>نظام الدوال المكرّرة</em> هذا. وبيّن مايكل بارنسلي وستيفن ديمكو عام 1985 أن اختيار القواعد عشوائيًا يرسمه: باحتمال 1 تقترب النقطة من كل جزء منه. ولشكل منتظم له n من الرؤوس، تتلامس النسخ بالكاد حين تحتفظ النقطة بنسبة \u2066(3\u00a0−\u00a0√5)/\u20602\u00a0≈\u00a038.2%\u2069 من مسافتها مع خمسة رؤوس، وبثلثها مع ستة. بُعد مثلث سيربنسكي هو \u2066log\u00a03\u00a0/\u2060\u00a0log\u00a02\u00a0≈\u00a01.585\u2069: نصّفوا الحجم، فتحتاجون إلى ثلاثة أضعاف عدد القطع، لا أربعة. وللمربع مع القاعدة البُعد نفسه، للسبب نفسه. والسرخس أربع قواعد تآلفية، تُختار في 1% و85% و7% و7% من المرات: واحدة ترسم الساق، وواحدة بقية السرخس بحجم أصغر، واثنتان الوريقة السفلى على كل جانب، وكلٌّ منهما نسخة صغيرة من السرخس كله.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Chaos_game" target="_blank" rel="noopener">لعبة الفوضى (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://mathworld.wolfram.com/ChaosGame.html" target="_blank" rel="noopener">لعبة الفوضى (MathWorld، بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle" target="_blank" rel="noopener">مثلث سيربنسكي (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Barnsley_fern" target="_blank" rel="noopener">سرخس بارنسلي (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://doi.org/10.1512/iumj.1981.30.30055" target="_blank" rel="noopener">هتشنسون، \u2066Fractals and self similarity\u2069 \u200f(1981، بالإنجليزية)</a><a class="source-link" href="https://doi.org/10.1098/rspa.1985.0057" target="_blank" rel="noopener">بارنسلي وديمكو، \u2066Iterated function systems\u2069 \u200f(1985، بالإنجليزية)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Sierpinski/" target="_blank" rel="noopener">فاتسواف سيربنسكي (MacTutor، بالإنجليزية)</a></div>`,
   },
 });

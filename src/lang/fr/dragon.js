@@ -1,79 +1,81 @@
-/* Fold a dragon · visitor-facing words (fr). */
+/* Plier un dragon · les mots vus par le visiteur (fr). */
 Wonderlattice.defineText('dragon', 'fr', {
-  eyebrow: 'PAPER FOLDING',
-  name: 'Fold a dragon',
-  tagline: 'Fold a strip of paper in half again and again, open every crease to a right angle, and out comes a dragon.',
-  title: 'Fold a dragon.',
+  eyebrow: 'PLIAGE DE PAPIER',
+  name: 'Plier un dragon',
+  tagline:
+    'Pliez une bande de papier en deux, encore et encore, ouvrez chaque pli à angle droit, et il en sort un dragon.',
+  title: 'Plier un dragon.',
   subtitle:
-    'A strip of paper folds in half ten times, then every crease opens to a right angle. Look: it never crosses itself.',
-  field: 'Folding · Fractals · Tiling',
-  sceneLabel: 'One strip of paper, seen from above',
-  sceneName: 'Folding',
-  tip: 'The strip stands on its edge, seen from above. Fold it once more, or change the crease angle.',
-  actionLabel: 'Fold once more',
+    'Une bande de papier se plie en deux dix fois, puis chaque pli s’ouvre à angle droit. Regardez : elle ne se croise jamais.',
+  field: 'Pliage · Fractales · Pavage',
+  sceneLabel: 'Une bande de papier, vue de dessus',
+  sceneName: 'Pliage',
+  tip: 'La bande tient sur la tranche, vue de dessus. Pliez-la une fois de plus, ou changez l’angle des plis.',
+  actionLabel: 'Encore un pliage',
   canvasLabel:
-    'A coloured strip of paper folds in half again and again, then opens with every crease at a right angle into a curling dragon shape that touches itself at corners but never crosses itself.',
-  panelEyebrow: 'Fold and open',
-  whyLabel: 'Why a dragon?',
+    'Une bande de papier colorée se plie en deux, encore et encore, puis s’ouvre, chaque pli à angle droit, en un dragon enroulé qui se touche aux coins mais ne se croise jamais.',
+  panelEyebrow: 'Plier et ouvrir',
+  whyLabel: 'Pourquoi un dragon ?',
   nudge:
-    'Try it with paper: fold a strip in half four times, always the same way, then open every crease to a right angle and stand it on its edge.',
+    'Essayez avec du papier : pliez une bande en deux quatre fois, toujours dans le même sens, puis ouvrez chaque pli à angle droit et posez-la sur la tranche.',
   connection: {
-    html: '<strong>Copies that fill the plane.</strong> Four dragons fit together around a point with no gaps. In the tiles room, any tile you bend still covers everything.',
-    label: 'Visit “A tile that fills the world”',
+    html: '<strong>Des copies qui remplissent le plan.</strong> Quatre dragons s’emboîtent autour d’un point sans laisser de trou. Dans « Un carreau qui remplit le monde », un carreau que vous déformez couvre encore tout.',
+    label: 'Visiter « Un carreau qui remplit le monde »',
   },
 
   presets: [
-    { name: 'Ten folds', note: 'The classic dragon.' },
-    { name: 'Four dragons', note: 'Turned about one point, they interlock.' },
-    { name: 'Real paper', note: 'Four folds, as a real strip allows.' },
+    { name: 'Dix pliages', note: 'Le dragon classique.' },
+    { name: 'Quatre dragons', note: 'Tournés autour d’un même point, ils s’emboîtent.' },
+    { name: 'Du vrai papier', note: 'Quatre pliages, comme le permet une vraie bande.' },
   ],
 
-  folds: 'Folds',
-  angle: 'Crease angle',
-  four: 'Four dragons',
+  folds: 'Pliages',
+  angle: 'Angle des plis',
+  four: 'Quatre dragons',
 
-  // Above the picture. `fold` and `folds` are whole numbers; `layers` and `pieces` arrive already written out (1,024).
-  folding: 'Folding',
-  opening: 'Opening',
-  oneMore: 'One more fold',
-  dragon: 'The dragon',
-  fourDragons: 'Four dragons',
-  foldStatus: (fold, layers) => `Fold ${fold} · ${layers} layers`,
-  paperLimit: (fold, layers) => `Fold ${fold} · ${layers} layers, more than paper allows`,
-  openStatus: 'Every crease opens to a right angle',
-  moreStatus: 'A new crease in every piece, turning left and right in turn',
+  // Above the picture. `fold` and `folds` are whole numbers; `layers` and `pieces` arrive already written out (1 024).
+  // French: « pliage » is the act of folding, « pli » the crease. The singular is used for 0 and 1.
+  folding: 'Pliage',
+  opening: 'Ouverture',
+  oneMore: 'Encore un pliage',
+  dragon: 'Le dragon',
+  fourDragons: 'Quatre dragons',
+  foldStatus: (fold, layers) => `Pliage ${fold} · ${layers} couches`,
+  paperLimit: (fold, layers) => `Pliage ${fold} · ${layers} couches, trop pour du papier`,
+  openStatus: 'Chaque pli s’ouvre à angle droit',
+  moreStatus: 'Un nouveau pli par morceau, tour à tour à gauche et à droite',
   rightStatus: (folds, pieces) =>
-    `${folds} ${folds === 1 ? 'fold' : 'folds'} · ${pieces} pieces · never crosses itself`,
-  fourStatus: (folds) => `${folds} ${folds === 1 ? 'fold' : 'folds'} each · no overlaps, no gaps in the middle`,
-  angleStatus: (angle) => `Creases at ${angle}° · at 90° it never crosses`,
-  restarted: 'Back to one fold.',
+    `${folds} ${folds < 2 ? 'pliage' : 'pliages'} · ${pieces} morceaux · ne se croise jamais`,
+  fourStatus: (folds) => `${folds} ${folds < 2 ? 'pliage' : 'pliages'} chacun · ni chevauchement ni trou au milieu`,
+  angleStatus: (angle) => `Plis à ${angle}° · à 90°, aucun croisement`,
+  restarted: 'Retour à un seul pliage.',
 
   guests: [
     {
       name: 'Martin Gardner',
-      note: 'In 1967 he showed the readers of his Scientific American column the dragon that three NASA physicists had found by folding paper.',
+      note: 'En 1967, il a montré aux lecteurs de sa rubrique de Scientific American le dragon que trois physiciens de la NASA avaient trouvé en pliant du papier.',
     },
     {
       name: 'Donald Knuth',
-      note: 'With Chandler Davis, he worked out in 1970 why the dragon never uses the same edge twice, and why its copies can cover the plane.',
+      note: 'Avec Chandler Davis, il a établi en 1970 pourquoi le dragon ne passe jamais deux fois par la même arête, et pourquoi ses copies peuvent couvrir le plan.',
     },
     {
       name: 'Britney Gallivan',
-      note: 'In 2002, as a high-school student, she folded a 1.2 km strip of paper in half twelve times, always in the same direction.',
+      note: 'En 2002, alors lycéenne, elle a plié douze fois en deux une bande de papier de 1,2 km, toujours dans le même sens.',
     },
   ],
 
   insight: {
-    title: 'Why does folding make a dragon?',
-    html: `<p>Each fold puts a new crease in the middle of every piece of the strip, and because the folds always go the same way, the new creases turn left and right in turn. Open every crease to a right angle and the strip draws a path on a square grid. The path after ten folds has 1,024 pieces, yet it never runs along the same edge twice: it only touches itself at corners. The rounded corners in the picture let you see the two paths pass each other there.</p>
-<div class="insight-visual">fold once more → a new crease between every two → the dragon grows twice as long</div>
-<h3>Which way each crease turns</h3>
-<p>Count the creases from one end. Divide the crease's number by 2 for as long as you can, and look at what's left: if it leaves 1 when divided by 4, the crease turns one way, and if it leaves 3, the other. So the turns go right, right, left, right, right, left, left… This is the regular paperfolding sequence.</p>
-<h3>Two dragons in one, and four that fill the plane</h3>
-<p>The second half of the strip is the first half, turned by a right angle about the middle crease, so every dragon is made of two smaller dragons, each 1/√2 times the size. Chandler Davis and Donald Knuth studied these curves in 1970 and proved that the folded path never repeats an edge, and that turned copies of it fit together: four dragons that start at one point fill the grid around it with no gaps and no overlaps, and the more folds, the farther out they fill. Measured with its start and end 1 apart, the finished dragon covers an area of exactly ½, and its edge is a fractal of dimension about 1.52.</p>
-<h3>Real paper</h3>
-<p>Every fold doubles the thickness and halves the length, so a strip of ordinary paper soon turns into a stiff little block: four or five sharp folds are about as many as you can still open neatly, and seven or eight is the usual limit. The room's paper has no thickness. In 2002 Britney Gallivan, a high-school student, worked out how long a strip must be for a given number of folds, then folded 1.2 km of paper twelve times in the same direction. The curve was first found by the NASA physicists John Heighway, Bruce Banks and William Harter, and Martin Gardner wrote about it in 1967.</p>
-<details><summary>What the room leaves out</summary><p>The animation turns every crease by the same amount at once and keeps every piece the same length, as if the strip stood on its edge with no thickness. Real creases spring open a little, so a real strip makes a rougher dragon. At crease angles other than 90° the path can cross itself; the room makes no claim there.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Dragon_curve" target="_blank" rel="noopener">The dragon curve</a><a class="source-link" href="https://en.wikipedia.org/wiki/Regular_paperfolding_sequence" target="_blank" rel="noopener">The regular paperfolding sequence</a><a class="source-link" href="https://mathworld.wolfram.com/DragonCurve.html" target="_blank" rel="noopener">MathWorld: dragon curve</a><a class="source-link" href="https://www-cs-faculty.stanford.edu/~knuth/fg.html" target="_blank" rel="noopener">C. Davis and D. E. Knuth, “Number representations and dragon curves”, in Knuth’s Selected Papers on Fun and Games</a><a class="source-link" href="https://en.wikipedia.org/wiki/Britney_Gallivan" target="_blank" rel="noopener">Britney Gallivan</a></div>`,
+    title: 'Pourquoi le pliage donne-t-il un dragon ?',
+    html: `<p>Chaque pliage met un nouveau pli au milieu de chaque morceau de la bande, et comme on plie toujours dans le même sens, les nouveaux plis tournent tour à tour à gauche et à droite. Ouvrez chaque pli à angle droit, et la bande trace un chemin sur un quadrillage. Après dix pliages, ce chemin compte 1 024 morceaux, et pourtant il ne longe jamais deux fois la même arête : il ne se touche qu’aux coins. Les coins arrondis de l’image laissent voir les deux passages du chemin s’y frôler.</p>
+<div class="insight-visual">encore un pliage → un nouveau pli entre deux plis voisins → le dragon devient deux fois plus long</div>
+<h3>Dans quel sens tourne chaque pli</h3>
+<p>Comptez les plis depuis un bout. Divisez le numéro du pli par 2 autant de fois que possible, et regardez ce qu’il en reste : si ce nombre divisé par 4 donne un reste de 1, le pli tourne dans un sens, et si le reste est 3, dans l’autre. Les virages vont donc droite, droite, gauche, droite, droite, gauche, gauche… C’est la suite de pliage de papier régulière.</p>
+<h3>Deux dragons en un, et quatre qui remplissent le plan</h3>
+<p>La seconde moitié de la bande est la première, tournée d’un angle droit autour du pli du milieu : chaque dragon est donc fait de deux dragons plus petits, chacun à l’échelle 1/√2. Chandler Davis et Donald Knuth ont étudié ces courbes en 1970 et prouvé que le chemin plié ne repasse jamais par une même arête, et que des copies tournées s’emboîtent : quatre dragons partant d’un même point remplissent le quadrillage autour de lui, sans trou ni chevauchement, et plus il y a de pliages, plus loin ils le remplissent. Mesuré avec un début et une fin distants de 1, le dragon achevé couvre une aire d’exactement ½, et son bord est une fractale de dimension 1,52 environ.</p>
+<h3>Du vrai papier</h3>
+<p>Chaque pliage double l’épaisseur et divise la longueur par deux, si bien qu’une bande de papier ordinaire devient vite un petit bloc raide : quatre ou cinq pliages bien nets, c’est à peu près tout ce qu’on peut encore ouvrir proprement, et sept ou huit est la limite habituelle. Le papier de la salle n’a pas d’épaisseur. En 2002, Britney Gallivan, une lycéenne, a calculé quelle longueur doit avoir une bande pour un nombre donné de pliages, puis a plié 1,2 km de papier douze fois dans le même sens. La courbe a d’abord été trouvée par les physiciens de la NASA John Heighway, Bruce Banks et William Harter, et Martin Gardner en a parlé en 1967.</p>
+<details><summary>Ce que la salle laisse de côté</summary><p>L’animation tourne tous les plis du même angle en même temps et garde tous les morceaux de même longueur, comme si la bande tenait sur la tranche sans aucune épaisseur. Les vrais plis se rouvrent un peu, et une vraie bande donne donc un dragon plus grossier. Pour des angles de pli autres que 90°, le chemin peut se croiser ; la salle n’affirme rien dans ce cas.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Dragon_curve" target="_blank" rel="noopener">La courbe du dragon (Wikipédia, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Regular_paperfolding_sequence" target="_blank" rel="noopener">La suite de pliage de papier régulière (Wikipédia, en anglais)</a><a class="source-link" href="https://mathworld.wolfram.com/DragonCurve.html" target="_blank" rel="noopener">MathWorld : la courbe du dragon (en anglais)</a><a class="source-link" href="https://www-cs-faculty.stanford.edu/~knuth/fg.html" target="_blank" rel="noopener">C. Davis et D. E. Knuth, « Number representations and dragon curves », dans les Selected Papers on Fun and Games de Knuth (en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Britney_Gallivan" target="_blank" rel="noopener">Britney Gallivan (Wikipédia, en anglais)</a></div>`,
   },
 });

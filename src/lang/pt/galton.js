@@ -1,105 +1,108 @@
-/* The shape hiding inside randomness · visitor-facing words (pt). */
+/* A forma escondida no acaso · palavras para o visitante (pt). */
 Wonderlattice.defineText('galton', 'pt', {
-  eyebrow: 'PROBABILITY',
-  name: 'The shape hiding inside randomness',
-  tagline: 'Every ball bounces left or right at random. Together they build the same bell every time.',
-  title: 'The shape hiding inside randomness.',
+  eyebrow: 'PROBABILIDADE',
+  name: 'A forma escondida no acaso',
+  tagline:
+    'Cada bolinha quica para a esquerda ou para a direita ao acaso. Juntas, elas constroem o mesmo sino toda vez.',
+  title: 'A forma escondida no acaso.',
   subtitle:
-    'Each ball bounces left or right at random, yet the heap grows into the same bell every time. Then average a lopsided die.',
-  field: 'Probability · Pascal’s triangle · The central limit theorem',
+    'Cada bolinha quica para a esquerda ou para a direita ao acaso, mas o monte cresce e forma o mesmo sino toda vez. Depois, tire médias de um dado viciado.',
+  field: 'Probabilidade · Triângulo de Pascal · O teorema central do limite',
   canvasLabel:
-    'A board of pegs. Balls fall from the top, bounce left or right at random at every peg, and pile up in bins at the bottom, under a bell-shaped curve. Below it, four more pours have made the same bell.',
-  panelEyebrow: 'Left to chance',
-  whyLabel: 'Why does randomness make a bell?',
+    'Um tabuleiro de pinos. Bolinhas caem do alto, quicam para a esquerda ou para a direita ao acaso em cada pino e se amontoam em compartimentos embaixo, sob uma curva em forma de sino. Abaixo dele, mais quatro levas de bolinhas formaram o mesmo sino.',
+  panelEyebrow: 'Entregue ao acaso',
+  whyLabel: 'Por que o acaso forma um sino?',
   nudge:
-    'Pour again: every ball takes a new path, and the heap still makes the same bell. Then design a lopsided die and watch its averages.',
+    'Despeje de novo: cada bolinha faz um caminho novo, e o monte ainda forma o mesmo sino. Depois monte um dado viciado e observe as médias dele.',
   connection: {
-    html: '<strong>Averages tame chance.</strong> In A spoonful of a city, a small random poll lands close to the truth for the same reason: averages of many random answers crowd into a narrow bell.',
-    label: 'Take a spoonful of a city',
+    html: '<strong>Médias domam o acaso.</strong> Em “Uma colherada de cidade”, uma pequena pesquisa aleatória chega perto da verdade pelo mesmo motivo: médias de muitas respostas aleatórias se apertam num sino estreito.',
+    label: 'Provar uma colherada de cidade',
   },
 
   // The three things that fall: each has its own scene, tip and action.
-  viewLabel: 'What falls',
-  views: ['Balls on pegs', 'A lopsided die', 'A stubborn spinner'],
+  viewLabel: 'O que cai',
+  views: ['Bolinhas nos pinos', 'Um dado viciado', 'Um farol teimoso'],
   scenes: [
-    { label: 'Left or right at every peg', name: 'Balls on pegs' },
-    { label: 'Your die, and averages of its throws', name: 'A lopsided die' },
-    { label: 'A lamp spins and shines at a wall', name: 'A stubborn spinner' },
+    { label: 'Esquerda ou direita em cada pino', name: 'Bolinhas nos pinos' },
+    { label: 'O seu dado, e médias dos lançamentos dele', name: 'Um dado viciado' },
+    { label: 'Um farol gira e ilumina uma parede', name: 'Um farol teimoso' },
   ],
   tips: [
-    'Arrow keys tilt the pegs · Pour again for new balls',
-    'Drag the die’s bars to reshape it · Arrow keys pick a face and change it',
-    'Each spin marks where the light lands · Spin again for new spins',
+    'As setas inclinam os pinos · Despeje de novo para ter novas bolinhas',
+    'Arraste as barras do dado para mudar a forma dele · As setas escolhem uma face e a mudam',
+    'Cada giro marca onde a luz bate · Gire de novo para ter novos giros',
   ],
-  actions: ['Pour again', 'Throw again', 'Spin again'],
+  actions: ['Despejar de novo', 'Lançar de novo', 'Girar de novo'],
   canvasLabels: [
-    'A board of pegs. Balls fall from the top, bounce left or right at random at every peg, and pile up in bins at the bottom, under a bell-shaped curve. Below it, four more pours have made the same bell.',
-    'A lopsided die drawn as six bars, and three heaps beside it: single throws, averages of 2 throws and averages of more throws, each with a bell-shaped curve over it.',
-    'A lamp spins and shines at a wall; the heap of where single spins land and the heap of averages of several spins have the same shape.',
+    'Um tabuleiro de pinos. Bolinhas caem do alto, quicam para a esquerda ou para a direita ao acaso em cada pino e se amontoam em compartimentos embaixo, sob uma curva em forma de sino. Abaixo dele, mais quatro levas de bolinhas formaram o mesmo sino.',
+    'Um dado viciado desenhado como seis barras, e três montes ao lado: lançamentos únicos, médias de 2 lançamentos e médias de mais lançamentos, cada um com uma curva em forma de sino por cima.',
+    'Um farol gira e ilumina uma parede; o monte de onde caem os giros únicos e o monte das médias de vários giros têm a mesma forma.',
   ],
 
   presets: [
-    { name: 'Balls on pegs', note: 'The same bell every time.', badge: '½' },
-    { name: 'Tilt the pegs', note: 'The bell moves over.', badge: '¾' },
-    { name: 'A lopsided die', note: 'Its averages turn into a bell.', badge: '1·6' },
+    { name: 'Bolinhas nos pinos', note: 'O mesmo sino toda vez.', badge: '½' },
+    { name: 'Inclinar os pinos', note: 'O sino se desloca.', badge: '¾' },
+    { name: 'Um dado viciado', note: 'As médias dele viram um sino.', badge: '1·6' },
   ],
 
-  rows: 'Rows of pegs',
-  tilt: 'Chance of bouncing right',
-  tiltHint: 'At 50% every peg is fair. Tilt them, and the bell moves over.',
-  throws: 'Throws in each average',
-  dieHint: 'Drag the bars of the die in the picture to reshape it.',
-  shapeLabel: 'Start from',
-  shapes: ['Mostly 1s and 6s', 'A fair die', 'Mostly 6s'],
-  spins: 'Spins in each average',
-  spinHint: 'Averaging more spins doesn’t help: the spinner has no finite spread for the bell to need.',
+  rows: 'Fileiras de pinos',
+  tilt: 'Chance de quicar para a direita',
+  tiltHint: 'Com 50%, cada pino é justo. Incline-os, e o sino se desloca.',
+  throws: 'Lançamentos em cada média',
+  dieHint: 'Arraste as barras do dado na imagem para mudar a forma dele.',
+  shapeLabel: 'Começar de',
+  shapes: ['Quase só 1 e 6', 'Um dado honesto', 'Quase só 6'],
+  spins: 'Giros em cada média',
+  spinHint: 'Tirar a média de mais giros não ajuda: o farol não tem a dispersão finita de que o sino precisa.',
 
   status: {
-    pouring: (n) => `${n.toLocaleString('en')} ${n === 1 ? 'ball' : 'balls'} · left or right at random at every peg`,
-    poured: (n) => `${n.toLocaleString('en')} balls · the same bell every time`,
-    throwing: (n) => `${n.toLocaleString('en')} in each heap`,
-    spinning: (n) => `${n.toLocaleString('en')} in each heap`,
+    pouring: (n) =>
+      `${n.toLocaleString(Wonderlattice.lang)} ${n === 1 ? 'bolinha' : 'bolinhas'} · esquerda ou direita ao acaso em cada pino`,
+    poured: (n) => `${n.toLocaleString(Wonderlattice.lang)} bolinhas · o mesmo sino toda vez`,
+    throwing: (n) => `${n.toLocaleString(Wonderlattice.lang)} em cada monte`,
+    spinning: (n) => `${n.toLocaleString(Wonderlattice.lang)} em cada monte`,
   },
   announce: {
-    poured: (n) => `${n.toLocaleString('en')} balls have landed, in the shape of the bell.`,
-    die: (face, weight) => `Face ${face}: ${weight} of 10`,
+    poured: (n) => `${n.toLocaleString(Wonderlattice.lang)} bolinhas caíram, na forma do sino.`,
+    die: (face, weight) => `Face ${face}: ${weight} de 10`,
   },
 
   labels: {
-    bell: 'the bell',
-    others: (pours, balls) => `${pours} more pours of ${balls.toLocaleString('en')} balls: the same bell`,
-    yourDie: 'Your die · drag the bars',
-    oneThrow: 'One throw',
-    average: (n) => `Averages of ${n} throws`,
-    oneSpin: 'One spin',
-    averageSpins: (n) => `Averages of ${n} spins`,
-    off: (n) => `${n.toLocaleString('en')} off the chart`,
-    lamp: 'lamp',
-    wall: 'wall',
+    bell: 'o sino',
+    others: (pours, balls) =>
+      `mais ${pours} levas de ${balls.toLocaleString(Wonderlattice.lang)} bolinhas: o mesmo sino`,
+    yourDie: 'Seu dado · arraste as barras',
+    oneThrow: 'Um lançamento',
+    average: (n) => `Médias de ${n} lançamentos`,
+    oneSpin: 'Um giro',
+    averageSpins: (n) => `Médias de ${n} giros`,
+    off: (n) => `${n.toLocaleString(Wonderlattice.lang)} fora do gráfico`,
+    lamp: 'farol',
+    wall: 'parede',
   },
 
   guests: [
     {
       name: 'Abraham de Moivre',
-      note: 'In 1733 I showed that the number of heads in thousands of coin tosses follows a smooth, bell-shaped curve.',
+      note: 'Em 1733, mostrei que o número de caras em milhares de lances de moeda segue uma curva suave, em forma de sino.',
     },
     {
       name: 'Pierre-Simon Laplace',
-      note: 'I showed that the bell reaches far beyond coins: averages of many kinds of random measurement crowd into it.',
+      note: 'Mostrei que o sino vai muito além das moedas: médias de muitos tipos de medição aleatória se apertam nele.',
     },
   ],
 
   insight: {
-    title: 'Why does randomness make a bell?',
-    html: `<p>Every ball makes the same kind of choice at each peg: left or right. To land at the far edge, it must go the same way every time, and only one path does that. To land in the middle, it needs as many lefts as rights, and hundreds of paths do. Counting the paths to each bin gives a row of Pascal’s triangle (1, 12, 66, 220, 495, 792, 924, … for twelve rows), and those counts make the bell. No single ball knows where it is going; the shape comes from counting.</p>
-<div class="insight-visual">12 rows of pegs: 1 path to each edge, 924 paths to the middle, out of 4,096</div>
-<h3>Averages make the same bell</h3>
-<p>The die’s single throws keep its lopsided shape. Average two throws and a peak appears in the middle, with the odd shape still showing; average ten and the heap becomes more bell-like and narrower. This is the central limit theorem: averages of many independent throws, of almost any die, crowd into a bell around the die’s mean, and the bell narrows like 1/√n. Averages of 10 throws spread about √10, a little over 3 times, less than single throws.</p>
-<h3>When it fails</h3>
-<p>The theorem needs throws that don’t affect each other and whose spread is finite. The stubborn spinner breaks the second rule: a lamp that spins at random sometimes shines almost along the wall, so a few spins land enormously far away. Its averages are as wild as a single spin, however many you take. That spinner follows the Cauchy distribution, named after Augustin-Louis Cauchy.</p>
-<h3>What this room simplifies</h3>
-<p>The balls follow a random model, not physics: each peg is a coin toss, fair or tilted, independent of the others. Real boards are never perfectly fair, and real balls bounce and spin, so their heaps are rougher. Averages of 2 or 5 throws are closer to a bell, not exactly one.</p>
-<details><summary>The mathematics, if you want it</summary><p>With n rows and a chance p of bouncing right, a ball lands in bin k (k bounces right) with chance C(n, k)·pᵏ·(1 − p)ⁿ⁻ᵏ, the binomial distribution, with mean np and spread √(np(1 − p)). Abraham de Moivre showed in 1733, and in the second edition of his <em>Doctrine of Chances</em> (1738), that for many tosses this is close to the normal curve; Pierre-Simon Laplace published a more general result in his <em>Théorie analytique des probabilités</em> (1812). Francis Galton designed the board, which he called the quincunx, for a lecture at the Royal Institution in 1874, and described it in <em>Natural Inheritance</em> (1889). The average of n Cauchy spins has exactly the same distribution as a single spin.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Galton_board" target="_blank" rel="noopener">Galton board</a><a class="source-link" href="https://en.wikipedia.org/wiki/De_Moivre%E2%80%93Laplace_theorem" target="_blank" rel="noopener">De Moivre–Laplace theorem</a><a class="source-link" href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank" rel="noopener">Central limit theorem</a><a class="source-link" href="https://en.wikipedia.org/wiki/Cauchy_distribution" target="_blank" rel="noopener">Cauchy distribution</a></div>`,
+    title: 'Por que o acaso forma um sino?',
+    html: `<p>Cada bolinha faz o mesmo tipo de escolha em cada pino: esquerda ou direita. Para cair na ponta, ela precisa ir para o mesmo lado toda vez, e só um caminho faz isso. Para cair no meio, precisa de tantas esquerdas quanto direitas, e centenas de caminhos fazem isso. Contar os caminhos até cada compartimento dá uma linha do triângulo de Pascal (1, 12, 66, 220, 495, 792, 924, … para doze fileiras), e essas contagens formam o sino. Nenhuma bolinha sabe para onde vai; a forma vem da contagem.</p>
+<div class="insight-visual">12 fileiras de pinos: 1 caminho até cada ponta, 924 caminhos até o meio, de 4.096</div>
+<h3>Médias formam o mesmo sino</h3>
+<p>Os lançamentos únicos do dado mantêm a forma torta dele. Tire a média de dois lançamentos e aparece um pico no meio, com a forma estranha ainda visível; tire a média de dez e o monte fica mais parecido com um sino, e mais estreito. Esse é o teorema central do limite: médias de muitos lançamentos independentes, de quase qualquer dado, se apertam num sino em torno da média do dado, e o sino se estreita como 1/√n. Médias de 10 lançamentos se espalham cerca de √10 vezes menos, um pouco mais de 3 vezes, que os lançamentos únicos.</p>
+<h3>Quando falha</h3>
+<p>O teorema precisa de lançamentos que não afetem uns aos outros e cuja dispersão seja finita. O farol teimoso quebra a segunda regra: uma luz que gira ao acaso às vezes ilumina quase rente à parede, então alguns giros caem extremamente longe. As médias dele são tão descontroladas quanto um único giro, por mais giros que você junte. Esse farol segue a distribuição de Cauchy, que leva o nome de Augustin-Louis Cauchy.</p>
+<h3>O que esta sala simplifica</h3>
+<p>As bolinhas seguem um modelo aleatório, não a física: cada pino é um cara ou coroa, justo ou inclinado, independente dos outros. Tabuleiros de verdade nunca são perfeitamente justos, e bolinhas de verdade quicam e giram, então os montes delas são mais irregulares. Médias de 2 ou 5 lançamentos ficam mais perto de um sino, sem ser exatamente um.</p>
+<details><summary>A matemática, se você quiser</summary><p>Com n fileiras e uma chance p de quicar para a direita, uma bolinha cai no compartimento k (k quiques para a direita) com chance C(n, k)·pᵏ·(1 − p)ⁿ⁻ᵏ, a distribuição binomial, com média np e dispersão √(np(1 − p)). Abraham de Moivre mostrou em 1733, e na segunda edição da sua <em>Doctrine of Chances</em> (1738), que, para muitos lances, ela fica perto da curva normal; Pierre-Simon Laplace publicou um resultado mais geral na sua <em>Théorie analytique des probabilités</em> (1812). Francis Galton projetou o tabuleiro, que chamou de quincunx, para uma palestra na Royal Institution em 1874, e o descreveu em <em>Natural Inheritance</em> (1889). A média de n giros de Cauchy tem exatamente a mesma distribuição que um único giro.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Galton_board" target="_blank" rel="noopener">Tabuleiro de Galton (Wikipedia, em inglês)</a><a class="source-link" href="https://en.wikipedia.org/wiki/De_Moivre%E2%80%93Laplace_theorem" target="_blank" rel="noopener">Teorema de De Moivre–Laplace (Wikipedia, em inglês)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank" rel="noopener">Teorema central do limite (Wikipedia, em inglês)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Cauchy_distribution" target="_blank" rel="noopener">Distribuição de Cauchy (Wikipedia, em inglês)</a></div>`,
   },
 });

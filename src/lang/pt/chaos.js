@@ -1,75 +1,75 @@
-/* Random jumps, perfect triangle · visitor-facing words (pt). */
+/* Saltos ao acaso, triângulo perfeito · palavras para o visitante (pt). */
 Wonderlattice.defineText('chaos', 'pt', {
-  eyebrow: 'THE CHAOS GAME',
-  name: 'Random jumps, perfect triangle',
+  eyebrow: 'O JOGO DO CAOS',
+  name: 'Saltos ao acaso, triângulo perfeito',
   tagline:
-    'Jump halfway to a corner picked at random, again and again, and a flawless fractal appears out of the noise.',
-  title: 'Random jumps, perfect triangle.',
+    'Salte metade do caminho até um canto escolhido ao acaso, de novo e de novo, e um fractal impecável surge do ruído.',
+  title: 'Saltos ao acaso, triângulo perfeito.',
   subtitle:
-    'A dot jumps halfway to a corner picked at random, again and again. Tap to start it somewhere else, or drag a corner.',
-  field: 'Chance · Fractals · Repeated maps',
-  sceneLabel: 'The chaos game',
-  tip: 'Tap to start the dot there · Drag a corner to reshape the game · Enter makes one jump',
-  actionLabel: 'One jump',
+    'Um ponto salta metade do caminho até um canto escolhido ao acaso, de novo e de novo. Toque para ele começar em outro lugar, ou arraste um canto.',
+  field: 'Acaso · Fractais · Transformações repetidas',
+  sceneLabel: 'O jogo do caos',
+  tip: 'Toque para o ponto começar ali · Arraste um canto para mudar o jogo · Enter dá um salto',
+  actionLabel: 'Um salto',
   canvasLabel:
-    'The corners of a shape, and the dots left by a point that jumps part of the way towards a corner picked at random, again and again.',
-  panelEyebrow: 'Change the game',
-  whyLabel: 'Why does chance draw a perfect shape?',
+    'Os cantos de uma forma e os pontinhos deixados por um ponto que salta parte do caminho até um canto escolhido ao acaso, de novo e de novo.',
+  panelEyebrow: 'Mude o jogo',
+  whyLabel: 'Por que o acaso desenha uma forma perfeita?',
   nudge:
-    'Try four corners: plain fog. Then tick “Never the same corner twice” and watch a fractal come out of the fog.',
+    'Experimente quatro cantos: só neblina. Depois marque “Nunca o mesmo canto duas vezes seguidas” e veja um fractal sair da neblina.',
   connection: {
-    html: '<strong>Two kinds of chaos.</strong> Here “chaos” is only the game’s name: start anywhere, and the same shape appears. In Weather twins, the smallest difference grows into a different future.',
-    label: 'Weather twins',
+    html: '<strong>Dois tipos de caos.</strong> Aqui, “caos” é só o nome do jogo: comece onde quiser, e a mesma forma aparece. Em “Gêmeos do tempo”, a menor diferença cresce até virar outro futuro.',
+    label: 'Gêmeos do tempo',
   },
 
   presets: [
-    { name: 'Three corners', note: 'Holes inside holes, and not one dot lands in them.' },
-    { name: 'Four corners', note: 'Plain fog: the dots go everywhere.' },
-    { name: 'Four, and a rule', note: 'Never the same corner twice: a fractal in the fog.' },
-    { name: 'Five corners', note: 'Jump 61.8% of the way: five copies that just touch.' },
-    { name: 'Barnsley’s fern', note: 'Four rules, each with its own chance.' },
+    { name: 'Três cantos', note: 'Buracos dentro de buracos, e nenhum ponto cai neles.' },
+    { name: 'Quatro cantos', note: 'Só neblina: os pontos vão para todo lado.' },
+    { name: 'Quatro, e uma regra', note: 'Nunca o mesmo canto duas vezes: um fractal na neblina.' },
+    { name: 'Cinco cantos', note: 'Salte 61,8% do caminho: cinco cópias que mal se tocam.' },
+    { name: 'A samambaia de Barnsley', note: 'Quatro regras, cada uma com a sua chance.' },
   ],
-  yourOwn: 'Your own game',
+  yourOwn: 'O seu próprio jogo',
 
-  corners: 'Corners',
-  jump: 'How far each jump goes',
-  jumpHint: 'The share of the way to the corner.',
-  rule: 'Never the same corner twice in a row',
-  fern: 'Grow Barnsley’s fern instead',
+  corners: 'Cantos',
+  jump: 'Até onde vai cada salto',
+  jumpHint: 'A fração do caminho até o canto.',
+  rule: 'Nunca o mesmo canto duas vezes seguidas',
+  fern: 'Fazer crescer a samambaia de Barnsley',
 
   // Drawn on the picture.
-  jumps: (n, count) => `${n} ${count === 1 ? 'jump' : 'jumps'}`,
+  jumps: (n, count) => `${n} ${count === 1 ? 'salto' : 'saltos'}`,
   caption: (percent, rule) =>
     rule
-      ? `Each jump: ${percent}% of the way to a random corner, never the same one twice`
-      : `Each jump: ${percent}% of the way to a random corner`,
-  fernCaption: 'Each jump: one of four rules, picked by chance',
+      ? `Cada salto: ${percent}% do caminho até um canto sorteado, sem repetir canto`
+      : `Cada salto: ${percent}% do caminho até um canto sorteado`,
+  fernCaption: 'Cada salto: uma de quatro regras, sorteada',
 
   // Over the picture, and read out once the picture settles.
-  holeStatus: (n, none) => (none ? 'Dots in the middle hole: not one' : `Dots in the middle hole: ${n}`),
-  jumpStatus: (n) => `Jumps so far: ${n}`,
-  settled: (n) => `The picture has settled after ${n} jumps.`,
+  holeStatus: (n, none) => (none ? 'Pontos no buraco do meio: nenhum' : `Pontos no buraco do meio: ${n}`),
+  jumpStatus: (n) => `Saltos até agora: ${n}`,
+  settled: (n) => `A imagem se estabilizou depois de ${n} saltos.`,
 
   guests: [
     {
       name: 'Wacław Sierpiński',
-      note: 'In 1915 he described this triangle with holes inside holes. It was a curiosity then; now a die draws it in seconds.',
+      note: 'Em 1915, ele descreveu este triângulo com buracos dentro de buracos. Na época, era uma curiosidade; hoje, um dado o desenha em segundos.',
     },
     {
       name: 'Michael Barnsley',
-      note: 'He gave the chaos game its name in the 1980s, and showed that a handful of rules like these can grow a fern.',
+      note: 'Ele deu nome ao jogo do caos nos anos 1980, e mostrou que um punhado de regras como estas consegue fazer crescer uma samambaia.',
     },
   ],
 
   insight: {
-    title: 'Why does chance draw a perfect shape?',
-    html: `<p>Each jump follows one of three rules: halve your distance to corner A, to B or to C. Each rule shrinks the whole triangle onto a half-size copy at its corner. The three copies cover the triangle except for a hole in the middle, and each copy holds three smaller copies with a hole in their middle, and so on for ever. That is the <em>Sierpiński triangle</em>, the one shape made of exactly three half-size copies of itself. Each dot takes the colour of the corner it last jumped towards, so you can see the copies.</p>
-<p>A dot on the shape always jumps to another point on the shape, into the copy at the chosen corner, so it can never land in a hole. A dot that starts anywhere else halves its distance to the shape with every jump, and after twenty jumps it is closer than a pixel. The first twenty jumps aren’t kept for that reason. The die decides only the order in which the dot visits the shape. The shape itself is fixed by the rules.</p>
-<h3>Fog, and a rule that clears it</h3>
-<p>Four half-size squares fill a square exactly, with nothing left over, so with four corners the dot goes everywhere: fog. Now forbid the same corner twice in a row. To land in the quarter-size square at a corner, the last two jumps must both have gone to that corner, so those squares stay empty, and so do the corners of every smaller copy: holes at every size. With the rule each jump depends on the one before, so this is no longer the plain game, but the same reasoning still draws its shape.</p>
-<h3>Not the chaos of the weather</h3>
-<p>“The chaos game” is Michael Barnsley’s name for it, and nothing here is chaotic in the scientist’s sense: start the dot anywhere, with other random numbers, and the same picture appears. The random numbers come from the computer’s generator, which follows a fixed recipe; they aren’t truly random, but they are random enough for this. The picture is made of a finite number of dots on a grid of pixels, so it can only approximate a shape with detail at every size.</p>
-<details><summary>The mathematics, if you want it</summary><p>Each rule is a <em>contraction</em>: it brings any two points closer together. John Hutchinson proved in 1981 that any finite set of contractions has exactly one nonempty closed and bounded set that is the union of its own images, the <em>attractor</em> of this <em>iterated function system</em>. Michael Barnsley and Stephen Demko showed in 1985 that choosing the rules at random draws it: with probability 1 the dot comes close to every part of it. For a regular shape with n corners, the copies just touch when the dot keeps (3 − √5)/2 ≈ 38.2% of its distance with five corners, and a third with six. The Sierpiński triangle’s dimension is log 3 / log 2 ≈ 1.585: halve the size and you need three times as many pieces, not four. The square with the rule has the same dimension, for the same reason. The fern is four affine rules, chosen 1%, 85%, 7% and 7% of the time: one draws the stem, one the rest of the fern a size smaller, and two the lowest leaflets on each side, each a small copy of the whole fern.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Chaos_game" target="_blank" rel="noopener">Chaos game (Wikipedia)</a><a class="source-link" href="https://mathworld.wolfram.com/ChaosGame.html" target="_blank" rel="noopener">Chaos game (MathWorld)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle" target="_blank" rel="noopener">Sierpiński triangle (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Barnsley_fern" target="_blank" rel="noopener">Barnsley fern (Wikipedia)</a><a class="source-link" href="https://doi.org/10.1512/iumj.1981.30.30055" target="_blank" rel="noopener">Hutchinson, Fractals and self similarity (1981)</a><a class="source-link" href="https://doi.org/10.1098/rspa.1985.0057" target="_blank" rel="noopener">Barnsley and Demko, Iterated function systems (1985)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Sierpinski/" target="_blank" rel="noopener">Wacław Sierpiński (MacTutor)</a></div>`,
+    title: 'Por que o acaso desenha uma forma perfeita?',
+    html: `<p>Cada salto segue uma de três regras: reduza à metade a sua distância até o canto A, até o B ou até o C. Cada regra encolhe o triângulo inteiro numa cópia com metade do tamanho, no canto dela. As três cópias cobrem o triângulo, menos um buraco no meio, e cada cópia contém três cópias menores com um buraco no meio delas, e assim por diante, para sempre. Esse é o <em>triângulo de Sierpiński</em>, a única forma feita de exatamente três cópias de si mesma com metade do tamanho. Cada pontinho ganha a cor do canto para o qual o ponto saltou por último, para você poder ver as cópias.</p>
+<p>Um ponto que está na forma sempre salta para outro ponto da forma, dentro da cópia do canto escolhido, então nunca pode cair num buraco. Um ponto que começa em qualquer outro lugar reduz à metade a sua distância até a forma a cada salto, e depois de vinte saltos está mais perto do que um pixel. Por isso os primeiros vinte saltos não são guardados. O dado decide só a ordem em que o ponto visita a forma. A forma em si é fixada pelas regras.</p>
+<h3>Neblina, e uma regra que a dissipa</h3>
+<p>Quatro quadrados com metade do tamanho enchem um quadrado exatamente, sem sobrar nada, então com quatro cantos o ponto vai para todo lado: neblina. Agora proíba o mesmo canto duas vezes seguidas. Para cair no quadrado de um quarto do tamanho num canto, os dois últimos saltos precisam ter ido para esse canto, então esses quadrados ficam vazios, e os cantos de cada cópia menor também: buracos em todos os tamanhos. Com a regra, cada salto depende do anterior, então este já não é o jogo simples, mas o mesmo raciocínio ainda desenha a sua forma.</p>
+<h3>Não é o caos da previsão do tempo</h3>
+<p>“O jogo do caos” é o nome que Michael Barnsley deu a ele, e nada aqui é caótico no sentido dos cientistas: comece o ponto em qualquer lugar, com outros números aleatórios, e a mesma imagem aparece. Os números aleatórios vêm do gerador do computador, que segue uma receita fixa; eles não são verdadeiramente aleatórios, mas são aleatórios o bastante para isto. A imagem é feita de um número finito de pontinhos numa grade de pixels, então só pode aproximar uma forma com detalhes em todos os tamanhos.</p>
+<details><summary>A matemática, se você quiser</summary><p>Cada regra é uma <em>contração</em>: ela aproxima quaisquer dois pontos. John Hutchinson provou em 1981 que qualquer conjunto finito de contrações tem exatamente um conjunto não vazio, fechado e limitado que é a união das suas próprias imagens, o <em>atrator</em> deste <em>sistema de funções iteradas</em>. Michael Barnsley e Stephen Demko mostraram em 1985 que escolher as regras ao acaso o desenha: com probabilidade 1, o ponto chega perto de cada parte dele. Para uma forma regular com n cantos, as cópias mal se tocam quando o ponto mantém (3 − √5)/2 ≈ 38,2% da sua distância, com cinco cantos, e um terço, com seis. A dimensão do triângulo de Sierpiński é log 3 / log 2 ≈ 1,585: reduza o tamanho à metade e você precisa de três vezes mais pedaços, não quatro. O quadrado com a regra tem a mesma dimensão, pelo mesmo motivo. A samambaia é feita de quatro regras afins, escolhidas em 1%, 85%, 7% e 7% das vezes: uma desenha o caule, uma o resto da samambaia num tamanho menor, e duas os folíolos mais baixos de cada lado, cada um uma pequena cópia da samambaia inteira.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Chaos_game" target="_blank" rel="noopener">Jogo do caos (Wikipedia, em inglês)</a><a class="source-link" href="https://mathworld.wolfram.com/ChaosGame.html" target="_blank" rel="noopener">Jogo do caos (MathWorld, em inglês)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle" target="_blank" rel="noopener">Triângulo de Sierpiński (Wikipedia, em inglês)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Barnsley_fern" target="_blank" rel="noopener">Samambaia de Barnsley (Wikipedia, em inglês)</a><a class="source-link" href="https://doi.org/10.1512/iumj.1981.30.30055" target="_blank" rel="noopener">Hutchinson, Fractals and self similarity (1981, em inglês)</a><a class="source-link" href="https://doi.org/10.1098/rspa.1985.0057" target="_blank" rel="noopener">Barnsley e Demko, Iterated function systems (1985, em inglês)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Sierpinski/" target="_blank" rel="noopener">Wacław Sierpiński (MacTutor, em inglês)</a></div>`,
   },
 });

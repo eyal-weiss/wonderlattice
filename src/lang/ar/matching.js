@@ -1,107 +1,138 @@
 /* Who asks wins · visitor-facing words (ar). */
+// "Ask" is «يبادر» (takes the first step): students apply («يتقدّم بطلب»), clubs invite («يدعو»). A pairing of
+// everyone is «مطابقة» (feminine); one student with one club is «ثنائي» (masculine). «طالب» and «نادٍ» (pl. «أندية»)
+// are masculine: طالب واحد، طالبان، 3 طلاب؛ نادٍ واحد، ناديان، 3 أندية. The picture is drawn left to right.
 Wonderlattice.defineText('matching', 'ar', {
-  eyebrow: 'FAIR PAIRS',
-  name: 'Who asks wins',
-  tagline:
-    'Pair six students with six clubs so that nobody would rather swap. Whoever asks first quietly gets the best deal.',
-  title: 'Who asks wins.',
+  eyebrow: 'ثنائيات عادلة',
+  name: 'من يبادر يربح',
+  tagline: 'طابقوا ستة طلاب مع ستة أندية بحيث لا يفضّل أحد التبديل. ومن يبادر أولًا ينال بهدوء أفضل صفقة.',
+  title: 'من يبادر يربح.',
   subtitle:
-    'Students apply to clubs until every pair is settled. Then the clubs ask instead: the same wishes, another fair pairing, and the happiness flips.',
-  field: 'Game theory · Stable matching · Market design',
-  sceneLabel: '6 students · 6 clubs',
-  sceneNames: ['Tangled wishes', 'One shared ranking', 'Opposite wishes'],
-  shuffledName: 'Shuffled wishes',
-  tip: 'Tap a student, then a club, to pair them yourself · Arrow keys aim, Enter picks',
-  actionLabel: 'Swap who asks',
+    'يتقدّم الطلاب بطلبات إلى الأندية حتى يستقر كل ثنائي. ثم تبادر الأندية بدلًا منهم: الرغبات نفسها، ومطابقة عادلة أخرى، وتنقلب كفّة السعادة.',
+  field: 'نظرية الألعاب · المطابقة المستقرة · تصميم الأسواق',
+  sceneLabel: '6 طلاب · 6 أندية',
+  sceneNames: ['رغبات متشابكة', 'ترتيب واحد مشترك', 'رغبات متعاكسة'],
+  shuffledName: 'رغبات مخلوطة',
+  tip: 'انقروا على طالب، ثم على نادٍ، لتجمعوهما بأنفسكم · مفاتيح الأسهم للتصويب، وEnter للاختيار',
+  actionLabel: 'تبديل من يبادر',
   canvasLabel:
-    'Six students on the left, as numbered coloured circles, and six clubs on the right, as shapes. Beside each is its wish list, best first. Lines join the pairs. Tap a student and then a club to pair them yourself: a red line marks two who would both rather have each other.',
-  panelEyebrow: 'Who asks first',
-  whyLabel: 'Why does asking first win?',
+    'ستة طلاب على اليسار، على هيئة دوائر ملوّنة مرقّمة، وستة أندية على اليمين، على هيئة أشكال. بجانب كلٍّ منهم قائمة رغباته، الأفضل أولًا. خطوط تصل بين الثنائيات. انقروا على طالب ثم على نادٍ لتجمعوهما بأنفسكم: الخط الأحمر يحدّد اثنين يفضّل كلٌّ منهما الآخر.',
+  panelEyebrow: 'من يبادر أولًا',
+  whyLabel: 'لماذا يربح من يبادر أولًا؟',
   nudge:
-    'Tap a student, then a club, to pair them by hand. A red line means those two would both rather leave for each other. Can you find a pairing with no red lines that neither asking gives?',
+    'انقروا على طالب، ثم على نادٍ، لتجمعوهما يدويًا. الخط الأحمر يعني أن كليهما يفضّل أن يترك شريكه من أجل الآخر. هل تجدون مطابقة بلا خطوط حمراء لا تعطيها أيٌّ من طريقتَي المبادرة؟',
   connection: {
-    html: '<strong>Choosing well.</strong> Here a student who is turned down simply tries the next club. In “Stop at 37%”, you must take or leave each card for good.',
-    label: 'Visit “Stop at 37%”',
+    html: '<strong>الاختيار الحسن.</strong> هنا الطالب الذي يُرفض يجرّب ببساطة النادي التالي. وفي «التوقف عند 37%»، عليكم أن تأخذوا كل بطاقة أو تتركوها إلى غير رجعة.',
+    label: 'زيارة «التوقف عند 37%»',
   },
 
   presets: [
-    { name: 'Tangled wishes', note: 'Asking first decides almost everything.' },
-    { name: 'One shared ranking', note: 'Every club ranks the students alike.' },
-    { name: 'Opposite wishes', note: 'Each student’s favourite likes them least.' },
+    { name: 'رغبات متشابكة', note: 'المبادرة أولًا تحسم كل شيء تقريبًا.' },
+    { name: 'ترتيب واحد مشترك', note: 'كل الأندية ترتّب الطلاب بالطريقة نفسها.' },
+    { name: 'رغبات متعاكسة', note: 'النادي المفضّل لدى كل طالب هو أقل الأندية رغبةً فيه.' },
   ],
 
-  speed: 'Speed',
-  swap: 'Keep swapping who asks',
-  marks: 'Mark every stable partner',
-  shuffle: 'New wishes',
-  count: (n) =>
-    n === 1
-      ? 'These wishes allow only 1 stable pairing, so it makes no difference who asks.'
-      : `These wishes allow ${n} stable pairings.`,
+  speed: 'السرعة',
+  swap: 'التبديل المستمر لمن يبادر',
+  marks: 'تحديد كل شريك مستقر',
+  shuffle: 'رغبات جديدة',
+  count: (n) => {
+    const k = n % 100;
+    return n === 1
+      ? 'لهذه الرغبات مطابقة مستقرة واحدة فقط، فلا فرق من يبادر.'
+      : n === 2
+        ? 'لهذه الرغبات مطابقتان مستقرتان.'
+        : k >= 3 && k <= 10
+          ? `لهذه الرغبات ${n} مطابقات مستقرة.`
+          : `لهذه الرغبات ${n} مطابقة مستقرة.`;
+  },
 
   // Drawn on the picture: keep them short.
   labels: {
-    students: 'STUDENTS',
-    clubs: 'CLUBS',
-    studentsAsk: 'Students ask',
-    clubsAsk: 'Clubs ask',
-    yours: 'Your pairing',
+    students: 'الطلاب',
+    clubs: 'الأندية',
+    studentsAsk: 'الطلاب يبادرون',
+    clubsAsk: 'الأندية تبادر',
+    yours: 'مطابقتكم',
   },
   // The scoreboard under the lists: how far down their lists each side got, on average.
   score: {
-    title: 'AVERAGE CHOICE',
-    first: '1st',
-    last: '6th',
+    title: 'متوسط الخيار',
+    first: 'الأول',
+    last: 'السادس',
   },
 
   status: {
     // r: the round, from 1; k: applications on their way that round.
+    // k is at most 6 here (one per asker), so it takes the dual or the plural.
     round: (clubs, r, k) =>
       clubs
-        ? `Round ${r} · ${k === 1 ? '1 club asks' : `${k} clubs ask`}`
-        : `Round ${r} · ${k === 1 ? '1 student applies' : `${k} students apply`}`,
+        ? k === 1
+          ? `الجولة ${r} · نادٍ واحد يدعو`
+          : k === 2
+            ? `الجولة ${r} · ناديان يدعوان`
+            : `الجولة ${r} · ${k} أندية تدعو`
+        : k === 1
+          ? `الجولة ${r} · طالب واحد يتقدّم بطلب`
+          : k === 2
+            ? `الجولة ${r} · طالبان يتقدّمان بطلبين`
+            : `الجولة ${r} · ${k} طلاب يتقدّمون بطلبات`,
     // firsts: how many on the asking side got their first choice.
     done: (clubs, firsts) =>
       clubs
-        ? `Clubs asked: ${firsts} of 6 clubs got their first choice`
-        : `Students asked: ${firsts} of 6 students got their first choice`,
-    unstable: (k) =>
-      k === 1 ? 'Your pairing: 1 pair would rather swap' : `Your pairing: ${k} pairs would rather swap`,
-    stable: 'Your pairing is stable: no pair would rather swap',
-    stableNew: 'Stable, and neither asking gives this one',
+        ? firsts === 1
+          ? 'بادرت الأندية: نادٍ واحد من 6 نال خياره الأول'
+          : `بادرت الأندية: ${firsts} من 6 أندية نالت خيارها الأول`
+        : firsts === 1
+          ? 'بادر الطلاب: طالب واحد من 6 نال خياره الأول'
+          : `بادر الطلاب: ${firsts} من 6 طلاب نالوا خيارهم الأول`,
+    unstable: (k) => {
+      const n = k % 100;
+      return k === 1
+        ? 'مطابقتكم: ثنائي واحد يفضّل التبديل'
+        : k === 2
+          ? 'مطابقتكم: ثنائيان يفضّلان التبديل'
+          : n >= 3 && n <= 10
+            ? `مطابقتكم: ${k} ثنائيات تفضّل التبديل`
+            : n >= 11
+              ? `مطابقتكم: ${k} ثنائيًا يفضّل التبديل`
+              : `مطابقتكم: ${k} ثنائي يفضّل التبديل`;
+    },
+    stable: 'مطابقتكم مستقرة: لا ثنائي يفضّل التبديل',
+    stableNew: 'مستقرة، ولا تعطيها أيٌّ من طريقتَي المبادرة',
   },
 
   guests: [
     {
-      name: 'David Gale',
-      note: 'In 1962 Lloyd Shapley and I showed that applicants and colleges can always be paired so that no applicant and college would both rather have each other. Our method: apply, hold the best offer, and let nobody say yes until the end.',
+      name: 'ديفيد غيل',
+      note: 'في عام 1962 بيّنتُ أنا ولويد شابلي أنه يمكن دائمًا مطابقة المتقدّمين والكليات بحيث لا يوجد متقدّم وكلية يفضّل كلٌّ منهما الآخر. طريقتنا: التقدّم بطلب، والاحتفاظ بأفضل عرض، وألّا يقول أحد «نعم» حتى النهاية.',
     },
     {
-      name: 'Lloyd Shapley',
-      note: 'Our paper ended by offering its main proof as an example of mathematics in ordinary English, with no symbols and hardly any counting. Half a century later I shared a Nobel memorial prize in economics with Al Roth, who put the idea to work.',
+      name: 'لويد شابلي',
+      note: 'انتهت ورقتنا بتقديم برهانها الرئيسي مثالًا على رياضيات مكتوبة بإنجليزية عادية، بلا رموز، وتكاد تخلو من العدّ. وبعد نصف قرن تقاسمتُ جائزة نوبل التذكارية في الاقتصاد مع آل روث، الذي وضع الفكرة موضع التطبيق.',
     },
     {
-      name: 'Alvin Roth',
-      note: 'He noticed that American hospitals had been matching young doctors with essentially this method since the early 1950s, and later helped redesign that match and the school choice of New York City and Boston.',
+      name: 'ألفين روث',
+      note: 'لاحظ أن المستشفيات الأمريكية كانت تطابق الأطباء الشباب معها بهذه الطريقة في جوهرها منذ مطلع خمسينيات القرن العشرين، ثم ساعد لاحقًا في إعادة تصميم تلك المطابقة، واختيار المدارس في مدينة نيويورك وبوسطن.',
     },
   ],
 
   insight: {
-    title: 'Why does asking first win?',
-    html: `<p>A pairing is <em>stable</em> when no student and club would both rather have each other than the partners they’ve got. Such a pair would simply walk off together, so an unstable pairing doesn’t last. In 1962 David Gale and Lloyd Shapley showed that a stable pairing always exists, however tangled the wishes, and gave a simple way to find one.</p>
-<div class="insight-visual">every unpaired student applies to the best club they haven’t tried · each club keeps its best offer so far and sends the rest back · repeat until nobody is sent back</div>
-<h3>Why it is stable</h3>
-<p>Take a student and a club that aren’t paired at the end. If the student prefers that club, the student applied there before ending up further down the list, and the club turned them away for someone it liked more. A club’s offers only ever get better, so it still prefers its final partner. Nobody can walk off together.</p>
-<h3>Why the askers win</h3>
-<p>There are usually several stable pairings. Gale and Shapley proved that the one this method finds gives every student, at once, the best partner they have in any stable pairing. The reason: no student is ever turned away by a club that could be their partner in a stable pairing. And that very same pairing gives every club the worst partner it has in any stable pairing. Swap who asks and the clubs get their best, the students their worst. Tick “Mark every stable partner” to see each person land on the first or last of their dots.</p>
-<p>When every club ranks the students the same way, for example by one exam, there is only one stable pairing, and it doesn’t matter who asks. Asking first matters when wishes clash.</p>
-<h3>Telling the truth</h3>
-<p>The askers can’t do better by hiding their true wishes; the side being asked sometimes can, by turning down an offer it actually likes, though that takes knowing everyone else’s wishes, and can backfire.</p>
-<h3>Where it is used</h3>
-<p>American hospitals were matching young doctors with essentially this method from the early 1950s, years before the paper, as Alvin Roth later noticed. In the late 1990s the doctors’ match was redesigned so that the applicants ask, and similar methods now assign pupils to schools in New York City and Boston. In 2012 Shapley and Roth shared the Nobel memorial prize in economics; Gale had died in 2008. In studies of large real matches, the choice of who asks has changed the result for very few people.</p>
-<h3>What this model leaves out</h3>
-<p>Real matches give a club several places, allow ties, let some people leave a list incomplete, and include couples who want to stay in the same town. With couples a stable pairing may not exist at all. Without two sides, as when pairing roommates, it may not exist either; Robert Irving found a method in 1985 that finds one whenever it does. And “stable” isn’t “happy”: it only means nobody can walk off with somebody who wants them back.</p>
-<details><summary>The mathematics, if you want it</summary><p>Each round here, every unpaired asker applies at once. The order of the applications doesn’t change the result. With n on each side, Gale and Shapley’s method ends after at most n² − 2n + 2 rounds, 26 for six of each, and at most n² − n + 1 applications in all, 31. With three on each side, a computer can try every possible set of wishes: the worst takes exactly 5 rounds and 7 applications. The stable pairings fit together in a lattice, with the students’ best at one end and the clubs’ best at the other (Donald Knuth’s 1976 book <em>Mariages stables</em> explores it). To mark every stable partner, this room tries all 720 ways to pair six students with six clubs.</p></details>
-<div class="sources"><a class="source-link" href="https://www.nobelprize.org/prizes/economic-sciences/2012/popular-information/" target="_blank" rel="noopener">The Nobel Prize (2012), Stable matching: theory, evidence and practical design</a><a class="source-link" href="https://en.wikipedia.org/wiki/Gale%E2%80%93Shapley_algorithm" target="_blank" rel="noopener">The Gale–Shapley algorithm</a><a class="source-link" href="https://en.wikipedia.org/wiki/National_Resident_Matching_Program" target="_blank" rel="noopener">The National Resident Matching Program</a><a class="source-link" href="https://doi.org/10.1257/000282805774670167" target="_blank" rel="noopener">Abdulkadiroğlu, Pathak and Roth (2005), The New York City high school match</a><a class="source-link" href="https://en.wikipedia.org/wiki/Stable_roommates_problem" target="_blank" rel="noopener">The stable roommates problem</a><a class="source-link" href="https://doi.org/10.2307/2312726" target="_blank" rel="noopener">Gale and Shapley (1962), College admissions and the stability of marriage</a></div>`,
+    title: 'لماذا يربح من يبادر أولًا؟',
+    html: `<p>تكون المطابقة <em>مستقرة</em> حين لا يوجد طالب ونادٍ يفضّل كلٌّ منهما الآخر على الشريك الذي حصل عليه. فثنائي كهذا سينسحب معًا ببساطة، لذا لا تدوم المطابقة غير المستقرة. وفي عام 1962 بيّن ديفيد غيل ولويد شابلي أن المطابقة المستقرة موجودة دائمًا، مهما تشابكت الرغبات، وقدّما طريقة بسيطة لإيجادها.</p>
+<div class="insight-visual">كل طالب بلا شريك يتقدّم إلى أفضل نادٍ لم يجرّبه بعد · كل نادٍ يحتفظ بأفضل عرض حتى الآن ويردّ البقية · التكرار حتى لا يُردّ أحد</div>
+<h3>لماذا هي مستقرة</h3>
+<p>خذوا طالبًا وناديًا لم يجتمعا في النهاية. إذا كان الطالب يفضّل ذلك النادي، فقد تقدّم إليه قبل أن ينتهي به المطاف في موضع أدنى من قائمته، وقد ردّه النادي من أجل شخص أعجبه أكثر. وعروض النادي لا تزداد إلا تحسّنًا، لذا ما زال يفضّل شريكه الأخير. لا يستطيع أيّ اثنين أن ينسحبا معًا.</p>
+<h3>لماذا يربح المبادرون</h3>
+<p>عادةً توجد عدة مطابقات مستقرة. برهن غيل وشابلي أن المطابقة التي تجدها هذه الطريقة تعطي كل طالب، في آن واحد، أفضل شريك يمكن أن يحصل عليه في أي مطابقة مستقرة. والسبب: لا يُردّ أي طالب أبدًا من نادٍ يمكن أن يكون شريكه في مطابقة مستقرة. وهذه المطابقة نفسها تعطي كل نادٍ أسوأ شريك يمكن أن يحصل عليه في أي مطابقة مستقرة. بدّلوا من يبادر، فتنال الأندية أفضل ما يمكن، والطلاب أسوأه. فعّلوا «تحديد كل شريك مستقر» لتروا كلًّا منهم ينتهي عند أولى نقاطه أو آخرها.</p>
+<p>حين ترتّب كل الأندية الطلاب بالطريقة نفسها، بحسب امتحان واحد مثلًا، توجد مطابقة مستقرة واحدة فقط، ولا يهمّ من يبادر. المبادرة أولًا تُحدث فرقًا حين تتعارض الرغبات.</p>
+<h3>قول الحقيقة</h3>
+<p>لا يستطيع المبادرون أن يحسّنوا نصيبهم بإخفاء رغباتهم الحقيقية؛ أما الطرف الذي يتلقّى الطلبات فيستطيع ذلك أحيانًا، برفض عرض يعجبه فعلًا، مع أن ذلك يتطلّب معرفة رغبات الجميع، وقد ينقلب عليه.</p>
+<h3>أين تُستخدم</h3>
+<p>كانت المستشفيات الأمريكية تطابق الأطباء الشباب بهذه الطريقة في جوهرها منذ مطلع خمسينيات القرن العشرين، قبل الورقة بسنوات، كما لاحظ ألفين روث لاحقًا. وفي أواخر تسعينيات القرن العشرين أُعيد تصميم مطابقة الأطباء بحيث يبادر المتقدّمون، وطرق مشابهة توزّع اليوم التلاميذ على المدارس في مدينة نيويورك وبوسطن. وفي عام 2012 تقاسم شابلي وروث جائزة نوبل التذكارية في الاقتصاد؛ وكان غيل قد توفي عام 2008. وفي دراسات لمطابقات حقيقية كبيرة، لم يغيّر اختيار من يبادر النتيجة إلا لعدد قليل جدًا من الناس.</p>
+<h3>ما يُغفله هذا النموذج</h3>
+<p>في المطابقات الحقيقية يكون للنادي عدة أماكن، ويُسمح بالتعادل في الترتيب، ويترك بعض الناس قوائمهم ناقصة، وهناك أزواج يريدون البقاء في المدينة نفسها. ومع الأزواج قد لا توجد مطابقة مستقرة أصلًا. ومن دون طرفين، كما في توزيع شركاء السكن، قد لا توجد أيضًا؛ وقد وجد روبرت إيرفينغ عام 1985 طريقة تجد واحدة كلما وُجدت. و«مستقرة» لا تعني «سعيدة»: إنها تعني فقط أن أحدًا لا يستطيع الانسحاب مع شخص يريده بدوره.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>في كل جولة هنا، يتقدّم كل مبادر بلا شريك في آن واحد. وترتيب الطلبات لا يغيّر النتيجة. مع n في كل طرف، تنتهي طريقة غيل وشابلي بعد \u2066n²\u00a0−\u00a02n\u00a0+\u00a02\u2069 من الجولات على الأكثر، أي 26 لستة من كل طرف، وبعد \u2066n²\u00a0−\u00a0n\u00a0+\u00a01\u2069 من الطلبات على الأكثر إجمالًا، أي 31. ومع ثلاثة في كل طرف، يستطيع الحاسوب أن يجرّب كل مجموعة رغبات ممكنة: أسوأها يستغرق 5 جولات و7 طلبات بالضبط. والمطابقات المستقرة تنتظم معًا في شبكية، أفضلها للطلاب في أحد طرفيها وأفضلها للأندية في الطرف الآخر (يستكشفها كتاب دونالد كنوث <em>\u2066Mariages stables\u2069</em> الصادر عام 1976). ولتحديد كل شريك مستقر، تجرّب هذه الغرفة كل الطرق الـ720 لمطابقة ستة طلاب مع ستة أندية.</p></details>
+<div class="sources"><a class="source-link" href="https://www.nobelprize.org/prizes/economic-sciences/2012/popular-information/" target="_blank" rel="noopener">جائزة نوبل (2012)، \u2066Stable matching: theory, evidence and practical design\u2069 \u200f(بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Gale%E2%80%93Shapley_algorithm" target="_blank" rel="noopener">خوارزمية غيل–شابلي (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/National_Resident_Matching_Program" target="_blank" rel="noopener">البرنامج الوطني لمطابقة الأطباء المقيمين (بالإنجليزية)</a><a class="source-link" href="https://doi.org/10.1257/000282805774670167" target="_blank" rel="noopener">عبد القادر أوغلو وباثاك وروث (2005)، \u2066The New York City high school match\u2069 \u200f(بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Stable_roommates_problem" target="_blank" rel="noopener">مسألة شركاء السكن المستقرين (بالإنجليزية)</a><a class="source-link" href="https://doi.org/10.2307/2312726" target="_blank" rel="noopener">غيل وشابلي (1962)، \u2066College admissions and the stability of marriage\u2069 \u200f(بالإنجليزية)</a></div>`,
   },
 });

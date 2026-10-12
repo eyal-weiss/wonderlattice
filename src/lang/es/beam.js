@@ -1,115 +1,117 @@
-/* The ruler on its edge · visitor-facing words (es). */
+/* La regla de canto · palabras para el visitante (es). */
 Wonderlattice.defineText('beam', 'es', {
-  eyebrow: 'BEAMS',
-  name: 'The ruler on its edge',
+  eyebrow: 'VIGAS',
+  name: 'La regla de canto',
   tagline:
-    'Stand a steel plank on its edge and it’s 36 times stiffer. Paint your own beam and find where the steel should go.',
-  title: 'The ruler on its edge.',
+    'Pon una plancha de acero de canto y será 36 veces más rígida. Pinta tu propia viga y descubre dónde debe ir el acero.',
+  title: 'La regla de canto.',
   subtitle:
-    'A steel beam with a weight in its middle, and its cross-section below. Turn it on its edge, or paint the 24 squares of steel anywhere, and watch the sag.',
-  field: 'Second moment of area · Euler–Bernoulli beam theory · I-beams',
-  sceneLabel: 'A steel beam and its cross-section',
+    'Una viga de acero con un peso en el centro, y su sección debajo. Ponla de canto, o pinta los 24 cuadrados de acero donde quieras, y mira cuánto se comba.',
+  field: 'Segundo momento de área · Teoría de vigas de Euler–Bernoulli · Vigas en I',
+  sceneLabel: 'Una viga de acero y su sección',
   sceneNames: {
-    plank: 'A flat plank',
-    edge: 'On its edge',
-    ibeam: 'An I-beam',
-    own: 'Your own beam',
-    none: 'No steel yet',
+    plank: 'Una plancha plana',
+    edge: 'De canto',
+    ibeam: 'Una viga en I',
+    own: 'Tu propia viga',
+    none: 'Aún sin acero',
   },
-  tip: 'Tap or drag across the squares to add or take away steel · Arrow keys move, Enter paints, Backspace undoes',
-  actionLabel: 'Turn it 90°',
+  tip: 'Toca o arrastra sobre los cuadrados para poner o quitar acero · Las flechas mueven, Enter pinta, Retroceso deshace',
+  actionLabel: 'Girar 90°',
   canvasLabel:
-    'A steel beam resting on two supports, with a 100 kg weight hanging from its middle, above a 12 by 12 grid of its cross-section. Tap or drag across the grid to add or take away squares of steel, or use the arrow keys and Enter.',
-  panelEyebrow: 'Steel and shape',
-  whyLabel: 'Why does the edge win?',
+    'Una viga de acero apoyada en dos soportes, con un peso de 100 kg colgado en el centro, sobre una cuadrícula de 12 por 12 con su sección. Toca o arrastra sobre la cuadrícula para poner o quitar cuadrados de acero, o usa las flechas y Enter.',
+  panelEyebrow: 'Acero y forma',
+  whyLabel: '¿Por qué es mejor de canto?',
   nudge:
-    'Can you beat the plank on its edge with the same 24 squares? Then cut the thin web that joins the top of your best beam to its bottom: how stiff are the two loose halves?',
+    '¿Puedes superar a la plancha de canto con los mismos 24 cuadrados? Luego corta el alma delgada que une la parte de arriba de tu mejor viga con la de abajo: ¿cuán rígidas son las dos mitades sueltas?',
   connection: {
-    html: '<strong>Steel where it counts.</strong> A truss is a beam with most of its middle taken away: the bars along its top are squeezed, the bars along its bottom stretched, and triangles hold them together. See it in “The stubborn triangle”.',
-    label: 'Visit “The stubborn triangle”',
+    html: '<strong>Acero donde cuenta.</strong> Una celosía es una viga a la que se le ha quitado casi todo el centro: las barras de arriba están comprimidas, las de abajo estiradas, y los triángulos las mantienen unidas. Míralo en «El triángulo testarudo».',
+    label: 'Visita «El triángulo testarudo»',
   },
 
   presets: [
-    { name: 'A flat plank', note: '12 cm wide and 2 cm thick, lying flat.' },
-    { name: 'On its edge', note: 'The same plank, turned 90°.' },
-    { name: 'An I-beam', note: 'Steel at the top and bottom, a thin web between.' },
+    { name: 'Una plancha plana', note: '12 cm de ancho y 2 cm de grosor, tumbada.' },
+    { name: 'De canto', note: 'La misma plancha, girada 90°.' },
+    { name: 'Una viga en I', note: 'Acero arriba y abajo, con un alma delgada en medio.' },
   ],
 
-  undo: 'Undo',
-  clear: 'Clear',
+  undo: 'Deshacer',
+  clear: 'Borrar',
 
-  // Drawn in the picture: keep these short.
+  // Dibujado en la imagen: textos cortos.
   picture: {
-    caption: '3 m of steel, with 100 kg in the middle',
-    drawn: (n) => `The sag is drawn ${n} times larger`,
-    drawnShort: (n) => `Sag drawn ${n}× larger`,
+    caption: '3 m de acero, con 100 kg en el centro',
+    drawn: (n) => `La comba se dibuja ${n} veces mayor`,
+    drawnShort: (n) => `Comba ampliada ${n}×`,
     weight: '100 kg',
-    sag: (mm) => `Sag ${mm} mm`,
-    beyond: 'Sag over 10 cm',
-    none: 'No steel',
-    section: 'Cross-section',
-    unit: '1 square = 1 cm',
-    squares: (used, total) => `${used} of ${total} squares`,
-    stiffness: 'Stiffness',
-    times: (x) => `${x}× the flat plank`,
+    sag: (mm) => `Comba ${mm} mm`,
+    beyond: 'Comba > 10 cm',
+    none: 'Sin acero',
+    section: 'Sección',
+    unit: '1 cuadrado = 1 cm',
+    squares: (used, total) => `${used} de ${total} cuadrados`,
+    stiffness: 'Rigidez',
+    times: (x) => `${x}× la plancha plana`,
     timesShort: (x) => `${x}×`,
-    chart: 'Same steel, different shapes: how stiff?',
-    rows: { plank: 'Flat plank', edge: 'On its edge', ibeam: 'An I-beam', yours: 'Yours' },
-    marks: { plank: 'Flat plank', edge: 'On its edge', best: 'Best with 24' },
-    key: { squeezed: 'Squeezed', stretched: 'Stretched', axis: 'Neither' },
-    loose: (k) => `${k} loose pieces: each bends on its own`,
-    wobbly: 'Wobbly: it could tip over sideways',
-    full: 'No steel left: tap a square to take it away',
-    best: 'As stiff as 24 squares can be',
+    chart: 'Mismo acero, otras formas: ¿cuán rígidas?',
+    rows: { plank: 'Plancha plana', edge: 'De canto', ibeam: 'Viga en I', yours: 'La tuya' },
+    marks: { plank: 'Plancha plana', edge: 'De canto', best: 'Máximo con 24' },
+    key: { squeezed: 'Comprimido', stretched: 'Estirado', axis: 'Ninguno' },
+    loose: (k) => `${k} piezas sueltas: cada una se dobla por su cuenta`,
+    wobbly: 'Inestable: podría volcar de lado',
+    full: 'No queda acero: toca un cuadrado para quitarlo',
+    best: 'Tan rígida como pueden ser 24 cuadrados',
   },
 
-  // The panel's readout and the status line.
+  // La lectura del panel y la línea de estado.
   status: {
-    sag: (mm) => `Sag ${mm} mm`,
-    said: (mm, x) => `Sag ${mm} mm, ${x} times as stiff as the flat plank`,
-    beyond: 'Sag over 10 cm',
-    none: 'No steel',
+    sag: (mm) => `Comba ${mm} mm`,
+    said: (mm, x) => `Comba ${mm} mm, ${x} veces la rigidez de la plancha plana`,
+    beyond: 'Comba de más de 10 cm',
+    none: 'Sin acero',
   },
   readout: {
-    sag: (mm) => `Sag ${mm} mm`,
-    times: (x) => `${x}× the flat plank`,
-    plank: 'The flat plank',
+    sag: (mm) => `Comba ${mm} mm`,
+    times: (x) => `${x}× la plancha plana`,
+    plank: 'La plancha plana',
     used: (used, total) =>
-      used === total ? `All ${total} squares of steel used.` : `${used} of ${total} squares of steel used.`,
-    none: 'Paint some squares of steel in the grid.',
-    beyond: 'Past 10 cm, the simple theory used here stops being reliable.',
+      used === total
+        ? `Se usan los ${total} cuadrados de acero.`
+        : `Se usan ${used} de los ${total} cuadrados de acero.`,
+    none: 'Pinta algunos cuadrados de acero en la cuadrícula.',
+    beyond: 'Más allá de 10 cm, la teoría sencilla que se usa aquí deja de ser fiable.',
     loose: (k) =>
-      `${k} loose pieces: squares that don’t share an edge slide past one another, so each piece bends on its own.`,
-    wobbly: 'Tall and thin: under the weight it could tip over, or twist sideways (a rule of thumb, see “Why”).',
-    best: 'As stiff as 24 squares can be in this grid.',
+      `${k} piezas sueltas: los cuadrados que no comparten un lado se deslizan unos sobre otros, así que cada pieza se dobla por su cuenta.`,
+    wobbly: 'Alta y delgada: bajo el peso podría volcar, o torcerse de lado (una regla práctica, mira la explicación).',
+    best: 'Tan rígida como pueden ser 24 cuadrados en esta cuadrícula.',
   },
 
   guests: [
     {
       name: 'Galileo Galilei',
-      note: 'In 1638 I wrote that a ruler standing on its edge resists breaking more than one lying flat, as many times over as it is wider than it is thick. I also saw that bird bones and reeds are hollow: light, yet hard to bend.',
+      note: 'En 1638 escribí que una regla puesta de canto resiste la rotura más que una tumbada, tantas veces más como su anchura supera a su grosor. También vi que los huesos de las aves y las cañas son huecos: ligeros, pero difíciles de doblar.',
     },
     {
       name: 'Leonhard Euler',
-      note: 'Jacob Bernoulli guessed that a bent beam curves in proportion to the turning force on it. In 1744 I followed that idea with calculus and worked out the curves of bent elastic strips.',
+      note: 'Jacob Bernoulli supuso que una viga doblada se curva en proporción a la fuerza de giro que actúa sobre ella. En 1744 seguí esa idea con el cálculo y obtuve las curvas de las láminas elásticas dobladas.',
     },
     {
       name: 'Claude-Louis Navier',
-      note: 'In 1819 I found where the line in a bent beam that is neither squeezed nor stretched really lies, putting Galileo right. In 1826 I separated what a beam’s material gives its stiffness from what its shape gives.',
+      note: 'En 1819 encontré dónde está de verdad la línea de una viga doblada que ni se comprime ni se estira, y corregí a Galileo. En 1826 separé lo que el material de una viga aporta a su rigidez de lo que aporta su forma.',
     },
   ],
 
   insight: {
-    title: 'Why does the edge win?',
-    html: `<p>Bend a beam and its top is squeezed while its bottom is stretched. Between them runs a line that is neither, the neutral axis, through the middle of the cross-section (its centroid). Steel far from that line is squeezed or stretched a lot for a small bend, so it pushes back hard, and it pushes with more leverage too. Both effects grow with the distance, so each square counts with the <em>square</em> of its distance from the line. Adding them up gives the second moment of area, I, in cm⁴.</p>
-<div class="insight-visual">I = Σ (1/12 + d²) over the squares · sag = F·L³ ⁄ (48·E·I)</div>
-<h3>Flat or on its edge</h3>
-<p>For a rectangle b wide and h tall, I = b·h³ ⁄ 12, so its height counts three times over. The plank 12 cm wide and 2 cm thick has I = 8 cm⁴ lying flat and 288 cm⁴ on its edge: (12 ÷ 2)² = 36 times stiffer, with the same steel. With 100 kg in the middle of 3 m of steel (E = 200 GPa), it sags 34 mm flat and less than 1 mm on its edge. A plastic ruler 30 mm wide and 1 mm thick is (30 ÷ 1)² = 900 times stiffer on its edge.</p>
-<h3>The I-beam</h3>
-<p>The best place for steel is as far from the middle as it can go: a flange along the top and another along the bottom. But they must be joined, or they slide past each other like the pages of a book, and each bends on its own: two loose strips of 12 squares have I = 2 cm⁴ between them. A thin web holds them together. With 7 squares in each flange and 10 in the web, I = 508 cm⁴, 63.5 times the flat plank, and the most that any 24 joined squares can give in this grid. Bones, bamboo, bicycle frames and scaffolding poles are hollow for the same reason. In 1638 Galileo pointed to the bones of birds and to reeds, and showed that a ruler on its edge is harder to break, by the ratio of its width to its thickness.</p>
-<h3>What this model leaves out</h3>
-<p>A tall, thin beam wins on paper, but it can tip over, or twist and buckle sideways under its load (lateral–torsional buckling), and a thin web or flange can crumple. The wobble warning is this room’s own rule of thumb: a shape more than 20 times stiffer up and down than sideways. Engineers check the real thing, which also depends on the span, the load and how well the beam resists twisting, and they brace tall, thin beams such as floor joists. Stiffness (how far a beam sags) isn’t strength (when it breaks, or bends for good): this room is about stiffness. The sag comes from the theory for small sags. It leaves out the beam’s own weight (about 57 kg of steel here, which would add about a third to every sag) and the little extra give from shearing, and it assumes the beam is held straight sideways, so a lopsided shape doesn’t swing aside. Squares joined edge to edge count as welded together; squares that touch only at a corner don’t.</p>
-<details><summary>The mathematics, if you want it</summary><p>A square of side 1 whose centre is a distance d from the neutral axis adds ∫ y² dA = 1/12 + d² to I (the parallel axis theorem), so I is a sum over the painted squares. The neutral axis of each piece passes through its centroid: the average height of its squares. Loose pieces are treated as beams bending side by side with the same sag, so their I’s add. The bent beam’s shape is v(x) = F·x·(3L² − 4x²) ⁄ (48·E·I) up to the middle, where the sag is F·L³ ⁄ (48·E·I). The most that 24 joined squares can reach was found by an exact search over how many squares sit in each row: every row between the top and the bottom needs at least one, and the best place for the rest is the top and bottom rows, shared equally. The numbers were checked against an independent program.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Second_moment_of_area" target="_blank" rel="noopener">Second moment of area</a><a class="source-link" href="https://en.wikipedia.org/wiki/Euler%E2%80%93Bernoulli_beam_theory" target="_blank" rel="noopener">Euler–Bernoulli beam theory</a><a class="source-link" href="https://en.wikipedia.org/wiki/I-beam" target="_blank" rel="noopener">I-beam</a><a class="source-link" href="https://en.wikipedia.org/wiki/Claude-Louis_Navier" target="_blank" rel="noopener">Claude-Louis Navier</a><a class="source-link" href="https://archive.org/details/dialoguesconcern00galiuoft" target="_blank" rel="noopener">Galileo (1638), Dialogues Concerning Two New Sciences, Second Day (tr. Crew and de Salvio, 1914)</a></div>`,
+    title: '¿Por qué es mejor de canto?',
+    html: `<p>Dobla una viga y su parte de arriba se comprime mientras la de abajo se estira. Entre ellas corre una línea que no hace ni lo uno ni lo otro, el eje neutro, que pasa por el centro de la sección (su centroide). El acero lejos de esa línea se comprime o se estira mucho con una flexión pequeña, así que empuja con fuerza, y además empuja con más palanca. Los dos efectos crecen con la distancia, así que cada cuadrado cuenta con el <em>cuadrado</em> de su distancia a la línea. Sumarlos da el segundo momento de área, I, en cm⁴.</p>
+<div class="insight-visual">I = Σ (1/12 + d²) sobre los cuadrados · comba = F·L³ ⁄ (48·E·I)</div>
+<h3>Tumbada o de canto</h3>
+<p>Para un rectángulo de ancho b y alto h, I = b·h³ ⁄ 12, así que su altura cuenta tres veces. La plancha de 12 cm de ancho y 2 cm de grosor tiene I = 8 cm⁴ tumbada y 288 cm⁴ de canto: (12 ÷ 2)² = 36 veces más rígida, con el mismo acero. Con 100 kg en el centro de 3 m de acero (E = 200 GPa), se comba 34 mm tumbada y menos de 1 mm de canto. Una regla de plástico de 30 mm de ancho y 1 mm de grosor es (30 ÷ 1)² = 900 veces más rígida de canto.</p>
+<h3>La viga en I</h3>
+<p>El mejor sitio para el acero es lo más lejos posible del centro: un ala a lo largo de la parte de arriba y otra a lo largo de la de abajo. Pero tienen que estar unidas, o se deslizan una sobre otra como las páginas de un libro, y cada una se dobla por su cuenta: dos tiras sueltas de 12 cuadrados tienen entre las dos I = 2 cm⁴. Un alma delgada las mantiene unidas. Con 7 cuadrados en cada ala y 10 en el alma, I = 508 cm⁴, 63,5 veces la plancha plana, y lo máximo que pueden dar 24 cuadrados unidos en esta cuadrícula. Los huesos, el bambú, los cuadros de bicicleta y los tubos de andamio son huecos por la misma razón. En 1638, Galileo señaló los huesos de las aves y las cañas, y mostró que una regla de canto es más difícil de romper, en la proporción entre su anchura y su grosor.</p>
+<h3>Lo que este modelo deja fuera</h3>
+<p>Una viga alta y delgada gana sobre el papel, pero puede volcar, o torcerse y pandearse de lado bajo su carga (pandeo lateral-torsional), y un alma o un ala delgadas pueden arrugarse. El aviso de inestabilidad es una regla práctica propia de esta sala: una forma más de 20 veces más rígida de arriba abajo que de lado. Los ingenieros comprueban el caso real, que también depende de la distancia entre apoyos, de la carga y de lo bien que la viga resiste la torsión, y arriostran las vigas altas y delgadas, como las viguetas de un suelo. La rigidez (cuánto se comba una viga) no es la resistencia (cuándo se rompe, o se dobla para siempre): esta sala trata de la rigidez. La comba sale de la teoría para combas pequeñas. Deja fuera el peso propio de la viga (aquí, unos 57 kg de acero, que añadirían cerca de un tercio a cada comba) y la pequeña flexibilidad extra del cortante, y supone que la viga se mantiene recta de lado, así que una forma asimétrica no se desvía hacia un lado. Los cuadrados unidos lado con lado cuentan como soldados; los que solo se tocan por una esquina, no.</p>
+<details><summary>Las matemáticas, si te apetecen</summary><p>Un cuadrado de lado 1 cuyo centro está a una distancia d del eje neutro añade ∫ y² dA = 1/12 + d² a I (el teorema de los ejes paralelos), así que I es una suma sobre los cuadrados pintados. El eje neutro de cada pieza pasa por su centroide: la altura media de sus cuadrados. Las piezas sueltas se tratan como vigas que se doblan una al lado de otra con la misma comba, así que sus I se suman. La forma de la viga doblada es v(x) = F·x·(3L² − 4x²) ⁄ (48·E·I) hasta el centro, donde la comba es F·L³ ⁄ (48·E·I). El máximo que pueden alcanzar 24 cuadrados unidos se encontró con una búsqueda exacta sobre cuántos cuadrados hay en cada fila: cada fila entre la de arriba y la de abajo necesita al menos uno, y el mejor sitio para el resto son las filas de arriba y de abajo, a partes iguales. Los números se comprobaron frente a un programa independiente.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Second_moment_of_area" target="_blank" rel="noopener">Segundo momento de área (Wikipedia, en inglés)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Euler%E2%80%93Bernoulli_beam_theory" target="_blank" rel="noopener">Teoría de vigas de Euler–Bernoulli (Wikipedia, en inglés)</a><a class="source-link" href="https://en.wikipedia.org/wiki/I-beam" target="_blank" rel="noopener">Viga en I (Wikipedia, en inglés)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Claude-Louis_Navier" target="_blank" rel="noopener">Claude-Louis Navier (Wikipedia, en inglés)</a><a class="source-link" href="https://archive.org/details/dialoguesconcern00galiuoft" target="_blank" rel="noopener">Galileo (1638), Dialogues Concerning Two New Sciences, jornada segunda (trad. Crew y de Salvio, 1914, en inglés)</a></div>`,
   },
 });

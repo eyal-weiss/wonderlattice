@@ -1,92 +1,94 @@
-/* The punishment illusion · visitor-facing words (fr). */
+/* L’illusion de la punition · les mots vus par le visiteur (fr). */
 Wonderlattice.defineText('regress', 'fr', {
-  eyebrow: 'STATISTICS',
-  name: 'The punishment illusion',
-  tagline: 'Scold a bad throw and the next one is better, nine times in ten. The scolding did nothing.',
-  title: 'The punishment illusion.',
-  subtitle: 'A coach praises the best throws and scolds the worst. Watch what follows each word, then show the wiring.',
-  field: 'Statistics · Regression to the mean · Intuition fooled',
-  sceneLabel: 'One thrower · One coach',
-  sceneName: 'The coach’s tally',
-  tip: 'Tap a face to coach · Keys: ↑ praise, ↓ scold, → say nothing',
-  actionLabel: 'Show the wiring',
-  hideLabel: 'Hide the wiring',
+  eyebrow: 'STATISTIQUE',
+  name: 'L’illusion de la punition',
+  tagline: 'Grondez un mauvais lancer, et le suivant est meilleur neuf fois sur dix. Les reproches n’y sont pour rien.',
+  title: 'L’illusion de la punition.',
+  subtitle:
+    'Un coach félicite les meilleurs lancers et gronde les pires. Regardez ce qui suit chaque mot, puis montrez le câblage.',
+  field: 'Statistique · Régression vers la moyenne · L’intuition trompée',
+  sceneLabel: 'Un lanceur · Un coach',
+  sceneName: 'Le décompte du coach',
+  tip: 'Touchez un visage pour coacher · Clavier : ↑ féliciter, ↓ gronder, → ne rien dire',
+  actionLabel: 'Montrer le câblage',
+  hideLabel: 'Cacher le câblage',
   canvasLabel:
-    'A dartboard where a thrower’s darts land, a coach who praises or scolds each throw, and a tally of whether the next throw was better or worse after each word.',
+    'Une cible où tombent les fléchettes d’un lanceur, un coach qui félicite ou gronde après chaque lancer, et un décompte qui dit si le lancer suivant a été meilleur ou moins bon après chaque mot.',
   panelEyebrow: 'Coach',
-  whyLabel: 'Why does scolding seem to work?',
-  nudge: 'Turn the automatic coach off and coach by hand: praise and scold whatever you like. Then show the wiring.',
+  whyLabel: 'Pourquoi les reproches semblent-ils marcher ?',
+  nudge:
+    'Désactivez le coach automatique et coachez vous-même : félicitez et grondez comme bon vous semble. Puis montrez le câblage.',
   connection: {
-    html: '<strong>Intuition against arithmetic.</strong> In The imperfect treasure detector, a beep means less than it seems. Here, a coach’s words seem to do more than they do.',
-    label: 'Sweep for treasure',
+    html: '<strong>L’intuition contre l’arithmétique.</strong> Dans « Le détecteur de trésor imparfait », un bip veut dire moins qu’il n’y paraît. Ici, les mots d’un coach semblent faire plus qu’ils ne font.',
+    label: 'Partir à la chasse au trésor',
   },
 
   presets: [
-    { name: 'Automatic coach', note: 'Praise the best, scold the worst.', badge: '20%' },
-    { name: 'You coach', note: 'Every word is yours.', badge: '↑↓' },
-    { name: 'Praise really helps', note: 'Does the tally notice?', badge: '+' },
+    { name: 'Coach automatique', note: 'Féliciter les meilleurs, gronder les pires.', badge: '20 %' },
+    { name: 'Vous coachez', note: 'Chaque mot vient de vous.', badge: '↑↓' },
+    { name: 'L’éloge aide vraiment', note: 'Le décompte le voit-il ?', badge: '+' },
   ],
 
-  auto: 'Automatic coach: praise the best throws, scold the worst',
-  share: 'The coach reacts to the best and worst',
-  shareHint: 'The more extreme the throws it reacts to, the stronger the illusion.',
-  helps: 'Praise really helps a little (the next throw gets a small lift)',
-  words: { praise: 'Praise', scold: 'Scold', nothing: 'Say nothing' },
+  auto: 'Coach automatique : féliciter les meilleurs lancers, gronder les pires',
+  share: 'Le coach réagit aux meilleurs et aux pires',
+  shareHint: 'Plus les lancers auxquels il réagit sont extrêmes, plus l’illusion est forte.',
+  helps: 'L’éloge aide vraiment un peu (le lancer suivant s’améliore légèrement)',
+  words: { praise: 'Féliciter', scold: 'Gronder', nothing: 'Ne rien dire' },
 
   labels: {
-    board: (n) => `Throw ${n}`,
-    points: (p) => `${p} points`,
-    praise: 'Well done!',
-    scold: 'Sloppy!',
+    board: (n) => `Lancer ${n}`,
+    points: (p) => `${p} ${p < 2 ? 'point' : 'points'}`,
+    praise: 'Bravo !',
+    scold: 'Bâclé !',
     nothing: '…',
-    yourWord: 'Your word?',
-    afterPraise: 'After praise',
-    afterScold: 'After scolding',
-    better: 'next better',
-    worse: 'next worse',
-    times: (k, n) => `${k} of ${n}`,
-    none: 'not yet',
-    hidden: 'What are the coach’s words wired to?',
-    hiddenHint: 'Show the wiring to see',
-    wired: 'Words wired to the next throw:',
-    nothing2: 'nothing',
-    lift: 'praise: a small lift',
-    thisThrow: 'this throw →',
-    nextThrow: 'next throw ↑',
-    same: 'same again',
-    fitted: 'best fit',
+    yourWord: 'Que dire ?',
+    afterPraise: 'Après un éloge',
+    afterScold: 'Après un reproche',
+    better: 'puis mieux',
+    worse: 'puis pire',
+    times: (k, n) => `${k} sur ${n}`,
+    none: 'pas encore',
+    hidden: 'Les mots du coach, reliés à quoi ?',
+    hiddenHint: 'Montrez le câblage pour voir',
+    wired: 'Mots reliés au lancer suivant :',
+    nothing2: 'rien',
+    lift: 'éloge : un léger mieux',
+    thisThrow: 'ce lancer →',
+    nextThrow: 'le suivant ↑',
+    same: 'pareil',
+    fitted: 'tendance',
   },
 
   status: {
-    waiting: (n) => `Throw ${n}: your word?`,
-    count: (n) => `${n} throws`,
-    done: (n) => `${n} throws, all done`,
+    waiting: (n) => `Lancer ${n} : que dire ?`,
+    count: (n) => `${n} ${n < 2 ? 'lancer' : 'lancers'}`,
+    done: (n) => `${n} lancers, c’est terminé`,
   },
   announce: (pw, pn, sb, sn) =>
-    `After praise the next throw was worse ${pw} times in ${pn}; after scolding it was better ${sb} times in ${sn}.`,
+    `Après un éloge, le lancer suivant a été moins bon ${pw} fois sur ${pn} ; après un reproche, il a été meilleur ${sb} fois sur ${sn}.`,
 
   guests: [
     {
       name: 'Francis Galton',
-      note: 'I measured parents and their grown children: the children of very tall parents were tall, but on average only two-thirds as far from the middle.',
+      note: 'J’ai mesuré des parents et leurs enfants devenus adultes : les enfants de parents très grands étaient grands, mais en moyenne leur écart au milieu n’était que les deux tiers de celui de leurs parents.',
     },
     {
       name: 'Daniel Kahneman',
-      note: 'A flight instructor told me that praise made cadets worse and shouting made them better. He had seen it, and it was regression to the mean.',
+      note: 'Un instructeur de vol m’a dit que les éloges rendaient les élèves pilotes moins bons et que les cris les rendaient meilleurs. Il l’avait vu, et c’était la régression vers la moyenne.',
     },
   ],
 
   insight: {
-    title: 'Why does scolding seem to work?',
-    html: `<p>Every throw is the thrower’s skill plus luck. An unusually good throw is usually a good throw with good luck on top, and luck doesn’t carry over. So the next throw is likely to be nearer the thrower’s average, whatever the coach says. With the coach reacting to the best and worst fifth of throws, the throw after a praised one is worse 9 times in 10 in this room, and the throw after a scolded one is better 9 times in 10. The coach’s words reach nothing at all.</p>
-<div class="insight-visual">a great throw = skill + good luck → next throw = skill + ordinary luck → “praise made it worse”</div>
-<h3>The flight instructor</h3>
-<p>Daniel Kahneman tells how he once taught Israeli air force flight instructors that praise works better than punishment. A seasoned instructor objected: when he praised a cadet for a clean manoeuvre, the next try was usually worse, and when he screamed at one, the next try was usually better. Kahneman saw at once that this was regression to the mean: because we praise people when they have done well and scold them when they have done badly, we are, as he put it, “statistically punished for rewarding others and rewarded for punishing them”. He then had everyone in the room toss two coins at a target behind their backs, with no feedback at all: those who did best the first time mostly did worse the second time, and the other way round.</p>
-<h3>Galton’s word for it</h3>
-<p>Francis Galton found the same pattern in 1886 in the heights of parents and their grown children. Children of very tall parents were tall, but on average only about two-thirds as far from the middle as their parents; children of very short parents were short, but less so. He called it regression towards mediocrity. People don’t all drift towards average: each generation is as spread out as the last. Only those picked for being extreme regress, because part of what made them extreme was luck that isn’t passed on.</p>
-<h3>What this room keeps simple</h3>
-<p>Here the thrower’s skill never changes and each throw’s luck is fresh, so the words truly do nothing. Real feedback can matter. Turn on “Praise really helps” and the tally still says praise backfires, about 8 times in 10: comparing a throw with the next one can’t tell. To learn what praise does, compare with throws after which the coach said nothing, or with a group that wasn’t praised. The nine in ten belongs to these settings: it is 1 − p/2 when the coach reacts to the best and worst share p of throws (95% at a tenth, 75% at half). The same illusion appears when an athlete slumps after a magazine cover, or when patients who enrol in a study at their worst seem to improve on any treatment.</p>
-<details><summary>The mathematics, if you want it</summary><p>If scores are skill plus independent luck, the expected next score is the average plus r times this score’s distance from the average, where r is the correlation between one score and the next. For one thrower whose skill never changes, r = 0: the best-fit line through “this throw, next throw” is flat, while the dashed line “same again” rises. With normal luck and a cutoff c above which lie the best share p of throws, P(next worse | this in the best p) = 1 − p/2, and the mean change is −φ(c)/p, about −1.40 standard deviations for p = 20%. F. Galton, “Regression towards mediocrity in hereditary stature”, Journal of the Anthropological Institute 15 (1886) 246–263. D. Kahneman, autobiography for the 2002 Nobel Prize, and Thinking, Fast and Slow (2011), chapter 17.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Regression_toward_the_mean" target="_blank" rel="noopener">Regression toward the mean</a><a class="source-link" href="https://www.nobelprize.org/prizes/economic-sciences/2002/kahneman/biographical/" target="_blank" rel="noopener">Kahneman’s Nobel autobiography</a><a class="source-link" href="https://galton.org/essays/1880-1889/galton-1886-jaigi-regression-stature.pdf" target="_blank" rel="noopener">Galton 1886 (PDF)</a></div>`,
+    title: 'Pourquoi les reproches semblent-ils marcher ?',
+    html: `<p>Chaque lancer, c’est l’adresse du lanceur plus la chance. Un lancer exceptionnellement bon est le plus souvent un bon lancer avec un coup de chance en plus, et la chance ne se transmet pas. Le lancer suivant a donc de bonnes chances d’être plus proche de la moyenne du lanceur, quoi que dise le coach. Quand le coach réagit au meilleur et au pire cinquième des lancers, le lancer qui suit un lancer félicité est moins bon 9 fois sur 10 dans cette salle, et celui qui suit un lancer grondé est meilleur 9 fois sur 10. Les mots du coach n’atteignent absolument rien.</p>
+<div class="insight-visual">un superbe lancer = adresse + bonne chance → lancer suivant = adresse + chance ordinaire → « les éloges l’ont rendu moins bon »</div>
+<h3>L’instructeur de vol</h3>
+<p>Daniel Kahneman raconte comment il a un jour expliqué à des instructeurs de vol de l’armée de l’air israélienne que les éloges marchent mieux que les punitions. Un instructeur chevronné a objecté : quand il félicitait un élève pour une manœuvre impeccable, l’essai suivant était généralement moins bon, et quand il hurlait sur un élève, l’essai suivant était généralement meilleur. Kahneman a tout de suite vu qu’il s’agissait de la régression vers la moyenne : parce qu’on félicite les gens quand ils ont bien réussi et qu’on les gronde quand ils ont mal réussi, nous sommes, selon ses mots, « statistiquement punis quand nous récompensons les autres, et récompensés quand nous les punissons ». Il a ensuite fait lancer à chacun, dans la salle, deux pièces vers une cible placée derrière son dos, sans aucun retour : ceux qui avaient le mieux réussi la première fois ont pour la plupart fait moins bien la seconde, et inversement.</p>
+<h3>Le mot de Galton</h3>
+<p>Francis Galton a trouvé le même phénomène en 1886 dans la taille des parents et de leurs enfants devenus adultes. Les enfants de parents très grands étaient grands, mais en moyenne leur écart au milieu n’était qu’environ les deux tiers de celui de leurs parents ; les enfants de parents très petits étaient petits, mais moins qu’eux. Il a appelé cela la régression vers la médiocrité. Les gens ne dérivent pas tous vers la moyenne : chaque génération est aussi dispersée que la précédente. Seuls ceux qu’on a choisis parce qu’ils étaient extrêmes régressent, car une partie de ce qui les rendait extrêmes était une chance qui ne se transmet pas.</p>
+<h3>Ce que cette salle garde simple</h3>
+<p>Ici, l’adresse du lanceur ne change jamais et la chance de chaque lancer est neuve, si bien que les mots ne font vraiment rien. Dans la réalité, les retours peuvent compter. Activez « L’éloge aide vraiment » et le décompte dit toujours que les éloges se retournent contre le coach, environ 8 fois sur 10 : comparer un lancer au suivant ne permet pas de le savoir. Pour savoir ce que font les éloges, comparez avec les lancers après lesquels le coach n’a rien dit, ou avec un groupe qui n’a pas été félicité. Le neuf sur dix tient à ces réglages : il vaut 1 − p/2 quand le coach réagit à la part p des meilleurs et des pires lancers (95 % pour un dixième, 75 % pour la moitié). La même illusion apparaît quand un athlète s’effondre après avoir fait la couverture d’un magazine, ou quand des patients qui entrent dans une étude au plus mal semblent aller mieux avec n’importe quel traitement.</p>
+<details><summary>Les mathématiques, si vous voulez</summary><p>Si les scores sont l’adresse plus une chance indépendante, le score suivant attendu est la moyenne plus r fois l’écart de ce score à la moyenne, où r est la corrélation entre un score et le suivant. Pour un lanceur dont l’adresse ne change jamais, r = 0 : la droite de tendance à travers les points « ce lancer, lancer suivant » est plate, tandis que la ligne pointillée « pareil » monte. Avec une chance normale et un seuil c au-dessus duquel se trouve la part p des meilleurs lancers, P(suivant moins bon | celui-ci parmi les p meilleurs) = 1 − p/2, et la variation moyenne vaut −φ(c)/p, soit environ −1,40 écart type pour p = 20 %. F. Galton, « Regression towards mediocrity in hereditary stature », Journal of the Anthropological Institute 15 (1886) 246–263. D. Kahneman, autobiographie pour le prix Nobel 2002, et Thinking, Fast and Slow (2011, en français « Système 1 / Système 2 »), chapitre 17.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Regression_toward_the_mean" target="_blank" rel="noopener">Régression vers la moyenne (Wikipédia, en anglais)</a><a class="source-link" href="https://www.nobelprize.org/prizes/economic-sciences/2002/kahneman/biographical/" target="_blank" rel="noopener">L’autobiographie Nobel de Kahneman (en anglais)</a><a class="source-link" href="https://galton.org/essays/1880-1889/galton-1886-jaigi-regression-stature.pdf" target="_blank" rel="noopener">Galton 1886 (PDF, en anglais)</a></div>`,
   },
 });

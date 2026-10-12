@@ -1,78 +1,121 @@
 /* The sunflower's secret angle · visitor-facing words (ar). */
+// «بذرة» (seed) and «ذراع» (arm, feminine here as in the glossary) are feminine; «شعاع» (spoke) is masculine:
+// بذرة واحدة، بذرتان، 3 بذور، 11 بذرة؛ شعاع واحد، شعاعان، 3 أشعة، 11 شعاعًا. The picture is drawn left to right, so
+// a canvas label that mixes Arabic with numbers is wrapped whole in a right-to-left isolate.
 Wonderlattice.defineText('sunflower', 'ar', {
-  eyebrow: 'GOLDEN ANGLE',
-  name: 'The sunflower’s secret angle',
-  tagline: 'Turn a little, drop a seed, repeat. Only one angle makes a sunflower.',
-  title: 'The sunflower’s secret angle.',
-  subtitle:
-    'Each seed is turned a little from the last. Change the turn by a tenth of a degree and the sunflower falls apart.',
-  field: 'Number theory · Phyllotaxis · Plants',
-  sceneLabel: 'One turn · a thousand seeds',
-  sceneName: 'The flower head',
-  tip: 'Tap the flower to count its arms · ← → turn by 0.01°, ↑ ↓ by 0.1°',
-  actionLabel: 'Grow it again',
-  canvasLabel:
-    'A sunflower head of a thousand seeds. Each seed is turned by the same angle from the one before, a little further out.',
-  panelEyebrow: 'One angle, many flowers',
-  whyLabel: 'Why does one angle make a sunflower?',
+  eyebrow: 'الزاوية الذهبية',
+  name: 'زاوية عبّاد الشمس السرّية',
+  tagline: 'دوروا قليلًا، وضعوا بذرة، وكرّروا. زاوية واحدة فقط تصنع زهرة عبّاد شمس.',
+  title: 'زاوية عبّاد الشمس السرّية.',
+  subtitle: 'كل بذرة مُدارة قليلًا عن سابقتها. غيّروا الدوران بعُشر درجة، فتتفكك زهرة عبّاد الشمس.',
+  field: 'نظرية الأعداد · ترتيب الأوراق · النباتات',
+  sceneLabel: 'دوران واحد · ألف بذرة',
+  sceneName: 'قرص الزهرة',
+  tip: 'انقروا على الزهرة لعدّ أذرعها · المفاتيح: ← و→ للتدوير بمقدار \u20660.01°\u2069، و↑ و↓ بمقدار \u20660.1°\u2069',
+  actionLabel: 'الإنماء من جديد',
+  canvasLabel: 'قرص عبّاد شمس من ألف بذرة. كل بذرة مُدارة بالزاوية نفسها عن التي قبلها، وأبعد قليلًا عن المركز.',
+  panelEyebrow: 'زاوية واحدة، أزهار كثيرة',
+  whyLabel: 'لماذا تصنع زاوية واحدة زهرة عبّاد شمس؟',
   nudge:
-    'Find an angle that makes straight spokes, then change it by 0.01°. How many arms appear? Are they Fibonacci numbers?',
+    'ابحثوا عن زاوية تصنع أشعة مستقيمة، ثم غيّروها بمقدار \u20660.01°\u2069. كم ذراعًا تظهر؟ هل أعدادها من أعداد فيبوناتشي؟',
   connection: {
-    html: '<strong>Alan Turing, again.</strong> He wondered how growing things make their patterns. In Grow a fingerprint, his chemistry lays down the ridges.',
-    label: 'Grow a fingerprint',
+    html: '<strong>آلان تورينغ، مرة أخرى.</strong> تساءل كيف تصنع الكائنات النامية أنماطها. وفي «إنماء بصمة إصبع»، ترسم كيمياؤه الخطوط.',
+    label: 'إنماء بصمة إصبع',
   },
 
   presets: [
-    { name: 'A sunflower', note: 'The golden angle.', badge: '137.5°' },
-    { name: 'A tenth of a degree more', note: 'Gaps open between the arms.', badge: '137.6°' },
-    { name: 'Three eighths of a turn', note: 'Eight straight spokes.', badge: '135°' },
+    { name: 'زهرة عبّاد شمس', note: 'الزاوية الذهبية.', badge: '137.5°' },
+    { name: 'عُشر درجة زيادة', note: 'تنفتح فجوات بين الأذرع.', badge: '137.6°' },
+    { name: 'ثلاثة أثمان الدورة', note: 'ثمانية أشعة مستقيمة.', badge: '135°' },
   ],
 
-  angle: 'Turn between seeds',
-  nudgeGroup: 'Change the turn a little',
+  angle: 'الدوران بين البذور',
+  nudgeGroup: 'تغيير الدوران قليلًا',
   // The buttons under the slider, given the step already written as the page writes numbers ("0.01°").
-  more: (step) => `${step} more`,
-  less: (step) => `${step} less`,
-  arms: 'Show the arms, and count them',
+  more: (step) => `زيادة \u2066${step}\u2069`,
+  less: (step) => `إنقاص \u2066${step}\u2069`,
+  arms: 'إظهار الأذرع وعدّها',
 
   // The status line: what the eye sees near the rim (or where the visitor tapped). Counts are whole numbers.
   status: {
-    growing: (seeds) => `Growing: ${seeds} seeds`,
-    spokes: (q) => (q === 1 ? 'One straight line' : `${q} straight spokes`),
-    gaps: (q) => `Gaps open between ${q} curved arms`,
-    packed: (a, b) => `Packed tight: ${a} arms one way, ${b} the other`,
+    growing: (seeds) => {
+      const k = seeds % 100;
+      return seeds === 1
+        ? 'تنمو الزهرة: بذرة واحدة'
+        : seeds === 2
+          ? 'تنمو الزهرة: بذرتان'
+          : k >= 3 && k <= 10
+            ? `تنمو الزهرة: ${seeds} بذور`
+            : `تنمو الزهرة: ${seeds} بذرة`;
+    },
+    spokes: (q) => {
+      const k = q % 100;
+      return q === 1
+        ? 'خط مستقيم واحد'
+        : q === 2
+          ? 'شعاعان مستقيمان'
+          : k >= 3 && k <= 10
+            ? `${q} أشعة مستقيمة`
+            : k >= 11
+              ? `${q} شعاعًا مستقيمًا`
+              : `${q} شعاع مستقيم`;
+    },
+    gaps: (q) => {
+      const k = q % 100;
+      return q === 1
+        ? 'تنفتح فجوات حول ذراع منحنية واحدة'
+        : q === 2
+          ? 'تنفتح فجوات بين ذراعين منحنيتين'
+          : k >= 3 && k <= 10
+            ? `تنفتح فجوات بين ${q} أذرع منحنية`
+            : k >= 11
+              ? `تنفتح فجوات بين ${q} ذراعًا منحنية`
+              : `تنفتح فجوات بين ${q} ذراع منحنية`;
+    },
+    packed: (a, b) => {
+      const k = a % 100;
+      return a === 1
+        ? `متراصّة: ذراع واحدة في اتجاه، و${b} في الاتجاه الآخر`
+        : a === 2
+          ? `متراصّة: ذراعان في اتجاه، و${b} في الاتجاه الآخر`
+          : k >= 3 && k <= 10
+            ? `متراصّة: ${a} أذرع في اتجاه، و${b} في الاتجاه الآخر`
+            : k >= 11
+              ? `متراصّة: ${a} ذراعًا في اتجاه، و${b} في الاتجاه الآخر`
+              : `متراصّة: ${a} ذراع في اتجاه، و${b} في الاتجاه الآخر`;
+    },
   },
 
   // Words drawn on the canvas: keep them short.
   labels: {
     degrees: (value) => `${value}°`, // the turn, already written as the page writes numbers
-    golden: 'the golden angle',
-    ofTurn: (p, q) => `${p}/${q} of a turn`,
-    fibonacci: 'Fibonacci numbers',
+    golden: 'الزاوية الذهبية',
+    ofTurn: (p, q) => `\u2067${p}/${q} من دورة\u2069`,
+    fibonacci: 'أعداد فيبوناتشي',
   },
 
   guests: [
     {
-      name: 'Leonardo of Pisa (Fibonacci)',
-      note: 'In 1202 his book of calculation asked how fast rabbits breed. The answer, 1, 1, 2, 3, 5, 8, 13…, now carries his nickname.',
+      name: 'ليوناردو البيزي (فيبوناتشي)',
+      note: 'في عام 1202 طرح كتابه في الحساب سؤالًا: ما سرعة تكاثر الأرانب؟ والجواب، 1، 1، 2، 3، 5، 8، 13…، يحمل اليوم لقبه.',
     },
     {
-      name: 'Alan Turing',
-      note: 'In his last years he worked on why plants set their leaves and seeds in Fibonacci spirals. In 2012, his centenary, the public grew sunflowers to test it.',
+      name: 'آلان تورينغ',
+      note: 'في سنواته الأخيرة درس لماذا ترتّب النباتات أوراقها وبذورها في حلزونات فيبوناتشي. وفي عام 2012، في الذكرى المئوية لميلاده، زرع الجمهور أزهار عبّاد الشمس لاختبار ذلك.',
     },
   ],
 
   insight: {
-    title: 'Why does one angle make a sunflower?',
-    html: `<p>Each new seed is turned by the same angle from the one before and sits a little further out. If that turn is a simple fraction of a full turn, say 3/8, then every eighth seed lands on the same line from the centre: eight spokes, with empty wedges between them. A turn <em>close</em> to 3/8 bends those spokes into eight curved arms, with gaps between them.</p>
-<div class="insight-visual">a turn of p/q → q spokes · close to p/q → q curved arms</div>
-<h3>The angle that avoids every fraction</h3>
-<p>To fill the head with no gaps, the turn has to stay away from every simple fraction. The golden angle, 360°/φ² ≈ 137.508° (φ = 1.618…, the golden ratio), does this better than any other: fractions approximate φ more slowly than any other number. Its best approximations are 1/3, 2/5, 3/8, 5/13, 8/21, 13/34 of a turn: ratios of Fibonacci numbers. That is why the two families of arms you can count are neighbouring Fibonacci numbers, 13 and 21 near the middle, 55 and 89 near the rim of a thousand seeds.</p>
-<h3>Real sunflowers</h3>
-<p>Plants aren’t this tidy. In the <em>Turing’s Sunflowers</em> citizen-science study of 657 flower heads, 565 of the 768 spiral counts were Fibonacci numbers, and 67 more had a related Fibonacci structure. The rest didn’t, and counts one less than a Fibonacci number turned up surprisingly often. Some heads had no clear spirals at all.</p>
-<h3>What this model leaves out</h3>
-<p>The model is told the angle; it doesn’t explain why a plant uses it. In a real flower head new buds form where a hormone, auxin, gathers, and each bud draws it away from its surroundings, so the next one forms elsewhere. Stéphane Douady and Yves Couder dropped magnetised droplets one after another onto oil, where they repel each other: each new drop settles as far as it can from the last ones, and at the right pace the golden angle appears by itself.</p>
-<details><summary>The mathematics, if you want it</summary><p>A turn of 0.381966… has the continued fraction 1/(2 + 1/(1 + 1/(1 + …))), all 1s after the 2: no continued fraction closes in more slowly. Its best fractions, the convergents, are F<sub>k</sub>/F<sub>k+2</sub>: 1/3, 2/5, 3/8, 5/13… The nearest neighbours of a seed are a Fibonacci number of seeds before or after it, and that number grows roughly in step with the distance from the centre. Exactly 137.5° is 55/144 of a turn, so it makes 144 spokes, though only once there are a few thousand seeds.</p></details>
-<div class="sources"><a class="source-link" href="https://doi.org/10.1016/0025-5564(79)90080-4" target="_blank" rel="noopener">H. Vogel, A better way to construct the sunflower head (1979)</a><a class="source-link" href="https://doi.org/10.1098/rsos.160091" target="_blank" rel="noopener">J. Swinton, E. Ochu et al., Turing’s Sunflowers (2016)</a><a class="source-link" href="https://doi.org/10.1103/PhysRevLett.68.2098" target="_blank" rel="noopener">S. Douady, Y. Couder, Phyllotaxis as a self-organised growth process (1992)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Golden_angle" target="_blank" rel="noopener">Golden angle</a></div>`,
+    title: 'لماذا تصنع زاوية واحدة زهرة عبّاد شمس؟',
+    html: `<p>كل بذرة جديدة مُدارة بالزاوية نفسها عن التي قبلها، وتقع أبعد قليلًا عن المركز. فإذا كان هذا الدوران كسرًا بسيطًا من دورة كاملة، 3/8 مثلًا، فإن كل بذرة ثامنة تقع على الخط نفسه الخارج من المركز: ثمانية أشعة، بينها قطاعات فارغة. والدوران <em>القريب</em> من 3/8 يحني هذه الأشعة إلى ثماني أذرع منحنية، بينها فجوات.</p>
+<div class="insight-visual">دورة قدرها p/q ← أشعة عددها q · قريبة من p/q ← أذرع منحنية عددها q</div>
+<h3>الزاوية التي تتجنّب كل كسر</h3>
+<p>لكي يمتلئ القرص بلا فجوات، على الدوران أن يبقى بعيدًا عن كل كسر بسيط. والزاوية الذهبية، \u2066360°/\u2060φ²\u00a0≈\u00a0137.508°\u2069 (حيث \u2066φ\u00a0=\u00a01.618…\u2069 هي النسبة الذهبية)، تفعل ذلك أفضل من أي زاوية أخرى: فالكسور تقترب من φ أبطأ مما تقترب من أي عدد آخر. وأفضل تقريباتها هي 1/3، 2/5، 3/8، 5/13، 8/21، 13/34 من الدورة: نِسَب بين أعداد فيبوناتشي. ولهذا فإن عائلتَي الأذرع اللتين يمكنكم عدّهما عددان متجاوران من أعداد فيبوناتشي: 13 و21 قرب الوسط، و55 و89 قرب حافة قرص من ألف بذرة.</p>
+<h3>أزهار عبّاد الشمس الحقيقية</h3>
+<p>النباتات ليست بهذا الترتيب. في دراسة <em>\u2066Turing’s Sunflowers\u2069</em>، وهي دراسة شارك فيها الجمهور وشملت 657 قرصًا، كان 565 من أصل 768 عدًّا للحلزونات أعدادَ فيبوناتشي، وأظهر 67 عدًّا آخر بنيةً مرتبطة بأعداد فيبوناتشي. أما البقية فلا، وظهرت أعداد تقلّ بواحد عن عدد فيبوناتشي كثيرًا على نحو مفاجئ. وبعض الأقراص لم تكن فيها حلزونات واضحة أصلًا.</p>
+<h3>ما يُغفله هذا النموذج</h3>
+<p>النموذج يُعطى الزاوية؛ ولا يفسّر لماذا يستخدمها النبات. في قرص زهرة حقيقي تتكوّن البراعم الجديدة حيث يتجمّع هرمون يُدعى الأوكسين، وكل برعم يسحبه من محيطه، فيتكوّن البرعم التالي في مكان آخر. أسقط ستيفان دوادي وإيف كودير قطرات ممغنطة واحدة تلو الأخرى على سطح زيت، حيث تتنافر: كل قطرة جديدة تستقر أبعد ما يمكن عن القطرات الأخيرة، وبالإيقاع المناسب تظهر الزاوية الذهبية من تلقاء نفسها.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>للدوران 0.381966… الكسرُ المستمر \u20661/\u2060(2\u00a0+\u00a01/\u2060(1\u00a0+\u00a01/\u2060(1\u00a0+\u00a0…)))\u2069، وكل حدوده بعد الـ2 تساوي 1: لا يوجد كسر مستمر يقترب من قيمته أبطأ منه. وأفضل كسوره، أي المتقاربات، هي \u2066F<sub>k</sub>/\u2060F<sub>k+2</sub>\u2069: 1/3، 2/5، 3/8، 5/13… وأقرب جيران البذرة يسبقونها أو يلونها بعدد من البذور هو عدد فيبوناتشي، ويكبر هذا العدد تقريبًا مع ازدياد البعد عن المركز. والزاوية \u2066137.5°\u2069 بالضبط هي 55/144 من الدورة، لذا تصنع 144 شعاعًا، ولكن فقط حين يبلغ عدد البذور بضعة آلاف.</p></details>
+<div class="sources"><a class="source-link" href="https://doi.org/10.1016/0025-5564(79)90080-4" target="_blank" rel="noopener">فوغل، \u2066A better way to construct the sunflower head\u2069 \u200f(1979، بالإنجليزية)</a><a class="source-link" href="https://doi.org/10.1098/rsos.160091" target="_blank" rel="noopener">سوينتون وأوتشو وآخرون، \u2066Turing’s Sunflowers\u2069 \u200f(2016، بالإنجليزية)</a><a class="source-link" href="https://doi.org/10.1103/PhysRevLett.68.2098" target="_blank" rel="noopener">دوادي وكودير، \u2066Phyllotaxis as a self-organised growth process\u2069 \u200f(1992، بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Golden_angle" target="_blank" rel="noopener">الزاوية الذهبية (بالإنجليزية)</a></div>`,
   },
 });

@@ -1,78 +1,75 @@
 /* The sunflower's secret angle · visitor-facing words (he). */
 Wonderlattice.defineText('sunflower', 'he', {
-  eyebrow: 'GOLDEN ANGLE',
-  name: 'The sunflower’s secret angle',
-  tagline: 'Turn a little, drop a seed, repeat. Only one angle makes a sunflower.',
-  title: 'The sunflower’s secret angle.',
-  subtitle:
-    'Each seed is turned a little from the last. Change the turn by a tenth of a degree and the sunflower falls apart.',
-  field: 'Number theory · Phyllotaxis · Plants',
-  sceneLabel: 'One turn · a thousand seeds',
-  sceneName: 'The flower head',
-  tip: 'Tap the flower to count its arms · ← → turn by 0.01°, ↑ ↓ by 0.1°',
-  actionLabel: 'Grow it again',
-  canvasLabel:
-    'A sunflower head of a thousand seeds. Each seed is turned by the same angle from the one before, a little further out.',
-  panelEyebrow: 'One angle, many flowers',
-  whyLabel: 'Why does one angle make a sunflower?',
-  nudge:
-    'Find an angle that makes straight spokes, then change it by 0.01°. How many arms appear? Are they Fibonacci numbers?',
+  eyebrow: 'זווית הזהב',
+  name: 'הזווית הסודית של החמנייה',
+  tagline: 'מסובבים קצת, מניחים זרע, וחוזר חלילה. רק זווית אחת יוצרת חמנייה.',
+  title: 'הזווית הסודית של החמנייה.',
+  subtitle: 'כל זרע מסובב מעט ביחס לקודם. שנו את הסיבוב בעשירית מעלה, והחמנייה מתפרקת.',
+  field: 'תורת המספרים · פילוטקסיס · צמחים',
+  sceneLabel: 'סיבוב אחד · אלף זרעים',
+  sceneName: 'ראש הפרח',
+  tip: 'הקישו על הפרח כדי לספור את הזרועות שלו · ← → מסובבים ב־0.01°, ↑ ↓ ב־0.1°',
+  actionLabel: 'לגדל מחדש',
+  canvasLabel: 'ראש של חמנייה עם אלף זרעים. כל זרע מסובב באותה זווית ביחס לזרע שלפניו, וקצת יותר רחוק מהמרכז.',
+  panelEyebrow: 'זווית אחת, פרחים רבים',
+  whyLabel: 'למה זווית אחת יוצרת חמנייה?',
+  nudge: 'מצאו זווית שיוצרת חישורים ישרים, ואז שנו אותה ב־0.01°. כמה זרועות מופיעות? האם אלה מספרי פיבונאצ׳י?',
   connection: {
-    html: '<strong>Alan Turing, again.</strong> He wondered how growing things make their patterns. In Grow a fingerprint, his chemistry lays down the ridges.',
-    label: 'Grow a fingerprint',
+    html: '<strong>שוב אלן טיורינג.</strong> הוא תהה איך דברים שגדלים יוצרים את הדפוסים שלהם. ב”לגדל טביעת אצבע”, הכימיה שלו יוצרת את הרכסים.',
+    label: 'לגדל טביעת אצבע',
   },
 
   presets: [
-    { name: 'A sunflower', note: 'The golden angle.', badge: '137.5°' },
-    { name: 'A tenth of a degree more', note: 'Gaps open between the arms.', badge: '137.6°' },
-    { name: 'Three eighths of a turn', note: 'Eight straight spokes.', badge: '135°' },
+    { name: 'חמנייה', note: 'זווית הזהב.', badge: '137.5°' },
+    { name: 'עוד עשירית מעלה', note: 'רווחים נפתחים בין הזרועות.', badge: '137.6°' },
+    { name: 'שלוש שמיניות סיבוב', note: 'שמונה חישורים ישרים.', badge: '135°' },
   ],
 
-  angle: 'Turn between seeds',
-  nudgeGroup: 'Change the turn a little',
+  angle: 'הסיבוב בין זרע לזרע',
+  nudgeGroup: 'לשנות מעט את הסיבוב',
   // The buttons under the slider, given the step already written as the page writes numbers ("0.01°").
-  more: (step) => `${step} more`,
-  less: (step) => `${step} less`,
-  arms: 'Show the arms, and count them',
+  more: (step) => `עוד ${step}`,
+  less: (step) => `פחות ${step}`,
+  arms: 'להראות את הזרועות ולספור אותן',
 
   // The status line: what the eye sees near the rim (or where the visitor tapped). Counts are whole numbers.
   status: {
-    growing: (seeds) => `Growing: ${seeds} seeds`,
-    spokes: (q) => (q === 1 ? 'One straight line' : `${q} straight spokes`),
-    gaps: (q) => `Gaps open between ${q} curved arms`,
-    packed: (a, b) => `Packed tight: ${a} arms one way, ${b} the other`,
+    growing: (seeds) => `צומחת: ${seeds} זרעים`,
+    spokes: (q) => (q === 1 ? 'קו ישר אחד' : `${q} חישורים ישרים`),
+    gaps: (q) => `רווחים נפתחים בין ${q} זרועות מעוקלות`,
+    packed: (a, b) => `צפוף לגמרי: ${a} זרועות לכיוון אחד, ${b} לכיוון השני`,
   },
 
-  // Words drawn on the canvas: keep them short.
+  // Words drawn on the canvas: keep them short. The canvas is left to right, so a label with numbers is wrapped.
   labels: {
     degrees: (value) => `${value}°`, // the turn, already written as the page writes numbers
-    golden: 'the golden angle',
-    ofTurn: (p, q) => `${p}/${q} of a turn`,
-    fibonacci: 'Fibonacci numbers',
+    golden: 'זווית הזהב',
+    ofTurn: (p, q) => `\u2067${p}/${q} סיבוב\u2069`,
+    fibonacci: 'מספרי פיבונאצ׳י',
   },
 
   guests: [
     {
-      name: 'Leonardo of Pisa (Fibonacci)',
-      note: 'In 1202 his book of calculation asked how fast rabbits breed. The answer, 1, 1, 2, 3, 5, 8, 13…, now carries his nickname.',
+      name: 'לאונרדו מפיזה (פיבונאצ׳י)',
+      note: 'ב־1202 ספר החשבון שלו שאל באיזה קצב מתרבים ארנבים. התשובה, 1, 1, 2, 3, 5, 8, 13…, נושאת היום את הכינוי שלו.',
     },
     {
-      name: 'Alan Turing',
-      note: 'In his last years he worked on why plants set their leaves and seeds in Fibonacci spirals. In 2012, his centenary, the public grew sunflowers to test it.',
+      name: 'אלן טיורינג',
+      note: 'בשנותיו האחרונות הוא חקר למה צמחים מסדרים את העלים והזרעים שלהם בספירלות של פיבונאצ׳י. ב־2012, במלאת מאה שנה להולדתו, הציבור גידל חמניות כדי לבדוק את זה.',
     },
   ],
 
   insight: {
-    title: 'Why does one angle make a sunflower?',
-    html: `<p>Each new seed is turned by the same angle from the one before and sits a little further out. If that turn is a simple fraction of a full turn, say 3/8, then every eighth seed lands on the same line from the centre: eight spokes, with empty wedges between them. A turn <em>close</em> to 3/8 bends those spokes into eight curved arms, with gaps between them.</p>
-<div class="insight-visual">a turn of p/q → q spokes · close to p/q → q curved arms</div>
-<h3>The angle that avoids every fraction</h3>
-<p>To fill the head with no gaps, the turn has to stay away from every simple fraction. The golden angle, 360°/φ² ≈ 137.508° (φ = 1.618…, the golden ratio), does this better than any other: fractions approximate φ more slowly than any other number. Its best approximations are 1/3, 2/5, 3/8, 5/13, 8/21, 13/34 of a turn: ratios of Fibonacci numbers. That is why the two families of arms you can count are neighbouring Fibonacci numbers, 13 and 21 near the middle, 55 and 89 near the rim of a thousand seeds.</p>
-<h3>Real sunflowers</h3>
-<p>Plants aren’t this tidy. In the <em>Turing’s Sunflowers</em> citizen-science study of 657 flower heads, 565 of the 768 spiral counts were Fibonacci numbers, and 67 more had a related Fibonacci structure. The rest didn’t, and counts one less than a Fibonacci number turned up surprisingly often. Some heads had no clear spirals at all.</p>
-<h3>What this model leaves out</h3>
-<p>The model is told the angle; it doesn’t explain why a plant uses it. In a real flower head new buds form where a hormone, auxin, gathers, and each bud draws it away from its surroundings, so the next one forms elsewhere. Stéphane Douady and Yves Couder dropped magnetised droplets one after another onto oil, where they repel each other: each new drop settles as far as it can from the last ones, and at the right pace the golden angle appears by itself.</p>
-<details><summary>The mathematics, if you want it</summary><p>A turn of 0.381966… has the continued fraction 1/(2 + 1/(1 + 1/(1 + …))), all 1s after the 2: no continued fraction closes in more slowly. Its best fractions, the convergents, are F<sub>k</sub>/F<sub>k+2</sub>: 1/3, 2/5, 3/8, 5/13… The nearest neighbours of a seed are a Fibonacci number of seeds before or after it, and that number grows roughly in step with the distance from the centre. Exactly 137.5° is 55/144 of a turn, so it makes 144 spokes, though only once there are a few thousand seeds.</p></details>
-<div class="sources"><a class="source-link" href="https://doi.org/10.1016/0025-5564(79)90080-4" target="_blank" rel="noopener">H. Vogel, A better way to construct the sunflower head (1979)</a><a class="source-link" href="https://doi.org/10.1098/rsos.160091" target="_blank" rel="noopener">J. Swinton, E. Ochu et al., Turing’s Sunflowers (2016)</a><a class="source-link" href="https://doi.org/10.1103/PhysRevLett.68.2098" target="_blank" rel="noopener">S. Douady, Y. Couder, Phyllotaxis as a self-organised growth process (1992)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Golden_angle" target="_blank" rel="noopener">Golden angle</a></div>`,
+    title: 'למה זווית אחת יוצרת חמנייה?',
+    html: `<p>כל זרע חדש מסובב באותה זווית ביחס לזרע שלפניו, ויושב קצת יותר רחוק מהמרכז. אם הסיבוב הזה הוא שבר פשוט של סיבוב שלם, נניח 3/8, אז כל זרע שמיני נוחת על אותו קו שיוצא מהמרכז: שמונה חישורים, עם טריזים ריקים ביניהם. סיבוב <em>קרוב</em> ל־3/8 מכופף את החישורים האלה לשמונה זרועות מעוקלות, עם רווחים ביניהן.</p>
+<div class="insight-visual">סיבוב של \u2066p/q\u2069 ← \u2066q\u2069 חישורים · קרוב ל־\u2066p/q\u2069 ← \u2066q\u2069 זרועות מעוקלות</div>
+<h3>הזווית שמתרחקת מכל שבר</h3>
+<p>כדי למלא את ראש הפרח בלי רווחים, הסיבוב צריך להתרחק מכל שבר פשוט. זווית הזהב, \u2066360°/φ² ≈ 137.508°\u2069 (\u2066φ = 1.618…\u2069, יחס הזהב), עושה את זה טוב יותר מכל זווית אחרת: שברים מתקרבים ל־φ לאט יותר מאשר לכל מספר אחר. הקירובים הטובים ביותר שלה הם 1/3, 2/5, 3/8, 5/13, 8/21, 13/34 של סיבוב: יחסים בין מספרי פיבונאצ׳י. זו הסיבה ששתי משפחות הזרועות שאפשר לספור הן מספרי פיבונאצ׳י סמוכים, 13 ו־21 ליד המרכז, 55 ו־89 ליד השוליים של אלף זרעים.</p>
+<h3>חמניות אמיתיות</h3>
+<p>צמחים לא מסודרים כל כך. במחקר המדע האזרחי \u2066<em>Turing’s Sunflowers</em>\u2069, שבדק 657 ראשי פרחים, 565 מתוך 768 ספירות הספירלות היו מספרי פיבונאצ׳י, ובעוד 67 נמצא מבנה שקשור למספרי פיבונאצ׳י. בשאר לא, וספירות שקטנות באחד ממספר פיבונאצ׳י הופיעו לעתים קרובות באופן מפתיע. בחלק מהראשים לא היו ספירלות ברורות בכלל.</p>
+<h3>מה המודל הזה משמיט</h3>
+<p>למודל אומרים מה הזווית; הוא לא מסביר למה צמח משתמש בה. בראש פרח אמיתי, ניצנים חדשים נוצרים במקום שבו מצטבר הורמון, אוקסין, וכל ניצן מושך אותו מהסביבה שלו, כך שהניצן הבא נוצר במקום אחר. סטפן דואדי ואיב קודר הטילו טיפות ממוגנטות בזו אחר זו על שמן, שם הן דוחות זו את זו: כל טיפה חדשה מתמקמת רחוק ככל האפשר מהאחרונות, ובקצב הנכון זווית הזהב מופיעה מעצמה.</p>
+<details><summary>המתמטיקה, למי שרוצה</summary><p>לסיבוב של \u20660.381966…\u2069 יש השבר המשולב \u20661/(2 + 1/(1 + 1/(1 + …)))\u2069, וכל המספרים בו אחרי ה־2 הם 1: אין שבר משולב שמתכנס לאט יותר. השברים הטובים ביותר שלו, המתכנסים, הם \u2066F<sub>k</sub>/F<sub>k+2</sub>\u2069: 1/3, 2/5, 3/8, 5/13… השכנים הקרובים ביותר של זרע נמצאים מספר פיבונאצ׳י של זרעים לפניו או אחריו, והמספר הזה גדל בערך יחד עם המרחק מהמרכז. בדיוק 137.5° הן 55/144 של סיבוב, ולכן הן יוצרות 144 חישורים, אבל רק כשיש כמה אלפי זרעים.</p></details>
+<div class="sources"><a class="source-link" href="https://doi.org/10.1016/0025-5564(79)90080-4" target="_blank" rel="noopener">ה. פוגל (1979), \u2066A better way to construct the sunflower head\u2069 (באנגלית)</a><a class="source-link" href="https://doi.org/10.1098/rsos.160091" target="_blank" rel="noopener">ג׳. סווינטון, א. אוצ׳ו ואחרים (2016), \u2066Turing’s Sunflowers\u2069 (באנגלית)</a><a class="source-link" href="https://doi.org/10.1103/PhysRevLett.68.2098" target="_blank" rel="noopener">ס. דואדי וי. קודר (1992), \u2066Phyllotaxis as a self-organised growth process\u2069 (באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Golden_angle" target="_blank" rel="noopener">זווית הזהב (ויקיפדיה, באנגלית)</a></div>`,
   },
 });

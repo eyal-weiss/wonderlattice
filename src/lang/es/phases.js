@@ -1,113 +1,108 @@
-/* Three wires, no way back · visitor-facing words (es). */
+/* Tres cables, sin retorno · palabras para el visitante (es). */
 Wonderlattice.defineText('phases', 'es', {
-  eyebrow: 'THREE-PHASE POWER',
-  name: 'Three wires, no way back',
-  tagline: 'Three currents chase each other round a circle, and at every instant they add up to nothing.',
-  title: 'Three wires, no way back.',
+  eyebrow: 'CORRIENTE TRIFÁSICA',
+  name: 'Tres cables, sin retorno',
+  tagline: 'Tres corrientes se persiguen alrededor de un círculo, y en cada instante suman cero.',
+  title: 'Tres cables, sin retorno.',
   subtitle:
-    'Three circuits would need six wires. Watch their three return wires merge into one that carries nothing, then load one street and wake it.',
-  field: 'Phasors · 120° apart · A turning field',
-  sceneLabel: 'Three-phase power, 150 times slower than the mains',
-  // By the view: the currents, the power, the field of three coils.
-  sceneNames: ['Three currents', 'Flickering lamps', 'A field that turns'],
-  tip: 'Drag an arrow’s tip in or out to change its wire’s current • Keys: ← → pick a wire, ↑ ↓ change its current',
+    'Tres circuitos necesitarían seis cables. Mira cómo sus tres cables de retorno se funden en uno solo que no lleva nada, y luego carga una calle y despiértalo.',
+  field: 'Fasores · A 120° entre sí · Un campo que gira',
+  sceneLabel: 'Corriente trifásica, 150 veces más lenta que la de la red',
+  // Por vista: las corrientes, la potencia, el campo de tres bobinas.
+  sceneNames: ['Tres corrientes', 'Lámparas que parpadean', 'Un campo que gira'],
+  tip: 'Arrastra la punta de una flecha hacia dentro o hacia fuera para cambiar la corriente de su cable • Teclas: ← → eligen un cable, ↑ ↓ cambian su corriente',
   canvasLabel:
-    'On the left, three coloured arrows, a third of a turn apart, spin round a circle like clock hands; their heights trace three sine waves to the right, and a white line, their sum, stays flat at zero. Below, a power station sends the three currents down three wires to three streets of houses. At first each street has its own wire back, six wires in all; the three return wires slide together into one shared wire, whose meter reads 0 A, because the currents cancel. Load one street more and the meter wakes up. Other views show each street’s lamps flickering while their total stays steady, and three coils whose field turns a compass needle.',
-  panelEyebrow: 'Load the streets',
-  whyLabel: 'Why do the three currents cancel?',
+    'A la izquierda, tres flechas de colores, separadas un tercio de vuelta, giran alrededor de un círculo como las agujas de un reloj; sus alturas trazan tres ondas sinusoidales a la derecha, y una línea blanca, su suma, se queda plana en cero. Debajo, una central eléctrica envía las tres corrientes por tres cables a tres calles de casas. Al principio cada calle tiene su propio cable de retorno, seis cables en total; los tres cables de retorno se deslizan hasta juntarse en un solo cable compartido, cuyo medidor marca 0 A, porque las corrientes se anulan. Carga más una calle y el medidor despierta. Otras vistas muestran cómo parpadean las lámparas de cada calle mientras su total se mantiene constante, y tres bobinas cuyo campo hace girar la aguja de una brújula.',
+  panelEyebrow: 'Carga las calles',
+  whyLabel: '¿Por qué se anulan las tres corrientes?',
   nudge:
-    'Switch the kettles on and watch the return wire wake up. Then show the field: three coils that never move turn a compass needle.',
+    'Enciende los hervidores y mira cómo despierta el cable de retorno. Luego muestra el campo: tres bobinas que nunca se mueven hacen girar la aguja de una brújula.',
   connection: {
-    html: '<strong>Adding waves.</strong> Here, three waves of one pitch, a third of a cycle apart, add up to silence. In Hear the shape, two tones add up: they can cancel, beat or make a chord.',
-    label: 'Add two tones',
+    html: '<strong>Sumar ondas.</strong> Aquí, tres ondas de una misma altura, separadas un tercio de ciclo, suman silencio. En «Escucha la forma», dos tonos se suman: pueden anularse, producir pulsaciones o formar un acorde.',
+    label: 'Suma dos tonos',
   },
 
   presets: [
-    { name: 'Balanced', note: 'Equal currents: nothing comes back.', badge: '0 A' },
-    { name: 'Kettles on one street', note: 'Twice the current in wire 1.', badge: '100 A' },
-    { name: 'A field that turns', note: 'Three still coils turn a compass.', badge: '⟳' },
+    { name: 'Equilibrado', note: 'Corrientes iguales: no vuelve nada.', badge: '0 A' },
+    { name: 'Hervidores en una calle', note: 'El doble de corriente en el cable 1.', badge: '100 A' },
+    { name: 'Un campo que gira', note: 'Tres bobinas quietas hacen girar una brújula.', badge: '⟳' },
   ],
 
-  wire: (n) => `Current in wire ${n}`,
-  wireHint: 'Each wire feeds its own street. Turn one up, as if its kettles came on.',
-  amps: ' A',
-  view: 'Show',
-  // The views: the currents, the power, the field of three coils.
-  views: ['Currents', 'Power', 'Field'],
-  swap: 'Swap wires 2 and 3',
-  swapHint: 'The field turns the other way: that’s how a three-phase motor is reversed.',
-  kettlesOn: 'Switch the kettles on',
-  kettlesOff: 'Switch the kettles off',
+  wire: (n) => `Corriente en el cable ${n}`,
+  wireHint: 'Cada cable alimenta su propia calle. Súbelo, como si se encendieran sus hervidores.',
+  amps: '\u00a0A',
+  view: 'Mostrar',
+  // Las vistas: las corrientes, la potencia, el campo de tres bobinas.
+  views: ['Corrientes', 'Potencia', 'Campo'],
+  swap: 'Intercambiar los cables 2 y 3',
+  swapHint: 'El campo gira en sentido contrario: así se invierte el giro de un motor trifásico.',
+  kettlesOn: 'Encender los hervidores',
+  kettlesOff: 'Apagar los hervidores',
 
-  // A number (or a word) and one line.
+  // Un número (o una palabra) y una frase.
   readout: {
-    back: 'In the return wire',
-    cancel: 'The three currents cancel at every instant, so three wires do the work of six.',
-    differ: 'The currents differ, so they no longer cancel: the difference comes back.',
-    total: 'Total power',
-    steady: 'Steady',
+    back: 'En el cable de retorno',
+    cancel: 'Las tres corrientes se anulan en cada instante, así que tres cables hacen el trabajo de seis.',
+    differ: 'Las corrientes son distintas, así que ya no se anulan: la diferencia vuelve.',
+    total: 'Potencia total',
+    steady: 'Constante',
     swings: (share) => `± ${share}`,
-    totalSteady: 'Each street’s lamps flicker twice a cycle, but the three together never do.',
-    totalSwings: 'The loads differ, so the total swells and dips too.',
-    fieldTitle: 'The field’s strength',
-    wobbles: 'Wobbles',
-    fieldSteady: 'The field keeps its strength and turns once a cycle, though nothing moves.',
-    fieldWobbles: 'The field still turns, but unequal currents make it swell and shrink.',
-    nothing: 'No current: the lamps are off.',
+    totalSteady: 'Las lámparas de cada calle parpadean dos veces por ciclo, pero las tres juntas nunca.',
+    totalSwings: 'Las cargas son distintas, así que el total también sube y baja.',
+    fieldTitle: 'La intensidad del campo',
+    wobbles: 'Oscila',
+    fieldSteady: 'El campo mantiene su intensidad y da una vuelta por ciclo, aunque nada se mueve.',
+    fieldWobbles: 'El campo sigue girando, pero las corrientes desiguales lo hacen crecer y menguar.',
+    nothing: 'Sin corriente: las lámparas están apagadas.',
   },
 
-  status: (amps) => `Return wire: ${amps}`,
-  announce: (amps) => `The return wire carries ${amps}.`,
+  status: (amps) => `Cable de retorno: ${amps}`,
+  announce: (amps) => `El cable de retorno lleva ${amps}.`,
 
-  // Words drawn on the picture.
+  // Palabras dibujadas en la imagen.
   labels: {
-    sum: 'sum',
-    sumZero: 'sum = 0',
-    station: 'power station',
-    street: (n) => `street ${n}`,
-    back: 'wire back',
-    shared: 'shared wire back',
-    amps: (n) => `${n} A`,
-    // The opening: six wires become three.
-    story: [
-      'Three circuits: six wires',
-      'Share one wire back…',
-      '…and it carries nothing',
-      'Three wires do the work of six',
-    ],
-    differ: 'Unequal currents: the difference comes back',
-    each: 'each street',
+    sum: 'suma',
+    sumZero: 'suma = 0',
+    station: 'central',
+    street: (n) => `calle ${n}`,
+    back: 'cable de retorno',
+    shared: 'retorno compartido',
+    amps: (n) => `${n}\u00a0A`,
+    // La apertura: seis cables se convierten en tres.
+    story: ['Tres circuitos: seis cables', 'Comparten un retorno…', '…que no lleva nada', 'Tres cables valen por seis'],
+    differ: 'Corrientes desiguales: vuelve la diferencia',
+    each: 'cada calle',
     total: 'total',
-    field: 'field',
-    swapped: 'wires 2 and 3 swapped',
+    field: 'campo',
+    swapped: 'cables 2 y 3 cambiados',
   },
 
   guests: [
     {
       name: 'Mikhail Dolivo-Dobrovolsky',
-      note: 'He named three-phase current and built three-phase generators and motors from 1888. In 1891 his system carried power 175 km, from a turbine at Lauffen to an exhibition in Frankfurt, and three-quarters of it arrived.',
+      note: 'Dio nombre a la corriente trifásica y construyó generadores y motores trifásicos desde 1888. En 1891 su sistema llevó energía a 175 km, desde una turbina en Lauffen hasta una exposición en Fráncfort, y llegaron tres cuartas partes.',
     },
     {
       name: 'Nikola Tesla',
-      note: 'In 1888 he patented motors driven by alternating currents out of step, whose turning field drags the rotor round with no brushes or switches.',
+      note: 'En 1888 patentó motores movidos por corrientes alternas desfasadas, cuyo campo giratorio arrastra el rotor sin escobillas ni interruptores.',
     },
     {
       name: 'Galileo Ferraris',
-      note: 'In 1885, independently of Tesla, he built a classroom model in which currents out of step made a magnetic field that turns. He published it in 1888.',
+      note: 'En 1885, independientemente de Tesla, construyó un modelo para sus clases en el que corrientes desfasadas creaban un campo magnético que gira. Lo publicó en 1888.',
     },
   ],
 
   insight: {
-    title: 'Why do the three currents cancel?',
-    html: `<p>Each wire’s current is the shadow of an arrow turning round the circle: its height, traced over time, is a sine wave. The three arrows are a third of a turn apart. Put them head to tail and they close a triangle, so they add up to nothing, and so do their shadows, at every instant:</p>
+    title: '¿Por qué se anulan las tres corrientes?',
+    html: `<p>La corriente de cada cable es la sombra de una flecha que gira alrededor del círculo: su altura, trazada a lo largo del tiempo, es una onda sinusoidal. Las tres flechas están separadas un tercio de vuelta. Ponlas una a continuación de otra y cierran un triángulo, así que suman cero, y sus sombras también, en cada instante:</p>
 <div class="insight-visual">sin θ + sin(θ − 120°) + sin(θ + 120°) = 0</div>
-<p>So three circuits can share one wire back, and when their loads are equal it carries nothing and can be left out: three wires do the work of six. In the language of complex numbers, the three arrows are the cube roots of 1, which add up to 0. Load one street more and its arrow grows: the triangle no longer closes, and the gap, the arrows’ sum, is the current that comes back.</p>
-<h3>Lamps that flicker, a total that doesn’t</h3>
-<p>A lamp’s power grows with the square of its current, so it swells and dies twice a cycle: on 50 Hz mains, 100 times a second. Yet sin² θ + sin²(θ − 120°) + sin²(θ + 120°) = 3/2 for every θ, so with equal loads the three phases together deliver a perfectly steady total. That is why large motors and generators use three phases: a steady push, with no shudder.</p>
-<h3>A field that turns</h3>
-<p>Feed the three currents into three coils placed a third of a turn apart round a circle, and the magnetic field at the centre keeps its strength while its direction turns, once a cycle. Nothing moves, yet a compass needle, or a motor’s rotor, is dragged round. Swap any two wires and it turns the other way, which is how a three-phase motor is reversed. Galileo Ferraris (a model in 1885, published in 1888) and Nikola Tesla (patents in 1888) found the turning field independently. Mikhail Dolivo-Dobrovolsky built three-phase generators, motors and transformers, and in 1891 his line carried three-phase power 175 km from Lauffen to an exhibition in Frankfurt.</p>
-<h3>What this leaves out</h3>
-<p>Three wires instead of six is exact only when the three loads are equal. Real loads never quite are, so the street outside a house carries a fourth wire, the neutral, to take the difference back, as in this room when you load one street. Long lines feed large, nearly balanced loads, so they carry three wires; the thinner wires often seen at the very top of pylons are earth wires, there for lightning and faults, not to carry current back. Electronics such as phone chargers draw currents with harmonics, and the third harmonic adds up in the neutral instead of cancelling, so a neutral can even carry more than a phase. Compared with a single two-wire circuit at the same voltage between its wires, a three-wire line carries the same power with about three-quarters of the metal. In this room the lamps are plain resistances, the waves are perfect sines, nothing is lost on the way, and everything runs 150 times slower than 50 Hz mains.</p>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Three-phase_electric_power" target="_blank" rel="noopener">Three-phase electric power</a><a class="source-link" href="https://en.wikipedia.org/wiki/Neutral_conductor" target="_blank" rel="noopener">Neutral conductor</a><a class="source-link" href="https://en.wikipedia.org/wiki/Phasor" target="_blank" rel="noopener">Phasor</a><a class="source-link" href="https://en.wikipedia.org/wiki/Rotating_magnetic_field" target="_blank" rel="noopener">Rotating magnetic field</a><a class="source-link" href="https://en.wikipedia.org/wiki/Mikhail_Dolivo-Dobrovolsky" target="_blank" rel="noopener">Mikhail Dolivo-Dobrovolsky</a></div>`,
+<p>Así que tres circuitos pueden compartir un cable de retorno, y cuando sus cargas son iguales no lleva nada y se puede quitar: tres cables hacen el trabajo de seis. En el lenguaje de los números complejos, las tres flechas son las raíces cúbicas de 1, que suman 0. Carga más una calle y su flecha crece: el triángulo ya no se cierra, y el hueco, la suma de las flechas, es la corriente que vuelve.</p>
+<h3>Lámparas que parpadean, un total que no</h3>
+<p>La potencia de una lámpara crece con el cuadrado de su corriente, así que sube y se apaga dos veces por ciclo: con la red de 50 Hz, 100 veces por segundo. Pero sin² θ + sin²(θ − 120°) + sin²(θ + 120°) = 3/2 para todo θ, así que con cargas iguales las tres fases juntas entregan un total perfectamente constante. Por eso los grandes motores y generadores usan tres fases: un empuje constante, sin sacudidas.</p>
+<h3>Un campo que gira</h3>
+<p>Lleva las tres corrientes a tres bobinas colocadas alrededor de un círculo, a un tercio de vuelta entre sí, y el campo magnético del centro mantiene su intensidad mientras su dirección gira, una vez por ciclo. Nada se mueve, y sin embargo la aguja de una brújula, o el rotor de un motor, es arrastrado en círculo. Intercambia dos cables cualesquiera y gira en sentido contrario, que es como se invierte el giro de un motor trifásico. Galileo Ferraris (un modelo en 1885, publicado en 1888) y Nikola Tesla (patentes en 1888) descubrieron el campo giratorio de forma independiente. Mikhail Dolivo-Dobrovolsky construyó generadores, motores y transformadores trifásicos, y en 1891 su línea llevó corriente trifásica a 175 km, desde Lauffen hasta una exposición en Fráncfort.</p>
+<h3>Lo que esto deja fuera</h3>
+<p>Tres cables en vez de seis solo es exacto cuando las tres cargas son iguales. Las cargas reales nunca lo son del todo, así que la calle frente a una casa lleva un cuarto cable, el neutro, para devolver la diferencia, como en esta sala cuando cargas una calle. Las líneas largas alimentan cargas grandes y casi equilibradas, así que llevan tres cables; los cables más finos que se suelen ver en lo más alto de las torres son cables de tierra, que están ahí por los rayos y las averías, no para devolver corriente. Los aparatos electrónicos, como los cargadores de teléfono, consumen corrientes con armónicos, y el tercer armónico se suma en el neutro en vez de anularse, así que un neutro puede llevar incluso más corriente que una fase. Comparada con un solo circuito de dos cables con el mismo voltaje entre sus cables, una línea de tres cables lleva la misma potencia con unas tres cuartas partes del metal. En esta sala las lámparas son simples resistencias, las ondas son sinusoides perfectas, nada se pierde por el camino, y todo va 150 veces más despacio que la red de 50 Hz.</p>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Three-phase_electric_power" target="_blank" rel="noopener">Corriente trifásica (Wikipedia, en inglés)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Neutral_conductor" target="_blank" rel="noopener">Conductor neutro (Wikipedia, en inglés)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Phasor" target="_blank" rel="noopener">Fasor (Wikipedia, en inglés)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Rotating_magnetic_field" target="_blank" rel="noopener">Campo magnético giratorio (Wikipedia, en inglés)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Mikhail_Dolivo-Dobrovolsky" target="_blank" rel="noopener">Mikhail Dolivo-Dobrovolsky (Wikipedia, en inglés)</a></div>`,
   },
 });

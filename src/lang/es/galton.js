@@ -1,105 +1,106 @@
-/* The shape hiding inside randomness · visitor-facing words (es). */
+/* La forma escondida en el azar · palabras para el visitante (es). */
 Wonderlattice.defineText('galton', 'es', {
-  eyebrow: 'PROBABILITY',
-  name: 'The shape hiding inside randomness',
-  tagline: 'Every ball bounces left or right at random. Together they build the same bell every time.',
-  title: 'The shape hiding inside randomness.',
+  eyebrow: 'PROBABILIDAD',
+  name: 'La forma escondida en el azar',
+  tagline: 'Cada bola rebota a izquierda o derecha al azar. Juntas forman la misma campana cada vez.',
+  title: 'La forma escondida en el azar.',
   subtitle:
-    'Each ball bounces left or right at random, yet the heap grows into the same bell every time. Then average a lopsided die.',
-  field: 'Probability · Pascal’s triangle · The central limit theorem',
+    'Cada bola rebota a izquierda o derecha al azar, y aun así el montón crece hasta formar la misma campana cada vez. Luego promedia un dado cargado.',
+  field: 'Probabilidad · El triángulo de Pascal · El teorema central del límite',
   canvasLabel:
-    'A board of pegs. Balls fall from the top, bounce left or right at random at every peg, and pile up in bins at the bottom, under a bell-shaped curve. Below it, four more pours have made the same bell.',
-  panelEyebrow: 'Left to chance',
-  whyLabel: 'Why does randomness make a bell?',
+    'Un tablero de clavos. Las bolas caen desde arriba, rebotan a izquierda o derecha al azar en cada clavo y se amontonan en casillas al fondo, bajo una curva en forma de campana. Debajo, otras cuatro tandas han formado la misma campana.',
+  panelEyebrow: 'A merced del azar',
+  whyLabel: '¿Por qué el azar forma una campana?',
   nudge:
-    'Pour again: every ball takes a new path, and the heap still makes the same bell. Then design a lopsided die and watch its averages.',
+    'Suelta otra tanda: cada bola sigue un camino nuevo, y el montón vuelve a formar la misma campana. Luego diseña un dado cargado y mira sus promedios.',
   connection: {
-    html: '<strong>Averages tame chance.</strong> In A spoonful of a city, a small random poll lands close to the truth for the same reason: averages of many random answers crowd into a narrow bell.',
-    label: 'Take a spoonful of a city',
+    html: '<strong>Los promedios domestican el azar.</strong> En «Una cucharada de ciudad», una pequeña encuesta al azar queda cerca de la verdad por la misma razón: los promedios de muchas respuestas al azar se agolpan en una campana estrecha.',
+    label: 'Toma una cucharada de ciudad',
   },
 
-  // The three things that fall: each has its own scene, tip and action.
-  viewLabel: 'What falls',
-  views: ['Balls on pegs', 'A lopsided die', 'A stubborn spinner'],
+  // Las tres cosas que caen: cada una tiene su propia escena, consejo y acción.
+  viewLabel: 'Qué cae',
+  views: ['Bolas y clavos', 'Un dado cargado', 'Un faro testarudo'],
   scenes: [
-    { label: 'Left or right at every peg', name: 'Balls on pegs' },
-    { label: 'Your die, and averages of its throws', name: 'A lopsided die' },
-    { label: 'A lamp spins and shines at a wall', name: 'A stubborn spinner' },
+    { label: 'A izquierda o derecha en cada clavo', name: 'Bolas y clavos' },
+    { label: 'Tu dado, y promedios de sus tiradas', name: 'Un dado cargado' },
+    { label: 'Un faro gira y alumbra una pared', name: 'Un faro testarudo' },
   ],
   tips: [
-    'Arrow keys tilt the pegs · Pour again for new balls',
-    'Drag the die’s bars to reshape it · Arrow keys pick a face and change it',
-    'Each spin marks where the light lands · Spin again for new spins',
+    'Las flechas inclinan los clavos · Suelta otra vez para tener bolas nuevas',
+    'Arrastra las barras del dado para cambiar su forma · Las flechas eligen una cara y la cambian',
+    'Cada giro marca dónde cae la luz · Gira otra vez para tener giros nuevos',
   ],
-  actions: ['Pour again', 'Throw again', 'Spin again'],
+  actions: ['Soltar otra vez', 'Tirar otra vez', 'Girar otra vez'],
   canvasLabels: [
-    'A board of pegs. Balls fall from the top, bounce left or right at random at every peg, and pile up in bins at the bottom, under a bell-shaped curve. Below it, four more pours have made the same bell.',
-    'A lopsided die drawn as six bars, and three heaps beside it: single throws, averages of 2 throws and averages of more throws, each with a bell-shaped curve over it.',
-    'A lamp spins and shines at a wall; the heap of where single spins land and the heap of averages of several spins have the same shape.',
+    'Un tablero de clavos. Las bolas caen desde arriba, rebotan a izquierda o derecha al azar en cada clavo y se amontonan en casillas al fondo, bajo una curva en forma de campana. Debajo, otras cuatro tandas han formado la misma campana.',
+    'Un dado cargado dibujado como seis barras, y tres montones a su lado: tiradas sueltas, promedios de 2 tiradas y promedios de más tiradas, cada uno con una curva en forma de campana encima.',
+    'Un faro gira y alumbra una pared; el montón de dónde caen los giros sueltos y el montón de los promedios de varios giros tienen la misma forma.',
   ],
 
   presets: [
-    { name: 'Balls on pegs', note: 'The same bell every time.', badge: '½' },
-    { name: 'Tilt the pegs', note: 'The bell moves over.', badge: '¾' },
-    { name: 'A lopsided die', note: 'Its averages turn into a bell.', badge: '1·6' },
+    { name: 'Bolas y clavos', note: 'La misma campana cada vez.', badge: '½' },
+    { name: 'Inclina los clavos', note: 'La campana se desplaza.', badge: '¾' },
+    { name: 'Un dado cargado', note: 'Sus promedios se vuelven una campana.', badge: '1·6' },
   ],
 
-  rows: 'Rows of pegs',
-  tilt: 'Chance of bouncing right',
-  tiltHint: 'At 50% every peg is fair. Tilt them, and the bell moves over.',
-  throws: 'Throws in each average',
-  dieHint: 'Drag the bars of the die in the picture to reshape it.',
-  shapeLabel: 'Start from',
-  shapes: ['Mostly 1s and 6s', 'A fair die', 'Mostly 6s'],
-  spins: 'Spins in each average',
-  spinHint: 'Averaging more spins doesn’t help: the spinner has no finite spread for the bell to need.',
+  rows: 'Filas de clavos',
+  tilt: 'Probabilidad de rebotar a la derecha',
+  tiltHint: 'Con el 50%, todos los clavos están equilibrados. Inclínalos y la campana se desplaza.',
+  throws: 'Tiradas en cada promedio',
+  dieHint: 'Arrastra las barras del dado en la imagen para cambiar su forma.',
+  shapeLabel: 'Partir de',
+  shapes: ['Sobre todo 1 y 6', 'Equilibrado', 'Sobre todo 6'],
+  spins: 'Giros en cada promedio',
+  spinHint: 'Promediar más giros no ayuda: el faro no tiene la dispersión finita que necesita la campana.',
 
   status: {
-    pouring: (n) => `${n.toLocaleString('en')} ${n === 1 ? 'ball' : 'balls'} · left or right at random at every peg`,
-    poured: (n) => `${n.toLocaleString('en')} balls · the same bell every time`,
-    throwing: (n) => `${n.toLocaleString('en')} in each heap`,
-    spinning: (n) => `${n.toLocaleString('en')} in each heap`,
+    pouring: (n) =>
+      `${n.toLocaleString('fr')} ${n === 1 ? 'bola' : 'bolas'} · a izquierda o derecha al azar en cada clavo`,
+    poured: (n) => `${n.toLocaleString('fr')} bolas · la misma campana cada vez`,
+    throwing: (n) => `${n.toLocaleString('fr')} en cada montón`,
+    spinning: (n) => `${n.toLocaleString('fr')} en cada montón`,
   },
   announce: {
-    poured: (n) => `${n.toLocaleString('en')} balls have landed, in the shape of the bell.`,
-    die: (face, weight) => `Face ${face}: ${weight} of 10`,
+    poured: (n) => `Han caído ${n.toLocaleString('fr')} bolas, con la forma de la campana.`,
+    die: (face, weight) => `Cara ${face}: ${weight} de 10`,
   },
 
   labels: {
-    bell: 'the bell',
-    others: (pours, balls) => `${pours} more pours of ${balls.toLocaleString('en')} balls: the same bell`,
-    yourDie: 'Your die · drag the bars',
-    oneThrow: 'One throw',
-    average: (n) => `Averages of ${n} throws`,
-    oneSpin: 'One spin',
-    averageSpins: (n) => `Averages of ${n} spins`,
-    off: (n) => `${n.toLocaleString('en')} off the chart`,
-    lamp: 'lamp',
-    wall: 'wall',
+    bell: 'la campana',
+    others: (pours, balls) => `${pours} tandas más de ${balls.toLocaleString('fr')} bolas: la misma campana`,
+    yourDie: 'Tu dado · mueve las barras',
+    oneThrow: 'Una tirada',
+    average: (n) => `Promedios de ${n} tiradas`,
+    oneSpin: 'Un giro',
+    averageSpins: (n) => `Promedios de ${n} giros`,
+    off: (n) => `${n.toLocaleString('fr')} fuera del gráfico`,
+    lamp: 'faro',
+    wall: 'pared',
   },
 
   guests: [
     {
       name: 'Abraham de Moivre',
-      note: 'In 1733 I showed that the number of heads in thousands of coin tosses follows a smooth, bell-shaped curve.',
+      note: 'En 1733 demostré que el número de caras en miles de lanzamientos de una moneda sigue una curva suave en forma de campana.',
     },
     {
       name: 'Pierre-Simon Laplace',
-      note: 'I showed that the bell reaches far beyond coins: averages of many kinds of random measurement crowd into it.',
+      note: 'Demostré que la campana llega mucho más allá de las monedas: los promedios de muchos tipos de medidas al azar se agolpan en ella.',
     },
   ],
 
   insight: {
-    title: 'Why does randomness make a bell?',
-    html: `<p>Every ball makes the same kind of choice at each peg: left or right. To land at the far edge, it must go the same way every time, and only one path does that. To land in the middle, it needs as many lefts as rights, and hundreds of paths do. Counting the paths to each bin gives a row of Pascal’s triangle (1, 12, 66, 220, 495, 792, 924, … for twelve rows), and those counts make the bell. No single ball knows where it is going; the shape comes from counting.</p>
-<div class="insight-visual">12 rows of pegs: 1 path to each edge, 924 paths to the middle, out of 4,096</div>
-<h3>Averages make the same bell</h3>
-<p>The die’s single throws keep its lopsided shape. Average two throws and a peak appears in the middle, with the odd shape still showing; average ten and the heap becomes more bell-like and narrower. This is the central limit theorem: averages of many independent throws, of almost any die, crowd into a bell around the die’s mean, and the bell narrows like 1/√n. Averages of 10 throws spread about √10, a little over 3 times, less than single throws.</p>
-<h3>When it fails</h3>
-<p>The theorem needs throws that don’t affect each other and whose spread is finite. The stubborn spinner breaks the second rule: a lamp that spins at random sometimes shines almost along the wall, so a few spins land enormously far away. Its averages are as wild as a single spin, however many you take. That spinner follows the Cauchy distribution, named after Augustin-Louis Cauchy.</p>
-<h3>What this room simplifies</h3>
-<p>The balls follow a random model, not physics: each peg is a coin toss, fair or tilted, independent of the others. Real boards are never perfectly fair, and real balls bounce and spin, so their heaps are rougher. Averages of 2 or 5 throws are closer to a bell, not exactly one.</p>
-<details><summary>The mathematics, if you want it</summary><p>With n rows and a chance p of bouncing right, a ball lands in bin k (k bounces right) with chance C(n, k)·pᵏ·(1 − p)ⁿ⁻ᵏ, the binomial distribution, with mean np and spread √(np(1 − p)). Abraham de Moivre showed in 1733, and in the second edition of his <em>Doctrine of Chances</em> (1738), that for many tosses this is close to the normal curve; Pierre-Simon Laplace published a more general result in his <em>Théorie analytique des probabilités</em> (1812). Francis Galton designed the board, which he called the quincunx, for a lecture at the Royal Institution in 1874, and described it in <em>Natural Inheritance</em> (1889). The average of n Cauchy spins has exactly the same distribution as a single spin.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Galton_board" target="_blank" rel="noopener">Galton board</a><a class="source-link" href="https://en.wikipedia.org/wiki/De_Moivre%E2%80%93Laplace_theorem" target="_blank" rel="noopener">De Moivre–Laplace theorem</a><a class="source-link" href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank" rel="noopener">Central limit theorem</a><a class="source-link" href="https://en.wikipedia.org/wiki/Cauchy_distribution" target="_blank" rel="noopener">Cauchy distribution</a></div>`,
+    title: '¿Por qué el azar forma una campana?',
+    html: `<p>Cada bola hace el mismo tipo de elección en cada clavo: izquierda o derecha. Para caer en el extremo, tiene que ir hacia el mismo lado todas las veces, y solo un camino lo hace. Para caer en el centro, necesita tantas izquierdas como derechas, y cientos de caminos lo hacen. Contar los caminos que llevan a cada casilla da una fila del triángulo de Pascal (1, 12, 66, 220, 495, 792, 924, … para doce filas), y esas cuentas forman la campana. Ninguna bola sabe adónde va; la forma sale de contar.</p>
+<div class="insight-visual">12 filas de clavos: 1 camino a cada extremo, 924 caminos al centro, de 4\u202f096</div>
+<h3>Los promedios forman la misma campana</h3>
+<p>Las tiradas sueltas del dado conservan su forma irregular. Promedia dos tiradas y aparece un pico en el centro, aunque todavía se nota la forma rara; promedia diez y el montón se parece más a una campana, y es más estrecho. Es el teorema central del límite: los promedios de muchas tiradas independientes, de casi cualquier dado, se agolpan en una campana alrededor de la media del dado, y la campana se estrecha como 1/√n. Los promedios de 10 tiradas se dispersan unas √10 veces menos que las tiradas sueltas, algo más de 3 veces menos.</p>
+<h3>Cuándo falla</h3>
+<p>El teorema necesita tiradas que no se influyan entre sí y cuya dispersión sea finita. El faro testarudo incumple la segunda regla: una lámpara que gira al azar a veces alumbra casi en paralelo a la pared, así que unos pocos giros caen enormemente lejos. Sus promedios son tan desbocados como un solo giro, por muchos giros que promedies. Ese faro sigue la distribución de Cauchy, que lleva el nombre de Augustin-Louis Cauchy.</p>
+<h3>Lo que esta sala simplifica</h3>
+<p>Las bolas siguen un modelo aleatorio, no la física: cada clavo es una moneda al aire, equilibrada o sesgada, independiente de los demás. Los tableros reales nunca están perfectamente equilibrados, y las bolas reales rebotan y giran, así que sus montones son más irregulares. Los promedios de 2 o 5 tiradas se acercan a una campana, pero no lo son exactamente.</p>
+<details><summary>Las matemáticas, si te apetecen</summary><p>Con n filas y una probabilidad p de rebotar a la derecha, una bola cae en la casilla k (k rebotes a la derecha) con probabilidad C(n, k)·pᵏ·(1 − p)ⁿ⁻ᵏ, la distribución binomial, con media np y dispersión √(np(1 − p)). Abraham de Moivre demostró en 1733, y en la segunda edición de su <em>Doctrine of Chances</em> (1738), que para muchos lanzamientos esto se parece mucho a la curva normal; Pierre-Simon Laplace publicó un resultado más general en su <em>Théorie analytique des probabilités</em> (1812). Francis Galton diseñó el tablero, al que llamó quincunx, para una conferencia en la Royal Institution en 1874, y lo describió en <em>Natural Inheritance</em> (1889). El promedio de n giros de Cauchy tiene exactamente la misma distribución que un solo giro.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Galton_board" target="_blank" rel="noopener">Tablero de Galton (Wikipedia, en inglés)</a><a class="source-link" href="https://en.wikipedia.org/wiki/De_Moivre%E2%80%93Laplace_theorem" target="_blank" rel="noopener">Teorema de De Moivre–Laplace (Wikipedia, en inglés)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank" rel="noopener">Teorema central del límite (Wikipedia, en inglés)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Cauchy_distribution" target="_blank" rel="noopener">Distribución de Cauchy (Wikipedia, en inglés)</a></div>`,
   },
 });

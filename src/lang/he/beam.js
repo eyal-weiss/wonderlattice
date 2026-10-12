@@ -1,115 +1,113 @@
 /* The ruler on its edge · visitor-facing words (he). */
 Wonderlattice.defineText('beam', 'he', {
-  eyebrow: 'BEAMS',
-  name: 'The ruler on its edge',
-  tagline:
-    'Stand a steel plank on its edge and it’s 36 times stiffer. Paint your own beam and find where the steel should go.',
-  title: 'The ruler on its edge.',
+  eyebrow: 'קורות',
+  name: 'הסרגל שעומד על הצד',
+  tagline: 'העמידו קרש פלדה על הצד הצר שלו, והוא קשיח פי 36. צבעו קורה משלכם וגלו איפה כדאי לשים את הפלדה.',
+  title: 'הסרגל שעומד על הצד.',
   subtitle:
-    'A steel beam with a weight in its middle, and its cross-section below. Turn it on its edge, or paint the 24 squares of steel anywhere, and watch the sag.',
-  field: 'Second moment of area · Euler–Bernoulli beam theory · I-beams',
-  sceneLabel: 'A steel beam and its cross-section',
+    'קורת פלדה עם משקולת באמצע, והחתך שלה מתחת. סובבו אותה על הצד, או צבעו את 24 משבצות הפלדה איפה שתרצו, וצפו כמה היא שוקעת.',
+  field: 'מומנט התמד של שטח · תורת הקורות של אוילר–ברנולי · קורות I',
+  sceneLabel: 'קורת פלדה והחתך שלה',
   sceneNames: {
-    plank: 'A flat plank',
-    edge: 'On its edge',
-    ibeam: 'An I-beam',
-    own: 'Your own beam',
-    none: 'No steel yet',
+    plank: 'קרש שטוח',
+    edge: 'על הצד',
+    ibeam: 'קורת I',
+    own: 'הקורה שלכם',
+    none: 'עדיין אין פלדה',
   },
-  tip: 'Tap or drag across the squares to add or take away steel · Arrow keys move, Enter paints, Backspace undoes',
-  actionLabel: 'Turn it 90°',
+  tip: 'הקישו או גררו על המשבצות כדי להוסיף או להוריד פלדה · מקשי החיצים מזיזים, Enter צובע, Backspace מבטל',
+  actionLabel: 'לסובב ב־90°',
   canvasLabel:
-    'A steel beam resting on two supports, with a 100 kg weight hanging from its middle, above a 12 by 12 grid of its cross-section. Tap or drag across the grid to add or take away squares of steel, or use the arrow keys and Enter.',
-  panelEyebrow: 'Steel and shape',
-  whyLabel: 'Why does the edge win?',
+    'קורת פלדה שנשענת על שתי תמיכות, ומשקולת של \u2066100 kg\u2069 תלויה באמצע שלה, מעל רשת של 12 על 12 שמראה את החתך שלה. הקישו או גררו על הרשת כדי להוסיף או להוריד משבצות פלדה, או השתמשו במקשי החיצים וב־Enter.',
+  panelEyebrow: 'פלדה וצורה',
+  whyLabel: 'למה הצד מנצח?',
   nudge:
-    'Can you beat the plank on its edge with the same 24 squares? Then cut the thin web that joins the top of your best beam to its bottom: how stiff are the two loose halves?',
+    'אפשר לנצח את הקרש שעומד על הצד עם אותן 24 משבצות? אחר כך חתכו את הדופן הדקה שמחברת את החלק העליון של הקורה הכי טובה שלכם לחלק התחתון שלה: כמה קשיחים שני החצאים הנפרדים?',
   connection: {
-    html: '<strong>Steel where it counts.</strong> A truss is a beam with most of its middle taken away: the bars along its top are squeezed, the bars along its bottom stretched, and triangles hold them together. See it in “The stubborn triangle”.',
-    label: 'Visit “The stubborn triangle”',
+    html: '<strong>פלדה איפה שהיא חשובה.</strong> מסבך הוא קורה שרוב האמצע שלה הוצא: המוטות לאורך החלק העליון שלו נלחצים, המוטות לאורך החלק התחתון נמתחים, ומשולשים מחזיקים אותם יחד. ראו את זה ב”המשולש העקשן”.',
+    label: 'לבקר ב”המשולש העקשן”',
   },
 
   presets: [
-    { name: 'A flat plank', note: '12 cm wide and 2 cm thick, lying flat.' },
-    { name: 'On its edge', note: 'The same plank, turned 90°.' },
-    { name: 'An I-beam', note: 'Steel at the top and bottom, a thin web between.' },
+    { name: 'קרש שטוח', note: 'ברוחב \u206612 cm\u2069 ובעובי \u20662 cm\u2069, שוכב שטוח.' },
+    { name: 'על הצד', note: 'אותו קרש, מסובב ב־90°.' },
+    { name: 'קורת I', note: 'פלדה למעלה ולמטה, ודופן דקה ביניהן.' },
   ],
 
-  undo: 'Undo',
-  clear: 'Clear',
+  undo: 'לבטל',
+  clear: 'לנקות',
 
   // Drawn in the picture: keep these short.
   picture: {
-    caption: '3 m of steel, with 100 kg in the middle',
-    drawn: (n) => `The sag is drawn ${n} times larger`,
-    drawnShort: (n) => `Sag drawn ${n}× larger`,
-    weight: '100 kg',
-    sag: (mm) => `Sag ${mm} mm`,
-    beyond: 'Sag over 10 cm',
-    none: 'No steel',
-    section: 'Cross-section',
-    unit: '1 square = 1 cm',
-    squares: (used, total) => `${used} of ${total} squares`,
-    stiffness: 'Stiffness',
-    times: (x) => `${x}× the flat plank`,
-    timesShort: (x) => `${x}×`,
-    chart: 'Same steel, different shapes: how stiff?',
-    rows: { plank: 'Flat plank', edge: 'On its edge', ibeam: 'An I-beam', yours: 'Yours' },
-    marks: { plank: 'Flat plank', edge: 'On its edge', best: 'Best with 24' },
-    key: { squeezed: 'Squeezed', stretched: 'Stretched', axis: 'Neither' },
-    loose: (k) => `${k} loose pieces: each bends on its own`,
-    wobbly: 'Wobbly: it could tip over sideways',
-    full: 'No steel left: tap a square to take it away',
-    best: 'As stiff as 24 squares can be',
+    caption: 'פלדה באורך \u20663 m\u2069, עם \u2066100 kg\u2069 באמצע',
+    drawn: (n) => `השקיעה מצוירת גדולה פי ${n}`,
+    drawnShort: (n) => `שקיעה מוגדלת פי ${n}`,
+    weight: '\u2066100 kg\u2069',
+    sag: (mm) => `שקיעה \u2066${mm} mm\u2069`,
+    beyond: 'שקיעה מעל \u206610 cm\u2069',
+    none: 'אין פלדה',
+    section: 'חתך',
+    unit: 'משבצת = \u20661 cm\u2069',
+    squares: (used, total) => `${used} מתוך ${total} משבצות`,
+    stiffness: 'קשיחות',
+    times: (x) => `פי ${x} מהקרש השטוח`,
+    timesShort: (x) => `\u2066${x}×\u2069`,
+    chart: 'אותה פלדה, צורות שונות: כמה קשיח?',
+    rows: { plank: 'קרש שטוח', edge: 'על הצד', ibeam: 'קורת I', yours: 'שלכם' },
+    marks: { plank: 'קרש שטוח', edge: 'על הצד', best: 'המיטב עם 24' },
+    key: { squeezed: 'נלחץ', stretched: 'נמתח', axis: 'ניטרלי' },
+    loose: (k) => `${k} חלקים נפרדים: כל אחד מתכופף לבד`,
+    wobbly: 'רעועה: היא עלולה ליפול הצידה',
+    full: 'נגמרה הפלדה: הקישו על משבצת כדי להוריד אותה',
+    best: 'הכי קשיחה ש־24 משבצות יכולות להיות',
   },
 
   // The panel's readout and the status line.
   status: {
-    sag: (mm) => `Sag ${mm} mm`,
-    said: (mm, x) => `Sag ${mm} mm, ${x} times as stiff as the flat plank`,
-    beyond: 'Sag over 10 cm',
-    none: 'No steel',
+    sag: (mm) => `שקיעה \u2066${mm} mm\u2069`,
+    said: (mm, x) => `שקיעה \u2066${mm} mm\u2069, קשיחה פי ${x} מהקרש השטוח`,
+    beyond: 'שקיעה מעל \u206610 cm\u2069',
+    none: 'אין פלדה',
   },
   readout: {
-    sag: (mm) => `Sag ${mm} mm`,
-    times: (x) => `${x}× the flat plank`,
-    plank: 'The flat plank',
+    sag: (mm) => `שקיעה \u2066${mm} mm\u2069`,
+    times: (x) => `פי ${x} מהקרש השטוח`,
+    plank: 'הקרש השטוח',
     used: (used, total) =>
-      used === total ? `All ${total} squares of steel used.` : `${used} of ${total} squares of steel used.`,
-    none: 'Paint some squares of steel in the grid.',
-    beyond: 'Past 10 cm, the simple theory used here stops being reliable.',
-    loose: (k) =>
-      `${k} loose pieces: squares that don’t share an edge slide past one another, so each piece bends on its own.`,
-    wobbly: 'Tall and thin: under the weight it could tip over, or twist sideways (a rule of thumb, see “Why”).',
-    best: 'As stiff as 24 squares can be in this grid.',
+      used === total ? `כל ${total} משבצות הפלדה בשימוש.` : `${used} מתוך ${total} משבצות הפלדה בשימוש.`,
+    none: 'צבעו כמה משבצות פלדה ברשת.',
+    beyond: 'מעבר ל־\u206610 cm\u2069, התאוריה הפשוטה שבה משתמשים כאן כבר לא אמינה.',
+    loose: (k) => `${k} חלקים נפרדים: משבצות שאין להן צלע משותפת מחליקות זו לצד זו, ולכן כל חלק מתכופף לבד.`,
+    wobbly: 'גבוהה ודקה: תחת המשקל היא עלולה ליפול, או להתפתל הצידה (כלל אצבע, ראו ”למה”).',
+    best: 'הכי קשיחה ש־24 משבצות יכולות להיות ברשת הזאת.',
   },
 
   guests: [
     {
-      name: 'Galileo Galilei',
-      note: 'In 1638 I wrote that a ruler standing on its edge resists breaking more than one lying flat, as many times over as it is wider than it is thick. I also saw that bird bones and reeds are hollow: light, yet hard to bend.',
+      name: 'גלילאו גליליי',
+      note: 'ב־1638 כתבתי שסרגל שעומד על הצד עמיד בפני שבירה יותר מסרגל ששוכב שטוח, פי כמה שהרוחב שלו גדול מהעובי שלו. ראיתי גם שעצמות של ציפורים וקני סוף חלולים: קלים, ובכל זאת קשה לכופף אותם.',
     },
     {
-      name: 'Leonhard Euler',
-      note: 'Jacob Bernoulli guessed that a bent beam curves in proportion to the turning force on it. In 1744 I followed that idea with calculus and worked out the curves of bent elastic strips.',
+      name: 'לאונרד אוילר',
+      note: 'יאקוב ברנולי שיער שקורה כפופה מתעקמת ביחס לכוח המסובב שפועל עליה. ב־1744 המשכתי את הרעיון הזה בעזרת חשבון אינפיניטסימלי, ומצאתי את העקומות של רצועות גמישות כפופות.',
     },
     {
-      name: 'Claude-Louis Navier',
-      note: 'In 1819 I found where the line in a bent beam that is neither squeezed nor stretched really lies, putting Galileo right. In 1826 I separated what a beam’s material gives its stiffness from what its shape gives.',
+      name: 'קלוד־לואי נאוויה',
+      note: 'ב־1819 מצאתי איפה באמת עובר הקו בקורה כפופה שלא נלחץ ולא נמתח, ותיקנתי את גלילאו. ב־1826 הפרדתי בין מה שהחומר של קורה תורם לקשיחות שלה לבין מה שהצורה שלה תורמת.',
     },
   ],
 
   insight: {
-    title: 'Why does the edge win?',
-    html: `<p>Bend a beam and its top is squeezed while its bottom is stretched. Between them runs a line that is neither, the neutral axis, through the middle of the cross-section (its centroid). Steel far from that line is squeezed or stretched a lot for a small bend, so it pushes back hard, and it pushes with more leverage too. Both effects grow with the distance, so each square counts with the <em>square</em> of its distance from the line. Adding them up gives the second moment of area, I, in cm⁴.</p>
-<div class="insight-visual">I = Σ (1/12 + d²) over the squares · sag = F·L³ ⁄ (48·E·I)</div>
-<h3>Flat or on its edge</h3>
-<p>For a rectangle b wide and h tall, I = b·h³ ⁄ 12, so its height counts three times over. The plank 12 cm wide and 2 cm thick has I = 8 cm⁴ lying flat and 288 cm⁴ on its edge: (12 ÷ 2)² = 36 times stiffer, with the same steel. With 100 kg in the middle of 3 m of steel (E = 200 GPa), it sags 34 mm flat and less than 1 mm on its edge. A plastic ruler 30 mm wide and 1 mm thick is (30 ÷ 1)² = 900 times stiffer on its edge.</p>
-<h3>The I-beam</h3>
-<p>The best place for steel is as far from the middle as it can go: a flange along the top and another along the bottom. But they must be joined, or they slide past each other like the pages of a book, and each bends on its own: two loose strips of 12 squares have I = 2 cm⁴ between them. A thin web holds them together. With 7 squares in each flange and 10 in the web, I = 508 cm⁴, 63.5 times the flat plank, and the most that any 24 joined squares can give in this grid. Bones, bamboo, bicycle frames and scaffolding poles are hollow for the same reason. In 1638 Galileo pointed to the bones of birds and to reeds, and showed that a ruler on its edge is harder to break, by the ratio of its width to its thickness.</p>
-<h3>What this model leaves out</h3>
-<p>A tall, thin beam wins on paper, but it can tip over, or twist and buckle sideways under its load (lateral–torsional buckling), and a thin web or flange can crumple. The wobble warning is this room’s own rule of thumb: a shape more than 20 times stiffer up and down than sideways. Engineers check the real thing, which also depends on the span, the load and how well the beam resists twisting, and they brace tall, thin beams such as floor joists. Stiffness (how far a beam sags) isn’t strength (when it breaks, or bends for good): this room is about stiffness. The sag comes from the theory for small sags. It leaves out the beam’s own weight (about 57 kg of steel here, which would add about a third to every sag) and the little extra give from shearing, and it assumes the beam is held straight sideways, so a lopsided shape doesn’t swing aside. Squares joined edge to edge count as welded together; squares that touch only at a corner don’t.</p>
-<details><summary>The mathematics, if you want it</summary><p>A square of side 1 whose centre is a distance d from the neutral axis adds ∫ y² dA = 1/12 + d² to I (the parallel axis theorem), so I is a sum over the painted squares. The neutral axis of each piece passes through its centroid: the average height of its squares. Loose pieces are treated as beams bending side by side with the same sag, so their I’s add. The bent beam’s shape is v(x) = F·x·(3L² − 4x²) ⁄ (48·E·I) up to the middle, where the sag is F·L³ ⁄ (48·E·I). The most that 24 joined squares can reach was found by an exact search over how many squares sit in each row: every row between the top and the bottom needs at least one, and the best place for the rest is the top and bottom rows, shared equally. The numbers were checked against an independent program.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Second_moment_of_area" target="_blank" rel="noopener">Second moment of area</a><a class="source-link" href="https://en.wikipedia.org/wiki/Euler%E2%80%93Bernoulli_beam_theory" target="_blank" rel="noopener">Euler–Bernoulli beam theory</a><a class="source-link" href="https://en.wikipedia.org/wiki/I-beam" target="_blank" rel="noopener">I-beam</a><a class="source-link" href="https://en.wikipedia.org/wiki/Claude-Louis_Navier" target="_blank" rel="noopener">Claude-Louis Navier</a><a class="source-link" href="https://archive.org/details/dialoguesconcern00galiuoft" target="_blank" rel="noopener">Galileo (1638), Dialogues Concerning Two New Sciences, Second Day (tr. Crew and de Salvio, 1914)</a></div>`,
+    title: 'למה הצד מנצח?',
+    html: `<p>כופפו קורה, והחלק העליון שלה נלחץ בזמן שהחלק התחתון שלה נמתח. ביניהם עובר קו שלא נלחץ ולא נמתח, הציר הניטרלי, דרך האמצע של החתך (המרכז הגאומטרי שלו). פלדה שרחוקה מהקו הזה נלחצת או נמתחת הרבה גם בכיפוף קטן, ולכן היא דוחפת חזרה בכוח, וגם עם מנוף גדול יותר. שתי ההשפעות גדלות עם המרחק, ולכן כל משבצת נספרת לפי <em>הריבוע</em> של המרחק שלה מהקו. הסכום שלהן הוא מומנט ההתמד של השטח, I, ב־\u2066cm⁴\u2069.</p>
+<div class="insight-visual">\u2066I = Σ (1/12 + d²)\u2069 על פני המשבצות · שקיעה = \u2066F·L³ ⁄ (48·E·I)\u2069</div>
+<h3>שטוח או על הצד</h3>
+<p>למלבן ברוחב b ובגובה h, \u2066I = b·h³ ⁄ 12\u2069, כך שהגובה שלו נספר שלוש פעמים. לקרש ברוחב \u206612 cm\u2069 ובעובי \u20662 cm\u2069 יש \u2066I = 8 cm⁴\u2069 כשהוא שוכב שטוח, ו־\u2066288 cm⁴\u2069 כשהוא עומד על הצד: קשיח פי \u2066(12 ÷ 2)² = 36\u2069, עם אותה פלדה. עם \u2066100 kg\u2069 באמצע של פלדה באורך \u20663 m\u2069 (\u2066E = 200 GPa\u2069), הוא שוקע \u206634 mm\u2069 כשהוא שטוח, ופחות מ־\u20661 mm\u2069 על הצד. סרגל פלסטיק ברוחב \u206630 mm\u2069 ובעובי \u20661 mm\u2069 קשיח על הצד פי \u2066(30 ÷ 1)² = 900\u2069.</p>
+<h3>קורת I</h3>
+<p>המקום הטוב ביותר לפלדה הוא רחוק ככל האפשר מהאמצע: אוגן לאורך החלק העליון, ועוד אחד לאורך החלק התחתון. אבל צריך לחבר אותם, אחרת הם מחליקים זה על זה כמו דפים בספר, וכל אחד מתכופף לבד: לשתי רצועות נפרדות של 12 משבצות יש יחד \u2066I = 2 cm⁴\u2069. דופן דקה מחזיקה אותם יחד. עם 7 משבצות בכל אוגן ו־10 בדופן, \u2066I = 508 cm⁴\u2069, פי 63.5 מהקרש השטוח, וזה הכי הרבה שאפשר לקבל מ־24 משבצות מחוברות ברשת הזאת. עצמות, במבוק, שלדות של אופניים וצינורות של פיגומים חלולים מאותה סיבה. ב־1638 גלילאו הצביע על העצמות של ציפורים ועל קני סוף, והראה שקשה יותר לשבור סרגל שעומד על הצד, לפי היחס בין הרוחב שלו לעובי שלו.</p>
+<h3>מה המודל הזה משמיט</h3>
+<p>קורה גבוהה ודקה מנצחת על הנייר, אבל היא עלולה ליפול, או להתפתל ולקרוס הצידה תחת העומס (קריסה פיתולית־צידית), ודופן או אוגן דקים עלולים להתקמט. האזהרה על קורה רעועה היא כלל אצבע של החדר הזה: צורה שקשיחה בכיוון מעלה־מטה פי יותר מ־20 מאשר לצדדים. מהנדסים בודקים את הדבר האמיתי, שתלוי גם במפתח, בעומס ובמידה שבה הקורה עומדת בפני פיתול, והם מחזקים קורות גבוהות ודקות, כמו קורות רצפה. קשיחות (כמה קורה שוקעת) היא לא חוזק (מתי היא נשברת, או מתכופפת לתמיד): החדר הזה עוסק בקשיחות. השקיעה מחושבת לפי התאוריה של שקיעות קטנות. היא משמיטה את המשקל של הקורה עצמה (כאן בערך \u206657 kg\u2069 של פלדה, שהיו מוסיפים בערך שליש לכל שקיעה) ואת הגמישות הקטנה הנוספת שנובעת מגזירה, והיא מניחה שהקורה מוחזקת ישרה לצדדים, כך שצורה עקומה לא נוטה הצידה. משבצות שמחוברות צלע אל צלע נחשבות מרותכות זו לזו; משבצות שנוגעות רק בפינה, לא.</p>
+<details><summary>המתמטיקה, למי שרוצה</summary><p>משבצת עם צלע 1, שהמרכז שלה במרחק d מהציר הניטרלי, מוסיפה ל־I את \u2066∫ y² dA = 1/12 + d²\u2069 (משפט הצירים המקבילים), ולכן I הוא סכום על פני המשבצות הצבועות. הציר הניטרלי של כל חלק עובר דרך המרכז הגאומטרי שלו: הגובה הממוצע של המשבצות שלו. חלקים נפרדים מטופלים כקורות שמתכופפות זו לצד זו עם אותה שקיעה, ולכן ערכי ה־I שלהם מתחברים. צורת הקורה הכפופה היא \u2066v(x) = F·x·(3L² − 4x²) ⁄ (48·E·I)\u2069 עד האמצע, ושם השקיעה היא \u2066F·L³ ⁄ (48·E·I)\u2069. הערך הגבוה ביותר ש־24 משבצות מחוברות יכולות להגיע אליו נמצא בחיפוש מדויק על פני מספר המשבצות בכל שורה: כל שורה בין העליונה לתחתונה צריכה לפחות משבצת אחת, והמקום הטוב ביותר לשאר הוא השורה העליונה והשורה התחתונה, בחלוקה שווה. המספרים נבדקו מול תוכנה עצמאית.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Second_moment_of_area" target="_blank" rel="noopener">מומנט התמד של שטח (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Euler%E2%80%93Bernoulli_beam_theory" target="_blank" rel="noopener">תורת הקורות של אוילר–ברנולי (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/I-beam" target="_blank" rel="noopener">קורת I (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Claude-Louis_Navier" target="_blank" rel="noopener">קלוד־לואי נאוויה (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://archive.org/details/dialoguesconcern00galiuoft" target="_blank" rel="noopener">גלילאו (1638), \u2066Dialogues Concerning Two New Sciences\u2069, היום השני (תרגום: קרו ודה סלביו, 1914) (באנגלית)</a></div>`,
   },
 });

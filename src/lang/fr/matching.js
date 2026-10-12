@@ -1,107 +1,109 @@
-/* Who asks wins · visitor-facing words (fr). */
+/* Qui demande gagne · les mots vus par le visiteur (fr). */
 Wonderlattice.defineText('matching', 'fr', {
-  eyebrow: 'FAIR PAIRS',
-  name: 'Who asks wins',
+  eyebrow: 'PAIRES ÉQUITABLES',
+  name: 'Qui demande gagne',
   tagline:
-    'Pair six students with six clubs so that nobody would rather swap. Whoever asks first quietly gets the best deal.',
-  title: 'Who asks wins.',
+    'Associez six élèves à six clubs pour que personne ne préfère échanger. Le camp qui demande en premier obtient discrètement la meilleure part.',
+  title: 'Qui demande gagne.',
   subtitle:
-    'Students apply to clubs until every pair is settled. Then the clubs ask instead: the same wishes, another fair pairing, and the happiness flips.',
-  field: 'Game theory · Stable matching · Market design',
-  sceneLabel: '6 students · 6 clubs',
-  sceneNames: ['Tangled wishes', 'One shared ranking', 'Opposite wishes'],
-  shuffledName: 'Shuffled wishes',
-  tip: 'Tap a student, then a club, to pair them yourself · Arrow keys aim, Enter picks',
-  actionLabel: 'Swap who asks',
+    'Les élèves postulent aux clubs jusqu’à ce que chaque paire soit fixée. Puis ce sont les clubs qui demandent : les mêmes souhaits, un autre appariement équitable, et le bonheur change de camp.',
+  field: 'Théorie des jeux · Appariement stable · Conception de marchés',
+  sceneLabel: '6 élèves · 6 clubs',
+  sceneNames: ['Souhaits emmêlés', 'Un même classement', 'Souhaits opposés'],
+  shuffledName: 'Souhaits au hasard',
+  tip: 'Touchez un élève, puis un club, pour les associer vous-même · Les flèches visent, Entrée choisit',
+  actionLabel: 'Inverser les rôles',
   canvasLabel:
-    'Six students on the left, as numbered coloured circles, and six clubs on the right, as shapes. Beside each is its wish list, best first. Lines join the pairs. Tap a student and then a club to pair them yourself: a red line marks two who would both rather have each other.',
-  panelEyebrow: 'Who asks first',
-  whyLabel: 'Why does asking first win?',
+    'Six élèves à gauche, en cercles colorés numérotés, et six clubs à droite, en formes. À côté de chacun, sa liste de souhaits, le préféré en premier. Des lignes relient les paires. Touchez un élève puis un club pour les associer vous-même : une ligne rouge signale deux partenaires qui se préféreraient l’un l’autre.',
+  panelEyebrow: 'Qui demande en premier',
+  whyLabel: 'Pourquoi demander en premier fait-il gagner ?',
   nudge:
-    'Tap a student, then a club, to pair them by hand. A red line means those two would both rather leave for each other. Can you find a pairing with no red lines that neither asking gives?',
+    'Touchez un élève, puis un club, pour les associer à la main. Une ligne rouge signifie que ces deux-là préféreraient tous deux partir ensemble. Trouverez-vous un appariement sans ligne rouge qu’aucune des deux façons de demander ne donne ?',
   connection: {
-    html: '<strong>Choosing well.</strong> Here a student who is turned down simply tries the next club. In “Stop at 37%”, you must take or leave each card for good.',
-    label: 'Visit “Stop at 37%”',
+    html: '<strong>Bien choisir.</strong> Ici, un élève refusé essaie simplement le club suivant. Dans « S’arrêter à 37 % », il faut prendre ou laisser chaque carte pour de bon.',
+    label: 'Visiter « S’arrêter à 37 % »',
   },
 
   presets: [
-    { name: 'Tangled wishes', note: 'Asking first decides almost everything.' },
-    { name: 'One shared ranking', note: 'Every club ranks the students alike.' },
-    { name: 'Opposite wishes', note: 'Each student’s favourite likes them least.' },
+    { name: 'Souhaits emmêlés', note: 'Demander en premier décide de presque tout.' },
+    { name: 'Un même classement', note: 'Tous les clubs classent les élèves de la même façon.' },
+    { name: 'Souhaits opposés', note: 'Le club préféré de chaque élève le classe dernier.' },
   ],
 
-  speed: 'Speed',
-  swap: 'Keep swapping who asks',
-  marks: 'Mark every stable partner',
-  shuffle: 'New wishes',
+  speed: 'Vitesse',
+  swap: 'Inverser les rôles en boucle',
+  marks: 'Marquer tous les partenaires stables',
+  shuffle: 'Nouveaux souhaits',
   count: (n) =>
     n === 1
-      ? 'These wishes allow only 1 stable pairing, so it makes no difference who asks.'
-      : `These wishes allow ${n} stable pairings.`,
+      ? 'Ces souhaits ne permettent qu’un seul appariement stable : peu importe qui demande.'
+      : `Ces souhaits permettent ${n} appariements stables.`,
 
-  // Drawn on the picture: keep them short.
+  // Drawn on the picture: keep them short. « d’abord » (first) names who asks, to fit a phone.
   labels: {
-    students: 'STUDENTS',
+    students: 'ÉLÈVES',
     clubs: 'CLUBS',
-    studentsAsk: 'Students ask',
-    clubsAsk: 'Clubs ask',
-    yours: 'Your pairing',
+    studentsAsk: 'Élèves d’abord',
+    clubsAsk: 'Clubs d’abord',
+    yours: 'Vos paires',
   },
   // The scoreboard under the lists: how far down their lists each side got, on average.
   score: {
-    title: 'AVERAGE CHOICE',
-    first: '1st',
-    last: '6th',
+    title: 'CHOIX MOYEN',
+    first: '1er',
+    last: '6e',
   },
 
   status: {
-    // r: the round, from 1; k: applications on their way that round.
+    // r: the round, from 1; k: applications on their way that round. French uses the singular for 0 and 1.
     round: (clubs, r, k) =>
       clubs
-        ? `Round ${r} · ${k === 1 ? '1 club asks' : `${k} clubs ask`}`
-        : `Round ${r} · ${k === 1 ? '1 student applies' : `${k} students apply`}`,
+        ? `Tour ${r} · ${k < 2 ? `${k} club demande` : `${k} clubs demandent`}`
+        : `Tour ${r} · ${k < 2 ? `${k} élève postule` : `${k} élèves postulent`}`,
     // firsts: how many on the asking side got their first choice.
     done: (clubs, firsts) =>
       clubs
-        ? `Clubs asked: ${firsts} of 6 clubs got their first choice`
-        : `Students asked: ${firsts} of 6 students got their first choice`,
+        ? `Les clubs ont demandé : ${firsts < 2 ? `${firsts} club sur 6 a eu son premier choix` : `${firsts} clubs sur 6 ont eu leur premier choix`}`
+        : `Les élèves ont postulé : ${firsts < 2 ? `${firsts} élève sur 6 a eu son premier choix` : `${firsts} élèves sur 6 ont eu leur premier choix`}`,
     unstable: (k) =>
-      k === 1 ? 'Your pairing: 1 pair would rather swap' : `Your pairing: ${k} pairs would rather swap`,
-    stable: 'Your pairing is stable: no pair would rather swap',
-    stableNew: 'Stable, and neither asking gives this one',
+      k === 1
+        ? 'Votre appariement : 1 paire préférerait échanger'
+        : `Votre appariement : ${k} paires préféreraient échanger`,
+    stable: 'Votre appariement est stable : aucune paire ne préférerait échanger',
+    stableNew: 'Stable, et aucune des deux façons de demander ne le donne',
   },
 
   guests: [
     {
       name: 'David Gale',
-      note: 'In 1962 Lloyd Shapley and I showed that applicants and colleges can always be paired so that no applicant and college would both rather have each other. Our method: apply, hold the best offer, and let nobody say yes until the end.',
+      note: 'En 1962, Lloyd Shapley et moi avons montré que candidats et universités peuvent toujours être appariés de sorte qu’aucun candidat et aucune université ne se préfèrent mutuellement à leurs partenaires. Notre méthode : postuler, garder la meilleure offre en attente, et ne laisser personne dire oui avant la fin.',
     },
     {
       name: 'Lloyd Shapley',
-      note: 'Our paper ended by offering its main proof as an example of mathematics in ordinary English, with no symbols and hardly any counting. Half a century later I shared a Nobel memorial prize in economics with Al Roth, who put the idea to work.',
+      note: 'Notre article se terminait en présentant sa preuve principale comme un exemple de mathématiques en anglais ordinaire, sans symboles et presque sans calcul. Un demi-siècle plus tard, j’ai partagé le prix d’économie en mémoire d’Alfred Nobel avec Al Roth, qui a mis l’idée en pratique.',
     },
     {
       name: 'Alvin Roth',
-      note: 'He noticed that American hospitals had been matching young doctors with essentially this method since the early 1950s, and later helped redesign that match and the school choice of New York City and Boston.',
+      note: 'Il a remarqué que les hôpitaux américains appariaient les jeunes médecins avec essentiellement cette méthode depuis le début des années 1950, puis a aidé à repenser cet appariement ainsi que le choix des écoles à New York et à Boston.',
     },
   ],
 
   insight: {
-    title: 'Why does asking first win?',
-    html: `<p>A pairing is <em>stable</em> when no student and club would both rather have each other than the partners they’ve got. Such a pair would simply walk off together, so an unstable pairing doesn’t last. In 1962 David Gale and Lloyd Shapley showed that a stable pairing always exists, however tangled the wishes, and gave a simple way to find one.</p>
-<div class="insight-visual">every unpaired student applies to the best club they haven’t tried · each club keeps its best offer so far and sends the rest back · repeat until nobody is sent back</div>
-<h3>Why it is stable</h3>
-<p>Take a student and a club that aren’t paired at the end. If the student prefers that club, the student applied there before ending up further down the list, and the club turned them away for someone it liked more. A club’s offers only ever get better, so it still prefers its final partner. Nobody can walk off together.</p>
-<h3>Why the askers win</h3>
-<p>There are usually several stable pairings. Gale and Shapley proved that the one this method finds gives every student, at once, the best partner they have in any stable pairing. The reason: no student is ever turned away by a club that could be their partner in a stable pairing. And that very same pairing gives every club the worst partner it has in any stable pairing. Swap who asks and the clubs get their best, the students their worst. Tick “Mark every stable partner” to see each person land on the first or last of their dots.</p>
-<p>When every club ranks the students the same way, for example by one exam, there is only one stable pairing, and it doesn’t matter who asks. Asking first matters when wishes clash.</p>
-<h3>Telling the truth</h3>
-<p>The askers can’t do better by hiding their true wishes; the side being asked sometimes can, by turning down an offer it actually likes, though that takes knowing everyone else’s wishes, and can backfire.</p>
-<h3>Where it is used</h3>
-<p>American hospitals were matching young doctors with essentially this method from the early 1950s, years before the paper, as Alvin Roth later noticed. In the late 1990s the doctors’ match was redesigned so that the applicants ask, and similar methods now assign pupils to schools in New York City and Boston. In 2012 Shapley and Roth shared the Nobel memorial prize in economics; Gale had died in 2008. In studies of large real matches, the choice of who asks has changed the result for very few people.</p>
-<h3>What this model leaves out</h3>
-<p>Real matches give a club several places, allow ties, let some people leave a list incomplete, and include couples who want to stay in the same town. With couples a stable pairing may not exist at all. Without two sides, as when pairing roommates, it may not exist either; Robert Irving found a method in 1985 that finds one whenever it does. And “stable” isn’t “happy”: it only means nobody can walk off with somebody who wants them back.</p>
-<details><summary>The mathematics, if you want it</summary><p>Each round here, every unpaired asker applies at once. The order of the applications doesn’t change the result. With n on each side, Gale and Shapley’s method ends after at most n² − 2n + 2 rounds, 26 for six of each, and at most n² − n + 1 applications in all, 31. With three on each side, a computer can try every possible set of wishes: the worst takes exactly 5 rounds and 7 applications. The stable pairings fit together in a lattice, with the students’ best at one end and the clubs’ best at the other (Donald Knuth’s 1976 book <em>Mariages stables</em> explores it). To mark every stable partner, this room tries all 720 ways to pair six students with six clubs.</p></details>
-<div class="sources"><a class="source-link" href="https://www.nobelprize.org/prizes/economic-sciences/2012/popular-information/" target="_blank" rel="noopener">The Nobel Prize (2012), Stable matching: theory, evidence and practical design</a><a class="source-link" href="https://en.wikipedia.org/wiki/Gale%E2%80%93Shapley_algorithm" target="_blank" rel="noopener">The Gale–Shapley algorithm</a><a class="source-link" href="https://en.wikipedia.org/wiki/National_Resident_Matching_Program" target="_blank" rel="noopener">The National Resident Matching Program</a><a class="source-link" href="https://doi.org/10.1257/000282805774670167" target="_blank" rel="noopener">Abdulkadiroğlu, Pathak and Roth (2005), The New York City high school match</a><a class="source-link" href="https://en.wikipedia.org/wiki/Stable_roommates_problem" target="_blank" rel="noopener">The stable roommates problem</a><a class="source-link" href="https://doi.org/10.2307/2312726" target="_blank" rel="noopener">Gale and Shapley (1962), College admissions and the stability of marriage</a></div>`,
+    title: 'Pourquoi demander en premier fait-il gagner ?',
+    html: `<p>Un appariement est <em>stable</em> quand aucun élève et aucun club ne se préféreraient l’un l’autre aux partenaires qu’ils ont. Une telle paire partirait simplement ensemble, si bien qu’un appariement instable ne dure pas. En 1962, David Gale et Lloyd Shapley ont montré qu’un appariement stable existe toujours, si emmêlés que soient les souhaits, et ont donné une façon simple d’en trouver un.</p>
+<div class="insight-visual">chaque élève sans partenaire postule au meilleur club qu’il n’a pas encore essayé · chaque club garde sa meilleure offre du moment et renvoie les autres · on recommence jusqu’à ce que personne ne soit renvoyé</div>
+<h3>Pourquoi c’est stable</h3>
+<p>Prenez un élève et un club qui ne sont pas ensemble à la fin. Si l’élève préfère ce club, c’est qu’il y a postulé avant de descendre plus bas dans sa liste, et que le club l’a refusé pour quelqu’un qu’il aimait davantage. Les offres d’un club ne font que s’améliorer, donc il préfère toujours son partenaire final. Aucune paire ne peut partir ensemble.</p>
+<h3>Pourquoi ceux qui demandent gagnent</h3>
+<p>Il existe en général plusieurs appariements stables. Gale et Shapley ont prouvé que celui que trouve cette méthode donne à chaque élève, à tous à la fois, le meilleur partenaire qu’il puisse avoir dans un appariement stable. La raison : aucun élève n’est jamais refusé par un club qui pourrait être son partenaire dans un appariement stable. Et ce même appariement donne à chaque club le pire partenaire qu’il puisse avoir dans un appariement stable. Inversez les rôles, et les clubs obtiennent leur meilleur, les élèves leur pire. Cochez « Marquer tous les partenaires stables » pour voir chacun arriver sur le premier ou le dernier de ses points.</p>
+<p>Quand tous les clubs classent les élèves de la même façon, par exemple selon un même examen, il n’existe qu’un seul appariement stable, et peu importe qui demande. Demander en premier compte quand les souhaits s’opposent.</p>
+<h3>Dire la vérité</h3>
+<p>Ceux qui demandent ne peuvent pas faire mieux en cachant leurs vrais souhaits ; le camp sollicité, lui, le peut parfois, en refusant une offre qui lui plaît pourtant, mais il faut pour cela connaître les souhaits de tous les autres, et cela peut se retourner contre lui.</p>
+<h3>Où on s’en sert</h3>
+<p>Les hôpitaux américains appariaient les jeunes médecins avec essentiellement cette méthode dès le début des années 1950, des années avant l’article, comme Alvin Roth l’a remarqué plus tard. À la fin des années 1990, l’appariement des médecins a été repensé pour que ce soient les candidats qui demandent, et des méthodes semblables affectent aujourd’hui les élèves aux écoles de New York et de Boston. En 2012, Shapley et Roth ont partagé le prix d’économie en mémoire d’Alfred Nobel ; Gale était mort en 2008. Dans les études de grands appariements réels, le choix de qui demande n’a changé le résultat que pour très peu de gens.</p>
+<h3>Ce que ce modèle laisse de côté</h3>
+<p>Dans les vrais appariements, un club a plusieurs places, les ex aequo sont permis, certains laissent une liste incomplète, et des couples veulent rester dans la même ville. Avec des couples, un appariement stable peut ne pas exister du tout. Sans deux camps, comme quand on répartit des colocataires, il peut ne pas exister non plus ; Robert Irving a trouvé en 1985 une méthode qui en trouve un chaque fois qu’il existe. Et « stable » ne veut pas dire « heureux » : cela signifie seulement que personne ne peut partir avec quelqu’un qui veut de lui en retour.</p>
+<details><summary>Les mathématiques, si le cœur vous en dit</summary><p>Ici, à chaque tour, tous ceux qui demandent et n’ont pas de partenaire postulent en même temps. L’ordre des candidatures ne change pas le résultat. Avec n de chaque côté, la méthode de Gale et Shapley s’arrête après au plus n² − 2n + 2 tours, 26 pour six de chaque, et au plus n² − n + 1 candidatures en tout, 31. Avec trois de chaque côté, un ordinateur peut essayer tous les jeux de souhaits possibles : le pire demande exactement 5 tours et 7 candidatures. Les appariements stables s’assemblent en un treillis, avec le meilleur pour les élèves à un bout et le meilleur pour les clubs à l’autre (le livre de Donald Knuth de 1976, <em>Mariages stables</em>, l’explore). Pour marquer tous les partenaires stables, cette salle essaie les 720 façons d’associer six élèves à six clubs.</p></details>
+<div class="sources"><a class="source-link" href="https://www.nobelprize.org/prizes/economic-sciences/2012/popular-information/" target="_blank" rel="noopener">The Nobel Prize (2012), Stable matching: theory, evidence and practical design (en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Gale%E2%80%93Shapley_algorithm" target="_blank" rel="noopener">L’algorithme de Gale et Shapley (Wikipédia, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/National_Resident_Matching_Program" target="_blank" rel="noopener">Le National Resident Matching Program (Wikipédia, en anglais)</a><a class="source-link" href="https://doi.org/10.1257/000282805774670167" target="_blank" rel="noopener">Abdulkadiroğlu, Pathak et Roth (2005), The New York City high school match (en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Stable_roommates_problem" target="_blank" rel="noopener">Le problème des colocataires stables (Wikipédia, en anglais)</a><a class="source-link" href="https://doi.org/10.2307/2312726" target="_blank" rel="noopener">Gale et Shapley (1962), College admissions and the stability of marriage (en anglais)</a></div>`,
   },
 });

@@ -1,113 +1,108 @@
 /* Three wires, no way back · visitor-facing words (he). */
 Wonderlattice.defineText('phases', 'he', {
-  eyebrow: 'THREE-PHASE POWER',
-  name: 'Three wires, no way back',
-  tagline: 'Three currents chase each other round a circle, and at every instant they add up to nothing.',
-  title: 'Three wires, no way back.',
+  eyebrow: 'חשמל תלת־פאזי',
+  name: 'שלושה חוטים, בלי דרך חזרה',
+  tagline: 'שלושה זרמים רודפים זה אחרי זה סביב מעגל, ובכל רגע הסכום שלהם הוא אפס.',
+  title: 'שלושה חוטים, בלי דרך חזרה.',
   subtitle:
-    'Three circuits would need six wires. Watch their three return wires merge into one that carries nothing, then load one street and wake it.',
-  field: 'Phasors · 120° apart · A turning field',
-  sceneLabel: 'Three-phase power, 150 times slower than the mains',
+    'שלושה מעגלים חשמליים היו צריכים שישה חוטים. צפו בשלושת חוטי החזרה שלהם מתמזגים לחוט אחד שלא נושא כלום, ואז העמיסו על רחוב אחד והעירו אותו.',
+  field: 'פאזורים · 120° זה מזה · שדה מסתובב',
+  sceneLabel: 'חשמל תלת־פאזי, לאט פי 150 מרשת החשמל',
   // By the view: the currents, the power, the field of three coils.
-  sceneNames: ['Three currents', 'Flickering lamps', 'A field that turns'],
-  tip: 'Drag an arrow’s tip in or out to change its wire’s current • Keys: ← → pick a wire, ↑ ↓ change its current',
+  sceneNames: ['שלושה זרמים', 'מנורות מהבהבות', 'שדה מסתובב'],
+  tip: 'גררו את קצה החץ פנימה או החוצה כדי לשנות את הזרם בחוט שלו • מקשים: ← → בוחרים חוט, ↑ ↓ משנים את הזרם שלו',
   canvasLabel:
-    'On the left, three coloured arrows, a third of a turn apart, spin round a circle like clock hands; their heights trace three sine waves to the right, and a white line, their sum, stays flat at zero. Below, a power station sends the three currents down three wires to three streets of houses. At first each street has its own wire back, six wires in all; the three return wires slide together into one shared wire, whose meter reads 0 A, because the currents cancel. Load one street more and the meter wakes up. Other views show each street’s lamps flickering while their total stays steady, and three coils whose field turns a compass needle.',
-  panelEyebrow: 'Load the streets',
-  whyLabel: 'Why do the three currents cancel?',
+    'משמאל, שלושה חיצים צבעוניים, בהפרש של שליש סיבוב, מסתובבים סביב מעגל כמו מחוגי שעון; הגבהים שלהם משרטטים שלושה גלי סינוס מימין, וקו לבן, הסכום שלהם, נשאר שטוח על אפס. מתחת, תחנת כוח שולחת את שלושת הזרמים בשלושה חוטים לשלושה רחובות של בתים. בהתחלה לכל רחוב יש חוט חזרה משלו, שישה חוטים בסך הכול; שלושת חוטי החזרה מחליקים יחד לחוט משותף אחד, שהמונה שלו מראה \u20660 A\u2069, כי הזרמים מבטלים זה את זה. העמיסו יותר על רחוב אחד והמונה מתעורר. תצוגות אחרות מראות את המנורות של כל רחוב מהבהבות בזמן שהסך הכול שלהן נשאר יציב, ושלושה סלילים שהשדה שלהם מסובב מחט של מצפן.',
+  panelEyebrow: 'להעמיס על הרחובות',
+  whyLabel: 'למה שלושת הזרמים מבטלים זה את זה?',
   nudge:
-    'Switch the kettles on and watch the return wire wake up. Then show the field: three coils that never move turn a compass needle.',
+    'הדליקו את הקומקומים וצפו בחוט החזרה מתעורר. אחר כך הציגו את השדה: שלושה סלילים שאף פעם לא זזים מסובבים מחט של מצפן.',
   connection: {
-    html: '<strong>Adding waves.</strong> Here, three waves of one pitch, a third of a cycle apart, add up to silence. In Hear the shape, two tones add up: they can cancel, beat or make a chord.',
-    label: 'Add two tones',
+    html: '<strong>חיבור גלים.</strong> כאן, שלושה גלים באותו גובה צליל, בהפרש של שליש מחזור, מתחברים לשקט. ב”לשמוע את הצורה”, שני צלילים מתחברים: הם יכולים לבטל זה את זה, לפעום או ליצור אקורד.',
+    label: 'לחבר שני צלילים',
   },
 
   presets: [
-    { name: 'Balanced', note: 'Equal currents: nothing comes back.', badge: '0 A' },
-    { name: 'Kettles on one street', note: 'Twice the current in wire 1.', badge: '100 A' },
-    { name: 'A field that turns', note: 'Three still coils turn a compass.', badge: '⟳' },
+    { name: 'מאוזן', note: 'זרמים שווים: שום דבר לא חוזר.', badge: '0 A' },
+    { name: 'קומקומים ברחוב אחד', note: 'זרם כפול בחוט 1.', badge: '100 A' },
+    { name: 'שדה מסתובב', note: 'שלושה סלילים נייחים מסובבים מצפן.', badge: '⟳' },
   ],
 
-  wire: (n) => `Current in wire ${n}`,
-  wireHint: 'Each wire feeds its own street. Turn one up, as if its kettles came on.',
-  amps: ' A',
-  view: 'Show',
+  wire: (n) => `זרם בחוט ${n}`,
+  wireHint: 'כל חוט מזין רחוב משלו. הגבירו אחד מהם, כאילו הקומקומים שלו נדלקו.',
+  amps: '\u00a0A',
+  view: 'להציג',
   // The views: the currents, the power, the field of three coils.
-  views: ['Currents', 'Power', 'Field'],
-  swap: 'Swap wires 2 and 3',
-  swapHint: 'The field turns the other way: that’s how a three-phase motor is reversed.',
-  kettlesOn: 'Switch the kettles on',
-  kettlesOff: 'Switch the kettles off',
+  views: ['זרמים', 'הספק', 'שדה'],
+  swap: 'להחליף בין חוטים 2 ו־3',
+  swapHint: 'השדה מסתובב לכיוון השני: כך הופכים את כיוון הסיבוב של מנוע תלת־פאזי.',
+  kettlesOn: 'להדליק את הקומקומים',
+  kettlesOff: 'לכבות את הקומקומים',
 
   // A number (or a word) and one line.
   readout: {
-    back: 'In the return wire',
-    cancel: 'The three currents cancel at every instant, so three wires do the work of six.',
-    differ: 'The currents differ, so they no longer cancel: the difference comes back.',
-    total: 'Total power',
-    steady: 'Steady',
-    swings: (share) => `± ${share}`,
-    totalSteady: 'Each street’s lamps flicker twice a cycle, but the three together never do.',
-    totalSwings: 'The loads differ, so the total swells and dips too.',
-    fieldTitle: 'The field’s strength',
-    wobbles: 'Wobbles',
-    fieldSteady: 'The field keeps its strength and turns once a cycle, though nothing moves.',
-    fieldWobbles: 'The field still turns, but unequal currents make it swell and shrink.',
-    nothing: 'No current: the lamps are off.',
+    back: 'בחוט החזרה',
+    cancel: 'שלושת הזרמים מבטלים זה את זה בכל רגע, ולכן שלושה חוטים עושים את העבודה של שישה.',
+    differ: 'הזרמים שונים, ולכן הם כבר לא מבטלים זה את זה: ההפרש חוזר.',
+    total: 'הספק כולל',
+    steady: 'יציב',
+    swings: (share) => `\u2066± ${share}\u2069`,
+    totalSteady: 'המנורות של כל רחוב מהבהבות פעמיים בכל מחזור, אבל שלושתן יחד אף פעם לא.',
+    totalSwings: 'העומסים שונים, ולכן גם הסך הכול גדל וקטן.',
+    fieldTitle: 'חוזק השדה',
+    wobbles: 'מתנדנד',
+    fieldSteady: 'השדה שומר על החוזק שלו ומסתובב פעם אחת בכל מחזור, אף ששום דבר לא זז.',
+    fieldWobbles: 'השדה עדיין מסתובב, אבל זרמים לא שווים גורמים לו להתחזק ולהיחלש.',
+    nothing: 'אין זרם: המנורות כבויות.',
   },
 
-  status: (amps) => `Return wire: ${amps}`,
-  announce: (amps) => `The return wire carries ${amps}.`,
+  status: (amps) => `חוט החזרה: ${amps}`,
+  announce: (amps) => `חוט החזרה נושא ${amps}.`,
 
   // Words drawn on the picture.
   labels: {
-    sum: 'sum',
-    sumZero: 'sum = 0',
-    station: 'power station',
-    street: (n) => `street ${n}`,
-    back: 'wire back',
-    shared: 'shared wire back',
-    amps: (n) => `${n} A`,
+    sum: 'סכום',
+    sumZero: 'סכום = 0',
+    station: 'תחנת כוח',
+    street: (n) => `רחוב ${n}`,
+    back: 'חוט חזרה',
+    shared: 'חוט חזרה משותף',
+    amps: (n) => `\u2066${n} A\u2069`,
     // The opening: six wires become three.
-    story: [
-      'Three circuits: six wires',
-      'Share one wire back…',
-      '…and it carries nothing',
-      'Three wires do the work of six',
-    ],
-    differ: 'Unequal currents: the difference comes back',
-    each: 'each street',
-    total: 'total',
-    field: 'field',
-    swapped: 'wires 2 and 3 swapped',
+    story: ['שלושה מעגלים: שישה חוטים', 'חוט חזרה אחד משותף…', '…והוא לא נושא כלום', 'שלושה חוטים במקום שישה'],
+    differ: 'זרמים לא שווים: ההפרש חוזר',
+    each: 'כל רחוב',
+    total: 'סך הכול',
+    field: 'שדה',
+    swapped: 'חוטים 2 ו־3 הוחלפו',
   },
 
   guests: [
     {
-      name: 'Mikhail Dolivo-Dobrovolsky',
-      note: 'He named three-phase current and built three-phase generators and motors from 1888. In 1891 his system carried power 175 km, from a turbine at Lauffen to an exhibition in Frankfurt, and three-quarters of it arrived.',
+      name: 'מיכאיל דוליבו־דוברובולסקי',
+      note: 'הוא נתן לזרם התלת־פאזי את שמו, ובנה גנרטורים ומנועים תלת־פאזיים החל מ־1888. ב־1891 המערכת שלו העבירה חשמל למרחק \u2066175 km\u2069, מטורבינה בלאופן לתערוכה בפרנקפורט, ושלושה רבעים ממנו הגיעו.',
     },
     {
-      name: 'Nikola Tesla',
-      note: 'In 1888 he patented motors driven by alternating currents out of step, whose turning field drags the rotor round with no brushes or switches.',
+      name: 'ניקולה טסלה',
+      note: 'ב־1888 הוא רשם פטנטים על מנועים שמונעים בזרמי חילופין שאינם באותה פאזה, שהשדה המסתובב שלהם גורר את הרוטור סביב בלי מברשות או מתגים.',
     },
     {
-      name: 'Galileo Ferraris',
-      note: 'In 1885, independently of Tesla, he built a classroom model in which currents out of step made a magnetic field that turns. He published it in 1888.',
+      name: 'גלילאו פרריס',
+      note: 'ב־1885, בלי קשר לטסלה, הוא בנה דגם לכיתה שבו זרמים שאינם באותה פאזה יצרו שדה מגנטי מסתובב. הוא פרסם אותו ב־1888.',
     },
   ],
 
   insight: {
-    title: 'Why do the three currents cancel?',
-    html: `<p>Each wire’s current is the shadow of an arrow turning round the circle: its height, traced over time, is a sine wave. The three arrows are a third of a turn apart. Put them head to tail and they close a triangle, so they add up to nothing, and so do their shadows, at every instant:</p>
-<div class="insight-visual">sin θ + sin(θ − 120°) + sin(θ + 120°) = 0</div>
-<p>So three circuits can share one wire back, and when their loads are equal it carries nothing and can be left out: three wires do the work of six. In the language of complex numbers, the three arrows are the cube roots of 1, which add up to 0. Load one street more and its arrow grows: the triangle no longer closes, and the gap, the arrows’ sum, is the current that comes back.</p>
-<h3>Lamps that flicker, a total that doesn’t</h3>
-<p>A lamp’s power grows with the square of its current, so it swells and dies twice a cycle: on 50 Hz mains, 100 times a second. Yet sin² θ + sin²(θ − 120°) + sin²(θ + 120°) = 3/2 for every θ, so with equal loads the three phases together deliver a perfectly steady total. That is why large motors and generators use three phases: a steady push, with no shudder.</p>
-<h3>A field that turns</h3>
-<p>Feed the three currents into three coils placed a third of a turn apart round a circle, and the magnetic field at the centre keeps its strength while its direction turns, once a cycle. Nothing moves, yet a compass needle, or a motor’s rotor, is dragged round. Swap any two wires and it turns the other way, which is how a three-phase motor is reversed. Galileo Ferraris (a model in 1885, published in 1888) and Nikola Tesla (patents in 1888) found the turning field independently. Mikhail Dolivo-Dobrovolsky built three-phase generators, motors and transformers, and in 1891 his line carried three-phase power 175 km from Lauffen to an exhibition in Frankfurt.</p>
-<h3>What this leaves out</h3>
-<p>Three wires instead of six is exact only when the three loads are equal. Real loads never quite are, so the street outside a house carries a fourth wire, the neutral, to take the difference back, as in this room when you load one street. Long lines feed large, nearly balanced loads, so they carry three wires; the thinner wires often seen at the very top of pylons are earth wires, there for lightning and faults, not to carry current back. Electronics such as phone chargers draw currents with harmonics, and the third harmonic adds up in the neutral instead of cancelling, so a neutral can even carry more than a phase. Compared with a single two-wire circuit at the same voltage between its wires, a three-wire line carries the same power with about three-quarters of the metal. In this room the lamps are plain resistances, the waves are perfect sines, nothing is lost on the way, and everything runs 150 times slower than 50 Hz mains.</p>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Three-phase_electric_power" target="_blank" rel="noopener">Three-phase electric power</a><a class="source-link" href="https://en.wikipedia.org/wiki/Neutral_conductor" target="_blank" rel="noopener">Neutral conductor</a><a class="source-link" href="https://en.wikipedia.org/wiki/Phasor" target="_blank" rel="noopener">Phasor</a><a class="source-link" href="https://en.wikipedia.org/wiki/Rotating_magnetic_field" target="_blank" rel="noopener">Rotating magnetic field</a><a class="source-link" href="https://en.wikipedia.org/wiki/Mikhail_Dolivo-Dobrovolsky" target="_blank" rel="noopener">Mikhail Dolivo-Dobrovolsky</a></div>`,
+    title: 'למה שלושת הזרמים מבטלים זה את זה?',
+    html: `<p>הזרם בכל חוט הוא הצל של חץ שמסתובב סביב המעגל: הגובה שלו, לאורך זמן, משרטט גל סינוס. שלושת החיצים נמצאים בהפרש של שליש סיבוב זה מזה. שימו אותם ראש אל זנב והם סוגרים משולש, ולכן הסכום שלהם הוא אפס, וכך גם הסכום של הצללים שלהם, בכל רגע:</p>
+<div class="insight-visual">\u2066sin θ + sin(θ − 120°) + sin(θ + 120°) = 0\u2069</div>
+<p>לכן שלושה מעגלים יכולים לחלוק חוט חזרה אחד, וכשהעומסים שלהם שווים הוא לא נושא כלום ואפשר לוותר עליו: שלושה חוטים עושים את העבודה של שישה. בשפה של המספרים המרוכבים, שלושת החיצים הם השורשים השלישיים של 1, שהסכום שלהם 0. העמיסו יותר על רחוב אחד והחץ שלו גדל: המשולש כבר לא נסגר, והפער, הסכום של החיצים, הוא הזרם שחוזר.</p>
+<h3>מנורות שמהבהבות, וסך הכול שלא</h3>
+<p>ההספק של מנורה גדל עם הריבוע של הזרם שלה, ולכן הוא מתגבר ונעלם פעמיים בכל מחזור: ברשת של \u206650 Hz\u2069, זה 100 פעמים בשנייה. ובכל זאת \u2066sin² θ + sin²(θ − 120°) + sin²(θ + 120°) = 3/2\u2069 לכל θ, ולכן עם עומסים שווים שלוש הפאזות יחד מספקות סך הכול יציב לחלוטין. זו הסיבה שמנועים וגנרטורים גדולים משתמשים בשלוש פאזות: דחיפה יציבה, בלי רעידות.</p>
+<h3>שדה שמסתובב</h3>
+<p>הזינו את שלושת הזרמים לשלושה סלילים שמוצבים בהפרש של שליש סיבוב סביב מעגל, והשדה המגנטי במרכז שומר על החוזק שלו בזמן שהכיוון שלו מסתובב, פעם אחת בכל מחזור. שום דבר לא זז, ובכל זאת מחט של מצפן, או הרוטור של מנוע, נגררים סביב. החליפו בין שני חוטים כלשהם והוא מסתובב לכיוון השני, וכך הופכים את כיוון הסיבוב של מנוע תלת־פאזי. גלילאו פרריס (דגם ב־1885, שפורסם ב־1888) וניקולה טסלה (פטנטים ב־1888) מצאו את השדה המסתובב כל אחד בנפרד. מיכאיל דוליבו־דוברובולסקי בנה גנרטורים, מנועים ושנאים תלת־פאזיים, וב־1891 הקו שלו העביר חשמל תלת־פאזי למרחק \u2066175 km\u2069, מלאופן לתערוכה בפרנקפורט.</p>
+<h3>מה המודל הזה משמיט</h3>
+<p>שלושה חוטים במקום שישה זה מדויק רק כששלושת העומסים שווים. עומסים אמיתיים אף פעם לא שווים לגמרי, ולכן ברחוב שמחוץ לבית עובר חוט רביעי, חוט האפס, שמחזיר את ההפרש, כמו בחדר הזה כשמעמיסים על רחוב אחד. קווים ארוכים מזינים עומסים גדולים וכמעט מאוזנים, ולכן הם נושאים שלושה חוטים; החוטים הדקים יותר שרואים לעתים קרובות ממש בראש עמודי המתח הגבוה הם חוטי הארקה, שנועדו לברקים ולתקלות, לא להחזרת זרם. מכשירים אלקטרוניים כמו מטעני טלפון מושכים זרמים עם הרמוניות, וההרמוניה השלישית מצטברת בחוט האפס במקום להתבטל, כך שחוט האפס יכול אפילו לשאת יותר מפאזה. בהשוואה למעגל יחיד של שני חוטים, באותו מתח בין החוטים שלו, קו של שלושה חוטים מעביר את אותו הספק עם בערך שלושה רבעים מכמות המתכת. בחדר הזה המנורות הן נגדים פשוטים, הגלים הם סינוסים מושלמים, שום דבר לא הולך לאיבוד בדרך, והכול רץ לאט פי 150 מרשת חשמל של \u206650 Hz\u2069.</p>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Three-phase_electric_power" target="_blank" rel="noopener">חשמל תלת־פאזי (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Neutral_conductor" target="_blank" rel="noopener">מוליך האפס (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Phasor" target="_blank" rel="noopener">פאזור (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Rotating_magnetic_field" target="_blank" rel="noopener">שדה מגנטי מסתובב (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Mikhail_Dolivo-Dobrovolsky" target="_blank" rel="noopener">מיכאיל דוליבו־דוברובולסקי (ויקיפדיה, באנגלית)</a></div>`,
   },
 });

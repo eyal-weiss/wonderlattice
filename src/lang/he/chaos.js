@@ -1,75 +1,71 @@
 /* Random jumps, perfect triangle · visitor-facing words (he). */
 Wonderlattice.defineText('chaos', 'he', {
-  eyebrow: 'THE CHAOS GAME',
-  name: 'Random jumps, perfect triangle',
-  tagline:
-    'Jump halfway to a corner picked at random, again and again, and a flawless fractal appears out of the noise.',
-  title: 'Random jumps, perfect triangle.',
-  subtitle:
-    'A dot jumps halfway to a corner picked at random, again and again. Tap to start it somewhere else, or drag a corner.',
-  field: 'Chance · Fractals · Repeated maps',
-  sceneLabel: 'The chaos game',
-  tip: 'Tap to start the dot there · Drag a corner to reshape the game · Enter makes one jump',
-  actionLabel: 'One jump',
-  canvasLabel:
-    'The corners of a shape, and the dots left by a point that jumps part of the way towards a corner picked at random, again and again.',
-  panelEyebrow: 'Change the game',
-  whyLabel: 'Why does chance draw a perfect shape?',
-  nudge:
-    'Try four corners: plain fog. Then tick “Never the same corner twice” and watch a fractal come out of the fog.',
+  eyebrow: 'משחק הכאוס',
+  name: 'קפיצות אקראיות, משולש מושלם',
+  tagline: 'קפצו חצי מהדרך לפינה שנבחרה באקראי, שוב ושוב, ומתוך הרעש מופיע פרקטל מושלם.',
+  title: 'קפיצות אקראיות, משולש מושלם.',
+  subtitle: 'נקודה קופצת חצי מהדרך לפינה שנבחרה באקראי, שוב ושוב. הקישו כדי להתחיל אותה ממקום אחר, או גררו פינה.',
+  field: 'מקריות · פרקטלים · העתקות חוזרות',
+  sceneLabel: 'משחק הכאוס',
+  tip: 'הקישו כדי להתחיל את הנקודה שם · גררו פינה כדי לשנות את המשחק · Enter: קפיצה אחת',
+  actionLabel: 'קפיצה אחת',
+  canvasLabel: 'הפינות של צורה, והנקודות שמשאירה אחריה נקודה שקופצת שוב ושוב חלק מהדרך לעבר פינה שנבחרה באקראי.',
+  panelEyebrow: 'לשנות את המשחק',
+  whyLabel: 'למה המקריות מציירת צורה מושלמת?',
+  nudge: 'נסו ארבע פינות: ערפל אחיד. אחר כך הפעילו את ”אף פעם לא אותה פינה פעמיים” וצפו בפרקטל שעולה מתוך הערפל.',
   connection: {
-    html: '<strong>Two kinds of chaos.</strong> Here “chaos” is only the game’s name: start anywhere, and the same shape appears. In Weather twins, the smallest difference grows into a different future.',
-    label: 'Weather twins',
+    html: '<strong>שני סוגים של כאוס.</strong> כאן ”כאוס” הוא רק השם של המשחק: התחילו איפה שתרצו, ואותה צורה מופיעה. ב”תאומי מזג האוויר”, ההבדל הקטן ביותר גדל לעתיד אחר.',
+    label: 'תאומי מזג האוויר',
   },
 
   presets: [
-    { name: 'Three corners', note: 'Holes inside holes, and not one dot lands in them.' },
-    { name: 'Four corners', note: 'Plain fog: the dots go everywhere.' },
-    { name: 'Four, and a rule', note: 'Never the same corner twice: a fractal in the fog.' },
-    { name: 'Five corners', note: 'Jump 61.8% of the way: five copies that just touch.' },
-    { name: 'Barnsley’s fern', note: 'Four rules, each with its own chance.' },
+    { name: 'שלוש פינות', note: 'חורים בתוך חורים, ואף נקודה לא נוחתת בהם.' },
+    { name: 'ארבע פינות', note: 'ערפל אחיד: הנקודות מגיעות לכל מקום.' },
+    { name: 'ארבע, ועוד כלל', note: 'אף פעם לא אותה פינה פעמיים: פרקטל בתוך הערפל.' },
+    { name: 'חמש פינות', note: 'קפיצה של 61.8% מהדרך: חמישה עותקים שבדיוק נוגעים זה בזה.' },
+    { name: 'השרך של בארנסלי', note: 'ארבעה כללים, לכל אחד הסיכוי שלו.' },
   ],
-  yourOwn: 'Your own game',
+  yourOwn: 'המשחק שלכם',
 
-  corners: 'Corners',
-  jump: 'How far each jump goes',
-  jumpHint: 'The share of the way to the corner.',
-  rule: 'Never the same corner twice in a row',
-  fern: 'Grow Barnsley’s fern instead',
+  corners: 'פינות',
+  jump: 'כמה רחוק מגיעה כל קפיצה',
+  jumpHint: 'החלק מהדרך אל הפינה.',
+  rule: 'אף פעם לא אותה פינה פעמיים ברצף',
+  fern: 'לגדל במקום זה את השרך של בארנסלי',
 
   // Drawn on the picture.
-  jumps: (n, count) => `${n} ${count === 1 ? 'jump' : 'jumps'}`,
+  jumps: (n, count) => (count === 1 ? 'קפיצה אחת' : `${n} קפיצות`),
   caption: (percent, rule) =>
     rule
-      ? `Each jump: ${percent}% of the way to a random corner, never the same one twice`
-      : `Each jump: ${percent}% of the way to a random corner`,
-  fernCaption: 'Each jump: one of four rules, picked by chance',
+      ? `כל קפיצה: ${percent}% מהדרך לפינה אקראית, אף פעם לא לאותה פינה פעמיים`
+      : `כל קפיצה: ${percent}% מהדרך לפינה אקראית`,
+  fernCaption: 'כל קפיצה: אחד מארבעה כללים, שנבחר באקראי',
 
   // Over the picture, and read out once the picture settles.
-  holeStatus: (n, none) => (none ? 'Dots in the middle hole: not one' : `Dots in the middle hole: ${n}`),
-  jumpStatus: (n) => `Jumps so far: ${n}`,
-  settled: (n) => `The picture has settled after ${n} jumps.`,
+  holeStatus: (n, none) => (none ? 'נקודות בחור האמצעי: אף אחת' : `נקודות בחור האמצעי: ${n}`),
+  jumpStatus: (n) => `קפיצות עד כה: ${n}`,
+  settled: (n) => `התמונה התייצבה אחרי ${n} קפיצות.`,
 
   guests: [
     {
-      name: 'Wacław Sierpiński',
-      note: 'In 1915 he described this triangle with holes inside holes. It was a curiosity then; now a die draws it in seconds.',
+      name: 'ואצלב שרפינסקי',
+      note: 'ב־1915 הוא תיאר את המשולש הזה, עם חורים בתוך חורים. אז זה היה קוריוז; היום קובייה מציירת אותו תוך שניות.',
     },
     {
-      name: 'Michael Barnsley',
-      note: 'He gave the chaos game its name in the 1980s, and showed that a handful of rules like these can grow a fern.',
+      name: 'מייקל בארנסלי',
+      note: 'הוא נתן למשחק הכאוס את שמו בשנות ה־1980, והראה שקומץ כללים כמו אלה יכול לגדל שרך.',
     },
   ],
 
   insight: {
-    title: 'Why does chance draw a perfect shape?',
-    html: `<p>Each jump follows one of three rules: halve your distance to corner A, to B or to C. Each rule shrinks the whole triangle onto a half-size copy at its corner. The three copies cover the triangle except for a hole in the middle, and each copy holds three smaller copies with a hole in their middle, and so on for ever. That is the <em>Sierpiński triangle</em>, the one shape made of exactly three half-size copies of itself. Each dot takes the colour of the corner it last jumped towards, so you can see the copies.</p>
-<p>A dot on the shape always jumps to another point on the shape, into the copy at the chosen corner, so it can never land in a hole. A dot that starts anywhere else halves its distance to the shape with every jump, and after twenty jumps it is closer than a pixel. The first twenty jumps aren’t kept for that reason. The die decides only the order in which the dot visits the shape. The shape itself is fixed by the rules.</p>
-<h3>Fog, and a rule that clears it</h3>
-<p>Four half-size squares fill a square exactly, with nothing left over, so with four corners the dot goes everywhere: fog. Now forbid the same corner twice in a row. To land in the quarter-size square at a corner, the last two jumps must both have gone to that corner, so those squares stay empty, and so do the corners of every smaller copy: holes at every size. With the rule each jump depends on the one before, so this is no longer the plain game, but the same reasoning still draws its shape.</p>
-<h3>Not the chaos of the weather</h3>
-<p>“The chaos game” is Michael Barnsley’s name for it, and nothing here is chaotic in the scientist’s sense: start the dot anywhere, with other random numbers, and the same picture appears. The random numbers come from the computer’s generator, which follows a fixed recipe; they aren’t truly random, but they are random enough for this. The picture is made of a finite number of dots on a grid of pixels, so it can only approximate a shape with detail at every size.</p>
-<details><summary>The mathematics, if you want it</summary><p>Each rule is a <em>contraction</em>: it brings any two points closer together. John Hutchinson proved in 1981 that any finite set of contractions has exactly one nonempty closed and bounded set that is the union of its own images, the <em>attractor</em> of this <em>iterated function system</em>. Michael Barnsley and Stephen Demko showed in 1985 that choosing the rules at random draws it: with probability 1 the dot comes close to every part of it. For a regular shape with n corners, the copies just touch when the dot keeps (3 − √5)/2 ≈ 38.2% of its distance with five corners, and a third with six. The Sierpiński triangle’s dimension is log 3 / log 2 ≈ 1.585: halve the size and you need three times as many pieces, not four. The square with the rule has the same dimension, for the same reason. The fern is four affine rules, chosen 1%, 85%, 7% and 7% of the time: one draws the stem, one the rest of the fern a size smaller, and two the lowest leaflets on each side, each a small copy of the whole fern.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Chaos_game" target="_blank" rel="noopener">Chaos game (Wikipedia)</a><a class="source-link" href="https://mathworld.wolfram.com/ChaosGame.html" target="_blank" rel="noopener">Chaos game (MathWorld)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle" target="_blank" rel="noopener">Sierpiński triangle (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Barnsley_fern" target="_blank" rel="noopener">Barnsley fern (Wikipedia)</a><a class="source-link" href="https://doi.org/10.1512/iumj.1981.30.30055" target="_blank" rel="noopener">Hutchinson, Fractals and self similarity (1981)</a><a class="source-link" href="https://doi.org/10.1098/rspa.1985.0057" target="_blank" rel="noopener">Barnsley and Demko, Iterated function systems (1985)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Sierpinski/" target="_blank" rel="noopener">Wacław Sierpiński (MacTutor)</a></div>`,
+    title: 'למה המקריות מציירת צורה מושלמת?',
+    html: `<p>כל קפיצה מצייתת לאחד משלושה כללים: לקצר בחצי את המרחק לפינה A, ל־B או ל־C. כל כלל מכווץ את המשולש כולו לעותק בחצי הגודל, בפינה שלו. שלושת העותקים מכסים את המשולש חוץ מחור באמצע, וכל עותק מכיל שלושה עותקים קטנים יותר עם חור באמצע שלהם, וכך הלאה בלי סוף. זה <em>משולש שרפינסקי</em>, הצורה היחידה שבנויה בדיוק משלושה עותקים של עצמה בחצי הגודל. כל נקודה מקבלת את הצבע של הפינה שאליה קפצה לאחרונה, כך שאפשר לראות את העותקים.</p>
+<p>נקודה שנמצאת על הצורה תמיד קופצת לנקודה אחרת על הצורה, לתוך העותק שבפינה שנבחרה, ולכן היא אף פעם לא יכולה לנחות בחור. נקודה שמתחילה בכל מקום אחר מקצרת בחצי את המרחק שלה מהצורה בכל קפיצה, ואחרי עשרים קפיצות היא קרובה אליה יותר מפיקסל. מהסיבה הזאת עשרים הקפיצות הראשונות לא נשמרות. הקובייה מחליטה רק באיזה סדר הנקודה מבקרת בצורה. הצורה עצמה נקבעת על ידי הכללים.</p>
+<h3>ערפל, וכלל שמפזר אותו</h3>
+<p>ארבעה ריבועים בחצי הגודל ממלאים ריבוע בדיוק, בלי שום שארית, ולכן עם ארבע פינות הנקודה מגיעה לכל מקום: ערפל. עכשיו אסרו לבחור באותה פינה פעמיים ברצף. כדי לנחות בריבוע ברבע הגודל שבפינה, שתי הקפיצות האחרונות היו צריכות ללכת שתיהן לאותה פינה, ולכן הריבועים האלה נשארים ריקים, וכך גם הפינות של כל עותק קטן יותר: חורים בכל גודל. עם הכלל, כל קפיצה תלויה בזו שלפניה, כך שזה כבר לא המשחק הפשוט, אבל אותו נימוק עדיין מצייר את הצורה שלו.</p>
+<h3>לא הכאוס של מזג האוויר</h3>
+<p>”משחק הכאוס” הוא השם שמייקל בארנסלי נתן לו, ושום דבר כאן לא כאוטי במובן של המדענים: התחילו את הנקודה בכל מקום, עם מספרים אקראיים אחרים, ואותה תמונה מופיעה. המספרים האקראיים מגיעים מהמחולל של המחשב, שפועל לפי מתכון קבוע; הם לא באמת אקראיים, אבל הם אקראיים מספיק בשביל זה. התמונה בנויה ממספר סופי של נקודות על רשת של פיקסלים, ולכן היא יכולה רק לקרב צורה שיש בה פרטים בכל גודל.</p>
+<details><summary>המתמטיקה, למי שרוצה</summary><p>כל כלל הוא <em>העתקה מכווצת</em>: הוא מקרב כל שתי נקודות זו לזו. ג׳ון האצ׳ינסון הוכיח ב־1981 שלכל אוסף סופי של העתקות מכווצות יש בדיוק קבוצה אחת לא ריקה, סגורה וחסומה, שהיא האיחוד של התמונות של עצמה: ה<em>אטרקטור</em> של <em>מערכת הפונקציות האיטרטיבית</em> הזאת. מייקל בארנסלי וסטיבן דמקו הראו ב־1985 שבחירת הכללים באקראי מציירת אותה: בהסתברות 1 הנקודה מתקרבת לכל חלק שלה. בצורה משוכללת עם \u2066n\u2069 פינות, העותקים בדיוק נוגעים זה בזה כשהנקודה שומרת \u2066(3 − √5)/2 ≈ 38.2%\u2069 מהמרחק שלה עם חמש פינות, ושליש עם שש. הממד של משולש שרפינסקי הוא \u2066log 3 / log 2 ≈ 1.585\u2069: חצו את הגודל, וצריך פי שלושה חלקים, לא פי ארבעה. לריבוע עם הכלל יש אותו ממד, מאותה סיבה. השרך הוא ארבעה כללים אפיניים, שנבחרים ב־1%, 85%, 7% ו־7% מהפעמים: אחד מצייר את הגבעול, אחד את שאר השרך בגודל קטן יותר, ושניים את העלעלים התחתונים בכל צד, כל אחד מהם עותק קטן של השרך כולו.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Chaos_game" target="_blank" rel="noopener">משחק הכאוס (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://mathworld.wolfram.com/ChaosGame.html" target="_blank" rel="noopener">משחק הכאוס (MathWorld, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle" target="_blank" rel="noopener">משולש שרפינסקי (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Barnsley_fern" target="_blank" rel="noopener">השרך של בארנסלי (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://doi.org/10.1512/iumj.1981.30.30055" target="_blank" rel="noopener">האצ׳ינסון (1981), \u2066Fractals and self similarity\u2069 (באנגלית)</a><a class="source-link" href="https://doi.org/10.1098/rspa.1985.0057" target="_blank" rel="noopener">בארנסלי ודמקו (1985), \u2066Iterated function systems\u2069 (באנגלית)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Sierpinski/" target="_blank" rel="noopener">ואצלב שרפינסקי (MacTutor, באנגלית)</a></div>`,
   },
 });

@@ -1,75 +1,76 @@
-/* Random jumps, perfect triangle · visitor-facing words (fr). */
+/* Sauts au hasard, triangle parfait · les mots vus par le visiteur (fr). */
 Wonderlattice.defineText('chaos', 'fr', {
-  eyebrow: 'THE CHAOS GAME',
-  name: 'Random jumps, perfect triangle',
+  eyebrow: 'LE JEU DU CHAOS',
+  name: 'Sauts au hasard, triangle parfait',
   tagline:
-    'Jump halfway to a corner picked at random, again and again, and a flawless fractal appears out of the noise.',
-  title: 'Random jumps, perfect triangle.',
+    'Sautez à mi-chemin vers un coin tiré au hasard, encore et encore, et une fractale impeccable surgit du bruit.',
+  title: 'Sauts au hasard, triangle parfait.',
   subtitle:
-    'A dot jumps halfway to a corner picked at random, again and again. Tap to start it somewhere else, or drag a corner.',
-  field: 'Chance · Fractals · Repeated maps',
-  sceneLabel: 'The chaos game',
-  tip: 'Tap to start the dot there · Drag a corner to reshape the game · Enter makes one jump',
-  actionLabel: 'One jump',
+    'Un point saute à mi-chemin vers un coin tiré au hasard, encore et encore. Touchez pour le faire partir d’ailleurs, ou faites glisser un coin.',
+  field: 'Hasard · Fractales · Applications répétées',
+  sceneLabel: 'Le jeu du chaos',
+  tip: 'Touchez pour faire partir le point de là · Faites glisser un coin pour remodeler le jeu · Entrée fait un saut',
+  actionLabel: 'Un saut',
   canvasLabel:
-    'The corners of a shape, and the dots left by a point that jumps part of the way towards a corner picked at random, again and again.',
-  panelEyebrow: 'Change the game',
-  whyLabel: 'Why does chance draw a perfect shape?',
+    'Les coins d’une forme, et les points laissés par un point mobile qui parcourt, à chaque saut, une partie du chemin vers un coin tiré au hasard, encore et encore.',
+  panelEyebrow: 'Changer le jeu',
+  whyLabel: 'Pourquoi le hasard dessine-t-il une forme parfaite ?',
   nudge:
-    'Try four corners: plain fog. Then tick “Never the same corner twice” and watch a fractal come out of the fog.',
+    'Essayez quatre coins : un simple brouillard. Puis cochez « Jamais deux fois de suite le même coin » et regardez une fractale sortir du brouillard.',
   connection: {
-    html: '<strong>Two kinds of chaos.</strong> Here “chaos” is only the game’s name: start anywhere, and the same shape appears. In Weather twins, the smallest difference grows into a different future.',
-    label: 'Weather twins',
+    html: '<strong>Deux sortes de chaos.</strong> Ici, « chaos » n’est que le nom du jeu : partez de n’importe où, et la même forme apparaît. Dans « Les jumeaux de la météo », la plus petite différence grandit jusqu’à donner un tout autre avenir.',
+    label: 'Les jumeaux de la météo',
   },
 
   presets: [
-    { name: 'Three corners', note: 'Holes inside holes, and not one dot lands in them.' },
-    { name: 'Four corners', note: 'Plain fog: the dots go everywhere.' },
-    { name: 'Four, and a rule', note: 'Never the same corner twice: a fractal in the fog.' },
-    { name: 'Five corners', note: 'Jump 61.8% of the way: five copies that just touch.' },
-    { name: 'Barnsley’s fern', note: 'Four rules, each with its own chance.' },
+    { name: 'Trois coins', note: 'Des trous dans des trous, et pas un seul point n’y tombe.' },
+    { name: 'Quatre coins', note: 'Un simple brouillard : les points vont partout.' },
+    { name: 'Quatre, et une règle', note: 'Jamais deux fois le même coin : une fractale dans le brouillard.' },
+    { name: 'Cinq coins', note: 'Sauter 61,8 % du chemin : cinq copies qui se touchent tout juste.' },
+    { name: 'La fougère de Barnsley', note: 'Quatre règles, chacune avec sa propre probabilité.' },
   ],
-  yourOwn: 'Your own game',
+  yourOwn: 'Votre propre jeu',
 
-  corners: 'Corners',
-  jump: 'How far each jump goes',
-  jumpHint: 'The share of the way to the corner.',
-  rule: 'Never the same corner twice in a row',
-  fern: 'Grow Barnsley’s fern instead',
+  corners: 'Coins',
+  jump: 'Longueur de chaque saut',
+  jumpHint: 'La part du chemin jusqu’au coin.',
+  rule: 'Jamais deux fois de suite le même coin',
+  fern: 'Faire pousser la fougère de Barnsley à la place',
 
-  // Drawn on the picture.
-  jumps: (n, count) => `${n} ${count === 1 ? 'jump' : 'jumps'}`,
+  // Drawn on the picture. French uses the singular for 0 and 1.
+  jumps: (n, count) => `${n} ${count < 2 ? 'saut' : 'sauts'}`,
   caption: (percent, rule) =>
     rule
-      ? `Each jump: ${percent}% of the way to a random corner, never the same one twice`
-      : `Each jump: ${percent}% of the way to a random corner`,
-  fernCaption: 'Each jump: one of four rules, picked by chance',
+      ? `Chaque saut : ${percent} % du chemin vers un coin au hasard, jamais deux fois le même`
+      : `Chaque saut : ${percent} % du chemin vers un coin au hasard`,
+  fernCaption: 'Chaque saut : l’une de quatre règles, tirée au hasard',
 
   // Over the picture, and read out once the picture settles.
-  holeStatus: (n, none) => (none ? 'Dots in the middle hole: not one' : `Dots in the middle hole: ${n}`),
-  jumpStatus: (n) => `Jumps so far: ${n}`,
-  settled: (n) => `The picture has settled after ${n} jumps.`,
+  holeStatus: (n, none) =>
+    none ? 'Points dans le trou du milieu : pas un seul' : `Points dans le trou du milieu : ${n}`,
+  jumpStatus: (n) => `Sauts jusqu’ici : ${n}`,
+  settled: (n) => `L’image s’est stabilisée après ${n} sauts.`,
 
   guests: [
     {
       name: 'Wacław Sierpiński',
-      note: 'In 1915 he described this triangle with holes inside holes. It was a curiosity then; now a die draws it in seconds.',
+      note: 'En 1915, il a décrit ce triangle aux trous dans des trous. C’était alors une curiosité ; aujourd’hui, un dé le dessine en quelques secondes.',
     },
     {
       name: 'Michael Barnsley',
-      note: 'He gave the chaos game its name in the 1980s, and showed that a handful of rules like these can grow a fern.',
+      note: 'Il a donné son nom au jeu du chaos dans les années 1980, et a montré qu’une poignée de règles comme celles-ci peut faire pousser une fougère.',
     },
   ],
 
   insight: {
-    title: 'Why does chance draw a perfect shape?',
-    html: `<p>Each jump follows one of three rules: halve your distance to corner A, to B or to C. Each rule shrinks the whole triangle onto a half-size copy at its corner. The three copies cover the triangle except for a hole in the middle, and each copy holds three smaller copies with a hole in their middle, and so on for ever. That is the <em>Sierpiński triangle</em>, the one shape made of exactly three half-size copies of itself. Each dot takes the colour of the corner it last jumped towards, so you can see the copies.</p>
-<p>A dot on the shape always jumps to another point on the shape, into the copy at the chosen corner, so it can never land in a hole. A dot that starts anywhere else halves its distance to the shape with every jump, and after twenty jumps it is closer than a pixel. The first twenty jumps aren’t kept for that reason. The die decides only the order in which the dot visits the shape. The shape itself is fixed by the rules.</p>
-<h3>Fog, and a rule that clears it</h3>
-<p>Four half-size squares fill a square exactly, with nothing left over, so with four corners the dot goes everywhere: fog. Now forbid the same corner twice in a row. To land in the quarter-size square at a corner, the last two jumps must both have gone to that corner, so those squares stay empty, and so do the corners of every smaller copy: holes at every size. With the rule each jump depends on the one before, so this is no longer the plain game, but the same reasoning still draws its shape.</p>
-<h3>Not the chaos of the weather</h3>
-<p>“The chaos game” is Michael Barnsley’s name for it, and nothing here is chaotic in the scientist’s sense: start the dot anywhere, with other random numbers, and the same picture appears. The random numbers come from the computer’s generator, which follows a fixed recipe; they aren’t truly random, but they are random enough for this. The picture is made of a finite number of dots on a grid of pixels, so it can only approximate a shape with detail at every size.</p>
-<details><summary>The mathematics, if you want it</summary><p>Each rule is a <em>contraction</em>: it brings any two points closer together. John Hutchinson proved in 1981 that any finite set of contractions has exactly one nonempty closed and bounded set that is the union of its own images, the <em>attractor</em> of this <em>iterated function system</em>. Michael Barnsley and Stephen Demko showed in 1985 that choosing the rules at random draws it: with probability 1 the dot comes close to every part of it. For a regular shape with n corners, the copies just touch when the dot keeps (3 − √5)/2 ≈ 38.2% of its distance with five corners, and a third with six. The Sierpiński triangle’s dimension is log 3 / log 2 ≈ 1.585: halve the size and you need three times as many pieces, not four. The square with the rule has the same dimension, for the same reason. The fern is four affine rules, chosen 1%, 85%, 7% and 7% of the time: one draws the stem, one the rest of the fern a size smaller, and two the lowest leaflets on each side, each a small copy of the whole fern.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Chaos_game" target="_blank" rel="noopener">Chaos game (Wikipedia)</a><a class="source-link" href="https://mathworld.wolfram.com/ChaosGame.html" target="_blank" rel="noopener">Chaos game (MathWorld)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle" target="_blank" rel="noopener">Sierpiński triangle (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Barnsley_fern" target="_blank" rel="noopener">Barnsley fern (Wikipedia)</a><a class="source-link" href="https://doi.org/10.1512/iumj.1981.30.30055" target="_blank" rel="noopener">Hutchinson, Fractals and self similarity (1981)</a><a class="source-link" href="https://doi.org/10.1098/rspa.1985.0057" target="_blank" rel="noopener">Barnsley and Demko, Iterated function systems (1985)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Sierpinski/" target="_blank" rel="noopener">Wacław Sierpiński (MacTutor)</a></div>`,
+    title: 'Pourquoi le hasard dessine-t-il une forme parfaite ?',
+    html: `<p>Chaque saut suit l’une de trois règles : diviser par deux sa distance au coin A, au coin B ou au coin C. Chaque règle réduit le triangle entier en une copie deux fois plus petite, placée à son coin. Les trois copies couvrent le triangle, sauf un trou au milieu, et chaque copie contient trois copies plus petites avec un trou en leur milieu, et ainsi de suite à l’infini. C’est le <em>triangle de Sierpiński</em>, la seule forme faite d’exactement trois copies d’elle-même deux fois plus petites. Chaque point prend la couleur du dernier coin vers lequel il a sauté, pour que vous voyiez les copies.</p>
+<p>Un point sur la forme saute toujours vers un autre point de la forme, dans la copie du coin choisi, si bien qu’il ne peut jamais tomber dans un trou. Un point qui part de n’importe où ailleurs divise par deux sa distance à la forme à chaque saut, et après vingt sauts, il en est plus proche qu’un pixel. C’est pourquoi les vingt premiers sauts ne sont pas gardés. Le dé ne décide que de l’ordre dans lequel le point visite la forme. La forme elle-même est fixée par les règles.</p>
+<h3>Le brouillard, et une règle qui le dissipe</h3>
+<p>Quatre carrés deux fois plus petits remplissent exactement un carré, sans rien laisser, donc avec quatre coins, le point va partout : c’est le brouillard. Interdisez maintenant le même coin deux fois de suite. Pour tomber dans le carré quatre fois plus petit niché dans un coin, il faut que les deux derniers sauts soient allés tous les deux vers ce coin. Ces carrés restent donc vides, tout comme les coins de chaque copie plus petite : des trous à toutes les tailles. Avec la règle, chaque saut dépend du précédent, ce n’est donc plus le jeu simple, mais le même raisonnement dessine encore sa forme.</p>
+<h3>Pas le chaos de la météo</h3>
+<p>« Le jeu du chaos » est le nom que lui a donné Michael Barnsley, et rien ici n’est chaotique au sens des scientifiques : faites partir le point de n’importe où, avec d’autres nombres aléatoires, et la même image apparaît. Les nombres aléatoires viennent du générateur de l’ordinateur, qui suit une recette fixe ; ils ne sont pas vraiment aléatoires, mais ils le sont assez pour ceci. L’image est faite d’un nombre fini de points sur une grille de pixels, elle ne peut donc qu’approcher une forme qui a des détails à toutes les tailles.</p>
+<details><summary>Les mathématiques, si le cœur vous en dit</summary><p>Chaque règle est une <em>contraction</em> : elle rapproche deux points quelconques. John Hutchinson a prouvé en 1981 que tout ensemble fini de contractions possède exactement un ensemble non vide, fermé et borné qui est la réunion de ses propres images, l’<em>attracteur</em> de ce <em>système de fonctions itérées</em>. Michael Barnsley et Stephen Demko ont montré en 1985 que choisir les règles au hasard le dessine : avec probabilité 1, le point passe près de chacune de ses parties. Pour une forme régulière à n coins, les copies se touchent tout juste quand le point garde (3 − √5)/2 ≈ 38,2 % de sa distance avec cinq coins, et un tiers avec six. La dimension du triangle de Sierpiński est log 3 / log 2 ≈ 1,585 : divisez la taille par deux et il faut trois fois plus de morceaux, pas quatre. Le carré avec la règle a la même dimension, pour la même raison. La fougère est faite de quatre règles affines, choisies 1 %, 85 %, 7 % et 7 % du temps : l’une dessine la tige, une autre le reste de la fougère en plus petit, et deux les folioles les plus basses de chaque côté, chacune une petite copie de la fougère entière.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Chaos_game" target="_blank" rel="noopener">Le jeu du chaos (Wikipédia, en anglais)</a><a class="source-link" href="https://mathworld.wolfram.com/ChaosGame.html" target="_blank" rel="noopener">Le jeu du chaos (MathWorld, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle" target="_blank" rel="noopener">Le triangle de Sierpiński (Wikipédia, en anglais)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Barnsley_fern" target="_blank" rel="noopener">La fougère de Barnsley (Wikipédia, en anglais)</a><a class="source-link" href="https://doi.org/10.1512/iumj.1981.30.30055" target="_blank" rel="noopener">Hutchinson, Fractals and self similarity (1981, en anglais)</a><a class="source-link" href="https://doi.org/10.1098/rspa.1985.0057" target="_blank" rel="noopener">Barnsley et Demko, Iterated function systems (1985, en anglais)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Sierpinski/" target="_blank" rel="noopener">Wacław Sierpiński (MacTutor, en anglais)</a></div>`,
   },
 });

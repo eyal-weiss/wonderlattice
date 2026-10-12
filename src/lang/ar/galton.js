@@ -1,105 +1,156 @@
 /* The shape hiding inside randomness · visitor-facing words (ar). */
+// «كرة» (ball), «رمية» (throw), «دورة» (spin), «دفعة» (pour) and «خانة» (bin) are feminine; «وتد» (peg, pl. أوتاد),
+// «نرد» (die), «مسار» (path) and «جرس» (bell) masculine: كرة واحدة، كرتان، 3 كرات، 11 كرة، 2,000 كرة. The words in
+// the picture follow the page's right-to-left direction; only the spinner's axis numbers are drawn left to right.
 Wonderlattice.defineText('galton', 'ar', {
-  eyebrow: 'PROBABILITY',
-  name: 'The shape hiding inside randomness',
-  tagline: 'Every ball bounces left or right at random. Together they build the same bell every time.',
-  title: 'The shape hiding inside randomness.',
+  eyebrow: 'الاحتمالات',
+  name: 'الشكل المختبئ داخل العشوائية',
+  tagline: 'كل كرة ترتدّ يسارًا أو يمينًا عشوائيًا. ومعًا تبني الكرات الجرس نفسه في كل مرة.',
+  title: 'الشكل المختبئ داخل العشوائية.',
   subtitle:
-    'Each ball bounces left or right at random, yet the heap grows into the same bell every time. Then average a lopsided die.',
-  field: 'Probability · Pascal’s triangle · The central limit theorem',
+    'كل كرة ترتدّ يسارًا أو يمينًا عشوائيًا، ومع ذلك تنمو الكومة لتصير الجرس نفسه في كل مرة. ثم خذوا متوسطات نرد غير متوازن.',
+  field: 'الاحتمالات · مثلث باسكال · مبرهنة النهاية المركزية',
   canvasLabel:
-    'A board of pegs. Balls fall from the top, bounce left or right at random at every peg, and pile up in bins at the bottom, under a bell-shaped curve. Below it, four more pours have made the same bell.',
-  panelEyebrow: 'Left to chance',
-  whyLabel: 'Why does randomness make a bell?',
+    'لوح من الأوتاد. تسقط الكرات من الأعلى، وترتدّ يسارًا أو يمينًا عشوائيًا عند كل وتد، وتتكوّم في خانات في الأسفل، تحت منحنى على شكل جرس. وتحته، أربع دفعات أخرى صنعت الجرس نفسه.',
+  panelEyebrow: 'متروك للصدفة',
+  whyLabel: 'لماذا تصنع العشوائية جرسًا؟',
   nudge:
-    'Pour again: every ball takes a new path, and the heap still makes the same bell. Then design a lopsided die and watch its averages.',
+    'صبّوا من جديد: كل كرة تسلك مسارًا جديدًا، ومع ذلك تصنع الكومة الجرس نفسه. ثم صمّموا نردًا غير متوازن وراقبوا متوسطاته.',
   connection: {
-    html: '<strong>Averages tame chance.</strong> In A spoonful of a city, a small random poll lands close to the truth for the same reason: averages of many random answers crowd into a narrow bell.',
-    label: 'Take a spoonful of a city',
+    html: '<strong>المتوسطات تروّض الصدفة.</strong> في «ملعقة من مدينة»، يقترب استطلاع عشوائي صغير من الحقيقة للسبب نفسه: متوسطات كثير من الإجابات العشوائية تتزاحم في جرس ضيق.',
+    label: 'أخذ ملعقة من مدينة',
   },
 
   // The three things that fall: each has its own scene, tip and action.
-  viewLabel: 'What falls',
-  views: ['Balls on pegs', 'A lopsided die', 'A stubborn spinner'],
+  viewLabel: 'ما يسقط',
+  views: ['كرات على أوتاد', 'نرد غير متوازن', 'دوّار عنيد'],
   scenes: [
-    { label: 'Left or right at every peg', name: 'Balls on pegs' },
-    { label: 'Your die, and averages of its throws', name: 'A lopsided die' },
-    { label: 'A lamp spins and shines at a wall', name: 'A stubborn spinner' },
+    { label: 'يسارًا أو يمينًا عند كل وتد', name: 'كرات على أوتاد' },
+    { label: 'نردكم، ومتوسطات رمياته', name: 'نرد غير متوازن' },
+    { label: 'مصباح يدور ويُسلّط ضوءه على جدار', name: 'دوّار عنيد' },
   ],
   tips: [
-    'Arrow keys tilt the pegs · Pour again for new balls',
-    'Drag the die’s bars to reshape it · Arrow keys pick a face and change it',
-    'Each spin marks where the light lands · Spin again for new spins',
+    'مفاتيح الأسهم تُميل الأوتاد · صبّوا من جديد لكرات جديدة',
+    'اسحبوا أعمدة النرد لتغيير شكله · مفاتيح الأسهم تختار وجهًا وتغيّره',
+    'كل دورة تُعلّم حيث يسقط الضوء · أعيدوا التدوير لدورات جديدة',
   ],
-  actions: ['Pour again', 'Throw again', 'Spin again'],
+  actions: ['صبّ من جديد', 'رمي من جديد', 'تدوير من جديد'],
   canvasLabels: [
-    'A board of pegs. Balls fall from the top, bounce left or right at random at every peg, and pile up in bins at the bottom, under a bell-shaped curve. Below it, four more pours have made the same bell.',
-    'A lopsided die drawn as six bars, and three heaps beside it: single throws, averages of 2 throws and averages of more throws, each with a bell-shaped curve over it.',
-    'A lamp spins and shines at a wall; the heap of where single spins land and the heap of averages of several spins have the same shape.',
+    'لوح من الأوتاد. تسقط الكرات من الأعلى، وترتدّ يسارًا أو يمينًا عشوائيًا عند كل وتد، وتتكوّم في خانات في الأسفل، تحت منحنى على شكل جرس. وتحته، أربع دفعات أخرى صنعت الجرس نفسه.',
+    'نرد غير متوازن مرسوم كستة أعمدة، وإلى جانبه ثلاث كومات: رميات مفردة، ومتوسطات رميتين، ومتوسطات عدد أكبر من الرميات، وفوق كلٍّ منها منحنى على شكل جرس.',
+    'مصباح يدور ويُسلّط ضوءه على جدار؛ وكومة مواضع سقوط الدورات المفردة وكومة متوسطات عدة دورات لهما الشكل نفسه.',
   ],
 
   presets: [
-    { name: 'Balls on pegs', note: 'The same bell every time.', badge: '½' },
-    { name: 'Tilt the pegs', note: 'The bell moves over.', badge: '¾' },
-    { name: 'A lopsided die', note: 'Its averages turn into a bell.', badge: '1·6' },
+    { name: 'كرات على أوتاد', note: 'الجرس نفسه في كل مرة.', badge: '½' },
+    { name: 'إمالة الأوتاد', note: 'ينتقل الجرس جانبًا.', badge: '¾' },
+    { name: 'نرد غير متوازن', note: 'متوسطاته تصير جرسًا.', badge: '1·6' },
   ],
 
-  rows: 'Rows of pegs',
-  tilt: 'Chance of bouncing right',
-  tiltHint: 'At 50% every peg is fair. Tilt them, and the bell moves over.',
-  throws: 'Throws in each average',
-  dieHint: 'Drag the bars of the die in the picture to reshape it.',
-  shapeLabel: 'Start from',
-  shapes: ['Mostly 1s and 6s', 'A fair die', 'Mostly 6s'],
-  spins: 'Spins in each average',
-  spinHint: 'Averaging more spins doesn’t help: the spinner has no finite spread for the bell to need.',
+  rows: 'صفوف الأوتاد',
+  tilt: 'احتمال الارتداد يمينًا',
+  tiltHint: 'عند 50% يكون كل وتد عادلًا. أميلوها، فينتقل الجرس جانبًا.',
+  throws: 'الرميات في كل متوسط',
+  dieHint: 'اسحبوا أعمدة النرد في الصورة لتغيير شكله.',
+  shapeLabel: 'البدء من',
+  shapes: ['غالبًا 1 و6', 'نرد متوازن', 'غالبًا 6'],
+  spins: 'الدورات في كل متوسط',
+  spinHint: 'أخذ متوسط عدد أكبر من الدورات لا يفيد: ليس للدوّار تشتّت محدود، والجرس يحتاج إليه.',
 
+  // Whole numbers of balls, throws or spins.
   status: {
-    pouring: (n) => `${n.toLocaleString('en')} ${n === 1 ? 'ball' : 'balls'} · left or right at random at every peg`,
-    poured: (n) => `${n.toLocaleString('en')} balls · the same bell every time`,
-    throwing: (n) => `${n.toLocaleString('en')} in each heap`,
-    spinning: (n) => `${n.toLocaleString('en')} in each heap`,
+    pouring: (n) => {
+      const k = n % 100;
+      const shown = n.toLocaleString('en');
+      const balls = n === 1 ? 'كرة واحدة' : n === 2 ? 'كرتان' : k >= 3 && k <= 10 ? `${shown} كرات` : `${shown} كرة`;
+      return `${balls} · يسارًا أو يمينًا عشوائيًا عند كل وتد`;
+    },
+    poured: (n) => {
+      const k = n % 100;
+      const shown = n.toLocaleString('en');
+      const balls = n === 1 ? 'كرة واحدة' : n === 2 ? 'كرتان' : k >= 3 && k <= 10 ? `${shown} كرات` : `${shown} كرة`;
+      return `${balls} · الجرس نفسه في كل مرة`;
+    },
+    throwing: (n) => `${n.toLocaleString('en')} في كل كومة`,
+    spinning: (n) => `${n.toLocaleString('en')} في كل كومة`,
   },
   announce: {
-    poured: (n) => `${n.toLocaleString('en')} balls have landed, in the shape of the bell.`,
-    die: (face, weight) => `Face ${face}: ${weight} of 10`,
+    poured: (n) => {
+      const k = n % 100;
+      const shown = n.toLocaleString('en');
+      const balls = n === 1 ? 'كرة واحدة' : n === 2 ? 'كرتان' : k >= 3 && k <= 10 ? `${shown} كرات` : `${shown} كرة`;
+      return `استقرّت ${balls}، على شكل الجرس.`;
+    },
+    die: (face, weight) => `الوجه ${face}: ${weight} من 10`,
   },
 
   labels: {
-    bell: 'the bell',
-    others: (pours, balls) => `${pours} more pours of ${balls.toLocaleString('en')} balls: the same bell`,
-    yourDie: 'Your die · drag the bars',
-    oneThrow: 'One throw',
-    average: (n) => `Averages of ${n} throws`,
-    oneSpin: 'One spin',
-    averageSpins: (n) => `Averages of ${n} spins`,
-    off: (n) => `${n.toLocaleString('en')} off the chart`,
-    lamp: 'lamp',
-    wall: 'wall',
+    bell: 'الجرس',
+    others: (pours, balls) => {
+      const p = pours % 100;
+      const b = balls % 100;
+      const shown = balls.toLocaleString('en');
+      const more =
+        pours === 1
+          ? 'دفعة أخرى'
+          : pours === 2
+            ? 'دفعتان أخريان'
+            : p >= 3 && p <= 10
+              ? `${pours} دفعات أخرى`
+              : `${pours} دفعة أخرى`;
+      const each = b >= 3 && b <= 10 ? `${shown} كرات` : `${shown} كرة`;
+      return `${more} من ${each}: الجرس نفسه`;
+    },
+    yourDie: 'نردكم · اسحبوا الأعمدة',
+    oneThrow: 'رمية واحدة',
+    average: (n) => {
+      const k = n % 100;
+      return n === 1
+        ? 'رمية واحدة'
+        : n === 2
+          ? 'متوسطات رميتين'
+          : k >= 3 && k <= 10
+            ? `متوسطات ${n} رميات`
+            : `متوسطات ${n} رمية`;
+    },
+    oneSpin: 'دورة واحدة',
+    averageSpins: (n) => {
+      const k = n % 100;
+      return n === 1
+        ? 'دورة واحدة'
+        : n === 2
+          ? 'متوسطات دورتين'
+          : k >= 3 && k <= 10
+            ? `متوسطات ${n} دورات`
+            : `متوسطات ${n} دورة`;
+    },
+    off: (n) => `${n.toLocaleString('en')} خارج الرسم`,
+    lamp: 'مصباح',
+    wall: 'جدار',
   },
 
   guests: [
     {
-      name: 'Abraham de Moivre',
-      note: 'In 1733 I showed that the number of heads in thousands of coin tosses follows a smooth, bell-shaped curve.',
+      name: 'أبراهام دي موافر',
+      note: 'عام 1733 بيّنت أن عدد مرات ظهور الصورة في آلاف رميات القطعة النقدية يتبع منحنى أملس على شكل جرس.',
     },
     {
-      name: 'Pierre-Simon Laplace',
-      note: 'I showed that the bell reaches far beyond coins: averages of many kinds of random measurement crowd into it.',
+      name: 'بيير سيمون لابلاس',
+      note: 'بيّنت أن الجرس يمتدّ إلى ما هو أبعد بكثير من القطع النقدية: متوسطات أنواع كثيرة من القياسات العشوائية تتزاحم فيه.',
     },
   ],
 
   insight: {
-    title: 'Why does randomness make a bell?',
-    html: `<p>Every ball makes the same kind of choice at each peg: left or right. To land at the far edge, it must go the same way every time, and only one path does that. To land in the middle, it needs as many lefts as rights, and hundreds of paths do. Counting the paths to each bin gives a row of Pascal’s triangle (1, 12, 66, 220, 495, 792, 924, … for twelve rows), and those counts make the bell. No single ball knows where it is going; the shape comes from counting.</p>
-<div class="insight-visual">12 rows of pegs: 1 path to each edge, 924 paths to the middle, out of 4,096</div>
-<h3>Averages make the same bell</h3>
-<p>The die’s single throws keep its lopsided shape. Average two throws and a peak appears in the middle, with the odd shape still showing; average ten and the heap becomes more bell-like and narrower. This is the central limit theorem: averages of many independent throws, of almost any die, crowd into a bell around the die’s mean, and the bell narrows like 1/√n. Averages of 10 throws spread about √10, a little over 3 times, less than single throws.</p>
-<h3>When it fails</h3>
-<p>The theorem needs throws that don’t affect each other and whose spread is finite. The stubborn spinner breaks the second rule: a lamp that spins at random sometimes shines almost along the wall, so a few spins land enormously far away. Its averages are as wild as a single spin, however many you take. That spinner follows the Cauchy distribution, named after Augustin-Louis Cauchy.</p>
-<h3>What this room simplifies</h3>
-<p>The balls follow a random model, not physics: each peg is a coin toss, fair or tilted, independent of the others. Real boards are never perfectly fair, and real balls bounce and spin, so their heaps are rougher. Averages of 2 or 5 throws are closer to a bell, not exactly one.</p>
-<details><summary>The mathematics, if you want it</summary><p>With n rows and a chance p of bouncing right, a ball lands in bin k (k bounces right) with chance C(n, k)·pᵏ·(1 − p)ⁿ⁻ᵏ, the binomial distribution, with mean np and spread √(np(1 − p)). Abraham de Moivre showed in 1733, and in the second edition of his <em>Doctrine of Chances</em> (1738), that for many tosses this is close to the normal curve; Pierre-Simon Laplace published a more general result in his <em>Théorie analytique des probabilités</em> (1812). Francis Galton designed the board, which he called the quincunx, for a lecture at the Royal Institution in 1874, and described it in <em>Natural Inheritance</em> (1889). The average of n Cauchy spins has exactly the same distribution as a single spin.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Galton_board" target="_blank" rel="noopener">Galton board</a><a class="source-link" href="https://en.wikipedia.org/wiki/De_Moivre%E2%80%93Laplace_theorem" target="_blank" rel="noopener">De Moivre–Laplace theorem</a><a class="source-link" href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank" rel="noopener">Central limit theorem</a><a class="source-link" href="https://en.wikipedia.org/wiki/Cauchy_distribution" target="_blank" rel="noopener">Cauchy distribution</a></div>`,
+    title: 'لماذا تصنع العشوائية جرسًا؟',
+    html: `<p>كل كرة تتخذ النوع نفسه من القرار عند كل وتد: يسارًا أو يمينًا. لتسقط عند الطرف البعيد، يجب أن تتجه في الاتجاه نفسه في كل مرة، ومسار واحد فقط يفعل ذلك. ولتسقط في الوسط، تحتاج إلى عدد من الانعطافات يسارًا مساوٍ لعددها يمينًا، ومئات المسارات تفعل ذلك. وعدّ المسارات المؤدية إلى كل خانة يعطي صفًا من مثلث باسكال (1، 12، 66، 220، 495، 792، 924، … لاثني عشر صفًا)، وهذه الأعداد تصنع الجرس. لا تعرف أي كرة بمفردها إلى أين تتجه؛ الشكل يأتي من العدّ.</p>
+<div class="insight-visual">12 صفًا من الأوتاد: مسار واحد إلى كل طرف، و924 مسارًا إلى الوسط، من أصل 4,096</div>
+<h3>المتوسطات تصنع الجرس نفسه</h3>
+<p>الرميات المفردة للنرد تحافظ على شكله غير المتوازن. خذوا متوسط رميتين فتظهر قمة في الوسط، مع بقاء الشكل الغريب ظاهرًا؛ وخذوا متوسط عشر رميات فتصير الكومة أقرب إلى الجرس وأضيق. هذه هي مبرهنة النهاية المركزية: متوسطات كثير من الرميات المستقلة، لأي نرد تقريبًا، تتزاحم في جرس حول متوسط النرد، ويضيق الجرس مثل \u20661/\u2060√n\u2069. ومتوسطات 10 رميات أقل تشتّتًا من الرميات المفردة بنحو \u2066√10\u2069 مرة، أي بأكثر من 3 مرات بقليل.</p>
+<h3>حين تفشل</h3>
+<p>تحتاج المبرهنة إلى رميات لا يؤثر بعضها في بعض، وتشتّتها محدود. والدوّار العنيد يخرق الشرط الثاني: المصباح الذي يدور عشوائيًا يُسلّط ضوءه أحيانًا موازيًا للجدار تقريبًا، فتسقط بضع دورات بعيدًا جدًا. ومتوسطاته جامحة مثل دورة واحدة، مهما كان عدد الدورات التي تأخذونها. هذا الدوّار يتبع توزيع كوشي، المسمّى باسم أوغستين لوي كوشي.</p>
+<h3>ما تبسّطه هذه الغرفة</h3>
+<p>الكرات تتبع نموذجًا عشوائيًا، لا الفيزياء: كل وتد رمية قطعة نقدية، عادلة أو مائلة، مستقلة عن الأوتاد الأخرى. الألواح الحقيقية ليست عادلة تمامًا أبدًا، والكرات الحقيقية ترتدّ وتدور، لذا تكون كوماتها أقل انتظامًا. ومتوسطات 2 أو 5 رميات أقرب إلى الجرس، لكنها ليست جرسًا تمامًا.</p>
+<details><summary>الرياضيات، لمن يريدها</summary><p>مع n من الصفوف واحتمال p للارتداد يمينًا، تسقط الكرة في الخانة k (أي حين يكون عدد ارتداداتها يمينًا k) باحتمال \u2066C(n,\u00a0k)·pᵏ·(1\u00a0−\u00a0p)ⁿ⁻ᵏ\u2069، وهو التوزيع ذو الحدّين، ومتوسطه \u2066np\u2069 وتشتّته \u2066√(np(1\u00a0−\u00a0p))\u2069. بيّن أبراهام دي موافر عام 1733، وفي الطبعة الثانية من كتابه <em>\u2066Doctrine of Chances\u2069</em> (1738)، أن هذا قريب من المنحنى الطبيعي حين يكثر عدد الرميات؛ ونشر بيير سيمون لابلاس نتيجة أعمّ في كتابه <em>\u2066Théorie analytique des probabilités\u2069</em> (1812). وصمّم فرانسيس غالتون اللوح، الذي سمّاه quincunx، لمحاضرة في المعهد الملكي عام 1874، ووصفه في <em>\u2066Natural Inheritance\u2069</em> (1889). ومتوسط n من دورات كوشي له التوزيع نفسه تمامًا الذي لدورة واحدة.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Galton_board" target="_blank" rel="noopener">لوح غالتون (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/De_Moivre%E2%80%93Laplace_theorem" target="_blank" rel="noopener">مبرهنة دي موافر–لابلاس (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank" rel="noopener">مبرهنة النهاية المركزية (بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Cauchy_distribution" target="_blank" rel="noopener">توزيع كوشي (بالإنجليزية)</a></div>`,
   },
 });
