@@ -374,20 +374,23 @@
     ctx.fill();
     ctx.stroke();
     // The wiring: words → next throw, connected to nothing (or, if praise helps, a thin wire for praise).
+    // On right-to-left pages the line starts at the right, and the answer follows to the left of its label.
     const pad = Math.max(8, small * 0.8);
-    ctx.textAlign = 'left';
+    const rtl = document.documentElement.dir === 'rtl';
+    const start = rtl ? box.x + box.w - pad : box.x + pad;
+    ctx.textAlign = rtl ? 'right' : 'left';
     ctx.textBaseline = 'middle';
     ctx.font = `600 ${small}px system-ui`;
     ctx.fillStyle = COLOURS.soft;
     const wired = t.labels.wired;
-    ctx.fillText(wired, box.x + pad, box.y + pad + small * 0.5, box.w - pad * 2);
+    ctx.fillText(wired, start, box.y + pad + small * 0.5, box.w - pad * 2);
     const ww = Math.min(ctx.measureText(wired).width, box.w - pad * 2);
     ctx.font = `800 ${small + 1}px system-ui`;
     ctx.fillStyle = s.helps ? COLOURS.praise : COLOURS.ink;
     const answer = s.helps ? t.labels.lift : t.labels.nothing2;
     const oneLine = ww + ctx.measureText(answer).width + small < box.w - pad * 2;
-    if (oneLine) ctx.fillText(answer, box.x + pad + ww + small * 0.5, box.y + pad + small * 0.5);
-    else ctx.fillText(answer, box.x + pad, box.y + pad + small * 1.8, box.w - pad * 2);
+    if (oneLine) ctx.fillText(answer, start + (rtl ? -1 : 1) * (ww + small * 0.5), box.y + pad + small * 0.5);
+    else ctx.fillText(answer, start, box.y + pad + small * 1.8, box.w - pad * 2);
     const top = box.y + pad + small * (oneLine ? 1.6 : 2.9);
 
     // The scatter.
@@ -511,7 +514,7 @@
     eyebrow: t.eyebrow,
     name: t.name,
     theme: 'chance',
-    added: '2026-10-07',
+    added: '2026-10-12',
     tagline: t.tagline,
     accent: { background: '#2a2620', border: '#fde047', color: '#fef08a' },
 
