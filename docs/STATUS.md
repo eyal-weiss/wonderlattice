@@ -34,6 +34,10 @@ This file is a changelog of the site, newest first. How the code fits together i
   line over the picture could stay empty on opening, or keep the last game's count after a quick change of corners,
   because it is written at most every quarter of a second and no later frame came to catch up. It now updates at
   once whenever nothing moves. This was also the chaos test that failed now and then on the built site.
+- **Rhythms from Euclid keeps its third row on squarish pictures (#165).** Where the picture is about as tall as it
+  is wide (a 1100 × 1000 window, say), the circle sits above the rows, and with three rings the last row of boxes ran
+  up to 13 px past the bottom edge. The room now measures the words and rows first and gives the pixel line only the
+  height left, so every row ends inside the picture.
 
 ## 2026-10-05
 
