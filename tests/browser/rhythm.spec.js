@@ -121,3 +121,33 @@ test('rhythm room: with reduced motion the picture holds still, the beats alread
   await page.waitForTimeout(400);
   expect(first.equals(await canvas.screenshot())).toBe(true);
 });
+
+// Where the picture is about as tall as it is wide, the circle sits above the rows; with three rings the last row
+// of boxes once ran past the bottom edge (#165). The lowest box drawn must end inside the canvas.
+test('rhythm room: with three rings, the last row of boxes stays inside a squarish picture', async ({ page }) => {
+  await page.addInitScript(() => {
+    window.__lowest = 0;
+    for (const name of ['fillRect', 'strokeRect']) {
+      const original = CanvasRenderingContext2D.prototype[name];
+      CanvasRenderingContext2D.prototype[name] = function (x, y, w, h) {
+        if (this.canvas.id === 'scene-canvas') {
+          const m = this.getTransform();
+          window.__lowest = Math.max(window.__lowest, (m.b * x + m.d * (y + h) + m.f) / this.canvas.height);
+        }
+        return original.apply(this, arguments);
+      };
+    }
+  });
+  for (const [width, height] of [
+    [1100, 1000],
+    [1200, 1000],
+  ]) {
+    await page.setViewportSize({ width, height });
+    await page.goto('about:blank');
+    await page.goto('/#room=rhythm');
+    await page.locator('.scene-preset').nth(2).click(); // the West African bell: three rings
+    await page.evaluate(() => (window.__lowest = 0));
+    await page.waitForTimeout(400);
+    expect(await page.evaluate(() => window.__lowest), `${width} × ${height}`).toBeLessThanOrEqual(1.0001);
+  }
+});

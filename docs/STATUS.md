@@ -30,6 +30,10 @@ This file is a changelog of the site, newest first. How the code fits together i
   (`phases`, three-phase power) and _The shape hiding inside randomness_ (`galton`, the Galton board), now in Hebrew,
   Spanish, French, Brazilian Portuguese and Arabic too, so they join the map. The "New" line names three of the
   thirteen rooms that arrived on 12 October.
+- **Rhythms from Euclid keeps its third row on squarish pictures (#165).** Where the picture is about as tall as it
+  is wide (a 1100 × 1000 window, say), the circle sits above the rows, and with three rings the last row of boxes ran
+  up to 13 px past the bottom edge. The room now measures the words and rows first and gives the pixel line only the
+  height left, so every row ends inside the picture.
 
 ## 2026-10-05
 

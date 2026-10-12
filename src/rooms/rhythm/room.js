@@ -258,8 +258,8 @@
   }
 
   /** Words that may need two lines or more: smaller first (down to 10 px), then broken at spaces. Returns the last
-   *  line's baseline. */
-  function wrap(ctx, text, x, y, maxWidth, size, weight = 400) {
+   *  line's baseline; with `paint` false, it only measures. */
+  function wrap(ctx, text, x, y, maxWidth, size, weight = 400, paint = true) {
     let px = size;
     const setFont = () => (ctx.font = `${weight} ${px}px system-ui, sans-serif`);
     setFont();
@@ -277,7 +277,7 @@
       } else current = longer;
     }
     lines.push(current);
-    lines.forEach((words, i) => ctx.fillText(words, x, y + i * (px + 3), maxWidth));
+    if (paint) lines.forEach((words, i) => ctx.fillText(words, x, y + i * (px + 3), maxWidth));
     return y + (lines.length - 1) * (px + 3);
   }
 
@@ -407,23 +407,26 @@
     const base = Math.floor((A.k * (from - 1)) / A.n);
     const height = (i) => Math.floor((A.k * (i + from)) / A.n) - base; // the pixel's row in column i (−1: the bar before)
     const rows = A.k + 1;
-    const pixel = Math.min(cell, (box.h * 0.42) / rows, 40);
+    const heading = (ring) => {
+      const name = nameOf(ring);
+      return name ? t.labels.ringNamed(ring.k, ring.n, name.name) : t.labels.ring(ring.k, ring.n);
+    };
+    // Everything in the column but the grid, measured first (the extra lines of any words that wrap): the grid takes
+    // only the height left, so the last ring's row of boxes always ends inside the picture.
+    const extra = (text, size, weight) => wrap(ctx, text, 0, 0, bar, size, weight, false);
+    const others = rings
+      .slice(1)
+      .reduce((sum, ring) => sum + 10 + font + extra(heading(ring), font, 600) + 5 + strip, 0);
+    const outer =
+      font + extra(heading(A), font + 1, 600) + 7 + 4 + strip + 2 + font + extra(t.labels.line(A.k, A.n), font);
+    const fixed = outer + font + 3 + extra(t.labels.steps, font) + 4 + others;
+    const pixel = Math.max(2, Math.min(cell, (box.h * 0.42) / rows, 40, (box.h - fixed) / rows));
 
     let y = box.y;
 
     ctx.textAlign = 'left';
     ctx.fillStyle = A.colour;
-    const name = nameOf(A);
-    y =
-      wrap(
-        ctx,
-        name ? t.labels.ringNamed(A.k, A.n, name.name) : t.labels.ring(A.k, A.n),
-        x0,
-        y + font,
-        bar,
-        font + 1,
-        600,
-      ) + 7;
+    y = wrap(ctx, heading(A), x0, y + font, bar, font + 1, 600) + 7;
 
     // The grid, the pixels and the true line.
     const bottom = y + rows * pixel;
@@ -500,9 +503,7 @@
     rings.slice(1).forEach((ring) => {
       y += 10;
       ctx.fillStyle = ring.colour;
-      const name = nameOf(ring);
-      const words = name ? t.labels.ringNamed(ring.k, ring.n, name.name) : t.labels.ring(ring.k, ring.n);
-      y = wrap(ctx, words, x0, y + font, bar, font, 600) + 5;
+      y = wrap(ctx, heading(ring), x0, y + font, bar, font, 600) + 5;
       boxes(ring, y);
       strips.push([ring, y]);
       y += strip;
