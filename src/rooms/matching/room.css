@@ -1,0 +1,11 @@
+/* Who asks wins: the line under the controls saying how many stable pairings the wishes allow. */
+.matching-count {
+  margin: 0.75rem 0 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+:root[data-contrast='more'] .matching-count {
+  color: var(--ink);
+}
