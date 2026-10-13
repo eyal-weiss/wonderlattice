@@ -1,0 +1,45 @@
+/* Circles all the way down: the readout above the sliders. */
+.gasket-readout {
+  display: grid;
+  gap: 8px;
+  padding: 12px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--panel-2);
+}
+.gasket-readout div {
+  display: grid;
+  gap: 2px;
+}
+.gasket-readout span {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.gasket-readout strong {
+  font-weight: 500;
+  color: var(--ink);
+}
+.gasket-readout strong span {
+  font-size: inherit;
+  color: var(--em);
+}
+.gasket-readout small {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--soft);
+}
+/* The scene label holds a formula, and capitals would change it (Bend = 1 ÷ radius reads as a rule, not a title). */
+body[data-room='gasket'] #scene-label {
+  text-transform: none;
+}
+
+/* High contrast (see base.css). */
+:root[data-contrast='more'] .gasket-readout span,
+:root[data-contrast='more'] .gasket-readout small {
+  color: var(--ink);
+}
+:root[data-contrast='more'] .gasket-readout strong span {
+  color: var(--em);
+}
