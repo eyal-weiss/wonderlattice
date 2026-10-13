@@ -1,86 +1,87 @@
 /* Circles all the way down · visitor-facing words (he). */
 Wonderlattice.defineText('gasket', 'he', {
-  eyebrow: 'KISSING CIRCLES',
-  name: 'Circles all the way down',
-  tagline: 'Fill every gap with the biggest circle that fits, for ever, and every circle gets a whole number.',
-  title: 'Circles all the way down.',
+  eyebrow: 'מעגלים משיקים',
+  name: 'מעגלים עד אינסוף',
+  tagline: 'ממלאים כל רווח במעגל הגדול ביותר שנכנס בו, בלי סוף, וכל מעגל מקבל מספר שלם.',
+  title: 'מעגלים עד אינסוף.',
   subtitle:
-    'Every gap gets the biggest circle that fits, for ever. The number in a circle is its bend, 1 ÷ its radius: always whole. Tap any circle.',
-  field: 'Geometry · Whole numbers · Fractals',
-  sceneLabel: 'Bend = 1 ÷ radius',
-  tip: 'Tap a circle to see its rule · Drag a starting circle to resize it · Pinch, scroll, or + and −, to zoom · Enter picks a circle',
-  actionLabel: 'Dive in',
-  canvasLabel:
-    'A big circle filled with smaller and smaller circles that touch each other, each with its bend written inside it.',
-  panelEyebrow: 'Choose the starting circles',
-  whyLabel: 'Why are they all whole numbers?',
+    'כל רווח מקבל את המעגל הגדול ביותר שנכנס בו, בלי סוף. המספר שבתוך מעגל הוא העקמומיות שלו, 1 ÷ הרדיוס שלו: תמיד מספר שלם. הקישו על איזה מעגל שתרצו.',
+  field: 'גאומטריה · מספרים שלמים · פרקטלים',
+  sceneLabel: 'עקמומיות = 1 ÷ רדיוס',
+  tip: 'הקישו על מעגל כדי לראות את הכלל שלו · גררו מעגל התחלתי כדי לשנות את גודלו · צבטו, גללו או לחצו + ו־− כדי להתקרב ולהתרחק · Enter בוחר מעגל',
+  actionLabel: 'לצלול פנימה',
+  canvasLabel: 'מעגל גדול שמלא במעגלים קטנים יותר ויותר שנוגעים זה בזה, ובתוך כל אחד מהם כתובה העקמומיות שלו.',
+  panelEyebrow: 'לבחור את מעגלי ההתחלה',
+  whyLabel: 'למה כולם מספרים שלמים?',
   nudge:
-    'Make one starting circle a little bigger, by dragging it or with its slider: the whole numbers turn into decimals. Then tap Halves to bring them back.',
+    'הגדילו מעט את אחד ממעגלי ההתחלה, בגרירה או במחוון שלו: המספרים השלמים הופכים לשברים עשרוניים. אחר כך הקישו על ”חצאים” כדי להחזיר אותם.',
   connection: {
-    html: '<strong>Another picture with no bottom.</strong> Here one rule fills gaps with circles for ever; in the next room, one rule, repeated, draws coastlines that never end.',
-    label: 'An infinite landscape',
+    html: '<strong>עוד תמונה בלי תחתית.</strong> כאן כלל אחד ממלא רווחים במעגלים בלי סוף; בחדר הבא, כלל אחד, שחוזר על עצמו, מצייר קווי חוף שלא נגמרים.',
+    label: 'זרע לנוף אינסופי',
   },
 
   presets: [
-    { name: 'Halves', note: '−1, 2, 2, 3: two circles, each half as wide as the big one.' },
-    { name: 'Thirds', note: '−2, 3, 6, 7: two thirds and one third of the width.' },
-    { name: 'Quarters', note: '−3, 4, 12, 13: three quarters and one quarter.' },
-    { name: 'Nudged', note: 'One circle a little bigger: not one whole number left.' },
+    { name: 'חצאים', note: '\u2066−1, 2, 2, 3\u2069: שני מעגלים, כל אחד ברוחב חצי מהמעגל הגדול.' },
+    { name: 'שלישים', note: '\u2066−2, 3, 6, 7\u2069: שני שלישים ושליש אחד מהרוחב.' },
+    { name: 'רבעים', note: '\u2066−3, 4, 12, 13\u2069: שלושה רבעים ורבע אחד.' },
+    { name: 'דחיפה קלה', note: 'מעגל אחד קצת גדול יותר: לא נשאר אף מספר שלם.' },
   ],
-  yourOwn: 'Your own circles',
+  yourOwn: 'המעגלים שלכם',
 
-  left: 'Left circle’s bend',
-  right: 'Right circle’s bend',
-  bendHint: 'A bigger bend is a smaller circle.',
+  left: 'העקמומיות של המעגל השמאלי',
+  right: 'העקמומיות של המעגל הימני',
+  bendHint: 'ככל שהעקמומיות גדולה יותר, המעגל קטן יותר.',
 
   readout: {
-    tapped: 'The circle you tapped',
-    rule: 'Where its number comes from',
-    all: 'All the bends drawn',
+    tapped: 'המעגל שהקשתם עליו',
+    rule: 'מאיפה בא המספר שלו',
+    all: 'כל העקמומיויות שמצוירות',
   },
-  tapHint: 'Tap any circle, however small.',
-  bend: (b) => `Bend ${b}`,
-  outer: (b) => `Bend ${b}: the big circle curves the other way round the rest, so its bend counts as negative.`,
-  ruleWords: 'Twice the bends of the three it touches (blue), minus the bend of the circle across from it (dashed).',
-  whole: (n, low, high) => `Whole numbers, from ${low} to ${high}, in ${n} circles`,
-  notWhole: (n) => `Not whole numbers: ${n} circles`,
+  tapHint: 'הקישו על איזה מעגל שתרצו, קטן ככל שיהיה.',
+  bend: (b) => `עקמומיות \u2066${b}\u2069`,
+  outer: (b) =>
+    `עקמומיות \u2066${b}\u2069: המעגל הגדול מתעקם לכיוון ההפוך, סביב כל השאר, ולכן העקמומיות שלו נחשבת שלילית.`,
+  ruleWords:
+    'פעמיים סכום העקמומיויות של שלושת המעגלים שהוא נוגע בהם (הכחולים), פחות העקמומיות של המעגל שמולו (המקווקו).',
+  whole: (n, low, high) => `מספרים שלמים, מ־\u2066${low}\u2069 עד \u2066${high}\u2069, ב־${n} מעגלים`,
+  notWhole: (n) => `לא מספרים שלמים: ${n} מעגלים`,
 
   // Over the picture.
-  status: (whole) => (whole ? 'Every bend a whole number' : 'Bends with decimals'),
-  zoom: (x) => `×${x}`,
-  bigCircle: 'Big circle',
+  status: (whole) => (whole ? 'כל עקמומיות היא מספר שלם' : 'עקמומיויות לא שלמות'),
+  zoom: (x) => `\u2066×${x}\u2069`,
+  bigCircle: 'המעגל הגדול',
 
   // Read out once, when a circle is tapped or a dive ends.
-  told: (b, rule) => `Bend ${b}. ${rule}`,
-  dived: (x, high) => `Magnified ${x} times. The biggest bend drawn is ${high}.`,
+  told: (b, rule) => `עקמומיות \u2066${b}\u2069. \u2066${rule}\u2069`,
+  dived: (x, high) => `התמונה מוגדלת פי ${x}. העקמומיות הגדולה ביותר שמצוירת היא \u2066${high}\u2069.`,
 
   guests: [
     {
-      name: 'René Descartes',
-      note: 'In 1643 he wrote to Princess Elisabeth about circles that touch, and gave the rule for their bends without saying how he found it.',
+      name: 'רנה דקארט',
+      note: 'ב־1643 הוא כתב לנסיכה אליזבת על מעגלים שנוגעים זה בזה, ונתן את הכלל לעקמומיויות שלהם בלי לספר איך מצא אותו.',
     },
     {
-      name: 'Elisabeth of the Palatinate',
-      note: 'She worked on the circle problem Descartes sent her in 1643. Her partial answers led him to the case of four touching circles.',
+      name: 'אליזבת מהפפאלץ',
+      note: 'היא עבדה על בעיית המעגלים שדקארט שלח לה ב־1643. התשובות החלקיות שלה הובילו אותו למקרה של ארבעה מעגלים שנוגעים זה בזה.',
     },
     {
-      name: 'Frederick Soddy',
-      note: 'A chemist with a Nobel Prize, he found the rule again in 1936 and published it in the journal Nature as a poem, The Kiss Precise.',
+      name: 'פרדריק סודי',
+      note: 'כימאי זוכה פרס נובל, הוא מצא את הכלל מחדש ב־1936 ופרסם אותו בכתב העת Nature בצורת שיר, \u2066The Kiss Precise\u2069.',
     },
   ],
 
   insight: {
-    title: 'Why are they all whole numbers?',
-    html: `<p>Call 1 divided by a circle’s radius its <em>bend</em>: a small circle bends sharply, a big one gently. The big outside circle gets a negative bend, because it curves the other way round the circles inside it. Four circles that all touch each other then obey one rule, Descartes’s circle theorem:</p>
-<div class="insight-visual">(b₁ + b₂ + b₃ + b₄)² = 2 × (b₁² + b₂² + b₃² + b₄²)</div>
-<p>For the first four circles of Halves, −1, 2, 2 and 3: 6² = 36, and 2 × (1 + 4 + 4 + 9) = 36.</p>
-<h3>Whole numbers in, whole numbers out</h3>
-<p>Take three circles that touch each other. Exactly two circles touch all three, one on each side, and the rule is a quadratic equation for their bends. The two answers of a quadratic equation add up to a number you can read off its coefficients: here, twice the three bends. So once one of the two circles is known, the other has bend 2 × (b₁ + b₂ + b₃) − b₄. That is only doubling, adding and taking away. Every new circle fills a gap beside circles already there, so when the first four bends are whole numbers, every bend in the picture is a whole number too, however small the circle. A tap shows this for any circle: the three blue circles it touches, and the dashed one across from it.</p>
-<p>It works only from whole numbers. Nudge a starting circle and the bends turn into decimals; only special starting circles, like the presets, give whole numbers everywhere. The centres follow the same rule, written as complex numbers and multiplied by their bends, which is how the picture is drawn.</p>
-<h3>Drawn approximately</h3>
-<p>The real gasket never ends: every gap holds infinitely many circles. The picture stops at circles about a pixel wide, and zooming in draws the next ones. Its fractal dimension is about 1.3057, between that of a curve (1) and that of a filled region (2).</p>
-<details><summary>Which whole numbers? Still being discovered</summary><p>Not every whole number can appear. In Halves, every bend leaves a remainder of 2, 3, 6, 11, 14, 15, 18 or 23 when divided by 24. In a paper published in 2003, Ronald Graham, Jeffrey Lagarias, Colin Mallows, Allan Wilks and Catherine Yan conjectured that, in a gasket like this, every large enough number with an allowed remainder eventually appears: the local–global conjecture. In 2023 Summer Haag, a graduate student, and Clyde Kertzer, an undergraduate, working with Katherine Stange and James Rickards at the University of Colorado Boulder, showed that it is false: in many gaskets, whole families of allowed numbers never appear. The gasket that starts with −3, 5, 8 and 8, for example, has no square bend at all, although its remainders allow squares such as 36 and 144. Their paper was published in the <em>Annals of Mathematics</em> in 2024. That every bend is a whole number was never in doubt; which whole numbers appear is still being studied.</p></details>
-<details><summary>Who found the rule</summary><p>René Descartes described it in 1643, in letters to Princess Elisabeth of the Palatinate, without saying how he found it. Jakob Steiner found it again in 1826, Philip Beecroft in 1842 and the chemist Frederick Soddy in 1936, who published it in <em>Nature</em> as a poem, <em>The Kiss Precise</em>. The gasket is named after Apollonius of Perga, who in the third century BC wrote a book, now lost, about circles touching three given ones. The earliest known description of the gasket itself is by Gottfried Leibniz, in 1706.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Descartes%27_theorem" target="_blank" rel="noopener">Descartes’ theorem (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Apollonian_gasket" target="_blank" rel="noopener">Apollonian gasket (Wikipedia)</a><a class="source-link" href="https://arxiv.org/abs/math/0101066" target="_blank" rel="noopener">Lagarias, Mallows and Wilks, Beyond the Descartes circle theorem (2002)</a><a class="source-link" href="https://arxiv.org/abs/math/0009113" target="_blank" rel="noopener">Graham, Lagarias, Mallows, Wilks and Yan, Apollonian circle packings: number theory (2003)</a><a class="source-link" href="https://arxiv.org/abs/2307.02749" target="_blank" rel="noopener">Haag, Kertzer, Rickards and Stange, The local-global conjecture for Apollonian circle packings is false (2024)</a><a class="source-link" href="https://www.quantamagazine.org/two-students-unravel-a-widely-believed-math-conjecture-20230810/" target="_blank" rel="noopener">Two students unravel a widely believed math conjecture (Quanta Magazine)</a><a class="source-link" href="https://doi.org/10.1038/1371021a0" target="_blank" rel="noopener">Soddy, The Kiss Precise (Nature, 1936)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Descartes/" target="_blank" rel="noopener">René Descartes (MacTutor)</a></div>`,
+    title: 'למה כולם מספרים שלמים?',
+    html: `<p>נקרא ל־1 חלקי הרדיוס של מעגל ה<em>עקמומיות</em> שלו: מעגל קטן מתעקם בחדות, מעגל גדול בעדינות. המעגל הגדול שבחוץ מקבל עקמומיות שלילית, כי הוא מתעקם לכיוון ההפוך, סביב המעגלים שבתוכו. ארבעה מעגלים שכל אחד מהם נוגע בשלושת האחרים מצייתים אז לכלל אחד, משפט המעגלים של דקארט:</p>
+<div class="insight-visual">\u2066(b₁ + b₂ + b₃ + b₄)² = 2 × (b₁² + b₂² + b₃² + b₄²)\u2069</div>
+<p>בארבעת המעגלים הראשונים של ”חצאים”, \u2066−1\u2069, 2, 2 ו־3: \u20666² = 36\u2069, וגם \u20662 × (1 + 4 + 4 + 9) = 36\u2069.</p>
+<h3>נכנסים מספרים שלמים, יוצאים מספרים שלמים</h3>
+<p>קחו שלושה מעגלים שנוגעים זה בזה. בדיוק שני מעגלים נוגעים בשלושתם, אחד מכל צד, והכלל הוא משוואה ריבועית לעקמומיויות שלהם. סכום שני הפתרונות של משוואה ריבועית הוא מספר שאפשר לקרוא מהמקדמים שלה: כאן, פעמיים סכום שלוש העקמומיויות. לכן ברגע שאחד משני המעגלים ידוע, לשני יש עקמומיות \u20662 × (b₁ + b₂ + b₃) − b₄\u2069. זו רק הכפלה בשתיים, חיבור וחיסור. כל מעגל חדש ממלא רווח ליד מעגלים שכבר נמצאים שם, ולכן כשארבע העקמומיויות הראשונות הן מספרים שלמים, כל עקמומיות בתמונה היא מספר שלם גם כן, קטן ככל שיהיה המעגל. הקשה מראה את זה לכל מעגל: שלושת המעגלים הכחולים שהוא נוגע בהם, והמעגל המקווקו שמולו.</p>
+<p>זה עובד רק כשמתחילים ממספרים שלמים. שנו מעט מעגל התחלתי, והעקמומיויות הופכות לשברים עשרוניים; רק מעגלי התחלה מיוחדים, כמו דפוסי ההתחלה המוכנים, נותנים מספרים שלמים בכל מקום. גם המרכזים מצייתים לאותו כלל, כשכותבים אותם כמספרים מרוכבים וכופלים כל אחד מהם בעקמומיות של המעגל שלו, וכך מצוירת התמונה.</p>
+<h3>מצויר בקירוב</h3>
+<p>האריזה האפולונית האמיתית לא נגמרת אף פעם: בכל רווח יש אינסוף מעגלים. התמונה נעצרת במעגלים ברוחב של פיקסל בערך, והתקרבות מציירת את הבאים בתור. הממד הפרקטלי שלה הוא בערך 1.3057, בין הממד של עקומה (1) לממד של שטח מלא (2).</p>
+<details><summary>אילו מספרים שלמים? המחקר עוד נמשך</summary><p>לא כל מספר שלם יכול להופיע. ב”חצאים”, כל עקמומיות משאירה שארית 2, 3, 6, 11, 14, 15, 18 או 23 בחלוקה ב־24. במאמר שפורסם ב־2003 שיערו רונלד גרהם, ג׳פרי לגריאס, קולין מאלוז, אלן וילקס וקתרין יאן שבאריזה כמו זו, כל מספר גדול מספיק עם שארית מותרת מופיע בסופו של דבר: השערת המקומי–גלובלי. ב־2023 הראו סאמר האג, סטודנטית לתואר מתקדם, וקלייד קרצר, סטודנט לתואר ראשון, שעבדו עם קתרין סטנג׳ וג׳יימס ריקרדס באוניברסיטת קולורדו בבולדר, שההשערה שגויה: באריזות רבות, משפחות שלמות של מספרים מותרים לא מופיעות אף פעם. באריזה שמתחילה ב־\u2066−3\u2069, 5, 8 ו־8, למשל, אין אף עקמומיות שהיא ריבוע, אף שהשאריות שלה מתירות ריבועים כמו 36 ו־144. המאמר שלהם פורסם בכתב העת \u2066<em>Annals of Mathematics</em>\u2069 ב־2024. שכל עקמומיות היא מספר שלם, בזה אף פעם לא היה ספק; אילו מספרים שלמים מופיעים, זה עדיין נחקר.</p></details>
+<details><summary>מי מצא את הכלל</summary><p>רנה דקארט תיאר אותו ב־1643, במכתבים לנסיכה אליזבת מהפפאלץ, בלי לספר איך מצא אותו. יאקוב שטיינר מצא אותו שוב ב־1826, פיליפ ביקרופט ב־1842 והכימאי פרדריק סודי ב־1936, וסודי פרסם אותו ב־<em>Nature</em> בצורת שיר, \u2066<em>The Kiss Precise</em>\u2069. האריזה נקראת על שם אפולוניוס מפרגה, שבמאה השלישית לפני הספירה כתב ספר, שאבד מאז, על מעגלים שנוגעים בשלושה מעגלים נתונים. התיאור המוקדם ביותר הידוע של האריזה עצמה הוא של גוטפריד לייבניץ, ב־1706.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Descartes%27_theorem" target="_blank" rel="noopener">משפט דקארט (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Apollonian_gasket" target="_blank" rel="noopener">אריזת מעגלים אפולונית (ויקיפדיה, באנגלית)</a><a class="source-link" href="https://arxiv.org/abs/math/0101066" target="_blank" rel="noopener">לגריאס, מאלוז ווילקס (2002), \u2066Beyond the Descartes circle theorem\u2069 (באנגלית)</a><a class="source-link" href="https://arxiv.org/abs/math/0009113" target="_blank" rel="noopener">גרהם, לגריאס, מאלוז, וילקס ויאן (2003), \u2066Apollonian circle packings: number theory\u2069 (באנגלית)</a><a class="source-link" href="https://arxiv.org/abs/2307.02749" target="_blank" rel="noopener">האג, קרצר, ריקרדס וסטנג׳ (2024), \u2066The local-global conjecture for Apollonian circle packings is false\u2069 (באנגלית)</a><a class="source-link" href="https://www.quantamagazine.org/two-students-unravel-a-widely-believed-math-conjecture-20230810/" target="_blank" rel="noopener">\u2066Two students unravel a widely believed math conjecture\u2069 (Quanta Magazine, באנגלית)</a><a class="source-link" href="https://doi.org/10.1038/1371021a0" target="_blank" rel="noopener">סודי (1936), \u2066The Kiss Precise\u2069 (Nature, באנגלית)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Descartes/" target="_blank" rel="noopener">רנה דקארט (MacTutor, באנגלית)</a></div>`,
   },
 });

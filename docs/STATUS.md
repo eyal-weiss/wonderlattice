@@ -1,6 +1,6 @@
 # Project state
 
-Wonderlattice has 49 rooms in seven themes, in six languages (English, Hebrew, Spanish, Brazilian Portuguese, French
+Wonderlattice has 50 rooms in seven themes, in six languages (English, Hebrew, Spanish, Brazilian Portuguese, French
 and Arabic). Visitors can keep moments in My trail, share any
 room with its settings, show a room on a big screen or send it to phones with a QR code, make the text larger or raise
 the contrast, and send a message from the end of any explanation. It runs in the browser with no accounts or
@@ -15,6 +15,13 @@ This file is a changelog of the site, newest first. How the code fits together i
   dice didn't work on iPhone Safari could not be reproduced in emulation.
 - **Room ideas:** issues labelled `room idea`, indexed in #19; the ones labelled `ready to build` are approved.
 - Text drawn inside the pictures doesn't grow with the Display setting; the browser's zoom enlarges everything.
+
+## 2026-10-13
+
+- **Circles all the way down, in every language.** _Circles all the way down_ (`gasket`, the integer Apollonian
+  gasket: every gap between touching circles gets the biggest circle that fits, and every circle's bend, 1 ÷ its
+  radius, is a whole number), now in Hebrew, Spanish, French, Brazilian Portuguese and Arabic as well as English, so
+  it joins the map as the fiftieth room.
 
 ## 2026-10-12
 

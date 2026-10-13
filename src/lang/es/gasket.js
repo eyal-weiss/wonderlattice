@@ -1,86 +1,88 @@
-/* Circles all the way down · visitor-facing words (es). */
+/* Círculos sin fin · palabras para el visitante (es). */
 Wonderlattice.defineText('gasket', 'es', {
-  eyebrow: 'KISSING CIRCLES',
-  name: 'Circles all the way down',
-  tagline: 'Fill every gap with the biggest circle that fits, for ever, and every circle gets a whole number.',
-  title: 'Circles all the way down.',
+  eyebrow: 'CÍRCULOS QUE SE BESAN',
+  name: 'Círculos sin fin',
+  tagline: 'Llena cada hueco con el mayor círculo que quepa, para siempre, y cada círculo recibe un número entero.',
+  title: 'Círculos sin fin.',
   subtitle:
-    'Every gap gets the biggest circle that fits, for ever. The number in a circle is its bend, 1 ÷ its radius: always whole. Tap any circle.',
-  field: 'Geometry · Whole numbers · Fractals',
-  sceneLabel: 'Bend = 1 ÷ radius',
-  tip: 'Tap a circle to see its rule · Drag a starting circle to resize it · Pinch, scroll, or + and −, to zoom · Enter picks a circle',
-  actionLabel: 'Dive in',
+    'Cada hueco recibe el mayor círculo que quepa, para siempre. El número de un círculo es su curvatura, 1 ÷ su radio: siempre entero. Toca cualquier círculo.',
+  field: 'Geometría · Números enteros · Fractales',
+  sceneLabel: 'Curvatura = 1 ÷ radio',
+  tip: 'Toca un círculo para ver su regla · Arrastra un círculo inicial para cambiar su tamaño · Pellizca, usa la rueda, o + y −, para hacer zoom · Enter elige un círculo',
+  actionLabel: 'Sumérgete',
   canvasLabel:
-    'A big circle filled with smaller and smaller circles that touch each other, each with its bend written inside it.',
-  panelEyebrow: 'Choose the starting circles',
-  whyLabel: 'Why are they all whole numbers?',
+    'Un círculo grande lleno de círculos cada vez más pequeños que se tocan entre sí, cada uno con su curvatura escrita dentro.',
+  panelEyebrow: 'Elige los círculos iniciales',
+  whyLabel: '¿Por qué son todos números enteros?',
   nudge:
-    'Make one starting circle a little bigger, by dragging it or with its slider: the whole numbers turn into decimals. Then tap Halves to bring them back.',
+    'Agranda un poco un círculo inicial, arrastrándolo o con su deslizador: los números enteros se vuelven decimales. Luego toca «Mitades» para recuperarlos.',
   connection: {
-    html: '<strong>Another picture with no bottom.</strong> Here one rule fills gaps with circles for ever; in the next room, one rule, repeated, draws coastlines that never end.',
-    label: 'An infinite landscape',
+    html: '<strong>Otra imagen que nunca toca fondo.</strong> Aquí una regla llena huecos con círculos para siempre; en la sala siguiente, una regla, repetida, dibuja costas que nunca terminan.',
+    label: 'Un paisaje infinito',
   },
 
   presets: [
-    { name: 'Halves', note: '−1, 2, 2, 3: two circles, each half as wide as the big one.' },
-    { name: 'Thirds', note: '−2, 3, 6, 7: two thirds and one third of the width.' },
-    { name: 'Quarters', note: '−3, 4, 12, 13: three quarters and one quarter.' },
-    { name: 'Nudged', note: 'One circle a little bigger: not one whole number left.' },
+    { name: 'Mitades', note: '−1, 2, 2, 3: dos círculos, cada uno la mitad de ancho que el grande.' },
+    { name: 'Tercios', note: '−2, 3, 6, 7: dos tercios y un tercio del ancho.' },
+    { name: 'Cuartos', note: '−3, 4, 12, 13: tres cuartos y un cuarto.' },
+    { name: 'Retocado', note: 'Un círculo algo mayor: no queda ni un número entero.' },
   ],
-  yourOwn: 'Your own circles',
+  yourOwn: 'Tus propios círculos',
 
-  left: 'Left circle’s bend',
-  right: 'Right circle’s bend',
-  bendHint: 'A bigger bend is a smaller circle.',
+  left: 'Curvatura del círculo izquierdo',
+  right: 'Curvatura del círculo derecho',
+  bendHint: 'Cuanto mayor la curvatura, menor el círculo.',
 
   readout: {
-    tapped: 'The circle you tapped',
-    rule: 'Where its number comes from',
-    all: 'All the bends drawn',
+    tapped: 'El círculo que tocaste',
+    rule: 'De dónde sale su número',
+    all: 'Todas las curvaturas dibujadas',
   },
-  tapHint: 'Tap any circle, however small.',
-  bend: (b) => `Bend ${b}`,
-  outer: (b) => `Bend ${b}: the big circle curves the other way round the rest, so its bend counts as negative.`,
-  ruleWords: 'Twice the bends of the three it touches (blue), minus the bend of the circle across from it (dashed).',
-  whole: (n, low, high) => `Whole numbers, from ${low} to ${high}, in ${n} circles`,
-  notWhole: (n) => `Not whole numbers: ${n} circles`,
+  tapHint: 'Toca cualquier círculo, por pequeño que sea.',
+  bend: (b) => `Curvatura ${b}`,
+  outer: (b) =>
+    `Curvatura ${b}: el círculo grande se curva en sentido contrario, rodeando al resto, así que su curvatura cuenta como negativa.`,
+  ruleWords:
+    'El doble de las curvaturas de los tres que toca (en azul), menos la curvatura del círculo de enfrente (a trazos).',
+  whole: (n, low, high) => `Números enteros, de ${low} a ${high}, en ${n} círculos`,
+  notWhole: (n) => `No son números enteros: ${n} círculos`,
 
-  // Over the picture.
-  status: (whole) => (whole ? 'Every bend a whole number' : 'Bends with decimals'),
+  // Sobre la imagen.
+  status: (whole) => (whole ? 'Curvaturas: todas enteras' : 'Curvaturas con decimales'),
   zoom: (x) => `×${x}`,
-  bigCircle: 'Big circle',
+  bigCircle: 'Círculo grande',
 
-  // Read out once, when a circle is tapped or a dive ends.
-  told: (b, rule) => `Bend ${b}. ${rule}`,
-  dived: (x, high) => `Magnified ${x} times. The biggest bend drawn is ${high}.`,
+  // Leído en voz alta una vez, al tocar un círculo o al terminar una inmersión.
+  told: (b, rule) => `Curvatura ${b}. ${rule}`,
+  dived: (x, high) => `Imagen ampliada ${x} veces. La mayor curvatura dibujada es ${high}.`,
 
   guests: [
     {
       name: 'René Descartes',
-      note: 'In 1643 he wrote to Princess Elisabeth about circles that touch, and gave the rule for their bends without saying how he found it.',
+      note: 'En 1643 escribió a la princesa Isabel sobre círculos que se tocan, y dio la regla de sus curvaturas sin decir cómo la había encontrado.',
     },
     {
-      name: 'Elisabeth of the Palatinate',
-      note: 'She worked on the circle problem Descartes sent her in 1643. Her partial answers led him to the case of four touching circles.',
+      name: 'Isabel del Palatinado',
+      note: 'Trabajó en el problema de círculos que Descartes le envió en 1643. Sus respuestas parciales lo llevaron al caso de cuatro círculos que se tocan.',
     },
     {
       name: 'Frederick Soddy',
-      note: 'A chemist with a Nobel Prize, he found the rule again in 1936 and published it in the journal Nature as a poem, The Kiss Precise.',
+      note: 'Químico y premio Nobel, volvió a encontrar la regla en 1936 y la publicó en la revista Nature como un poema, «The Kiss Precise».',
     },
   ],
 
   insight: {
-    title: 'Why are they all whole numbers?',
-    html: `<p>Call 1 divided by a circle’s radius its <em>bend</em>: a small circle bends sharply, a big one gently. The big outside circle gets a negative bend, because it curves the other way round the circles inside it. Four circles that all touch each other then obey one rule, Descartes’s circle theorem:</p>
+    title: '¿Por qué son todos números enteros?',
+    html: `<p>Llama <em>curvatura</em> de un círculo a 1 dividido entre su radio: un círculo pequeño se curva mucho, uno grande apenas. El gran círculo exterior recibe una curvatura negativa, porque se curva en sentido contrario, rodeando a los círculos de dentro. Entonces, cuatro círculos que se tocan todos entre sí obedecen una sola regla, el teorema de los círculos de Descartes:</p>
 <div class="insight-visual">(b₁ + b₂ + b₃ + b₄)² = 2 × (b₁² + b₂² + b₃² + b₄²)</div>
-<p>For the first four circles of Halves, −1, 2, 2 and 3: 6² = 36, and 2 × (1 + 4 + 4 + 9) = 36.</p>
-<h3>Whole numbers in, whole numbers out</h3>
-<p>Take three circles that touch each other. Exactly two circles touch all three, one on each side, and the rule is a quadratic equation for their bends. The two answers of a quadratic equation add up to a number you can read off its coefficients: here, twice the three bends. So once one of the two circles is known, the other has bend 2 × (b₁ + b₂ + b₃) − b₄. That is only doubling, adding and taking away. Every new circle fills a gap beside circles already there, so when the first four bends are whole numbers, every bend in the picture is a whole number too, however small the circle. A tap shows this for any circle: the three blue circles it touches, and the dashed one across from it.</p>
-<p>It works only from whole numbers. Nudge a starting circle and the bends turn into decimals; only special starting circles, like the presets, give whole numbers everywhere. The centres follow the same rule, written as complex numbers and multiplied by their bends, which is how the picture is drawn.</p>
-<h3>Drawn approximately</h3>
-<p>The real gasket never ends: every gap holds infinitely many circles. The picture stops at circles about a pixel wide, and zooming in draws the next ones. Its fractal dimension is about 1.3057, between that of a curve (1) and that of a filled region (2).</p>
-<details><summary>Which whole numbers? Still being discovered</summary><p>Not every whole number can appear. In Halves, every bend leaves a remainder of 2, 3, 6, 11, 14, 15, 18 or 23 when divided by 24. In a paper published in 2003, Ronald Graham, Jeffrey Lagarias, Colin Mallows, Allan Wilks and Catherine Yan conjectured that, in a gasket like this, every large enough number with an allowed remainder eventually appears: the local–global conjecture. In 2023 Summer Haag, a graduate student, and Clyde Kertzer, an undergraduate, working with Katherine Stange and James Rickards at the University of Colorado Boulder, showed that it is false: in many gaskets, whole families of allowed numbers never appear. The gasket that starts with −3, 5, 8 and 8, for example, has no square bend at all, although its remainders allow squares such as 36 and 144. Their paper was published in the <em>Annals of Mathematics</em> in 2024. That every bend is a whole number was never in doubt; which whole numbers appear is still being studied.</p></details>
-<details><summary>Who found the rule</summary><p>René Descartes described it in 1643, in letters to Princess Elisabeth of the Palatinate, without saying how he found it. Jakob Steiner found it again in 1826, Philip Beecroft in 1842 and the chemist Frederick Soddy in 1936, who published it in <em>Nature</em> as a poem, <em>The Kiss Precise</em>. The gasket is named after Apollonius of Perga, who in the third century BC wrote a book, now lost, about circles touching three given ones. The earliest known description of the gasket itself is by Gottfried Leibniz, in 1706.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Descartes%27_theorem" target="_blank" rel="noopener">Descartes’ theorem (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Apollonian_gasket" target="_blank" rel="noopener">Apollonian gasket (Wikipedia)</a><a class="source-link" href="https://arxiv.org/abs/math/0101066" target="_blank" rel="noopener">Lagarias, Mallows and Wilks, Beyond the Descartes circle theorem (2002)</a><a class="source-link" href="https://arxiv.org/abs/math/0009113" target="_blank" rel="noopener">Graham, Lagarias, Mallows, Wilks and Yan, Apollonian circle packings: number theory (2003)</a><a class="source-link" href="https://arxiv.org/abs/2307.02749" target="_blank" rel="noopener">Haag, Kertzer, Rickards and Stange, The local-global conjecture for Apollonian circle packings is false (2024)</a><a class="source-link" href="https://www.quantamagazine.org/two-students-unravel-a-widely-believed-math-conjecture-20230810/" target="_blank" rel="noopener">Two students unravel a widely believed math conjecture (Quanta Magazine)</a><a class="source-link" href="https://doi.org/10.1038/1371021a0" target="_blank" rel="noopener">Soddy, The Kiss Precise (Nature, 1936)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Descartes/" target="_blank" rel="noopener">René Descartes (MacTutor)</a></div>`,
+<p>Para los cuatro primeros círculos de «Mitades», −1, 2, 2 y 3: 6² = 36, y 2 × (1 + 4 + 4 + 9) = 36.</p>
+<h3>Entran enteros, salen enteros</h3>
+<p>Toma tres círculos que se tocan entre sí. Exactamente dos círculos tocan a los tres, uno a cada lado, y la regla es una ecuación de segundo grado para sus curvaturas. Las dos soluciones de una ecuación de segundo grado suman un número que se lee en sus coeficientes: aquí, el doble de la suma de las tres curvaturas. Así que, en cuanto se conoce uno de los dos círculos, el otro tiene curvatura 2 × (b₁ + b₂ + b₃) − b₄. Eso es solo duplicar, sumar y restar. Cada círculo nuevo llena un hueco junto a círculos que ya están, así que, cuando las cuatro primeras curvaturas son números enteros, todas las curvaturas de la imagen son también números enteros, por pequeño que sea el círculo. Al tocar cualquier círculo lo ves: los tres círculos azules que toca y, a trazos, el de enfrente.</p>
+<p>Solo funciona a partir de números enteros. Retoca un círculo inicial y las curvaturas se vuelven decimales; solo algunos círculos iniciales especiales, como los de los ejemplos propuestos, dan números enteros en todas partes. Los centros siguen la misma regla, escritos como números complejos y multiplicados por sus curvaturas, y así se dibuja la imagen.</p>
+<h3>Dibujado de forma aproximada</h3>
+<p>El verdadero tamiz de Apolonio nunca termina: cada hueco contiene infinitos círculos. La imagen se detiene en círculos de un píxel de ancho, más o menos, y al ampliarla se dibujan los siguientes. Su dimensión fractal es de alrededor de 1,3057, entre la de una curva (1) y la de una región rellena (2).</p>
+<details><summary>¿Qué números enteros? Aún se está descubriendo</summary><p>No todos los números enteros pueden aparecer. En «Mitades», toda curvatura deja un resto de 2, 3, 6, 11, 14, 15, 18 o 23 al dividirla entre 24. En un artículo publicado en 2003, Ronald Graham, Jeffrey Lagarias, Colin Mallows, Allan Wilks y Catherine Yan conjeturaron que, en un tamiz como este, todo número lo bastante grande con un resto permitido acaba apareciendo: la conjetura local–global. En 2023, Summer Haag, estudiante de posgrado, y Clyde Kertzer, estudiante de licenciatura, trabajando con Katherine Stange y James Rickards en la Universidad de Colorado en Boulder, demostraron que es falsa: en muchos tamices, familias completas de números permitidos no aparecen nunca. El tamiz que empieza con −3, 5, 8 y 8, por ejemplo, no tiene ninguna curvatura que sea un cuadrado perfecto, aunque sus restos permiten cuadrados como 36 y 144. Su artículo se publicó en <em>Annals of Mathematics</em> en 2024. Que toda curvatura sea un número entero nunca estuvo en duda; qué números enteros aparecen se sigue estudiando.</p></details>
+<details><summary>Quién encontró la regla</summary><p>René Descartes la describió en 1643, en cartas a la princesa Isabel del Palatinado, sin decir cómo la había encontrado. Jakob Steiner volvió a encontrarla en 1826, Philip Beecroft en 1842 y el químico Frederick Soddy en 1936, que la publicó en <em>Nature</em> como un poema, <em>The Kiss Precise</em>. El tamiz lleva el nombre de Apolonio de Perge, que en el siglo III a. C. escribió un libro, hoy perdido, sobre los círculos que tocan a tres círculos dados. La descripción más antigua que se conoce del propio tamiz es de Gottfried Leibniz, en 1706.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Descartes%27_theorem" target="_blank" rel="noopener">Teorema de Descartes (Wikipedia, en inglés)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Apollonian_gasket" target="_blank" rel="noopener">Tamiz de Apolonio (Wikipedia, en inglés)</a><a class="source-link" href="https://arxiv.org/abs/math/0101066" target="_blank" rel="noopener">Lagarias, Mallows y Wilks, Beyond the Descartes circle theorem (2002, en inglés)</a><a class="source-link" href="https://arxiv.org/abs/math/0009113" target="_blank" rel="noopener">Graham, Lagarias, Mallows, Wilks y Yan, Apollonian circle packings: number theory (2003, en inglés)</a><a class="source-link" href="https://arxiv.org/abs/2307.02749" target="_blank" rel="noopener">Haag, Kertzer, Rickards y Stange, The local-global conjecture for Apollonian circle packings is false (2024, en inglés)</a><a class="source-link" href="https://www.quantamagazine.org/two-students-unravel-a-widely-believed-math-conjecture-20230810/" target="_blank" rel="noopener">Two students unravel a widely believed math conjecture (Quanta Magazine, en inglés)</a><a class="source-link" href="https://doi.org/10.1038/1371021a0" target="_blank" rel="noopener">Soddy, The Kiss Precise (Nature, 1936, en inglés)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Descartes/" target="_blank" rel="noopener">René Descartes (MacTutor, en inglés)</a></div>`,
   },
 });

@@ -2,16 +2,17 @@ import { test, expect, expectRoom } from './helpers.js';
 
 // The home map names the newest rooms (their `added` dates), up to three from the last 30 days. Rooms still waiting
 // for their translations aren't on the map, so they aren't named either; a room's date is the day its translations
-// put it on the map (thirteen rooms on 12 October; with the same date, the line takes them in reverse order of id).
+// put it on the map (the gasket on 13 October; thirteen rooms on 12 October, and with the same date, the line takes
+// them in reverse order of id).
 test('the home map names the newest rooms, newest first, and each opens its room', async ({ page }) => {
   await page.clock.setFixedTime(new Date('2026-10-13T12:00:00Z'));
   await page.goto('/');
   const line = page.locator('#whats-new');
   await expect(line).toBeVisible();
   await expect(line.locator('button')).toHaveText([
+    'Circles all the way down',
     'The sunflower’s secret angle',
     'The staircase of sound',
-    'Rhythms from Euclid',
   ]);
   await line.getByRole('button', { name: 'The staircase of sound' }).click();
   await expectRoom(page, 'stairs');

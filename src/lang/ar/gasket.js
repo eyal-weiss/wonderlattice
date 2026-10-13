@@ -1,86 +1,124 @@
 /* Circles all the way down · visitor-facing words (ar). */
+// «انحناء» (bend: 1 ÷ radius, negative for the big outside circle) is masculine, pl. «انحناءات»; «دائرة» (circle),
+// «فجوة» (gap) and «مرة» (time) are feminine: دائرة واحدة، دائرتان، 3 دوائر، 11 دائرة. A bend that may be negative
+// sits in an isolate. Counts and the zoom arrive written out (1,234), and are read back for the noun's agreement.
 Wonderlattice.defineText('gasket', 'ar', {
-  eyebrow: 'KISSING CIRCLES',
-  name: 'Circles all the way down',
-  tagline: 'Fill every gap with the biggest circle that fits, for ever, and every circle gets a whole number.',
-  title: 'Circles all the way down.',
+  eyebrow: 'الدوائر المتلامسة',
+  name: 'دوائر إلى ما لا نهاية',
+  tagline: 'املؤوا كل فجوة بأكبر دائرة تسعها، إلى الأبد، فتحصل كل دائرة على عدد صحيح.',
+  title: 'دوائر إلى ما لا نهاية.',
   subtitle:
-    'Every gap gets the biggest circle that fits, for ever. The number in a circle is its bend, 1 ÷ its radius: always whole. Tap any circle.',
-  field: 'Geometry · Whole numbers · Fractals',
-  sceneLabel: 'Bend = 1 ÷ radius',
-  tip: 'Tap a circle to see its rule · Drag a starting circle to resize it · Pinch, scroll, or + and −, to zoom · Enter picks a circle',
-  actionLabel: 'Dive in',
-  canvasLabel:
-    'A big circle filled with smaller and smaller circles that touch each other, each with its bend written inside it.',
-  panelEyebrow: 'Choose the starting circles',
-  whyLabel: 'Why are they all whole numbers?',
+    'كل فجوة تأخذ أكبر دائرة تسعها، إلى الأبد. العدد داخل الدائرة هو انحناؤها، 1 ÷ نصف قطرها: عدد صحيح دائمًا. انقروا على أي دائرة.',
+  field: 'الهندسة · الأعداد الصحيحة · الفراكتالات',
+  sceneLabel: 'الانحناء = 1 ÷ نصف القطر',
+  tip: 'انقروا على دائرة لتروا قاعدتها · اسحبوا دائرة بداية لتغيير حجمها · كبّروا وصغّروا بإصبعين، أو بعجلة الفأرة، أو بالمفتاحين + و− · Enter لاختيار دائرة',
+  actionLabel: 'الغوص عميقًا',
+  canvasLabel: 'دائرة كبيرة تملؤها دوائر أصغر فأصغر يلامس بعضها بعضًا، وقد كُتب داخل كل دائرة انحناؤها.',
+  panelEyebrow: 'اختاروا دوائر البداية',
+  whyLabel: 'لماذا كلها أعداد صحيحة؟',
   nudge:
-    'Make one starting circle a little bigger, by dragging it or with its slider: the whole numbers turn into decimals. Then tap Halves to bring them back.',
+    'كبّروا إحدى دوائر البداية قليلًا، بسحبها أو بمنزلقها: تتحوّل الأعداد الصحيحة إلى كسور عشرية. ثم انقروا على «أنصاف» لإعادتها.',
   connection: {
-    html: '<strong>Another picture with no bottom.</strong> Here one rule fills gaps with circles for ever; in the next room, one rule, repeated, draws coastlines that never end.',
-    label: 'An infinite landscape',
+    html: '<strong>صورة أخرى بلا قاع.</strong> هنا تملأ قاعدة واحدة الفجوات بالدوائر إلى الأبد؛ وفي الغرفة التالية، ترسم قاعدة واحدة، تتكرر، سواحل لا نهاية لها.',
+    label: 'منظر بلا نهاية',
   },
 
   presets: [
-    { name: 'Halves', note: '−1, 2, 2, 3: two circles, each half as wide as the big one.' },
-    { name: 'Thirds', note: '−2, 3, 6, 7: two thirds and one third of the width.' },
-    { name: 'Quarters', note: '−3, 4, 12, 13: three quarters and one quarter.' },
-    { name: 'Nudged', note: 'One circle a little bigger: not one whole number left.' },
+    { name: 'أنصاف', note: '\u2066−1\u2069، 2، 2، 3: دائرتان، عرض كلٍّ منهما نصف عرض الكبيرة.' },
+    { name: 'أثلاث', note: '\u2066−2\u2069، 3، 6، 7: ثلثا العرض وثلثه.' },
+    { name: 'أرباع', note: '\u2066−3\u2069، 4، 12، 13: ثلاثة أرباع العرض وربعه.' },
+    { name: 'تغيير طفيف', note: 'دائرة واحدة أكبر قليلًا: لم يبقَ عدد صحيح واحد.' },
   ],
-  yourOwn: 'Your own circles',
+  yourOwn: 'دوائركم الخاصة',
 
-  left: 'Left circle’s bend',
-  right: 'Right circle’s bend',
-  bendHint: 'A bigger bend is a smaller circle.',
+  left: 'انحناء الدائرة اليسرى',
+  right: 'انحناء الدائرة اليمنى',
+  bendHint: 'كلما كبر الانحناء صغرت الدائرة.',
 
   readout: {
-    tapped: 'The circle you tapped',
-    rule: 'Where its number comes from',
-    all: 'All the bends drawn',
+    tapped: 'الدائرة التي نقرتم عليها',
+    rule: 'من أين يأتي عددها',
+    all: 'كل الانحناءات المرسومة',
   },
-  tapHint: 'Tap any circle, however small.',
-  bend: (b) => `Bend ${b}`,
-  outer: (b) => `Bend ${b}: the big circle curves the other way round the rest, so its bend counts as negative.`,
-  ruleWords: 'Twice the bends of the three it touches (blue), minus the bend of the circle across from it (dashed).',
-  whole: (n, low, high) => `Whole numbers, from ${low} to ${high}, in ${n} circles`,
-  notWhole: (n) => `Not whole numbers: ${n} circles`,
+  tapHint: 'انقروا على أي دائرة، مهما صغرت.',
+  bend: (b) => `الانحناء ${b}`,
+  outer: (b) =>
+    `الانحناء \u2066${b}\u2069: الدائرة الكبيرة تنحني في الاتجاه المعاكس حول البقية، لذا يُعدّ انحناؤها سالبًا.`,
+  ruleWords: 'ضعف مجموع انحناءات الدوائر الثلاث التي تلامسها (بالأزرق)، ناقص انحناء الدائرة المقابلة لها (المتقطّعة).',
+  // `n` arrives written out (1,234); `low` is negative while the big circle shows.
+  whole: (n, low, high) => {
+    const v = n.replace(',', '').replace(',', '') * 1;
+    const k = v % 100;
+    const range = `أعداد صحيحة، من \u2066${low}\u2069 إلى \u2066${high}\u2069`;
+    return v === 1
+      ? `${range}، في دائرة واحدة`
+      : v === 2
+        ? `${range}، في دائرتين`
+        : k >= 3 && k <= 10
+          ? `${range}، في ${n} دوائر`
+          : `${range}، في ${n} دائرة`;
+  },
+  notWhole: (n) => {
+    const v = n.replace(',', '').replace(',', '') * 1;
+    const k = v % 100;
+    return v === 1
+      ? 'ليست كلها أعدادًا صحيحة: دائرة واحدة'
+      : v === 2
+        ? 'ليست كلها أعدادًا صحيحة: دائرتان'
+        : k >= 3 && k <= 10
+          ? `ليست كلها أعدادًا صحيحة: ${n} دوائر`
+          : `ليست كلها أعدادًا صحيحة: ${n} دائرة`;
+  },
 
   // Over the picture.
-  status: (whole) => (whole ? 'Every bend a whole number' : 'Bends with decimals'),
+  status: (whole) => (whole ? 'كل انحناء عدد صحيح' : 'انحناءات بكسور عشرية'),
+  // Drawn left to right: the sign and the number only.
   zoom: (x) => `×${x}`,
-  bigCircle: 'Big circle',
+  // Drawn only where it fits: «دائرة كبيرة» is as wide as “Big circle”; «الدائرة الكبيرة» is a quarter wider.
+  bigCircle: 'دائرة كبيرة',
 
-  // Read out once, when a circle is tapped or a dive ends.
-  told: (b, rule) => `Bend ${b}. ${rule}`,
-  dived: (x, high) => `Magnified ${x} times. The biggest bend drawn is ${high}.`,
+  // Read out once, when a circle is tapped or a dive ends. `x`, the magnification, arrives written out (2,500).
+  told: (b, rule) => `الانحناء \u2066${b}\u2069. \u2066${rule}\u2069`,
+  dived: (x, high) => {
+    const v = x.replace(',', '').replace(',', '') * 1;
+    const k = v % 100;
+    const end = `أكبر انحناء مرسوم هو \u2066${high}\u2069.`;
+    return v === 1
+      ? `كُبّرت الصورة مرة واحدة. ${end}`
+      : v === 2
+        ? `كُبّرت الصورة مرتين. ${end}`
+        : k >= 3 && k <= 10
+          ? `كُبّرت الصورة ${x} مرات. ${end}`
+          : `كُبّرت الصورة ${x} مرة. ${end}`;
+  },
 
   guests: [
     {
-      name: 'René Descartes',
-      note: 'In 1643 he wrote to Princess Elisabeth about circles that touch, and gave the rule for their bends without saying how he found it.',
+      name: 'رينيه ديكارت',
+      note: 'في عام 1643 كتب إلى الأميرة إليزابيث عن دوائر تتلامس، وأعطى قاعدة انحناءاتها من دون أن يقول كيف وجدها.',
     },
     {
-      name: 'Elisabeth of the Palatinate',
-      note: 'She worked on the circle problem Descartes sent her in 1643. Her partial answers led him to the case of four touching circles.',
+      name: 'إليزابيث أميرة البالاتينات',
+      note: 'عملت على مسألة الدوائر التي أرسلها إليها ديكارت عام 1643. وقادته إجاباتها الجزئية إلى حالة أربع دوائر متلامسة.',
     },
     {
-      name: 'Frederick Soddy',
-      note: 'A chemist with a Nobel Prize, he found the rule again in 1936 and published it in the journal Nature as a poem, The Kiss Precise.',
+      name: 'فريدريك سودي',
+      note: 'كيميائي حائز جائزة نوبل، وجد القاعدة من جديد عام 1936، ونشرها في مجلة Nature في قصيدة عنوانها \u2066The Kiss Precise\u2069.',
     },
   ],
 
   insight: {
-    title: 'Why are they all whole numbers?',
-    html: `<p>Call 1 divided by a circle’s radius its <em>bend</em>: a small circle bends sharply, a big one gently. The big outside circle gets a negative bend, because it curves the other way round the circles inside it. Four circles that all touch each other then obey one rule, Descartes’s circle theorem:</p>
-<div class="insight-visual">(b₁ + b₂ + b₃ + b₄)² = 2 × (b₁² + b₂² + b₃² + b₄²)</div>
-<p>For the first four circles of Halves, −1, 2, 2 and 3: 6² = 36, and 2 × (1 + 4 + 4 + 9) = 36.</p>
-<h3>Whole numbers in, whole numbers out</h3>
-<p>Take three circles that touch each other. Exactly two circles touch all three, one on each side, and the rule is a quadratic equation for their bends. The two answers of a quadratic equation add up to a number you can read off its coefficients: here, twice the three bends. So once one of the two circles is known, the other has bend 2 × (b₁ + b₂ + b₃) − b₄. That is only doubling, adding and taking away. Every new circle fills a gap beside circles already there, so when the first four bends are whole numbers, every bend in the picture is a whole number too, however small the circle. A tap shows this for any circle: the three blue circles it touches, and the dashed one across from it.</p>
-<p>It works only from whole numbers. Nudge a starting circle and the bends turn into decimals; only special starting circles, like the presets, give whole numbers everywhere. The centres follow the same rule, written as complex numbers and multiplied by their bends, which is how the picture is drawn.</p>
-<h3>Drawn approximately</h3>
-<p>The real gasket never ends: every gap holds infinitely many circles. The picture stops at circles about a pixel wide, and zooming in draws the next ones. Its fractal dimension is about 1.3057, between that of a curve (1) and that of a filled region (2).</p>
-<details><summary>Which whole numbers? Still being discovered</summary><p>Not every whole number can appear. In Halves, every bend leaves a remainder of 2, 3, 6, 11, 14, 15, 18 or 23 when divided by 24. In a paper published in 2003, Ronald Graham, Jeffrey Lagarias, Colin Mallows, Allan Wilks and Catherine Yan conjectured that, in a gasket like this, every large enough number with an allowed remainder eventually appears: the local–global conjecture. In 2023 Summer Haag, a graduate student, and Clyde Kertzer, an undergraduate, working with Katherine Stange and James Rickards at the University of Colorado Boulder, showed that it is false: in many gaskets, whole families of allowed numbers never appear. The gasket that starts with −3, 5, 8 and 8, for example, has no square bend at all, although its remainders allow squares such as 36 and 144. Their paper was published in the <em>Annals of Mathematics</em> in 2024. That every bend is a whole number was never in doubt; which whole numbers appear is still being studied.</p></details>
-<details><summary>Who found the rule</summary><p>René Descartes described it in 1643, in letters to Princess Elisabeth of the Palatinate, without saying how he found it. Jakob Steiner found it again in 1826, Philip Beecroft in 1842 and the chemist Frederick Soddy in 1936, who published it in <em>Nature</em> as a poem, <em>The Kiss Precise</em>. The gasket is named after Apollonius of Perga, who in the third century BC wrote a book, now lost, about circles touching three given ones. The earliest known description of the gasket itself is by Gottfried Leibniz, in 1706.</p></details>
-<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Descartes%27_theorem" target="_blank" rel="noopener">Descartes’ theorem (Wikipedia)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Apollonian_gasket" target="_blank" rel="noopener">Apollonian gasket (Wikipedia)</a><a class="source-link" href="https://arxiv.org/abs/math/0101066" target="_blank" rel="noopener">Lagarias, Mallows and Wilks, Beyond the Descartes circle theorem (2002)</a><a class="source-link" href="https://arxiv.org/abs/math/0009113" target="_blank" rel="noopener">Graham, Lagarias, Mallows, Wilks and Yan, Apollonian circle packings: number theory (2003)</a><a class="source-link" href="https://arxiv.org/abs/2307.02749" target="_blank" rel="noopener">Haag, Kertzer, Rickards and Stange, The local-global conjecture for Apollonian circle packings is false (2024)</a><a class="source-link" href="https://www.quantamagazine.org/two-students-unravel-a-widely-believed-math-conjecture-20230810/" target="_blank" rel="noopener">Two students unravel a widely believed math conjecture (Quanta Magazine)</a><a class="source-link" href="https://doi.org/10.1038/1371021a0" target="_blank" rel="noopener">Soddy, The Kiss Precise (Nature, 1936)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Descartes/" target="_blank" rel="noopener">René Descartes (MacTutor)</a></div>`,
+    title: 'لماذا كلها أعداد صحيحة؟',
+    html: `<p>لنسمِّ ناتج قسمة 1 على نصف قطر الدائرة <em>انحناءها</em>: الدائرة الصغيرة تنحني بشدة، والكبيرة تنحني برفق. وتأخذ الدائرة الكبيرة الخارجية انحناءً سالبًا، لأنها تنحني في الاتجاه المعاكس حول الدوائر التي في داخلها. عندئذٍ تخضع أي أربع دوائر يلامس كلٌّ منها الثلاث الأخرى لقاعدة واحدة، هي مبرهنة ديكارت للدوائر:</p>
+<div class="insight-visual">\u2066(b₁\u00a0+\u00a0b₂\u00a0+\u00a0b₃\u00a0+\u00a0b₄)²\u00a0= 2\u00a0×\u00a0(b₁²\u00a0+\u00a0b₂² +\u00a0b₃²\u00a0+\u00a0b₄²)\u2069</div>
+<p>في الدوائر الأربع الأولى من «أنصاف»، \u2066−1\u2069 و2 و2 و3: \u20666²\u00a0=\u00a036\u2069، و\u20662\u00a0×\u00a0(1\u00a0+\u00a04\u00a0+\u00a04\u00a0+\u00a09)\u00a0=\u00a036\u2069.</p>
+<h3>أعداد صحيحة تدخل، وأعداد صحيحة تخرج</h3>
+<p>خذوا ثلاث دوائر تتلامس فيما بينها. هناك دائرتان بالضبط تلامسان الثلاث كلها، واحدة من كل جهة، والقاعدة معادلة تربيعية لانحناءَي هاتين الدائرتين. ومجموع حلَّي المعادلة التربيعية عدد يمكن قراءته من معاملاتها: وهو هنا ضعف مجموع الانحناءات الثلاثة. لذلك ما إن تُعرف إحدى الدائرتين حتى يكون انحناء الأخرى \u20662\u00a0×\u00a0(b₁\u00a0+\u00a0b₂\u00a0+\u00a0b₃)\u00a0−\u00a0b₄\u2069. وهذا مجرد مضاعفة وجمع وطرح. كل دائرة جديدة تملأ فجوة بجوار دوائر موجودة من قبل، لذا حين تكون الانحناءات الأربعة الأولى أعدادًا صحيحة، يكون كل انحناء في الصورة عددًا صحيحًا أيضًا، مهما صغرت الدائرة. والنقر على أي دائرة يُظهر ذلك: الدوائر الزرقاء الثلاث التي تلامسها، والدائرة المتقطّعة المقابلة لها.</p>
+<p>ولا ينجح ذلك إلا إذا بدأنا بأعداد صحيحة. غيّروا دائرة بداية تغييرًا طفيفًا، فتتحوّل الانحناءات إلى كسور عشرية؛ ولا تعطي أعدادًا صحيحة في كل مكان إلا دوائر بداية خاصة، مثل نقاط الانطلاق في لوحة التحكم. والمراكز تتبع القاعدة نفسها، إذا كُتبت أعدادًا مركّبة وضُربت في انحناءاتها، وبهذه الطريقة تُرسم الصورة.</p>
+<h3>رسم بالتقريب</h3>
+<p>الشكل الحقيقي، حشية أبولونيوس، لا ينتهي أبدًا: في كل فجوة عدد لا نهائي من الدوائر. أما الصورة فتتوقف عند دوائر عرضها نحو بكسل واحد، والتكبير يرسم الدوائر التالية. وبُعد الحشية الفراكتالي نحو 1.3057، بين بُعد المنحنى (1) وبُعد المنطقة الممتلئة (2).</p>
+<details><summary>أيّ الأعداد الصحيحة؟ ما زال ذلك قيد الاكتشاف</summary><p>ليس كل عدد صحيح يمكن أن يظهر. في «أنصاف»، يترك كل انحناء عند قسمته على 24 باقيًا قدره 2 أو 3 أو 6 أو 11 أو 14 أو 15 أو 18 أو 23. وفي ورقة بحثية نُشرت عام 2003، طرح رونالد غراهام وجيفري لاغارياس وكولن مالوز وآلان ويلكس وكاثرين يان حدسية تقول إن كل عدد كبير بما يكفي وله باقٍ مسموح به يظهر في النهاية في حشية كهذه: حدسية المحلّي والشامل. وفي عام 2023 بيّنت سمر هاغ، وهي طالبة دراسات عليا، وكلايد كيرتزر، وهو طالب في المرحلة الجامعية الأولى، بالعمل مع كاثرين ستانج وجيمس ريكاردز في جامعة كولورادو في بولدر، أن هذه الحدسية خاطئة: ففي حشيات كثيرة، لا تظهر أبدًا عائلات كاملة من الأعداد المسموح بها. فالحشية التي تبدأ من \u2066−3\u2069 و5 و8 و8، مثلًا، لا يوجد فيها أي انحناء هو مربع كامل، مع أن بواقيها تسمح بمربعات مثل 36 و144. ونُشرت ورقتهم البحثية في مجلة <em>\u2066Annals of Mathematics\u2069</em> عام 2024. لم يكن موضع شك قط أن كل انحناء عدد صحيح؛ أما أيّ الأعداد الصحيحة يظهر، فما زال قيد الدراسة.</p></details>
+<details><summary>من اكتشف القاعدة</summary><p>وصفها رينيه ديكارت عام 1643، في رسائل إلى إليزابيث أميرة البالاتينات، من دون أن يقول كيف وجدها. ثم وجدها من جديد ياكوب شتاينر عام 1826، وفيليب بيكروفت عام 1842، والكيميائي فريدريك سودي عام 1936، الذي نشرها في مجلة <em>Nature</em> في قصيدة عنوانها <em>\u2066The Kiss Precise\u2069</em>. وتحمل الحشية اسم أبولونيوس البرغي، الذي ألّف في القرن الثالث قبل الميلاد كتابًا، مفقودًا اليوم، عن الدوائر التي تلامس ثلاث دوائر معلومة. وأقدم وصف معروف للحشية نفسها هو وصف غوتفريد لايبنتس، عام 1706.</p></details>
+<div class="sources"><a class="source-link" href="https://en.wikipedia.org/wiki/Descartes%27_theorem" target="_blank" rel="noopener">مبرهنة ديكارت (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://en.wikipedia.org/wiki/Apollonian_gasket" target="_blank" rel="noopener">حشية أبولونيوس (ويكيبيديا، بالإنجليزية)</a><a class="source-link" href="https://arxiv.org/abs/math/0101066" target="_blank" rel="noopener">لاغارياس ومالوز وويلكس، \u2066Beyond the Descartes circle theorem\u2069 \u200f(2002، بالإنجليزية)</a><a class="source-link" href="https://arxiv.org/abs/math/0009113" target="_blank" rel="noopener">غراهام ولاغارياس ومالوز وويلكس ويان، \u2066Apollonian circle packings: number theory\u2069 \u200f(2003، بالإنجليزية)</a><a class="source-link" href="https://arxiv.org/abs/2307.02749" target="_blank" rel="noopener">هاغ وكيرتزر وريكاردز وستانج، \u2066The local-global conjecture for Apollonian circle packings is false\u2069 \u200f(2024، بالإنجليزية)</a><a class="source-link" href="https://www.quantamagazine.org/two-students-unravel-a-widely-believed-math-conjecture-20230810/" target="_blank" rel="noopener">طالبان يدحضان حدسية رياضية واسعة القبول (Quanta Magazine، بالإنجليزية)</a><a class="source-link" href="https://doi.org/10.1038/1371021a0" target="_blank" rel="noopener">سودي، \u2066The Kiss Precise\u2069 \u200f(Nature،\u200f 1936، بالإنجليزية)</a><a class="source-link" href="https://mathshistory.st-andrews.ac.uk/Biographies/Descartes/" target="_blank" rel="noopener">رينيه ديكارت (MacTutor، بالإنجليزية)</a></div>`,
   },
 });
