@@ -15,7 +15,7 @@ Wonderlattice.defineText('gasket', 'pt', {
   panelEyebrow: 'Escolha os círculos iniciais',
   whyLabel: 'Por que são todos números inteiros?',
   nudge:
-    'Aumente um pouco um círculo inicial, arrastando-o ou com o controle dele: os números inteiros viram decimais. Depois toque em Metades para trazê-los de volta.',
+    'Aumente um pouco um círculo inicial, arrastando-o ou com o controle dele: as curvaturas lá dentro viram decimais. Depois toque em Metades para trazê-las de volta.',
   connection: {
     html: '<strong>Outra imagem sem fundo.</strong> Aqui uma regra preenche vãos com círculos para sempre; na sala seguinte, uma regra, repetida, desenha litorais sem fim.',
     label: 'Uma paisagem infinita',
@@ -25,7 +25,7 @@ Wonderlattice.defineText('gasket', 'pt', {
     { name: 'Metades', note: '−1, 2, 2, 3: dois círculos, cada um com metade da largura do grande.' },
     { name: 'Terços', note: '−2, 3, 6, 7: dois terços e um terço da largura.' },
     { name: 'Quartos', note: '−3, 4, 12, 13: três quartos e um quarto.' },
-    { name: 'Mexido', note: 'Um círculo um pouco maior: não sobra nenhum número inteiro.' },
+    { name: 'Mexido', note: 'Um círculo um pouco maior: as curvaturas lá dentro viram decimais.' },
   ],
   yourOwn: 'Seus próprios círculos',
 
@@ -43,7 +43,7 @@ Wonderlattice.defineText('gasket', 'pt', {
   outer: (b) =>
     `Curvatura ${b}: o círculo grande se curva no sentido contrário em volta dos outros, então a sua curvatura conta como negativa.`,
   ruleWords:
-    'O dobro das curvaturas dos três que ele toca (em azul), menos a curvatura do círculo do outro lado (tracejado).',
+    'O dobro da soma das curvaturas dos três que ele toca (em azul), menos a curvatura do círculo do outro lado (tracejado).',
   whole: (n, low, high) => `Números inteiros, de ${low} a ${high}, em ${n} círculos`,
   notWhole: (n) => `Números não inteiros: ${n} círculos`,
 
@@ -78,7 +78,7 @@ Wonderlattice.defineText('gasket', 'pt', {
 <p>Para os quatro primeiros círculos de Metades, −1, 2, 2 e 3: 6² = 36, e 2 × (1 + 4 + 4 + 9) = 36.</p>
 <h3>Entram inteiros, saem inteiros</h3>
 <p>Pegue três círculos que se tocam entre si. Exatamente dois círculos tocam os três, um de cada lado, e a regra é uma equação do segundo grau para as curvaturas deles. As duas soluções de uma equação do segundo grau somam um número que se lê direto nos coeficientes: aqui, o dobro da soma das três curvaturas. Então, conhecido um dos dois círculos, o outro tem curvatura 2 × (b₁ + b₂ + b₃) − b₄. Isso é só dobrar, somar e subtrair. Cada círculo novo preenche um vão ao lado de círculos que já estão lá; então, quando as quatro primeiras curvaturas são números inteiros, toda curvatura da imagem também é um número inteiro, por menor que seja o círculo. Um toque mostra isso para qualquer círculo: os três círculos azuis que ele toca e o tracejado do outro lado.</p>
-<p>Isso só funciona a partir de números inteiros. Mexa num círculo inicial e as curvaturas viram decimais; só círculos iniciais especiais, como os das opções prontas, dão números inteiros em toda parte. Os centros seguem a mesma regra, escritos como números complexos e multiplicados pelas suas curvaturas, e é assim que a imagem é desenhada.</p>
+<p>Isso só funciona a partir de números inteiros. Mexa num círculo inicial e as curvaturas viram decimais; só círculos iniciais especiais, como Metades, Terços e Quartos, dão números inteiros em toda parte. Os centros seguem a mesma regra, escritos como números complexos e multiplicados pelas suas curvaturas, e é assim que a imagem é desenhada.</p>
 <h3>Desenhado de forma aproximada</h3>
 <p>O empacotamento de verdade nunca termina: cada vão contém infinitos círculos. A imagem só vai até círculos de cerca de um pixel de largura, e ampliar desenha os seguintes. A dimensão fractal dele é cerca de 1,3057, entre a de uma curva (1) e a de uma região preenchida (2).</p>
 <details><summary>Quais números inteiros? Uma descoberta em andamento</summary><p>Nem todo número inteiro pode aparecer. Em Metades, toda curvatura dividida por 24 deixa resto 2, 3, 6, 11, 14, 15, 18 ou 23. Num artigo publicado em 2003, Ronald Graham, Jeffrey Lagarias, Colin Mallows, Allan Wilks e Catherine Yan conjecturaram que, num empacotamento como este, todo número grande o bastante com um resto permitido acaba aparecendo: a conjectura local–global. Em 2023, Summer Haag, aluna de pós-graduação, e Clyde Kertzer, aluno de graduação, trabalhando com Katherine Stange e James Rickards na Universidade do Colorado em Boulder, mostraram que ela é falsa: em muitos empacotamentos, famílias completas de números permitidos nunca aparecem. O empacotamento que começa com −3, 5, 8 e 8, por exemplo, não tem nenhuma curvatura que seja um quadrado perfeito, embora os restos dele permitam quadrados como 36 e 144. O artigo deles foi publicado nos <em>Annals of Mathematics</em> em 2024. Que toda curvatura é um número inteiro nunca esteve em dúvida; quais números inteiros aparecem ainda está sendo estudado.</p></details>

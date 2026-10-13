@@ -15,7 +15,7 @@ Wonderlattice.defineText('gasket', 'en', {
   panelEyebrow: 'Choose the starting circles',
   whyLabel: 'Why are they all whole numbers?',
   nudge:
-    'Make one starting circle a little bigger, by dragging it or with its slider: the whole numbers turn into decimals. Then tap Halves to bring them back.',
+    'Make one starting circle a little bigger, by dragging it or with its slider: the bends inside turn into decimals. Then tap Halves to bring them back.',
   connection: {
     html: '<strong>Another picture with no bottom.</strong> Here one rule fills gaps with circles for ever; in the next room, one rule, repeated, draws coastlines that never end.',
     label: 'An infinite landscape',
@@ -25,7 +25,7 @@ Wonderlattice.defineText('gasket', 'en', {
     { name: 'Halves', note: '−1, 2, 2, 3: two circles, each half as wide as the big one.' },
     { name: 'Thirds', note: '−2, 3, 6, 7: two thirds and one third of the width.' },
     { name: 'Quarters', note: '−3, 4, 12, 13: three quarters and one quarter.' },
-    { name: 'Nudged', note: 'One circle a little bigger: not one whole number left.' },
+    { name: 'Nudged', note: 'One circle a little bigger: the bends inside turn into decimals.' },
   ],
   yourOwn: 'Your own circles',
 
@@ -41,7 +41,8 @@ Wonderlattice.defineText('gasket', 'en', {
   tapHint: 'Tap any circle, however small.',
   bend: (b) => `Bend ${b}`,
   outer: (b) => `Bend ${b}: the big circle curves the other way round the rest, so its bend counts as negative.`,
-  ruleWords: 'Twice the bends of the three it touches (blue), minus the bend of the circle across from it (dashed).',
+  ruleWords:
+    'Twice the sum of the bends of the three it touches (blue), minus the bend of the circle across from it (dashed).',
   whole: (n, low, high) => `Whole numbers, from ${low} to ${high}, in ${n} circles`,
   notWhole: (n) => `Not whole numbers: ${n} circles`,
 
@@ -75,8 +76,8 @@ Wonderlattice.defineText('gasket', 'en', {
 <div class="insight-visual">(b₁ + b₂ + b₃ + b₄)² = 2 × (b₁² + b₂² + b₃² + b₄²)</div>
 <p>For the first four circles of Halves, −1, 2, 2 and 3: 6² = 36, and 2 × (1 + 4 + 4 + 9) = 36.</p>
 <h3>Whole numbers in, whole numbers out</h3>
-<p>Take three circles that touch each other. Exactly two circles touch all three, one on each side, and the rule is a quadratic equation for their bends. The two answers of a quadratic equation add up to a number you can read off its coefficients: here, twice the three bends. So once one of the two circles is known, the other has bend 2 × (b₁ + b₂ + b₃) − b₄. That is only doubling, adding and taking away. Every new circle fills a gap beside circles already there, so when the first four bends are whole numbers, every bend in the picture is a whole number too, however small the circle. A tap shows this for any circle: the three blue circles it touches, and the dashed one across from it.</p>
-<p>It works only from whole numbers. Nudge a starting circle and the bends turn into decimals; only special starting circles, like the presets, give whole numbers everywhere. The centres follow the same rule, written as complex numbers and multiplied by their bends, which is how the picture is drawn.</p>
+<p>Take three circles that touch each other. Exactly two circles touch all three, one on each side, and the rule is a quadratic equation for their bends. The two answers of a quadratic equation add up to a number you can read off its coefficients: here, twice the sum of the three bends. So once one of the two circles is known, the other has bend 2 × (b₁ + b₂ + b₃) − b₄. That is only doubling, adding and taking away. Every new circle fills a gap beside circles already there, so when the first four bends are whole numbers, every bend in the picture is a whole number too, however small the circle. A tap shows this for any circle: the three blue circles it touches, and the dashed one across from it.</p>
+<p>It works only from whole numbers. Nudge a starting circle and the bends turn into decimals; only special starting circles, like Halves, Thirds and Quarters, give whole numbers everywhere. The centres follow the same rule, written as complex numbers and multiplied by their bends, which is how the picture is drawn.</p>
 <h3>Drawn approximately</h3>
 <p>The real gasket never ends: every gap holds infinitely many circles. The picture stops at circles about a pixel wide, and zooming in draws the next ones. Its fractal dimension is about 1.3057, between that of a curve (1) and that of a filled region (2).</p>
 <details><summary>Which whole numbers? Still being discovered</summary><p>Not every whole number can appear. In Halves, every bend leaves a remainder of 2, 3, 6, 11, 14, 15, 18 or 23 when divided by 24. In a paper published in 2003, Ronald Graham, Jeffrey Lagarias, Colin Mallows, Allan Wilks and Catherine Yan conjectured that, in a gasket like this, every large enough number with an allowed remainder eventually appears: the local–global conjecture. In 2023 Summer Haag, a graduate student, and Clyde Kertzer, an undergraduate, working with Katherine Stange and James Rickards at the University of Colorado Boulder, showed that it is false: in many gaskets, whole families of allowed numbers never appear. The gasket that starts with −3, 5, 8 and 8, for example, has no square bend at all, although its remainders allow squares such as 36 and 144. Their paper was published in the <em>Annals of Mathematics</em> in 2024. That every bend is a whole number was never in doubt; which whole numbers appear is still being studied.</p></details>

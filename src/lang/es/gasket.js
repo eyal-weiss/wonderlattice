@@ -15,7 +15,7 @@ Wonderlattice.defineText('gasket', 'es', {
   panelEyebrow: 'Elige los círculos iniciales',
   whyLabel: '¿Por qué son todos números enteros?',
   nudge:
-    'Agranda un poco un círculo inicial, arrastrándolo o con su deslizador: los números enteros se vuelven decimales. Luego toca «Mitades» para recuperarlos.',
+    'Agranda un poco un círculo inicial, arrastrándolo o con su deslizador: las curvaturas de dentro se vuelven decimales. Luego toca «Mitades» para que vuelvan a ser enteras.',
   connection: {
     html: '<strong>Otra imagen que nunca toca fondo.</strong> Aquí una regla llena huecos con círculos para siempre; en la sala siguiente, una regla, repetida, dibuja costas que nunca terminan.',
     label: 'Un paisaje infinito',
@@ -25,7 +25,7 @@ Wonderlattice.defineText('gasket', 'es', {
     { name: 'Mitades', note: '−1, 2, 2, 3: dos círculos, cada uno la mitad de ancho que el grande.' },
     { name: 'Tercios', note: '−2, 3, 6, 7: dos tercios y un tercio del ancho.' },
     { name: 'Cuartos', note: '−3, 4, 12, 13: tres cuartos y un cuarto.' },
-    { name: 'Retocado', note: 'Un círculo algo mayor: no queda ni un número entero.' },
+    { name: 'Retocado', note: 'Un círculo algo mayor: las curvaturas de dentro se vuelven decimales.' },
   ],
   yourOwn: 'Tus propios círculos',
 
@@ -43,7 +43,7 @@ Wonderlattice.defineText('gasket', 'es', {
   outer: (b) =>
     `Curvatura ${b}: el círculo grande se curva en sentido contrario, rodeando al resto, así que su curvatura cuenta como negativa.`,
   ruleWords:
-    'El doble de las curvaturas de los tres que toca (en azul), menos la curvatura del círculo de enfrente (a trazos).',
+    'El doble de la suma de las curvaturas de los tres que toca (en azul), menos la curvatura del círculo de enfrente (a trazos).',
   whole: (n, low, high) => `Números enteros, de ${low} a ${high}, en ${n} círculos`,
   notWhole: (n) => `No son números enteros: ${n} círculos`,
 
@@ -78,7 +78,7 @@ Wonderlattice.defineText('gasket', 'es', {
 <p>Para los cuatro primeros círculos de «Mitades», −1, 2, 2 y 3: 6² = 36, y 2 × (1 + 4 + 4 + 9) = 36.</p>
 <h3>Entran enteros, salen enteros</h3>
 <p>Toma tres círculos que se tocan entre sí. Exactamente dos círculos tocan a los tres, uno a cada lado, y la regla es una ecuación de segundo grado para sus curvaturas. Las dos soluciones de una ecuación de segundo grado suman un número que se lee en sus coeficientes: aquí, el doble de la suma de las tres curvaturas. Así que, en cuanto se conoce uno de los dos círculos, el otro tiene curvatura 2 × (b₁ + b₂ + b₃) − b₄. Eso es solo duplicar, sumar y restar. Cada círculo nuevo llena un hueco junto a círculos que ya están, así que, cuando las cuatro primeras curvaturas son números enteros, todas las curvaturas de la imagen son también números enteros, por pequeño que sea el círculo. Al tocar cualquier círculo lo ves: los tres círculos azules que toca y, a trazos, el de enfrente.</p>
-<p>Solo funciona a partir de números enteros. Retoca un círculo inicial y las curvaturas se vuelven decimales; solo algunos círculos iniciales especiales, como los de los ejemplos propuestos, dan números enteros en todas partes. Los centros siguen la misma regla, escritos como números complejos y multiplicados por sus curvaturas, y así se dibuja la imagen.</p>
+<p>Solo funciona a partir de números enteros. Retoca un círculo inicial y las curvaturas se vuelven decimales; solo algunos círculos iniciales especiales, como «Mitades», «Tercios» y «Cuartos», dan números enteros en todas partes. Los centros siguen la misma regla, escritos como números complejos y multiplicados por sus curvaturas, y así se dibuja la imagen.</p>
 <h3>Dibujado de forma aproximada</h3>
 <p>El verdadero tamiz de Apolonio nunca termina: cada hueco contiene infinitos círculos. La imagen se detiene en círculos de un píxel de ancho, más o menos, y al ampliarla se dibujan los siguientes. Su dimensión fractal es de alrededor de 1,3057, entre la de una curva (1) y la de una región rellena (2).</p>
 <details><summary>¿Qué números enteros? Aún se está descubriendo</summary><p>No todos los números enteros pueden aparecer. En «Mitades», toda curvatura deja un resto de 2, 3, 6, 11, 14, 15, 18 o 23 al dividirla entre 24. En un artículo publicado en 2003, Ronald Graham, Jeffrey Lagarias, Colin Mallows, Allan Wilks y Catherine Yan conjeturaron que, en un tamiz como este, todo número lo bastante grande con un resto permitido acaba apareciendo: la conjetura local–global. En 2023, Summer Haag, estudiante de posgrado, y Clyde Kertzer, estudiante de licenciatura, trabajando con Katherine Stange y James Rickards en la Universidad de Colorado en Boulder, demostraron que es falsa: en muchos tamices, familias completas de números permitidos no aparecen nunca. El tamiz que empieza con −3, 5, 8 y 8, por ejemplo, no tiene ninguna curvatura que sea un cuadrado perfecto, aunque sus restos permiten cuadrados como 36 y 144. Su artículo se publicó en <em>Annals of Mathematics</em> en 2024. Que toda curvatura sea un número entero nunca estuvo en duda; qué números enteros aparecen se sigue estudiando.</p></details>
