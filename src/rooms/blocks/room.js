@@ -30,8 +30,11 @@
 
   // ── Layout constants ────────────────────────────────────────────────────────
   const BLOCK_H = 0.054; // block height as a fraction of canvas height
-  const MIN_BLOCK_PX = 16; // absolute minimum block height in px
+  const MIN_BLOCK_PX = 16; // smallest usual block height in px (a tall stack flattens below it to fit)
   const MAX_BLOCK_PX = 40; // cap block height
+  const TOP_ROOM = 38; // px kept above the top block for the overhang arrow and its label
+  const TABLE_TOP = 0.7; // the table's top, as a fraction of canvas height…
+  const TABLE_TOP_TALL = 0.8; // …lowered as far as this for a tall stack
 
   // pixel width of one "block-length" — derived per frame from canvas size
   // stored so pointer handlers can use it without passing stage around
@@ -75,6 +78,23 @@
     for (let i = 0; i < n; i++) centres[i] = opt[i];
   }
 
+  /**
+   * Lay out a stack of n blocks on a width × height canvas: sets unitPx, tableEdgePx and stackBaseY, and returns the
+   * block height. Blocks keep their usual height while the stack fits; a taller one lowers the table a little, then
+   * flattens every block, so the whole stack stays in the picture. (How far a stack leans doesn't depend on how thick
+   * its blocks are.)
+   */
+  function layout(n, width, height) {
+    // A block-length leaves room for the best stack of a few more blocks than there are, and is no wider than the
+    // table, so a block standing flush with the edge stays in the picture on a phone.
+    const maxOH = Math.max(M.maxOverhang(n + 4), 1);
+    tableEdgePx = width * 0.35;
+    unitPx = Math.max(20, Math.min(200, (width * 0.58) / maxOH, tableEdgePx - 6));
+    const usual = Math.max(MIN_BLOCK_PX, Math.min(MAX_BLOCK_PX, height * BLOCK_H));
+    stackBaseY = Math.min(height * TABLE_TOP_TALL, Math.max(height * TABLE_TOP, TOP_ROOM + n * usual));
+    return Math.min(usual, (stackBaseY - TOP_ROOM) / Math.max(n, 1));
+  }
+
   // ── Drawing helpers ────────────────────────────────────────────────────────
 
   /** Convert model x (block-lengths, 0 = table edge) to canvas x-pixel. */
@@ -91,10 +111,10 @@
     const px = modelToX(cx) - blockW / 2;
     ctx.fillStyle = fillStyle;
     ctx.beginPath();
-    ctx.roundRect(px, bottomY - blockH, blockW, blockH, 3);
+    ctx.roundRect(px, bottomY - blockH, blockW, blockH, Math.min(3, blockH / 4));
     ctx.fill();
     ctx.strokeStyle = strokeStyle;
-    ctx.lineWidth = 1.5;
+    ctx.lineWidth = blockH < 10 ? 1 : 1.5; // thin blocks in a tall stack keep a visible fill
     ctx.stroke();
   }
 
@@ -118,27 +138,43 @@
     ctx.restore();
   }
 
-  /** Draw a milestone indicator on the right side of the canvas. */
-  function drawMilestone(ctx, label, targetX, blockH, achieved, canvasWidth, canvasHeight) {
-    const px = modelToX(targetX);
-    if (px < 0 || px > canvasWidth) return;
-    const y = blockBottomY(0, blockH) - blockH * 0.4;
-    // vertical dashed line
+  /**
+   * Draw the milestone lines ({ label, at, achieved }, at in block-lengths past the edge), each labelled at its foot in
+   * the space beside the table, so the top of the picture stays free for a tall stack. A label that would overlap the
+   * one before it drops to a second row, and none runs off the picture.
+   */
+  function drawMilestones(ctx, marks, canvasWidth) {
     ctx.save();
-    ctx.strokeStyle = achieved ? COLORS.milestonePass : COLORS.milestoneFail;
-    ctx.lineWidth = 1;
-    ctx.setLineDash([3, 5]);
-    ctx.beginPath();
-    ctx.moveTo(px, 8);
-    ctx.lineTo(px, y - 2);
-    ctx.stroke();
-    ctx.setLineDash([]);
-    // small label at top
-    ctx.fillStyle = achieved ? COLORS.milestonePass : COLORS.milestoneFail;
     ctx.font = '10px system-ui';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'alphabetic';
-    ctx.fillText(label, px, 18);
+    let row = 0;
+    let before = null; // the span of the label before, { left, right }
+    for (const { label, at, achieved } of marks) {
+      const px = modelToX(at);
+      if (px < 0 || px > canvasWidth) continue;
+      // Beside the table where there's room; a long label (French, on a phone) reaches back over it instead.
+      const half = ctx.measureText(label).width / 2;
+      const x = Math.min(canvasWidth - half - 4, Math.max(tableEdgePx + half + 4, px));
+      row = before && x - half < before.right + 8 ? row + 1 : 0;
+      const labelY = stackBaseY + 16 + row * 14;
+      // The line runs down to its label, or stops above the labels if it would cross the one before.
+      const crosses = row > 0 && px > before.left - 2 && px < before.right + 2;
+      const lineEnd = crosses ? stackBaseY + 4 : labelY - 12;
+      before = { left: x - half, right: x + half };
+      const colour = achieved ? COLORS.milestonePass : COLORS.milestoneFail;
+      // vertical dashed line
+      ctx.strokeStyle = colour;
+      ctx.lineWidth = 1;
+      ctx.setLineDash([3, 5]);
+      ctx.beginPath();
+      ctx.moveTo(px, 8);
+      ctx.lineTo(px, lineEnd);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = colour;
+      ctx.fillText(label, x, labelY);
+    }
     ctx.restore();
   }
 
@@ -148,23 +184,12 @@
     const { width, height } = stage;
     const centres = s.centres;
 
-    // Layout: table occupies left ~40% of the canvas, overhang area the rest.
-    // The table's right edge is at ~40% of canvas width, but we also need to
-    // leave room for the blocks to lean right; scale so optimal n-block stack fits.
+    // Layout: the table fills the left 35% of the canvas, and the blocks lean out over the rest.
     const n = centres.length;
-    // Compute unitPx so the maximum possible overhang (for n blocks + 2 extra)
-    // fits in the right portion of the canvas.
-    const maxOH = Math.max(M.maxOverhang(n + 4), 1);
-    const availRight = width * 0.58;
-    unitPx = Math.max(20, Math.min(200, availRight / maxOH));
-
-    // Vertical: blocks sit above the base line; reserve space for table visuals.
-    const blockH = Math.max(MIN_BLOCK_PX, Math.min(MAX_BLOCK_PX, height * BLOCK_H));
+    const blockH = layout(n, width, height);
     const blockW = unitPx; // block width = 1 block-length
-    const tableH = height * 0.3; // table height in pixels
-    const baseY = height * 0.7; // y of top surface of table / floor
-    tableEdgePx = width * 0.35;
-    stackBaseY = baseY; // the bottom of block 0 is at baseY
+    const baseY = stackBaseY; // y of top surface of table / floor; the bottom of block 0
+    const tableH = height - baseY; // table height in pixels
 
     // Clear
     ctx.fillStyle = COLORS.bg;
@@ -197,9 +222,13 @@
     if (status) status.textContent = fallen ? t.toppled : t.status(n, overhang(centres));
 
     // Milestone lines (1, 2, 3 block-lengths)
-    if (!fallen) drawMilestone(ctx, t.milestones.m1, 1, blockH, overhang(centres) >= 1, width, height);
-    if (!fallen && n > 5) drawMilestone(ctx, t.milestones.m2, 2, blockH, overhang(centres) >= 2, width, height);
-    if (!fallen && n > 20) drawMilestone(ctx, t.milestones.m3, 3, blockH, overhang(centres) >= 3, width, height);
+    if (!fallen) {
+      const reach = overhang(centres);
+      const marks = [{ label: t.milestones.m1, at: 1, achieved: reach >= 1 }];
+      if (n > 5) marks.push({ label: t.milestones.m2, at: 2, achieved: reach >= 2 });
+      if (n > 20) marks.push({ label: t.milestones.m3, at: 3, achieved: reach >= 3 });
+      drawMilestones(ctx, marks, width);
+    }
 
     // Determine first unstable interface for highlighting
     const unstableAt = M.firstUnstableInterface(centres);
@@ -262,12 +291,14 @@
 
       drawBlock(ctx, centres[i], bottomY, blockH, blockW, fill, stroke);
 
-      // Block number label
-      ctx.fillStyle = isUnstable ? '#fff' : '#0a1a14';
-      ctx.font = `bold ${Math.max(9, blockH * 0.45)}px system-ui`;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(String(n - i), modelToX(centres[i]), bottomY - blockH / 2);
+      // Block number label, where the block is tall enough to hold it
+      if (blockH >= 12) {
+        ctx.fillStyle = isUnstable ? '#fff' : '#0a1a14';
+        ctx.font = `bold ${Math.max(9, blockH * 0.45)}px system-ui`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(String(n - i), modelToX(centres[i]), bottomY - blockH / 2);
+      }
       ctx.restore();
     }
 
@@ -305,14 +336,19 @@
         }
       }
 
-      // Overhang label below the arrow
+      // Overhang label above the arrow, edged in the background colour so a milestone line behind it doesn't cross it
       ctx.fillStyle = COLORS.overLabel;
       ctx.font = `11px system-ui`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'bottom';
       const midX = (edgePx + topRight) / 2;
       const oh = overhang(centres);
-      ctx.fillText(t.lengthsLabel ? t.lengthsLabel(oh) : `${oh.toFixed(2)} lengths`, midX, arrowY - 4);
+      const label = t.lengthsLabel ? t.lengthsLabel(oh) : `${oh.toFixed(2)} lengths`;
+      ctx.strokeStyle = COLORS.bg;
+      ctx.lineWidth = 4;
+      ctx.lineJoin = 'round';
+      ctx.strokeText(label, midX, arrowY - 4);
+      ctx.fillText(label, midX, arrowY - 4);
     }
   }
 
@@ -337,7 +373,7 @@
    */
   function blockAt(p, s, stage) {
     const n = s.centres.length;
-    const blockH = Math.max(MIN_BLOCK_PX, Math.min(MAX_BLOCK_PX, stage.height * BLOCK_H));
+    const blockH = layout(n, stage.width, stage.height);
     const blockW = unitPx;
     for (let i = n - 1; i >= 0; i--) {
       const cx = modelToX(s.centres[i]);
@@ -361,31 +397,6 @@
       stage.slider('blocks', t.blocks, 0, 50, 1, s.centres.length, '', t.blocksHint) +
       '<div class="wide readout blocks-readout" id="blocks-readout"></div>'
     );
-  }
-
-  function bindControls(panel, s, stage) {
-    // When the slider changes, rebuild the stack with that many blocks.
-    const slider = $('c-blocks');
-    if (!slider) return;
-    slider.addEventListener('input', () => {
-      const target = Math.max(0, Math.min(50, Number(slider.value)));
-      const current = s.centres.length;
-      if (target === current) return;
-      if (target > current) {
-        // Add blocks at optimal positions
-        const opt = M.optimalStack(target);
-        s.centres = opt.slice();
-      } else {
-        s.centres = s.centres.slice(s.centres.length - target);
-        // Reposition: keep relative offsets but ensure stability
-        if (target > 0) {
-          const opt = M.optimalStack(target);
-          s.centres = opt.slice();
-        }
-      }
-      stage.refresh();
-      stage.draw();
-    });
   }
 
   // ── Room definition ────────────────────────────────────────────────────────
@@ -465,14 +476,20 @@
     still: true, // no continuous animation needed
 
     controls,
-    bindControls,
     readouts,
     draw,
 
+    /** The Blocks slider (the stage has just set s.blocks): rebuild the stack, that many blocks at their best. */
+    onInput(s) {
+      if (s.blocks !== s.centres.length) s.centres = M.optimalStack(s.blocks);
+    },
+
     enter(s, stage) {
+      // A shared link gives only the number of blocks: build that many at their best.
+      if (s.blocks !== s.centres.length) s.centres = M.optimalStack(s.blocks);
       // A first visit starts with 4 blocks stacked straight, flush with the table's edge: the best stack is for the
       // visitor to find (or to ask for).
-      if (!s.centres || s.centres.length === 0) {
+      if (s.centres.length === 0) {
         s.centres = [-0.5, -0.5, -0.5, -0.5];
         s.blocks = 4;
       }
@@ -501,10 +518,8 @@
     },
 
     onPreset(s, stage) {
-      // Presets carry pre-computed centres arrays; keep in sync.
-      if (s.blocks !== undefined && s.blocks !== s.centres.length) {
-        s.centres = M.optimalStack(s.blocks);
-      }
+      // A fresh stack each time: dragging moves blocks in place, which would otherwise change the preset itself.
+      s.centres = M.optimalStack(s.blocks);
       stage.refresh();
     },
 
