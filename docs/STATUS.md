@@ -16,6 +16,12 @@ This file is a changelog of the site, newest first. How the code fits together i
 - **Room ideas:** issues labelled `room idea`, indexed in #19; the ones labelled `ready to build` are approved.
 - Text drawn inside the pictures doesn't grow with the Display setting; the browser's zoom enlarges everything.
 
+## 2026-10-14
+
+- **Search engines can find the rooms.** The site now has a `robots.txt` and a `sitemap.xml` listing the home page and
+  each room's share page, with its title and tagline; until now both addresses answered with the home page. Rooms
+  still waiting for translations join the sitemap when they join the map.
+
 ## 2026-10-13
 
 - **Circles all the way down, in every language.** _Circles all the way down_ (`gasket`, the integer Apollonian
