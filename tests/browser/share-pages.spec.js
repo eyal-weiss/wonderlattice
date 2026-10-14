@@ -1,4 +1,4 @@
-import { test, expect, ROOMS, expectRoom } from './helpers.js';
+import { test, expect, ROOMS, PUBLISHED, expectRoom } from './helpers.js';
 
 // Each room has a share page (/room/<id>/) with its own link preview, made by the build. Only the built
 // site (SERVE_DIR=dist, as in CI) has them.
@@ -30,4 +30,21 @@ test('a share page forwards to its room, keeping shared settings and the languag
   await expectRoom(page, 'fingerprint');
   await expect(page).toHaveURL(/\/\?lang=he#room=fingerprint$/);
   await expect(page.locator('html')).toHaveAttribute('lang', 'he');
+});
+
+test('search engines get robots.txt and a sitemap of the published rooms', async ({ request }) => {
+  const robots = await request.get('/robots.txt');
+  expect(robots.headers()['content-type']).toContain('text/plain');
+  expect(await robots.text()).toContain('Sitemap: https://wonderlattice.com/sitemap.xml');
+
+  const sitemap = await request.get('/sitemap.xml');
+  expect(sitemap.headers()['content-type']).toContain('application/xml');
+  const xml = await sitemap.text();
+  expect(xml).toMatch(
+    /^<\?xml version="1\.0" encoding="UTF-8"\?>\n<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">/,
+  );
+  const listed = [...xml.matchAll(/<loc>https:\/\/wonderlattice\.com(\/[^<]*)<\/loc>/g)].map((m) => m[1]);
+  // The home page, then every room on the map, and no room that is still waiting for translations.
+  expect(listed).toEqual(['/', ...PUBLISHED.map((id) => `/room/${id}/`)]);
+  for (const path of listed) expect((await request.get(path)).status(), path).toBe(200);
 });

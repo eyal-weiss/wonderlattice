@@ -306,7 +306,9 @@ Link previews (Facebook, WhatsApp, X) read no further than the address before `#
 per room, `dist/room/<id>/index.html`, with the room's own title, tagline and picture (`assets/rooms/<id>.jpg`, made by
 `npm run previews`). It forwards to `/#room=<id>…`, keeping the settings after `#` and `?lang=`. On the built site
 "Copy this exploration" links to the share page (`/room/<id>/#room=<id>&…`); opened from disk it links to the page
-itself. Both kinds of link keep working.
+itself. Both kinds of link keep working. The build also writes `dist/sitemap.xml`, listing the home page and the share page of every
+published room (`Wonderlattice.published`), and `dist/robots.txt`, which points search engines to it; a room joins the
+sitemap when it joins the map.
 
 Links like `#room=motion&k=-5&r=42&p=0&ink=0` and trail exports (`wonderlattice-trail`, version 1) live outside the app.
 Keep existing parameter names (for example `ink`, not `palette`, in drawing links) and accept old values. If a

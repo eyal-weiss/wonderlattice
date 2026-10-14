@@ -17,6 +17,8 @@ const types = {
   '.png': 'image/png',
   '.svg': 'image/svg+xml',
   '.md': 'text/plain; charset=utf-8',
+  '.txt': 'text/plain; charset=utf-8',
+  '.xml': 'application/xml; charset=utf-8',
 };
 
 // Headers from a Cloudflare-style _headers file in the served folder (dist/ has one): "/path" or "/*" lines,

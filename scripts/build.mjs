@@ -240,9 +240,23 @@ for (const id of roomIds) {
   );
 }
 
+// For search engines: robots.txt points them to sitemap.xml, which lists the home page and the share page of every
+// published room (Wonderlattice.published: on the map, in every language). A room still waiting for translations
+// joins the sitemap when it joins the map. Without these files, the host answers both addresses with the home page.
+const listed = ['/', ...roomIds.filter((id) => globalThis.Wonderlattice.published(id)).map((id) => `/room/${id}/`)];
+writeFileSync(
+  join(dist, 'sitemap.xml'),
+  `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${listed.map((path) => `  <url><loc>${SITE}${path}</loc></url>`).join('\n')}
+</urlset>
+`,
+);
+writeFileSync(join(dist, 'robots.txt'), `User-agent: *\nDisallow: /api/\n\nSitemap: ${SITE}/sitemap.xml\n`);
+
 const kb = (text) => (Buffer.byteLength(text) / 1024).toFixed(0) + ' KB';
 console.log(
-  `Built dist/ (${scripts.length} scripts, ${styles.length} stylesheets, ${roomIds.length} room share pages; ` +
-    `${lazy.length} rooms load on demand)`,
+  `Built dist/ (${scripts.length} scripts, ${styles.length} stylesheets, ${roomIds.length} room share pages, ` +
+    `a sitemap of ${listed.length - 1} published rooms; ${lazy.length} rooms load on demand)`,
 );
 console.log(`Built dist/wonderlattice-standalone.html (${kb(standalone)})`);
