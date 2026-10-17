@@ -1,0 +1,38 @@
+/* The machine that found flavours: the suggestions box in the panel, and the pointer over the foods to tap. */
+body[data-room='flavours'] #scene-canvas {
+  cursor: pointer;
+}
+.flavours-readout {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--panel-2);
+}
+.flavours-readout strong {
+  color: var(--ink);
+}
+.flavours-readout p {
+  margin: 0;
+}
+.flavours-picks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  color: var(--em);
+  font-size: 0.9375rem;
+}
+.flavours-note {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.flavours-clear {
+  margin-bottom: 14px;
+}
+
+/* High contrast (see base.css). */
+:root[data-contrast='more'] .flavours-note {
+  color: var(--muted);
+}
