@@ -812,7 +812,7 @@
     eyebrow: t.eyebrow,
     name: t.name,
     theme: 'signals',
-    added: '2026-10-16',
+    added: '2026-10-17',
     tagline: t.tagline,
     accent: { background: '#2a2618', border: '#fbbf24', color: '#fde68a' },
 
