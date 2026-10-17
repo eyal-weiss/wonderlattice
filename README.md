@@ -6,7 +6,7 @@
 
 ![Wonderlattice: the start of the route on the home map, with a flower drawn by turning arms, a road diagram and a flock](assets/social.jpg)
 
-Wonderlattice is a free collection of fifty rooms, each built around one surprise:
+Wonderlattice is a free collection of fifty-one rooms, each built around one surprise:
 
 - **Shape & space:** draw flowers with two turning arms, walk along a ribbon that has only one side, bend the plane
   until a circle becomes a wing, drag one seed to grow infinite fractal coastlines, play one shot twice on two billiard
@@ -43,8 +43,9 @@ Wonderlattice is a free collection of fifty rooms, each built around one surpris
 - **Signals & networks:** waves you can hear, a picture sent through a storm of flipped bits, a new road that slows
   every driver down, a secret agreed out loud, a picture that survives losing most of its numbers, weather twins
   that drift apart, beats spread as evenly as possible round a circle that turn into rhythms from around the world,
-  a ring of two hundred friends that a few random friendships shrink to a small world, and a scale that climbs step
-  after step and never gets any higher.
+  a ring of two hundred friends that a few random friendships shrink to a small world, a scale that climbs step
+  after step and never gets any higher, and a table of who likes which foods, full of blanks, from which a little
+  arithmetic works out which foods are sweet without being told.
 
 The home page is a map: one route through every room, numbered so each stop is unlike the one before, whether you
 stay five minutes or an hour. Each room has an optional explanation with sources, and a visiting mathematician. There
