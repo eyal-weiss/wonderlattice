@@ -204,10 +204,12 @@
       ctx.textAlign = 'center';
       ctx.font = `700 ${small}px system-ui`;
       ctx.fillText(t.labels.you, box.x + lw + yw / 2, box.y + head * 0.45);
+      // The people's heading starts after the visitor's, which in some languages is wider than its column.
+      const px = Math.max(x0, box.x + lw + yw / 2 + ctx.measureText(t.labels.you).width / 2 + small * 0.4);
       ctx.fillStyle = COLOURS.soft;
       ctx.textAlign = 'left';
       ctx.font = `600 ${small}px system-ui`;
-      ctx.fillText(t.labels.people, x0, box.y + head * 0.45, box.x + box.w - x0);
+      ctx.fillText(t.labels.people, px, box.y + head * 0.45, box.x + box.w - px);
     }
 
     const dot = Math.min(pitch * 0.4, rh * 0.32);
