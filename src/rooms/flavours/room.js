@@ -401,8 +401,11 @@
     });
   }
 
-  /** Labels beside their foods, each where it covers the fewest others (below, above, right or left). */
-  function placeLabels(ctx, spots, size) {
+  /**
+   * Labels beside their foods, each where it covers the fewest others (below, above, right or left) and stays inside
+   * `frame`, the map's box: a longer name, in some languages, would otherwise run off the edge.
+   */
+  function placeLabels(ctx, spots, size, frame) {
     const boxes = spots.map((p) => ({ x: p.x - p.r, y: p.y - p.r, w: 2 * p.r, h: 2 * p.r }));
     const overlap = (a, b) =>
       Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x)) *
@@ -422,11 +425,14 @@
       for (const o of options) {
         let cost = 0;
         for (const b of [...placed, ...boxes.filter((_, k) => k !== j)]) cost += overlap(o, b);
+        cost += 4 * (o.w * o.h - overlap(o, frame));
         if (cost < least - 1) {
           least = cost;
           best = o;
         }
       }
+      best.x = Math.max(frame.x, Math.min(best.x, frame.x + frame.w - w));
+      best.y = Math.max(frame.y, Math.min(best.y, frame.y + frame.h - h));
       placed.push(best);
     });
     return placed;
@@ -630,7 +636,12 @@
     if (decorate && !flying && Math.min(box.w, box.h) >= 360) {
       const size = small - 1;
       ctx.font = `600 ${size}px system-ui`;
-      const labels = placeLabels(ctx, state.spots, size);
+      const labels = placeLabels(ctx, state.spots, size, {
+        x: box.x + 4,
+        y: box.y + titleH,
+        w: box.w - 8,
+        h: box.h - titleH - footH,
+      });
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
       labels.forEach((l, j) => {
