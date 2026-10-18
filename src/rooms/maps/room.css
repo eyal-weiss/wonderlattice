@@ -1,0 +1,48 @@
+/* The straight road that looks bent: the map choice, the readout, and the cursor over pins and the world. */
+body[data-room='maps'] #scene-canvas.maps-grab {
+  cursor: grab;
+}
+body[data-room='maps'] #scene-canvas.maps-move {
+  cursor: move;
+}
+.maps-label {
+  display: block;
+  font-size: 0.875rem;
+}
+.maps-readout {
+  border: 1px solid var(--line-strong);
+  background: var(--panel-2);
+  padding: 12px 14px;
+  border-radius: 9px;
+}
+.maps-rows {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px 12px;
+  align-items: baseline;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.maps-rows + .maps-rule,
+.maps-rule + .maps-rows {
+  margin-top: 10px;
+}
+.maps-rows strong {
+  color: var(--ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}
+.maps-rule {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+:root[data-contrast='more'] .maps-readout {
+  border-color: var(--edge);
+}
+:root[data-contrast='more'] .maps-rows,
+:root[data-contrast='more'] .maps-rule {
+  color: var(--ink);
+}
