@@ -1,0 +1,33 @@
+/* Everyone gets the biggest slice: the shares box in the panel. */
+.cake-readout {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--panel-2);
+}
+.cake-readout strong {
+  color: var(--ink);
+}
+.cake-readout p {
+  margin: 0;
+}
+.cake-shares {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+.cake-calm {
+  color: var(--muted);
+}
+.cake-envy {
+  color: var(--em);
+  font-weight: 600;
+}
+.cake-fair {
+  margin-bottom: 14px;
+}
